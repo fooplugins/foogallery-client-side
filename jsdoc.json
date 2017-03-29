@@ -1,0 +1,19 @@
+{
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "systemName": "FooGallery",
+    "systemSummary": "The Most Intuitive and Extensible Gallery Creation and Management Tool Ever Created for WordPress.",
+    "copyright": "FooGallery Copyright © 2016",
+    "stylesheets": [],
+    "scripts": [
+      "../dist/core/js/foogallery.js"
+    ]
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true
+  }
+}

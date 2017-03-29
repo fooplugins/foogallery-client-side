@@ -1,0 +1,33 @@
+{
+  "name": "foogallery",
+  "version": "0.0.1",
+  "title": "FooGallery",
+  "description": "The Most Intuitive and Extensible Gallery Creation and Management Tool Ever Created for WordPress",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "responsive",
+    "jquery",
+    "lightbox"
+  ],
+  "author": "FooPlugins",
+  "license": "GPL",
+  "devDependencies": {
+    "foo-utils": "0.0.2",
+    "foodoc": "0.0.7",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^2.0.0",
+    "grunt-contrib-qunit": "^1.2.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-jsdoc": "^2.1.0"
+  },
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "masonry-layout": "^4.1.1"
+  }
+}

@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>FooGallery.Loader</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"FooGallery","systemSummary":"A responsive jQuery lightbox plugin for displaying images, videos, iframes, PDFs and HTML content.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooGallery Copyright © 2016","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"readmeTargets":[],"stylesheets":[],"scripts":["../dist/core/js/foogallery.js"],"monospaceLinks":false,"cleverLinks":false};
+			window.DOCLET_TOC_ENABLED = true;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					FooGallery
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+							<li class="dropdown">
+								<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+										<li><a href="FooGallery.Loader.html">FooGallery.Loader</a></li>
+										<li><a href="FooGallery.utils.Class.html">FooGallery.utils.Class</a></li>
+										<li><a href="FooGallery.utils.Debugger.html">FooGallery.utils.Debugger</a></li>
+										<li><a href="FooGallery.utils.Factory.html">FooGallery.utils.Factory</a></li>
+										<li><a href="FooGallery.utils.Throttle.html">FooGallery.utils.Throttle</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="list_external.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+										<li><a href="external-_jQuery.fn_.html">jQuery.fn</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="list_namespace.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+										<li><a href="FooGallery.html">FooGallery</a></li>
+										<li><a href="FooGallery.utils.html">FooGallery.utils</a></li>
+										<li><a href="FooGallery.utils.fn.html">FooGallery.utils.fn</a></li>
+										<li><a href="FooGallery.utils.is.html">FooGallery.utils.is</a></li>
+										<li><a href="FooGallery.utils.obj.html">FooGallery.utils.obj</a></li>
+										<li><a href="FooGallery.utils.str.html">FooGallery.utils.str</a></li>
+										<li><a href="FooGallery.utils.transition.html">FooGallery.utils.transition</a></li>
+										<li><a href="FooGallery.utils.url.html">FooGallery.utils.url</a></li>
+								</ul>
+							</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">class</span>
+				<h1><span class="ancestors"><a href="FooGallery.html">FooGallery</a>.</span><span class="name">Loader</span></h1>
+				<div class="summary"><p>The core class for the loading for images.</p></div>			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-9 main-content">
+						<ol class="breadcrumb">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="list_class.html">Classes</a></li>
+							<li class="active"><a href="FooGallery.html">FooGallery</a>.Loader</li>
+						</ol>
+					<section>
+							<dl class="symbol primary">
+								<dt class="symbol-title class collapsible-symbol expanded">
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">Loader</span><span class="signature-params">( <span class="signature-param">target</span>, <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"></span></h2>
+		<div class="summary"><p>The core class for the loading for images.</p></div></dt>
+<dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>target</code></td>
+							<td><span class="param-type">HTMLElement</span> | <span class="param-type">jQuery</span></td>
+							<td class="last">
+									<p>The HTMLElement, jQuery object of a single image or container of a gallery.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>options</code></td>
+							<td><span class="param-type"><a href="FooGallery.Loader.html#~Options">FooGallery.Loader~Options</a></span></td>
+							<td class="last">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+							<!-- augments -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Augments</label>
+								<div class="col-sm-9">
+										<p class="form-control-static"><a href="FooGallery.utils.Class.html">FooGallery.utils.Class</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2868">line 2868</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+							</dl>
+							<article class="secondary">
+									<h3>Members</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title member collapsible-symbol">
+			<h4 id="$target" class="member"><span class="name">$target</span><span class="signature-type"> :jQuery</span></h4>
+				<div class="summary"><p>The jQuery wrapper around the target element.</p></div></dt>
+<dd class="symbol-details member  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2869">line 2869</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member collapsible-symbol">
+			<h4 id="options" class="member"><span class="name">options</span><span class="signature-type"> :<a href="FooGallery.Loader.html#~Options">FooGallery.Loader~Options</a></span></h4>
+				<div class="summary"><p>An object containing the combined default and user supplied options.</p></div></dt>
+<dd class="symbol-details member  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type"><a href="FooGallery.Loader.html#~Options">FooGallery.Loader~Options</a></span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2876">line 2876</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member collapsible-symbol">
+			<h4 id="loadingSelector" class="member"><span class="signature-attribs">&lt;readonly> </span><span class="name">loadingSelector</span><span class="signature-type"> :string</span></h4>
+				<div class="summary"><p>The selector used to exclude images that are currently loading.</p></div></dt>
+<dd class="symbol-details member  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">string</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2883">line 2883</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member collapsible-symbol">
+			<h4 id="loadedSelector" class="member"><span class="signature-attribs">&lt;readonly> </span><span class="name">loadedSelector</span><span class="signature-type"> :string</span></h4>
+				<div class="summary"><p>The selector used to exclude images that are already loaded.</p></div></dt>
+<dd class="symbol-details member  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">string</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2891">line 2891</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member collapsible-symbol">
+			<h4 id="errorSelector" class="member"><span class="signature-attribs">&lt;readonly> </span><span class="name">errorSelector</span><span class="signature-type"> :string</span></h4>
+				<div class="summary"><p>The selector used to exclude images that have thrown an error.</p></div></dt>
+<dd class="symbol-details member  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">string</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2899">line 2899</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member collapsible-symbol">
+			<h4 id="imgSelector" class="member"><span class="signature-attribs">&lt;readonly> </span><span class="name">imgSelector</span><span class="signature-type"> :string</span></h4>
+				<div class="summary"><p>The selector used to find images within a container.</p></div></dt>
+<dd class="symbol-details member  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">string</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2907">line 2907</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member collapsible-symbol">
+			<h4 id=".defaults" class="member"><span class="signature-attribs">&lt;static> </span><span class="name">defaults</span><span class="signature-type"> :<a href="FooGallery.Loader.html#~Options">FooGallery.Loader~Options</a></span></h4>
+				<div class="summary"><p>The default options for the plugin.</p></div></dt>
+<dd class="symbol-details member  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type"><a href="FooGallery.Loader.html#~Options">FooGallery.Loader~Options</a></span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3240">line 3240</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+									</dl>
+									<h3>Methods</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id="init" class="function"><span class="name">init</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{Promise}</span></h4>
+				<div class="summary"><p>Initializes the plugin binding events and performing an initial check.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2932">line 2932</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id="destroy" class="function"><span class="name">destroy</span><span class="signature-params">()</span><span class="signature-type"></span></h4>
+				<div class="summary"><p>Destroys the plugin unbinding events and clearing any delayed checks.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2961">line 2961</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id="onscroll" class="function"><span class="name">onscroll</span><span class="signature-params">( <span class="signature-param">e</span>&nbsp;)</span><span class="signature-type"></span></h4>
+				<div class="summary"><p>Handles the windows' scroll event to perform additional checking as required.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>e</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2975">line 2975</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id="check" class="function"><span class="name">check</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{Promise}</span></h4>
+				<div class="summary"><p>Checks if any images need to be loaded and if required loads them.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2987">line 2987</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id="load" class="function"><span class="name">load</span><span class="signature-params">( <span class="signature-param">img</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise}</span></h4>
+				<div class="summary"><p>Loads the supplied image taking into account the <code>srcset</code> attribute as specified in the options.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>img</code></td>
+							<td><span class="param-type">HTMLImageElement</span></td>
+							<td class="last">
+									<p>The image element to load.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3051">line 3051</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id="parse" class="function"><span class="name">parse</span><span class="signature-params">( <span class="signature-param">$img</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{string}</span></h4>
+				<div class="summary"><p>Parses the supplied jQuery image object taking into account both the <code>src</code> and <code>srcset</code> attributes and returns the correct url to load.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>$img</code></td>
+							<td><span class="param-type">jQuery</span></td>
+							<td class="last">
+									<p>The jQuery wrapper around the image to parse.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">string</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3109">line 3109</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id="getViewportInfo" class="function"><span class="name">getViewportInfo</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{<a href="FooGallery.Loader.html#~ViewportInfo">FooGallery.Loader~ViewportInfo</a>}</span></h4>
+				<div class="summary"><p>Gets the width, height and pixel density of the current viewport.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type"><a href="FooGallery.Loader.html#~ViewportInfo">FooGallery.Loader~ViewportInfo</a></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3169">line 3169</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id="getViewportBounds" class="function"><span class="name">getViewportBounds</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{<a href="FooGallery.Loader.html#~Bounds">FooGallery.Loader~Bounds</a>}</span></h4>
+				<div class="summary"><p>Gets a bounding rectangle for the current viewport taking into account the scroll position.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type"><a href="FooGallery.Loader.html#~Bounds">FooGallery.Loader~Bounds</a></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3182">line 3182</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id="getElementBounds" class="function"><span class="name">getElementBounds</span><span class="signature-params">( <span class="signature-param">element</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{<a href="FooGallery.Loader.html#~Bounds">FooGallery.Loader~Bounds</a>}</span></h4>
+				<div class="summary"><p>Gets a bounding rectangle for the supplied element.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>element</code></td>
+							<td><span class="param-type">HTMLElement</span></td>
+							<td class="last">
+									<p>The element to retrieve the bounds rectangle for.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type"><a href="FooGallery.Loader.html#~Bounds">FooGallery.Loader~Bounds</a></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3199">line 3199</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id="intersect" class="function"><span class="name">intersect</span><span class="signature-params">( <span class="signature-param">b1</span>, <span class="signature-param">b2</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the two supplied bounding rectangles intersect.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>b1</code></td>
+							<td><span class="param-type"><a href="FooGallery.Loader.html#~Bounds">FooGallery.Loader~Bounds</a></span></td>
+							<td class="last">
+									<p>The first bounds rectangle to use.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>b2</code></td>
+							<td><span class="param-type"><a href="FooGallery.Loader.html#~Bounds">FooGallery.Loader~Bounds</a></span></td>
+							<td class="last">
+									<p>The second bounds rectangle to check against the first.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3215">line 3215</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".reduce" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">reduce</span><span class="signature-params">( <span class="signature-param">list</span>, <span class="signature-param">prop</span>, <span class="signature-param">fnName</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{<a href="FooGallery.Loader.html#~Srcset">FooGallery.Loader~Srcset</a>}</span></h4>
+				<div class="summary"><p>Reduces the supplied array of <a href="FooGallery.Loader.html#~Srcset">FooGallery.Loader~Srcset</a> objects to just a single one using the specified property and <code>Math</code> function.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>list</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Loader.html#~Srcset">FooGallery.Loader~Srcset</a>></span></td>
+							<td class="last">
+									<p>The array of parsed <code>srcset</code> values to reduce.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>prop</code></td>
+							<td><span class="param-type">string</span></td>
+							<td class="last">
+									<p>The property of each object to use in the comparison.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>fnName</code></td>
+							<td><span class="param-type">string</span></td>
+							<td class="last">
+									<p>The name of the <code>Math</code> function to use to perform the comparison, this should be either <code>&quot;min&quot;</code> or <code>&quot;max&quot;</code>.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type"><a href="FooGallery.Loader.html#~Srcset">FooGallery.Loader~Srcset</a></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3233">line 3233</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".extend" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">extend</span><span class="signature-params">( [&nbsp;<span class="signature-param">definition</span>&nbsp;]&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{function}</span></h4>
+				<div class="summary"><p>Creates a new class that inherits from this one which in turn allows itself to be extended.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Every class created using this method has both the <a href="FooGallery.utils.Class.html#.extend">extend</a> and <a href="FooGallery.utils.Class.html#.override">override</a> static methods added to it to allow it to be extended.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>definition</code></td>
+							<td><span class="param-type">Object</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+							<td class="last">
+									<p>An object containing any methods to implement/override.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">function</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p>A new class that inherits from the base class.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>The below shows an example of how to implement inheritance using this method.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// create a base Person classvar Person &#x3D; FooGallery.utils.Class.extend({	construct: function(isDancing){		this.dancing &#x3D; isDancing;	},	dance: function(){		return this.dancing;	}});var Ninja &#x3D; Person.extend({	construct: function(){		// Call the inherited version of construct()		this._super( false );	},	dance: function(){		// Call the inherited version of dance()		return this._super();	},	swingSword: function(){		return true;	}});var p &#x3D; new Person(true);console.log( p.dance() ); // &#x3D;&gt; truevar n &#x3D; new Ninja();console.log( n.dance() ); // &#x3D;&gt; falseconsole.log( n.swingSword() ); // &#x3D;&gt; trueconsole.log(	p instanceof Person &amp;&amp; p.constructor &#x3D;&#x3D;&#x3D; Person &amp;&amp; p instanceof FooGallery.utils.Class	&amp;&amp; n instanceof Ninja &amp;&amp; n.constructor &#x3D;&#x3D;&#x3D; Ninja &amp;&amp; n instanceof Person &amp;&amp; n instanceof FooGallery.utils.Class); // &#x3D;&gt; true</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// create a base Person classvar Person &#x3D; FooGallery.utils.Class.extend({	construct: function(isDancing){		this.dancing &#x3D; isDancing;	},	dance: function(){		return this.dancing;	}});var Ninja &#x3D; Person.extend({	construct: function(){		// Call the inherited version of construct()		this._super( false );	},	dance: function(){		// Call the inherited version of dance()		return this._super();	},	swingSword: function(){		return true;	}});var p &#x3D; new Person(true);console.log( p.dance() ); // &#x3D;&gt; truevar n &#x3D; new Ninja();console.log( n.dance() ); // &#x3D;&gt; falseconsole.log( n.swingSword() ); // &#x3D;&gt; trueconsole.log(	p instanceof Person &amp;&amp; p.constructor &#x3D;&#x3D;&#x3D; Person &amp;&amp; p instanceof FooGallery.utils.Class	&amp;&amp; n instanceof Ninja &amp;&amp; n.constructor &#x3D;&#x3D;&#x3D; Ninja &amp;&amp; n instanceof Person &amp;&amp; n instanceof FooGallery.utils.Class); // &#x3D;&gt; true">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2099">line 2099</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".override" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">override</span><span class="signature-params">( <span class="signature-param">name</span>, <span class="signature-param">fn</span>&nbsp;)</span><span class="signature-type"></span></h4>
+				<div class="summary"><p>Overrides a single method on this class.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>This is a helper method for overriding a single function of a <a href="FooGallery.utils.Class.html">FooGallery.utils.Class</a> or one of its child classes. This uses the <a href="FooGallery.utils.fn.html#.addOrOverride">FooGallery.utils.fn.addOrOverride</a> method internally and simply provides the correct prototype.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>name</code></td>
+							<td><span class="param-type">string</span></td>
+							<td class="last">
+									<p>The name of the function to override.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>fn</code></td>
+							<td><span class="param-type">function</span></td>
+							<td class="last">
+									<p>The new function to override with, the <code>_super</code> method will be made available within this function.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>The below example wraps the <code>Person.prototype.dance</code> method with a new one that inverts the result. Note the override applies even to instances of the class that are already created.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">var Person &#x3D; FooGallery.utils.Class.extend({  construct: function(isDancing){    this.dancing &#x3D; isDancing;  },  dance: function(){    return this.dancing;  }});var p &#x3D; new Person(true);console.log( p.dance() ); // &#x3D;&gt; truePerson.override(&quot;dance&quot;, function(){	// Call the original version of dance()	return !this._super();});console.log( p.dance() ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="var Person &#x3D; FooGallery.utils.Class.extend({  construct: function(isDancing){    this.dancing &#x3D; isDancing;  },  dance: function(){    return this.dancing;  }});var p &#x3D; new Person(true);console.log( p.dance() ); // &#x3D;&gt; truePerson.override(&quot;dance&quot;, function(){	// Call the original version of dance()	return !this._super();});console.log( p.dance() ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-2167">line 2167</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+									</dl>
+									<h3>Type Definitions</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title typedef collapsible-symbol">
+			<h4 id="~Options" class="typedef"><span class="name">Options</span></h4>
+				<div class="summary"><p>The options for the plugin.</p></div></dt>
+<dd class="symbol-details typedef  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+							<th>Default</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>loadedClass</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;foogallery-lazy-loaded&quot;</td>
+							<td class="last">
+									<p>The CSS class applied to an image once it has been loaded.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>errorClass</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;foogallery-lazy-error&quot;</td>
+							<td class="last">
+									<p>The CSS class applied to an image if an error occurs loading it.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>loadingClass</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;foogallery-lazy-loading&quot;</td>
+							<td class="last">
+									<p>The CSS class applied to an image while it is being loaded.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>throttle</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>50</td>
+							<td class="last">
+									<p>The number of milliseconds to wait once scrolling has stopped before checking for images.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>timeout</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>30000</td>
+							<td class="last">
+									<p>The number of seconds to wait before forcing a timeout while loading.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>offset</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>300</td>
+							<td class="last">
+									<p>The maximum number of pixels off screen before an image is loaded.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>delay</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>100</td>
+							<td class="last">
+									<p>The number of milliseconds to delay the initialization of the plugin.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>errorImage</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>A url to an error image to use in case of failure to load an image.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>oninit</code></td>
+							<td><span class="param-type">function</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>A callback to execute once the plugin is initialized.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>onload</code></td>
+							<td><span class="param-type">function</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>A callback to execute whenever the plugin loads an image.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>onerror</code></td>
+							<td><span class="param-type">function</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>A callback to execute whenever an image fails to load.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>onbatch</code></td>
+							<td><span class="param-type">function</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>A callback to execute whenever the plugin has completed loading a batch of images.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>attrSrc</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;data-src&quot;</td>
+							<td class="last">
+									<p>The name of the attribute to retrieve the <code>src</code> url from.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>attrSrcset</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;data-srcset&quot;</td>
+							<td class="last">
+									<p>The name of the attribute to retrieve the <code>srcset</code> value from.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>regexUrl</code></td>
+							<td><span class="param-type">RegExp</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;/^\s*(\S*)/&quot;</td>
+							<td class="last">
+									<p>The regular expression used to parse a url from a <code>srcset</code> value.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>regexWidth</code></td>
+							<td><span class="param-type">RegExp</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;/\S\s+(\d+)w/&quot;</td>
+							<td class="last">
+									<p>The regular expression used to parse a width from a <code>srcset</code> value.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>regexHeight</code></td>
+							<td><span class="param-type">RegExp</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;/\S\s+(\d+)h/&quot;</td>
+							<td class="last">
+									<p>The regular expression used to parse a height from a <code>srcset</code> value.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>regexDpr</code></td>
+							<td><span class="param-type">RegExp</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;/\S\s+([\d.]+)x/&quot;</td>
+							<td class="last">
+									<p>The regular expression used to parse a device pixel ratio from a <code>srcset</code> value.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">object</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3313">line 3313</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title typedef collapsible-symbol">
+			<h4 id="~Bounds" class="typedef"><span class="name">Bounds</span></h4>
+				<div class="summary"><p>A simple object used to represent an elements or viewports bounding rectangle.</p></div></dt>
+<dd class="symbol-details typedef  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>top</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									<p>The top value of the bounds rectangle.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>right</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									<p>The right value of the bounds rectangle.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>bottom</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									<p>The bottom value of the bounds rectangle.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>left</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									<p>The left value of the bounds rectangle.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">object</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3336">line 3336</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title typedef collapsible-symbol">
+			<h4 id="~ViewportInfo" class="typedef"><span class="name">ViewportInfo</span></h4>
+				<div class="summary"><p>A simple object used to represent the current viewports required information.</p></div></dt>
+<dd class="symbol-details typedef  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+							<th>Default</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>w</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes"></td>
+								<td></td>
+							<td class="last">
+									<p>The width of the current viewport.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>h</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes"></td>
+								<td></td>
+							<td class="last">
+									<p>The height of the current viewport.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>x</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>1</td>
+							<td class="last">
+									<p>The pixel density of the current viewport.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">object</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3345">line 3345</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title typedef collapsible-symbol">
+			<h4 id="~Srcset" class="typedef"><span class="name">Srcset</span></h4>
+				<div class="summary"><p>A simple object used to represent a parsed <code>srcset</code> value.</p></div></dt>
+<dd class="symbol-details typedef  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+							<th>Default</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>url</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes"></td>
+								<td></td>
+							<td class="last">
+									<p>The url to the image.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>w</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>Infinity</td>
+							<td class="last">
+									<p>If using the <code>w</code> syntax this will contain the specified width.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>h</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>Infinity</td>
+							<td class="last">
+									<p>If using the <code>h</code> syntax this will contain the specified height.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>x</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>1</td>
+							<td class="last">
+									<p>If using the <code>x</code> syntax this will contain the specified pixel density.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">object</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-3353">line 3353</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+									</dl>
+							</article>
+					</section>
+			</div>
+				<div class="col-md-3 side-content">
+					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+				</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">FooGallery Copyright © 2016</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on 29th Mar 2017 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+		<script src="../dist/core/js/foogallery.js"></script>
+</body>
+</html>

@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>FooGallery.utils.is</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"FooGallery","systemSummary":"A responsive jQuery lightbox plugin for displaying images, videos, iframes, PDFs and HTML content.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooGallery Copyright © 2016","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"readmeTargets":[],"stylesheets":[],"scripts":["../dist/core/js/foogallery.js"],"monospaceLinks":false,"cleverLinks":false};
+			window.DOCLET_TOC_ENABLED = true;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					FooGallery
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+							<li class="dropdown">
+								<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+										<li><a href="FooGallery.Loader.html">FooGallery.Loader</a></li>
+										<li><a href="FooGallery.utils.Class.html">FooGallery.utils.Class</a></li>
+										<li><a href="FooGallery.utils.Debugger.html">FooGallery.utils.Debugger</a></li>
+										<li><a href="FooGallery.utils.Factory.html">FooGallery.utils.Factory</a></li>
+										<li><a href="FooGallery.utils.Throttle.html">FooGallery.utils.Throttle</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="list_external.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+										<li><a href="external-_jQuery.fn_.html">jQuery.fn</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="list_namespace.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+										<li><a href="FooGallery.html">FooGallery</a></li>
+										<li><a href="FooGallery.utils.html">FooGallery.utils</a></li>
+										<li><a href="FooGallery.utils.fn.html">FooGallery.utils.fn</a></li>
+										<li><a href="FooGallery.utils.is.html">FooGallery.utils.is</a></li>
+										<li><a href="FooGallery.utils.obj.html">FooGallery.utils.obj</a></li>
+										<li><a href="FooGallery.utils.str.html">FooGallery.utils.str</a></li>
+										<li><a href="FooGallery.utils.transition.html">FooGallery.utils.transition</a></li>
+										<li><a href="FooGallery.utils.url.html">FooGallery.utils.url</a></li>
+								</ul>
+							</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">namespace</span>
+				<h1><span class="ancestors"><a href="FooGallery.html">FooGallery</a><a href="FooGallery.utils.html">.utils</a>.</span><span class="name">is</span></h1>
+				<div class="summary"><p>Contains common type checking utility methods.</p></div>			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-9 main-content">
+						<ol class="breadcrumb">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="list_namespace.html">Namespaces</a></li>
+							<li class="active"><a href="FooGallery.html">FooGallery</a><a href="FooGallery.utils.html">.utils</a>.is</li>
+						</ol>
+					<section>
+							<dl class="symbol primary">
+								<dt class="symbol-title namespace collapsible-symbol expanded">
+			<h2 class="namespace"><span class="name">is</span></h2>
+		<div class="summary"><p>Contains common type checking utility methods.</p></div></dt>
+<dd class="symbol-details namespace  collapsible-symbol expanded" style="max-height: 9999px;">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-205">line 205</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+							</dl>
+							<article class="secondary">
+									<h3>Methods</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".array" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">array</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is an array.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is an array.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.array( [] ) ); // &#x3D;&gt; trueconsole.log( _is.array( null ) ); // &#x3D;&gt; falseconsole.log( _is.array( 123 ) ); // &#x3D;&gt; falseconsole.log( _is.array( &quot;&quot; ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.array( [] ) ); // &#x3D;&gt; trueconsole.log( _is.array( null ) ); // &#x3D;&gt; falseconsole.log( _is.array( 123 ) ); // &#x3D;&gt; falseconsole.log( _is.array( &quot;&quot; ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-212">line 212</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".boolean" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">boolean</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is a boolean.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is a boolean.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.boolean( true ) ); // &#x3D;&gt; trueconsole.log( _is.boolean( false ) ); // &#x3D;&gt; trueconsole.log( _is.boolean( &quot;true&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.boolean( &quot;false&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.boolean( 1 ) ); // &#x3D;&gt; falseconsole.log( _is.boolean( 0 ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.boolean( true ) ); // &#x3D;&gt; trueconsole.log( _is.boolean( false ) ); // &#x3D;&gt; trueconsole.log( _is.boolean( &quot;true&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.boolean( &quot;false&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.boolean( 1 ) ); // &#x3D;&gt; falseconsole.log( _is.boolean( 0 ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-231">line 231</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".element" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">element</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is an element.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is an element.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is,	// create an element to test	el &#x3D; document.createElement(&quot;span&quot;);console.log( _is.element( el ) ); // &#x3D;&gt; trueconsole.log( _is.element( $(el) ) ); // &#x3D;&gt; falseconsole.log( _is.element( null ) ); // &#x3D;&gt; falseconsole.log( _is.element( {} ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is,	// create an element to test	el &#x3D; document.createElement(&quot;span&quot;);console.log( _is.element( el ) ); // &#x3D;&gt; trueconsole.log( _is.element( $(el) ) ); // &#x3D;&gt; falseconsole.log( _is.element( null ) ); // &#x3D;&gt; falseconsole.log( _is.element( {} ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-252">line 252</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".empty" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">empty</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is empty.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>The following values are considered to be empty by this method:</p>
+			<ul><!--
+			--><li><code>&quot;&quot;</code>            - An empty string</li><!--
+			--><li><code>0</code>            - 0 as an integer</li><!--
+			--><li><code>0.0</code>        - 0 as a float</li><!--
+			--><li><code>[]</code>            - An empty array</li><!--
+			--><li><code>{}</code>            - An empty object</li><!--
+			--><li><code>$()</code>        - An empty jQuery object</li><!--
+			--><li><code>false</code></li><!--
+			--><li><code>null</code></li><!--
+			--><li><code>undefined</code></li><!--
+			--></ul></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is empty.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.empty( undefined ) ); // &#x3D;&gt; trueconsole.log( _is.empty( null ) ); // &#x3D;&gt; trueconsole.log( _is.empty( 0 ) ); // &#x3D;&gt; trueconsole.log( _is.empty( 0.0 ) ); // &#x3D;&gt; trueconsole.log( _is.empty( &quot;&quot; ) ); // &#x3D;&gt; trueconsole.log( _is.empty( [] ) ); // &#x3D;&gt; trueconsole.log( _is.empty( {} ) ); // &#x3D;&gt; trueconsole.log( _is.empty( 1 ) ); // &#x3D;&gt; falseconsole.log( _is.empty( 0.1 ) ); // &#x3D;&gt; falseconsole.log( _is.empty( &quot;one&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.empty( [&quot;one&quot;] ) ); // &#x3D;&gt; falseconsole.log( _is.empty( { &quot;name&quot;: &quot;My Object&quot; } ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.empty( undefined ) ); // &#x3D;&gt; trueconsole.log( _is.empty( null ) ); // &#x3D;&gt; trueconsole.log( _is.empty( 0 ) ); // &#x3D;&gt; trueconsole.log( _is.empty( 0.0 ) ); // &#x3D;&gt; trueconsole.log( _is.empty( &quot;&quot; ) ); // &#x3D;&gt; trueconsole.log( _is.empty( [] ) ); // &#x3D;&gt; trueconsole.log( _is.empty( {} ) ); // &#x3D;&gt; trueconsole.log( _is.empty( 1 ) ); // &#x3D;&gt; falseconsole.log( _is.empty( 0.1 ) ); // &#x3D;&gt; falseconsole.log( _is.empty( &quot;one&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.empty( [&quot;one&quot;] ) ); // &#x3D;&gt; falseconsole.log( _is.empty( { &quot;name&quot;: &quot;My Object&quot; } ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-275">line 275</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".error" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">error</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is an error.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is an error.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is,	// create some errors to test	err1 &#x3D; new Error(&quot;err1&quot;),	err2 &#x3D; new SyntaxError(&quot;err2&quot;);console.log( _is.error( err1 ) ); // &#x3D;&gt; trueconsole.log( _is.error( err2 ) ); // &#x3D;&gt; trueconsole.log( _is.error( null ) ); // &#x3D;&gt; falseconsole.log( _is.error( 123 ) ); // &#x3D;&gt; falseconsole.log( _is.error( &quot;&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.error( {} ) ); // &#x3D;&gt; falseconsole.log( _is.error( [] ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is,	// create some errors to test	err1 &#x3D; new Error(&quot;err1&quot;),	err2 &#x3D; new SyntaxError(&quot;err2&quot;);console.log( _is.error( err1 ) ); // &#x3D;&gt; trueconsole.log( _is.error( err2 ) ); // &#x3D;&gt; trueconsole.log( _is.error( null ) ); // &#x3D;&gt; falseconsole.log( _is.error( 123 ) ); // &#x3D;&gt; falseconsole.log( _is.error( &quot;&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.error( {} ) ); // &#x3D;&gt; falseconsole.log( _is.error( [] ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-328">line 328</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".fn" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">fn</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is a function.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is a function.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is,	// create a function to test	func &#x3D; function(){};console.log( _is.fn( func ) ); // &#x3D;&gt; trueconsole.log( _is.fn( null ) ); // &#x3D;&gt; falseconsole.log( _is.fn( 123 ) ); // &#x3D;&gt; falseconsole.log( _is.fn( &quot;&quot; ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is,	// create a function to test	func &#x3D; function(){};console.log( _is.fn( func ) ); // &#x3D;&gt; trueconsole.log( _is.fn( null ) ); // &#x3D;&gt; falseconsole.log( _is.fn( 123 ) ); // &#x3D;&gt; falseconsole.log( _is.fn( &quot;&quot; ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-353">line 353</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".hash" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">hash</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is a hash.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is a hash.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.hash( {&quot;some&quot;: &quot;prop&quot;} ) ); // &#x3D;&gt; trueconsole.log( _is.hash( {} ) ); // &#x3D;&gt; trueconsole.log( _is.hash( window ) ); // &#x3D;&gt; falseconsole.log( _is.hash( document ) ); // &#x3D;&gt; falseconsole.log( _is.hash( &quot;&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.hash( 123 ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.hash( {&quot;some&quot;: &quot;prop&quot;} ) ); // &#x3D;&gt; trueconsole.log( _is.hash( {} ) ); // &#x3D;&gt; trueconsole.log( _is.hash( window ) ); // &#x3D;&gt; falseconsole.log( _is.hash( document ) ); // &#x3D;&gt; falseconsole.log( _is.hash( &quot;&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.hash( 123 ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-374">line 374</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".jq" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">jq</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is a jQuery object.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is a jQuery object.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is,	// create an element to test	el &#x3D; document.createElement(&quot;span&quot;);console.log( _is.jq( $(el) ) ); // &#x3D;&gt; trueconsole.log( _is.jq( $() ) ); // &#x3D;&gt; trueconsole.log( _is.jq( el ) ); // &#x3D;&gt; falseconsole.log( _is.jq( {} ) ); // &#x3D;&gt; falseconsole.log( _is.jq( null ) ); // &#x3D;&gt; falseconsole.log( _is.jq( 123 ) ); // &#x3D;&gt; falseconsole.log( _is.jq( &quot;&quot; ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is,	// create an element to test	el &#x3D; document.createElement(&quot;span&quot;);console.log( _is.jq( $(el) ) ); // &#x3D;&gt; trueconsole.log( _is.jq( $() ) ); // &#x3D;&gt; trueconsole.log( _is.jq( el ) ); // &#x3D;&gt; falseconsole.log( _is.jq( {} ) ); // &#x3D;&gt; falseconsole.log( _is.jq( null ) ); // &#x3D;&gt; falseconsole.log( _is.jq( 123 ) ); // &#x3D;&gt; falseconsole.log( _is.jq( &quot;&quot; ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-395">line 395</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".number" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">number</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is a number.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.number( 123 ) ); // &#x3D;&gt; trueconsole.log( _is.number( undefined ) ); // &#x3D;&gt; falseconsole.log( _is.number( null ) ); // &#x3D;&gt; falseconsole.log( _is.number( &quot;&quot; ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.number( 123 ) ); // &#x3D;&gt; trueconsole.log( _is.number( undefined ) ); // &#x3D;&gt; falseconsole.log( _is.number( null ) ); // &#x3D;&gt; falseconsole.log( _is.number( &quot;&quot; ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-419">line 419</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".object" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">object</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is an object.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is an object.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.object( {&quot;some&quot;: &quot;prop&quot;} ) ); // &#x3D;&gt; trueconsole.log( _is.object( {} ) ); // &#x3D;&gt; trueconsole.log( _is.object( window ) ); // &#x3D;&gt; trueconsole.log( _is.object( document ) ); // &#x3D;&gt; trueconsole.log( _is.object( undefined ) ); // &#x3D;&gt; falseconsole.log( _is.object( null ) ); // &#x3D;&gt; falseconsole.log( _is.object( &quot;&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.object( 123 ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.object( {&quot;some&quot;: &quot;prop&quot;} ) ); // &#x3D;&gt; trueconsole.log( _is.object( {} ) ); // &#x3D;&gt; trueconsole.log( _is.object( window ) ); // &#x3D;&gt; trueconsole.log( _is.object( document ) ); // &#x3D;&gt; trueconsole.log( _is.object( undefined ) ); // &#x3D;&gt; falseconsole.log( _is.object( null ) ); // &#x3D;&gt; falseconsole.log( _is.object( &quot;&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.object( 123 ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-438">line 438</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".promise" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">promise</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is a promise.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>This is a simple check to determine if an object is a jQuery promise object. It simply checks the object has a <code>then</code> and <code>promise</code> function defined.</p>
+			<p>The promise object is created as an object literal inside of <code>jQuery.Deferred</code>, it has no prototype, nor any other truly unique properties that could be used to distinguish it.</p>
+			<p>This method should be a little more accurate than the internal jQuery one that simply checks for a <code>promise</code> function.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The object to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is an object.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.promise( $.Deferred() ) ); // &#x3D;&gt; trueconsole.log( _is.promise( {} ) ); // &#x3D;&gt; falseconsole.log( _is.promise( undefined ) ); // &#x3D;&gt; falseconsole.log( _is.promise( null ) ); // &#x3D;&gt; falseconsole.log( _is.promise( &quot;&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.promise( 123 ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.promise( $.Deferred() ) ); // &#x3D;&gt; trueconsole.log( _is.promise( {} ) ); // &#x3D;&gt; falseconsole.log( _is.promise( undefined ) ); // &#x3D;&gt; falseconsole.log( _is.promise( null ) ); // &#x3D;&gt; falseconsole.log( _is.promise( &quot;&quot; ) ); // &#x3D;&gt; falseconsole.log( _is.promise( 123 ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-461">line 461</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".size" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">size</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is a valid CSS length.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the <code>value</code> is a number or CSS length.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.size( 80 ) ); // &#x3D;&gt; trueconsole.log( _is.size( &quot;80px&quot; ) ); // &#x3D;&gt; trueconsole.log( _is.size( &quot;80em&quot; ) ); // &#x3D;&gt; trueconsole.log( _is.size( &quot;80%&quot; ) ); // &#x3D;&gt; trueconsole.log( _is.size( {} ) ); // &#x3D;&gt; falseconsole.log( _is.size( undefined ) ); // &#x3D;&gt; falseconsole.log( _is.size( null ) ); // &#x3D;&gt; falseconsole.log( _is.size( &quot;&quot; ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.size( 80 ) ); // &#x3D;&gt; trueconsole.log( _is.size( &quot;80px&quot; ) ); // &#x3D;&gt; trueconsole.log( _is.size( &quot;80em&quot; ) ); // &#x3D;&gt; trueconsole.log( _is.size( &quot;80%&quot; ) ); // &#x3D;&gt; trueconsole.log( _is.size( {} ) ); // &#x3D;&gt; falseconsole.log( _is.size( undefined ) ); // &#x3D;&gt; falseconsole.log( _is.size( null ) ); // &#x3D;&gt; falseconsole.log( _is.size( &quot;&quot; ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-487">line 487</a></p>
+								</div>
+							</div>
+			
+			
+							<!-- see -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">See</label>
+								<div class="col-sm-9">
+										<p class="form-control-static"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/length">&lt;length&gt; - CSS | MDN</a> for more information on CSS length values.</p>
+								</div>
+							</div>
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".string" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">string</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is a string.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the <code>value</code> is a string.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.string( &quot;&quot; ) ); // &#x3D;&gt; trueconsole.log( _is.string( undefined ) ); // &#x3D;&gt; falseconsole.log( _is.string( null ) ); // &#x3D;&gt; falseconsole.log( _is.string( 123 ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.string( &quot;&quot; ) ); // &#x3D;&gt; trueconsole.log( _is.string( undefined ) ); // &#x3D;&gt; falseconsole.log( _is.string( null ) ); // &#x3D;&gt; falseconsole.log( _is.string( 123 ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-512">line 512</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".undef" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">undef</span><span class="signature-params">( <span class="signature-param">value</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the <code>value</code> is <code>undefined</code>.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>value</code></td>
+							<td><span class="param-type">*</span></td>
+							<td class="last">
+									<p>The value to check is undefined.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the supplied <code>value</code> is <code>undefined</code>.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.undef( undefined ) ); // &#x3D;&gt; trueconsole.log( _is.undef( null ) ); // &#x3D;&gt; falseconsole.log( _is.undef( 123 ) ); // &#x3D;&gt; falseconsole.log( _is.undef( &quot;&quot; ) ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// alias the FooGallery.utils.is namespacevar _is &#x3D; FooGallery.utils.is;console.log( _is.undef( undefined ) ); // &#x3D;&gt; trueconsole.log( _is.undef( null ) ); // &#x3D;&gt; falseconsole.log( _is.undef( 123 ) ); // &#x3D;&gt; falseconsole.log( _is.undef( &quot;&quot; ) ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="foogallery.js.html">foogallery.js</a>, <a href="foogallery.js.html#line-531">line 531</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+									</dl>
+							</article>
+					</section>
+			</div>
+				<div class="col-md-3 side-content">
+					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+				</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">FooGallery Copyright © 2016</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on 29th Mar 2017 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+		<script src="../dist/core/js/foogallery.js"></script>
+</body>
+</html>

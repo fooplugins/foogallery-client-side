@@ -1,0 +1,111 @@
+.foogallery-container.loaded-fade-in .foogallery-item > .foogallery-item-inner,
+.foogallery-container.loaded-slide-up .foogallery-item > .foogallery-item-inner,
+.foogallery-container.loaded-scale-up .foogallery-item > .foogallery-item-inner,
+.foogallery-container.loaded-swing-down .foogallery-item > .foogallery-item-inner,
+.foogallery-container.loaded-drop .foogallery-item > .foogallery-item-inner,
+.foogallery-container.loaded-fly .foogallery-item > .foogallery-item-inner,
+.foogallery-container.loaded-flip .foogallery-item > .foogallery-item-inner {
+	transition-timing-function: ease;
+	transition-duration: 650ms;
+}
+/* Fade In */
+.foogallery-container.loaded-fade-in .foogallery-item > .foogallery-item-inner {
+	transition-property: visibility, opacity;
+	visibility: hidden;
+	opacity: 0;
+}
+.foogallery-container.loaded-fade-in .foogallery-item.foogallery-loaded > .foogallery-item-inner {
+	visibility: visible;
+	opacity: 1;
+}
+/* Slide Up */
+.foogallery-container.loaded-slide-up .foogallery-item > .foogallery-item-inner {
+	transition-property: visibility, opacity, transform;
+	visibility: hidden;
+	opacity: 0;
+	transform: translateY(200px);
+}
+.foogallery-container.loaded-slide-up .foogallery-item.foogallery-loaded > .foogallery-item-inner {
+	visibility: visible;
+	opacity: 1;
+	transform: translateY(0px);
+}
+/* Scale Up */
+.foogallery-container.loaded-scale-up .foogallery-item > .foogallery-item-inner {
+	transition-property: visibility, opacity, transform;
+	visibility: hidden;
+	opacity: 0;
+	transform: scale(0.6);
+}
+.foogallery-container.loaded-scale-up .foogallery-item.foogallery-loaded > .foogallery-item-inner {
+	visibility: visible;
+	opacity: 1;
+	transform: scale(1);
+}
+/* Swing Down */
+.foogallery-container.loaded-swing-down {
+	perspective: 1300px;
+}
+.foogallery-container.loaded-swing-down .foogallery-item > .foogallery-item-inner {
+	transition-property: visibility, opacity, transform;
+	visibility: hidden;
+	opacity: 0;
+	transform-style: preserve-3d;
+	transform-origin: 0 0;
+	transform: rotateX(-80deg);
+}
+.foogallery-container.loaded-swing-down .foogallery-item.foogallery-loaded > .foogallery-item-inner {
+	visibility: visible;
+	opacity: 1;
+	transform: rotateX(0deg);
+}
+/* Drop */
+.foogallery-container.loaded-drop {
+	perspective: 1300px;
+}
+.foogallery-container.loaded-drop .foogallery-item > .foogallery-item-inner {
+	transition-property: visibility, opacity, transform;
+	visibility: hidden;
+	opacity: 0;
+	transform-style: preserve-3d;
+	transform: translateZ(400px) translateY(300px) rotateX(-90deg);
+}
+.foogallery-container.loaded-drop .foogallery-item.foogallery-loaded > .foogallery-item-inner {
+	visibility: visible;
+	opacity: 1;
+	transform: translateZ(0px) translateY(0px) rotateX(0deg);
+}
+/* Fly */
+.foogallery-container.loaded-fly {
+	perspective: 1300px;
+}
+.foogallery-container.loaded-fly .foogallery-item > .foogallery-item-inner {
+	transition-property: visibility, opacity, transform;
+	visibility: hidden;
+	opacity: 0;
+	transform-style: preserve-3d;
+	transform-origin: 50% 50% -300px;
+	transform: rotateX(-180deg);
+}
+.foogallery-container.loaded-fly .foogallery-item.foogallery-loaded > .foogallery-item-inner {
+	visibility: visible;
+	opacity: 1;
+	transform: rotateX(0deg);
+}
+/* Flip */
+.foogallery-container.loaded-flip {
+	perspective: 1300px;
+}
+.foogallery-container.loaded-flip .foogallery-item > .foogallery-item-inner {
+	transition-property: visibility, opacity, transform;
+	backface-visibility: hidden;
+	visibility: hidden;
+	opacity: 0;
+	transform-style: preserve-3d;
+	transform: rotateY(-180deg);
+}
+.foogallery-container.loaded-flip .foogallery-item.foogallery-loaded > .foogallery-item-inner {
+	visibility: visible;
+	opacity: 1;
+	transform: rotateY(0deg);
+}

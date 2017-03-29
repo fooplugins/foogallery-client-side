@@ -1,0 +1,70 @@
+/* Border styles */
+.foogallery-container.border-style-rounded .foogallery-item-inner {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.foogallery-container.border-style-square-white .foogallery-item-inner,
+.foogallery-container.border-style-square-white .foogallery-item-inner:hover {
+	border: 5px solid #FFF !important;
+	background-color: #FFF;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.foogallery-container.border-style-circle-white .foogallery-item-inner,
+.foogallery-container.border-style-circle-white .foogallery-item-inner:hover {
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border: 5px solid #FFF !important;
+	background-color: #FFF;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+}
+
+.foogallery-container.border-style-circle-black .foogallery-item-inner,
+.foogallery-container.border-style-circle-black .foogallery-item-inner:hover {
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border: 3px solid #000 !important;
+	background-color: #000;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+}
+
+.foogallery-container.border-style-square-black .foogallery-item-inner,
+.foogallery-container.border-style-square-black .foogallery-item-inner:hover {
+	border: 3px solid #000 !important;
+	background-color: #000;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.foogallery-container.border-style-inset .foogallery-item-inner {
+	position: relative;
+	z-index: 1;
+}
+
+.foogallery-container.border-style-inset .foogallery-item-inner:before {
+	display: block;
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	-webkit-box-shadow: inset 0 0 20px #000;
+	-moz-box-shadow: inset 0 0 20px #000;
+	box-shadow: inset 0 0 20px #000;
+}
