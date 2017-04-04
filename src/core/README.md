@@ -78,4 +78,11 @@ The FooGallery Core CSS & JS provides some built in CSS effects to use once an i
 - `loaded-fly` *
 - `loaded-flip` *
 
-* Internet Explorer does not support the `preserve-3d` value for `transform-style` CSS property which will result in the effects looking odd. 
+&#42; Internet Explorer does not support the `preserve-3d` value for `transform-style` CSS property which will result in the effects looking odd.
+
+## Loading Icons
+
+The FooGallery Core CSS & JS provides some built in loading icons that can be used by simply applying the below listed classes to the `foogallery-container`.
+
+- `loading-icon-none`
+- `loading-icon-default`

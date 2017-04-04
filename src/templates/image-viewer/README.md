@@ -68,6 +68,45 @@ The following files for the template must be included after all dependencies are
 </div>
 ```
 
+### Captions
+
+This template supports the default `foogallery-caption` markup as seen below, this allows it to use the various caption hover effects available in the core files.
+
+```html
+<div class="foogallery-container foogallery-image-viewer">
+	<div class="fiv-inner">
+		<div class="fiv-inner-container">
+			<div class="foogallery-item">
+				<a class="foogallery-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000">
+					<img data-src="http://satyr.io/640x360/1?delay=1-1000" width="640" height="360" data-srcset="http://satyr.io/1280x720/1?delay=1-1000 1280w"/>
+					<div class="foogallery-caption">
+						<div class="foogallery-caption-inner">
+							<div class="foogallery-caption-title">Title</div>
+							<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="foogallery-item">
+				<a class="foogallery-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000">
+					<img data-src="http://satyr.io/640x360/2?delay=1-1000" width="640" height="360" data-srcset="http://satyr.io/1280x720/2?delay=1-1000 1280w"/>
+					<div class="foogallery-caption">
+						<div class="foogallery-caption-inner">
+							<div class="foogallery-caption-title">Title</div>
+							<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="fiv-ctrls">
+			<div class="fiv-prev"><span>Prev</span></div>
+			<label class="fiv-count"><span class="fiv-count-current">1</span>of<span>2</span></label>
+			<div class="fiv-next"><span>Next</span></div>
+		</div>
+	</div>
+</div>
+```
 #### Notes
 
 - The `width` and `height` attributes are required on each `<img/>` to prevent layout jumps while loading images.
@@ -102,4 +141,4 @@ This template supports the following CSS options by applying the specified CSS c
 
 ## Loaded Effects
 
-- This template does not support any of the loaded effects due to it using `display:block` on it's items.
+- This template supports all of the loaded effects provided by the FooGallery Core CSS & JS.

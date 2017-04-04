@@ -50,6 +50,36 @@ The following files for the template must be included after all dependencies are
 </div>
 ```
 
+### Captions
+
+This template supports the default `foogallery-caption` markup as seen below, this allows it to use the various caption hover effects available in the core files.
+
+```html
+<div class="foogallery-container foogallery-default" data-loader-options='{"lazy":true}'>
+	<div class="foogallery-item">
+		<a class="foogallery-thumb foogallery-item-inner" href="">
+			<img data-src="http://satyr.io/150x150/31?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/31?delay=1-1000 300w,http://satyr.io/450x450/31?delay=1-1000 450w"/>
+			<div class="foogallery-caption">
+				<div class="foogallery-caption-inner">
+					<div class="foogallery-caption-title">Title</div>
+					<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+				</div>
+			</div>
+		</a>
+	</div>
+	<div class="foogallery-item">
+		<a class="foogallery-thumb foogallery-item-inner" href="">
+			<img data-src="http://satyr.io/300x150/32?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/32?delay=1-1000 600w,http://satyr.io/900x450/32?delay=1-1000 900w"/>
+			<div class="foogallery-caption">
+				<div class="foogallery-caption-inner">
+					<div class="foogallery-caption-title">Title</div>
+					<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+```
 #### Notes
 
 - The `width` and `height` attributes are required on each `<img/>` to prevent layout jumps while loading images.

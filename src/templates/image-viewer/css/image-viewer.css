@@ -54,10 +54,14 @@
 	max-width: 100%;
 }
 .foogallery-image-viewer > .fiv-inner > .fiv-inner-container > .foogallery-item {
-	display: none;
+	position: absolute;
+	visibility: hidden;
+	opacity: 0;
 }
 .foogallery-image-viewer > .fiv-inner > .fiv-inner-container > .foogallery-item.fiv-active {
-	display: block;
+	position: relative;
+	visibility: visible;
+	opacity: 1;
 }
 .foogallery-image-viewer > .fiv-inner > .fiv-inner-container > .foogallery-item .foogallery-thumb > img {
 	display: block;

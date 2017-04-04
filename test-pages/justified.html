@@ -36,7 +36,7 @@
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus purus sit amet ultricies convallis. Curabitur blandit, velit eu imperdiet faucibus, ex quam mattis leo, iaculis tincidunt magna sem ut orci. Ut porta leo vestibulum nisi euismod, sodales auctor lectus sollicitudin. Aenean vehicula sollicitudin nibh, cursus suscipit sapien malesuada ut. Phasellus mollis aliquet felis, consectetur viverra neque commodo et. Fusce dui libero, viverra vitae massa id, pellentesque condimentum justo. Aliquam nec ultricies ex. Nulla nunc nisl, malesuada non gravida et, convallis vehicula ex. Nam varius commodo massa a sagittis. Maecenas id vestibulum lorem. Nunc leo risus, pharetra sit amet luctus ut, tempus et nunc. Nullam ac ligula fermentum, dignissim urna a, consectetur turpis. Proin cursus lacus at blandit lacinia. Quisque eget leo accumsan, rutrum libero ac, suscipit ante.
 	</p>
 	<h1>Test Lazy Loading</h1>
-	<div id="foogallery-gallery-1" class="foogallery-container foogallery-justified loaded-fade-in"
+	<div id="foogallery-gallery-1" class="foogallery-container foogallery-justified loading-icon-default loaded-fade-in"
 			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'
 			 data-loader-options='{"lazy":true}'>
 		<div class="foogallery-item">
@@ -1016,6 +1016,304 @@
 	<p>
 		Vestibulum id eleifend ante, eu interdum nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer dapibus massa dolor, vitae tempus diam sodales id. Proin rhoncus aliquam justo, at tempus libero. Cras rhoncus placerat ipsum, at commodo mi bibendum ut. Etiam vel ornare sem. Mauris tincidunt metus eget augue eleifend, vel mattis tellus egestas. Sed tincidunt dapibus ex, et eleifend ipsum condimentum quis. Aenean sed convallis lectus, sit amet tincidunt sem. Nunc consectetur in nisl sed porta. Mauris tempor dui vel ipsum hendrerit, vel tristique ipsum finibus.
 	</p>
+	<h1>Loaded Effects</h1>
+	<h3><code>loaded-fade-in</code></h3>
+	<div class="foogallery-container foogallery-justified loaded-fade-in"
+			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/150x150/1?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/1?delay=1-1000 300w,http://satyr.io/450x450/1?delay=1-1000 450w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/300x150/2?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/2?delay=1-1000 600w,http://satyr.io/900x450/2?delay=1-1000 900w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/50x150/3?delay=1-1000" width="50" height="150" data-srcset="http://satyr.io/100x300/3?delay=1-1000 100w,http://satyr.io/150x450/3?delay=1-1000 150w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/200x150/4?delay=1-1000" width="200" height="150" data-srcset="http://satyr.io/400x300/4?delay=1-1000 400w,http://satyr.io/600x450/4?delay=1-1000 600w" />
+			</a>
+		</div>
+	</div>
+	<h3><code>loaded-slide-up</code></h3>
+	<div class="foogallery-container foogallery-justified loaded-slide-up"
+			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/150x150/1?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/1?delay=1-1000 300w,http://satyr.io/450x450/1?delay=1-1000 450w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/300x150/2?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/2?delay=1-1000 600w,http://satyr.io/900x450/2?delay=1-1000 900w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/50x150/3?delay=1-1000" width="50" height="150" data-srcset="http://satyr.io/100x300/3?delay=1-1000 100w,http://satyr.io/150x450/3?delay=1-1000 150w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/200x150/4?delay=1-1000" width="200" height="150" data-srcset="http://satyr.io/400x300/4?delay=1-1000 400w,http://satyr.io/600x450/4?delay=1-1000 600w" />
+			</a>
+		</div>
+	</div>
+	<h3><code>loaded-scale-up</code></h3>
+	<div class="foogallery-container foogallery-justified loaded-scale-up"
+			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/150x150/1?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/1?delay=1-1000 300w,http://satyr.io/450x450/1?delay=1-1000 450w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/300x150/2?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/2?delay=1-1000 600w,http://satyr.io/900x450/2?delay=1-1000 900w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/50x150/3?delay=1-1000" width="50" height="150" data-srcset="http://satyr.io/100x300/3?delay=1-1000 100w,http://satyr.io/150x450/3?delay=1-1000 150w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/200x150/4?delay=1-1000" width="200" height="150" data-srcset="http://satyr.io/400x300/4?delay=1-1000 400w,http://satyr.io/600x450/4?delay=1-1000 600w" />
+			</a>
+		</div>
+	</div>
+	<h3><code>loaded-swing-down</code></h3>
+	<p>Internet Explorer does not support the <code>preserve-3d</code> value for <code>transform-style</code> CSS property which will result in this effect looking odd.</p>
+	<div class="foogallery-container foogallery-justified loaded-swing-down"
+			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/150x150/1?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/1?delay=1-1000 300w,http://satyr.io/450x450/1?delay=1-1000 450w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/300x150/2?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/2?delay=1-1000 600w,http://satyr.io/900x450/2?delay=1-1000 900w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/50x150/3?delay=1-1000" width="50" height="150" data-srcset="http://satyr.io/100x300/3?delay=1-1000 100w,http://satyr.io/150x450/3?delay=1-1000 150w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/200x150/4?delay=1-1000" width="200" height="150" data-srcset="http://satyr.io/400x300/4?delay=1-1000 400w,http://satyr.io/600x450/4?delay=1-1000 600w" />
+			</a>
+		</div>
+	</div>
+	<h3><code>loaded-drop</code></h3>
+	<p>Internet Explorer does not support the <code>preserve-3d</code> value for <code>transform-style</code> CSS property which will result in this effect looking odd.</p>
+	<div class="foogallery-container foogallery-justified loaded-drop"
+			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/150x150/1?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/1?delay=1-1000 300w,http://satyr.io/450x450/1?delay=1-1000 450w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/300x150/2?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/2?delay=1-1000 600w,http://satyr.io/900x450/2?delay=1-1000 900w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/50x150/3?delay=1-1000" width="50" height="150" data-srcset="http://satyr.io/100x300/3?delay=1-1000 100w,http://satyr.io/150x450/3?delay=1-1000 150w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/200x150/4?delay=1-1000" width="200" height="150" data-srcset="http://satyr.io/400x300/4?delay=1-1000 400w,http://satyr.io/600x450/4?delay=1-1000 600w" />
+			</a>
+		</div>
+	</div>
+	<h3><code>loaded-fly</code></h3>
+	<p>Internet Explorer does not support the <code>preserve-3d</code> value for <code>transform-style</code> CSS property which will result in this effect looking odd.</p>
+	<div class="foogallery-container foogallery-justified loaded-fly"
+			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/150x150/1?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/1?delay=1-1000 300w,http://satyr.io/450x450/1?delay=1-1000 450w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/300x150/2?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/2?delay=1-1000 600w,http://satyr.io/900x450/2?delay=1-1000 900w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/50x150/3?delay=1-1000" width="50" height="150" data-srcset="http://satyr.io/100x300/3?delay=1-1000 100w,http://satyr.io/150x450/3?delay=1-1000 150w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/200x150/4?delay=1-1000" width="200" height="150" data-srcset="http://satyr.io/400x300/4?delay=1-1000 400w,http://satyr.io/600x450/4?delay=1-1000 600w" />
+			</a>
+		</div>
+	</div>
+	<h3><code>loaded-flip</code></h3>
+	<p>Internet Explorer does not support the <code>preserve-3d</code> value for <code>transform-style</code> CSS property which will result in this effect looking odd.</p>
+	<div class="foogallery-container foogallery-justified loaded-flip"
+			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/150x150/1?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/1?delay=1-1000 300w,http://satyr.io/450x450/1?delay=1-1000 450w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/300x150/2?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/2?delay=1-1000 600w,http://satyr.io/900x450/2?delay=1-1000 900w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/50x150/3?delay=1-1000" width="50" height="150" data-srcset="http://satyr.io/100x300/3?delay=1-1000 100w,http://satyr.io/150x450/3?delay=1-1000 150w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/200x150/4?delay=1-1000" width="200" height="150" data-srcset="http://satyr.io/400x300/4?delay=1-1000 400w,http://satyr.io/600x450/4?delay=1-1000 600w" />
+			</a>
+		</div>
+	</div>
+
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus purus sit amet ultricies convallis. Curabitur blandit, velit eu imperdiet faucibus, ex quam mattis leo, iaculis tincidunt magna sem ut orci. Ut porta leo vestibulum nisi euismod, sodales auctor lectus sollicitudin. Aenean vehicula sollicitudin nibh, cursus suscipit sapien malesuada ut. Phasellus mollis aliquet felis, consectetur viverra neque commodo et. Fusce dui libero, viverra vitae massa id, pellentesque condimentum justo. Aliquam nec ultricies ex. Nulla nunc nisl, malesuada non gravida et, convallis vehicula ex. Nam varius commodo massa a sagittis. Maecenas id vestibulum lorem. Nunc leo risus, pharetra sit amet luctus ut, tempus et nunc. Nullam ac ligula fermentum, dignissim urna a, consectetur turpis. Proin cursus lacus at blandit lacinia. Quisque eget leo accumsan, rutrum libero ac, suscipit ante.
+	</p>
+	<p>
+		Aenean mattis consectetur risus, in bibendum eros egestas quis. In velit ante, mattis vel justo eu, feugiat aliquet magna. Duis dictum vel lacus vitae vulputate. Proin dignissim neque vel augue semper pulvinar. Maecenas volutpat tortor arcu, lacinia maximus ipsum feugiat vel. Suspendisse tincidunt ante nisi, id rhoncus urna condimentum eu. In ac est nec leo convallis rutrum id quis libero. Phasellus et leo in felis fermentum accumsan eget vel sapien.
+	</p>
+	<p>
+		Vestibulum id eleifend ante, eu interdum nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer dapibus massa dolor, vitae tempus diam sodales id. Proin rhoncus aliquam justo, at tempus libero. Cras rhoncus placerat ipsum, at commodo mi bibendum ut. Etiam vel ornare sem. Mauris tincidunt metus eget augue eleifend, vel mattis tellus egestas. Sed tincidunt dapibus ex, et eleifend ipsum condimentum quis. Aenean sed convallis lectus, sit amet tincidunt sem. Nunc consectetur in nisl sed porta. Mauris tempor dui vel ipsum hendrerit, vel tristique ipsum finibus.
+	</p>
+	<p>
+		Aenean mattis consectetur risus, in bibendum eros egestas quis. In velit ante, mattis vel justo eu, feugiat aliquet magna. Duis dictum vel lacus vitae vulputate. Proin dignissim neque vel augue semper pulvinar. Maecenas volutpat tortor arcu, lacinia maximus ipsum feugiat vel. Suspendisse tincidunt ante nisi, id rhoncus urna condimentum eu. In ac est nec leo convallis rutrum id quis libero. Phasellus et leo in felis fermentum accumsan eget vel sapien.
+	</p>
+	<p>
+		Vestibulum id eleifend ante, eu interdum nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer dapibus massa dolor, vitae tempus diam sodales id. Proin rhoncus aliquam justo, at tempus libero. Cras rhoncus placerat ipsum, at commodo mi bibendum ut. Etiam vel ornare sem. Mauris tincidunt metus eget augue eleifend, vel mattis tellus egestas. Sed tincidunt dapibus ex, et eleifend ipsum condimentum quis. Aenean sed convallis lectus, sit amet tincidunt sem. Nunc consectetur in nisl sed porta. Mauris tempor dui vel ipsum hendrerit, vel tristique ipsum finibus.
+	</p>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus purus sit amet ultricies convallis. Curabitur blandit, velit eu imperdiet faucibus, ex quam mattis leo, iaculis tincidunt magna sem ut orci. Ut porta leo vestibulum nisi euismod, sodales auctor lectus sollicitudin. Aenean vehicula sollicitudin nibh, cursus suscipit sapien malesuada ut. Phasellus mollis aliquet felis, consectetur viverra neque commodo et. Fusce dui libero, viverra vitae massa id, pellentesque condimentum justo. Aliquam nec ultricies ex. Nulla nunc nisl, malesuada non gravida et, convallis vehicula ex. Nam varius commodo massa a sagittis. Maecenas id vestibulum lorem. Nunc leo risus, pharetra sit amet luctus ut, tempus et nunc. Nullam ac ligula fermentum, dignissim urna a, consectetur turpis. Proin cursus lacus at blandit lacinia. Quisque eget leo accumsan, rutrum libero ac, suscipit ante.
+	</p>
+	<p>
+		Aenean mattis consectetur risus, in bibendum eros egestas quis. In velit ante, mattis vel justo eu, feugiat aliquet magna. Duis dictum vel lacus vitae vulputate. Proin dignissim neque vel augue semper pulvinar. Maecenas volutpat tortor arcu, lacinia maximus ipsum feugiat vel. Suspendisse tincidunt ante nisi, id rhoncus urna condimentum eu. In ac est nec leo convallis rutrum id quis libero. Phasellus et leo in felis fermentum accumsan eget vel sapien.
+	</p>
+	<p>
+		Vestibulum id eleifend ante, eu interdum nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer dapibus massa dolor, vitae tempus diam sodales id. Proin rhoncus aliquam justo, at tempus libero. Cras rhoncus placerat ipsum, at commodo mi bibendum ut. Etiam vel ornare sem. Mauris tincidunt metus eget augue eleifend, vel mattis tellus egestas. Sed tincidunt dapibus ex, et eleifend ipsum condimentum quis. Aenean sed convallis lectus, sit amet tincidunt sem. Nunc consectetur in nisl sed porta. Mauris tempor dui vel ipsum hendrerit, vel tristique ipsum finibus.
+	</p>
+
+	<h1>Loading Icon</h1>
+	<h3><code>loading-icon-none</code></h3>
+	<div class="foogallery-container foogallery-justified loading-icon-none"
+			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/150x150/1?delay=3000" width="150" height="150" data-srcset="http://satyr.io/300x300/1?delay=3000 300w,http://satyr.io/450x450/1?delay=3000 450w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/300x150/2?delay=3000" width="300" height="150" data-srcset="http://satyr.io/600x300/2?delay=3000 600w,http://satyr.io/900x450/2?delay=3000 900w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/50x150/3?delay=3000" width="50" height="150" data-srcset="http://satyr.io/100x300/3?delay=3000 100w,http://satyr.io/150x450/3?delay=3000 150w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/200x150/4?delay=3000" width="200" height="150" data-srcset="http://satyr.io/400x300/4?delay=3000 400w,http://satyr.io/600x450/4?delay=3000 600w" />
+			</a>
+		</div>
+	</div>
+	<h3><code>loading-icon-default</code></h3>
+	<div class="foogallery-container foogallery-justified loading-icon-default"
+			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/150x150/1?delay=3000" width="150" height="150" data-srcset="http://satyr.io/300x300/1?delay=3000 300w,http://satyr.io/450x450/1?delay=3000 450w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/300x150/2?delay=3000" width="300" height="150" data-srcset="http://satyr.io/600x300/2?delay=3000 600w,http://satyr.io/900x450/2?delay=3000 900w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/50x150/3?delay=3000" width="50" height="150" data-srcset="http://satyr.io/100x300/3?delay=3000 100w,http://satyr.io/150x450/3?delay=3000 150w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/200x150/4?delay=3000" width="200" height="150" data-srcset="http://satyr.io/400x300/4?delay=3000 400w,http://satyr.io/600x450/4?delay=3000 600w" />
+			</a>
+		</div>
+	</div>
+	<h3><code>loading-icon-facebook</code></h3>
+	<div class="foogallery-container foogallery-justified loading-icon-facebook"
+			 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/150x150/1?delay=3000" width="150" height="150" data-srcset="http://satyr.io/300x300/1?delay=3000 300w,http://satyr.io/450x450/1?delay=3000 450w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/300x150/2?delay=3000" width="300" height="150" data-srcset="http://satyr.io/600x300/2?delay=3000 600w,http://satyr.io/900x450/2?delay=3000 900w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/50x150/3?delay=3000" width="50" height="150" data-srcset="http://satyr.io/100x300/3?delay=3000 100w,http://satyr.io/150x450/3?delay=3000 150w" />
+			</a>
+		</div>
+		<div class="foogallery-item">
+			<a class="foogallery-thumb foogallery-item-inner" href="">
+				<img data-src="http://satyr.io/200x150/4?delay=3000" width="200" height="150" data-srcset="http://satyr.io/400x300/4?delay=3000 400w,http://satyr.io/600x450/4?delay=3000 600w" />
+			</a>
+		</div>
+	</div>
+
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus purus sit amet ultricies convallis. Curabitur blandit, velit eu imperdiet faucibus, ex quam mattis leo, iaculis tincidunt magna sem ut orci. Ut porta leo vestibulum nisi euismod, sodales auctor lectus sollicitudin. Aenean vehicula sollicitudin nibh, cursus suscipit sapien malesuada ut. Phasellus mollis aliquet felis, consectetur viverra neque commodo et. Fusce dui libero, viverra vitae massa id, pellentesque condimentum justo. Aliquam nec ultricies ex. Nulla nunc nisl, malesuada non gravida et, convallis vehicula ex. Nam varius commodo massa a sagittis. Maecenas id vestibulum lorem. Nunc leo risus, pharetra sit amet luctus ut, tempus et nunc. Nullam ac ligula fermentum, dignissim urna a, consectetur turpis. Proin cursus lacus at blandit lacinia. Quisque eget leo accumsan, rutrum libero ac, suscipit ante.
+	</p>
+	<p>
+		Aenean mattis consectetur risus, in bibendum eros egestas quis. In velit ante, mattis vel justo eu, feugiat aliquet magna. Duis dictum vel lacus vitae vulputate. Proin dignissim neque vel augue semper pulvinar. Maecenas volutpat tortor arcu, lacinia maximus ipsum feugiat vel. Suspendisse tincidunt ante nisi, id rhoncus urna condimentum eu. In ac est nec leo convallis rutrum id quis libero. Phasellus et leo in felis fermentum accumsan eget vel sapien.
+	</p>
+	<p>
+		Vestibulum id eleifend ante, eu interdum nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer dapibus massa dolor, vitae tempus diam sodales id. Proin rhoncus aliquam justo, at tempus libero. Cras rhoncus placerat ipsum, at commodo mi bibendum ut. Etiam vel ornare sem. Mauris tincidunt metus eget augue eleifend, vel mattis tellus egestas. Sed tincidunt dapibus ex, et eleifend ipsum condimentum quis. Aenean sed convallis lectus, sit amet tincidunt sem. Nunc consectetur in nisl sed porta. Mauris tempor dui vel ipsum hendrerit, vel tristique ipsum finibus.
+	</p>
+	<p>
+		Aenean mattis consectetur risus, in bibendum eros egestas quis. In velit ante, mattis vel justo eu, feugiat aliquet magna. Duis dictum vel lacus vitae vulputate. Proin dignissim neque vel augue semper pulvinar. Maecenas volutpat tortor arcu, lacinia maximus ipsum feugiat vel. Suspendisse tincidunt ante nisi, id rhoncus urna condimentum eu. In ac est nec leo convallis rutrum id quis libero. Phasellus et leo in felis fermentum accumsan eget vel sapien.
+	</p>
+	<p>
+		Vestibulum id eleifend ante, eu interdum nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer dapibus massa dolor, vitae tempus diam sodales id. Proin rhoncus aliquam justo, at tempus libero. Cras rhoncus placerat ipsum, at commodo mi bibendum ut. Etiam vel ornare sem. Mauris tincidunt metus eget augue eleifend, vel mattis tellus egestas. Sed tincidunt dapibus ex, et eleifend ipsum condimentum quis. Aenean sed convallis lectus, sit amet tincidunt sem. Nunc consectetur in nisl sed porta. Mauris tempor dui vel ipsum hendrerit, vel tristique ipsum finibus.
+	</p>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus purus sit amet ultricies convallis. Curabitur blandit, velit eu imperdiet faucibus, ex quam mattis leo, iaculis tincidunt magna sem ut orci. Ut porta leo vestibulum nisi euismod, sodales auctor lectus sollicitudin. Aenean vehicula sollicitudin nibh, cursus suscipit sapien malesuada ut. Phasellus mollis aliquet felis, consectetur viverra neque commodo et. Fusce dui libero, viverra vitae massa id, pellentesque condimentum justo. Aliquam nec ultricies ex. Nulla nunc nisl, malesuada non gravida et, convallis vehicula ex. Nam varius commodo massa a sagittis. Maecenas id vestibulum lorem. Nunc leo risus, pharetra sit amet luctus ut, tempus et nunc. Nullam ac ligula fermentum, dignissim urna a, consectetur turpis. Proin cursus lacus at blandit lacinia. Quisque eget leo accumsan, rutrum libero ac, suscipit ante.
+	</p>
+	<p>
+		Aenean mattis consectetur risus, in bibendum eros egestas quis. In velit ante, mattis vel justo eu, feugiat aliquet magna. Duis dictum vel lacus vitae vulputate. Proin dignissim neque vel augue semper pulvinar. Maecenas volutpat tortor arcu, lacinia maximus ipsum feugiat vel. Suspendisse tincidunt ante nisi, id rhoncus urna condimentum eu. In ac est nec leo convallis rutrum id quis libero. Phasellus et leo in felis fermentum accumsan eget vel sapien.
+	</p>
+	<p>
+		Vestibulum id eleifend ante, eu interdum nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer dapibus massa dolor, vitae tempus diam sodales id. Proin rhoncus aliquam justo, at tempus libero. Cras rhoncus placerat ipsum, at commodo mi bibendum ut. Etiam vel ornare sem. Mauris tincidunt metus eget augue eleifend, vel mattis tellus egestas. Sed tincidunt dapibus ex, et eleifend ipsum condimentum quis. Aenean sed convallis lectus, sit amet tincidunt sem. Nunc consectetur in nisl sed porta. Mauris tempor dui vel ipsum hendrerit, vel tristique ipsum finibus.
+	</p>
+
 </div>
 </body>
 </html>

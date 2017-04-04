@@ -1,6 +1,11 @@
 (function($, _, _utils){
 
-	_.ImageViewer = _utils.Class.extend({
+	_.ImageViewer = _utils.Class.extend(/** @lends FooGallery.ImageViewer */{
+		/**
+		 * @summary The 
+		 * @param element
+		 * @param options
+		 */
 		construct: function(element, options){
 			this.options = $.extend(true, {}, _.ImageViewer.defaults, options);
 			this.$el = $(element);

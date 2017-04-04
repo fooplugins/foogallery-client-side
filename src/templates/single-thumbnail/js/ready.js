@@ -2,18 +2,16 @@
 
 	_.ready(function($){
 
-		/* Image Viewer Gallery */
-		$(".foogallery-image-viewer").each(function(){
+		/* Single Thumbnail Gallery */
+		$(".foogallery-single-thumbnail").each(function(){
 			var $gallery = $(this),
 				// get the options for the loader
 				loader = $gallery.data("loader-options");
 
 			// Find all images that have a width and height attribute set and calculate the size to set as a temporary inline style.
-			// This calculated size is used to prevent layout jumps.
-			$gallery.fgAddSize(true);
-
-			// Now that all images have a respectable size initialize the loading.
-			$gallery.fgImageViewer().fgLoader( $.extend(true, loader, {
+			// This calculated size is used to prevent layout jumps as the placeholder image is simply a transparent 1x1 pixel png.
+			$gallery.fgAddSize();
+			$gallery.fgLoader( $.extend(true, loader, {
 				oninit: function(){
 					// the first time the gallery is initialized it triggers a window resize event
 					$(window).trigger("resize");

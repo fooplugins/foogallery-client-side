@@ -1,6 +1,11 @@
 (function($, _, _utils){
 
-	_.ImageViewer = _utils.Class.extend({
+	_.ImageViewer = _utils.Class.extend(/** @lends FooGallery.ImageViewer */{
+		/**
+		 * @summary The 
+		 * @param element
+		 * @param options
+		 */
 		construct: function(element, options){
 			this.options = $.extend(true, {}, _.ImageViewer.defaults, options);
 			this.$el = $(element);
@@ -76,7 +81,7 @@
 	FooGallery,
 	FooGallery.utils
 );
-(function(_, _is){
+(function(_){
 
 	_.ready(function($){
 
@@ -88,7 +93,8 @@
 
 			// Find all images that have a width and height attribute set and calculate the size to set as a temporary inline style.
 			// This calculated size is used to prevent layout jumps.
-			$gallery.fgAddSize();
+			$gallery.fgAddSize(true);
+
 			// Now that all images have a respectable size initialize the loading.
 			$gallery.fgImageViewer().fgLoader( $.extend(true, loader, {
 				oninit: function(){
@@ -106,6 +112,5 @@
 	});
 
 })(
-	FooGallery,
-	FooGallery.utils.is
+	FooGallery
 );

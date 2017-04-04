@@ -1,11 +1,42 @@
-.foogallery-container.foogallery-loading,
-.foogallery-item.foogallery-loading,
-.foogallery-thumb img.foogallery-loading {
-	background-repeat: no-repeat;
-	background-position: center;
-	background-color: transparent;
-	background-image: url('../img/loading.gif');
+/*.foogallery-container.foogallery-loading,*/
+/*.foogallery-item.foogallery-loading,*/
+/*.foogallery-thumb img.foogallery-loading {*/
+	/*background-repeat: no-repeat;*/
+	/*background-position: center;*/
+	/*background-color: transparent;*/
+	/*background-image: url('../img/loading.gif');*/
+/*}*/
+
+/* Caption Styles */
+.foogallery-container .foogallery-caption {
+	display: none;
+	background-color: rgba(0,0,0,0.8);
+	position: absolute;
+	z-index: 100;
+	-webkit-transition: all 300ms ease-out;
+	-moz-transition: all 300ms ease-out;
+	-o-transition: all 300ms ease-out;
+	transition: all 300ms ease-out;
+	width: 100%;
+	overflow: hidden;
+	font-size: 12px;
+	font-weight: 300;
+	line-height: 1.2;
+	font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
+
+.foogallery-container .foogallery-caption-title,
+.foogallery-container .foogallery-caption-desc {
+	color: #fff;
+	padding: 5px;
+}
+.foogallery-container .foogallery-caption-title+.foogallery-caption-desc {
+	padding-top: 0;
+}
+.foogallery-container .foogallery-caption-title {
+	font-size: 14px;
+}
+
 /* Border styles */
 .foogallery-container.border-style-rounded .foogallery-item-inner {
 	-webkit-border-radius: 5px;
@@ -274,35 +305,6 @@ only screen and (min-resolution: 2.25dppx) {
 	background: none;
 }
 
-.foogallery-container .foogallery-caption {
-	display: none;
-	background-color: rgba(0,0,0,0.8);
-	position: absolute;
-	z-index: 100;
-	-webkit-transition: all 300ms ease-out;
-	-moz-transition: all 300ms ease-out;
-	-o-transition: all 300ms ease-out;
-	transition: all 300ms ease-out;
-	width: 100%;
-	overflow: hidden;
-	font-size: 12px;
-	font-weight: 300;
-	line-height: 1.2;
-	font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-}
-
-.foogallery-container.hover-effect-caption .foogallery-caption-title,
-.foogallery-container.hover-effect-caption .foogallery-caption-desc {
-	color: #fff;
-	padding: 5px;
-}
-.foogallery-container.hover-effect-caption .foogallery-caption-title+.foogallery-caption-desc {
-	padding-top: 0;
-}
-.foogallery-container.hover-effect-caption .foogallery-caption-title {
-	font-size: 14px;
-}
-
 .foogallery-container.hover-effect-caption.hover-caption-simple .foogallery-caption {
 	bottom: 0;
 	display: block;
@@ -534,4 +536,18 @@ only screen and (min-resolution: 2.25dppx) {
 	visibility: visible;
 	opacity: 1;
 	transform: rotateY(0deg);
+}
+.foogallery-container .foogallery-loading,
+.foogallery-container.loading-icon-none .foogallery-loading {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: transparent;
+	background-image: none;
+}
+.foogallery-container.loading-icon-default .foogallery-loading {
+	background-image: url('../img/loading-icon-default.gif');
+}
+.foogallery-container.loading-icon-facebook .foogallery-loading {
+	background-color: #FFF;
+	background-image: url('../img/loading-icon-facebook.gif');
 }

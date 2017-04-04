@@ -30,7 +30,8 @@ module.exports = function ( grunt ) {
 						"./src/core/css/_foogallery.css",
 						"./src/core/css/border-styles.css",
 						"./src/core/css/hover-effects.css",
-						"./src/core/css/loaded-effects.css"
+						"./src/core/css/loaded-effects.css",
+						"./src/core/css/loading-icons.css"
 					]
 				}
 			},
@@ -86,6 +87,16 @@ module.exports = function ( grunt ) {
 						"./src/templates/simple-portfolio/css/simple-portfolio.css"
 					]
 				}
+			},
+			"single-thumbnail": {
+				"files": {
+					"./dist/templates/single-thumbnail/js/foogallery.single-thumbnail.js": [
+						"./src/templates/single-thumbnail/js/ready.js"
+					],
+					"./dist/templates/single-thumbnail/css/foogallery.single-thumbnail.css": [
+						"./src/templates/single-thumbnail/css/single-thumbnail.css"
+					]
+				}
 			}
 		},
 		"uglify": {
@@ -127,6 +138,11 @@ module.exports = function ( grunt ) {
 			"simple-portfolio": {
 				"files": {
 					"./dist/templates/simple-portfolio/js/foogallery.simple-portfolio.min.js": "./dist/templates/simple-portfolio/js/foogallery.simple-portfolio.js"
+				}
+			},
+			"single-thumbnail": {
+				"files": {
+					"./dist/templates/single-thumbnail/js/foogallery.single-thumbnail.min.js": "./dist/templates/single-thumbnail/js/foogallery.single-thumbnail.js"
 				}
 			}
 		},
@@ -170,6 +186,11 @@ module.exports = function ( grunt ) {
 				"files": {
 					"./dist/templates/simple-portfolio/css/foogallery.simple-portfolio.min.css": "./dist/templates/simple-portfolio/css/foogallery.simple-portfolio.css"
 				}
+			},
+			"single-thumbnail": {
+				"files": {
+					"./dist/templates/single-thumbnail/css/foogallery.single-thumbnail.min.css": "./dist/templates/single-thumbnail/css/foogallery.single-thumbnail.css"
+				}
 			}
 		},
 		"copy": {
@@ -188,7 +209,8 @@ module.exports = function ( grunt ) {
 					"./dist/templates/masonry/js/foogallery.masonry.js",
 					"./dist/templates/image-viewer/js/foogallery.image-viewer.js",
 					"./dist/templates/justified/js/foogallery.justified.js",
-					"./dist/templates/simple-portfolio/js/foogallery.simple-portfolio.js"
+					"./dist/templates/simple-portfolio/js/foogallery.simple-portfolio.js",
+					"./dist/templates/single-thumbnail/js/foogallery.single-thumbnail.js"
 				],
 				"jsdoc": "./node_modules/jsdoc/jsdoc.js",
 				"options": {
@@ -234,7 +256,10 @@ module.exports = function ( grunt ) {
 		"cssmin:justified",
 		"concat:simple-portfolio",
 		"uglify:simple-portfolio",
-		"cssmin:simple-portfolio"
+		"cssmin:simple-portfolio",
+		"concat:single-thumbnail",
+		"uglify:single-thumbnail",
+		"cssmin:single-thumbnail"
 	]);
 
 	grunt.registerTask("docs", [

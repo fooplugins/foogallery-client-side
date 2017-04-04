@@ -1,0 +1,14 @@
+.foogallery-container .foogallery-loading,
+.foogallery-container.loading-icon-none .foogallery-loading {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: transparent;
+	background-image: none;
+}
+.foogallery-container.loading-icon-default .foogallery-loading {
+	background-image: url('../img/loading-icon-default.gif');
+}
+.foogallery-container.loading-icon-facebook .foogallery-loading {
+	background-color: #FFF;
+	background-image: url('../img/loading-icon-facebook.gif');
+}
