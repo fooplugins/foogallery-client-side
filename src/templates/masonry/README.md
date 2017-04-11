@@ -27,22 +27,22 @@ The following files for the template must be included after all dependencies are
 		 data-masonry-options='{ "itemSelector" : ".item", "columnWidth" : 150, "gutter" : 10, "isFitWidth" : true }'>
 	<div class="item">
 		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000" data-attachment-id="11">
-			<img src="http://satyr.io/150x94/1?delay=1-1000" width="150" height="94" srcset="http://satyr.io/300x188/1?delay=1-1000 300w"/>
+			<img data-src="http://satyr.io/150x94/1?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/1?delay=1-1000 300w"/>
 		</a>
 	</div>
 	<div class="item">
 		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000" data-attachment-id="10">
-			<img src="http://satyr.io/150x94/2?delay=1-1000" width="150" height="94" srcset="http://satyr.io/300x188/2?delay=1-1000 300w,http://satyr.io/450x282/2?delay=1-1000 450w"/>
+			<img data-src="http://satyr.io/150x94/2?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/2?delay=1-1000 300w,http://satyr.io/450x282/2?delay=1-1000 450w"/>
 		</a>
 	</div>
 	<div class="item">
 		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/3?delay=1-1000" data-attachment-id="9">
-			<img src="http://satyr.io/150x94/3?delay=1-1000" width="150" height="94" srcset="http://satyr.io/300x188/3?delay=1-1000 300w,http://satyr.io/450x282/3?delay=1-1000 450w"/>
+			<img data-src="http://satyr.io/150x94/3?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/3?delay=1-1000 300w,http://satyr.io/450x282/3?delay=1-1000 450w"/>
 		</a>
 	</div>
 	<div class="item">
 		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/4?delay=1-1000" data-attachment-id="8">
-			<img src="http://satyr.io/150x94/4?delay=1-1000" width="150" height="94" srcset="http://satyr.io/300x188/4?delay=1-1000 300w,http://satyr.io/450x282/4?delay=1-1000 450w"/>
+			<img data-src="http://satyr.io/150x94/4?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/4?delay=1-1000 300w,http://satyr.io/450x282/4?delay=1-1000 450w"/>
 		</a>
 	</div>
 </div>
@@ -133,6 +133,60 @@ The following files for the template must be included after all dependencies are
 	<div class="foogallery-item">
 		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/4?delay=1-1000">
 			<img data-src="http://satyr.io/150x94/4?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/4?delay=1-1000 300w,http://satyr.io/450x282/4?delay=1-1000 450w"/>
+		</a>
+	</div>
+</div>
+```
+
+### Captions
+
+This template supports the default `foogallery-caption` markup as seen below, this allows it to use the various caption hover effects available in the core files.
+
+```html
+<div id="foogallery-gallery-1" class="foogallery-container foogallery-loading foogallery-masonry masonry-layout-fixed"
+		 data-masonry-options='{ "itemSelector" : ".item", "columnWidth" : 150, "gutter" : 10, "isFitWidth" : true }'>
+	<div class="item">
+		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000" data-attachment-id="11">
+			<img data-src="http://satyr.io/150x94/1?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/1?delay=1-1000 300w"/>
+			<div class="foogallery-caption">
+				<div class="foogallery-caption-inner">
+					<div class="foogallery-caption-title">Title</div>
+					<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+				</div>
+			</div>
+		</a>
+	</div>
+	<div class="item">
+		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000" data-attachment-id="10">
+			<img data-src="http://satyr.io/150x94/2?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/2?delay=1-1000 300w,http://satyr.io/450x282/2?delay=1-1000 450w"/>
+			<div class="foogallery-caption">
+				<div class="foogallery-caption-inner">
+					<div class="foogallery-caption-title">Title</div>
+					<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+				</div>
+			</div>
+		</a>
+	</div>
+	<div class="item">
+		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/3?delay=1-1000" data-attachment-id="9">
+			<img data-src="http://satyr.io/150x94/3?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/3?delay=1-1000 300w,http://satyr.io/450x282/3?delay=1-1000 450w"/>
+			<div class="foogallery-caption">
+				<div class="foogallery-caption-inner">
+					<div class="foogallery-caption-title">Title</div>
+					<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+				</div>
+			</div>
+		</a>
+	</div>
+	<div class="item">
+		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/4?delay=1-1000" data-attachment-id="8">
+			<img data-src="http://satyr.io/150x94/4?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/4?delay=1-1000 300w,http://satyr.io/450x282/4?delay=1-1000 450w"/>
+			<div class="foogallery-caption">
+				<div class="foogallery-caption-inner">
+					<div class="foogallery-caption-title">Title</div>
+					<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+				</div>
+			</div>
 		</a>
 	</div>
 </div>

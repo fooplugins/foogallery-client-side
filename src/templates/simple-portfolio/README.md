@@ -74,6 +74,10 @@ The following files for the template must be included after all dependencies are
 </div>
 ```
 
+### Captions
+
+This template does not support the default `foogallery-caption` markup as it has custom captions which are always visible. This means the caption hover effects found in the core files do not work with this template.
+
 #### Notes
 
 - The `width` and `height` attributes are required on each `<img/>` to prevent layout jumps while loading images.
