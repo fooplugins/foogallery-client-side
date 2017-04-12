@@ -4,7 +4,7 @@
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
-.foogallery-container.foogallery-masonry {
+.foogallery-container.foogallery-masonry.alignment-center {
 	margin: 0 auto;
 }
 .foogallery-masonry > .foogallery-item > .foogallery-thumb {

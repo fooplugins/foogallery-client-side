@@ -52,7 +52,7 @@
 	z-index: 1;
 }
 
-.fg-sp-captions-above .foogallery-thumb {
+.foogallery-container.foogallery-simple-portfolio.fg-sp-captions-above .foogallery-item.positioned .foogallery-thumb {
 	position: absolute;
 	bottom: 0;
 	left: 0;

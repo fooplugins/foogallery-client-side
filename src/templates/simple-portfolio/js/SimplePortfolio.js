@@ -64,7 +64,7 @@
 						top: item.top,
 						left: item.left,
 						display: ""
-					});
+					}).addClass("positioned");
 				} else {
 					item.$item.css("display", "none");
 				}
