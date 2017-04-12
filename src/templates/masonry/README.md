@@ -199,7 +199,7 @@ This template supports the default `foogallery-caption` markup as seen below, th
 - The `width` and `height` attributes are required on each `<img/>` to prevent layout jumps while loading images.
 - Images should use `data-src` and `data-srcset` instead of `src` and `srcset`.
 - The only difference between standard loading and lazy loading is that the `foogallery-container` has a `data-loader-options='{"lazy":true}'` attribute.
-- When using the fixed column layout the `masonry-item-width` and `masonry-item-gutter` elements *must* appear within the `foogallery-container` or else Masonry will ignore them.
+- The `masonry-item-width` and `masonry-item-gutter` elements *must* appear within the `foogallery-container` or else Masonry will ignore them.
 - To supply options to the Masonry library you must apply a `data-masonry-options` attribute to the `foogallery-container`. The value for the attribute must be a valid JSON string, including quotes around property names.
 
 ## Options
@@ -218,7 +218,7 @@ Please take a look at the [official documentation](http://masonry.desandro.com/o
 
 - `isFitWidth` has been changed to `fitWidth` in V4 of the plugin. The old name will still work but should be kept in mind for future updates.
 - `percentPosition` is only used for fixed column layouts as this allows for fluid item sizes.
-- `columnWidth` and `gutter` both pull there values from elements housed within the `foogallery-container` when using fixed column layouts.
+- `columnWidth` and `gutter` both pull there values from elements housed within the `foogallery-container` element.
 
 ### CSS
 
