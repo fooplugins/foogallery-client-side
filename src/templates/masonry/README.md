@@ -23,25 +23,26 @@ The following files for the template must be included after all dependencies are
 ### Standard (Fixed item)
 
 ```html
-<div id="foogallery-gallery-1" class="foogallery-container foogallery-loading foogallery-masonry masonry-layout-fixed"
-		 data-masonry-options='{ "itemSelector" : ".item", "columnWidth" : 150, "gutter" : 10, "isFitWidth" : true }'>
-	<div class="item">
-		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000" data-attachment-id="11">
+<div id="foogallery-gallery-1" class="foogallery-container foogallery-masonry masonry-layout-fixed"
+		 data-masonry-options='{ "itemSelector" : ".foogallery-item", "columnWidth" : "#foogallery-gallery-1 .masonry-item-width", "gutter" : 10, "isFitWidth" : true }'>
+	<div class="masonry-item-width" style="width:150px;"></div>
+	<div class="foogallery-item">
+		<a class="foogallery-thumb foogallery-item-inner" href="http://satyr.io/1920x1200/1?delay=1-1000">
 			<img data-src="http://satyr.io/150x94/1?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/1?delay=1-1000 300w"/>
 		</a>
 	</div>
-	<div class="item">
-		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000" data-attachment-id="10">
+	<div class="foogallery-item">
+		<a class="foogallery-thumb foogallery-item-inner" href="http://satyr.io/1920x1200/2?delay=1-1000">
 			<img data-src="http://satyr.io/150x94/2?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/2?delay=1-1000 300w,http://satyr.io/450x282/2?delay=1-1000 450w"/>
 		</a>
 	</div>
-	<div class="item">
-		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/3?delay=1-1000" data-attachment-id="9">
+	<div class="foogallery-item">
+		<a class="foogallery-thumb foogallery-item-inner" href="http://satyr.io/1920x1200/3?delay=1-1000">
 			<img data-src="http://satyr.io/150x94/3?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/3?delay=1-1000 300w,http://satyr.io/450x282/3?delay=1-1000 450w"/>
 		</a>
 	</div>
-	<div class="item">
-		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/4?delay=1-1000" data-attachment-id="8">
+	<div class="foogallery-item">
+		<a class="foogallery-thumb foogallery-item-inner" href="http://satyr.io/1920x1200/4?delay=1-1000">
 			<img data-src="http://satyr.io/150x94/4?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/4?delay=1-1000 300w,http://satyr.io/450x282/4?delay=1-1000 450w"/>
 		</a>
 	</div>
@@ -52,25 +53,26 @@ The following files for the template must be included after all dependencies are
 
 ```html
 <div id="foogallery-gallery-1" class="foogallery-container foogallery-masonry masonry-layout-fixed"
-		 data-masonry-options='{ "itemSelector" : ".item", "columnWidth" : 150, "gutter" : 10, "isFitWidth" : true }'
-		 data-lazy-options='{"enabled":true}'>
-	<div class="item">
-		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000" data-attachment-id="11">
+		 data-masonry-options='{ "itemSelector" : ".foogallery-item", "columnWidth" : "#foogallery-gallery-1 .masonry-item-width", "gutter" : 10, "isFitWidth" : true }'
+		 data-loader-options='{"lazy":true}'>
+	<div class="masonry-item-width" style="width:150px;"></div>
+	<div class="foogallery-item">
+		<a class="foogallery-thumb foogallery-item-inner" href="http://satyr.io/1920x1200/1?delay=1-1000">
 			<img data-src="http://satyr.io/150x94/1?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/1?delay=1-1000 300w"/>
 		</a>
 	</div>
-	<div class="item">
-		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000" data-attachment-id="10">
+	<div class="foogallery-item">
+		<a class="foogallery-thumb foogallery-item-inner" href="http://satyr.io/1920x1200/2?delay=1-1000">
 			<img data-src="http://satyr.io/150x94/2?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/2?delay=1-1000 300w,http://satyr.io/450x282/2?delay=1-1000 450w"/>
 		</a>
 	</div>
-	<div class="item">
-		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/3?delay=1-1000" data-attachment-id="9">
+	<div class="foogallery-item">
+		<a class="foogallery-thumb foogallery-item-inner" href="http://satyr.io/1920x1200/3?delay=1-1000">
 			<img data-src="http://satyr.io/150x94/3?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/3?delay=1-1000 300w,http://satyr.io/450x282/3?delay=1-1000 450w"/>
 		</a>
 	</div>
-	<div class="item">
-		<a class="foogallery-thumb" href="http://satyr.io/1920x1200/4?delay=1-1000" data-attachment-id="8">
+	<div class="foogallery-item">
+		<a class="foogallery-thumb foogallery-item-inner" href="http://satyr.io/1920x1200/4?delay=1-1000">
 			<img data-src="http://satyr.io/150x94/4?delay=1-1000" width="150" height="94" data-srcset="http://satyr.io/300x188/4?delay=1-1000 300w,http://satyr.io/450x282/4?delay=1-1000 450w"/>
 		</a>
 	</div>
@@ -222,13 +224,14 @@ Please take a look at the [official documentation](http://masonry.desandro.com/o
 
 This template supports the following CSS options by applying the specified CSS class to the `foogallery-container` element.
 
-| Class Name              | Description                                                              |
-|-------------------------|--------------------------------------------------------------------------|
-| `masonry-layout-fixed`  | Applied to fixed item width layouts, removes any CSS width restrictions. |
-| `masonry-layout-2col`   | Applied to fixed column layouts with only two columns.                   |
-| `masonry-layout-3col`   | Applied to fixed column layouts with only three columns.                 |
-| `masonry-layout-4col`   | Applied to fixed column layouts with only four columns.                  |
-| `masonry-layout-5col`   | Applied to fixed column layouts with only five columns.                  |
+| Class Name              | Description                                                                                                                                                                                                            |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `masonry-layout-fixed`  | Applied to fixed item width layouts, removes any CSS width restrictions.                                                                                                                                               |
+| `masonry-layout-2col`   | Applied to fixed column layouts with only two columns.                                                                                                                                                                 |
+| `masonry-layout-3col`   | Applied to fixed column layouts with only three columns.                                                                                                                                                               |
+| `masonry-layout-4col`   | Applied to fixed column layouts with only four columns.                                                                                                                                                                |
+| `masonry-layout-5col`   | Applied to fixed column layouts with only five columns.                                                                                                                                                                |
+| `alignment-center`      | By default the gallery items are simply laid out left to right which may result in additional space on the right of the gallery. Applying this class will center align the items evening out the space on either side. |
 
 ## Hover Effects
 

@@ -1,25 +1,27 @@
-/* Loading Styles */
-.foogallery-masonry.foogallery-loading {
-	min-height: 11px;
-}
-
-.foogallery-masonry.foogallery-loading > .foogallery-item {
-	visibility: hidden;
-}
-
 /* Base styles */
 .foogallery-masonry * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
-
+.foogallery-container.foogallery-masonry.alignment-center {
+	margin: 0 auto;
+}
 .foogallery-masonry > .foogallery-item > .foogallery-thumb {
 	display: block;
 }
-
 .foogallery-masonry.masonry-layout-fixed > .foogallery-item > .foogallery-thumb {
 	display: inline-block;
+}
+.foogallery-masonry .masonry-item-width {
+	display: inline-block;
+	visibility: hidden;
+	height: 0;
+}
+.foogallery-masonry.masonry-layout-fixed .masonry-item-width {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
 }
 
 .foogallery-masonry.masonry-layout-5col > .foogallery-item > .foogallery-thumb > img,
@@ -134,4 +136,14 @@
 	.foogallery-masonry.masonry-layout-4col .masonry-gutter-width,
 	.foogallery-masonry.masonry-layout-3col .masonry-gutter-width,
 	.foogallery-masonry.masonry-layout-2col .masonry-gutter-width { width: 0; }
+}
+
+/* Border Styles - We must apply width changing border styles to the masonry-item-width element so that the plugin can correctly determine the item widths. */
+.foogallery-masonry.border-style-square-white .masonry-item-width,
+.foogallery-masonry.border-style-circle-white .masonry-item-width {
+	border: 5px solid #FFF !important;
+}
+.foogallery-masonry.border-style-square-black .masonry-item-width,
+.foogallery-masonry.border-style-circle-black .masonry-item-width {
+	border: 3px solid #000 !important;
 }
