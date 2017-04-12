@@ -35,6 +35,16 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
+			"admin": {
+				"files": {
+					"./dist/admin/js/foogallery.admin.js": [
+						"./src/admin/js/vertical-tabs.js"
+					],
+					"./dist/admin/css/foogallery.admin.css": [
+						"./src/admin/css/vertical-tabs.css"
+					]
+				}
+			},
 			"responsive": {
 				"files": {
 					"./dist/templates/responsive/js/foogallery.responsive.js": [
@@ -115,6 +125,11 @@ module.exports = function ( grunt ) {
 					"./dist/core/js/foogallery.min.js": "./dist/core/js/foogallery.js"
 				}
 			},
+			"admin": {
+				"files": {
+					"./dist/admin/js/foogallery.admin.min.js": "./dist/admin/js/foogallery.admin.js"
+				}
+			},
 			"responsive": {
 				"files": {
 					"./dist/templates/responsive/js/foogallery.responsive.min.js": "./dist/templates/responsive/js/foogallery.responsive.js"
@@ -160,6 +175,11 @@ module.exports = function ( grunt ) {
 			"core": {
 				"files": {
 					"./dist/core/css/foogallery.min.css": "./dist/core/css/foogallery.css"
+				}
+			},
+			"admin": {
+				"files": {
+					"./dist/admin/css/foogallery.admin.min.css": "./dist/admin/css/foogallery.admin.css"
 				}
 			},
 			"responsive": {
@@ -242,6 +262,9 @@ module.exports = function ( grunt ) {
 		"uglify:core",
 		"cssmin:core",
 		"copy:core",
+		"concat:admin",
+		"uglify:admin",
+		"cssmin:admin",
 		"concat:responsive",
 		"uglify:responsive",
 		"cssmin:responsive",
