@@ -1,11 +1,4 @@
 /* Loading Styles */
-.foogallery-simple-portfolio.foogallery-loading {
-	min-height: 11px;
-}
-
-.foogallery-simple-portfolio.foogallery-loading .foogallery-item {
-	visibility: hidden;
-}
 .foogallery-simple-portfolio .foogallery-thumb > img.foogallery-loading {
 	width: 100%;
 	height: 100%;

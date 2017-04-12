@@ -1,11 +1,4 @@
 /* Loading Styles */
-.foogallery-justified.foogallery-loading {
-	min-height: 11px;
-}
-
-.foogallery-justified.foogallery-loading > .foogallery-item {
-	visibility: hidden;
-}
 .foogallery-justified .foogallery-thumb > img.foogallery-loading,
 .foogallery-justified .foogallery-item.justified .foogallery-thumb > img.foogallery-loading {
 	width: 100%;

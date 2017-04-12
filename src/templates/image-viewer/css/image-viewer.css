@@ -1,12 +1,3 @@
-/* Loading Styles */
-.foogallery-image-viewer.foogallery-loading {
-	min-height: 11px;
-}
-
-.foogallery-image-viewer.foogallery-loading .foogallery-item {
-	visibility: hidden;
-}
-
 /* Base styles */
 .foogallery-image-viewer {
 	display: block;
