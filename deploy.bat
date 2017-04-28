@@ -14,3 +14,6 @@ xcopy dist\templates\responsive\js\foogallery.responsive.min.js D:\Websites\wp-l
 
 xcopy dist\templates\simple-portfolio\css\foogallery.simple-portfolio.min.css D:\Websites\wp-latest-foo\wp-content\plugins\foogallery\extensions\default-templates\simple-portfolio\css\foogallery.simple-portfolio.min.css /Y /Q
 xcopy dist\templates\simple-portfolio\js\foogallery.simple-portfolio.min.js D:\Websites\wp-latest-foo\wp-content\plugins\foogallery\extensions\default-templates\simple-portfolio\js\foogallery.simple-portfolio.min.js /Y /Q
+
+xcopy dist\templates\single-thumbnail\css\foogallery.single-thumbnail.min.css D:\Websites\wp-latest-foo\wp-content\plugins\foogallery\extensions\default-templates\thumbnail\css\foogallery.single-thumbnail.min.css /Y /Q
+xcopy dist\templates\single-thumbnail\js\foogallery.single-thumbnail.min.js D:\Websites\wp-latest-foo\wp-content\plugins\foogallery\extensions\default-templates\thumbnail\js\foogallery.single-thumbnail.min.js /Y /Q
