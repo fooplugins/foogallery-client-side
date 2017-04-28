@@ -264,8 +264,10 @@
 				src = $img.attr(self.options.attrSrc),
 				srcset = $img.attr(self.options.attrSrcset);
 
+			// if there is no srcset just return the src
 			if (!_is.string(srcset)) return src;
 
+			// parse the srcset into objects containing the url, width, height and pixel density for each supplied source
 			var list = $.map(srcset.replace(/(\s[\d.]+[whx]),/g, '$1 @,@ ').split(' @,@ '), function (item) {
 				return {
 					url: self.options.regexUrl.exec(item)[1],
@@ -275,10 +277,10 @@
 				};
 			});
 
-			if (!list.length) {
-				return src;
-			}
+			// if there is no items parsed from the srcset then just return the src
+			if (!list.length) return src;
 
+			// add the current src into the mix by inspecting the first parsed item to figure out how to handle it
 			var x = list[0].w === Infinity && list[0].h === Infinity,
 				aw = parseFloat($img.attr("width")),
 				w = x ? Infinity : (isNaN(aw) ? $img.width() : aw);
@@ -290,8 +292,11 @@
 				x: 1
 			});
 
+			// get the current viewport info and use it to determine the correct src to load
 			var viewport = self.getViewportInfo(), property;
 
+			// first check each of the viewport properties against the max values of the same properties in our src array
+			// only src's with a property greater than the viewport or equal to the max are kept
 			for (property in viewport){
 				if (!viewport.hasOwnProperty(property)) continue;
 				list = $.grep(list, (function(prop, limit){
@@ -301,6 +306,8 @@
 				})(property, self.reduce(list, property, "max")));
 			}
 
+			// next reduce our src array by comparing the viewport properties against the minimum values of the same properties of each src
+			// only src's with a property equal to the minimum are kept
 			for (property in viewport){
 				if (!viewport.hasOwnProperty(property)) continue;
 				list = $.grep(list, (function(prop, limit){
@@ -310,6 +317,7 @@
 				})(property, self.reduce(list, property, "min")));
 			}
 
+			// return the first url as it is the best match for the current viewport
 			return list[0].url;
 		},
 		/**
@@ -374,7 +382,7 @@
 		 * @param {Array.<FooGallery.Loader~Srcset>} list - The array of parsed `srcset` values to reduce.
 		 * @param {string} prop - The property of each object to use in the comparison.
 		 * @param {string} fnName - The name of the `Math` function to use to perform the comparison, this should be either `"min"` or `"max"`.
-		 * @returns {FooGallery.Loader~Srcset}
+		 * @returns {number}
 		 */
 		reduce: function(list, prop, fnName){
 			return Math[fnName].apply(null, $.map(list, function(item){

@@ -5,6 +5,7 @@
 	 * @callback FooGallery~readyCallback
 	 * @param {jQuery} $ - The instance of jQuery the plugin was registered with.
 	 * @this window
+	 * @see Take a look at the {@link FooGallery.ready} method for example usage.
 	 */
 
 	/**
@@ -12,6 +13,10 @@
 	 * @memberof FooGallery
 	 * @function ready
 	 * @param {FooGallery~readyCallback} callback - The function to execute once the DOM is accessible.
+	 * @example {@caption This method can be used as a replacement for the jQuery ready callback and is used by all FooGallery plugins to avoid an error in another script stopping our plugins from running.}
+	 * FooGallery.ready(function($){
+	 * 	$(".foogallery-container").fgImageViewer();
+	 * });
 	 */
 	_.ready = function (callback) {
 		function onready(){
