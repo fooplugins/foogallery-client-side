@@ -4,7 +4,6 @@
 .foogallery-settings {
 	position: relative;
 	display: block;
-	overflow: hidden;
 	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 	font-size: 13px;
 	border: solid 1px #eee;
@@ -17,20 +16,11 @@
 
 .foogallery-vertical-tabs {
 	display: block;
-	float: left;
-	width: 150px;
-	position: relative;
-	background-color: #fafafa;
-	border-right: solid 1px #eee;
-}
-.foogallery-vertical-tabs:after {
-	display: block;
-	content: "";
 	position: absolute;
-	top: 100%;
+	top: 0;
 	left: 0;
-	width: 100%;
-	height: 9999px;
+	bottom: 0;
+	width: 150px;
 	background-color: #fafafa;
 	border-right: solid 1px #eee;
 }
@@ -71,6 +61,7 @@
 	float: right;
 	width: calc(100% - 150px);
 	background-color: #FFF;
+	min-height: 400px;
 }
 .foogallery-tab-content {
 	display: none;

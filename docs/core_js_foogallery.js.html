@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>foogallery.js</title>
+		<title>core/js/foogallery.js</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -13,7 +13,7 @@
 		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
 		<script type="text/javascript">
-			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"FooGallery","systemSummary":"A responsive jQuery lightbox plugin for displaying images, videos, iframes, PDFs and HTML content.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooGallery Copyright © 2016","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"readmeTargets":[],"stylesheets":[],"scripts":["../dist/core/js/foogallery.js"],"monospaceLinks":false,"cleverLinks":false};
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"FooGallery","systemSummary":"The Most Intuitive and Extensible Gallery Creation and Management Tool Ever Created for WordPress.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooGallery Copyright © 2016","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"readmeTargets":[],"stylesheets":[],"scripts":["../dist/core/js/foogallery.js"],"monospaceLinks":false,"cleverLinks":false};
 			window.DOCLET_TOC_ENABLED = false;
 		</script>
 </head>
@@ -37,6 +37,7 @@
 							<li class="dropdown">
 								<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 								<ul class="dropdown-menu">
+										<li><a href="FooGallery.ImageViewer.html">FooGallery.ImageViewer</a></li>
 										<li><a href="FooGallery.Loader.html">FooGallery.Loader</a></li>
 										<li><a href="FooGallery.utils.Class.html">FooGallery.utils.Class</a></li>
 										<li><a href="FooGallery.utils.Debugger.html">FooGallery.utils.Debugger</a></li>
@@ -81,7 +82,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">source</span>
-				<h1><span class="name">foogallery.js</span></h1>
+				<h1><span class="name">core/js/foogallery.js</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -119,7 +120,7 @@
 	_.$ = $;
 
 	/**
-	 * The jQuery plugin namespace.
+	 * @summary The jQuery plugin namespace.
 	 * @external "jQuery.fn"
 	 * @see {@link http://learn.jquery.com/plugins/basic-plugin-creation/|How to Create a Basic Plugin | jQuery Learning Center}
 	 */
@@ -2831,7 +2832,7 @@
 	FooGallery.utils,
 	FooGallery.utils.is
 );
-(function($, _){
+(function($, _, _is){
 
 	/**
 	 * @summary The callback for the {@link FooGallery.ready} method.
@@ -2879,18 +2880,25 @@
 	 * @memberof FooGallery
 	 * @function addSize
 	 * @param {(jQuery|HTMLElement|string)} target - The jQuery object, selector or the HTMLElement of either the `.foogallery-container`, `.foogallery-thumb` or just the actual `img` element.
+	 * @param {boolean} [checkContainer=false] - Whether or not to check the `.foogallery-container` parents' width when determining the widths of the images.
 	 * @description This method is used on page load to calculate a CSS `width` and `height` for images that have yet to be loaded. This is done to avoid layout jumps and is needed as for responsive images to work in most layouts they must have a CSS `width` of `100%` and a `height` of `auto`. This allows the browser to automatically calculate the height to display the image without causing any stretching.
 	 * The problem with this approach is that it leads to layout jumps as before the image is loaded and the browser can determine its size it is simply displayed in the page as a 0 height block at 100% width of its' container. This method fixes this issue by setting a CSS `width` and `height` for all images supplied.
 	 */
-	_.addSize = function(target){
+	_.addSize = function(target, checkContainer){
+		checkContainer = _is.boolean(checkContainer) ? checkContainer : false;
 		var $images = _.getImages(target);
 		if ($images.length){
 			$images.each(function(i, img){
 				var $img = $(img), w = parseFloat($img.attr("width")), h = parseFloat($img.attr("height"));
 				// if we have a base width and height to work with
 				if (!isNaN(w) &amp;&amp; !isNaN(h)){
-					// get the current image width and calculate the height the image should be displayed as
-					var width = $img.outerWidth(), ratio = width / w, height = h * ratio;
+					// figure out the max image width and calculate the height the image should be displayed as
+					var width = $img.outerWidth();
+					if (checkContainer){
+						width = $img.closest(".foogallery-container").parent().innerWidth();
+						width = width > w ? w : width;
+					}
+					var ratio = width / w, height = h * ratio;
 					// actually set the inline css on the image
 					$img.css({width: width,height: height});
 				}
@@ -2903,12 +2911,13 @@
 	 * @memberof external:"jQuery.fn"
 	 * @instance
 	 * @function fgAddSize
+	 * @param {boolean} [checkContainer=false] - Whether or not to check the `.foogallery-container` parents' width when determining the widths of the images.
 	 * @returns {jQuery}
 	 * @description This exposes the {@link FooGallery.addSize} method as a jQuery plugin.
 	 * @see {@link FooGallery.addSize} for more information.
 	 */
-	$.fn.fgAddSize = function(){
-		_.addSize(this);
+	$.fn.fgAddSize = function(checkContainer){
+		_.addSize(this, checkContainer);
 		return this;
 	};
 
@@ -2941,7 +2950,8 @@
 
 })(
 	FooGallery.$,
-	FooGallery
+	FooGallery,
+	FooGallery.utils.is
 );
 (function($, _, _utils, _is){
 
@@ -3462,7 +3472,7 @@
 	</div>
 	<footer>
 				<div class="copyright">FooGallery Copyright © 2016</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on 29th Mar 2017 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on 13th Apr 2017 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

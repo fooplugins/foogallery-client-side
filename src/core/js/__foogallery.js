@@ -28,7 +28,7 @@
 	_.$ = $;
 
 	/**
-	 * The jQuery plugin namespace.
+	 * @summary The jQuery plugin namespace.
 	 * @external "jQuery.fn"
 	 * @see {@link http://learn.jquery.com/plugins/basic-plugin-creation/|How to Create a Basic Plugin | jQuery Learning Center}
 	 */

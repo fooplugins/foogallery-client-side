@@ -40,20 +40,17 @@ window.lunrData = {
     "documentStore": {
       "store": {
         "index.html": [
-          "content",
-          "display",
+          "creat",
+          "creation",
+          "extens",
           "foogalleri",
-          "html",
-          "ifram",
-          "imag",
+          "galleri",
           "index",
-          "jqueri",
-          "lightbox",
-          "pdf",
-          "plugin",
+          "intuit",
+          "manag",
           "readm",
-          "respons",
-          "video"
+          "tool",
+          "wordpress"
         ],
         "list_class.html": [
           "class",
@@ -154,6 +151,196 @@ window.lunrData = {
           "us",
           "utils.class.overrid"
         ],
+        "FooGallery.utils.Factory.html": [
+          "allow",
+          "class",
+          "creat",
+          "depend",
+          "execut",
+          "factori",
+          "foogallery.utils.factori",
+          "friendli",
+          "intend",
+          "later",
+          "load",
+          "method",
+          "name",
+          "order",
+          "paramet",
+          "prioriti",
+          "regist",
+          "specifi",
+          "themselv",
+          "through",
+          "time",
+          "us",
+          "utils.factori"
+        ],
+        "FooGallery.utils.Factory.html#registered": [
+          "class",
+          "contain",
+          "factory#regist",
+          "foogallery.utils.factory#regist",
+          "lt;readonly&gt",
+          "member",
+          "object",
+          "object&gt",
+          "object.&lt;str",
+          "regist",
+          "utils.factory#regist"
+        ],
+        "FooGallery.utils.Factory.html#contains": [
+          "boolean",
+          "check",
+          "class",
+          "contain",
+          "factori",
+          "factory#contain",
+          "foogallery.utils.factory#contain",
+          "function",
+          "name",
+          "regist",
+          "suppli",
+          "us",
+          "utils.factory#contain"
+        ],
+        "FooGallery.utils.Factory.html#load": [
+          "arg1",
+          "argn",
+          "argument",
+          "array",
+          "array.&lt;object&gt",
+          "base",
+          "class",
+          "common",
+          "constructor",
+          "creat",
+          "design",
+          "determin",
+          "factory#load",
+          "foogallery.utils.factory#load",
+          "function",
+          "higher",
+          "index",
+          "instanc",
+          "interfac",
+          "load",
+          "lower",
+          "method",
+          "new",
+          "overrid",
+          "prioriti",
+          "regist",
+          "result",
+          "share",
+          "suppli",
+          "type",
+          "us",
+          "utils.factory#load",
+          "within"
+        ],
+        "FooGallery.utils.Factory.html#make": [
+          "arg1",
+          "argn",
+          "argument",
+          "class",
+          "creat",
+          "factory#mak",
+          "foogallery.utils.factory#mak",
+          "function",
+          "instanc",
+          "make",
+          "name",
+          "new",
+          "object",
+          "regist",
+          "suppli",
+          "utils.factory#mak"
+        ],
+        "FooGallery.utils.Factory.html#names": [
+          "array",
+          "array.&lt;string&gt",
+          "factory#nam",
+          "foogallery.utils.factory#nam",
+          "function",
+          "get",
+          "name",
+          "priorit",
+          "regist",
+          "utils.factory#nam"
+        ],
+        "FooGallery.utils.Factory.html#register": [
+          "boolean",
+          "case",
+          "class",
+          "constructor",
+          "creat",
+          "depend",
+          "factori",
+          "factory#regist",
+          "foogallery.utils.factory#regist",
+          "function",
+          "given",
+          "instanc",
+          "klass",
+          "load",
+          "make",
+          "method",
+          "name",
+          "new",
+          "onc",
+          "prioriti",
+          "regist",
+          "us",
+          "utils.factory#regist"
+        ],
+        "FooGallery.utils.Factory.html#.extend": [
+          "ad",
+          "allow",
+          "both",
+          "class",
+          "creat",
+          "definit",
+          "extend",
+          "factory.extend",
+          "foogallery.utils.factory.extend",
+          "function",
+          "inherit",
+          "itself",
+          "lt;static&gt",
+          "method",
+          "new",
+          "on",
+          "overrid",
+          "static",
+          "turn",
+          "us",
+          "utils.factory.extend"
+        ],
+        "FooGallery.utils.Factory.html#.override": [
+          "child",
+          "class",
+          "correct",
+          "factory.overrid",
+          "fn",
+          "foogallery.utils.class",
+          "foogallery.utils.factory.overrid",
+          "foogallery.utils.fn.addoroverrid",
+          "function",
+          "helper",
+          "intern",
+          "lt;static&gt",
+          "method",
+          "name",
+          "on",
+          "overrid",
+          "prototyp",
+          "provid",
+          "simpli",
+          "singl",
+          "us",
+          "utils.factory.overrid"
+        ],
         "FooGallery.utils.Debugger.html": [
           "abil",
           "actual",
@@ -237,20 +424,6 @@ window.lunrData = {
           "log",
           "utils.debugger#en"
         ],
-        "FooGallery.utils.Debugger.html#disable": [
-          "addit",
-          "be",
-          "consol",
-          "debugg",
-          "debugger#dis",
-          "disabl",
-          "foogallery.utils.debugger#dis",
-          "function",
-          "info",
-          "log",
-          "stop",
-          "utils.debugger#dis"
-        ],
         "FooGallery.utils.Debugger.html#log": [
           "addit",
           "along",
@@ -291,6 +464,20 @@ window.lunrData = {
           "messag",
           "replac",
           "utils.debugger#logf"
+        ],
+        "FooGallery.utils.Debugger.html#disable": [
+          "addit",
+          "be",
+          "consol",
+          "debugg",
+          "debugger#dis",
+          "disabl",
+          "foogallery.utils.debugger#dis",
+          "function",
+          "info",
+          "log",
+          "stop",
+          "utils.debugger#dis"
         ],
         "FooGallery.utils.Throttle.html": [
           "around",
@@ -805,150 +992,212 @@ window.lunrData = {
           "us",
           "valu"
         ],
-        "FooGallery.utils.Factory.html": [
-          "allow",
+        "FooGallery.ImageViewer.html": [
           "class",
-          "creat",
-          "depend",
-          "execut",
-          "factori",
-          "foogallery.utils.factori",
-          "friendli",
-          "intend",
-          "later",
-          "load",
-          "method",
-          "name",
-          "order",
-          "paramet",
-          "prioriti",
-          "regist",
-          "specifi",
-          "themselv",
-          "through",
-          "time",
-          "us",
-          "utils.factori"
+          "foogalleri",
+          "foogallery.imageview",
+          "imag",
+          "imageview",
+          "main",
+          "templat",
+          "viewer"
         ],
-        "FooGallery.utils.Factory.html#registered": [
-          "class",
+        "FooGallery.ImageViewer.html#options": [
+          "copi",
+          "default",
+          "foogallery.imageviewer#opt",
+          "foogallery.imageviewer~opt",
+          "hold",
+          "imageviewer#opt",
+          "member",
+          "merg",
+          "option",
+          "plugin",
+          "properti",
+          "suppli",
+          "user"
+        ],
+        "FooGallery.ImageViewer.html#$el": [
           "contain",
-          "factory#regist",
-          "foogallery.utils.factory#regist",
-          "lt;readonly&gt",
+          "el",
+          "element",
+          "foogalleri",
+          "foogallery.imageviewer#$el",
+          "gener",
+          "imageviewer#$el",
+          "item",
+          "jqueri",
           "member",
           "object",
-          "object&gt",
-          "object.&lt;str",
-          "regist",
-          "utils.factory#regist"
+          "outer",
+          "templat",
+          "wrap"
         ],
-        "FooGallery.utils.Factory.html#contains": [
-          "boolean",
-          "check",
-          "class",
+        "FooGallery.ImageViewer.html#$items": [
           "contain",
-          "factori",
-          "factory#contain",
-          "foogallery.utils.factory#contain",
-          "function",
-          "name",
-          "regist",
-          "suppli",
-          "us",
-          "utils.factory#contain"
-        ],
-        "FooGallery.utils.Factory.html#load": [
-          "arg1",
-          "argn",
-          "argument",
-          "array",
-          "array.&lt;object&gt",
-          "base",
-          "class",
-          "common",
-          "constructor",
-          "creat",
-          "design",
-          "determin",
-          "factory#load",
-          "foogallery.utils.factory#load",
-          "function",
-          "higher",
-          "index",
-          "instanc",
-          "interfac",
-          "load",
-          "lower",
-          "method",
-          "new",
-          "overrid",
-          "prioriti",
-          "regist",
-          "result",
-          "share",
-          "suppli",
-          "type",
-          "us",
-          "utils.factory#load",
-          "within"
-        ],
-        "FooGallery.utils.Factory.html#make": [
-          "arg1",
-          "argn",
-          "argument",
-          "class",
-          "creat",
-          "factory#mak",
-          "foogallery.utils.factory#mak",
-          "function",
-          "instanc",
-          "make",
-          "name",
-          "new",
+          "foogallery.imageviewer#$item",
+          "imageviewer#$item",
+          "item",
+          "jqueri",
+          "member",
           "object",
-          "regist",
-          "suppli",
-          "utils.factory#mak"
+          "plugin"
         ],
-        "FooGallery.utils.Factory.html#names": [
-          "array",
-          "array.&lt;string&gt",
-          "factory#nam",
-          "foogallery.utils.factory#nam",
-          "function",
-          "get",
-          "name",
-          "priorit",
-          "regist",
-          "utils.factory#nam"
+        "FooGallery.ImageViewer.html#$current": [
+          "count",
+          "current",
+          "display",
+          "foogallery.imageviewer#$curr",
+          "imag",
+          "imageviewer#$curr",
+          "jqueri",
+          "member",
+          "object"
         ],
-        "FooGallery.utils.Factory.html#register": [
-          "boolean",
-          "case",
+        "FooGallery.ImageViewer.html#$prev": [
+          "button",
+          "foogallery.imageviewer#$prev",
+          "imageviewer#$prev",
+          "jqueri",
+          "member",
+          "object",
+          "prev",
+          "previou"
+        ],
+        "FooGallery.ImageViewer.html#$next": [
+          "button",
+          "foogallery.imageviewer#$next",
+          "imageviewer#$next",
+          "jqueri",
+          "member",
+          "next",
+          "object"
+        ],
+        "FooGallery.ImageViewer.html#.defaults": [
+          "default",
+          "foogallery.imageviewer.default",
+          "foogallery.imageviewer~opt",
+          "imageviewer.default",
+          "lt;static&gt",
+          "member",
+          "plugin"
+        ],
+        "FooGallery.ImageViewer.html#init": [
+          "bind",
           "class",
-          "constructor",
-          "creat",
-          "depend",
-          "factori",
-          "factory#regist",
-          "foogallery.utils.factory#regist",
+          "css",
+          "event",
+          "foogallery.imageviewer#init",
           "function",
-          "given",
-          "instanc",
-          "klass",
-          "load",
-          "make",
-          "method",
-          "name",
-          "new",
-          "onc",
-          "prioriti",
-          "regist",
-          "us",
-          "utils.factory#regist"
+          "imageviewer#init",
+          "init",
+          "initi",
+          "perform",
+          "plugin",
+          "set",
+          "up"
         ],
-        "FooGallery.utils.Factory.html#.extend": [
+        "FooGallery.ImageViewer.html#destroy": [
+          "bound",
+          "clean",
+          "destroy",
+          "event",
+          "foogallery.imageviewer#destroy",
+          "function",
+          "imageviewer#destroy",
+          "plugin",
+          "up"
+        ],
+        "FooGallery.ImageViewer.html#prev": [
+          "call",
+          "collect",
+          "count",
+          "current",
+          "display",
+          "foogallery.imageviewer#prev",
+          "function",
+          "imag",
+          "imageviewer#prev",
+          "item",
+          "method",
+          "navig",
+          "prev",
+          "previou",
+          "updat"
+        ],
+        "FooGallery.ImageViewer.html#next": [
+          "call",
+          "collect",
+          "count",
+          "current",
+          "display",
+          "foogallery.imageviewer#next",
+          "function",
+          "imag",
+          "imageviewer#next",
+          "item",
+          "method",
+          "navig",
+          "next",
+          "updat"
+        ],
+        "FooGallery.ImageViewer.html#onFooBoxPrev": [
+          "allow",
+          "display",
+          "e",
+          "event",
+          "foogallery.imageviewer#onfooboxprev",
+          "function",
+          "handl",
+          "imageviewer#onfooboxprev",
+          "lightbox",
+          "onfooboxprev",
+          "plugin",
+          "quot;foobox.previous&quot",
+          "remain",
+          "sync"
+        ],
+        "FooGallery.ImageViewer.html#onFooBoxNext": [
+          "allow",
+          "display",
+          "e",
+          "event",
+          "foogallery.imageviewer#onfooboxnext",
+          "function",
+          "handl",
+          "imageviewer#onfooboxnext",
+          "lightbox",
+          "onfooboxnext",
+          "plugin",
+          "quot;foobox.next&quot",
+          "remain",
+          "sync"
+        ],
+        "FooGallery.ImageViewer.html#onPrevClick": [
+          "button",
+          "e",
+          "event",
+          "foogallery.imageviewer#onprevclick",
+          "function",
+          "handl",
+          "imageviewer#onprevclick",
+          "onprevclick",
+          "previou",
+          "quot;click&quot"
+        ],
+        "FooGallery.ImageViewer.html#onNextClick": [
+          "button",
+          "e",
+          "event",
+          "foogallery.imageviewer#onnextclick",
+          "function",
+          "handl",
+          "imageviewer#onnextclick",
+          "next",
+          "onnextclick",
+          "quot;click&quot"
+        ],
+        "FooGallery.ImageViewer.html#.extend": [
           "ad",
           "allow",
           "both",
@@ -956,9 +1205,9 @@ window.lunrData = {
           "creat",
           "definit",
           "extend",
-          "factory.extend",
-          "foogallery.utils.factory.extend",
+          "foogallery.imageviewer.extend",
           "function",
+          "imageviewer.extend",
           "inherit",
           "itself",
           "lt;static&gt",
@@ -968,20 +1217,19 @@ window.lunrData = {
           "overrid",
           "static",
           "turn",
-          "us",
-          "utils.factory.extend"
+          "us"
         ],
-        "FooGallery.utils.Factory.html#.override": [
+        "FooGallery.ImageViewer.html#.override": [
           "child",
           "class",
           "correct",
-          "factory.overrid",
           "fn",
+          "foogallery.imageviewer.overrid",
           "foogallery.utils.class",
-          "foogallery.utils.factory.overrid",
           "foogallery.utils.fn.addoroverrid",
           "function",
           "helper",
+          "imageviewer.overrid",
           "intern",
           "lt;static&gt",
           "method",
@@ -992,8 +1240,14 @@ window.lunrData = {
           "provid",
           "simpli",
           "singl",
-          "us",
-          "utils.factory.overrid"
+          "us"
+        ],
+        "FooGallery.ImageViewer.html#~Options": [
+          "foogallery.imageviewer~opt",
+          "imageviewer~opt",
+          "option",
+          "plugin",
+          "typedef"
         ],
         "external-_jQuery.fn_.html": [
           "extern",
@@ -2277,6 +2531,7 @@ window.lunrData = {
           "browser",
           "calcul",
           "caus",
+          "checkcontain",
           "contain",
           "css",
           "determin",
@@ -2336,7 +2591,7 @@ window.lunrData = {
           "typedef"
         ]
       },
-      "length": 123
+      "length": 142
     },
     "tokenStore": {
       "root": {
@@ -2410,37 +2665,543 @@ window.lunrData = {
         "docs": {},
         "c": {
           "docs": {},
-          "o": {
+          "r": {
             "docs": {},
-            "n": {
+            "e": {
               "docs": {},
-              "t": {
+              "a": {
                 "docs": {},
-                "e": {
-                  "docs": {},
-                  "n": {
+                "t": {
+                  "docs": {
+                    "index.html": {
+                      "ref": "index.html",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.Class.html#.extend": {
+                      "ref": "FooGallery.utils.Class.html#.extend",
+                      "tf": 11.944444444444443
+                    },
+                    "FooGallery.utils.Factory.html": {
+                      "ref": "FooGallery.utils.Factory.html",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.Factory.html#load": {
+                      "ref": "FooGallery.utils.Factory.html#load",
+                      "tf": 7
+                    },
+                    "FooGallery.utils.Factory.html#make": {
+                      "ref": "FooGallery.utils.Factory.html#make",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.Factory.html#register": {
+                      "ref": "FooGallery.utils.Factory.html#register",
+                      "tf": 3.8461538461538463
+                    },
+                    "FooGallery.utils.Factory.html#.extend": {
+                      "ref": "FooGallery.utils.Factory.html#.extend",
+                      "tf": 11.944444444444443
+                    },
+                    "FooGallery.utils.Throttle.html": {
+                      "ref": "FooGallery.utils.Throttle.html",
+                      "tf": 1.2195121951219512
+                    },
+                    "FooGallery.utils.Throttle.html#.extend": {
+                      "ref": "FooGallery.utils.Throttle.html#.extend",
+                      "tf": 11.944444444444443
+                    },
+                    "FooGallery.Loader.html#.extend": {
+                      "ref": "FooGallery.Loader.html#.extend",
+                      "tf": 11.944444444444443
+                    },
+                    "FooGallery.ImageViewer.html#.extend": {
+                      "ref": "FooGallery.ImageViewer.html#.extend",
+                      "tf": 11.944444444444443
+                    },
+                    "FooGallery.utils.is.html#.promise": {
+                      "ref": "FooGallery.utils.is.html#.promise",
+                      "tf": 1.3513513513513513
+                    },
+                    "FooGallery.utils.fn.html#.arg2arr": {
+                      "ref": "FooGallery.utils.fn.html#.arg2arr",
+                      "tf": 5.555555555555555
+                    },
+                    "FooGallery.utils.url.html#.full": {
+                      "ref": "FooGallery.utils.url.html#.full",
+                      "tf": 3.125
+                    },
+                    "FooGallery.utils.obj.html#.create": {
+                      "ref": "FooGallery.utils.obj.html#.create",
+                      "tf": 614
+                    },
+                    "FooGallery.utils.transition.html#.start": {
+                      "ref": "FooGallery.utils.transition.html#.start",
+                      "tf": 1
+                    }
+                  },
+                  "i": {
                     "docs": {},
-                    "t": {
-                      "docs": {
-                        "index.html": {
-                          "ref": "index.html",
-                          "tf": 6.363636363636364
-                        },
-                        "FooGallery.utils.obj.html#.extend": {
-                          "ref": "FooGallery.utils.obj.html#.extend",
-                          "tf": 7.777777777777778
-                        },
-                        "FooGallery.utils.obj.html#.merge": {
-                          "ref": "FooGallery.utils.obj.html#.merge",
-                          "tf": 8.75
+                    "o": {
+                      "docs": {},
+                      "n": {
+                        "docs": {
+                          "index.html": {
+                            "ref": "index.html",
+                            "tf": 8.75
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "l": {
+            "docs": {},
+            "a": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "s": {
+                  "docs": {
+                    "list_class.html": {
+                      "ref": "list_class.html",
+                      "tf": 635
+                    },
+                    "FooGallery.utils.Class.html": {
+                      "ref": "FooGallery.utils.Class.html",
+                      "tf": 722.9411764705883
+                    },
+                    "FooGallery.utils.Class.html#.extend": {
+                      "ref": "FooGallery.utils.Class.html#.extend",
+                      "tf": 11.944444444444443
+                    },
+                    "FooGallery.utils.Class.html#.override": {
+                      "ref": "FooGallery.utils.Class.html#.override",
+                      "tf": 20.441176470588236
+                    },
+                    "FooGallery.utils.Factory.html": {
+                      "ref": "FooGallery.utils.Factory.html",
+                      "tf": 125.56818181818181
+                    },
+                    "FooGallery.utils.Factory.html#registered": {
+                      "ref": "FooGallery.utils.Factory.html#registered",
+                      "tf": 17.5
+                    },
+                    "FooGallery.utils.Factory.html#contains": {
+                      "ref": "FooGallery.utils.Factory.html#contains",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.Factory.html#load": {
+                      "ref": "FooGallery.utils.Factory.html#load",
+                      "tf": 11.166666666666666
+                    },
+                    "FooGallery.utils.Factory.html#make": {
+                      "ref": "FooGallery.utils.Factory.html#make",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.Factory.html#register": {
+                      "ref": "FooGallery.utils.Factory.html#register",
+                      "tf": 3.8461538461538463
+                    },
+                    "FooGallery.utils.Factory.html#.extend": {
+                      "ref": "FooGallery.utils.Factory.html#.extend",
+                      "tf": 11.944444444444443
+                    },
+                    "FooGallery.utils.Factory.html#.override": {
+                      "ref": "FooGallery.utils.Factory.html#.override",
+                      "tf": 20.441176470588236
+                    },
+                    "FooGallery.utils.Debugger.html": {
+                      "ref": "FooGallery.utils.Debugger.html",
+                      "tf": 117.64568764568764
+                    },
+                    "FooGallery.utils.Debugger.html#enabled": {
+                      "ref": "FooGallery.utils.Debugger.html#enabled",
+                      "tf": 4.545454545454546
+                    },
+                    "FooGallery.utils.Throttle.html": {
+                      "ref": "FooGallery.utils.Throttle.html",
+                      "tf": 111.21951219512195
+                    },
+                    "FooGallery.utils.Throttle.html#.extend": {
+                      "ref": "FooGallery.utils.Throttle.html#.extend",
+                      "tf": 11.944444444444443
+                    },
+                    "FooGallery.utils.Throttle.html#.override": {
+                      "ref": "FooGallery.utils.Throttle.html#.override",
+                      "tf": 20.441176470588236
+                    },
+                    "FooGallery.Loader.html": {
+                      "ref": "FooGallery.Loader.html",
+                      "tf": 127.5
+                    },
+                    "FooGallery.Loader.html#.extend": {
+                      "ref": "FooGallery.Loader.html#.extend",
+                      "tf": 11.944444444444443
+                    },
+                    "FooGallery.Loader.html#.override": {
+                      "ref": "FooGallery.Loader.html#.override",
+                      "tf": 20.441176470588236
+                    },
+                    "FooGallery.ImageViewer.html": {
+                      "ref": "FooGallery.ImageViewer.html",
+                      "tf": 121.66666666666667
+                    },
+                    "FooGallery.ImageViewer.html#init": {
+                      "ref": "FooGallery.ImageViewer.html#init",
+                      "tf": 7
+                    },
+                    "FooGallery.ImageViewer.html#.extend": {
+                      "ref": "FooGallery.ImageViewer.html#.extend",
+                      "tf": 11.944444444444443
+                    },
+                    "FooGallery.ImageViewer.html#.override": {
+                      "ref": "FooGallery.ImageViewer.html#.override",
+                      "tf": 20.441176470588236
+                    },
+                    "FooGallery.utils.fn.html#.apply": {
+                      "ref": "FooGallery.utils.fn.html#.apply",
+                      "tf": 12.916666666666666
+                    },
+                    "FooGallery.utils.transition.html#.start": {
+                      "ref": "FooGallery.utils.transition.html#.start",
+                      "tf": 1
+                    }
+                  },
+                  ".": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "x": {
+                        "docs": {},
+                        "t": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "n": {
+                              "docs": {},
+                              "d": {
+                                "docs": {
+                                  "FooGallery.utils.Class.html#.extend": {
+                                    "ref": "FooGallery.utils.Class.html#.extend",
+                                    "tf": 75
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "o": {
+                      "docs": {},
+                      "v": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          "r": {
+                            "docs": {},
+                            "r": {
+                              "docs": {},
+                              "i": {
+                                "docs": {},
+                                "d": {
+                                  "docs": {
+                                    "FooGallery.utils.Class.html#.override": {
+                                      "ref": "FooGallery.utils.Class.html#.override",
+                                      "tf": 75
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
                         }
                       }
                     }
                   },
-                  "x": {
+                  "n": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "m": {
+                        "docs": {
+                          "FooGallery.utils.transition.html#.start": {
+                            "ref": "FooGallery.utils.transition.html#.start",
+                            "tf": 25.95238095238095
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "e": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.utils.Throttle.html": {
+                      "ref": "FooGallery.utils.Throttle.html",
+                      "tf": 1.2195121951219512
+                    },
+                    "FooGallery.utils.Throttle.html#limit": {
+                      "ref": "FooGallery.utils.Throttle.html#limit",
+                      "tf": 7
+                    },
+                    "FooGallery.utils.Throttle.html#clear": {
+                      "ref": "FooGallery.utils.Throttle.html#clear",
+                      "tf": 685
+                    },
+                    "FooGallery.Loader.html#destroy": {
+                      "ref": "FooGallery.Loader.html#destroy",
+                      "tf": 10
+                    }
+                  }
+                },
+                "n": {
+                  "docs": {
+                    "FooGallery.ImageViewer.html#destroy": {
+                      "ref": "FooGallery.ImageViewer.html#destroy",
+                      "tf": 11.666666666666666
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "h": {
+            "docs": {},
+            "i": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "d": {
+                  "docs": {
+                    "FooGallery.utils.Class.html#.override": {
+                      "ref": "FooGallery.utils.Class.html#.override",
+                      "tf": 2.941176470588235
+                    },
+                    "FooGallery.utils.Factory.html#.override": {
+                      "ref": "FooGallery.utils.Factory.html#.override",
+                      "tf": 2.941176470588235
+                    },
+                    "FooGallery.utils.Throttle.html#.override": {
+                      "ref": "FooGallery.utils.Throttle.html#.override",
+                      "tf": 2.941176470588235
+                    },
+                    "FooGallery.Loader.html#.override": {
+                      "ref": "FooGallery.Loader.html#.override",
+                      "tf": 2.941176470588235
+                    },
+                    "FooGallery.ImageViewer.html#.override": {
+                      "ref": "FooGallery.ImageViewer.html#.override",
+                      "tf": 2.941176470588235
+                    },
+                    "FooGallery.utils.obj.html#~Mappings": {
+                      "ref": "FooGallery.utils.obj.html#~Mappings",
+                      "tf": 2.083333333333333
+                    },
+                    "FooGallery.utils.obj.html#~Validators": {
+                      "ref": "FooGallery.utils.obj.html#~Validators",
+                      "tf": 1.0869565217391304
+                    }
+                  }
+                }
+              }
+            },
+            "e": {
+              "docs": {},
+              "c": {
+                "docs": {},
+                "k": {
+                  "docs": {
+                    "FooGallery.utils.Factory.html#contains": {
+                      "ref": "FooGallery.utils.Factory.html#contains",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.Debugger.html#log": {
+                      "ref": "FooGallery.utils.Debugger.html#log",
+                      "tf": 3.3333333333333335
+                    },
+                    "FooGallery.Loader.html#init": {
+                      "ref": "FooGallery.Loader.html#init",
+                      "tf": 10
+                    },
+                    "FooGallery.Loader.html#destroy": {
+                      "ref": "FooGallery.Loader.html#destroy",
+                      "tf": 10
+                    },
+                    "FooGallery.Loader.html#onscroll": {
+                      "ref": "FooGallery.Loader.html#onscroll",
+                      "tf": 8.75
+                    },
+                    "FooGallery.Loader.html#check": {
+                      "ref": "FooGallery.Loader.html#check",
+                      "tf": 661.6666666666666
+                    },
+                    "FooGallery.Loader.html#intersect": {
+                      "ref": "FooGallery.Loader.html#intersect",
+                      "tf": 11.666666666666666
+                    },
+                    "FooGallery.utils.is.html": {
+                      "ref": "FooGallery.utils.is.html",
+                      "tf": 11.666666666666666
+                    },
+                    "FooGallery.utils.is.html#.array": {
+                      "ref": "FooGallery.utils.is.html#.array",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.is.html#.boolean": {
+                      "ref": "FooGallery.utils.is.html#.boolean",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.is.html#.element": {
+                      "ref": "FooGallery.utils.is.html#.element",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.is.html#.empty": {
+                      "ref": "FooGallery.utils.is.html#.empty",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.is.html#.error": {
+                      "ref": "FooGallery.utils.is.html#.error",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.is.html#.fn": {
+                      "ref": "FooGallery.utils.is.html#.fn",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.is.html#.hash": {
+                      "ref": "FooGallery.utils.is.html#.hash",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.is.html#.jq": {
+                      "ref": "FooGallery.utils.is.html#.jq",
+                      "tf": 17.5
+                    },
+                    "FooGallery.utils.is.html#.number": {
+                      "ref": "FooGallery.utils.is.html#.number",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.is.html#.object": {
+                      "ref": "FooGallery.utils.is.html#.object",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.is.html#.promise": {
+                      "ref": "FooGallery.utils.is.html#.promise",
+                      "tf": 27.387387387387385
+                    },
+                    "FooGallery.utils.is.html#.size": {
+                      "ref": "FooGallery.utils.is.html#.size",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.is.html#.string": {
+                      "ref": "FooGallery.utils.is.html#.string",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.is.html#.undef": {
+                      "ref": "FooGallery.utils.is.html#.undef",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                      "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                      "tf": 1.5625
+                    },
+                    "FooGallery.utils.fn.html#.check": {
+                      "ref": "FooGallery.utils.fn.html#.check",
+                      "tf": 602.016210739615
+                    },
+                    "FooGallery.utils.str.html#.contains": {
+                      "ref": "FooGallery.utils.str.html#.contains",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.str.html#.containsWord": {
+                      "ref": "FooGallery.utils.str.html#.containsWord",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.str.html#.endsWith": {
+                      "ref": "FooGallery.utils.str.html#.endsWith",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.str.html#.join": {
+                      "ref": "FooGallery.utils.str.html#.join",
+                      "tf": 2
+                    },
+                    "FooGallery.utils.str.html#.startsWith": {
+                      "ref": "FooGallery.utils.str.html#.startsWith",
+                      "tf": 14
+                    }
+                  },
+                  "c": {
+                    "docs": {},
+                    "o": {
+                      "docs": {},
+                      "n": {
+                        "docs": {},
+                        "t": {
+                          "docs": {},
+                          "a": {
+                            "docs": {},
+                            "i": {
+                              "docs": {},
+                              "n": {
+                                "docs": {
+                                  "FooGallery.html#.addSize": {
+                                    "ref": "FooGallery.html#.addSize",
+                                    "tf": 25
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "o": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "r": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "c": {
                     "docs": {},
                     "t": {
                       "docs": {
+                        "FooGallery.utils.Class.html#.override": {
+                          "ref": "FooGallery.utils.Class.html#.override",
+                          "tf": 2.941176470588235
+                        },
+                        "FooGallery.utils.Factory.html#.override": {
+                          "ref": "FooGallery.utils.Factory.html#.override",
+                          "tf": 2.941176470588235
+                        },
+                        "FooGallery.utils.Throttle.html#.override": {
+                          "ref": "FooGallery.utils.Throttle.html#.override",
+                          "tf": 2.941176470588235
+                        },
+                        "FooGallery.Loader.html#parse": {
+                          "ref": "FooGallery.Loader.html#parse",
+                          "tf": 4.666666666666667
+                        },
+                        "FooGallery.Loader.html#.override": {
+                          "ref": "FooGallery.Loader.html#.override",
+                          "tf": 2.941176470588235
+                        },
+                        "FooGallery.ImageViewer.html#.override": {
+                          "ref": "FooGallery.ImageViewer.html#.override",
+                          "tf": 2.941176470588235
+                        },
                         "FooGallery.utils.fn.html#.check": {
                           "ref": "FooGallery.utils.fn.html#.check",
                           "tf": 1.0638297872340425
@@ -2448,13 +3209,39 @@ window.lunrData = {
                       }
                     }
                   }
-                },
+                }
+              },
+              "e": {
+                "docs": {
+                  "FooGallery.Loader.html": {
+                    "ref": "FooGallery.Loader.html",
+                    "tf": 17.5
+                  },
+                  "FooGallery.html": {
+                    "ref": "FooGallery.html",
+                    "tf": 14
+                  }
+                }
+              }
+            },
+            "n": {
+              "docs": {},
+              "t": {
+                "docs": {},
                 "a": {
                   "docs": {},
                   "i": {
                     "docs": {},
                     "n": {
                       "docs": {
+                        "FooGallery.utils.Factory.html#registered": {
+                          "ref": "FooGallery.utils.Factory.html#registered",
+                          "tf": 17.5
+                        },
+                        "FooGallery.utils.Factory.html#contains": {
+                          "ref": "FooGallery.utils.Factory.html#contains",
+                          "tf": 617.0833333333334
+                        },
                         "FooGallery.Loader.html#options": {
                           "ref": "FooGallery.Loader.html#options",
                           "tf": 10
@@ -2463,13 +3250,13 @@ window.lunrData = {
                           "ref": "FooGallery.Loader.html#imgSelector",
                           "tf": 11.666666666666666
                         },
-                        "FooGallery.utils.Factory.html#registered": {
-                          "ref": "FooGallery.utils.Factory.html#registered",
-                          "tf": 17.5
+                        "FooGallery.ImageViewer.html#$el": {
+                          "ref": "FooGallery.ImageViewer.html#$el",
+                          "tf": 5.555555555555555
                         },
-                        "FooGallery.utils.Factory.html#contains": {
-                          "ref": "FooGallery.utils.Factory.html#contains",
-                          "tf": 617.0833333333334
+                        "FooGallery.ImageViewer.html#$items": {
+                          "ref": "FooGallery.ImageViewer.html#$items",
+                          "tf": 14
                         },
                         "FooGallery.utils.html": {
                           "ref": "FooGallery.utils.html",
@@ -2563,57 +3350,39 @@ window.lunrData = {
                       }
                     }
                   }
-                }
-              },
-              "s": {
-                "docs": {},
-                "o": {
+                },
+                "e": {
                   "docs": {},
-                  "l": {
-                    "docs": {
-                      "FooGallery.utils.Debugger.html": {
-                        "ref": "FooGallery.utils.Debugger.html",
-                        "tf": 2.564102564102564
-                      },
-                      "FooGallery.utils.Debugger.html#enable": {
-                        "ref": "FooGallery.utils.Debugger.html#enable",
-                        "tf": 10
-                      },
-                      "FooGallery.utils.Debugger.html#disable": {
-                        "ref": "FooGallery.utils.Debugger.html#disable",
-                        "tf": 8.75
-                      },
-                      "FooGallery.utils.Debugger.html#log": {
-                        "ref": "FooGallery.utils.Debugger.html#log",
-                        "tf": 10
-                      },
-                      "FooGallery.utils.Debugger.html#logf": {
-                        "ref": "FooGallery.utils.Debugger.html#logf",
-                        "tf": 10
+                  "x": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.fn.html#.check": {
+                          "ref": "FooGallery.utils.fn.html#.check",
+                          "tf": 1.0638297872340425
+                        }
                       }
-                    },
-                    "e": {
-                      "docs": {},
-                      ".": {
-                        "docs": {},
-                        "l": {
-                          "docs": {},
-                          "o": {
-                            "docs": {},
-                            "g": {
-                              "docs": {
-                                "FooGallery.utils.Debugger.html#log": {
-                                  "ref": "FooGallery.utils.Debugger.html#log",
-                                  "tf": 3.3333333333333335
-                                }
-                              }
-                            }
-                          }
+                    }
+                  },
+                  "n": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.obj.html#.extend": {
+                          "ref": "FooGallery.utils.obj.html#.extend",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.utils.obj.html#.merge": {
+                          "ref": "FooGallery.utils.obj.html#.merge",
+                          "tf": 8.75
                         }
                       }
                     }
                   }
-                },
+                }
+              },
+              "s": {
+                "docs": {},
                 "t": {
                   "docs": {},
                   "r": {
@@ -2639,6 +3408,53 @@ window.lunrData = {
                                 "FooGallery.utils.fn.html#.apply": {
                                   "ref": "FooGallery.utils.fn.html#.apply",
                                   "tf": 12.916666666666666
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "o": {
+                  "docs": {},
+                  "l": {
+                    "docs": {
+                      "FooGallery.utils.Debugger.html": {
+                        "ref": "FooGallery.utils.Debugger.html",
+                        "tf": 2.564102564102564
+                      },
+                      "FooGallery.utils.Debugger.html#enable": {
+                        "ref": "FooGallery.utils.Debugger.html#enable",
+                        "tf": 10
+                      },
+                      "FooGallery.utils.Debugger.html#log": {
+                        "ref": "FooGallery.utils.Debugger.html#log",
+                        "tf": 10
+                      },
+                      "FooGallery.utils.Debugger.html#logf": {
+                        "ref": "FooGallery.utils.Debugger.html#logf",
+                        "tf": 10
+                      },
+                      "FooGallery.utils.Debugger.html#disable": {
+                        "ref": "FooGallery.utils.Debugger.html#disable",
+                        "tf": 8.75
+                      }
+                    },
+                    "e": {
+                      "docs": {},
+                      ".": {
+                        "docs": {},
+                        "l": {
+                          "docs": {},
+                          "o": {
+                            "docs": {},
+                            "g": {
+                              "docs": {
+                                "FooGallery.utils.Debugger.html#log": {
+                                  "ref": "FooGallery.utils.Debugger.html#log",
+                                  "tf": 3.3333333333333335
                                 }
                               }
                             }
@@ -2699,97 +3515,8 @@ window.lunrData = {
                 }
               }
             },
-            "r": {
-              "docs": {},
-              "r": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "c": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.Class.html#.override": {
-                          "ref": "FooGallery.utils.Class.html#.override",
-                          "tf": 2.941176470588235
-                        },
-                        "FooGallery.utils.Throttle.html#.override": {
-                          "ref": "FooGallery.utils.Throttle.html#.override",
-                          "tf": 2.941176470588235
-                        },
-                        "FooGallery.Loader.html#parse": {
-                          "ref": "FooGallery.Loader.html#parse",
-                          "tf": 4.666666666666667
-                        },
-                        "FooGallery.Loader.html#.override": {
-                          "ref": "FooGallery.Loader.html#.override",
-                          "tf": 2.941176470588235
-                        },
-                        "FooGallery.utils.Factory.html#.override": {
-                          "ref": "FooGallery.utils.Factory.html#.override",
-                          "tf": 2.941176470588235
-                        },
-                        "FooGallery.utils.fn.html#.check": {
-                          "ref": "FooGallery.utils.fn.html#.check",
-                          "tf": 1.0638297872340425
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "e": {
-                "docs": {
-                  "FooGallery.Loader.html": {
-                    "ref": "FooGallery.Loader.html",
-                    "tf": 17.5
-                  },
-                  "FooGallery.html": {
-                    "ref": "FooGallery.html",
-                    "tf": 14
-                  }
-                }
-              }
-            },
-            "d": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "FooGallery.utils.Debugger.html": {
-                    "ref": "FooGallery.utils.Debugger.html",
-                    "tf": 1.282051282051282
-                  },
-                  "FooGallery.utils.Throttle.html": {
-                    "ref": "FooGallery.utils.Throttle.html",
-                    "tf": 19.9390243902439
-                  },
-                  "FooGallery.utils.html": {
-                    "ref": "FooGallery.utils.html",
-                    "tf": 7.777777777777778
-                  },
-                  "FooGallery.html": {
-                    "ref": "FooGallery.html",
-                    "tf": 16.77777777777778
-                  }
-                }
-              }
-            },
             "m": {
               "docs": {},
-              "b": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "n": {
-                    "docs": {
-                      "FooGallery.Loader.html#options": {
-                        "ref": "FooGallery.Loader.html#options",
-                        "tf": 10
-                      }
-                    }
-                  }
-                }
-              },
               "m": {
                 "docs": {},
                 "o": {
@@ -2831,6 +3558,20 @@ window.lunrData = {
                       "FooGallery.utils.transition.html": {
                         "ref": "FooGallery.utils.transition.html",
                         "tf": 8.75
+                      }
+                    }
+                  }
+                }
+              },
+              "b": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "FooGallery.Loader.html#options": {
+                        "ref": "FooGallery.Loader.html#options",
+                        "tf": 10
                       }
                     }
                   }
@@ -2946,10 +3687,37 @@ window.lunrData = {
                 }
               }
             },
+            "d": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "FooGallery.utils.Debugger.html": {
+                    "ref": "FooGallery.utils.Debugger.html",
+                    "tf": 1.282051282051282
+                  },
+                  "FooGallery.utils.Throttle.html": {
+                    "ref": "FooGallery.utils.Throttle.html",
+                    "tf": 19.9390243902439
+                  },
+                  "FooGallery.utils.html": {
+                    "ref": "FooGallery.utils.html",
+                    "tf": 7.777777777777778
+                  },
+                  "FooGallery.html": {
+                    "ref": "FooGallery.html",
+                    "tf": 16.77777777777778
+                  }
+                }
+              }
+            },
             "p": {
               "docs": {},
               "i": {
                 "docs": {
+                  "FooGallery.ImageViewer.html#options": {
+                    "ref": "FooGallery.ImageViewer.html#options",
+                    "tf": 6.25
+                  },
                   "FooGallery.utils.obj.html#.extend": {
                     "ref": "FooGallery.utils.obj.html#.extend",
                     "tf": 2.631578947368421
@@ -2960,476 +3728,46 @@ window.lunrData = {
                   }
                 }
               }
-            }
-          },
-          "l": {
-            "docs": {},
-            "a": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "s": {
-                  "docs": {
-                    "list_class.html": {
-                      "ref": "list_class.html",
-                      "tf": 635
-                    },
-                    "FooGallery.utils.Class.html": {
-                      "ref": "FooGallery.utils.Class.html",
-                      "tf": 722.9411764705883
-                    },
-                    "FooGallery.utils.Class.html#.extend": {
-                      "ref": "FooGallery.utils.Class.html#.extend",
-                      "tf": 11.944444444444443
-                    },
-                    "FooGallery.utils.Class.html#.override": {
-                      "ref": "FooGallery.utils.Class.html#.override",
-                      "tf": 20.441176470588236
-                    },
-                    "FooGallery.utils.Debugger.html": {
-                      "ref": "FooGallery.utils.Debugger.html",
-                      "tf": 117.64568764568764
-                    },
-                    "FooGallery.utils.Debugger.html#enabled": {
-                      "ref": "FooGallery.utils.Debugger.html#enabled",
-                      "tf": 4.545454545454546
-                    },
-                    "FooGallery.utils.Throttle.html": {
-                      "ref": "FooGallery.utils.Throttle.html",
-                      "tf": 111.21951219512195
-                    },
-                    "FooGallery.utils.Throttle.html#.extend": {
-                      "ref": "FooGallery.utils.Throttle.html#.extend",
-                      "tf": 11.944444444444443
-                    },
-                    "FooGallery.utils.Throttle.html#.override": {
-                      "ref": "FooGallery.utils.Throttle.html#.override",
-                      "tf": 20.441176470588236
-                    },
-                    "FooGallery.Loader.html": {
-                      "ref": "FooGallery.Loader.html",
-                      "tf": 127.5
-                    },
-                    "FooGallery.Loader.html#.extend": {
-                      "ref": "FooGallery.Loader.html#.extend",
-                      "tf": 11.944444444444443
-                    },
-                    "FooGallery.Loader.html#.override": {
-                      "ref": "FooGallery.Loader.html#.override",
-                      "tf": 20.441176470588236
-                    },
-                    "FooGallery.utils.Factory.html": {
-                      "ref": "FooGallery.utils.Factory.html",
-                      "tf": 125.56818181818181
-                    },
-                    "FooGallery.utils.Factory.html#registered": {
-                      "ref": "FooGallery.utils.Factory.html#registered",
-                      "tf": 17.5
-                    },
-                    "FooGallery.utils.Factory.html#contains": {
-                      "ref": "FooGallery.utils.Factory.html#contains",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.Factory.html#load": {
-                      "ref": "FooGallery.utils.Factory.html#load",
-                      "tf": 11.166666666666666
-                    },
-                    "FooGallery.utils.Factory.html#make": {
-                      "ref": "FooGallery.utils.Factory.html#make",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.Factory.html#register": {
-                      "ref": "FooGallery.utils.Factory.html#register",
-                      "tf": 3.8461538461538463
-                    },
-                    "FooGallery.utils.Factory.html#.extend": {
-                      "ref": "FooGallery.utils.Factory.html#.extend",
-                      "tf": 11.944444444444443
-                    },
-                    "FooGallery.utils.Factory.html#.override": {
-                      "ref": "FooGallery.utils.Factory.html#.override",
-                      "tf": 20.441176470588236
-                    },
-                    "FooGallery.utils.fn.html#.apply": {
-                      "ref": "FooGallery.utils.fn.html#.apply",
-                      "tf": 12.916666666666666
-                    },
-                    "FooGallery.utils.transition.html#.start": {
-                      "ref": "FooGallery.utils.transition.html#.start",
-                      "tf": 1
-                    }
-                  },
-                  ".": {
-                    "docs": {},
-                    "e": {
-                      "docs": {},
-                      "x": {
-                        "docs": {},
-                        "t": {
-                          "docs": {},
-                          "e": {
-                            "docs": {},
-                            "n": {
-                              "docs": {},
-                              "d": {
-                                "docs": {
-                                  "FooGallery.utils.Class.html#.extend": {
-                                    "ref": "FooGallery.utils.Class.html#.extend",
-                                    "tf": 75
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "o": {
-                      "docs": {},
-                      "v": {
-                        "docs": {},
-                        "e": {
-                          "docs": {},
-                          "r": {
-                            "docs": {},
-                            "r": {
-                              "docs": {},
-                              "i": {
-                                "docs": {},
-                                "d": {
-                                  "docs": {
-                                    "FooGallery.utils.Class.html#.override": {
-                                      "ref": "FooGallery.utils.Class.html#.override",
-                                      "tf": 75
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "n": {
-                    "docs": {},
-                    "a": {
-                      "docs": {},
-                      "m": {
-                        "docs": {
-                          "FooGallery.utils.transition.html#.start": {
-                            "ref": "FooGallery.utils.transition.html#.start",
-                            "tf": 25.95238095238095
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
             },
-            "e": {
+            "u": {
               "docs": {},
-              "a": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.Throttle.html": {
-                      "ref": "FooGallery.utils.Throttle.html",
-                      "tf": 1.2195121951219512
-                    },
-                    "FooGallery.utils.Throttle.html#limit": {
-                      "ref": "FooGallery.utils.Throttle.html#limit",
-                      "tf": 7
-                    },
-                    "FooGallery.utils.Throttle.html#clear": {
-                      "ref": "FooGallery.utils.Throttle.html#clear",
-                      "tf": 685
-                    },
-                    "FooGallery.Loader.html#destroy": {
-                      "ref": "FooGallery.Loader.html#destroy",
-                      "tf": 10
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "r": {
-            "docs": {},
-            "e": {
-              "docs": {},
-              "a": {
+              "n": {
                 "docs": {},
                 "t": {
                   "docs": {
-                    "FooGallery.utils.Class.html#.extend": {
-                      "ref": "FooGallery.utils.Class.html#.extend",
-                      "tf": 11.944444444444443
+                    "FooGallery.ImageViewer.html#$current": {
+                      "ref": "FooGallery.ImageViewer.html#$current",
+                      "tf": 11.666666666666666
                     },
-                    "FooGallery.utils.Throttle.html": {
-                      "ref": "FooGallery.utils.Throttle.html",
-                      "tf": 1.2195121951219512
+                    "FooGallery.ImageViewer.html#prev": {
+                      "ref": "FooGallery.ImageViewer.html#prev",
+                      "tf": 4.166666666666666
                     },
-                    "FooGallery.utils.Throttle.html#.extend": {
-                      "ref": "FooGallery.utils.Throttle.html#.extend",
-                      "tf": 11.944444444444443
-                    },
-                    "FooGallery.Loader.html#.extend": {
-                      "ref": "FooGallery.Loader.html#.extend",
-                      "tf": 11.944444444444443
-                    },
-                    "FooGallery.utils.Factory.html": {
-                      "ref": "FooGallery.utils.Factory.html",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.Factory.html#load": {
-                      "ref": "FooGallery.utils.Factory.html#load",
-                      "tf": 7
-                    },
-                    "FooGallery.utils.Factory.html#make": {
-                      "ref": "FooGallery.utils.Factory.html#make",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.Factory.html#register": {
-                      "ref": "FooGallery.utils.Factory.html#register",
-                      "tf": 3.8461538461538463
-                    },
-                    "FooGallery.utils.Factory.html#.extend": {
-                      "ref": "FooGallery.utils.Factory.html#.extend",
-                      "tf": 11.944444444444443
-                    },
-                    "FooGallery.utils.is.html#.promise": {
-                      "ref": "FooGallery.utils.is.html#.promise",
-                      "tf": 1.3513513513513513
-                    },
-                    "FooGallery.utils.fn.html#.arg2arr": {
-                      "ref": "FooGallery.utils.fn.html#.arg2arr",
-                      "tf": 5.555555555555555
-                    },
-                    "FooGallery.utils.url.html#.full": {
-                      "ref": "FooGallery.utils.url.html#.full",
-                      "tf": 3.125
-                    },
-                    "FooGallery.utils.obj.html#.create": {
-                      "ref": "FooGallery.utils.obj.html#.create",
-                      "tf": 614
-                    },
-                    "FooGallery.utils.transition.html#.start": {
-                      "ref": "FooGallery.utils.transition.html#.start",
-                      "tf": 1
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "h": {
-            "docs": {},
-            "i": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "d": {
-                  "docs": {
-                    "FooGallery.utils.Class.html#.override": {
-                      "ref": "FooGallery.utils.Class.html#.override",
-                      "tf": 2.941176470588235
-                    },
-                    "FooGallery.utils.Throttle.html#.override": {
-                      "ref": "FooGallery.utils.Throttle.html#.override",
-                      "tf": 2.941176470588235
-                    },
-                    "FooGallery.Loader.html#.override": {
-                      "ref": "FooGallery.Loader.html#.override",
-                      "tf": 2.941176470588235
-                    },
-                    "FooGallery.utils.Factory.html#.override": {
-                      "ref": "FooGallery.utils.Factory.html#.override",
-                      "tf": 2.941176470588235
-                    },
-                    "FooGallery.utils.obj.html#~Mappings": {
-                      "ref": "FooGallery.utils.obj.html#~Mappings",
-                      "tf": 2.083333333333333
-                    },
-                    "FooGallery.utils.obj.html#~Validators": {
-                      "ref": "FooGallery.utils.obj.html#~Validators",
-                      "tf": 1.0869565217391304
+                    "FooGallery.ImageViewer.html#next": {
+                      "ref": "FooGallery.ImageViewer.html#next",
+                      "tf": 4.166666666666666
                     }
                   }
                 }
               }
             },
-            "e": {
+            "l": {
               "docs": {},
-              "c": {
-                "docs": {},
-                "k": {
-                  "docs": {
-                    "FooGallery.utils.Debugger.html#log": {
-                      "ref": "FooGallery.utils.Debugger.html#log",
-                      "tf": 3.3333333333333335
-                    },
-                    "FooGallery.Loader.html#init": {
-                      "ref": "FooGallery.Loader.html#init",
-                      "tf": 10
-                    },
-                    "FooGallery.Loader.html#destroy": {
-                      "ref": "FooGallery.Loader.html#destroy",
-                      "tf": 10
-                    },
-                    "FooGallery.Loader.html#onscroll": {
-                      "ref": "FooGallery.Loader.html#onscroll",
-                      "tf": 8.75
-                    },
-                    "FooGallery.Loader.html#check": {
-                      "ref": "FooGallery.Loader.html#check",
-                      "tf": 661.6666666666666
-                    },
-                    "FooGallery.Loader.html#intersect": {
-                      "ref": "FooGallery.Loader.html#intersect",
-                      "tf": 11.666666666666666
-                    },
-                    "FooGallery.utils.Factory.html#contains": {
-                      "ref": "FooGallery.utils.Factory.html#contains",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.is.html": {
-                      "ref": "FooGallery.utils.is.html",
-                      "tf": 11.666666666666666
-                    },
-                    "FooGallery.utils.is.html#.array": {
-                      "ref": "FooGallery.utils.is.html#.array",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.is.html#.boolean": {
-                      "ref": "FooGallery.utils.is.html#.boolean",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.is.html#.element": {
-                      "ref": "FooGallery.utils.is.html#.element",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.is.html#.empty": {
-                      "ref": "FooGallery.utils.is.html#.empty",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.is.html#.error": {
-                      "ref": "FooGallery.utils.is.html#.error",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.is.html#.fn": {
-                      "ref": "FooGallery.utils.is.html#.fn",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.is.html#.hash": {
-                      "ref": "FooGallery.utils.is.html#.hash",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.is.html#.jq": {
-                      "ref": "FooGallery.utils.is.html#.jq",
-                      "tf": 17.5
-                    },
-                    "FooGallery.utils.is.html#.number": {
-                      "ref": "FooGallery.utils.is.html#.number",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.is.html#.object": {
-                      "ref": "FooGallery.utils.is.html#.object",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.is.html#.promise": {
-                      "ref": "FooGallery.utils.is.html#.promise",
-                      "tf": 27.387387387387385
-                    },
-                    "FooGallery.utils.is.html#.size": {
-                      "ref": "FooGallery.utils.is.html#.size",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.is.html#.string": {
-                      "ref": "FooGallery.utils.is.html#.string",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.is.html#.undef": {
-                      "ref": "FooGallery.utils.is.html#.undef",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                      "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                      "tf": 1.5625
-                    },
-                    "FooGallery.utils.fn.html#.check": {
-                      "ref": "FooGallery.utils.fn.html#.check",
-                      "tf": 602.016210739615
-                    },
-                    "FooGallery.utils.str.html#.contains": {
-                      "ref": "FooGallery.utils.str.html#.contains",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.str.html#.containsWord": {
-                      "ref": "FooGallery.utils.str.html#.containsWord",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.str.html#.endsWith": {
-                      "ref": "FooGallery.utils.str.html#.endsWith",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.str.html#.join": {
-                      "ref": "FooGallery.utils.str.html#.join",
-                      "tf": 2
-                    },
-                    "FooGallery.utils.str.html#.startsWith": {
-                      "ref": "FooGallery.utils.str.html#.startsWith",
-                      "tf": 14
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "u": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "r": {
+              "l": {
                 "docs": {},
                 "e": {
                   "docs": {},
-                  "n": {
+                  "c": {
                     "docs": {},
                     "t": {
                       "docs": {
-                        "FooGallery.utils.Debugger.html#enabled": {
-                          "ref": "FooGallery.utils.Debugger.html#enabled",
-                          "tf": 22.045454545454547
+                        "FooGallery.ImageViewer.html#prev": {
+                          "ref": "FooGallery.ImageViewer.html#prev",
+                          "tf": 21.666666666666664
                         },
-                        "FooGallery.Loader.html#loadingSelector": {
-                          "ref": "FooGallery.Loader.html#loadingSelector",
-                          "tf": 11.666666666666666
-                        },
-                        "FooGallery.Loader.html#getViewportInfo": {
-                          "ref": "FooGallery.Loader.html#getViewportInfo",
-                          "tf": 10
-                        },
-                        "FooGallery.Loader.html#getViewportBounds": {
-                          "ref": "FooGallery.Loader.html#getViewportBounds",
-                          "tf": 7.777777777777778
-                        },
-                        "FooGallery.Loader.html#~ViewportInfo": {
-                          "ref": "FooGallery.Loader.html#~ViewportInfo",
-                          "tf": 8.75
-                        },
-                        "FooGallery.utils.url.html#.full": {
-                          "ref": "FooGallery.utils.url.html#.full",
-                          "tf": 3.125
-                        },
-                        "FooGallery.utils.transition.html#.supported": {
-                          "ref": "FooGallery.utils.transition.html#.supported",
-                          "tf": 14
-                        },
-                        "FooGallery.utils.transition.html#.end": {
-                          "ref": "FooGallery.utils.transition.html#.end",
-                          "tf": 14
+                        "FooGallery.ImageViewer.html#next": {
+                          "ref": "FooGallery.ImageViewer.html#next",
+                          "tf": 21.666666666666664
                         }
                       }
                     }
@@ -3440,6 +3778,25 @@ window.lunrData = {
           },
           "a": {
             "docs": {},
+            "s": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "FooGallery.utils.Factory.html#register": {
+                    "ref": "FooGallery.utils.Factory.html#register",
+                    "tf": 3.8461538461538463
+                  },
+                  "FooGallery.utils.str.html#.camel": {
+                    "ref": "FooGallery.utils.str.html#.camel",
+                    "tf": 14
+                  },
+                  "FooGallery.utils.transition.html#.start": {
+                    "ref": "FooGallery.utils.transition.html#.start",
+                    "tf": 1
+                  }
+                }
+              }
+            },
             "u": {
               "docs": {},
               "s": {
@@ -3466,6 +3823,14 @@ window.lunrData = {
                   "FooGallery.utils.Throttle.html#id": {
                     "ref": "FooGallery.utils.Throttle.html#id",
                     "tf": 17.5
+                  },
+                  "FooGallery.ImageViewer.html#prev": {
+                    "ref": "FooGallery.ImageViewer.html#prev",
+                    "tf": 4.166666666666666
+                  },
+                  "FooGallery.ImageViewer.html#next": {
+                    "ref": "FooGallery.ImageViewer.html#next",
+                    "tf": 4.166666666666666
                   },
                   "FooGallery.utils.fn.html#.addOrOverride": {
                     "ref": "FooGallery.utils.fn.html#.addOrOverride",
@@ -3541,25 +3906,6 @@ window.lunrData = {
                 }
               }
             },
-            "s": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "FooGallery.utils.Factory.html#register": {
-                    "ref": "FooGallery.utils.Factory.html#register",
-                    "tf": 3.8461538461538463
-                  },
-                  "FooGallery.utils.str.html#.camel": {
-                    "ref": "FooGallery.utils.str.html#.camel",
-                    "tf": 14
-                  },
-                  "FooGallery.utils.transition.html#.start": {
-                    "ref": "FooGallery.utils.transition.html#.start",
-                    "tf": 1
-                  }
-                }
-              }
-            },
             "n": {
               "docs": {},
               "'": {
@@ -3589,10 +3935,77 @@ window.lunrData = {
               }
             }
           },
+          "u": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "r": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.Debugger.html#enabled": {
+                          "ref": "FooGallery.utils.Debugger.html#enabled",
+                          "tf": 22.045454545454547
+                        },
+                        "FooGallery.Loader.html#loadingSelector": {
+                          "ref": "FooGallery.Loader.html#loadingSelector",
+                          "tf": 11.666666666666666
+                        },
+                        "FooGallery.Loader.html#getViewportInfo": {
+                          "ref": "FooGallery.Loader.html#getViewportInfo",
+                          "tf": 10
+                        },
+                        "FooGallery.Loader.html#getViewportBounds": {
+                          "ref": "FooGallery.Loader.html#getViewportBounds",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.Loader.html#~ViewportInfo": {
+                          "ref": "FooGallery.Loader.html#~ViewportInfo",
+                          "tf": 8.75
+                        },
+                        "FooGallery.ImageViewer.html#$current": {
+                          "ref": "FooGallery.ImageViewer.html#$current",
+                          "tf": 661.6666666666666
+                        },
+                        "FooGallery.ImageViewer.html#prev": {
+                          "ref": "FooGallery.ImageViewer.html#prev",
+                          "tf": 4.166666666666666
+                        },
+                        "FooGallery.ImageViewer.html#next": {
+                          "ref": "FooGallery.ImageViewer.html#next",
+                          "tf": 4.166666666666666
+                        },
+                        "FooGallery.utils.url.html#.full": {
+                          "ref": "FooGallery.utils.url.html#.full",
+                          "tf": 3.125
+                        },
+                        "FooGallery.utils.transition.html#.supported": {
+                          "ref": "FooGallery.utils.transition.html#.supported",
+                          "tf": 14
+                        },
+                        "FooGallery.utils.transition.html#.end": {
+                          "ref": "FooGallery.utils.transition.html#.end",
+                          "tf": 14
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "s": {
             "docs": {},
             "s": {
               "docs": {
+                "FooGallery.ImageViewer.html#init": {
+                  "ref": "FooGallery.ImageViewer.html#init",
+                  "tf": 7
+                },
                 "FooGallery.utils.is.html#.size": {
                   "ref": "FooGallery.utils.is.html#.size",
                   "tf": 14
@@ -3632,390 +4045,126 @@ window.lunrData = {
             }
           }
         },
-        "d": {
-          "docs": {},
-          "i": {
+        "e": {
+          "docs": {
+            "FooGallery.Loader.html#onscroll": {
+              "ref": "FooGallery.Loader.html#onscroll",
+              "tf": 50
+            },
+            "FooGallery.ImageViewer.html#onFooBoxPrev": {
+              "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+              "tf": 50
+            },
+            "FooGallery.ImageViewer.html#onFooBoxNext": {
+              "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+              "tf": 50
+            },
+            "FooGallery.ImageViewer.html#onPrevClick": {
+              "ref": "FooGallery.ImageViewer.html#onPrevClick",
+              "tf": 50
+            },
+            "FooGallery.ImageViewer.html#onNextClick": {
+              "ref": "FooGallery.ImageViewer.html#onNextClick",
+              "tf": 50
+            }
+          },
+          "x": {
             "docs": {},
-            "s": {
+            "t": {
               "docs": {},
-              "p": {
+              "e": {
                 "docs": {},
-                "l": {
+                "n": {
                   "docs": {},
-                  "a": {
-                    "docs": {},
-                    "y": {
-                      "docs": {
-                        "index.html": {
-                          "ref": "index.html",
-                          "tf": 6.363636363636364
-                        },
-                        "FooGallery.html#.addSize": {
-                          "ref": "FooGallery.html#.addSize",
-                          "tf": 1.5873015873015872
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "a": {
-                "docs": {},
-                "b": {
-                  "docs": {},
-                  "l": {
+                  "s": {
                     "docs": {
-                      "FooGallery.utils.Debugger.html#disable": {
-                        "ref": "FooGallery.utils.Debugger.html#disable",
-                        "tf": 683.75
+                      "index.html": {
+                        "ref": "index.html",
+                        "tf": 8.75
+                      }
+                    }
+                  },
+                  "d": {
+                    "docs": {
+                      "FooGallery.utils.Class.html": {
+                        "ref": "FooGallery.utils.Class.html",
+                        "tf": 1.4705882352941175
+                      },
+                      "FooGallery.utils.Class.html#.extend": {
+                        "ref": "FooGallery.utils.Class.html#.extend",
+                        "tf": 616.1111111111112
+                      },
+                      "FooGallery.utils.Factory.html#.extend": {
+                        "ref": "FooGallery.utils.Factory.html#.extend",
+                        "tf": 616.1111111111112
+                      },
+                      "FooGallery.utils.Throttle.html#.extend": {
+                        "ref": "FooGallery.utils.Throttle.html#.extend",
+                        "tf": 616.1111111111112
+                      },
+                      "FooGallery.Loader.html#.extend": {
+                        "ref": "FooGallery.Loader.html#.extend",
+                        "tf": 641.1111111111112
+                      },
+                      "FooGallery.ImageViewer.html#.extend": {
+                        "ref": "FooGallery.ImageViewer.html#.extend",
+                        "tf": 641.1111111111112
+                      },
+                      "FooGallery.utils.obj.html#.extend": {
+                        "ref": "FooGallery.utils.obj.html#.extend",
+                        "tf": 591.6666666666666
                       }
                     }
                   }
-                }
-              },
-              "t": {
-                "docs": {},
-                "i": {
+                },
+                "r": {
                   "docs": {},
                   "n": {
-                    "docs": {},
-                    "g": {
-                      "docs": {},
-                      "u": {
-                        "docs": {},
-                        "i": {
-                          "docs": {},
-                          "s": {
-                            "docs": {},
-                            "h": {
-                              "docs": {
-                                "FooGallery.utils.is.html#.promise": {
-                                  "ref": "FooGallery.utils.is.html#.promise",
-                                  "tf": 1.3513513513513513
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "f": {
-              "docs": {},
-              "f": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "r": {
                     "docs": {
-                      "FooGallery.utils.str.html#.containsWord": {
-                        "ref": "FooGallery.utils.str.html#.containsWord",
-                        "tf": 3.3333333333333335
+                      "list_external.html": {
+                        "ref": "list_external.html",
+                        "tf": 623.3333333333334
                       },
-                      "FooGallery.utils.str.html#.join": {
-                        "ref": "FooGallery.utils.str.html#.join",
-                        "tf": 2
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "r": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "c": {
-                  "docs": {},
-                  "t": {
-                    "docs": {},
-                    "l": {
-                      "docs": {},
-                      "i": {
-                        "docs": {
-                          "FooGallery.utils.obj.html#~Validators": {
-                            "ref": "FooGallery.utils.obj.html#~Validators",
-                            "tf": 1.0869565217391304
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "o": {
-            "docs": {},
-            "c": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "m": {
-                  "docs": {},
-                  "e": {
-                    "docs": {},
-                    "n": {
-                      "docs": {},
-                      "t": {
-                        "docs": {
-                          "list_class.html": {
-                            "ref": "list_class.html",
-                            "tf": 35
-                          },
-                          "list_external.html": {
-                            "ref": "list_external.html",
-                            "tf": 23.333333333333332
-                          },
-                          "list_namespace.html": {
-                            "ref": "list_namespace.html",
-                            "tf": 35
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "e": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "n": {
-                  "docs": {},
-                  "'": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.transition.html#.end": {
-                          "ref": "FooGallery.utils.transition.html#.end",
-                          "tf": 4.545454545454546
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "m": {
-              "docs": {
-                "FooGallery.html#.ready": {
-                  "ref": "FooGallery.html#.ready",
-                  "tf": 11.666666666666666
-                }
-              }
-            },
-            "n": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "FooGallery.html#.addSize": {
-                    "ref": "FooGallery.html#.addSize",
-                    "tf": 0.7936507936507936
-                  }
-                }
-              }
-            }
-          },
-          "e": {
-            "docs": {},
-            "f": {
-              "docs": {
-                "FooGallery.utils.fn.html#.check": {
-                  "ref": "FooGallery.utils.fn.html#.check",
-                  "tf": 14.285714285714285
-                },
-                "FooGallery.utils.transition.html#.duration": {
-                  "ref": "FooGallery.utils.transition.html#.duration",
-                  "tf": 20
-                }
-              },
-              "i": {
-                "docs": {},
-                "n": {
-                  "docs": {
-                    "FooGallery.utils.is.html#.promise": {
-                      "ref": "FooGallery.utils.is.html#.promise",
-                      "tf": 1.3513513513513513
-                    }
-                  },
-                  "i": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.Class.html#.extend": {
-                          "ref": "FooGallery.utils.Class.html#.extend",
-                          "tf": 25
-                        },
-                        "FooGallery.utils.Throttle.html#.extend": {
-                          "ref": "FooGallery.utils.Throttle.html#.extend",
-                          "tf": 25
-                        },
-                        "FooGallery.Loader.html#.extend": {
-                          "ref": "FooGallery.Loader.html#.extend",
-                          "tf": 25
-                        },
-                        "FooGallery.utils.Factory.html#.extend": {
-                          "ref": "FooGallery.utils.Factory.html#.extend",
-                          "tf": 25
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "a": {
-                "docs": {},
-                "u": {
-                  "docs": {},
-                  "l": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.Debugger.html": {
-                          "ref": "FooGallery.utils.Debugger.html",
-                          "tf": 1.282051282051282
-                        },
-                        "FooGallery.Loader.html#options": {
-                          "ref": "FooGallery.Loader.html#options",
-                          "tf": 10
-                        },
-                        "FooGallery.Loader.html#.defaults": {
-                          "ref": "FooGallery.Loader.html#.defaults",
-                          "tf": 656.6666666666667
-                        },
-                        "FooGallery.utils.fn.html#.apply": {
-                          "ref": "FooGallery.utils.fn.html#.apply",
-                          "tf": 4.166666666666666
-                        },
-                        "FooGallery.utils.fn.html#.arg2arr": {
-                          "ref": "FooGallery.utils.fn.html#.arg2arr",
-                          "tf": 11.666666666666666
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "e": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.transition.html#.start": {
-                      "ref": "FooGallery.utils.transition.html#.start",
-                      "tf": 1
-                    }
-                  }
-                }
-              }
-            },
-            "b": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "g": {
-                  "docs": {
-                    "FooGallery.utils.Debugger.html": {
-                      "ref": "FooGallery.utils.Debugger.html",
-                      "tf": 8.927738927738929
-                    },
-                    "FooGallery.utils.Debugger.html#key": {
-                      "ref": "FooGallery.utils.Debugger.html#key",
-                      "tf": 11.666666666666666
-                    }
-                  },
-                  "g": {
-                    "docs": {
-                      "FooGallery.utils.Debugger.html": {
-                        "ref": "FooGallery.utils.Debugger.html",
-                        "tf": 603.8461538461538
-                      },
-                      "FooGallery.utils.Debugger.html#enabled": {
-                        "ref": "FooGallery.utils.Debugger.html#enabled",
-                        "tf": 17.5
-                      },
-                      "FooGallery.utils.Debugger.html#enable": {
-                        "ref": "FooGallery.utils.Debugger.html#enable",
-                        "tf": 10
-                      },
-                      "FooGallery.utils.Debugger.html#disable": {
-                        "ref": "FooGallery.utils.Debugger.html#disable",
-                        "tf": 8.75
-                      },
-                      "FooGallery.utils.Debugger.html#log": {
-                        "ref": "FooGallery.utils.Debugger.html#log",
-                        "tf": 3.3333333333333335
+                      "external-_jQuery.fn_.html": {
+                        "ref": "external-_jQuery.fn_.html",
+                        "tf": 110
                       }
                     },
-                    "e": {
+                    "a": {
                       "docs": {},
-                      "r": {
+                      "l": {
                         "docs": {},
-                        "#": {
+                        ":": {
                           "docs": {},
-                          "k": {
+                          "\"": {
                             "docs": {},
-                            "e": {
+                            "j": {
                               "docs": {},
-                              "y": {
-                                "docs": {
-                                  "FooGallery.utils.Debugger.html#key": {
-                                    "ref": "FooGallery.utils.Debugger.html#key",
-                                    "tf": 75
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "e": {
-                            "docs": {},
-                            "n": {
-                              "docs": {
-                                "FooGallery.utils.Debugger.html#enabled": {
-                                  "ref": "FooGallery.utils.Debugger.html#enabled",
-                                  "tf": 75
-                                },
-                                "FooGallery.utils.Debugger.html#enable": {
-                                  "ref": "FooGallery.utils.Debugger.html#enable",
-                                  "tf": 75
-                                }
-                              }
-                            }
-                          },
-                          "d": {
-                            "docs": {},
-                            "i": {
-                              "docs": {},
-                              "s": {
-                                "docs": {
-                                  "FooGallery.utils.Debugger.html#disable": {
-                                    "ref": "FooGallery.utils.Debugger.html#disable",
-                                    "tf": 75
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "l": {
-                            "docs": {},
-                            "o": {
-                              "docs": {},
-                              "g": {
-                                "docs": {
-                                  "FooGallery.utils.Debugger.html#log": {
-                                    "ref": "FooGallery.utils.Debugger.html#log",
-                                    "tf": 75
-                                  }
-                                },
-                                "f": {
-                                  "docs": {
-                                    "FooGallery.utils.Debugger.html#logf": {
-                                      "ref": "FooGallery.utils.Debugger.html#logf",
-                                      "tf": 75
+                              "q": {
+                                "docs": {},
+                                "u": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "r": {
+                                      "docs": {},
+                                      "y": {
+                                        "docs": {},
+                                        ".": {
+                                          "docs": {},
+                                          "f": {
+                                            "docs": {},
+                                            "n": {
+                                              "docs": {
+                                                "external-_jQuery.fn_.html": {
+                                                  "ref": "external-_jQuery.fn_.html",
+                                                  "tf": 1150
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -4029,68 +4178,86 @@ window.lunrData = {
                 }
               }
             },
-            "l": {
+            "a": {
               "docs": {},
-              "a": {
+              "m": {
                 "docs": {},
-                "y": {
-                  "docs": {
-                    "FooGallery.Loader.html#destroy": {
-                      "ref": "FooGallery.Loader.html#destroy",
-                      "tf": 10
-                    }
-                  }
-                }
-              }
-            },
-            "s": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "r": {
+                "p": {
                   "docs": {},
-                  "o": {
-                    "docs": {},
-                    "y": {
-                      "docs": {
-                        "FooGallery.Loader.html#destroy": {
-                          "ref": "FooGallery.Loader.html#destroy",
-                          "tf": 710
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "i": {
-                "docs": {},
-                "g": {
-                  "docs": {},
-                  "n": {
+                  "l": {
                     "docs": {
-                      "FooGallery.utils.Factory.html#load": {
-                        "ref": "FooGallery.utils.Factory.html#load",
+                      "FooGallery.utils.Class.html": {
+                        "ref": "FooGallery.utils.Class.html",
+                        "tf": 1.4705882352941175
+                      },
+                      "FooGallery.utils.Throttle.html": {
+                        "ref": "FooGallery.utils.Throttle.html",
+                        "tf": 1.2195121951219512
+                      },
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 0.6493506493506493
+                      },
+                      "FooGallery.utils.str.html#.format": {
+                        "ref": "FooGallery.utils.str.html#.format",
+                        "tf": 1.3888888888888888
+                      },
+                      "FooGallery.utils.obj.html#~Mappings": {
+                        "ref": "FooGallery.utils.obj.html#~Mappings",
                         "tf": 2.083333333333333
+                      },
+                      "FooGallery.utils.obj.html#~Validators": {
+                        "ref": "FooGallery.utils.obj.html#~Validators",
+                        "tf": 2.1739130434782608
                       }
                     }
                   }
                 }
               }
             },
-            "n": {
+            "e": {
               "docs": {},
-              "s": {
+              "c": {
                 "docs": {},
-                "i": {
+                "u": {
                   "docs": {},
                   "t": {
-                    "docs": {},
-                    "i": {
-                      "docs": {
-                        "FooGallery.Loader.html#getViewportInfo": {
-                          "ref": "FooGallery.Loader.html#getViewportInfo",
-                          "tf": 10
-                        }
+                    "docs": {
+                      "FooGallery.utils.Class.html": {
+                        "ref": "FooGallery.utils.Class.html",
+                        "tf": 1.4705882352941175
+                      },
+                      "FooGallery.utils.Factory.html": {
+                        "ref": "FooGallery.utils.Factory.html",
+                        "tf": 2.272727272727273
+                      },
+                      "FooGallery.utils.Throttle.html": {
+                        "ref": "FooGallery.utils.Throttle.html",
+                        "tf": 19.9390243902439
+                      },
+                      "FooGallery.utils.Throttle.html#idle": {
+                        "ref": "FooGallery.utils.Throttle.html#idle",
+                        "tf": 6.363636363636364
+                      },
+                      "FooGallery.utils.Throttle.html#limit": {
+                        "ref": "FooGallery.utils.Throttle.html#limit",
+                        "tf": 7
+                      },
+                      "FooGallery.utils.Throttle.html#clear": {
+                        "ref": "FooGallery.utils.Throttle.html#clear",
+                        "tf": 10
+                      },
+                      "FooGallery.utils.fn.html#.addOrOverride": {
+                        "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                        "tf": 1.9230769230769231
+                      },
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 8.430735930735931
+                      },
+                      "FooGallery.html#.ready": {
+                        "ref": "FooGallery.html#.ready",
+                        "tf": 11.666666666666666
                       }
                     }
                   }
@@ -4099,53 +4266,72 @@ window.lunrData = {
             },
             "p": {
               "docs": {},
+              "o": {
+                "docs": {},
+                "s": {
+                  "docs": {
+                    "FooGallery.utils.Class.html": {
+                      "ref": "FooGallery.utils.Class.html",
+                      "tf": 1.4705882352941175
+                    },
+                    "FooGallery.utils.fn.html#.addOrOverride": {
+                      "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                      "tf": 0.9615384615384616
+                    }
+                  }
+                }
+              },
               "e": {
                 "docs": {},
                 "n": {
                   "docs": {},
-                  "d": {
+                  "s": {
                     "docs": {
-                      "FooGallery.utils.Factory.html": {
-                        "ref": "FooGallery.utils.Factory.html",
-                        "tf": 2.272727272727273
-                      },
-                      "FooGallery.utils.Factory.html#register": {
-                        "ref": "FooGallery.utils.Factory.html#register",
-                        "tf": 3.8461538461538463
-                      },
-                      "FooGallery.utils.transition.html#.end": {
-                        "ref": "FooGallery.utils.transition.html#.end",
-                        "tf": 4.545454545454546
+                      "FooGallery.utils.Throttle.html": {
+                        "ref": "FooGallery.utils.Throttle.html",
+                        "tf": 1.2195121951219512
+                      }
+                    }
+                  }
+                },
+                "c": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                        "tf": 1.5625
                       }
                     }
                   }
                 }
-              }
-            },
-            "t": {
-              "docs": {},
-              "e": {
+              },
+              "i": {
                 "docs": {},
                 "r": {
+                  "docs": {
+                    "FooGallery.utils.Throttle.html#limit": {
+                      "ref": "FooGallery.utils.Throttle.html#limit",
+                      "tf": 7
+                    }
+                  }
+                }
+              },
+              "r": {
+                "docs": {},
+                "e": {
                   "docs": {},
-                  "m": {
+                  "s": {
                     "docs": {},
-                    "i": {
-                      "docs": {},
-                      "n": {
-                        "docs": {
-                          "FooGallery.utils.Factory.html#load": {
-                            "ref": "FooGallery.utils.Factory.html#load",
-                            "tf": 2.083333333333333
-                          },
-                          "FooGallery.utils.is.html#.promise": {
-                            "ref": "FooGallery.utils.is.html#.promise",
-                            "tf": 1.3513513513513513
-                          },
-                          "FooGallery.html#.addSize": {
-                            "ref": "FooGallery.html#.addSize",
-                            "tf": 0.7936507936507936
-                          }
+                    "s": {
+                      "docs": {
+                        "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                          "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                          "tf": 10.125
+                        },
+                        "FooGallery.utils.str.html#.escapeRegExp": {
+                          "ref": "FooGallery.utils.str.html#.escapeRegExp",
+                          "tf": 14
                         }
                       }
                     }
@@ -4155,19 +4341,187 @@ window.lunrData = {
             },
             "c": {
               "docs": {},
-              "o": {
+              "l": {
                 "docs": {},
-                "m": {
+                "u": {
                   "docs": {},
-                  "p": {
+                  "d": {
+                    "docs": {
+                      "FooGallery.Loader.html#loadingSelector": {
+                        "ref": "FooGallery.Loader.html#loadingSelector",
+                        "tf": 11.666666666666666
+                      },
+                      "FooGallery.Loader.html#loadedSelector": {
+                        "ref": "FooGallery.Loader.html#loadedSelector",
+                        "tf": 11.666666666666666
+                      },
+                      "FooGallery.Loader.html#errorSelector": {
+                        "ref": "FooGallery.Loader.html#errorSelector",
+                        "tf": 11.666666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "i": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "FooGallery.utils.fn.html#.addOrOverride": {
+                      "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                      "tf": 0.9615384615384616
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "s": {
+              "docs": {},
+              "i": {
+                "docs": {
+                  "FooGallery.utils.Class.html": {
+                    "ref": "FooGallery.utils.Class.html",
+                    "tf": 1.4705882352941175
+                  }
+                },
+                "l": {
+                  "docs": {},
+                  "i": {
+                    "docs": {
+                      "FooGallery.utils.fn.html#.check": {
+                        "ref": "FooGallery.utils.fn.html#.check",
+                        "tf": 1.0638297872340425
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "c": {
+              "docs": {},
+              "h": {
+                "docs": {
+                  "FooGallery.utils.fn.html#.enqueue": {
+                    "ref": "FooGallery.utils.fn.html#.enqueue",
+                    "tf": 6.482683982683982
+                  },
+                  "FooGallery.utils.str.html#.join": {
+                    "ref": "FooGallery.utils.str.html#.join",
+                    "tf": 2
+                  }
+                }
+              }
+            }
+          },
+          "n": {
+            "docs": {},
+            "a": {
+              "docs": {},
+              "b": {
+                "docs": {},
+                "l": {
+                  "docs": {
+                    "FooGallery.utils.Debugger.html": {
+                      "ref": "FooGallery.utils.Debugger.html",
+                      "tf": 8.927738927738929
+                    },
+                    "FooGallery.utils.Debugger.html#enabled": {
+                      "ref": "FooGallery.utils.Debugger.html#enabled",
+                      "tf": 625.8333333333334
+                    },
+                    "FooGallery.utils.Debugger.html#enable": {
+                      "ref": "FooGallery.utils.Debugger.html#enable",
+                      "tf": 685
+                    },
+                    "FooGallery.utils.Debugger.html#log": {
+                      "ref": "FooGallery.utils.Debugger.html#log",
+                      "tf": 13.333333333333334
+                    },
+                    "FooGallery.utils.Debugger.html#logf": {
+                      "ref": "FooGallery.utils.Debugger.html#logf",
+                      "tf": 10
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.utils.fn.html#.check": {
+                      "ref": "FooGallery.utils.fn.html#.check",
+                      "tf": 12.73049645390071
+                    },
+                    "FooGallery.utils.fn.html#.enqueue": {
+                      "ref": "FooGallery.utils.fn.html#.enqueue",
+                      "tf": 0.6493506493506493
+                    },
+                    "FooGallery.utils.url.html#.full": {
+                      "ref": "FooGallery.utils.url.html#.full",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.transition.html#.start": {
+                      "ref": "FooGallery.utils.transition.html#.start",
+                      "tf": 1
+                    }
+                  }
+                }
+              }
+            },
+            "q": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "u": {
+                    "docs": {
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 595.1190476190477
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "d": {
+              "docs": {
+                "FooGallery.utils.str.html#.endsWith": {
+                  "ref": "FooGallery.utils.str.html#.endsWith",
+                  "tf": 14
+                },
+                "FooGallery.utils.str.html#.format": {
+                  "ref": "FooGallery.utils.str.html#.format",
+                  "tf": 1.3888888888888888
+                },
+                "FooGallery.utils.transition.html#.end": {
+                  "ref": "FooGallery.utils.transition.html#.end",
+                  "tf": 608.3333333333334
+                }
+              },
+              "s": {
+                "docs": {},
+                "w": {
+                  "docs": {},
+                  "i": {
                     "docs": {},
-                    "i": {
+                    "t": {
                       "docs": {},
-                      "l": {
+                      "h": {
                         "docs": {
-                          "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                            "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                            "tf": 3.125
+                          "FooGallery.utils.str.html#.endsWith": {
+                            "ref": "FooGallery.utils.str.html#.endsWith",
+                            "tf": 595
                           }
                         }
                       }
@@ -4177,31 +4531,293 @@ window.lunrData = {
               }
             }
           },
-          "a": {
+          "v": {
             "docs": {},
-            "t": {
+            "e": {
               "docs": {},
-              "a": {
+              "n": {
                 "docs": {
                   "FooGallery.utils.fn.html#.check": {
                     "ref": "FooGallery.utils.fn.html#.check",
                     "tf": 1.0638297872340425
                   }
+                },
+                "t": {
+                  "docs": {
+                    "FooGallery.utils.Throttle.html": {
+                      "ref": "FooGallery.utils.Throttle.html",
+                      "tf": 2.4390243902439024
+                    },
+                    "FooGallery.Loader.html#init": {
+                      "ref": "FooGallery.Loader.html#init",
+                      "tf": 10
+                    },
+                    "FooGallery.Loader.html#destroy": {
+                      "ref": "FooGallery.Loader.html#destroy",
+                      "tf": 10
+                    },
+                    "FooGallery.Loader.html#onscroll": {
+                      "ref": "FooGallery.Loader.html#onscroll",
+                      "tf": 8.75
+                    },
+                    "FooGallery.ImageViewer.html#init": {
+                      "ref": "FooGallery.ImageViewer.html#init",
+                      "tf": 7
+                    },
+                    "FooGallery.ImageViewer.html#destroy": {
+                      "ref": "FooGallery.ImageViewer.html#destroy",
+                      "tf": 11.666666666666666
+                    },
+                    "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                      "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                      "tf": 7.777777777777778
+                    },
+                    "FooGallery.ImageViewer.html#onFooBoxNext": {
+                      "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                      "tf": 7.777777777777778
+                    },
+                    "FooGallery.ImageViewer.html#onPrevClick": {
+                      "ref": "FooGallery.ImageViewer.html#onPrevClick",
+                      "tf": 14
+                    },
+                    "FooGallery.ImageViewer.html#onNextClick": {
+                      "ref": "FooGallery.ImageViewer.html#onNextClick",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.fn.html#.enqueue": {
+                      "ref": "FooGallery.utils.fn.html#.enqueue",
+                      "tf": 0.6493506493506493
+                    },
+                    "FooGallery.utils.transition.html#.end": {
+                      "ref": "FooGallery.utils.transition.html#.end",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.transition.html#.start": {
+                      "ref": "FooGallery.utils.transition.html#.start",
+                      "tf": 2
+                    }
+                  }
+                }
+              }
+            },
+            "a": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "u": {
+                  "docs": {
+                    "FooGallery.utils.fn.html#.enqueue": {
+                      "ref": "FooGallery.utils.fn.html#.enqueue",
+                      "tf": 0.6493506493506493
+                    }
+                  }
                 }
               }
             }
           },
-          "u": {
+          "l": {
+            "docs": {
+              "FooGallery.ImageViewer.html#$el": {
+                "ref": "FooGallery.ImageViewer.html#$el",
+                "tf": 650
+              }
+            },
+            "e": {
+              "docs": {},
+              "m": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.Loader.html#$target": {
+                          "ref": "FooGallery.Loader.html#$target",
+                          "tf": 14
+                        },
+                        "FooGallery.Loader.html#getElementBounds": {
+                          "ref": "FooGallery.Loader.html#getElementBounds",
+                          "tf": 47.33333333333333
+                        },
+                        "FooGallery.Loader.html#~Bounds": {
+                          "ref": "FooGallery.Loader.html#~Bounds",
+                          "tf": 8.75
+                        },
+                        "FooGallery.ImageViewer.html#$el": {
+                          "ref": "FooGallery.ImageViewer.html#$el",
+                          "tf": 11.11111111111111
+                        },
+                        "FooGallery.utils.html#.uniqueId": {
+                          "ref": "FooGallery.utils.html#.uniqueId",
+                          "tf": 31.666666666666664
+                        },
+                        "FooGallery.utils.html#.removeUniqueId": {
+                          "ref": "FooGallery.utils.html#.removeUniqueId",
+                          "tf": 42.08333333333333
+                        },
+                        "FooGallery.utils.is.html#.element": {
+                          "ref": "FooGallery.utils.is.html#.element",
+                          "tf": 623.3333333333334
+                        },
+                        "FooGallery.utils.transition.html#.duration": {
+                          "ref": "FooGallery.utils.transition.html#.duration",
+                          "tf": 30
+                        },
+                        "FooGallery.utils.transition.html#.start": {
+                          "ref": "FooGallery.utils.transition.html#.start",
+                          "tf": 25.95238095238095
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "r": {
             "docs": {},
             "r": {
               "docs": {},
+              "o": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.Loader.html#errorSelector": {
+                      "ref": "FooGallery.Loader.html#errorSelector",
+                      "tf": 11.666666666666666
+                    },
+                    "FooGallery.utils.is.html#.error": {
+                      "ref": "FooGallery.utils.is.html#.error",
+                      "tf": 623.3333333333334
+                    },
+                    "FooGallery.utils.fn.html#.enqueue": {
+                      "ref": "FooGallery.utils.fn.html#.enqueue",
+                      "tf": 0.6493506493506493
+                    }
+                  },
+                  "s": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          "c": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              "o": {
+                                "docs": {},
+                                "r": {
+                                  "docs": {
+                                    "FooGallery.Loader.html#errorSelector": {
+                                      "ref": "FooGallery.Loader.html#errorSelector",
+                                      "tf": 633.3333333333334
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          ".": {
+            "docs": {},
+            "g": {
+              "docs": {
+                "FooGallery.utils.html#.versionCompare": {
+                  "ref": "FooGallery.utils.html#.versionCompare",
+                  "tf": 2.1739130434782608
+                }
+              }
+            }
+          },
+          "m": {
+            "docs": {},
+            "p": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "i": {
+                  "docs": {
+                    "FooGallery.utils.is.html#.empty": {
+                      "ref": "FooGallery.utils.is.html#.empty",
+                      "tf": 636.4912280701755
+                    },
+                    "FooGallery.utils.str.html#.join": {
+                      "ref": "FooGallery.utils.str.html#.join",
+                      "tf": 2
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "f": {
+            "docs": {},
+            "f": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                        "tf": 1.5625
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "s": {
+            "docs": {},
+            "c": {
+              "docs": {},
               "a": {
                 "docs": {},
-                "t": {
+                "p": {
                   "docs": {
-                    "FooGallery.utils.transition.html#.duration": {
-                      "ref": "FooGallery.utils.transition.html#.duration",
-                      "tf": 605
+                    "FooGallery.utils.str.html#.escapeRegExp": {
+                      "ref": "FooGallery.utils.str.html#.escapeRegExp",
+                      "tf": 14
+                    }
+                  },
+                  "e": {
+                    "docs": {},
+                    "r": {
+                      "docs": {},
+                      "e": {
+                        "docs": {},
+                        "g": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "x": {
+                              "docs": {},
+                              "p": {
+                                "docs": {
+                                  "FooGallery.utils.str.html#.escapeRegExp": {
+                                    "ref": "FooGallery.utils.str.html#.escapeRegExp",
+                                    "tf": 600
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -4232,6 +4848,14 @@ window.lunrData = {
                               "index.html": {
                                 "ref": "index.html",
                                 "tf": 600
+                              },
+                              "FooGallery.ImageViewer.html": {
+                                "ref": "FooGallery.ImageViewer.html",
+                                "tf": 11.666666666666666
+                              },
+                              "FooGallery.ImageViewer.html#$el": {
+                                "ref": "FooGallery.ImageViewer.html#$el",
+                                "tf": 5.555555555555555
                               },
                               "FooGallery.html": {
                                 "ref": "FooGallery.html",
@@ -4286,6 +4910,10 @@ window.lunrData = {
                                                         "ref": "FooGallery.utils.Class.html#.override",
                                                         "tf": 2.941176470588235
                                                       },
+                                                      "FooGallery.utils.Factory.html#.override": {
+                                                        "ref": "FooGallery.utils.Factory.html#.override",
+                                                        "tf": 2.941176470588235
+                                                      },
                                                       "FooGallery.utils.Throttle.html#.override": {
                                                         "ref": "FooGallery.utils.Throttle.html#.override",
                                                         "tf": 2.941176470588235
@@ -4294,8 +4922,8 @@ window.lunrData = {
                                                         "ref": "FooGallery.Loader.html#.override",
                                                         "tf": 2.941176470588235
                                                       },
-                                                      "FooGallery.utils.Factory.html#.override": {
-                                                        "ref": "FooGallery.utils.Factory.html#.override",
+                                                      "FooGallery.ImageViewer.html#.override": {
+                                                        "ref": "FooGallery.ImageViewer.html#.override",
                                                         "tf": 2.941176470588235
                                                       },
                                                       "FooGallery.utils.fn.html#.addOrOverride": {
@@ -4404,6 +5032,10 @@ window.lunrData = {
                                                                             "ref": "FooGallery.utils.Class.html#.override",
                                                                             "tf": 2.941176470588235
                                                                           },
+                                                                          "FooGallery.utils.Factory.html#.override": {
+                                                                            "ref": "FooGallery.utils.Factory.html#.override",
+                                                                            "tf": 2.941176470588235
+                                                                          },
                                                                           "FooGallery.utils.Throttle.html#.override": {
                                                                             "ref": "FooGallery.utils.Throttle.html#.override",
                                                                             "tf": 2.941176470588235
@@ -4412,8 +5044,8 @@ window.lunrData = {
                                                                             "ref": "FooGallery.Loader.html#.override",
                                                                             "tf": 2.941176470588235
                                                                           },
-                                                                          "FooGallery.utils.Factory.html#.override": {
-                                                                            "ref": "FooGallery.utils.Factory.html#.override",
+                                                                          "FooGallery.ImageViewer.html#.override": {
+                                                                            "ref": "FooGallery.ImageViewer.html#.override",
                                                                             "tf": 2.941176470588235
                                                                           },
                                                                           "FooGallery.utils.fn.html#.addOrOverride": {
@@ -4812,20 +5444,6 @@ window.lunrData = {
                                                                 }
                                                               }
                                                             },
-                                                            "d": {
-                                                              "docs": {},
-                                                              "i": {
-                                                                "docs": {},
-                                                                "s": {
-                                                                  "docs": {
-                                                                    "FooGallery.utils.Debugger.html#disable": {
-                                                                      "ref": "FooGallery.utils.Debugger.html#disable",
-                                                                      "tf": 1075
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            },
                                                             "l": {
                                                               "docs": {},
                                                               "o": {
@@ -4843,6 +5461,20 @@ window.lunrData = {
                                                                         "ref": "FooGallery.utils.Debugger.html#logf",
                                                                         "tf": 1075
                                                                       }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "d": {
+                                                              "docs": {},
+                                                              "i": {
+                                                                "docs": {},
+                                                                "s": {
+                                                                  "docs": {
+                                                                    "FooGallery.utils.Debugger.html#disable": {
+                                                                      "ref": "FooGallery.utils.Debugger.html#disable",
+                                                                      "tf": 1075
                                                                     }
                                                                   }
                                                                 }
@@ -6713,6 +7345,442 @@ window.lunrData = {
                                   }
                                 }
                               },
+                              "i": {
+                                "docs": {},
+                                "m": {
+                                  "docs": {},
+                                  "a": {
+                                    "docs": {},
+                                    "g": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "v": {
+                                          "docs": {},
+                                          "i": {
+                                            "docs": {},
+                                            "e": {
+                                              "docs": {},
+                                              "w": {
+                                                "docs": {
+                                                  "FooGallery.ImageViewer.html": {
+                                                    "ref": "FooGallery.ImageViewer.html",
+                                                    "tf": 1250
+                                                  }
+                                                },
+                                                "e": {
+                                                  "docs": {},
+                                                  "r": {
+                                                    "docs": {},
+                                                    "#": {
+                                                      "docs": {},
+                                                      "o": {
+                                                        "docs": {},
+                                                        "p": {
+                                                          "docs": {},
+                                                          "t": {
+                                                            "docs": {
+                                                              "FooGallery.ImageViewer.html#options": {
+                                                                "ref": "FooGallery.ImageViewer.html#options",
+                                                                "tf": 1100
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        "n": {
+                                                          "docs": {},
+                                                          "f": {
+                                                            "docs": {},
+                                                            "o": {
+                                                              "docs": {},
+                                                              "o": {
+                                                                "docs": {},
+                                                                "b": {
+                                                                  "docs": {},
+                                                                  "o": {
+                                                                    "docs": {},
+                                                                    "x": {
+                                                                      "docs": {},
+                                                                      "p": {
+                                                                        "docs": {},
+                                                                        "r": {
+                                                                          "docs": {},
+                                                                          "e": {
+                                                                            "docs": {},
+                                                                            "v": {
+                                                                              "docs": {
+                                                                                "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                                                                                  "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                                                                                  "tf": 1100
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "n": {
+                                                                        "docs": {},
+                                                                        "e": {
+                                                                          "docs": {},
+                                                                          "x": {
+                                                                            "docs": {},
+                                                                            "t": {
+                                                                              "docs": {
+                                                                                "FooGallery.ImageViewer.html#onFooBoxNext": {
+                                                                                  "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                                                                                  "tf": 1100
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          "p": {
+                                                            "docs": {},
+                                                            "r": {
+                                                              "docs": {},
+                                                              "e": {
+                                                                "docs": {},
+                                                                "v": {
+                                                                  "docs": {},
+                                                                  "c": {
+                                                                    "docs": {},
+                                                                    "l": {
+                                                                      "docs": {},
+                                                                      "i": {
+                                                                        "docs": {},
+                                                                        "c": {
+                                                                          "docs": {},
+                                                                          "k": {
+                                                                            "docs": {
+                                                                              "FooGallery.ImageViewer.html#onPrevClick": {
+                                                                                "ref": "FooGallery.ImageViewer.html#onPrevClick",
+                                                                                "tf": 1100
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          "n": {
+                                                            "docs": {},
+                                                            "e": {
+                                                              "docs": {},
+                                                              "x": {
+                                                                "docs": {},
+                                                                "t": {
+                                                                  "docs": {},
+                                                                  "c": {
+                                                                    "docs": {},
+                                                                    "l": {
+                                                                      "docs": {},
+                                                                      "i": {
+                                                                        "docs": {},
+                                                                        "c": {
+                                                                          "docs": {},
+                                                                          "k": {
+                                                                            "docs": {
+                                                                              "FooGallery.ImageViewer.html#onNextClick": {
+                                                                                "ref": "FooGallery.ImageViewer.html#onNextClick",
+                                                                                "tf": 1100
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "$": {
+                                                        "docs": {},
+                                                        "e": {
+                                                          "docs": {},
+                                                          "l": {
+                                                            "docs": {
+                                                              "FooGallery.ImageViewer.html#$el": {
+                                                                "ref": "FooGallery.ImageViewer.html#$el",
+                                                                "tf": 1100
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        "i": {
+                                                          "docs": {},
+                                                          "t": {
+                                                            "docs": {},
+                                                            "e": {
+                                                              "docs": {},
+                                                              "m": {
+                                                                "docs": {
+                                                                  "FooGallery.ImageViewer.html#$items": {
+                                                                    "ref": "FooGallery.ImageViewer.html#$items",
+                                                                    "tf": 1100
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        "c": {
+                                                          "docs": {},
+                                                          "u": {
+                                                            "docs": {},
+                                                            "r": {
+                                                              "docs": {},
+                                                              "r": {
+                                                                "docs": {
+                                                                  "FooGallery.ImageViewer.html#$current": {
+                                                                    "ref": "FooGallery.ImageViewer.html#$current",
+                                                                    "tf": 1100
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        "p": {
+                                                          "docs": {},
+                                                          "r": {
+                                                            "docs": {},
+                                                            "e": {
+                                                              "docs": {},
+                                                              "v": {
+                                                                "docs": {
+                                                                  "FooGallery.ImageViewer.html#$prev": {
+                                                                    "ref": "FooGallery.ImageViewer.html#$prev",
+                                                                    "tf": 1100
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        "n": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "x": {
+                                                              "docs": {},
+                                                              "t": {
+                                                                "docs": {
+                                                                  "FooGallery.ImageViewer.html#$next": {
+                                                                    "ref": "FooGallery.ImageViewer.html#$next",
+                                                                    "tf": 1100
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "i": {
+                                                        "docs": {},
+                                                        "n": {
+                                                          "docs": {},
+                                                          "i": {
+                                                            "docs": {},
+                                                            "t": {
+                                                              "docs": {
+                                                                "FooGallery.ImageViewer.html#init": {
+                                                                  "ref": "FooGallery.ImageViewer.html#init",
+                                                                  "tf": 1100
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "d": {
+                                                        "docs": {},
+                                                        "e": {
+                                                          "docs": {},
+                                                          "s": {
+                                                            "docs": {},
+                                                            "t": {
+                                                              "docs": {},
+                                                              "r": {
+                                                                "docs": {},
+                                                                "o": {
+                                                                  "docs": {},
+                                                                  "y": {
+                                                                    "docs": {
+                                                                      "FooGallery.ImageViewer.html#destroy": {
+                                                                        "ref": "FooGallery.ImageViewer.html#destroy",
+                                                                        "tf": 1100
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "p": {
+                                                        "docs": {},
+                                                        "r": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "v": {
+                                                              "docs": {
+                                                                "FooGallery.ImageViewer.html#prev": {
+                                                                  "ref": "FooGallery.ImageViewer.html#prev",
+                                                                  "tf": 1100
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "n": {
+                                                        "docs": {},
+                                                        "e": {
+                                                          "docs": {},
+                                                          "x": {
+                                                            "docs": {},
+                                                            "t": {
+                                                              "docs": {
+                                                                "FooGallery.ImageViewer.html#next": {
+                                                                  "ref": "FooGallery.ImageViewer.html#next",
+                                                                  "tf": 1100
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "~": {
+                                                      "docs": {},
+                                                      "o": {
+                                                        "docs": {},
+                                                        "p": {
+                                                          "docs": {},
+                                                          "t": {
+                                                            "docs": {
+                                                              "FooGallery.ImageViewer.html#options": {
+                                                                "ref": "FooGallery.ImageViewer.html#options",
+                                                                "tf": 50
+                                                              },
+                                                              "FooGallery.ImageViewer.html#.defaults": {
+                                                                "ref": "FooGallery.ImageViewer.html#.defaults",
+                                                                "tf": 33.33333333333333
+                                                              },
+                                                              "FooGallery.ImageViewer.html#~Options": {
+                                                                "ref": "FooGallery.ImageViewer.html#~Options",
+                                                                "tf": 1150
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    ".": {
+                                                      "docs": {},
+                                                      "d": {
+                                                        "docs": {},
+                                                        "e": {
+                                                          "docs": {},
+                                                          "f": {
+                                                            "docs": {},
+                                                            "a": {
+                                                              "docs": {},
+                                                              "u": {
+                                                                "docs": {},
+                                                                "l": {
+                                                                  "docs": {},
+                                                                  "t": {
+                                                                    "docs": {
+                                                                      "FooGallery.ImageViewer.html#.defaults": {
+                                                                        "ref": "FooGallery.ImageViewer.html#.defaults",
+                                                                        "tf": 1100
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "e": {
+                                                        "docs": {},
+                                                        "x": {
+                                                          "docs": {},
+                                                          "t": {
+                                                            "docs": {},
+                                                            "e": {
+                                                              "docs": {},
+                                                              "n": {
+                                                                "docs": {},
+                                                                "d": {
+                                                                  "docs": {
+                                                                    "FooGallery.ImageViewer.html#.extend": {
+                                                                      "ref": "FooGallery.ImageViewer.html#.extend",
+                                                                      "tf": 1100
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "o": {
+                                                        "docs": {},
+                                                        "v": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "r": {
+                                                              "docs": {},
+                                                              "r": {
+                                                                "docs": {},
+                                                                "i": {
+                                                                  "docs": {},
+                                                                  "d": {
+                                                                    "docs": {
+                                                                      "FooGallery.ImageViewer.html#.override": {
+                                                                        "ref": "FooGallery.ImageViewer.html#.override",
+                                                                        "tf": 1100
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
                               "r": {
                                 "docs": {},
                                 "e": {
@@ -6941,12 +8009,36 @@ window.lunrData = {
                             "ref": "FooGallery.utils.Class.html#.override",
                             "tf": 112.94117647058823
                           },
-                          "FooGallery.utils.Debugger.html#enable": {
-                            "ref": "FooGallery.utils.Debugger.html#enable",
+                          "FooGallery.utils.Factory.html#contains": {
+                            "ref": "FooGallery.utils.Factory.html#contains",
                             "tf": 110
                           },
-                          "FooGallery.utils.Debugger.html#disable": {
-                            "ref": "FooGallery.utils.Debugger.html#disable",
+                          "FooGallery.utils.Factory.html#load": {
+                            "ref": "FooGallery.utils.Factory.html#load",
+                            "tf": 110
+                          },
+                          "FooGallery.utils.Factory.html#make": {
+                            "ref": "FooGallery.utils.Factory.html#make",
+                            "tf": 110
+                          },
+                          "FooGallery.utils.Factory.html#names": {
+                            "ref": "FooGallery.utils.Factory.html#names",
+                            "tf": 110
+                          },
+                          "FooGallery.utils.Factory.html#register": {
+                            "ref": "FooGallery.utils.Factory.html#register",
+                            "tf": 110
+                          },
+                          "FooGallery.utils.Factory.html#.extend": {
+                            "ref": "FooGallery.utils.Factory.html#.extend",
+                            "tf": 135
+                          },
+                          "FooGallery.utils.Factory.html#.override": {
+                            "ref": "FooGallery.utils.Factory.html#.override",
+                            "tf": 112.94117647058823
+                          },
+                          "FooGallery.utils.Debugger.html#enable": {
+                            "ref": "FooGallery.utils.Debugger.html#enable",
                             "tf": 110
                           },
                           "FooGallery.utils.Debugger.html#log": {
@@ -6955,6 +8047,10 @@ window.lunrData = {
                           },
                           "FooGallery.utils.Debugger.html#logf": {
                             "ref": "FooGallery.utils.Debugger.html#logf",
+                            "tf": 110
+                          },
+                          "FooGallery.utils.Debugger.html#disable": {
+                            "ref": "FooGallery.utils.Debugger.html#disable",
                             "tf": 110
                           },
                           "FooGallery.utils.Throttle.html": {
@@ -7029,32 +8125,44 @@ window.lunrData = {
                             "ref": "FooGallery.Loader.html#.override",
                             "tf": 112.94117647058823
                           },
-                          "FooGallery.utils.Factory.html#contains": {
-                            "ref": "FooGallery.utils.Factory.html#contains",
+                          "FooGallery.ImageViewer.html#init": {
+                            "ref": "FooGallery.ImageViewer.html#init",
                             "tf": 110
                           },
-                          "FooGallery.utils.Factory.html#load": {
-                            "ref": "FooGallery.utils.Factory.html#load",
+                          "FooGallery.ImageViewer.html#destroy": {
+                            "ref": "FooGallery.ImageViewer.html#destroy",
                             "tf": 110
                           },
-                          "FooGallery.utils.Factory.html#make": {
-                            "ref": "FooGallery.utils.Factory.html#make",
+                          "FooGallery.ImageViewer.html#prev": {
+                            "ref": "FooGallery.ImageViewer.html#prev",
                             "tf": 110
                           },
-                          "FooGallery.utils.Factory.html#names": {
-                            "ref": "FooGallery.utils.Factory.html#names",
+                          "FooGallery.ImageViewer.html#next": {
+                            "ref": "FooGallery.ImageViewer.html#next",
                             "tf": 110
                           },
-                          "FooGallery.utils.Factory.html#register": {
-                            "ref": "FooGallery.utils.Factory.html#register",
+                          "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                            "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
                             "tf": 110
                           },
-                          "FooGallery.utils.Factory.html#.extend": {
-                            "ref": "FooGallery.utils.Factory.html#.extend",
+                          "FooGallery.ImageViewer.html#onFooBoxNext": {
+                            "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                            "tf": 110
+                          },
+                          "FooGallery.ImageViewer.html#onPrevClick": {
+                            "ref": "FooGallery.ImageViewer.html#onPrevClick",
+                            "tf": 110
+                          },
+                          "FooGallery.ImageViewer.html#onNextClick": {
+                            "ref": "FooGallery.ImageViewer.html#onNextClick",
+                            "tf": 110
+                          },
+                          "FooGallery.ImageViewer.html#.extend": {
+                            "ref": "FooGallery.ImageViewer.html#.extend",
                             "tf": 135
                           },
-                          "FooGallery.utils.Factory.html#.override": {
-                            "ref": "FooGallery.utils.Factory.html#.override",
+                          "FooGallery.ImageViewer.html#.override": {
+                            "ref": "FooGallery.ImageViewer.html#.override",
                             "tf": 112.94117647058823
                           },
                           "FooGallery.utils.html#.versionCompare": {
@@ -7363,6 +8471,10 @@ window.lunrData = {
                 "ref": "FooGallery.utils.Class.html#.override",
                 "tf": 25
               },
+              "FooGallery.utils.Factory.html#.override": {
+                "ref": "FooGallery.utils.Factory.html#.override",
+                "tf": 25
+              },
               "FooGallery.utils.Throttle.html#.override": {
                 "ref": "FooGallery.utils.Throttle.html#.override",
                 "tf": 25
@@ -7371,8 +8483,8 @@ window.lunrData = {
                 "ref": "FooGallery.Loader.html#.override",
                 "tf": 25
               },
-              "FooGallery.utils.Factory.html#.override": {
-                "ref": "FooGallery.utils.Factory.html#.override",
+              "FooGallery.ImageViewer.html#.override": {
+                "ref": "FooGallery.ImageViewer.html#.override",
                 "tf": 25
               },
               "external-_jQuery.fn_.html": {
@@ -7614,118 +8726,6 @@ window.lunrData = {
               }
             }
           },
-          "e": {
-            "docs": {},
-            "a": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "u": {
-                  "docs": {},
-                  "r": {
-                    "docs": {
-                      "FooGallery.utils.Debugger.html": {
-                        "ref": "FooGallery.utils.Debugger.html",
-                        "tf": 1.282051282051282
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "t": {
-              "docs": {},
-              "c": {
-                "docs": {},
-                "h": {
-                  "docs": {
-                    "FooGallery.utils.fn.html#.fetch": {
-                      "ref": "FooGallery.utils.fn.html#.fetch",
-                      "tf": 612.5
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "i": {
-            "docs": {},
-            "n": {
-              "docs": {},
-              "d": {
-                "docs": {
-                  "FooGallery.Loader.html#imgSelector": {
-                    "ref": "FooGallery.Loader.html#imgSelector",
-                    "tf": 11.666666666666666
-                  }
-                }
-              },
-              "a": {
-                "docs": {},
-                "l": {
-                  "docs": {
-                    "FooGallery.utils.str.html#.join": {
-                      "ref": "FooGallery.utils.str.html#.join",
-                      "tf": 2
-                    }
-                  }
-                }
-              }
-            },
-            "r": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "t": {
-                  "docs": {
-                    "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                      "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                      "tf": 1.5625
-                    },
-                    "FooGallery.utils.str.html#.from": {
-                      "ref": "FooGallery.utils.str.html#.from",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.str.html#.until": {
-                      "ref": "FooGallery.utils.str.html#.until",
-                      "tf": 15.555555555555555
-                    },
-                    "FooGallery.utils.obj.html#.extend": {
-                      "ref": "FooGallery.utils.obj.html#.extend",
-                      "tf": 7.777777777777778
-                    },
-                    "FooGallery.utils.obj.html#.merge": {
-                      "ref": "FooGallery.utils.obj.html#.merge",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.obj.html#~Validators": {
-                      "ref": "FooGallery.utils.obj.html#~Validators",
-                      "tf": 1.0869565217391304
-                    }
-                  }
-                }
-              }
-            },
-            "l": {
-              "docs": {},
-              "l": {
-                "docs": {
-                  "FooGallery.utils.url.html#.full": {
-                    "ref": "FooGallery.utils.url.html#.full",
-                    "tf": 3.125
-                  }
-                }
-              }
-            },
-            "x": {
-              "docs": {
-                "FooGallery.html#.addSize": {
-                  "ref": "FooGallery.html#.addSize",
-                  "tf": 0.7936507936507936
-                }
-              }
-            }
-          },
           "a": {
             "docs": {},
             "c": {
@@ -7959,6 +8959,118 @@ window.lunrData = {
               }
             }
           },
+          "e": {
+            "docs": {},
+            "a": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "u": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "FooGallery.utils.Debugger.html": {
+                        "ref": "FooGallery.utils.Debugger.html",
+                        "tf": 1.282051282051282
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "c": {
+                "docs": {},
+                "h": {
+                  "docs": {
+                    "FooGallery.utils.fn.html#.fetch": {
+                      "ref": "FooGallery.utils.fn.html#.fetch",
+                      "tf": 612.5
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "i": {
+            "docs": {},
+            "n": {
+              "docs": {},
+              "d": {
+                "docs": {
+                  "FooGallery.Loader.html#imgSelector": {
+                    "ref": "FooGallery.Loader.html#imgSelector",
+                    "tf": 11.666666666666666
+                  }
+                }
+              },
+              "a": {
+                "docs": {},
+                "l": {
+                  "docs": {
+                    "FooGallery.utils.str.html#.join": {
+                      "ref": "FooGallery.utils.str.html#.join",
+                      "tf": 2
+                    }
+                  }
+                }
+              }
+            },
+            "r": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                      "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                      "tf": 1.5625
+                    },
+                    "FooGallery.utils.str.html#.from": {
+                      "ref": "FooGallery.utils.str.html#.from",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.str.html#.until": {
+                      "ref": "FooGallery.utils.str.html#.until",
+                      "tf": 15.555555555555555
+                    },
+                    "FooGallery.utils.obj.html#.extend": {
+                      "ref": "FooGallery.utils.obj.html#.extend",
+                      "tf": 7.777777777777778
+                    },
+                    "FooGallery.utils.obj.html#.merge": {
+                      "ref": "FooGallery.utils.obj.html#.merge",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.obj.html#~Validators": {
+                      "ref": "FooGallery.utils.obj.html#~Validators",
+                      "tf": 1.0869565217391304
+                    }
+                  }
+                }
+              }
+            },
+            "l": {
+              "docs": {},
+              "l": {
+                "docs": {
+                  "FooGallery.utils.url.html#.full": {
+                    "ref": "FooGallery.utils.url.html#.full",
+                    "tf": 3.125
+                  }
+                }
+              }
+            },
+            "x": {
+              "docs": {
+                "FooGallery.html#.addSize": {
+                  "ref": "FooGallery.html#.addSize",
+                  "tf": 0.7936507936507936
+                }
+              }
+            }
+          },
           "l": {
             "docs": {},
             "o": {
@@ -7977,17 +9089,26 @@ window.lunrData = {
             }
           }
         },
-        "h": {
+        "g": {
           "docs": {},
-          "t": {
+          "a": {
             "docs": {},
-            "m": {
+            "l": {
               "docs": {},
               "l": {
-                "docs": {
-                  "index.html": {
-                    "ref": "index.html",
-                    "tf": 6.363636363636364
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "i": {
+                      "docs": {
+                        "index.html": {
+                          "ref": "index.html",
+                          "tf": 8.75
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -7995,33 +9116,388 @@ window.lunrData = {
           },
           "e": {
             "docs": {},
-            "l": {
-              "docs": {},
-              "p": {
-                "docs": {
-                  "FooGallery.utils.Throttle.html": {
-                    "ref": "FooGallery.utils.Throttle.html",
-                    "tf": 1.2195121951219512
-                  },
-                  "FooGallery.utils.html#.$": {
-                    "ref": "FooGallery.utils.html#.$",
-                    "tf": 3.571428571428571
-                  },
-                  "FooGallery.html#.$": {
-                    "ref": "FooGallery.html#.$",
-                    "tf": 3.571428571428571
-                  }
+            "t": {
+              "docs": {
+                "FooGallery.utils.Factory.html#names": {
+                  "ref": "FooGallery.utils.Factory.html#names",
+                  "tf": 17.5
                 },
-                "e": {
+                "FooGallery.Loader.html#getViewportInfo": {
+                  "ref": "FooGallery.Loader.html#getViewportInfo",
+                  "tf": 10
+                },
+                "FooGallery.Loader.html#getViewportBounds": {
+                  "ref": "FooGallery.Loader.html#getViewportBounds",
+                  "tf": 7.777777777777778
+                },
+                "FooGallery.Loader.html#getElementBounds": {
+                  "ref": "FooGallery.Loader.html#getElementBounds",
+                  "tf": 14
+                },
+                "FooGallery.utils.url.html#.param": {
+                  "ref": "FooGallery.utils.url.html#.param",
+                  "tf": 11.666666666666666
+                },
+                "FooGallery.utils.transition.html#.duration": {
+                  "ref": "FooGallery.utils.transition.html#.duration",
+                  "tf": 10
+                },
+                "FooGallery.html#.getImages": {
+                  "ref": "FooGallery.html#.getImages",
+                  "tf": 8.75
+                }
+              },
+              "v": {
+                "docs": {},
+                "i": {
                   "docs": {},
-                  "r": {
+                  "e": {
+                    "docs": {},
+                    "w": {
+                      "docs": {},
+                      "p": {
+                        "docs": {},
+                        "o": {
+                          "docs": {},
+                          "r": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              "i": {
+                                "docs": {},
+                                "n": {
+                                  "docs": {},
+                                  "f": {
+                                    "docs": {},
+                                    "o": {
+                                      "docs": {
+                                        "FooGallery.Loader.html#getViewportInfo": {
+                                          "ref": "FooGallery.Loader.html#getViewportInfo",
+                                          "tf": 650
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "b": {
+                                "docs": {},
+                                "o": {
+                                  "docs": {},
+                                  "u": {
+                                    "docs": {},
+                                    "n": {
+                                      "docs": {},
+                                      "d": {
+                                        "docs": {
+                                          "FooGallery.Loader.html#getViewportBounds": {
+                                            "ref": "FooGallery.Loader.html#getViewportBounds",
+                                            "tf": 650
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "e": {
+                "docs": {},
+                "l": {
+                  "docs": {},
+                  "e": {
+                    "docs": {},
+                    "m": {
+                      "docs": {},
+                      "e": {
+                        "docs": {},
+                        "n": {
+                          "docs": {},
+                          "t": {
+                            "docs": {},
+                            "b": {
+                              "docs": {},
+                              "o": {
+                                "docs": {},
+                                "u": {
+                                  "docs": {},
+                                  "n": {
+                                    "docs": {},
+                                    "d": {
+                                      "docs": {
+                                        "FooGallery.Loader.html#getElementBounds": {
+                                          "ref": "FooGallery.Loader.html#getElementBounds",
+                                          "tf": 633.3333333333334
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "i": {
+                "docs": {},
+                "m": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "g": {
+                      "docs": {
+                        "FooGallery.html#.getImages": {
+                          "ref": "FooGallery.html#.getImages",
+                          "tf": 675
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "n": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.ImageViewer.html#$el": {
+                      "ref": "FooGallery.ImageViewer.html#$el",
+                      "tf": 5.555555555555555
+                    },
+                    "FooGallery.utils.html#.uniqueId": {
+                      "ref": "FooGallery.utils.html#.uniqueId",
+                      "tf": 11.666666666666666
+                    },
+                    "FooGallery.utils.str.html#.fnv1a": {
+                      "ref": "FooGallery.utils.str.html#.fnv1a",
+                      "tf": 8.75
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "i": {
+            "docs": {},
+            "v": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "n": {
+                  "docs": {
+                    "FooGallery.utils.Factory.html#register": {
+                      "ref": "FooGallery.utils.Factory.html#register",
+                      "tf": 10
+                    },
+                    "FooGallery.utils.Debugger.html": {
+                      "ref": "FooGallery.utils.Debugger.html",
+                      "tf": 6.363636363636364
+                    },
+                    "FooGallery.utils.html#.uniqueId": {
+                      "ref": "FooGallery.utils.html#.uniqueId",
+                      "tf": 11.666666666666666
+                    },
+                    "FooGallery.utils.html#.removeUniqueId": {
+                      "ref": "FooGallery.utils.html#.removeUniqueId",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.fn.html#.addOrOverride": {
+                      "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                      "tf": 7.777777777777778
+                    },
+                    "FooGallery.utils.fn.html#.check": {
+                      "ref": "FooGallery.utils.fn.html#.check",
+                      "tf": 11.666666666666666
+                    },
+                    "FooGallery.utils.fn.html#.fetch": {
+                      "ref": "FooGallery.utils.fn.html#.fetch",
+                      "tf": 17.5
+                    },
+                    "FooGallery.utils.fn.html#.enqueue": {
+                      "ref": "FooGallery.utils.fn.html#.enqueue",
+                      "tf": 11.666666666666666
+                    },
+                    "FooGallery.utils.url.html#.full": {
+                      "ref": "FooGallery.utils.url.html#.full",
+                      "tf": 15
+                    },
+                    "FooGallery.utils.url.html#.param": {
+                      "ref": "FooGallery.utils.url.html#.param",
+                      "tf": 11.666666666666666
+                    },
+                    "FooGallery.utils.str.html#.camel": {
+                      "ref": "FooGallery.utils.str.html#.camel",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.str.html#.contains": {
+                      "ref": "FooGallery.utils.str.html#.contains",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.str.html#.containsWord": {
+                      "ref": "FooGallery.utils.str.html#.containsWord",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.str.html#.endsWith": {
+                      "ref": "FooGallery.utils.str.html#.endsWith",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.str.html#.fnv1a": {
+                      "ref": "FooGallery.utils.str.html#.fnv1a",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.str.html#.from": {
+                      "ref": "FooGallery.utils.str.html#.from",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.str.html#.join": {
+                      "ref": "FooGallery.utils.str.html#.join",
+                      "tf": 11.666666666666666
+                    },
+                    "FooGallery.utils.str.html#.startsWith": {
+                      "ref": "FooGallery.utils.str.html#.startsWith",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.str.html#.until": {
+                      "ref": "FooGallery.utils.str.html#.until",
+                      "tf": 7.777777777777778
+                    },
+                    "FooGallery.utils.obj.html#.prop": {
+                      "ref": "FooGallery.utils.obj.html#.prop",
+                      "tf": 14
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "l": {
+            "docs": {},
+            "o": {
+              "docs": {},
+              "b": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "l": {
                     "docs": {
-                      "FooGallery.utils.Class.html": {
-                        "ref": "FooGallery.utils.Class.html",
-                        "tf": 10
-                      },
+                      "FooGallery.html": {
+                        "ref": "FooGallery.html",
+                        "tf": 5.555555555555555
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "i": {
+          "docs": {},
+          "n": {
+            "docs": {},
+            "d": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "x": {
+                  "docs": {
+                    "index.html": {
+                      "ref": "index.html",
+                      "tf": 1300
+                    },
+                    "FooGallery.utils.Factory.html#load": {
+                      "ref": "FooGallery.utils.Factory.html#load",
+                      "tf": 4.166666666666666
+                    },
+                    "FooGallery.utils.str.html#.from": {
+                      "ref": "FooGallery.utils.str.html#.from",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.str.html#.until": {
+                      "ref": "FooGallery.utils.str.html#.until",
+                      "tf": 7.777777777777778
+                    },
+                    "FooGallery.utils.str.html#.format": {
+                      "ref": "FooGallery.utils.str.html#.format",
+                      "tf": 6.773504273504274
+                    },
+                    "FooGallery.utils.obj.html#.extend": {
+                      "ref": "FooGallery.utils.obj.html#.extend",
+                      "tf": 2.631578947368421
+                    },
+                    "FooGallery.utils.obj.html#.merge": {
+                      "ref": "FooGallery.utils.obj.html#.merge",
+                      "tf": 2.7777777777777777
+                    }
+                  }
+                }
+              },
+              "i": {
+                "docs": {},
+                "v": {
+                  "docs": {},
+                  "i": {
+                    "docs": {},
+                    "d": {
+                      "docs": {},
+                      "u": {
+                        "docs": {
+                          "FooGallery.utils.fn.html#.addOrOverride": {
+                            "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                            "tf": 0.9615384615384616
+                          },
+                          "FooGallery.utils.str.html#.containsWord": {
+                            "ref": "FooGallery.utils.str.html#.containsWord",
+                            "tf": 3.3333333333333335
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "index.html": {
+                        "ref": "index.html",
+                        "tf": 8.75
+                      }
+                    }
+                  }
+                }
+              },
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
                       "FooGallery.utils.Class.html#.override": {
                         "ref": "FooGallery.utils.Class.html#.override",
+                        "tf": 2.941176470588235
+                      },
+                      "FooGallery.utils.Factory.html#.override": {
+                        "ref": "FooGallery.utils.Factory.html#.override",
                         "tf": 2.941176470588235
                       },
                       "FooGallery.utils.Throttle.html#.override": {
@@ -8032,73 +9508,137 @@ window.lunrData = {
                         "ref": "FooGallery.Loader.html#.override",
                         "tf": 2.941176470588235
                       },
-                      "FooGallery.utils.Factory.html#.override": {
-                        "ref": "FooGallery.utils.Factory.html#.override",
+                      "FooGallery.ImageViewer.html#.override": {
+                        "ref": "FooGallery.ImageViewer.html#.override",
                         "tf": 2.941176470588235
+                      },
+                      "FooGallery.utils.html#.$": {
+                        "ref": "FooGallery.utils.html#.$",
+                        "tf": 3.571428571428571
+                      },
+                      "FooGallery.utils.is.html#.promise": {
+                        "ref": "FooGallery.utils.is.html#.promise",
+                        "tf": 1.3513513513513513
+                      },
+                      "FooGallery.utils.obj.html#.extend": {
+                        "ref": "FooGallery.utils.obj.html#.extend",
+                        "tf": 2.631578947368421
+                      },
+                      "FooGallery.utils.obj.html#.merge": {
+                        "ref": "FooGallery.utils.obj.html#.merge",
+                        "tf": 2.7777777777777777
+                      },
+                      "FooGallery.html#.$": {
+                        "ref": "FooGallery.html#.$",
+                        "tf": 3.571428571428571
                       }
+                    }
+                  },
+                  "f": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "c": {
+                        "docs": {
+                          "FooGallery.utils.Factory.html#load": {
+                            "ref": "FooGallery.utils.Factory.html#load",
+                            "tf": 2.083333333333333
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "s": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "c": {
+                        "docs": {},
+                        "t": {
+                          "docs": {
+                            "FooGallery.Loader.html#intersect": {
+                              "ref": "FooGallery.Loader.html#intersect",
+                              "tf": 636.6666666666666
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "n": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "FooGallery.utils.Factory.html": {
+                        "ref": "FooGallery.utils.Factory.html",
+                        "tf": 2.272727272727273
+                      }
+                    }
+                  }
+                },
+                "g": {
+                  "docs": {},
+                  "e": {
+                    "docs": {},
+                    "r": {
+                      "0": {
+                        "docs": {},
+                        ".": {
+                          "0": {
+                            "docs": {
+                              "FooGallery.utils.is.html#.empty": {
+                                "ref": "FooGallery.utils.is.html#.empty",
+                                "tf": 2.631578947368421
+                              }
+                            }
+                          },
+                          "docs": {}
+                        }
+                      },
+                      "docs": {}
                     }
                   }
                 }
               }
             },
-            "i": {
+            "h": {
               "docs": {},
-              "g": {
+              "e": {
                 "docs": {},
-                "h": {
+                "r": {
                   "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.Loader.html#getViewportInfo": {
-                        "ref": "FooGallery.Loader.html#getViewportInfo",
-                        "tf": 10
-                      },
-                      "FooGallery.html#.getImages": {
-                        "ref": "FooGallery.html#.getImages",
-                        "tf": 8.75
-                      },
-                      "FooGallery.html#.addSize": {
-                        "ref": "FooGallery.html#.addSize",
-                        "tf": 14.737484737484738
-                      },
-                      "FooGallery.html#.removeSize": {
-                        "ref": "FooGallery.html#.removeSize",
-                        "tf": 7.777777777777778
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "a": {
-            "docs": {},
-            "n": {
-              "docs": {},
-              "d": {
-                "docs": {},
-                "l": {
-                  "docs": {
-                    "FooGallery.Loader.html#onscroll": {
-                      "ref": "FooGallery.Loader.html#onscroll",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.html#.versionCompare": {
-                      "ref": "FooGallery.utils.html#.versionCompare",
-                      "tf": 2.1739130434782608
-                    },
-                    "FooGallery.utils.str.html#.format": {
-                      "ref": "FooGallery.utils.str.html#.format",
-                      "tf": 5.384615384615385
-                    }
-                  },
-                  "e": {
+                  "i": {
                     "docs": {},
-                    "r": {
+                    "t": {
                       "docs": {
-                        "FooGallery.utils.Throttle.html": {
-                          "ref": "FooGallery.utils.Throttle.html",
-                          "tf": 1.2195121951219512
+                        "FooGallery.utils.Class.html": {
+                          "ref": "FooGallery.utils.Class.html",
+                          "tf": 12.941176470588236
+                        },
+                        "FooGallery.utils.Class.html#.extend": {
+                          "ref": "FooGallery.utils.Class.html#.extend",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.utils.Factory.html#.extend": {
+                          "ref": "FooGallery.utils.Factory.html#.extend",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.utils.Throttle.html#.extend": {
+                          "ref": "FooGallery.utils.Throttle.html#.extend",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.Loader.html#.extend": {
+                          "ref": "FooGallery.Loader.html#.extend",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.ImageViewer.html#.extend": {
+                          "ref": "FooGallery.ImageViewer.html#.extend",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.utils.fn.html#.addOrOverride": {
+                          "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                          "tf": 0.9615384615384616
                         }
                       }
                     }
@@ -8108,81 +9648,247 @@ window.lunrData = {
             },
             "s": {
               "docs": {},
-              "h": {
-                "docs": {
-                  "FooGallery.utils.is.html#.hash": {
-                    "ref": "FooGallery.utils.is.html#.hash",
-                    "tf": 623.3333333333334
-                  },
-                  "FooGallery.utils.str.html#.fnv1a": {
-                    "ref": "FooGallery.utils.str.html#.fnv1a",
-                    "tf": 8.75
+              "t": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "c": {
+                      "docs": {
+                        "FooGallery.utils.Factory.html#load": {
+                          "ref": "FooGallery.utils.Factory.html#load",
+                          "tf": 7
+                        },
+                        "FooGallery.utils.Factory.html#make": {
+                          "ref": "FooGallery.utils.Factory.html#make",
+                          "tf": 8.75
+                        },
+                        "FooGallery.utils.Factory.html#register": {
+                          "ref": "FooGallery.utils.Factory.html#register",
+                          "tf": 3.8461538461538463
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "i": {
+                "docs": {},
+                "d": {
+                  "docs": {
+                    "FooGallery.utils.is.html#.promise": {
+                      "ref": "FooGallery.utils.is.html#.promise",
+                      "tf": 1.3513513513513513
+                    }
                   }
                 }
               }
             },
-            "v": {
+            "f": {
               "docs": {},
-              "e": {
+              "o": {
                 "docs": {
-                  "FooGallery.utils.fn.html#.addOrOverride": {
-                    "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                    "tf": 0.9615384615384616
+                  "FooGallery.utils.Debugger.html": {
+                    "ref": "FooGallery.utils.Debugger.html",
+                    "tf": 1.282051282051282
+                  },
+                  "FooGallery.utils.Debugger.html#enable": {
+                    "ref": "FooGallery.utils.Debugger.html#enable",
+                    "tf": 10
+                  },
+                  "FooGallery.utils.Debugger.html#disable": {
+                    "ref": "FooGallery.utils.Debugger.html#disable",
+                    "tf": 8.75
                   }
-                }
-              }
-            }
-          },
-          "i": {
-            "docs": {},
-            "g": {
-              "docs": {},
-              "h": {
-                "docs": {},
-                "e": {
+                },
+                "r": {
                   "docs": {},
-                  "r": {
+                  "m": {
                     "docs": {
-                      "FooGallery.utils.Factory.html#load": {
-                        "ref": "FooGallery.utils.Factory.html#load",
-                        "tf": 2.083333333333333
+                      "FooGallery.Loader.html#~ViewportInfo": {
+                        "ref": "FooGallery.Loader.html#~ViewportInfo",
+                        "tf": 8.75
                       }
                     }
                   }
                 }
               }
-            }
-          },
-          "o": {
-            "docs": {},
-            "u": {
+            },
+            "i": {
               "docs": {},
-              "s": {
+              "t": {
                 "docs": {
-                  "FooGallery.html": {
-                    "ref": "FooGallery.html",
-                    "tf": 2.7777777777777777
+                  "FooGallery.Loader.html#init": {
+                    "ref": "FooGallery.Loader.html#init",
+                    "tf": 650
+                  },
+                  "FooGallery.ImageViewer.html#init": {
+                    "ref": "FooGallery.ImageViewer.html#init",
+                    "tf": 700
+                  }
+                },
+                "i": {
+                  "docs": {
+                    "FooGallery.Loader.html#init": {
+                      "ref": "FooGallery.Loader.html#init",
+                      "tf": 20
+                    },
+                    "FooGallery.ImageViewer.html#init": {
+                      "ref": "FooGallery.ImageViewer.html#init",
+                      "tf": 14
+                    }
+                  }
+                }
+              }
+            },
+            "c": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "u": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "FooGallery.utils.html": {
+                        "ref": "FooGallery.utils.html",
+                        "tf": 5.555555555555555
+                      },
+                      "FooGallery.utils.html#.$": {
+                        "ref": "FooGallery.utils.html#.$",
+                        "tf": 3.571428571428571
+                      },
+                      "FooGallery.html#.$": {
+                        "ref": "FooGallery.html#.$",
+                        "tf": 3.571428571428571
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "l": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "n": {
+                  "docs": {
+                    "FooGallery.html#.addSize": {
+                      "ref": "FooGallery.html#.addSize",
+                      "tf": 5.384615384615385
+                    },
+                    "FooGallery.html#.removeSize": {
+                      "ref": "FooGallery.html#.removeSize",
+                      "tf": 7.777777777777778
+                    }
                   }
                 }
               }
             }
-          }
-        },
-        "i": {
-          "docs": {},
-          "f": {
+          },
+          "t": {
             "docs": {},
-            "r": {
+            "s": {
               "docs": {},
-              "a": {
+              "e": {
                 "docs": {},
-                "m": {
-                  "docs": {
-                    "index.html": {
-                      "ref": "index.html",
-                      "tf": 6.363636363636364
+                "l": {
+                  "docs": {},
+                  "f": {
+                    "docs": {
+                      "FooGallery.utils.Class.html#.extend": {
+                        "ref": "FooGallery.utils.Class.html#.extend",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.utils.Factory.html#.extend": {
+                        "ref": "FooGallery.utils.Factory.html#.extend",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.utils.Throttle.html#.extend": {
+                        "ref": "FooGallery.utils.Throttle.html#.extend",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.Loader.html#.extend": {
+                        "ref": "FooGallery.Loader.html#.extend",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.ImageViewer.html#.extend": {
+                        "ref": "FooGallery.ImageViewer.html#.extend",
+                        "tf": 7.777777777777778
+                      }
                     }
                   }
+                }
+              }
+            },
+            "e": {
+              "docs": {},
+              "m": {
+                "docs": {
+                  "FooGallery.ImageViewer.html#$el": {
+                    "ref": "FooGallery.ImageViewer.html#$el",
+                    "tf": 19.555555555555557
+                  },
+                  "FooGallery.ImageViewer.html#$items": {
+                    "ref": "FooGallery.ImageViewer.html#$items",
+                    "tf": 664
+                  },
+                  "FooGallery.ImageViewer.html#prev": {
+                    "ref": "FooGallery.ImageViewer.html#prev",
+                    "tf": 21.666666666666664
+                  },
+                  "FooGallery.ImageViewer.html#next": {
+                    "ref": "FooGallery.ImageViewer.html#next",
+                    "tf": 21.666666666666664
+                  }
+                }
+              }
+            },
+            "'": {
+              "docs": {
+                "FooGallery.utils.fn.html#.check": {
+                  "ref": "FooGallery.utils.fn.html#.check",
+                  "tf": 1.0638297872340425
+                },
+                "FooGallery.utils.url.html#.parts": {
+                  "ref": "FooGallery.utils.url.html#.parts",
+                  "tf": 8.75
+                },
+                "FooGallery.utils.str.html#.format": {
+                  "ref": "FooGallery.utils.str.html#.format",
+                  "tf": 1.3888888888888888
+                },
+                "FooGallery.html": {
+                  "ref": "FooGallery.html",
+                  "tf": 2.7777777777777777
+                }
+              }
+            }
+          },
+          "d": {
+            "docs": {
+              "FooGallery.utils.Throttle.html#id": {
+                "ref": "FooGallery.utils.Throttle.html#id",
+                "tf": 617.5
+              },
+              "FooGallery.utils.html#.uniqueId": {
+                "ref": "FooGallery.utils.html#.uniqueId",
+                "tf": 11.666666666666666
+              },
+              "FooGallery.utils.html#.removeUniqueId": {
+                "ref": "FooGallery.utils.html#.removeUniqueId",
+                "tf": 8.75
+              }
+            },
+            "l": {
+              "docs": {
+                "FooGallery.utils.Throttle.html": {
+                  "ref": "FooGallery.utils.Throttle.html",
+                  "tf": 1.2195121951219512
+                },
+                "FooGallery.utils.Throttle.html#idle": {
+                  "ref": "FooGallery.utils.Throttle.html#idle",
+                  "tf": 614.6969696969697
                 }
               }
             }
@@ -8193,10 +9899,6 @@ window.lunrData = {
               "docs": {},
               "g": {
                 "docs": {
-                  "index.html": {
-                    "ref": "index.html",
-                    "tf": 6.363636363636364
-                  },
                   "FooGallery.Loader.html": {
                     "ref": "FooGallery.Loader.html",
                     "tf": 17.5
@@ -8229,6 +9931,22 @@ window.lunrData = {
                     "ref": "FooGallery.Loader.html#parse",
                     "tf": 4.666666666666667
                   },
+                  "FooGallery.ImageViewer.html": {
+                    "ref": "FooGallery.ImageViewer.html",
+                    "tf": 11.666666666666666
+                  },
+                  "FooGallery.ImageViewer.html#$current": {
+                    "ref": "FooGallery.ImageViewer.html#$current",
+                    "tf": 11.666666666666666
+                  },
+                  "FooGallery.ImageViewer.html#prev": {
+                    "ref": "FooGallery.ImageViewer.html#prev",
+                    "tf": 8.333333333333332
+                  },
+                  "FooGallery.ImageViewer.html#next": {
+                    "ref": "FooGallery.ImageViewer.html#next",
+                    "tf": 8.333333333333332
+                  },
                   "FooGallery.html#.getImages": {
                     "ref": "FooGallery.html#.getImages",
                     "tf": 8.75
@@ -8240,6 +9958,422 @@ window.lunrData = {
                   "FooGallery.html#.removeSize": {
                     "ref": "FooGallery.html#.removeSize",
                     "tf": 7.777777777777778
+                  }
+                },
+                "e": {
+                  "docs": {},
+                  "v": {
+                    "docs": {},
+                    "i": {
+                      "docs": {},
+                      "e": {
+                        "docs": {},
+                        "w": {
+                          "docs": {
+                            "FooGallery.ImageViewer.html": {
+                              "ref": "FooGallery.ImageViewer.html",
+                              "tf": 650
+                            }
+                          },
+                          "e": {
+                            "docs": {},
+                            "r": {
+                              "docs": {},
+                              "#": {
+                                "docs": {},
+                                "o": {
+                                  "docs": {},
+                                  "p": {
+                                    "docs": {},
+                                    "t": {
+                                      "docs": {
+                                        "FooGallery.ImageViewer.html#options": {
+                                          "ref": "FooGallery.ImageViewer.html#options",
+                                          "tf": 100
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "n": {
+                                    "docs": {},
+                                    "f": {
+                                      "docs": {},
+                                      "o": {
+                                        "docs": {},
+                                        "o": {
+                                          "docs": {},
+                                          "b": {
+                                            "docs": {},
+                                            "o": {
+                                              "docs": {},
+                                              "x": {
+                                                "docs": {},
+                                                "p": {
+                                                  "docs": {},
+                                                  "r": {
+                                                    "docs": {},
+                                                    "e": {
+                                                      "docs": {},
+                                                      "v": {
+                                                        "docs": {
+                                                          "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                                                            "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                                                            "tf": 100
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "n": {
+                                                  "docs": {},
+                                                  "e": {
+                                                    "docs": {},
+                                                    "x": {
+                                                      "docs": {},
+                                                      "t": {
+                                                        "docs": {
+                                                          "FooGallery.ImageViewer.html#onFooBoxNext": {
+                                                            "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                                                            "tf": 100
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "p": {
+                                      "docs": {},
+                                      "r": {
+                                        "docs": {},
+                                        "e": {
+                                          "docs": {},
+                                          "v": {
+                                            "docs": {},
+                                            "c": {
+                                              "docs": {},
+                                              "l": {
+                                                "docs": {},
+                                                "i": {
+                                                  "docs": {},
+                                                  "c": {
+                                                    "docs": {},
+                                                    "k": {
+                                                      "docs": {
+                                                        "FooGallery.ImageViewer.html#onPrevClick": {
+                                                          "ref": "FooGallery.ImageViewer.html#onPrevClick",
+                                                          "tf": 100
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "n": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "x": {
+                                          "docs": {},
+                                          "t": {
+                                            "docs": {},
+                                            "c": {
+                                              "docs": {},
+                                              "l": {
+                                                "docs": {},
+                                                "i": {
+                                                  "docs": {},
+                                                  "c": {
+                                                    "docs": {},
+                                                    "k": {
+                                                      "docs": {
+                                                        "FooGallery.ImageViewer.html#onNextClick": {
+                                                          "ref": "FooGallery.ImageViewer.html#onNextClick",
+                                                          "tf": 100
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "$": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "l": {
+                                      "docs": {
+                                        "FooGallery.ImageViewer.html#$el": {
+                                          "ref": "FooGallery.ImageViewer.html#$el",
+                                          "tf": 100
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "i": {
+                                    "docs": {},
+                                    "t": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "m": {
+                                          "docs": {
+                                            "FooGallery.ImageViewer.html#$items": {
+                                              "ref": "FooGallery.ImageViewer.html#$items",
+                                              "tf": 100
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "c": {
+                                    "docs": {},
+                                    "u": {
+                                      "docs": {},
+                                      "r": {
+                                        "docs": {},
+                                        "r": {
+                                          "docs": {
+                                            "FooGallery.ImageViewer.html#$current": {
+                                              "ref": "FooGallery.ImageViewer.html#$current",
+                                              "tf": 100
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "p": {
+                                    "docs": {},
+                                    "r": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "v": {
+                                          "docs": {
+                                            "FooGallery.ImageViewer.html#$prev": {
+                                              "ref": "FooGallery.ImageViewer.html#$prev",
+                                              "tf": 100
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "n": {
+                                    "docs": {},
+                                    "e": {
+                                      "docs": {},
+                                      "x": {
+                                        "docs": {},
+                                        "t": {
+                                          "docs": {
+                                            "FooGallery.ImageViewer.html#$next": {
+                                              "ref": "FooGallery.ImageViewer.html#$next",
+                                              "tf": 100
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "i": {
+                                  "docs": {},
+                                  "n": {
+                                    "docs": {},
+                                    "i": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {
+                                          "FooGallery.ImageViewer.html#init": {
+                                            "ref": "FooGallery.ImageViewer.html#init",
+                                            "tf": 100
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "d": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "s": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {},
+                                        "r": {
+                                          "docs": {},
+                                          "o": {
+                                            "docs": {},
+                                            "y": {
+                                              "docs": {
+                                                "FooGallery.ImageViewer.html#destroy": {
+                                                  "ref": "FooGallery.ImageViewer.html#destroy",
+                                                  "tf": 100
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "p": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {},
+                                    "e": {
+                                      "docs": {},
+                                      "v": {
+                                        "docs": {
+                                          "FooGallery.ImageViewer.html#prev": {
+                                            "ref": "FooGallery.ImageViewer.html#prev",
+                                            "tf": 100
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "n": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "x": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {
+                                          "FooGallery.ImageViewer.html#next": {
+                                            "ref": "FooGallery.ImageViewer.html#next",
+                                            "tf": 100
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              ".": {
+                                "docs": {},
+                                "d": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "f": {
+                                      "docs": {},
+                                      "a": {
+                                        "docs": {},
+                                        "u": {
+                                          "docs": {},
+                                          "l": {
+                                            "docs": {},
+                                            "t": {
+                                              "docs": {
+                                                "FooGallery.ImageViewer.html#.defaults": {
+                                                  "ref": "FooGallery.ImageViewer.html#.defaults",
+                                                  "tf": 100
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "e": {
+                                  "docs": {},
+                                  "x": {
+                                    "docs": {},
+                                    "t": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "n": {
+                                          "docs": {},
+                                          "d": {
+                                            "docs": {
+                                              "FooGallery.ImageViewer.html#.extend": {
+                                                "ref": "FooGallery.ImageViewer.html#.extend",
+                                                "tf": 100
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "o": {
+                                  "docs": {},
+                                  "v": {
+                                    "docs": {},
+                                    "e": {
+                                      "docs": {},
+                                      "r": {
+                                        "docs": {},
+                                        "r": {
+                                          "docs": {},
+                                          "i": {
+                                            "docs": {},
+                                            "d": {
+                                              "docs": {
+                                                "FooGallery.ImageViewer.html#.override": {
+                                                  "ref": "FooGallery.ImageViewer.html#.override",
+                                                  "tf": 100
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "~": {
+                                "docs": {},
+                                "o": {
+                                  "docs": {},
+                                  "p": {
+                                    "docs": {},
+                                    "t": {
+                                      "docs": {
+                                        "FooGallery.ImageViewer.html#~Options": {
+                                          "ref": "FooGallery.ImageViewer.html#~Options",
+                                          "tf": 150
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -8316,436 +10450,6 @@ window.lunrData = {
                       }
                     }
                   }
-                }
-              }
-            }
-          },
-          "n": {
-            "docs": {},
-            "d": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "x": {
-                  "docs": {
-                    "index.html": {
-                      "ref": "index.html",
-                      "tf": 1300
-                    },
-                    "FooGallery.utils.Factory.html#load": {
-                      "ref": "FooGallery.utils.Factory.html#load",
-                      "tf": 4.166666666666666
-                    },
-                    "FooGallery.utils.str.html#.from": {
-                      "ref": "FooGallery.utils.str.html#.from",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.str.html#.until": {
-                      "ref": "FooGallery.utils.str.html#.until",
-                      "tf": 7.777777777777778
-                    },
-                    "FooGallery.utils.str.html#.format": {
-                      "ref": "FooGallery.utils.str.html#.format",
-                      "tf": 6.773504273504274
-                    },
-                    "FooGallery.utils.obj.html#.extend": {
-                      "ref": "FooGallery.utils.obj.html#.extend",
-                      "tf": 2.631578947368421
-                    },
-                    "FooGallery.utils.obj.html#.merge": {
-                      "ref": "FooGallery.utils.obj.html#.merge",
-                      "tf": 2.7777777777777777
-                    }
-                  }
-                }
-              },
-              "i": {
-                "docs": {},
-                "v": {
-                  "docs": {},
-                  "i": {
-                    "docs": {},
-                    "d": {
-                      "docs": {},
-                      "u": {
-                        "docs": {
-                          "FooGallery.utils.fn.html#.addOrOverride": {
-                            "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                            "tf": 0.9615384615384616
-                          },
-                          "FooGallery.utils.str.html#.containsWord": {
-                            "ref": "FooGallery.utils.str.html#.containsWord",
-                            "tf": 3.3333333333333335
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "h": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "r": {
-                  "docs": {},
-                  "i": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.Class.html": {
-                          "ref": "FooGallery.utils.Class.html",
-                          "tf": 12.941176470588236
-                        },
-                        "FooGallery.utils.Class.html#.extend": {
-                          "ref": "FooGallery.utils.Class.html#.extend",
-                          "tf": 7.777777777777778
-                        },
-                        "FooGallery.utils.Throttle.html#.extend": {
-                          "ref": "FooGallery.utils.Throttle.html#.extend",
-                          "tf": 7.777777777777778
-                        },
-                        "FooGallery.Loader.html#.extend": {
-                          "ref": "FooGallery.Loader.html#.extend",
-                          "tf": 7.777777777777778
-                        },
-                        "FooGallery.utils.Factory.html#.extend": {
-                          "ref": "FooGallery.utils.Factory.html#.extend",
-                          "tf": 7.777777777777778
-                        },
-                        "FooGallery.utils.fn.html#.addOrOverride": {
-                          "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                          "tf": 0.9615384615384616
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "t": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "r": {
-                  "docs": {},
-                  "n": {
-                    "docs": {
-                      "FooGallery.utils.Class.html#.override": {
-                        "ref": "FooGallery.utils.Class.html#.override",
-                        "tf": 2.941176470588235
-                      },
-                      "FooGallery.utils.Throttle.html#.override": {
-                        "ref": "FooGallery.utils.Throttle.html#.override",
-                        "tf": 2.941176470588235
-                      },
-                      "FooGallery.Loader.html#.override": {
-                        "ref": "FooGallery.Loader.html#.override",
-                        "tf": 2.941176470588235
-                      },
-                      "FooGallery.utils.Factory.html#.override": {
-                        "ref": "FooGallery.utils.Factory.html#.override",
-                        "tf": 2.941176470588235
-                      },
-                      "FooGallery.utils.html#.$": {
-                        "ref": "FooGallery.utils.html#.$",
-                        "tf": 3.571428571428571
-                      },
-                      "FooGallery.utils.is.html#.promise": {
-                        "ref": "FooGallery.utils.is.html#.promise",
-                        "tf": 1.3513513513513513
-                      },
-                      "FooGallery.utils.obj.html#.extend": {
-                        "ref": "FooGallery.utils.obj.html#.extend",
-                        "tf": 2.631578947368421
-                      },
-                      "FooGallery.utils.obj.html#.merge": {
-                        "ref": "FooGallery.utils.obj.html#.merge",
-                        "tf": 2.7777777777777777
-                      },
-                      "FooGallery.html#.$": {
-                        "ref": "FooGallery.html#.$",
-                        "tf": 3.571428571428571
-                      }
-                    }
-                  },
-                  "s": {
-                    "docs": {},
-                    "e": {
-                      "docs": {},
-                      "c": {
-                        "docs": {},
-                        "t": {
-                          "docs": {
-                            "FooGallery.Loader.html#intersect": {
-                              "ref": "FooGallery.Loader.html#intersect",
-                              "tf": 636.6666666666666
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "f": {
-                    "docs": {},
-                    "a": {
-                      "docs": {},
-                      "c": {
-                        "docs": {
-                          "FooGallery.utils.Factory.html#load": {
-                            "ref": "FooGallery.utils.Factory.html#load",
-                            "tf": 2.083333333333333
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "n": {
-                  "docs": {},
-                  "d": {
-                    "docs": {
-                      "FooGallery.utils.Factory.html": {
-                        "ref": "FooGallery.utils.Factory.html",
-                        "tf": 2.272727272727273
-                      }
-                    }
-                  }
-                },
-                "g": {
-                  "docs": {},
-                  "e": {
-                    "docs": {},
-                    "r": {
-                      "0": {
-                        "docs": {},
-                        ".": {
-                          "0": {
-                            "docs": {
-                              "FooGallery.utils.is.html#.empty": {
-                                "ref": "FooGallery.utils.is.html#.empty",
-                                "tf": 2.631578947368421
-                              }
-                            }
-                          },
-                          "docs": {}
-                        }
-                      },
-                      "docs": {}
-                    }
-                  }
-                }
-              }
-            },
-            "f": {
-              "docs": {},
-              "o": {
-                "docs": {
-                  "FooGallery.utils.Debugger.html": {
-                    "ref": "FooGallery.utils.Debugger.html",
-                    "tf": 1.282051282051282
-                  },
-                  "FooGallery.utils.Debugger.html#enable": {
-                    "ref": "FooGallery.utils.Debugger.html#enable",
-                    "tf": 10
-                  },
-                  "FooGallery.utils.Debugger.html#disable": {
-                    "ref": "FooGallery.utils.Debugger.html#disable",
-                    "tf": 8.75
-                  }
-                },
-                "r": {
-                  "docs": {},
-                  "m": {
-                    "docs": {
-                      "FooGallery.Loader.html#~ViewportInfo": {
-                        "ref": "FooGallery.Loader.html#~ViewportInfo",
-                        "tf": 8.75
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "i": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "FooGallery.Loader.html#init": {
-                    "ref": "FooGallery.Loader.html#init",
-                    "tf": 650
-                  }
-                },
-                "i": {
-                  "docs": {
-                    "FooGallery.Loader.html#init": {
-                      "ref": "FooGallery.Loader.html#init",
-                      "tf": 20
-                    }
-                  }
-                }
-              }
-            },
-            "s": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "a": {
-                  "docs": {},
-                  "n": {
-                    "docs": {},
-                    "c": {
-                      "docs": {
-                        "FooGallery.utils.Factory.html#load": {
-                          "ref": "FooGallery.utils.Factory.html#load",
-                          "tf": 7
-                        },
-                        "FooGallery.utils.Factory.html#make": {
-                          "ref": "FooGallery.utils.Factory.html#make",
-                          "tf": 8.75
-                        },
-                        "FooGallery.utils.Factory.html#register": {
-                          "ref": "FooGallery.utils.Factory.html#register",
-                          "tf": 3.8461538461538463
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "i": {
-                "docs": {},
-                "d": {
-                  "docs": {
-                    "FooGallery.utils.is.html#.promise": {
-                      "ref": "FooGallery.utils.is.html#.promise",
-                      "tf": 1.3513513513513513
-                    }
-                  }
-                }
-              }
-            },
-            "c": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "u": {
-                  "docs": {},
-                  "d": {
-                    "docs": {
-                      "FooGallery.utils.html": {
-                        "ref": "FooGallery.utils.html",
-                        "tf": 5.555555555555555
-                      },
-                      "FooGallery.utils.html#.$": {
-                        "ref": "FooGallery.utils.html#.$",
-                        "tf": 3.571428571428571
-                      },
-                      "FooGallery.html#.$": {
-                        "ref": "FooGallery.html#.$",
-                        "tf": 3.571428571428571
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "l": {
-              "docs": {},
-              "i": {
-                "docs": {},
-                "n": {
-                  "docs": {
-                    "FooGallery.html#.addSize": {
-                      "ref": "FooGallery.html#.addSize",
-                      "tf": 5.384615384615385
-                    },
-                    "FooGallery.html#.removeSize": {
-                      "ref": "FooGallery.html#.removeSize",
-                      "tf": 7.777777777777778
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "t": {
-            "docs": {},
-            "s": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "l": {
-                  "docs": {},
-                  "f": {
-                    "docs": {
-                      "FooGallery.utils.Class.html#.extend": {
-                        "ref": "FooGallery.utils.Class.html#.extend",
-                        "tf": 7.777777777777778
-                      },
-                      "FooGallery.utils.Throttle.html#.extend": {
-                        "ref": "FooGallery.utils.Throttle.html#.extend",
-                        "tf": 7.777777777777778
-                      },
-                      "FooGallery.Loader.html#.extend": {
-                        "ref": "FooGallery.Loader.html#.extend",
-                        "tf": 7.777777777777778
-                      },
-                      "FooGallery.utils.Factory.html#.extend": {
-                        "ref": "FooGallery.utils.Factory.html#.extend",
-                        "tf": 7.777777777777778
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "'": {
-              "docs": {
-                "FooGallery.utils.fn.html#.check": {
-                  "ref": "FooGallery.utils.fn.html#.check",
-                  "tf": 1.0638297872340425
-                },
-                "FooGallery.utils.url.html#.parts": {
-                  "ref": "FooGallery.utils.url.html#.parts",
-                  "tf": 8.75
-                },
-                "FooGallery.utils.str.html#.format": {
-                  "ref": "FooGallery.utils.str.html#.format",
-                  "tf": 1.3888888888888888
-                },
-                "FooGallery.html": {
-                  "ref": "FooGallery.html",
-                  "tf": 2.7777777777777777
-                }
-              }
-            }
-          },
-          "d": {
-            "docs": {
-              "FooGallery.utils.Throttle.html#id": {
-                "ref": "FooGallery.utils.Throttle.html#id",
-                "tf": 617.5
-              },
-              "FooGallery.utils.html#.uniqueId": {
-                "ref": "FooGallery.utils.html#.uniqueId",
-                "tf": 11.666666666666666
-              },
-              "FooGallery.utils.html#.removeUniqueId": {
-                "ref": "FooGallery.utils.html#.removeUniqueId",
-                "tf": 8.75
-              }
-            },
-            "l": {
-              "docs": {
-                "FooGallery.utils.Throttle.html": {
-                  "ref": "FooGallery.utils.Throttle.html",
-                  "tf": 1.2195121951219512
-                },
-                "FooGallery.utils.Throttle.html#idle": {
-                  "ref": "FooGallery.utils.Throttle.html#idle",
-                  "tf": 614.6969696969697
                 }
               }
             }
@@ -9052,129 +10756,130 @@ window.lunrData = {
             }
           }
         },
-        "j": {
+        "m": {
           "docs": {},
-          "q": {
-            "docs": {
-              "FooGallery.utils.is.html#.jq": {
-                "ref": "FooGallery.utils.is.html#.jq",
-                "tf": 600
+          "a": {
+            "docs": {},
+            "n": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "g": {
+                  "docs": {
+                    "index.html": {
+                      "ref": "index.html",
+                      "tf": 8.75
+                    }
+                  }
+                }
               }
             },
-            "u": {
+            "k": {
               "docs": {},
               "e": {
+                "docs": {
+                  "FooGallery.utils.Class.html": {
+                    "ref": "FooGallery.utils.Class.html",
+                    "tf": 1.4705882352941175
+                  },
+                  "FooGallery.utils.Factory.html#make": {
+                    "ref": "FooGallery.utils.Factory.html#make",
+                    "tf": 595
+                  },
+                  "FooGallery.utils.Factory.html#register": {
+                    "ref": "FooGallery.utils.Factory.html#register",
+                    "tf": 3.8461538461538463
+                  },
+                  "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                    "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                    "tf": 1.5625
+                  },
+                  "FooGallery.utils.obj.html#.extend": {
+                    "ref": "FooGallery.utils.obj.html#.extend",
+                    "tf": 2.631578947368421
+                  },
+                  "FooGallery.html": {
+                    "ref": "FooGallery.html",
+                    "tf": 2.7777777777777777
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "h": {
+                "docs": {
+                  "FooGallery.Loader.html#.reduce": {
+                    "ref": "FooGallery.Loader.html#.reduce",
+                    "tf": 5.833333333333333
+                  }
+                }
+              },
+              "c": {
+                "docs": {},
+                "h": {
+                  "docs": {
+                    "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                      "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                      "tf": 3.125
+                    }
+                  }
+                }
+              }
+            },
+            "i": {
+              "docs": {},
+              "n": {
+                "docs": {
+                  "FooGallery.ImageViewer.html": {
+                    "ref": "FooGallery.ImageViewer.html",
+                    "tf": 11.666666666666666
+                  }
+                }
+              }
+            },
+            "j": {
+              "docs": {},
+              "o": {
                 "docs": {},
                 "r": {
-                  "docs": {},
-                  "i": {
-                    "docs": {
-                      "index.html": {
-                        "ref": "index.html",
-                        "tf": 6.363636363636364
-                      },
-                      "FooGallery.Loader.html#$target": {
-                        "ref": "FooGallery.Loader.html#$target",
-                        "tf": 64
-                      },
-                      "FooGallery.Loader.html#parse": {
-                        "ref": "FooGallery.Loader.html#parse",
-                        "tf": 4.666666666666667
-                      },
-                      "external-_jQuery.fn_.html": {
-                        "ref": "external-_jQuery.fn_.html",
-                        "tf": 16.666666666666664
-                      },
-                      "FooGallery.utils.html": {
-                        "ref": "FooGallery.utils.html",
-                        "tf": 5.555555555555555
-                      },
-                      "FooGallery.utils.html#.$": {
-                        "ref": "FooGallery.utils.html#.$",
-                        "tf": 71.14285714285714
-                      },
-                      "FooGallery.utils.is.html#.empty": {
-                        "ref": "FooGallery.utils.is.html#.empty",
-                        "tf": 2.631578947368421
-                      },
-                      "FooGallery.utils.is.html#.jq": {
-                        "ref": "FooGallery.utils.is.html#.jq",
-                        "tf": 17.5
-                      },
-                      "FooGallery.utils.is.html#.promise": {
-                        "ref": "FooGallery.utils.is.html#.promise",
-                        "tf": 2.7027027027027026
-                      },
-                      "FooGallery.utils.obj.html#.extend": {
-                        "ref": "FooGallery.utils.obj.html#.extend",
-                        "tf": 2.631578947368421
-                      },
-                      "FooGallery.utils.obj.html#.merge": {
-                        "ref": "FooGallery.utils.obj.html#.merge",
-                        "tf": 2.7777777777777777
-                      },
-                      "FooGallery.utils.transition.html#.duration": {
-                        "ref": "FooGallery.utils.transition.html#.duration",
-                        "tf": 10
-                      },
-                      "FooGallery.html#.$": {
-                        "ref": "FooGallery.html#.$",
-                        "tf": 71.14285714285714
-                      },
-                      "FooGallery.html#.getImages": {
-                        "ref": "FooGallery.html#.getImages",
-                        "tf": 25
-                      }
+                  "docs": {
+                    "FooGallery.utils.obj.html#~Validators": {
+                      "ref": "FooGallery.utils.obj.html#~Validators",
+                      "tf": 1.0869565217391304
                     }
                   },
-                  "y": {
+                  ".": {
                     "docs": {},
-                    ".": {
+                    "m": {
                       "docs": {},
-                      "f": {
+                      "i": {
                         "docs": {},
                         "n": {
-                          "docs": {
-                            "external-_jQuery.fn_.html": {
-                              "ref": "external-_jQuery.fn_.html",
-                              "tf": 500
-                            }
-                          }
-                        }
-                      },
-                      "d": {
-                        "docs": {},
-                        "e": {
-                          "docs": {},
-                          "f": {
-                            "docs": {
-                              "FooGallery.utils.is.html#.promise": {
-                                "ref": "FooGallery.utils.is.html#.promise",
-                                "tf": 1.3513513513513513
-                              },
-                              "FooGallery.utils.transition.html#.start": {
-                                "ref": "FooGallery.utils.transition.html#.start",
-                                "tf": 14.285714285714285
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "p": {
-                        "docs": {},
-                        "r": {
                           "docs": {},
                           "o": {
                             "docs": {},
-                            "m": {
+                            "r": {
                               "docs": {},
-                              "i": {
+                              ".": {
                                 "docs": {},
-                                "s": {
-                                  "docs": {
-                                    "FooGallery.utils.fn.html#.enqueue": {
-                                      "ref": "FooGallery.utils.fn.html#.enqueue",
-                                      "tf": 14.285714285714285
+                                "p": {
+                                  "docs": {},
+                                  "a": {
+                                    "docs": {},
+                                    "t": {
+                                      "docs": {},
+                                      "c": {
+                                        "docs": {},
+                                        "h": {
+                                          "docs": {
+                                            "FooGallery.utils.html#.versionCompare": {
+                                              "ref": "FooGallery.utils.html#.versionCompare",
+                                              "tf": 2.1739130434782608
+                                            }
+                                          }
+                                        }
+                                      }
                                     }
                                   }
                                 }
@@ -9183,12 +10888,451 @@ window.lunrData = {
                           }
                         }
                       }
-                    },
-                    "'": {
-                      "docs": {
-                        "FooGallery.utils.transition.html#.start": {
-                          "ref": "FooGallery.utils.transition.html#.start",
-                          "tf": 1
+                    }
+                  }
+                }
+              }
+            },
+            "p": {
+              "docs": {
+                "FooGallery.utils.obj.html#.mergeValid": {
+                  "ref": "FooGallery.utils.obj.html#.mergeValid",
+                  "tf": 23.035714285714285
+                },
+                "FooGallery.utils.obj.html#~Mappings": {
+                  "ref": "FooGallery.utils.obj.html#~Mappings",
+                  "tf": 613.25
+                }
+              }
+            }
+          },
+          "e": {
+            "docs": {},
+            "m": {
+              "docs": {},
+              "b": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "list_external.html": {
+                        "ref": "list_external.html",
+                        "tf": 23.333333333333332
+                      },
+                      "FooGallery.utils.Factory.html#registered": {
+                        "ref": "FooGallery.utils.Factory.html#registered",
+                        "tf": 110
+                      },
+                      "FooGallery.utils.Debugger.html#key": {
+                        "ref": "FooGallery.utils.Debugger.html#key",
+                        "tf": 110
+                      },
+                      "FooGallery.utils.Debugger.html#enabled": {
+                        "ref": "FooGallery.utils.Debugger.html#enabled",
+                        "tf": 110
+                      },
+                      "FooGallery.utils.Throttle.html#id": {
+                        "ref": "FooGallery.utils.Throttle.html#id",
+                        "tf": 110
+                      },
+                      "FooGallery.utils.Throttle.html#active": {
+                        "ref": "FooGallery.utils.Throttle.html#active",
+                        "tf": 110
+                      },
+                      "FooGallery.utils.Throttle.html#idle": {
+                        "ref": "FooGallery.utils.Throttle.html#idle",
+                        "tf": 110
+                      },
+                      "FooGallery.Loader.html#$target": {
+                        "ref": "FooGallery.Loader.html#$target",
+                        "tf": 110
+                      },
+                      "FooGallery.Loader.html#options": {
+                        "ref": "FooGallery.Loader.html#options",
+                        "tf": 110
+                      },
+                      "FooGallery.Loader.html#loadingSelector": {
+                        "ref": "FooGallery.Loader.html#loadingSelector",
+                        "tf": 110
+                      },
+                      "FooGallery.Loader.html#loadedSelector": {
+                        "ref": "FooGallery.Loader.html#loadedSelector",
+                        "tf": 110
+                      },
+                      "FooGallery.Loader.html#errorSelector": {
+                        "ref": "FooGallery.Loader.html#errorSelector",
+                        "tf": 110
+                      },
+                      "FooGallery.Loader.html#imgSelector": {
+                        "ref": "FooGallery.Loader.html#imgSelector",
+                        "tf": 110
+                      },
+                      "FooGallery.Loader.html#.defaults": {
+                        "ref": "FooGallery.Loader.html#.defaults",
+                        "tf": 110
+                      },
+                      "FooGallery.ImageViewer.html#options": {
+                        "ref": "FooGallery.ImageViewer.html#options",
+                        "tf": 110
+                      },
+                      "FooGallery.ImageViewer.html#$el": {
+                        "ref": "FooGallery.ImageViewer.html#$el",
+                        "tf": 110
+                      },
+                      "FooGallery.ImageViewer.html#$items": {
+                        "ref": "FooGallery.ImageViewer.html#$items",
+                        "tf": 110
+                      },
+                      "FooGallery.ImageViewer.html#$current": {
+                        "ref": "FooGallery.ImageViewer.html#$current",
+                        "tf": 110
+                      },
+                      "FooGallery.ImageViewer.html#$prev": {
+                        "ref": "FooGallery.ImageViewer.html#$prev",
+                        "tf": 110
+                      },
+                      "FooGallery.ImageViewer.html#$next": {
+                        "ref": "FooGallery.ImageViewer.html#$next",
+                        "tf": 110
+                      },
+                      "FooGallery.ImageViewer.html#.defaults": {
+                        "ref": "FooGallery.ImageViewer.html#.defaults",
+                        "tf": 110
+                      },
+                      "FooGallery.utils.html#.$": {
+                        "ref": "FooGallery.utils.html#.$",
+                        "tf": 110
+                      },
+                      "FooGallery.utils.html#.version": {
+                        "ref": "FooGallery.utils.html#.version",
+                        "tf": 110
+                      },
+                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                        "tf": 110
+                      },
+                      "FooGallery.utils.transition.html": {
+                        "ref": "FooGallery.utils.transition.html",
+                        "tf": 8.75
+                      },
+                      "FooGallery.utils.transition.html#.supported": {
+                        "ref": "FooGallery.utils.transition.html#.supported",
+                        "tf": 110
+                      },
+                      "FooGallery.utils.transition.html#.end": {
+                        "ref": "FooGallery.utils.transition.html#.end",
+                        "tf": 110
+                      },
+                      "FooGallery.html": {
+                        "ref": "FooGallery.html",
+                        "tf": 2.7777777777777777
+                      },
+                      "FooGallery.html#.$": {
+                        "ref": "FooGallery.html#.$",
+                        "tf": 110
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "h": {
+                "docs": {},
+                "o": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "FooGallery.utils.Class.html": {
+                        "ref": "FooGallery.utils.Class.html",
+                        "tf": 14.411764705882353
+                      },
+                      "FooGallery.utils.Class.html#.extend": {
+                        "ref": "FooGallery.utils.Class.html#.extend",
+                        "tf": 8.333333333333332
+                      },
+                      "FooGallery.utils.Class.html#.override": {
+                        "ref": "FooGallery.utils.Class.html#.override",
+                        "tf": 23.38235294117647
+                      },
+                      "FooGallery.utils.Factory.html": {
+                        "ref": "FooGallery.utils.Factory.html",
+                        "tf": 2.272727272727273
+                      },
+                      "FooGallery.utils.Factory.html#load": {
+                        "ref": "FooGallery.utils.Factory.html#load",
+                        "tf": 2.083333333333333
+                      },
+                      "FooGallery.utils.Factory.html#register": {
+                        "ref": "FooGallery.utils.Factory.html#register",
+                        "tf": 3.8461538461538463
+                      },
+                      "FooGallery.utils.Factory.html#.extend": {
+                        "ref": "FooGallery.utils.Factory.html#.extend",
+                        "tf": 8.333333333333332
+                      },
+                      "FooGallery.utils.Factory.html#.override": {
+                        "ref": "FooGallery.utils.Factory.html#.override",
+                        "tf": 23.38235294117647
+                      },
+                      "FooGallery.utils.Debugger.html#log": {
+                        "ref": "FooGallery.utils.Debugger.html#log",
+                        "tf": 6.666666666666667
+                      },
+                      "FooGallery.utils.Throttle.html": {
+                        "ref": "FooGallery.utils.Throttle.html",
+                        "tf": 1.2195121951219512
+                      },
+                      "FooGallery.utils.Throttle.html#idle": {
+                        "ref": "FooGallery.utils.Throttle.html#idle",
+                        "tf": 6.363636363636364
+                      },
+                      "FooGallery.utils.Throttle.html#.extend": {
+                        "ref": "FooGallery.utils.Throttle.html#.extend",
+                        "tf": 8.333333333333332
+                      },
+                      "FooGallery.utils.Throttle.html#.override": {
+                        "ref": "FooGallery.utils.Throttle.html#.override",
+                        "tf": 23.38235294117647
+                      },
+                      "FooGallery.Loader.html#.extend": {
+                        "ref": "FooGallery.Loader.html#.extend",
+                        "tf": 8.333333333333332
+                      },
+                      "FooGallery.Loader.html#.override": {
+                        "ref": "FooGallery.Loader.html#.override",
+                        "tf": 23.38235294117647
+                      },
+                      "FooGallery.ImageViewer.html#prev": {
+                        "ref": "FooGallery.ImageViewer.html#prev",
+                        "tf": 4.166666666666666
+                      },
+                      "FooGallery.ImageViewer.html#next": {
+                        "ref": "FooGallery.ImageViewer.html#next",
+                        "tf": 4.166666666666666
+                      },
+                      "FooGallery.ImageViewer.html#.extend": {
+                        "ref": "FooGallery.ImageViewer.html#.extend",
+                        "tf": 8.333333333333332
+                      },
+                      "FooGallery.ImageViewer.html#.override": {
+                        "ref": "FooGallery.ImageViewer.html#.override",
+                        "tf": 23.38235294117647
+                      },
+                      "FooGallery.utils.html": {
+                        "ref": "FooGallery.utils.html",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.utils.html#.versionCompare": {
+                        "ref": "FooGallery.utils.html#.versionCompare",
+                        "tf": 4.3478260869565215
+                      },
+                      "FooGallery.utils.html#.removeUniqueId": {
+                        "ref": "FooGallery.utils.html#.removeUniqueId",
+                        "tf": 8.75
+                      },
+                      "FooGallery.utils.is.html": {
+                        "ref": "FooGallery.utils.is.html",
+                        "tf": 11.666666666666666
+                      },
+                      "FooGallery.utils.is.html#.empty": {
+                        "ref": "FooGallery.utils.is.html#.empty",
+                        "tf": 2.631578947368421
+                      },
+                      "FooGallery.utils.is.html#.promise": {
+                        "ref": "FooGallery.utils.is.html#.promise",
+                        "tf": 1.3513513513513513
+                      },
+                      "FooGallery.utils.fn.html": {
+                        "ref": "FooGallery.utils.fn.html",
+                        "tf": 14
+                      },
+                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                        "tf": 14
+                      },
+                      "FooGallery.utils.fn.html#.addOrOverride": {
+                        "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                        "tf": 13.547008547008547
+                      },
+                      "FooGallery.utils.fn.html#.apply": {
+                        "ref": "FooGallery.utils.fn.html#.apply",
+                        "tf": 12.916666666666666
+                      },
+                      "FooGallery.utils.fn.html#.arg2arr": {
+                        "ref": "FooGallery.utils.fn.html#.arg2arr",
+                        "tf": 5.555555555555555
+                      },
+                      "FooGallery.utils.fn.html#.check": {
+                        "ref": "FooGallery.utils.fn.html#.check",
+                        "tf": 3.1914893617021276
+                      },
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 11.677489177489177
+                      },
+                      "FooGallery.utils.url.html": {
+                        "ref": "FooGallery.utils.url.html",
+                        "tf": 14
+                      },
+                      "FooGallery.utils.url.html#~Parts": {
+                        "ref": "FooGallery.utils.url.html#~Parts",
+                        "tf": 11.666666666666666
+                      },
+                      "FooGallery.utils.str.html": {
+                        "ref": "FooGallery.utils.str.html",
+                        "tf": 14
+                      },
+                      "FooGallery.utils.str.html#.containsWord": {
+                        "ref": "FooGallery.utils.str.html#.containsWord",
+                        "tf": 3.3333333333333335
+                      },
+                      "FooGallery.utils.str.html#.join": {
+                        "ref": "FooGallery.utils.str.html#.join",
+                        "tf": 2
+                      },
+                      "FooGallery.utils.str.html#.format": {
+                        "ref": "FooGallery.utils.str.html#.format",
+                        "tf": 1.3888888888888888
+                      },
+                      "FooGallery.utils.obj.html": {
+                        "ref": "FooGallery.utils.obj.html",
+                        "tf": 14
+                      },
+                      "FooGallery.utils.obj.html#.create": {
+                        "ref": "FooGallery.utils.obj.html#.create",
+                        "tf": 12.5
+                      },
+                      "FooGallery.utils.obj.html#.extend": {
+                        "ref": "FooGallery.utils.obj.html#.extend",
+                        "tf": 5.263157894736842
+                      },
+                      "FooGallery.utils.obj.html#.merge": {
+                        "ref": "FooGallery.utils.obj.html#.merge",
+                        "tf": 5.555555555555555
+                      },
+                      "FooGallery.utils.obj.html#~Mappings": {
+                        "ref": "FooGallery.utils.obj.html#~Mappings",
+                        "tf": 7
+                      },
+                      "FooGallery.utils.obj.html#~Validators": {
+                        "ref": "FooGallery.utils.obj.html#~Validators",
+                        "tf": 12.753623188405797
+                      },
+                      "FooGallery.utils.transition.html": {
+                        "ref": "FooGallery.utils.transition.html",
+                        "tf": 8.75
+                      },
+                      "FooGallery.utils.transition.html#.start": {
+                        "ref": "FooGallery.utils.transition.html#.start",
+                        "tf": 4
+                      },
+                      "FooGallery.html#.addSize": {
+                        "ref": "FooGallery.html#.addSize",
+                        "tf": 1.5873015873015872
+                      },
+                      "FooGallery.html#~readyCallback": {
+                        "ref": "FooGallery.html#~readyCallback",
+                        "tf": 23.333333333333332
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "g": {
+                    "docs": {
+                      "FooGallery.utils.Debugger.html#log": {
+                        "ref": "FooGallery.utils.Debugger.html#log",
+                        "tf": 43.33333333333333
+                      },
+                      "FooGallery.utils.Debugger.html#logf": {
+                        "ref": "FooGallery.utils.Debugger.html#logf",
+                        "tf": 35
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "a": {
+              "docs": {},
+              "n": {
+                "docs": {
+                  "FooGallery.utils.str.html#.format": {
+                    "ref": "FooGallery.utils.str.html#.format",
+                    "tf": 1.3888888888888888
+                  },
+                  "FooGallery.utils.obj.html#~Validators": {
+                    "ref": "FooGallery.utils.obj.html#~Validators",
+                    "tf": 1.0869565217391304
+                  }
+                },
+                "t": {
+                  "docs": {
+                    "FooGallery.utils.Throttle.html": {
+                      "ref": "FooGallery.utils.Throttle.html",
+                      "tf": 1.2195121951219512
+                    }
+                  }
+                }
+              }
+            },
+            "r": {
+              "docs": {},
+              "g": {
+                "docs": {
+                  "FooGallery.ImageViewer.html#options": {
+                    "ref": "FooGallery.ImageViewer.html#options",
+                    "tf": 6.25
+                  },
+                  "FooGallery.utils.obj.html#.extend": {
+                    "ref": "FooGallery.utils.obj.html#.extend",
+                    "tf": 10.409356725146198
+                  },
+                  "FooGallery.utils.obj.html#.merge": {
+                    "ref": "FooGallery.utils.obj.html#.merge",
+                    "tf": 606.5277777777778
+                  },
+                  "FooGallery.utils.obj.html#.mergeValid": {
+                    "ref": "FooGallery.utils.obj.html#.mergeValid",
+                    "tf": 8.75
+                  }
+                },
+                "e": {
+                  "docs": {},
+                  "v": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "d": {
+                            "docs": {
+                              "FooGallery.utils.obj.html#.mergeValid": {
+                                "ref": "FooGallery.utils.obj.html#.mergeValid",
+                                "tf": 589.2857142857143
+                              },
+                              "FooGallery.utils.obj.html#~Mappings": {
+                                "ref": "FooGallery.utils.obj.html#~Mappings",
+                                "tf": 7
+                              },
+                              "FooGallery.utils.obj.html#~Validators": {
+                                "ref": "FooGallery.utils.obj.html#~Validators",
+                                "tf": 11.666666666666666
+                              }
+                            }
+                          }
                         }
                       }
                     }
@@ -9197,27 +11341,65 @@ window.lunrData = {
               }
             }
           },
-          "a": {
+          "u": {
             "docs": {},
-            "v": {
+            "l": {
               "docs": {},
-              "a": {
+              "t": {
                 "docs": {},
-                "s": {
+                "i": {
                   "docs": {},
-                  "c": {
+                  "p": {
                     "docs": {},
-                    "r": {
+                    "l": {
+                      "docs": {
+                        "FooGallery.utils.Throttle.html": {
+                          "ref": "FooGallery.utils.Throttle.html",
+                          "tf": 1.2195121951219512
+                        },
+                        "FooGallery.utils.html#.$": {
+                          "ref": "FooGallery.utils.html#.$",
+                          "tf": 3.571428571428571
+                        },
+                        "FooGallery.utils.obj.html#~Validators": {
+                          "ref": "FooGallery.utils.obj.html#~Validators",
+                          "tf": 1.0869565217391304
+                        },
+                        "FooGallery.html#.$": {
+                          "ref": "FooGallery.html#.$",
+                          "tf": 3.571428571428571
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "i": {
+            "docs": {},
+            "l": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "e": {
                       "docs": {},
-                      "i": {
+                      "c": {
                         "docs": {},
-                        "p": {
+                        "o": {
                           "docs": {},
-                          "t": {
-                            "docs": {
-                              "FooGallery.utils.url.html#~Parts": {
-                                "ref": "FooGallery.utils.url.html#~Parts",
-                                "tf": 11.666666666666666
+                          "n": {
+                            "docs": {},
+                            "d": {
+                              "docs": {
+                                "FooGallery.utils.Throttle.html#idle": {
+                                  "ref": "FooGallery.utils.Throttle.html#idle",
+                                  "tf": 6.363636363636364
+                                }
                               }
                             }
                           }
@@ -9231,13 +11413,852 @@ window.lunrData = {
           },
           "o": {
             "docs": {},
+            "r": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "FooGallery.utils.is.html#.promise": {
+                    "ref": "FooGallery.utils.is.html#.promise",
+                    "tf": 1.3513513513513513
+                  },
+                  "FooGallery.utils.obj.html#.extend": {
+                    "ref": "FooGallery.utils.obj.html#.extend",
+                    "tf": 7.777777777777778
+                  }
+                }
+              }
+            }
+          },
+          "y": {
+            "docs": {},
+            "c": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "s": {
+                      "docs": {},
+                      ".": {
+                        "docs": {},
+                        "p": {
+                          "docs": {},
+                          "r": {
+                            "docs": {},
+                            "o": {
+                              "docs": {},
+                              "t": {
+                                "docs": {},
+                                "o": {
+                                  "docs": {},
+                                  "t": {
+                                    "docs": {},
+                                    "y": {
+                                      "docs": {},
+                                      "p": {
+                                        "docs": {
+                                          "FooGallery.utils.fn.html#.addOrOverride": {
+                                            "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                                            "tf": 0.9615384615384616
+                                          }
+                                        },
+                                        "e": {
+                                          "docs": {},
+                                          ".": {
+                                            "docs": {},
+                                            "s": {
+                                              "docs": {},
+                                              "o": {
+                                                "docs": {},
+                                                "m": {
+                                                  "docs": {},
+                                                  "e": {
+                                                    "docs": {},
+                                                    "m": {
+                                                      "docs": {},
+                                                      "e": {
+                                                        "docs": {},
+                                                        "t": {
+                                                          "docs": {},
+                                                          "h": {
+                                                            "docs": {},
+                                                            "o": {
+                                                              "docs": {},
+                                                              "d": {
+                                                                "docs": {
+                                                                  "FooGallery.utils.fn.html#.addOrOverride": {
+                                                                    "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                                                                    "tf": 1.9230769230769231
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "r": {
+          "docs": {},
+          "e": {
+            "docs": {},
+            "a": {
+              "docs": {},
+              "d": {
+                "docs": {},
+                "m": {
+                  "docs": {
+                    "index.html": {
+                      "ref": "index.html",
+                      "tf": 110
+                    }
+                  }
+                },
+                "o": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "l": {
+                      "docs": {},
+                      "y": {
+                        "docs": {},
+                        "&": {
+                          "docs": {},
+                          "g": {
+                            "docs": {},
+                            "t": {
+                              "docs": {
+                                "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                                  "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                                  "tf": 25
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "i": {
+                  "docs": {
+                    "FooGallery.html#.ready": {
+                      "ref": "FooGallery.html#.ready",
+                      "tf": 683.3333333333334
+                    }
+                  }
+                },
+                "y": {
+                  "docs": {},
+                  "c": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        "l": {
+                          "docs": {},
+                          "b": {
+                            "docs": {},
+                            "a": {
+                              "docs": {},
+                              "c": {
+                                "docs": {},
+                                "k": {
+                                  "docs": {
+                                    "FooGallery.html#~readyCallback": {
+                                      "ref": "FooGallery.html#~readyCallback",
+                                      "tf": 600
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "g": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "s": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.utils.Factory.html": {
+                        "ref": "FooGallery.utils.Factory.html",
+                        "tf": 15.568181818181817
+                      },
+                      "FooGallery.utils.Factory.html#registered": {
+                        "ref": "FooGallery.utils.Factory.html#registered",
+                        "tf": 617.5
+                      },
+                      "FooGallery.utils.Factory.html#contains": {
+                        "ref": "FooGallery.utils.Factory.html#contains",
+                        "tf": 8.75
+                      },
+                      "FooGallery.utils.Factory.html#load": {
+                        "ref": "FooGallery.utils.Factory.html#load",
+                        "tf": 18.166666666666664
+                      },
+                      "FooGallery.utils.Factory.html#make": {
+                        "ref": "FooGallery.utils.Factory.html#make",
+                        "tf": 8.75
+                      },
+                      "FooGallery.utils.Factory.html#names": {
+                        "ref": "FooGallery.utils.Factory.html#names",
+                        "tf": 17.5
+                      },
+                      "FooGallery.utils.Factory.html#register": {
+                        "ref": "FooGallery.utils.Factory.html#register",
+                        "tf": 608.8461538461538
+                      },
+                      "FooGallery.utils.html#.$": {
+                        "ref": "FooGallery.utils.html#.$",
+                        "tf": 14
+                      },
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 1.2987012987012987
+                      },
+                      "FooGallery.html#.$": {
+                        "ref": "FooGallery.html#.$",
+                        "tf": 14
+                      }
+                    }
+                  }
+                }
+              },
+              "e": {
+                "docs": {},
+                "x": {
+                  "docs": {},
+                  "p": {
+                    "docs": {
+                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                        "tf": 25
+                      }
+                    }
+                  }
+                }
+              },
+              "u": {
+                "docs": {},
+                "l": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "r": {
+                      "docs": {
+                        "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                          "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                          "tf": 10.125
+                        },
+                        "FooGallery.utils.str.html#.escapeRegExp": {
+                          "ref": "FooGallery.utils.str.html#.escapeRegExp",
+                          "tf": 14
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "a": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "d": {
+                    "docs": {},
+                    "l": {
+                      "docs": {},
+                      "e": {
+                        "docs": {},
+                        "s": {
+                          "docs": {},
+                          "s": {
+                            "docs": {
+                              "FooGallery.utils.fn.html#.enqueue": {
+                                "ref": "FooGallery.utils.fn.html#.enqueue",
+                                "tf": 0.6493506493506493
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "l": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.utils.Factory.html#load": {
+                        "ref": "FooGallery.utils.Factory.html#load",
+                        "tf": 2.083333333333333
+                      },
+                      "FooGallery.utils.Debugger.html": {
+                        "ref": "FooGallery.utils.Debugger.html",
+                        "tf": 1.282051282051282
+                      },
+                      "FooGallery.utils.html#.versionCompare": {
+                        "ref": "FooGallery.utils.html#.versionCompare",
+                        "tf": 2.1739130434782608
+                      },
+                      "FooGallery.utils.str.html#.join": {
+                        "ref": "FooGallery.utils.str.html#.join",
+                        "tf": 2
+                      }
+                    }
+                  }
+                }
+              },
+              "i": {
+                "docs": {},
+                "z": {
+                  "docs": {
+                    "FooGallery.utils.Throttle.html": {
+                      "ref": "FooGallery.utils.Throttle.html",
+                      "tf": 1.2195121951219512
+                    }
+                  }
+                }
+              },
+              "o": {
+                "docs": {},
+                "l": {
+                  "docs": {},
+                  "v": {
+                    "docs": {
+                      "FooGallery.utils.fn.html#.check": {
+                        "ref": "FooGallery.utils.fn.html#.check",
+                        "tf": 2.127659574468085
+                      },
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 0.6493506493506493
+                      },
+                      "FooGallery.utils.transition.html#.start": {
+                        "ref": "FooGallery.utils.transition.html#.start",
+                        "tf": 1
+                      }
+                    }
+                  }
+                }
+              },
+              "p": {
+                "docs": {},
+                "o": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "s": {
+                      "docs": {
+                        "FooGallery.html#.addSize": {
+                          "ref": "FooGallery.html#.addSize",
+                          "tf": 0.7936507936507936
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "f": {
+              "docs": {},
+              "r": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "h": {
+                      "docs": {
+                        "FooGallery.utils.Debugger.html": {
+                          "ref": "FooGallery.utils.Debugger.html",
+                          "tf": 1.282051282051282
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.utils.html#.$": {
+                      "ref": "FooGallery.utils.html#.$",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.str.html#.format": {
+                      "ref": "FooGallery.utils.str.html#.format",
+                      "tf": 1.3888888888888888
+                    },
+                    "FooGallery.html#.$": {
+                      "ref": "FooGallery.html#.$",
+                      "tf": 14
+                    }
+                  }
+                }
+              }
+            },
+            "p": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "c": {
+                    "docs": {
+                      "FooGallery.utils.Debugger.html#logf": {
+                        "ref": "FooGallery.utils.Debugger.html#logf",
+                        "tf": 25
+                      },
+                      "FooGallery.utils.fn.html#.addOrOverride": {
+                        "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                        "tf": 0.9615384615384616
+                      },
+                      "FooGallery.utils.fn.html#.arg2arr": {
+                        "ref": "FooGallery.utils.fn.html#.arg2arr",
+                        "tf": 5.555555555555555
+                      },
+                      "FooGallery.utils.str.html#.format": {
+                        "ref": "FooGallery.utils.str.html#.format",
+                        "tf": 10.94017094017094
+                      },
+                      "FooGallery.utils.obj.html#.extend": {
+                        "ref": "FooGallery.utils.obj.html#.extend",
+                        "tf": 2.631578947368421
+                      },
+                      "FooGallery.utils.obj.html#.merge": {
+                        "ref": "FooGallery.utils.obj.html#.merge",
+                        "tf": 2.7777777777777777
+                      }
+                    }
+                  }
+                }
+              },
+              "r": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "s": {
+                    "docs": {
+                      "FooGallery.Loader.html#~Bounds": {
+                        "ref": "FooGallery.Loader.html#~Bounds",
+                        "tf": 8.75
+                      },
+                      "FooGallery.Loader.html#~ViewportInfo": {
+                        "ref": "FooGallery.Loader.html#~ViewportInfo",
+                        "tf": 8.75
+                      },
+                      "FooGallery.Loader.html#~Srcset": {
+                        "ref": "FooGallery.Loader.html#~Srcset",
+                        "tf": 10
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "q": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "FooGallery.Loader.html#onscroll": {
+                        "ref": "FooGallery.Loader.html#onscroll",
+                        "tf": 8.75
+                      },
+                      "FooGallery.Loader.html#check": {
+                        "ref": "FooGallery.Loader.html#check",
+                        "tf": 11.666666666666666
+                      },
+                      "FooGallery.Loader.html#~ViewportInfo": {
+                        "ref": "FooGallery.Loader.html#~ViewportInfo",
+                        "tf": 8.75
+                      },
+                      "FooGallery.utils.fn.html#.apply": {
+                        "ref": "FooGallery.utils.fn.html#.apply",
+                        "tf": 4.166666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "FooGallery.Loader.html#parse": {
+                        "ref": "FooGallery.Loader.html#parse",
+                        "tf": 4.666666666666667
+                      },
+                      "FooGallery.utils.html#.versionCompare": {
+                        "ref": "FooGallery.utils.html#.versionCompare",
+                        "tf": 2.1739130434782608
+                      },
+                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                        "tf": 1.5625
+                      },
+                      "FooGallery.utils.fn.html#.check": {
+                        "ref": "FooGallery.utils.fn.html#.check",
+                        "tf": 11.666666666666666
+                      },
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 0.6493506493506493
+                      },
+                      "FooGallery.utils.url.html#.full": {
+                        "ref": "FooGallery.utils.url.html#.full",
+                        "tf": 11.875
+                      },
+                      "FooGallery.utils.url.html#~Parts": {
+                        "ref": "FooGallery.utils.url.html#~Parts",
+                        "tf": 11.666666666666666
+                      },
+                      "FooGallery.utils.str.html#.from": {
+                        "ref": "FooGallery.utils.str.html#.from",
+                        "tf": 8.75
+                      },
+                      "FooGallery.utils.str.html#.until": {
+                        "ref": "FooGallery.utils.str.html#.until",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.utils.obj.html#~Validators": {
+                        "ref": "FooGallery.utils.obj.html#~Validators",
+                        "tf": 1.0869565217391304
+                      },
+                      "FooGallery.utils.transition.html#.end": {
+                        "ref": "FooGallery.utils.transition.html#.end",
+                        "tf": 4.545454545454546
+                      },
+                      "FooGallery.utils.transition.html#.start": {
+                        "ref": "FooGallery.utils.transition.html#.start",
+                        "tf": 1
+                      }
+                    }
+                  }
+                }
+              },
+              "r": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "e": {
+                    "docs": {},
+                    "v": {
+                      "docs": {
+                        "FooGallery.utils.fn.html#.check": {
+                          "ref": "FooGallery.utils.fn.html#.check",
+                          "tf": 1.0638297872340425
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "c": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "g": {
+                      "docs": {},
+                      "l": {
+                        "docs": {
+                          "FooGallery.Loader.html#getViewportBounds": {
+                            "ref": "FooGallery.Loader.html#getViewportBounds",
+                            "tf": 7.777777777777778
+                          },
+                          "FooGallery.Loader.html#getElementBounds": {
+                            "ref": "FooGallery.Loader.html#getElementBounds",
+                            "tf": 14
+                          },
+                          "FooGallery.Loader.html#intersect": {
+                            "ref": "FooGallery.Loader.html#intersect",
+                            "tf": 11.666666666666666
+                          },
+                          "FooGallery.Loader.html#~Bounds": {
+                            "ref": "FooGallery.Loader.html#~Bounds",
+                            "tf": 8.75
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "d": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "c": {
+                  "docs": {
+                    "FooGallery.Loader.html#.reduce": {
+                      "ref": "FooGallery.Loader.html#.reduce",
+                      "tf": 622.5
+                    }
+                  }
+                }
+              }
+            },
+            "m": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                        "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.ImageViewer.html#onFooBoxNext": {
+                        "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                        "tf": 7.777777777777778
+                      }
+                    },
+                    "d": {
+                      "docs": {
+                        "FooGallery.utils.str.html#.from": {
+                          "ref": "FooGallery.utils.str.html#.from",
+                          "tf": 8.75
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "o": {
+                "docs": {},
+                "v": {
+                  "docs": {
+                    "FooGallery.utils.html#.removeUniqueId": {
+                      "ref": "FooGallery.utils.html#.removeUniqueId",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.str.html#.join": {
+                      "ref": "FooGallery.utils.str.html#.join",
+                      "tf": 2
+                    },
+                    "FooGallery.html#.removeSize": {
+                      "ref": "FooGallery.html#.removeSize",
+                      "tf": 7.777777777777778
+                    }
+                  },
+                  "e": {
+                    "docs": {},
+                    "u": {
+                      "docs": {},
+                      "n": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "q": {
+                            "docs": {},
+                            "u": {
+                              "docs": {},
+                              "e": {
+                                "docs": {},
+                                "i": {
+                                  "docs": {},
+                                  "d": {
+                                    "docs": {
+                                      "FooGallery.utils.html#.removeUniqueId": {
+                                        "ref": "FooGallery.utils.html#.removeUniqueId",
+                                        "tf": 633.3333333333334
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "s": {
+                      "docs": {
+                        "FooGallery.html#.removeSize": {
+                          "ref": "FooGallery.html#.removeSize",
+                          "tf": 683.3333333333334
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "l": {
+              "docs": {
+                "FooGallery.utils.url.html#.full": {
+                  "ref": "FooGallery.utils.url.html#.full",
+                  "tf": 11.875
+                }
+              },
+              "i": {
+                "docs": {
+                  "FooGallery.utils.html": {
+                    "ref": "FooGallery.utils.html",
+                    "tf": 5.555555555555555
+                  },
+                  "FooGallery.utils.fn.html#.enqueue": {
+                    "ref": "FooGallery.utils.fn.html#.enqueue",
+                    "tf": 0.6493506493506493
+                  }
+                }
+              }
+            },
+            "j": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.utils.transition.html#.start": {
+                        "ref": "FooGallery.utils.transition.html#.start",
+                        "tf": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
             "i": {
               "docs": {},
-              "n": {
+              "s": {
                 "docs": {
-                  "FooGallery.utils.str.html#.join": {
-                    "ref": "FooGallery.utils.str.html#.join",
-                    "tf": 605.3333333333333
+                  "FooGallery.utils.transition.html#.start": {
+                    "ref": "FooGallery.utils.transition.html#.start",
+                    "tf": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "t": {
+          "docs": {},
+          "o": {
+            "docs": {},
+            "o": {
+              "docs": {},
+              "l": {
+                "docs": {
+                  "index.html": {
+                    "ref": "index.html",
+                    "tf": 8.75
+                  }
+                }
+              }
+            },
+            "g": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "t": {
+                  "docs": {},
+                  "h": {
+                    "docs": {
+                      "FooGallery.utils.obj.html#.extend": {
+                        "ref": "FooGallery.utils.obj.html#.extend",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.utils.obj.html#.merge": {
+                        "ref": "FooGallery.utils.obj.html#.merge",
+                        "tf": 8.75
+                      }
+                    }
+                  }
+                }
+              },
+              "g": {
+                "docs": {},
+                "l": {
+                  "docs": {
+                    "FooGallery.utils.transition.html#.start": {
+                      "ref": "FooGallery.utils.transition.html#.start",
+                      "tf": 12.666666666666666
+                    }
+                  },
+                  "e": {
+                    "docs": {},
+                    "c": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        "a": {
+                          "docs": {},
+                          "s": {
+                            "docs": {},
+                            "s": {
+                              "docs": {
+                                "FooGallery.utils.transition.html#.start": {
+                                  "ref": "FooGallery.utils.transition.html#.start",
+                                  "tf": 1
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -9245,13 +12266,1816 @@ window.lunrData = {
           },
           "u": {
             "docs": {},
+            "r": {
+              "docs": {},
+              "n": {
+                "docs": {
+                  "FooGallery.utils.Class.html#.extend": {
+                    "ref": "FooGallery.utils.Class.html#.extend",
+                    "tf": 7.777777777777778
+                  },
+                  "FooGallery.utils.Factory.html#.extend": {
+                    "ref": "FooGallery.utils.Factory.html#.extend",
+                    "tf": 7.777777777777778
+                  },
+                  "FooGallery.utils.Throttle.html#.extend": {
+                    "ref": "FooGallery.utils.Throttle.html#.extend",
+                    "tf": 7.777777777777778
+                  },
+                  "FooGallery.Loader.html#.extend": {
+                    "ref": "FooGallery.Loader.html#.extend",
+                    "tf": 7.777777777777778
+                  },
+                  "FooGallery.ImageViewer.html#.extend": {
+                    "ref": "FooGallery.ImageViewer.html#.extend",
+                    "tf": 7.777777777777778
+                  }
+                }
+              }
+            }
+          },
+          "h": {
+            "docs": {},
+            "e": {
+              "docs": {},
+              "m": {
+                "docs": {},
+                "s": {
+                  "docs": {},
+                  "e": {
+                    "docs": {},
+                    "l": {
+                      "docs": {},
+                      "v": {
+                        "docs": {
+                          "FooGallery.utils.Factory.html": {
+                            "ref": "FooGallery.utils.Factory.html",
+                            "tf": 2.272727272727273
+                          },
+                          "FooGallery.utils.str.html#.format": {
+                            "ref": "FooGallery.utils.str.html#.format",
+                            "tf": 1.3888888888888888
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "r": {
+              "docs": {},
+              "o": {
+                "docs": {},
+                "u": {
+                  "docs": {},
+                  "g": {
+                    "docs": {},
+                    "h": {
+                      "docs": {
+                        "FooGallery.utils.Factory.html": {
+                          "ref": "FooGallery.utils.Factory.html",
+                          "tf": 2.272727272727273
+                        },
+                        "FooGallery.utils.fn.html#.check": {
+                          "ref": "FooGallery.utils.fn.html#.check",
+                          "tf": 1.0638297872340425
+                        }
+                      }
+                    }
+                  }
+                },
+                "t": {
+                  "docs": {},
+                  "t": {
+                    "docs": {},
+                    "l": {
+                      "docs": {
+                        "FooGallery.utils.Throttle.html": {
+                          "ref": "FooGallery.utils.Throttle.html",
+                          "tf": 618.719512195122
+                        }
+                      },
+                      "e": {
+                        "docs": {},
+                        "#": {
+                          "docs": {},
+                          "i": {
+                            "docs": {},
+                            "d": {
+                              "docs": {
+                                "FooGallery.utils.Throttle.html#id": {
+                                  "ref": "FooGallery.utils.Throttle.html#id",
+                                  "tf": 75
+                                }
+                              },
+                              "l": {
+                                "docs": {
+                                  "FooGallery.utils.Throttle.html#idle": {
+                                    "ref": "FooGallery.utils.Throttle.html#idle",
+                                    "tf": 75
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "a": {
+                            "docs": {},
+                            "c": {
+                              "docs": {},
+                              "t": {
+                                "docs": {
+                                  "FooGallery.utils.Throttle.html#active": {
+                                    "ref": "FooGallery.utils.Throttle.html#active",
+                                    "tf": 75
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "l": {
+                            "docs": {},
+                            "i": {
+                              "docs": {},
+                              "m": {
+                                "docs": {},
+                                "i": {
+                                  "docs": {},
+                                  "t": {
+                                    "docs": {
+                                      "FooGallery.utils.Throttle.html#limit": {
+                                        "ref": "FooGallery.utils.Throttle.html#limit",
+                                        "tf": 75
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "c": {
+                            "docs": {},
+                            "l": {
+                              "docs": {},
+                              "e": {
+                                "docs": {},
+                                "a": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {
+                                      "FooGallery.utils.Throttle.html#clear": {
+                                        "ref": "FooGallery.utils.Throttle.html#clear",
+                                        "tf": 75
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        ".": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "x": {
+                              "docs": {},
+                              "t": {
+                                "docs": {},
+                                "e": {
+                                  "docs": {},
+                                  "n": {
+                                    "docs": {},
+                                    "d": {
+                                      "docs": {
+                                        "FooGallery.utils.Throttle.html#.extend": {
+                                          "ref": "FooGallery.utils.Throttle.html#.extend",
+                                          "tf": 75
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "o": {
+                            "docs": {},
+                            "v": {
+                              "docs": {},
+                              "e": {
+                                "docs": {},
+                                "r": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {},
+                                    "i": {
+                                      "docs": {},
+                                      "d": {
+                                        "docs": {
+                                          "FooGallery.utils.Throttle.html#.override": {
+                                            "ref": "FooGallery.utils.Throttle.html#.override",
+                                            "tf": 75
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "w": {
+                  "docs": {
+                    "FooGallery.utils.fn.html#.enqueue": {
+                      "ref": "FooGallery.utils.fn.html#.enqueue",
+                      "tf": 0.6493506493506493
+                    }
+                  },
+                  "n": {
+                    "docs": {
+                      "FooGallery.Loader.html#errorSelector": {
+                        "ref": "FooGallery.Loader.html#errorSelector",
+                        "tf": 11.666666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "i": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                ".": {
+                  "docs": {},
+                  "_": {
+                    "docs": {},
+                    "s": {
+                      "docs": {},
+                      "u": {
+                        "docs": {},
+                        "p": {
+                          "docs": {
+                            "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                              "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                              "tf": 7
+                            },
+                            "FooGallery.utils.fn.html#.addOrOverride": {
+                              "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                              "tf": 0.9615384615384616
+                            }
+                          },
+                          "e": {
+                            "docs": {},
+                            "r": {
+                              "docs": {},
+                              "(": {
+                                "docs": {},
+                                "a": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {},
+                                    "g": {
+                                      "1": {
+                                        "docs": {
+                                          "FooGallery.utils.fn.html#.addOrOverride": {
+                                            "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                                            "tf": 0.9615384615384616
+                                          }
+                                        }
+                                      },
+                                      "docs": {}
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "a": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "g": {
+                      "docs": {
+                        "FooGallery.utils.fn.html#.check": {
+                          "ref": "FooGallery.utils.fn.html#.check",
+                          "tf": 14.285714285714285
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "i": {
+            "docs": {},
+            "m": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "FooGallery.utils.Factory.html": {
+                    "ref": "FooGallery.utils.Factory.html",
+                    "tf": 2.272727272727273
+                  },
+                  "FooGallery.utils.Throttle.html": {
+                    "ref": "FooGallery.utils.Throttle.html",
+                    "tf": 2.4390243902439024
+                  },
+                  "FooGallery.utils.Throttle.html#idle": {
+                    "ref": "FooGallery.utils.Throttle.html#idle",
+                    "tf": 6.363636363636364
+                  },
+                  "FooGallery.utils.transition.html#.start": {
+                    "ref": "FooGallery.utils.transition.html#.start",
+                    "tf": 1
+                  }
+                },
+                "r": {
+                  "docs": {
+                    "FooGallery.utils.Throttle.html": {
+                      "ref": "FooGallery.utils.Throttle.html",
+                      "tf": 17.5
+                    },
+                    "FooGallery.utils.Throttle.html#active": {
+                      "ref": "FooGallery.utils.Throttle.html#active",
+                      "tf": 23.333333333333332
+                    },
+                    "FooGallery.utils.Throttle.html#idle": {
+                      "ref": "FooGallery.utils.Throttle.html#idle",
+                      "tf": 6.363636363636364
+                    },
+                    "FooGallery.utils.Throttle.html#limit": {
+                      "ref": "FooGallery.utils.Throttle.html#limit",
+                      "tf": 7
+                    },
+                    "FooGallery.utils.Throttle.html#clear": {
+                      "ref": "FooGallery.utils.Throttle.html#clear",
+                      "tf": 10
+                    },
+                    "FooGallery.utils.transition.html#.start": {
+                      "ref": "FooGallery.utils.transition.html#.start",
+                      "tf": 1
+                    }
+                  }
+                },
+                "o": {
+                  "docs": {},
+                  "u": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.transition.html#.start": {
+                          "ref": "FooGallery.utils.transition.html#.start",
+                          "tf": 15.285714285714285
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "y": {
+            "docs": {},
+            "p": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "FooGallery.utils.Factory.html#load": {
+                    "ref": "FooGallery.utils.Factory.html#load",
+                    "tf": 2.083333333333333
+                  },
+                  "FooGallery.utils.is.html": {
+                    "ref": "FooGallery.utils.is.html",
+                    "tf": 11.666666666666666
+                  },
+                  "FooGallery.utils.obj.html#~Validators": {
+                    "ref": "FooGallery.utils.obj.html#~Validators",
+                    "tf": 1.0869565217391304
+                  }
+                },
+                "d": {
+                  "docs": {},
+                  "e": {
+                    "docs": {},
+                    "f": {
+                      "docs": {
+                        "FooGallery.Loader.html#~Options": {
+                          "ref": "FooGallery.Loader.html#~Options",
+                          "tf": 110
+                        },
+                        "FooGallery.Loader.html#~Bounds": {
+                          "ref": "FooGallery.Loader.html#~Bounds",
+                          "tf": 110
+                        },
+                        "FooGallery.Loader.html#~ViewportInfo": {
+                          "ref": "FooGallery.Loader.html#~ViewportInfo",
+                          "tf": 110
+                        },
+                        "FooGallery.Loader.html#~Srcset": {
+                          "ref": "FooGallery.Loader.html#~Srcset",
+                          "tf": 110
+                        },
+                        "FooGallery.ImageViewer.html#~Options": {
+                          "ref": "FooGallery.ImageViewer.html#~Options",
+                          "tf": 110
+                        },
+                        "FooGallery.utils.url.html#~Parts": {
+                          "ref": "FooGallery.utils.url.html#~Parts",
+                          "tf": 110
+                        },
+                        "FooGallery.utils.obj.html#~Mappings": {
+                          "ref": "FooGallery.utils.obj.html#~Mappings",
+                          "tf": 110
+                        },
+                        "FooGallery.utils.obj.html#~Validators": {
+                          "ref": "FooGallery.utils.obj.html#~Validators",
+                          "tf": 110
+                        },
+                        "FooGallery.html#~readyCallback": {
+                          "ref": "FooGallery.html#~readyCallback",
+                          "tf": 110
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "k": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "FooGallery.utils.Throttle.html": {
+                    "ref": "FooGallery.utils.Throttle.html",
+                    "tf": 1.2195121951219512
+                  },
+                  "FooGallery.Loader.html#load": {
+                    "ref": "FooGallery.Loader.html#load",
+                    "tf": 7.777777777777778
+                  },
+                  "FooGallery.Loader.html#parse": {
+                    "ref": "FooGallery.Loader.html#parse",
+                    "tf": 4.666666666666667
+                  },
+                  "FooGallery.Loader.html#getViewportBounds": {
+                    "ref": "FooGallery.Loader.html#getViewportBounds",
+                    "tf": 7.777777777777778
+                  }
+                }
+              }
+            },
+            "r": {
+              "docs": {},
+              "g": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.Loader.html#$target": {
+                        "ref": "FooGallery.Loader.html#$target",
+                        "tf": 664
+                      },
+                      "FooGallery.utils.str.html#.camel": {
+                        "ref": "FooGallery.utils.str.html#.camel",
+                        "tf": 39
+                      },
+                      "FooGallery.utils.str.html#.contains": {
+                        "ref": "FooGallery.utils.str.html#.contains",
+                        "tf": 30.666666666666664
+                      },
+                      "FooGallery.utils.str.html#.containsWord": {
+                        "ref": "FooGallery.utils.str.html#.containsWord",
+                        "tf": 34
+                      },
+                      "FooGallery.utils.str.html#.endsWith": {
+                        "ref": "FooGallery.utils.str.html#.endsWith",
+                        "tf": 34
+                      },
+                      "FooGallery.utils.str.html#.escapeRegExp": {
+                        "ref": "FooGallery.utils.str.html#.escapeRegExp",
+                        "tf": 39
+                      },
+                      "FooGallery.utils.str.html#.fnv1a": {
+                        "ref": "FooGallery.utils.str.html#.fnv1a",
+                        "tf": 33.75
+                      },
+                      "FooGallery.utils.str.html#.from": {
+                        "ref": "FooGallery.utils.str.html#.from",
+                        "tf": 33.75
+                      },
+                      "FooGallery.utils.str.html#.startsWith": {
+                        "ref": "FooGallery.utils.str.html#.startsWith",
+                        "tf": 34
+                      },
+                      "FooGallery.utils.str.html#.until": {
+                        "ref": "FooGallery.utils.str.html#.until",
+                        "tf": 27.77777777777778
+                      },
+                      "FooGallery.utils.str.html#.format": {
+                        "ref": "FooGallery.utils.str.html#.format",
+                        "tf": 16.666666666666664
+                      },
+                      "FooGallery.utils.obj.html#.extend": {
+                        "ref": "FooGallery.utils.obj.html#.extend",
+                        "tf": 24.444444444444443
+                      },
+                      "FooGallery.utils.obj.html#.merge": {
+                        "ref": "FooGallery.utils.obj.html#.merge",
+                        "tf": 28.75
+                      },
+                      "FooGallery.utils.obj.html#.mergeValid": {
+                        "ref": "FooGallery.utils.obj.html#.mergeValid",
+                        "tf": 23.035714285714285
+                      },
+                      "FooGallery.utils.obj.html#~Mappings": {
+                        "ref": "FooGallery.utils.obj.html#~Mappings",
+                        "tf": 9.083333333333332
+                      },
+                      "FooGallery.html#.getImages": {
+                        "ref": "FooGallery.html#.getImages",
+                        "tf": 33.75
+                      },
+                      "FooGallery.html#.addSize": {
+                        "ref": "FooGallery.html#.addSize",
+                        "tf": 30.384615384615387
+                      },
+                      "FooGallery.html#.removeSize": {
+                        "ref": "FooGallery.html#.removeSize",
+                        "tf": 41.11111111111111
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "w": {
+            "docs": {},
+            "o": {
+              "docs": {
+                "FooGallery.Loader.html#intersect": {
+                  "ref": "FooGallery.Loader.html#intersect",
+                  "tf": 11.666666666666666
+                },
+                "FooGallery.utils.html#.versionCompare": {
+                  "ref": "FooGallery.utils.html#.versionCompare",
+                  "tf": 19.67391304347826
+                },
+                "FooGallery.utils.obj.html#.extend": {
+                  "ref": "FooGallery.utils.obj.html#.extend",
+                  "tf": 7.777777777777778
+                },
+                "FooGallery.utils.obj.html#.merge": {
+                  "ref": "FooGallery.utils.obj.html#.merge",
+                  "tf": 8.75
+                }
+              }
+            }
+          },
+          "e": {
+            "docs": {},
             "m": {
               "docs": {},
               "p": {
+                "docs": {},
+                "l": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.ImageViewer.html": {
+                          "ref": "FooGallery.ImageViewer.html",
+                          "tf": 11.666666666666666
+                        },
+                        "FooGallery.ImageViewer.html#$el": {
+                          "ref": "FooGallery.ImageViewer.html#$el",
+                          "tf": 19.555555555555557
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                    "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                    "tf": 8.5625
+                  },
+                  "FooGallery.utils.obj.html#~Validators": {
+                    "ref": "FooGallery.utils.obj.html#~Validators",
+                    "tf": 1.0869565217391304
+                  }
+                }
+              }
+            }
+          },
+          "r": {
+            "docs": {},
+            "u": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "i": {
+                  "docs": {
+                    "FooGallery.utils.is.html#.promise": {
+                      "ref": "FooGallery.utils.is.html#.promise",
+                      "tf": 1.3513513513513513
+                    }
+                  }
+                }
+              },
+              "e": {
+                "docs": {
+                  "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                    "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                    "tf": 1.5625
+                  }
+                }
+              }
+            },
+            "e": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "FooGallery.utils.obj.html#.extend": {
+                      "ref": "FooGallery.utils.obj.html#.extend",
+                      "tf": 2.631578947368421
+                    },
+                    "FooGallery.utils.obj.html#.merge": {
+                      "ref": "FooGallery.utils.obj.html#.merge",
+                      "tf": 2.7777777777777777
+                    }
+                  }
+                }
+              }
+            },
+            "a": {
+              "docs": {},
+              "n": {
+                "docs": {},
+                "s": {
+                  "docs": {},
+                  "i": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.transition.html": {
+                          "ref": "FooGallery.utils.transition.html",
+                          "tf": 608.75
+                        },
+                        "FooGallery.utils.transition.html#.supported": {
+                          "ref": "FooGallery.utils.transition.html#.supported",
+                          "tf": 14
+                        },
+                        "FooGallery.utils.transition.html#.end": {
+                          "ref": "FooGallery.utils.transition.html#.end",
+                          "tf": 4.545454545454546
+                        },
+                        "FooGallery.utils.transition.html#.duration": {
+                          "ref": "FooGallery.utils.transition.html#.duration",
+                          "tf": 10
+                        },
+                        "FooGallery.utils.transition.html#.start": {
+                          "ref": "FooGallery.utils.transition.html#.start",
+                          "tf": 14.666666666666666
+                        }
+                      },
+                      "i": {
+                        "docs": {},
+                        "o": {
+                          "docs": {},
+                          "n": {
+                            "docs": {},
+                            ".": {
+                              "docs": {},
+                              "s": {
+                                "docs": {},
+                                "u": {
+                                  "docs": {},
+                                  "p": {
+                                    "docs": {},
+                                    "p": {
+                                      "docs": {},
+                                      "o": {
+                                        "docs": {},
+                                        "r": {
+                                          "docs": {},
+                                          "t": {
+                                            "docs": {
+                                              "FooGallery.utils.transition.html#.supported": {
+                                                "ref": "FooGallery.utils.transition.html#.supported",
+                                                "tf": 75
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "t": {
+                                  "docs": {},
+                                  "a": {
+                                    "docs": {},
+                                    "r": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {
+                                          "FooGallery.utils.transition.html#.start": {
+                                            "ref": "FooGallery.utils.transition.html#.start",
+                                            "tf": 75
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "e": {
+                                "docs": {},
+                                "n": {
+                                  "docs": {},
+                                  "d": {
+                                    "docs": {
+                                      "FooGallery.utils.transition.html#.end": {
+                                        "ref": "FooGallery.utils.transition.html#.end",
+                                        "tf": 75
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "d": {
+                                "docs": {},
+                                "u": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {
+                                      "FooGallery.utils.transition.html#.duration": {
+                                        "ref": "FooGallery.utils.transition.html#.duration",
+                                        "tf": 75
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "e": {
+                              "docs": {},
+                              "n": {
+                                "docs": {},
+                                "d": {
+                                  "docs": {
+                                    "FooGallery.utils.transition.html#.end": {
+                                      "ref": "FooGallery.utils.transition.html#.end",
+                                      "tf": 14
+                                    },
+                                    "FooGallery.utils.transition.html#.start": {
+                                      "ref": "FooGallery.utils.transition.html#.start",
+                                      "tf": 2
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "w": {
+          "docs": {},
+          "o": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "d": {
+                "docs": {
+                  "FooGallery.utils.str.html#.containsWord": {
+                    "ref": "FooGallery.utils.str.html#.containsWord",
+                    "tf": 37.33333333333333
+                  }
+                },
+                "p": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "s": {
+                        "docs": {},
+                        "s": {
+                          "docs": {
+                            "index.html": {
+                              "ref": "index.html",
+                              "tf": 8.75
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "k": {
+                "docs": {
+                  "FooGallery.utils.Class.html": {
+                    "ref": "FooGallery.utils.Class.html",
+                    "tf": 1.4705882352941175
+                  },
+                  "FooGallery.utils.html#.$": {
+                    "ref": "FooGallery.utils.html#.$",
+                    "tf": 3.571428571428571
+                  },
+                  "FooGallery.html#.$": {
+                    "ref": "FooGallery.html#.$",
+                    "tf": 3.571428571428571
+                  },
+                  "FooGallery.html#.addSize": {
+                    "ref": "FooGallery.html#.addSize",
+                    "tf": 0.7936507936507936
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "y": {
+              "docs": {
+                "FooGallery.utils.Class.html": {
+                  "ref": "FooGallery.utils.Class.html",
+                  "tf": 2.941176470588235
+                },
+                "FooGallery.utils.fn.html#.enqueue": {
+                  "ref": "FooGallery.utils.fn.html#.enqueue",
+                  "tf": 0.6493506493506493
+                }
+              }
+            },
+            "i": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "FooGallery.utils.Throttle.html#idle": {
+                    "ref": "FooGallery.utils.Throttle.html#idle",
+                    "tf": 6.363636363636364
+                  },
+                  "FooGallery.html#.ready": {
+                    "ref": "FooGallery.html#.ready",
+                    "tf": 11.666666666666666
+                  }
+                }
+              }
+            },
+            "n": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "FooGallery.utils.obj.html#~Mappings": {
+                    "ref": "FooGallery.utils.obj.html#~Mappings",
+                    "tf": 2.083333333333333
+                  },
+                  "FooGallery.utils.obj.html#~Validators": {
+                    "ref": "FooGallery.utils.obj.html#~Validators",
+                    "tf": 1.0869565217391304
+                  }
+                }
+              }
+            }
+          },
+          "i": {
+            "docs": {},
+            "t": {
+              "docs": {},
+              "h": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "FooGallery.utils.Class.html": {
+                        "ref": "FooGallery.utils.Class.html",
+                        "tf": 1.4705882352941175
+                      },
+                      "FooGallery.utils.Factory.html#load": {
+                        "ref": "FooGallery.utils.Factory.html#load",
+                        "tf": 2.083333333333333
+                      },
+                      "FooGallery.utils.Debugger.html": {
+                        "ref": "FooGallery.utils.Debugger.html",
+                        "tf": 1.282051282051282
+                      },
+                      "FooGallery.Loader.html#imgSelector": {
+                        "ref": "FooGallery.Loader.html#imgSelector",
+                        "tf": 11.666666666666666
+                      },
+                      "FooGallery.utils.fn.html#.addOrOverride": {
+                        "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                        "tf": 0.9615384615384616
+                      },
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 0.6493506493506493
+                      },
+                      "FooGallery.utils.str.html#.format": {
+                        "ref": "FooGallery.utils.str.html#.format",
+                        "tf": 1.3888888888888888
+                      },
+                      "FooGallery.utils.transition.html#.start": {
+                        "ref": "FooGallery.utils.transition.html#.start",
+                        "tf": 1
+                      },
+                      "FooGallery.html": {
+                        "ref": "FooGallery.html",
+                        "tf": 2.7777777777777777
+                      }
+                    }
+                  }
+                },
+                "o": {
+                  "docs": {},
+                  "u": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.html#.addSize": {
+                          "ref": "FooGallery.html#.addSize",
+                          "tf": 0.7936507936507936
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "n": {
+              "docs": {},
+              "d": {
+                "docs": {},
+                "o": {
+                  "docs": {},
+                  "w": {
+                    "docs": {
+                      "FooGallery.utils.Throttle.html": {
+                        "ref": "FooGallery.utils.Throttle.html",
+                        "tf": 1.2195121951219512
+                      },
+                      "FooGallery.Loader.html#onscroll": {
+                        "ref": "FooGallery.Loader.html#onscroll",
+                        "tf": 8.75
+                      }
+                    },
+                    ".": {
+                      "docs": {},
+                      "c": {
+                        "docs": {},
+                        "l": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "a": {
+                              "docs": {},
+                              "r": {
+                                "docs": {},
+                                "t": {
+                                  "docs": {},
+                                  "i": {
+                                    "docs": {},
+                                    "m": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "o": {
+                                          "docs": {},
+                                          "u": {
+                                            "docs": {},
+                                            "t": {
+                                              "docs": {
+                                                "FooGallery.utils.Throttle.html": {
+                                                  "ref": "FooGallery.utils.Throttle.html",
+                                                  "tf": 1.2195121951219512
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "s": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          "t": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              "i": {
+                                "docs": {},
+                                "m": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "o": {
+                                      "docs": {},
+                                      "u": {
+                                        "docs": {},
+                                        "t": {
+                                          "docs": {
+                                            "FooGallery.utils.Throttle.html": {
+                                              "ref": "FooGallery.utils.Throttle.html",
+                                              "tf": 1.2195121951219512
+                                            },
+                                            "FooGallery.utils.Throttle.html#id": {
+                                              "ref": "FooGallery.utils.Throttle.html#id",
+                                              "tf": 17.5
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "d": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "h": {
+                  "docs": {
+                    "FooGallery.Loader.html#getViewportInfo": {
+                      "ref": "FooGallery.Loader.html#getViewportInfo",
+                      "tf": 10
+                    },
+                    "FooGallery.html#.getImages": {
+                      "ref": "FooGallery.html#.getImages",
+                      "tf": 8.75
+                    },
+                    "FooGallery.html#.addSize": {
+                      "ref": "FooGallery.html#.addSize",
+                      "tf": 13.943833943833944
+                    },
+                    "FooGallery.html#.removeSize": {
+                      "ref": "FooGallery.html#.removeSize",
+                      "tf": 7.777777777777778
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "r": {
+            "docs": {},
+            "i": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "e": {
+                  "docs": {
+                    "FooGallery.utils.Debugger.html": {
+                      "ref": "FooGallery.utils.Debugger.html",
+                      "tf": 1.282051282051282
+                    },
+                    "FooGallery.utils.fn.html#.addOrOverride": {
+                      "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                      "tf": 0.9615384615384616
+                    }
+                  }
+                }
+              }
+            },
+            "a": {
+              "docs": {},
+              "p": {
+                "docs": {
+                  "FooGallery.utils.Debugger.html#log": {
+                    "ref": "FooGallery.utils.Debugger.html#log",
+                    "tf": 3.3333333333333335
+                  },
+                  "FooGallery.ImageViewer.html#$el": {
+                    "ref": "FooGallery.ImageViewer.html#$el",
+                    "tf": 19.555555555555557
+                  },
+                  "FooGallery.utils.fn.html#.check": {
+                    "ref": "FooGallery.utils.fn.html#.check",
+                    "tf": 1.0638297872340425
+                  }
+                },
+                "p": {
+                  "docs": {},
+                  "e": {
+                    "docs": {},
+                    "r": {
+                      "docs": {
+                        "FooGallery.utils.Throttle.html": {
+                          "ref": "FooGallery.utils.Throttle.html",
+                          "tf": 1.2195121951219512
+                        },
+                        "FooGallery.Loader.html#$target": {
+                          "ref": "FooGallery.Loader.html#$target",
+                          "tf": 14
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "h": {
+            "docs": {},
+            "e": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "h": {
+                  "docs": {},
+                  "e": {
+                    "docs": {},
+                    "r": {
+                      "docs": {
+                        "FooGallery.utils.Debugger.html#enabled": {
+                          "ref": "FooGallery.utils.Debugger.html#enabled",
+                          "tf": 17.5
+                        },
+                        "FooGallery.utils.Throttle.html#active": {
+                          "ref": "FooGallery.utils.Throttle.html#active",
+                          "tf": 23.333333333333332
+                        },
+                        "FooGallery.utils.transition.html#.supported": {
+                          "ref": "FooGallery.utils.transition.html#.supported",
+                          "tf": 14
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "o": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "e": {
+                  "docs": {
+                    "FooGallery.utils.str.html#.containsWord": {
+                      "ref": "FooGallery.utils.str.html#.containsWord",
+                      "tf": 3.3333333333333335
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "d": {
+          "docs": {},
+          "o": {
+            "docs": {},
+            "c": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "m": {
+                  "docs": {},
+                  "e": {
+                    "docs": {},
+                    "n": {
+                      "docs": {},
+                      "t": {
+                        "docs": {
+                          "list_class.html": {
+                            "ref": "list_class.html",
+                            "tf": 35
+                          },
+                          "list_external.html": {
+                            "ref": "list_external.html",
+                            "tf": 23.333333333333332
+                          },
+                          "list_namespace.html": {
+                            "ref": "list_namespace.html",
+                            "tf": 35
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "e": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "n": {
+                  "docs": {},
+                  "'": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.transition.html#.end": {
+                          "ref": "FooGallery.utils.transition.html#.end",
+                          "tf": 4.545454545454546
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "m": {
+              "docs": {
+                "FooGallery.html#.ready": {
+                  "ref": "FooGallery.html#.ready",
+                  "tf": 11.666666666666666
+                }
+              }
+            },
+            "n": {
+              "docs": {},
+              "e": {
                 "docs": {
                   "FooGallery.html#.addSize": {
                     "ref": "FooGallery.html#.addSize",
-                    "tf": 1.5873015873015872
+                    "tf": 0.7936507936507936
+                  }
+                }
+              }
+            }
+          },
+          "e": {
+            "docs": {},
+            "f": {
+              "docs": {
+                "FooGallery.utils.fn.html#.check": {
+                  "ref": "FooGallery.utils.fn.html#.check",
+                  "tf": 14.285714285714285
+                },
+                "FooGallery.utils.transition.html#.duration": {
+                  "ref": "FooGallery.utils.transition.html#.duration",
+                  "tf": 20
+                }
+              },
+              "i": {
+                "docs": {},
+                "n": {
+                  "docs": {
+                    "FooGallery.utils.is.html#.promise": {
+                      "ref": "FooGallery.utils.is.html#.promise",
+                      "tf": 1.3513513513513513
+                    }
+                  },
+                  "i": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.Class.html#.extend": {
+                          "ref": "FooGallery.utils.Class.html#.extend",
+                          "tf": 25
+                        },
+                        "FooGallery.utils.Factory.html#.extend": {
+                          "ref": "FooGallery.utils.Factory.html#.extend",
+                          "tf": 25
+                        },
+                        "FooGallery.utils.Throttle.html#.extend": {
+                          "ref": "FooGallery.utils.Throttle.html#.extend",
+                          "tf": 25
+                        },
+                        "FooGallery.Loader.html#.extend": {
+                          "ref": "FooGallery.Loader.html#.extend",
+                          "tf": 25
+                        },
+                        "FooGallery.ImageViewer.html#.extend": {
+                          "ref": "FooGallery.ImageViewer.html#.extend",
+                          "tf": 25
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "a": {
+                "docs": {},
+                "u": {
+                  "docs": {},
+                  "l": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.Debugger.html": {
+                          "ref": "FooGallery.utils.Debugger.html",
+                          "tf": 1.282051282051282
+                        },
+                        "FooGallery.Loader.html#options": {
+                          "ref": "FooGallery.Loader.html#options",
+                          "tf": 10
+                        },
+                        "FooGallery.Loader.html#.defaults": {
+                          "ref": "FooGallery.Loader.html#.defaults",
+                          "tf": 656.6666666666667
+                        },
+                        "FooGallery.ImageViewer.html#options": {
+                          "ref": "FooGallery.ImageViewer.html#options",
+                          "tf": 6.25
+                        },
+                        "FooGallery.ImageViewer.html#.defaults": {
+                          "ref": "FooGallery.ImageViewer.html#.defaults",
+                          "tf": 668.3333333333334
+                        },
+                        "FooGallery.utils.fn.html#.apply": {
+                          "ref": "FooGallery.utils.fn.html#.apply",
+                          "tf": 4.166666666666666
+                        },
+                        "FooGallery.utils.fn.html#.arg2arr": {
+                          "ref": "FooGallery.utils.fn.html#.arg2arr",
+                          "tf": 11.666666666666666
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.utils.transition.html#.start": {
+                      "ref": "FooGallery.utils.transition.html#.start",
+                      "tf": 1
+                    }
+                  }
+                }
+              }
+            },
+            "p": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "n": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "FooGallery.utils.Factory.html": {
+                        "ref": "FooGallery.utils.Factory.html",
+                        "tf": 2.272727272727273
+                      },
+                      "FooGallery.utils.Factory.html#register": {
+                        "ref": "FooGallery.utils.Factory.html#register",
+                        "tf": 3.8461538461538463
+                      },
+                      "FooGallery.utils.transition.html#.end": {
+                        "ref": "FooGallery.utils.transition.html#.end",
+                        "tf": 4.545454545454546
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "g": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "FooGallery.utils.Factory.html#load": {
+                        "ref": "FooGallery.utils.Factory.html#load",
+                        "tf": 2.083333333333333
+                      }
+                    }
+                  }
+                }
+              },
+              "t": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "o": {
+                    "docs": {},
+                    "y": {
+                      "docs": {
+                        "FooGallery.Loader.html#destroy": {
+                          "ref": "FooGallery.Loader.html#destroy",
+                          "tf": 710
+                        },
+                        "FooGallery.ImageViewer.html#destroy": {
+                          "ref": "FooGallery.ImageViewer.html#destroy",
+                          "tf": 711.6666666666666
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "m": {
+                    "docs": {},
+                    "i": {
+                      "docs": {},
+                      "n": {
+                        "docs": {
+                          "FooGallery.utils.Factory.html#load": {
+                            "ref": "FooGallery.utils.Factory.html#load",
+                            "tf": 2.083333333333333
+                          },
+                          "FooGallery.utils.is.html#.promise": {
+                            "ref": "FooGallery.utils.is.html#.promise",
+                            "tf": 1.3513513513513513
+                          },
+                          "FooGallery.html#.addSize": {
+                            "ref": "FooGallery.html#.addSize",
+                            "tf": 0.7936507936507936
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "b": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "g": {
+                  "docs": {
+                    "FooGallery.utils.Debugger.html": {
+                      "ref": "FooGallery.utils.Debugger.html",
+                      "tf": 8.927738927738929
+                    },
+                    "FooGallery.utils.Debugger.html#key": {
+                      "ref": "FooGallery.utils.Debugger.html#key",
+                      "tf": 11.666666666666666
+                    }
+                  },
+                  "g": {
+                    "docs": {
+                      "FooGallery.utils.Debugger.html": {
+                        "ref": "FooGallery.utils.Debugger.html",
+                        "tf": 603.8461538461538
+                      },
+                      "FooGallery.utils.Debugger.html#enabled": {
+                        "ref": "FooGallery.utils.Debugger.html#enabled",
+                        "tf": 17.5
+                      },
+                      "FooGallery.utils.Debugger.html#enable": {
+                        "ref": "FooGallery.utils.Debugger.html#enable",
+                        "tf": 10
+                      },
+                      "FooGallery.utils.Debugger.html#log": {
+                        "ref": "FooGallery.utils.Debugger.html#log",
+                        "tf": 3.3333333333333335
+                      },
+                      "FooGallery.utils.Debugger.html#disable": {
+                        "ref": "FooGallery.utils.Debugger.html#disable",
+                        "tf": 8.75
+                      }
+                    },
+                    "e": {
+                      "docs": {},
+                      "r": {
+                        "docs": {},
+                        "#": {
+                          "docs": {},
+                          "k": {
+                            "docs": {},
+                            "e": {
+                              "docs": {},
+                              "y": {
+                                "docs": {
+                                  "FooGallery.utils.Debugger.html#key": {
+                                    "ref": "FooGallery.utils.Debugger.html#key",
+                                    "tf": 75
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "e": {
+                            "docs": {},
+                            "n": {
+                              "docs": {
+                                "FooGallery.utils.Debugger.html#enabled": {
+                                  "ref": "FooGallery.utils.Debugger.html#enabled",
+                                  "tf": 75
+                                },
+                                "FooGallery.utils.Debugger.html#enable": {
+                                  "ref": "FooGallery.utils.Debugger.html#enable",
+                                  "tf": 75
+                                }
+                              }
+                            }
+                          },
+                          "l": {
+                            "docs": {},
+                            "o": {
+                              "docs": {},
+                              "g": {
+                                "docs": {
+                                  "FooGallery.utils.Debugger.html#log": {
+                                    "ref": "FooGallery.utils.Debugger.html#log",
+                                    "tf": 75
+                                  }
+                                },
+                                "f": {
+                                  "docs": {
+                                    "FooGallery.utils.Debugger.html#logf": {
+                                      "ref": "FooGallery.utils.Debugger.html#logf",
+                                      "tf": 75
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "d": {
+                            "docs": {},
+                            "i": {
+                              "docs": {},
+                              "s": {
+                                "docs": {
+                                  "FooGallery.utils.Debugger.html#disable": {
+                                    "ref": "FooGallery.utils.Debugger.html#disable",
+                                    "tf": 75
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "l": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "y": {
+                  "docs": {
+                    "FooGallery.Loader.html#destroy": {
+                      "ref": "FooGallery.Loader.html#destroy",
+                      "tf": 10
+                    }
+                  }
+                }
+              }
+            },
+            "n": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "t": {
+                    "docs": {},
+                    "i": {
+                      "docs": {
+                        "FooGallery.Loader.html#getViewportInfo": {
+                          "ref": "FooGallery.Loader.html#getViewportInfo",
+                          "tf": 10
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "c": {
+              "docs": {},
+              "o": {
+                "docs": {},
+                "m": {
+                  "docs": {},
+                  "p": {
+                    "docs": {},
+                    "i": {
+                      "docs": {},
+                      "l": {
+                        "docs": {
+                          "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                            "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                            "tf": 3.125
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "i": {
+            "docs": {},
+            "s": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "b": {
+                  "docs": {},
+                  "l": {
+                    "docs": {
+                      "FooGallery.utils.Debugger.html#disable": {
+                        "ref": "FooGallery.utils.Debugger.html#disable",
+                        "tf": 683.75
+                      }
+                    }
+                  }
+                }
+              },
+              "p": {
+                "docs": {},
+                "l": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "y": {
+                      "docs": {
+                        "FooGallery.ImageViewer.html#$current": {
+                          "ref": "FooGallery.ImageViewer.html#$current",
+                          "tf": 11.666666666666666
+                        },
+                        "FooGallery.ImageViewer.html#prev": {
+                          "ref": "FooGallery.ImageViewer.html#prev",
+                          "tf": 4.166666666666666
+                        },
+                        "FooGallery.ImageViewer.html#next": {
+                          "ref": "FooGallery.ImageViewer.html#next",
+                          "tf": 4.166666666666666
+                        },
+                        "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                          "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.ImageViewer.html#onFooBoxNext": {
+                          "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.html#.addSize": {
+                          "ref": "FooGallery.html#.addSize",
+                          "tf": 1.5873015873015872
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "t": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "g": {
+                      "docs": {},
+                      "u": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "s": {
+                            "docs": {},
+                            "h": {
+                              "docs": {
+                                "FooGallery.utils.is.html#.promise": {
+                                  "ref": "FooGallery.utils.is.html#.promise",
+                                  "tf": 1.3513513513513513
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "f": {
+              "docs": {},
+              "f": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "FooGallery.utils.str.html#.containsWord": {
+                        "ref": "FooGallery.utils.str.html#.containsWord",
+                        "tf": 3.3333333333333335
+                      },
+                      "FooGallery.utils.str.html#.join": {
+                        "ref": "FooGallery.utils.str.html#.join",
+                        "tf": 2
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "r": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "t": {
+                    "docs": {},
+                    "l": {
+                      "docs": {},
+                      "i": {
+                        "docs": {
+                          "FooGallery.utils.obj.html#~Validators": {
+                            "ref": "FooGallery.utils.obj.html#~Validators",
+                            "tf": 1.0869565217391304
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "t": {
+              "docs": {},
+              "a": {
+                "docs": {
+                  "FooGallery.utils.fn.html#.check": {
+                    "ref": "FooGallery.utils.fn.html#.check",
+                    "tf": 1.0638297872340425
+                  }
+                }
+              }
+            }
+          },
+          "u": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "FooGallery.utils.transition.html#.duration": {
+                      "ref": "FooGallery.utils.transition.html#.duration",
+                      "tf": 605
+                    }
                   }
                 }
               }
@@ -9262,29 +14086,6 @@ window.lunrData = {
           "docs": {},
           "i": {
             "docs": {},
-            "g": {
-              "docs": {},
-              "h": {
-                "docs": {},
-                "t": {
-                  "docs": {},
-                  "b": {
-                    "docs": {},
-                    "o": {
-                      "docs": {},
-                      "x": {
-                        "docs": {
-                          "index.html": {
-                            "ref": "index.html",
-                            "tf": 6.363636363636364
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
             "s": {
               "docs": {},
               "t": {
@@ -9405,6 +14206,33 @@ window.lunrData = {
                 }
               }
             },
+            "g": {
+              "docs": {},
+              "h": {
+                "docs": {},
+                "t": {
+                  "docs": {},
+                  "b": {
+                    "docs": {},
+                    "o": {
+                      "docs": {},
+                      "x": {
+                        "docs": {
+                          "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                            "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                            "tf": 7.777777777777778
+                          },
+                          "FooGallery.ImageViewer.html#onFooBoxNext": {
+                            "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                            "tf": 7.777777777777778
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "b": {
               "docs": {},
               "r": {
@@ -9480,6 +14308,18 @@ window.lunrData = {
               "docs": {},
               "d": {
                 "docs": {
+                  "FooGallery.utils.Factory.html": {
+                    "ref": "FooGallery.utils.Factory.html",
+                    "tf": 2.272727272727273
+                  },
+                  "FooGallery.utils.Factory.html#load": {
+                    "ref": "FooGallery.utils.Factory.html#load",
+                    "tf": 595
+                  },
+                  "FooGallery.utils.Factory.html#register": {
+                    "ref": "FooGallery.utils.Factory.html#register",
+                    "tf": 3.8461538461538463
+                  },
                   "FooGallery.utils.Debugger.html": {
                     "ref": "FooGallery.utils.Debugger.html",
                     "tf": 1.282051282051282
@@ -9507,18 +14347,6 @@ window.lunrData = {
                   "FooGallery.Loader.html#parse": {
                     "ref": "FooGallery.Loader.html#parse",
                     "tf": 4.666666666666667
-                  },
-                  "FooGallery.utils.Factory.html": {
-                    "ref": "FooGallery.utils.Factory.html",
-                    "tf": 2.272727272727273
-                  },
-                  "FooGallery.utils.Factory.html#load": {
-                    "ref": "FooGallery.utils.Factory.html#load",
-                    "tf": 595
-                  },
-                  "FooGallery.utils.Factory.html#register": {
-                    "ref": "FooGallery.utils.Factory.html#register",
-                    "tf": 3.8461538461538463
                   },
                   "FooGallery.utils.html": {
                     "ref": "FooGallery.utils.html",
@@ -10271,6 +15099,24 @@ window.lunrData = {
                 }
               }
             },
+            "w": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.utils.Factory.html#load": {
+                      "ref": "FooGallery.utils.Factory.html#load",
+                      "tf": 2.083333333333333
+                    },
+                    "FooGallery.utils.fn.html#.enqueue": {
+                      "ref": "FooGallery.utils.fn.html#.enqueue",
+                      "tf": 0.6493506493506493
+                    }
+                  }
+                }
+              }
+            },
             "c": {
               "docs": {},
               "a": {
@@ -10325,10 +15171,6 @@ window.lunrData = {
                   "ref": "FooGallery.utils.Debugger.html#enable",
                   "tf": 10
                 },
-                "FooGallery.utils.Debugger.html#disable": {
-                  "ref": "FooGallery.utils.Debugger.html#disable",
-                  "tf": 8.75
-                },
                 "FooGallery.utils.Debugger.html#log": {
                   "ref": "FooGallery.utils.Debugger.html#log",
                   "tf": 618.3333333333334
@@ -10336,6 +15178,10 @@ window.lunrData = {
                 "FooGallery.utils.Debugger.html#logf": {
                   "ref": "FooGallery.utils.Debugger.html#logf",
                   "tf": 10
+                },
+                "FooGallery.utils.Debugger.html#disable": {
+                  "ref": "FooGallery.utils.Debugger.html#disable",
+                  "tf": 8.75
                 }
               },
               "f": {
@@ -10343,24 +15189,6 @@ window.lunrData = {
                   "FooGallery.utils.Debugger.html#logf": {
                     "ref": "FooGallery.utils.Debugger.html#logf",
                     "tf": 600
-                  }
-                }
-              }
-            },
-            "w": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.Factory.html#load": {
-                      "ref": "FooGallery.utils.Factory.html#load",
-                      "tf": 2.083333333333333
-                    },
-                    "FooGallery.utils.fn.html#.enqueue": {
-                      "ref": "FooGallery.utils.fn.html#.enqueue",
-                      "tf": 0.6493506493506493
-                    }
                   }
                 }
               }
@@ -10401,6 +15229,14 @@ window.lunrData = {
                                     "ref": "FooGallery.utils.Class.html#.override",
                                     "tf": 25
                                   },
+                                  "FooGallery.utils.Factory.html#.extend": {
+                                    "ref": "FooGallery.utils.Factory.html#.extend",
+                                    "tf": 25
+                                  },
+                                  "FooGallery.utils.Factory.html#.override": {
+                                    "ref": "FooGallery.utils.Factory.html#.override",
+                                    "tf": 25
+                                  },
                                   "FooGallery.utils.Throttle.html#.extend": {
                                     "ref": "FooGallery.utils.Throttle.html#.extend",
                                     "tf": 25
@@ -10425,12 +15261,16 @@ window.lunrData = {
                                     "ref": "FooGallery.Loader.html#.override",
                                     "tf": 25
                                   },
-                                  "FooGallery.utils.Factory.html#.extend": {
-                                    "ref": "FooGallery.utils.Factory.html#.extend",
+                                  "FooGallery.ImageViewer.html#.defaults": {
+                                    "ref": "FooGallery.ImageViewer.html#.defaults",
+                                    "tf": 33.33333333333333
+                                  },
+                                  "FooGallery.ImageViewer.html#.extend": {
+                                    "ref": "FooGallery.ImageViewer.html#.extend",
                                     "tf": 25
                                   },
-                                  "FooGallery.utils.Factory.html#.override": {
-                                    "ref": "FooGallery.utils.Factory.html#.override",
+                                  "FooGallery.ImageViewer.html#.override": {
+                                    "ref": "FooGallery.ImageViewer.html#.override",
                                     "tf": 25
                                   },
                                   "FooGallery.utils.html#.$": {
@@ -10639,7 +15479,7 @@ window.lunrData = {
                                   },
                                   "FooGallery.html#.addSize": {
                                     "ref": "FooGallery.html#.addSize",
-                                    "tf": 33.33333333333333
+                                    "tf": 25
                                   },
                                   "FooGallery.html#.removeSize": {
                                     "ref": "FooGallery.html#.removeSize",
@@ -10677,6 +15517,10 @@ window.lunrData = {
                                   "docs": {},
                                   "t": {
                                     "docs": {
+                                      "FooGallery.utils.Factory.html#registered": {
+                                        "ref": "FooGallery.utils.Factory.html#registered",
+                                        "tf": 25
+                                      },
                                       "FooGallery.utils.Debugger.html#enabled": {
                                         "ref": "FooGallery.utils.Debugger.html#enabled",
                                         "tf": 33.33333333333333
@@ -10704,10 +15548,6 @@ window.lunrData = {
                                       "FooGallery.Loader.html#imgSelector": {
                                         "ref": "FooGallery.Loader.html#imgSelector",
                                         "tf": 33.33333333333333
-                                      },
-                                      "FooGallery.utils.Factory.html#registered": {
-                                        "ref": "FooGallery.utils.Factory.html#registered",
-                                        "tf": 25
                                       }
                                     }
                                   }
@@ -10733,6 +15573,20 @@ window.lunrData = {
           },
           "a": {
             "docs": {},
+            "t": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.utils.Factory.html": {
+                      "ref": "FooGallery.utils.Factory.html",
+                      "tf": 2.272727272727273
+                    }
+                  }
+                }
+              }
+            },
             "p": {
               "docs": {},
               "s": {
@@ -10759,20 +15613,6 @@ window.lunrData = {
                   "FooGallery.utils.transition.html#.start": {
                     "ref": "FooGallery.utils.transition.html#.start",
                     "tf": 1
-                  }
-                }
-              }
-            },
-            "t": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.Factory.html": {
-                      "ref": "FooGallery.utils.Factory.html",
-                      "tf": 2.272727272727273
-                    }
                   }
                 }
               }
@@ -10853,3116 +15693,6 @@ window.lunrData = {
             }
           }
         },
-        "p": {
-          "docs": {},
-          "d": {
-            "docs": {},
-            "f": {
-              "docs": {
-                "index.html": {
-                  "ref": "index.html",
-                  "tf": 6.363636363636364
-                }
-              }
-            }
-          },
-          "l": {
-            "docs": {},
-            "u": {
-              "docs": {},
-              "g": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "n": {
-                    "docs": {
-                      "index.html": {
-                        "ref": "index.html",
-                        "tf": 6.363636363636364
-                      },
-                      "FooGallery.Loader.html#.defaults": {
-                        "ref": "FooGallery.Loader.html#.defaults",
-                        "tf": 23.333333333333332
-                      },
-                      "FooGallery.Loader.html#init": {
-                        "ref": "FooGallery.Loader.html#init",
-                        "tf": 10
-                      },
-                      "FooGallery.Loader.html#destroy": {
-                        "ref": "FooGallery.Loader.html#destroy",
-                        "tf": 10
-                      },
-                      "FooGallery.Loader.html#~Options": {
-                        "ref": "FooGallery.Loader.html#~Options",
-                        "tf": 35
-                      },
-                      "external-_jQuery.fn_.html": {
-                        "ref": "external-_jQuery.fn_.html",
-                        "tf": 16.666666666666664
-                      },
-                      "FooGallery.utils.html": {
-                        "ref": "FooGallery.utils.html",
-                        "tf": 7.777777777777778
-                      },
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 1.2987012987012987
-                      },
-                      "FooGallery.html": {
-                        "ref": "FooGallery.html",
-                        "tf": 16.77777777777778
-                      },
-                      "FooGallery.html#.$": {
-                        "ref": "FooGallery.html#.$",
-                        "tf": 14
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "a": {
-              "docs": {},
-              "i": {
-                "docs": {},
-                "n": {
-                  "docs": {
-                    "FooGallery.utils.url.html#~Parts": {
-                      "ref": "FooGallery.utils.url.html#~Parts",
-                      "tf": 11.666666666666666
-                    }
-                  }
-                }
-              },
-              "c": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "h": {
-                    "docs": {},
-                    "o": {
-                      "docs": {},
-                      "l": {
-                        "docs": {},
-                        "d": {
-                          "docs": {
-                            "FooGallery.utils.str.html#.format": {
-                              "ref": "FooGallery.utils.str.html#.format",
-                              "tf": 10.94017094017094
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "r": {
-            "docs": {},
-            "o": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "o": {
-                  "docs": {
-                    "FooGallery.utils.fn.html#.addOrOverride": {
-                      "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                      "tf": 27.77777777777778
-                    },
-                    "FooGallery.utils.obj.html#.create": {
-                      "ref": "FooGallery.utils.obj.html#.create",
-                      "tf": 25
-                    }
-                  },
-                  "t": {
-                    "docs": {},
-                    "y": {
-                      "docs": {},
-                      "p": {
-                        "docs": {
-                          "FooGallery.utils.Class.html": {
-                            "ref": "FooGallery.utils.Class.html",
-                            "tf": 11.470588235294118
-                          },
-                          "FooGallery.utils.Class.html#.override": {
-                            "ref": "FooGallery.utils.Class.html#.override",
-                            "tf": 2.941176470588235
-                          },
-                          "FooGallery.utils.Throttle.html#.override": {
-                            "ref": "FooGallery.utils.Throttle.html#.override",
-                            "tf": 2.941176470588235
-                          },
-                          "FooGallery.Loader.html#.override": {
-                            "ref": "FooGallery.Loader.html#.override",
-                            "tf": 2.941176470588235
-                          },
-                          "FooGallery.utils.Factory.html#.override": {
-                            "ref": "FooGallery.utils.Factory.html#.override",
-                            "tf": 2.941176470588235
-                          },
-                          "FooGallery.utils.is.html#.promise": {
-                            "ref": "FooGallery.utils.is.html#.promise",
-                            "tf": 1.3513513513513513
-                          },
-                          "FooGallery.utils.obj.html#.create": {
-                            "ref": "FooGallery.utils.obj.html#.create",
-                            "tf": 14
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "v": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "d": {
-                    "docs": {
-                      "FooGallery.utils.Class.html": {
-                        "ref": "FooGallery.utils.Class.html",
-                        "tf": 11.470588235294118
-                      },
-                      "FooGallery.utils.Class.html#.override": {
-                        "ref": "FooGallery.utils.Class.html#.override",
-                        "tf": 2.941176470588235
-                      },
-                      "FooGallery.utils.Throttle.html#.override": {
-                        "ref": "FooGallery.utils.Throttle.html#.override",
-                        "tf": 2.941176470588235
-                      },
-                      "FooGallery.Loader.html#.override": {
-                        "ref": "FooGallery.Loader.html#.override",
-                        "tf": 2.941176470588235
-                      },
-                      "FooGallery.utils.Factory.html#.override": {
-                        "ref": "FooGallery.utils.Factory.html#.override",
-                        "tf": 2.941176470588235
-                      },
-                      "FooGallery.utils.obj.html#~Validators": {
-                        "ref": "FooGallery.utils.obj.html#~Validators",
-                        "tf": 1.0869565217391304
-                      },
-                      "FooGallery.html#.addSize": {
-                        "ref": "FooGallery.html#.addSize",
-                        "tf": 5.384615384615385
-                      },
-                      "FooGallery.html#.removeSize": {
-                        "ref": "FooGallery.html#.removeSize",
-                        "tf": 7.777777777777778
-                      }
-                    }
-                  }
-                }
-              },
-              "p": {
-                "docs": {
-                  "FooGallery.Loader.html#.reduce": {
-                    "ref": "FooGallery.Loader.html#.reduce",
-                    "tf": 16.666666666666664
-                  },
-                  "FooGallery.utils.obj.html#.prop": {
-                    "ref": "FooGallery.utils.obj.html#.prop",
-                    "tf": 595
-                  }
-                },
-                "e": {
-                  "docs": {},
-                  "r": {
-                    "docs": {
-                      "FooGallery.utils.fn.html#.arg2arr": {
-                        "ref": "FooGallery.utils.fn.html#.arg2arr",
-                        "tf": 11.666666666666666
-                      }
-                    },
-                    "t": {
-                      "docs": {},
-                      "i": {
-                        "docs": {
-                          "FooGallery.utils.Debugger.html#enabled": {
-                            "ref": "FooGallery.utils.Debugger.html#enabled",
-                            "tf": 4.545454545454546
-                          },
-                          "FooGallery.Loader.html#.reduce": {
-                            "ref": "FooGallery.Loader.html#.reduce",
-                            "tf": 5.833333333333333
-                          },
-                          "FooGallery.utils.is.html#.promise": {
-                            "ref": "FooGallery.utils.is.html#.promise",
-                            "tf": 1.3513513513513513
-                          },
-                          "FooGallery.utils.fn.html#.enqueue": {
-                            "ref": "FooGallery.utils.fn.html#.enqueue",
-                            "tf": 0.6493506493506493
-                          },
-                          "FooGallery.utils.obj.html#.extend": {
-                            "ref": "FooGallery.utils.obj.html#.extend",
-                            "tf": 2.631578947368421
-                          },
-                          "FooGallery.utils.obj.html#.merge": {
-                            "ref": "FooGallery.utils.obj.html#.merge",
-                            "tf": 2.7777777777777777
-                          },
-                          "FooGallery.utils.obj.html#.mergeValid": {
-                            "ref": "FooGallery.utils.obj.html#.mergeValid",
-                            "tf": 8.75
-                          },
-                          "FooGallery.utils.obj.html#.prop": {
-                            "ref": "FooGallery.utils.obj.html#.prop",
-                            "tf": 14
-                          },
-                          "FooGallery.utils.obj.html#~Mappings": {
-                            "ref": "FooGallery.utils.obj.html#~Mappings",
-                            "tf": 2.083333333333333
-                          },
-                          "FooGallery.utils.obj.html#~Validators": {
-                            "ref": "FooGallery.utils.obj.html#~Validators",
-                            "tf": 14.927536231884057
-                          },
-                          "FooGallery.utils.transition.html": {
-                            "ref": "FooGallery.utils.transition.html",
-                            "tf": 8.75
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "m": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "s": {
-                    "docs": {
-                      "FooGallery.Loader.html#init": {
-                        "ref": "FooGallery.Loader.html#init",
-                        "tf": 50
-                      },
-                      "FooGallery.Loader.html#check": {
-                        "ref": "FooGallery.Loader.html#check",
-                        "tf": 50
-                      },
-                      "FooGallery.Loader.html#load": {
-                        "ref": "FooGallery.Loader.html#load",
-                        "tf": 33.33333333333333
-                      },
-                      "FooGallery.utils.is.html#.promise": {
-                        "ref": "FooGallery.utils.is.html#.promise",
-                        "tf": 628.7387387387388
-                      },
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 0.6493506493506493
-                      }
-                    }
-                  }
-                }
-              },
-              "b": {
-                "docs": {},
-                "l": {
-                  "docs": {},
-                  "e": {
-                    "docs": {},
-                    "m": {
-                      "docs": {
-                        "FooGallery.html#.addSize": {
-                          "ref": "FooGallery.html#.addSize",
-                          "tf": 0.7936507936507936
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "e": {
-              "docs": {
-                "FooGallery.utils.fn.html#.addOrOverride": {
-                  "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                  "tf": 0.9615384615384616
-                }
-              },
-              "v": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "o": {
-                    "docs": {},
-                    "u": {
-                      "docs": {
-                        "FooGallery.utils.fn.html#.enqueue": {
-                          "ref": "FooGallery.utils.fn.html#.enqueue",
-                          "tf": 0.6493506493506493
-                        }
-                      },
-                      "s": {
-                        "docs": {
-                          "FooGallery.utils.Throttle.html#limit": {
-                            "ref": "FooGallery.utils.Throttle.html#limit",
-                            "tf": 7
-                          },
-                          "FooGallery.utils.Throttle.html#clear": {
-                            "ref": "FooGallery.utils.Throttle.html#clear",
-                            "tf": 10
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "e": {
-                  "docs": {},
-                  "n": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.Throttle.html#clear": {
-                          "ref": "FooGallery.utils.Throttle.html#clear",
-                          "tf": 10
-                        },
-                        "FooGallery.html": {
-                          "ref": "FooGallery.html",
-                          "tf": 2.7777777777777777
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "f": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "x": {
-                    "docs": {
-                      "FooGallery.utils.html#.uniqueId": {
-                        "ref": "FooGallery.utils.html#.uniqueId",
-                        "tf": 20
-                      }
-                    }
-                  }
-                }
-              },
-              "i": {
-                "docs": {},
-                "n": {
-                  "docs": {},
-                  "i": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.fn.html#.enqueue": {
-                          "ref": "FooGallery.utils.fn.html#.enqueue",
-                          "tf": 2.5974025974025974
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "i": {
-              "docs": {},
-              "o": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.html": {
-                      "ref": "FooGallery.utils.html",
-                      "tf": 5.555555555555555
-                    }
-                  },
-                  "i": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.Factory.html#names": {
-                          "ref": "FooGallery.utils.Factory.html#names",
-                          "tf": 33.33333333333333
-                        }
-                      },
-                      "i": {
-                        "docs": {
-                          "FooGallery.utils.Factory.html": {
-                            "ref": "FooGallery.utils.Factory.html",
-                            "tf": 2.272727272727273
-                          },
-                          "FooGallery.utils.Factory.html#load": {
-                            "ref": "FooGallery.utils.Factory.html#load",
-                            "tf": 11.166666666666666
-                          },
-                          "FooGallery.utils.Factory.html#register": {
-                            "ref": "FooGallery.utils.Factory.html#register",
-                            "tf": 20
-                          },
-                          "FooGallery.utils.fn.html#.enqueue": {
-                            "ref": "FooGallery.utils.fn.html#.enqueue",
-                            "tf": 0.6493506493506493
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "m": {
-                "docs": {},
-                "a": {
-                  "docs": {},
-                  "r": {
-                    "docs": {},
-                    "i": {
-                      "docs": {},
-                      "l": {
-                        "docs": {},
-                        "i": {
-                          "docs": {
-                            "FooGallery.utils.fn.html#.check": {
-                              "ref": "FooGallery.utils.fn.html#.check",
-                              "tf": 1.0638297872340425
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "a": {
-            "docs": {},
-            "g": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "FooGallery.utils.Debugger.html": {
-                    "ref": "FooGallery.utils.Debugger.html",
-                    "tf": 3.8461538461538463
-                  },
-                  "FooGallery.utils.html": {
-                    "ref": "FooGallery.utils.html",
-                    "tf": 5.555555555555555
-                  },
-                  "FooGallery.utils.html#.$": {
-                    "ref": "FooGallery.utils.html#.$",
-                    "tf": 3.571428571428571
-                  },
-                  "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                    "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                    "tf": 1.5625
-                  },
-                  "FooGallery.html#.$": {
-                    "ref": "FooGallery.html#.$",
-                    "tf": 3.571428571428571
-                  },
-                  "FooGallery.html#.addSize": {
-                    "ref": "FooGallery.html#.addSize",
-                    "tf": 1.5873015873015872
-                  }
-                }
-              }
-            },
-            "s": {
-              "docs": {},
-              "s": {
-                "docs": {
-                  "FooGallery.utils.Debugger.html#log": {
-                    "ref": "FooGallery.utils.Debugger.html#log",
-                    "tf": 3.3333333333333335
-                  }
-                }
-              }
-            },
-            "r": {
-              "docs": {},
-              "s": {
-                "docs": {
-                  "FooGallery.Loader.html#parse": {
-                    "ref": "FooGallery.Loader.html#parse",
-                    "tf": 638
-                  },
-                  "FooGallery.Loader.html#~Srcset": {
-                    "ref": "FooGallery.Loader.html#~Srcset",
-                    "tf": 10
-                  },
-                  "FooGallery.utils.url.html#.parts": {
-                    "ref": "FooGallery.utils.url.html#.parts",
-                    "tf": 8.75
-                  }
-                }
-              },
-              "a": {
-                "docs": {},
-                "m": {
-                  "docs": {
-                    "FooGallery.utils.url.html#.param": {
-                      "ref": "FooGallery.utils.url.html#.param",
-                      "tf": 591.6666666666666
-                    }
-                  },
-                  "e": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.Factory.html": {
-                          "ref": "FooGallery.utils.Factory.html",
-                          "tf": 2.272727272727273
-                        },
-                        "FooGallery.utils.url.html#.param": {
-                          "ref": "FooGallery.utils.url.html#.param",
-                          "tf": 11.666666666666666
-                        },
-                        "FooGallery.utils.transition.html#.start": {
-                          "ref": "FooGallery.utils.transition.html#.start",
-                          "tf": 1
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "t": {
-                "docs": {
-                  "FooGallery.utils.url.html#.parts": {
-                    "ref": "FooGallery.utils.url.html#.parts",
-                    "tf": 608.75
-                  },
-                  "FooGallery.utils.url.html#~Parts": {
-                    "ref": "FooGallery.utils.url.html#~Parts",
-                    "tf": 600
-                  },
-                  "FooGallery.utils.str.html#.containsWord": {
-                    "ref": "FooGallery.utils.str.html#.containsWord",
-                    "tf": 3.3333333333333335
-                  },
-                  "FooGallery.utils.str.html#.join": {
-                    "ref": "FooGallery.utils.str.html#.join",
-                    "tf": 20.666666666666664
-                  },
-                  "FooGallery.utils.str.html#.until": {
-                    "ref": "FooGallery.utils.str.html#.until",
-                    "tf": 7.777777777777778
-                  }
-                },
-                "n": {
-                  "docs": {
-                    "FooGallery.utils.str.html#.join": {
-                      "ref": "FooGallery.utils.str.html#.join",
-                      "tf": 16.666666666666664
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "e": {
-            "docs": {},
-            "r": {
-              "docs": {
-                "FooGallery.utils.Throttle.html": {
-                  "ref": "FooGallery.utils.Throttle.html",
-                  "tf": 1.2195121951219512
-                }
-              },
-              "f": {
-                "docs": {},
-                "o": {
-                  "docs": {},
-                  "r": {
-                    "docs": {},
-                    "m": {
-                      "docs": {
-                        "FooGallery.Loader.html#init": {
-                          "ref": "FooGallery.Loader.html#init",
-                          "tf": 10
-                        },
-                        "FooGallery.Loader.html#onscroll": {
-                          "ref": "FooGallery.Loader.html#onscroll",
-                          "tf": 8.75
-                        },
-                        "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                          "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                          "tf": 1.5625
-                        },
-                        "FooGallery.utils.fn.html#.enqueue": {
-                          "ref": "FooGallery.utils.fn.html#.enqueue",
-                          "tf": 0.6493506493506493
-                        },
-                        "FooGallery.utils.str.html#.format": {
-                          "ref": "FooGallery.utils.str.html#.format",
-                          "tf": 1.3888888888888888
-                        },
-                        "FooGallery.utils.transition.html#.start": {
-                          "ref": "FooGallery.utils.transition.html#.start",
-                          "tf": 1
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "i": {
-            "docs": {},
-            "x": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "l": {
-                  "docs": {
-                    "FooGallery.Loader.html#getViewportInfo": {
-                      "ref": "FooGallery.Loader.html#getViewportInfo",
-                      "tf": 10
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "o": {
-            "docs": {},
-            "s": {
-              "docs": {},
-              "i": {
-                "docs": {},
-                "t": {
-                  "docs": {
-                    "FooGallery.Loader.html#getViewportBounds": {
-                      "ref": "FooGallery.Loader.html#getViewportBounds",
-                      "tf": 7.777777777777778
-                    }
-                  }
-                }
-              }
-            },
-            "l": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "u": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.html": {
-                        "ref": "FooGallery.html",
-                        "tf": 2.7777777777777777
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "r": {
-          "docs": {},
-          "e": {
-            "docs": {},
-            "a": {
-              "docs": {},
-              "d": {
-                "docs": {},
-                "m": {
-                  "docs": {
-                    "index.html": {
-                      "ref": "index.html",
-                      "tf": 110
-                    }
-                  }
-                },
-                "o": {
-                  "docs": {},
-                  "n": {
-                    "docs": {},
-                    "l": {
-                      "docs": {},
-                      "y": {
-                        "docs": {},
-                        "&": {
-                          "docs": {},
-                          "g": {
-                            "docs": {},
-                            "t": {
-                              "docs": {
-                                "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                                  "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                                  "tf": 25
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "i": {
-                  "docs": {
-                    "FooGallery.html#.ready": {
-                      "ref": "FooGallery.html#.ready",
-                      "tf": 683.3333333333334
-                    }
-                  }
-                },
-                "y": {
-                  "docs": {},
-                  "c": {
-                    "docs": {},
-                    "a": {
-                      "docs": {},
-                      "l": {
-                        "docs": {},
-                        "l": {
-                          "docs": {},
-                          "b": {
-                            "docs": {},
-                            "a": {
-                              "docs": {},
-                              "c": {
-                                "docs": {},
-                                "k": {
-                                  "docs": {
-                                    "FooGallery.html#~readyCallback": {
-                                      "ref": "FooGallery.html#~readyCallback",
-                                      "tf": 600
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "s": {
-              "docs": {},
-              "p": {
-                "docs": {},
-                "o": {
-                  "docs": {},
-                  "n": {
-                    "docs": {},
-                    "s": {
-                      "docs": {
-                        "index.html": {
-                          "ref": "index.html",
-                          "tf": 6.363636363636364
-                        },
-                        "FooGallery.html#.addSize": {
-                          "ref": "FooGallery.html#.addSize",
-                          "tf": 0.7936507936507936
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "u": {
-                "docs": {},
-                "l": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.utils.Debugger.html": {
-                        "ref": "FooGallery.utils.Debugger.html",
-                        "tf": 1.282051282051282
-                      },
-                      "FooGallery.utils.Factory.html#load": {
-                        "ref": "FooGallery.utils.Factory.html#load",
-                        "tf": 2.083333333333333
-                      },
-                      "FooGallery.utils.html#.versionCompare": {
-                        "ref": "FooGallery.utils.html#.versionCompare",
-                        "tf": 2.1739130434782608
-                      },
-                      "FooGallery.utils.str.html#.join": {
-                        "ref": "FooGallery.utils.str.html#.join",
-                        "tf": 2
-                      }
-                    }
-                  }
-                }
-              },
-              "i": {
-                "docs": {},
-                "z": {
-                  "docs": {
-                    "FooGallery.utils.Throttle.html": {
-                      "ref": "FooGallery.utils.Throttle.html",
-                      "tf": 1.2195121951219512
-                    }
-                  }
-                }
-              },
-              "o": {
-                "docs": {},
-                "l": {
-                  "docs": {},
-                  "v": {
-                    "docs": {
-                      "FooGallery.utils.fn.html#.check": {
-                        "ref": "FooGallery.utils.fn.html#.check",
-                        "tf": 2.127659574468085
-                      },
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 0.6493506493506493
-                      },
-                      "FooGallery.utils.transition.html#.start": {
-                        "ref": "FooGallery.utils.transition.html#.start",
-                        "tf": 1
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "f": {
-              "docs": {},
-              "r": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "s": {
-                    "docs": {},
-                    "h": {
-                      "docs": {
-                        "FooGallery.utils.Debugger.html": {
-                          "ref": "FooGallery.utils.Debugger.html",
-                          "tf": 1.282051282051282
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "e": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.html#.$": {
-                      "ref": "FooGallery.utils.html#.$",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.str.html#.format": {
-                      "ref": "FooGallery.utils.str.html#.format",
-                      "tf": 1.3888888888888888
-                    },
-                    "FooGallery.html#.$": {
-                      "ref": "FooGallery.html#.$",
-                      "tf": 14
-                    }
-                  }
-                }
-              }
-            },
-            "p": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "a": {
-                  "docs": {},
-                  "c": {
-                    "docs": {
-                      "FooGallery.utils.Debugger.html#logf": {
-                        "ref": "FooGallery.utils.Debugger.html#logf",
-                        "tf": 25
-                      },
-                      "FooGallery.utils.fn.html#.addOrOverride": {
-                        "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                        "tf": 0.9615384615384616
-                      },
-                      "FooGallery.utils.fn.html#.arg2arr": {
-                        "ref": "FooGallery.utils.fn.html#.arg2arr",
-                        "tf": 5.555555555555555
-                      },
-                      "FooGallery.utils.str.html#.format": {
-                        "ref": "FooGallery.utils.str.html#.format",
-                        "tf": 10.94017094017094
-                      },
-                      "FooGallery.utils.obj.html#.extend": {
-                        "ref": "FooGallery.utils.obj.html#.extend",
-                        "tf": 2.631578947368421
-                      },
-                      "FooGallery.utils.obj.html#.merge": {
-                        "ref": "FooGallery.utils.obj.html#.merge",
-                        "tf": 2.7777777777777777
-                      }
-                    }
-                  }
-                }
-              },
-              "r": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "s": {
-                    "docs": {
-                      "FooGallery.Loader.html#~Bounds": {
-                        "ref": "FooGallery.Loader.html#~Bounds",
-                        "tf": 8.75
-                      },
-                      "FooGallery.Loader.html#~ViewportInfo": {
-                        "ref": "FooGallery.Loader.html#~ViewportInfo",
-                        "tf": 8.75
-                      },
-                      "FooGallery.Loader.html#~Srcset": {
-                        "ref": "FooGallery.Loader.html#~Srcset",
-                        "tf": 10
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "q": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "r": {
-                    "docs": {
-                      "FooGallery.Loader.html#onscroll": {
-                        "ref": "FooGallery.Loader.html#onscroll",
-                        "tf": 8.75
-                      },
-                      "FooGallery.Loader.html#check": {
-                        "ref": "FooGallery.Loader.html#check",
-                        "tf": 11.666666666666666
-                      },
-                      "FooGallery.Loader.html#~ViewportInfo": {
-                        "ref": "FooGallery.Loader.html#~ViewportInfo",
-                        "tf": 8.75
-                      },
-                      "FooGallery.utils.fn.html#.apply": {
-                        "ref": "FooGallery.utils.fn.html#.apply",
-                        "tf": 4.166666666666666
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "t": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "r": {
-                  "docs": {},
-                  "n": {
-                    "docs": {
-                      "FooGallery.Loader.html#parse": {
-                        "ref": "FooGallery.Loader.html#parse",
-                        "tf": 4.666666666666667
-                      },
-                      "FooGallery.utils.html#.versionCompare": {
-                        "ref": "FooGallery.utils.html#.versionCompare",
-                        "tf": 2.1739130434782608
-                      },
-                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                        "tf": 1.5625
-                      },
-                      "FooGallery.utils.fn.html#.check": {
-                        "ref": "FooGallery.utils.fn.html#.check",
-                        "tf": 11.666666666666666
-                      },
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 0.6493506493506493
-                      },
-                      "FooGallery.utils.url.html#.full": {
-                        "ref": "FooGallery.utils.url.html#.full",
-                        "tf": 11.875
-                      },
-                      "FooGallery.utils.url.html#~Parts": {
-                        "ref": "FooGallery.utils.url.html#~Parts",
-                        "tf": 11.666666666666666
-                      },
-                      "FooGallery.utils.str.html#.from": {
-                        "ref": "FooGallery.utils.str.html#.from",
-                        "tf": 8.75
-                      },
-                      "FooGallery.utils.str.html#.until": {
-                        "ref": "FooGallery.utils.str.html#.until",
-                        "tf": 7.777777777777778
-                      },
-                      "FooGallery.utils.obj.html#~Validators": {
-                        "ref": "FooGallery.utils.obj.html#~Validators",
-                        "tf": 1.0869565217391304
-                      },
-                      "FooGallery.utils.transition.html#.end": {
-                        "ref": "FooGallery.utils.transition.html#.end",
-                        "tf": 4.545454545454546
-                      },
-                      "FooGallery.utils.transition.html#.start": {
-                        "ref": "FooGallery.utils.transition.html#.start",
-                        "tf": 1
-                      }
-                    }
-                  }
-                }
-              },
-              "r": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "e": {
-                    "docs": {},
-                    "v": {
-                      "docs": {
-                        "FooGallery.utils.fn.html#.check": {
-                          "ref": "FooGallery.utils.fn.html#.check",
-                          "tf": 1.0638297872340425
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "c": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "a": {
-                  "docs": {},
-                  "n": {
-                    "docs": {},
-                    "g": {
-                      "docs": {},
-                      "l": {
-                        "docs": {
-                          "FooGallery.Loader.html#getViewportBounds": {
-                            "ref": "FooGallery.Loader.html#getViewportBounds",
-                            "tf": 7.777777777777778
-                          },
-                          "FooGallery.Loader.html#getElementBounds": {
-                            "ref": "FooGallery.Loader.html#getElementBounds",
-                            "tf": 14
-                          },
-                          "FooGallery.Loader.html#intersect": {
-                            "ref": "FooGallery.Loader.html#intersect",
-                            "tf": 11.666666666666666
-                          },
-                          "FooGallery.Loader.html#~Bounds": {
-                            "ref": "FooGallery.Loader.html#~Bounds",
-                            "tf": 8.75
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "d": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "c": {
-                  "docs": {
-                    "FooGallery.Loader.html#.reduce": {
-                      "ref": "FooGallery.Loader.html#.reduce",
-                      "tf": 622.5
-                    }
-                  }
-                }
-              }
-            },
-            "g": {
-              "docs": {},
-              "i": {
-                "docs": {},
-                "s": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.utils.Factory.html": {
-                        "ref": "FooGallery.utils.Factory.html",
-                        "tf": 15.568181818181817
-                      },
-                      "FooGallery.utils.Factory.html#registered": {
-                        "ref": "FooGallery.utils.Factory.html#registered",
-                        "tf": 617.5
-                      },
-                      "FooGallery.utils.Factory.html#contains": {
-                        "ref": "FooGallery.utils.Factory.html#contains",
-                        "tf": 8.75
-                      },
-                      "FooGallery.utils.Factory.html#load": {
-                        "ref": "FooGallery.utils.Factory.html#load",
-                        "tf": 18.166666666666664
-                      },
-                      "FooGallery.utils.Factory.html#make": {
-                        "ref": "FooGallery.utils.Factory.html#make",
-                        "tf": 8.75
-                      },
-                      "FooGallery.utils.Factory.html#names": {
-                        "ref": "FooGallery.utils.Factory.html#names",
-                        "tf": 17.5
-                      },
-                      "FooGallery.utils.Factory.html#register": {
-                        "ref": "FooGallery.utils.Factory.html#register",
-                        "tf": 608.8461538461538
-                      },
-                      "FooGallery.utils.html#.$": {
-                        "ref": "FooGallery.utils.html#.$",
-                        "tf": 14
-                      },
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 1.2987012987012987
-                      },
-                      "FooGallery.html#.$": {
-                        "ref": "FooGallery.html#.$",
-                        "tf": 14
-                      }
-                    }
-                  }
-                }
-              },
-              "e": {
-                "docs": {},
-                "x": {
-                  "docs": {},
-                  "p": {
-                    "docs": {
-                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                        "tf": 25
-                      }
-                    }
-                  }
-                }
-              },
-              "u": {
-                "docs": {},
-                "l": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "r": {
-                      "docs": {
-                        "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                          "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                          "tf": 10.125
-                        },
-                        "FooGallery.utils.str.html#.escapeRegExp": {
-                          "ref": "FooGallery.utils.str.html#.escapeRegExp",
-                          "tf": 14
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "a": {
-                "docs": {},
-                "r": {
-                  "docs": {},
-                  "d": {
-                    "docs": {},
-                    "l": {
-                      "docs": {},
-                      "e": {
-                        "docs": {},
-                        "s": {
-                          "docs": {},
-                          "s": {
-                            "docs": {
-                              "FooGallery.utils.fn.html#.enqueue": {
-                                "ref": "FooGallery.utils.fn.html#.enqueue",
-                                "tf": 0.6493506493506493
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "l": {
-              "docs": {
-                "FooGallery.utils.url.html#.full": {
-                  "ref": "FooGallery.utils.url.html#.full",
-                  "tf": 11.875
-                }
-              },
-              "i": {
-                "docs": {
-                  "FooGallery.utils.html": {
-                    "ref": "FooGallery.utils.html",
-                    "tf": 5.555555555555555
-                  },
-                  "FooGallery.utils.fn.html#.enqueue": {
-                    "ref": "FooGallery.utils.fn.html#.enqueue",
-                    "tf": 0.6493506493506493
-                  }
-                }
-              }
-            },
-            "m": {
-              "docs": {},
-              "o": {
-                "docs": {},
-                "v": {
-                  "docs": {
-                    "FooGallery.utils.html#.removeUniqueId": {
-                      "ref": "FooGallery.utils.html#.removeUniqueId",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.str.html#.join": {
-                      "ref": "FooGallery.utils.str.html#.join",
-                      "tf": 2
-                    },
-                    "FooGallery.html#.removeSize": {
-                      "ref": "FooGallery.html#.removeSize",
-                      "tf": 7.777777777777778
-                    }
-                  },
-                  "e": {
-                    "docs": {},
-                    "u": {
-                      "docs": {},
-                      "n": {
-                        "docs": {},
-                        "i": {
-                          "docs": {},
-                          "q": {
-                            "docs": {},
-                            "u": {
-                              "docs": {},
-                              "e": {
-                                "docs": {},
-                                "i": {
-                                  "docs": {},
-                                  "d": {
-                                    "docs": {
-                                      "FooGallery.utils.html#.removeUniqueId": {
-                                        "ref": "FooGallery.utils.html#.removeUniqueId",
-                                        "tf": 633.3333333333334
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "s": {
-                      "docs": {
-                        "FooGallery.html#.removeSize": {
-                          "ref": "FooGallery.html#.removeSize",
-                          "tf": 683.3333333333334
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "a": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "n": {
-                    "docs": {},
-                    "d": {
-                      "docs": {
-                        "FooGallery.utils.str.html#.from": {
-                          "ref": "FooGallery.utils.str.html#.from",
-                          "tf": 8.75
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "j": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "c": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.utils.transition.html#.start": {
-                        "ref": "FooGallery.utils.transition.html#.start",
-                        "tf": 1
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "a": {
-            "docs": {},
-            "i": {
-              "docs": {},
-              "s": {
-                "docs": {
-                  "FooGallery.utils.transition.html#.start": {
-                    "ref": "FooGallery.utils.transition.html#.start",
-                    "tf": 1
-                  }
-                }
-              }
-            }
-          }
-        },
-        "v": {
-          "docs": {},
-          "i": {
-            "docs": {},
-            "d": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "o": {
-                  "docs": {
-                    "index.html": {
-                      "ref": "index.html",
-                      "tf": 6.363636363636364
-                    }
-                  }
-                }
-              }
-            },
-            "e": {
-              "docs": {},
-              "w": {
-                "docs": {
-                  "FooGallery.utils.Debugger.html": {
-                    "ref": "FooGallery.utils.Debugger.html",
-                    "tf": 1.282051282051282
-                  }
-                },
-                "p": {
-                  "docs": {},
-                  "o": {
-                    "docs": {},
-                    "r": {
-                      "docs": {},
-                      "t": {
-                        "docs": {
-                          "FooGallery.Loader.html#getViewportInfo": {
-                            "ref": "FooGallery.Loader.html#getViewportInfo",
-                            "tf": 10
-                          },
-                          "FooGallery.Loader.html#getViewportBounds": {
-                            "ref": "FooGallery.Loader.html#getViewportBounds",
-                            "tf": 7.777777777777778
-                          },
-                          "FooGallery.Loader.html#~Bounds": {
-                            "ref": "FooGallery.Loader.html#~Bounds",
-                            "tf": 8.75
-                          },
-                          "FooGallery.Loader.html#~ViewportInfo": {
-                            "ref": "FooGallery.Loader.html#~ViewportInfo",
-                            "tf": 8.75
-                          }
-                        },
-                        "i": {
-                          "docs": {},
-                          "n": {
-                            "docs": {},
-                            "f": {
-                              "docs": {},
-                              "o": {
-                                "docs": {
-                                  "FooGallery.Loader.html#~ViewportInfo": {
-                                    "ref": "FooGallery.Loader.html#~ViewportInfo",
-                                    "tf": 600
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "a": {
-            "docs": {},
-            "l": {
-              "docs": {},
-              "u": {
-                "docs": {
-                  "FooGallery.utils.Debugger.html#enabled": {
-                    "ref": "FooGallery.utils.Debugger.html#enabled",
-                    "tf": 4.545454545454546
-                  },
-                  "FooGallery.Loader.html#~Srcset": {
-                    "ref": "FooGallery.Loader.html#~Srcset",
-                    "tf": 10
-                  },
-                  "FooGallery.utils.is.html#.array": {
-                    "ref": "FooGallery.utils.is.html#.array",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.is.html#.boolean": {
-                    "ref": "FooGallery.utils.is.html#.boolean",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.is.html#.element": {
-                    "ref": "FooGallery.utils.is.html#.element",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.is.html#.empty": {
-                    "ref": "FooGallery.utils.is.html#.empty",
-                    "tf": 50.964912280701746
-                  },
-                  "FooGallery.utils.is.html#.error": {
-                    "ref": "FooGallery.utils.is.html#.error",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.is.html#.fn": {
-                    "ref": "FooGallery.utils.is.html#.fn",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.is.html#.hash": {
-                    "ref": "FooGallery.utils.is.html#.hash",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.is.html#.jq": {
-                    "ref": "FooGallery.utils.is.html#.jq",
-                    "tf": 42.5
-                  },
-                  "FooGallery.utils.is.html#.number": {
-                    "ref": "FooGallery.utils.is.html#.number",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.is.html#.object": {
-                    "ref": "FooGallery.utils.is.html#.object",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.is.html#.promise": {
-                    "ref": "FooGallery.utils.is.html#.promise",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.is.html#.size": {
-                    "ref": "FooGallery.utils.is.html#.size",
-                    "tf": 39
-                  },
-                  "FooGallery.utils.is.html#.string": {
-                    "ref": "FooGallery.utils.is.html#.string",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.is.html#.undef": {
-                    "ref": "FooGallery.utils.is.html#.undef",
-                    "tf": 48.33333333333333
-                  },
-                  "FooGallery.utils.fn.html#.check": {
-                    "ref": "FooGallery.utils.fn.html#.check",
-                    "tf": 27.01621073961499
-                  },
-                  "FooGallery.utils.url.html#.param": {
-                    "ref": "FooGallery.utils.url.html#.param",
-                    "tf": 16.666666666666664
-                  },
-                  "FooGallery.utils.str.html#.format": {
-                    "ref": "FooGallery.utils.str.html#.format",
-                    "tf": 1.3888888888888888
-                  },
-                  "FooGallery.utils.obj.html#.prop": {
-                    "ref": "FooGallery.utils.obj.html#.prop",
-                    "tf": 34
-                  },
-                  "FooGallery.utils.obj.html#~Mappings": {
-                    "ref": "FooGallery.utils.obj.html#~Mappings",
-                    "tf": 7
-                  },
-                  "FooGallery.utils.obj.html#~Validators": {
-                    "ref": "FooGallery.utils.obj.html#~Validators",
-                    "tf": 1.0869565217391304
-                  },
-                  "FooGallery.utils.transition.html#.end": {
-                    "ref": "FooGallery.utils.transition.html#.end",
-                    "tf": 4.545454545454546
-                  },
-                  "FooGallery.utils.transition.html#.duration": {
-                    "ref": "FooGallery.utils.transition.html#.duration",
-                    "tf": 10
-                  },
-                  "FooGallery.html#.addSize": {
-                    "ref": "FooGallery.html#.addSize",
-                    "tf": 5.384615384615385
-                  },
-                  "FooGallery.html#.removeSize": {
-                    "ref": "FooGallery.html#.removeSize",
-                    "tf": 7.777777777777778
-                  }
-                }
-              },
-              "i": {
-                "docs": {},
-                "d": {
-                  "docs": {
-                    "FooGallery.utils.is.html#.size": {
-                      "ref": "FooGallery.utils.is.html#.size",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.obj.html#.mergeValid": {
-                      "ref": "FooGallery.utils.obj.html#.mergeValid",
-                      "tf": 23.035714285714285
-                    },
-                    "FooGallery.utils.obj.html#~Validators": {
-                      "ref": "FooGallery.utils.obj.html#~Validators",
-                      "tf": 614.927536231884
-                    }
-                  }
-                }
-              }
-            },
-            "r": {
-              "docs": {
-                "FooGallery.utils.fn.html#.addOrOverride": {
-                  "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                  "tf": 0.9615384615384616
-                }
-              },
-              "i": {
-                "docs": {},
-                "o": {
-                  "docs": {},
-                  "u": {
-                    "docs": {
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 0.6493506493506493
-                      },
-                      "FooGallery.html": {
-                        "ref": "FooGallery.html",
-                        "tf": 2.7777777777777777
-                      }
-                    }
-                  }
-                },
-                "a": {
-                  "docs": {},
-                  "b": {
-                    "docs": {},
-                    "l": {
-                      "docs": {
-                        "FooGallery.html": {
-                          "ref": "FooGallery.html",
-                          "tf": 2.7777777777777777
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "e": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "o": {
-                    "docs": {},
-                    "n": {
-                      "1": {
-                        "docs": {
-                          "FooGallery.utils.html#.versionCompare": {
-                            "ref": "FooGallery.utils.html#.versionCompare",
-                            "tf": 20
-                          }
-                        }
-                      },
-                      "2": {
-                        "docs": {
-                          "FooGallery.utils.html#.versionCompare": {
-                            "ref": "FooGallery.utils.html#.versionCompare",
-                            "tf": 20
-                          }
-                        }
-                      },
-                      "docs": {
-                        "FooGallery.utils.html#.version": {
-                          "ref": "FooGallery.utils.html#.version",
-                          "tf": 668.3333333333334
-                        },
-                        "FooGallery.utils.html#.versionCompare": {
-                          "ref": "FooGallery.utils.html#.versionCompare",
-                          "tf": 21.847826086956523
-                        }
-                      },
-                      "c": {
-                        "docs": {},
-                        "o": {
-                          "docs": {},
-                          "m": {
-                            "docs": {},
-                            "p": {
-                              "docs": {},
-                              "a": {
-                                "docs": {},
-                                "r": {
-                                  "docs": {
-                                    "FooGallery.utils.html#.versionCompare": {
-                                      "ref": "FooGallery.utils.html#.versionCompare",
-                                      "tf": 620
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "u": {
-                  "docs": {
-                    "FooGallery.utils.html#.versionCompare": {
-                      "ref": "FooGallery.utils.html#.versionCompare",
-                      "tf": 2.1739130434782608
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "e": {
-          "docs": {
-            "FooGallery.Loader.html#onscroll": {
-              "ref": "FooGallery.Loader.html#onscroll",
-              "tf": 50
-            }
-          },
-          "x": {
-            "docs": {},
-            "t": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "r": {
-                  "docs": {},
-                  "n": {
-                    "docs": {
-                      "list_external.html": {
-                        "ref": "list_external.html",
-                        "tf": 623.3333333333334
-                      },
-                      "external-_jQuery.fn_.html": {
-                        "ref": "external-_jQuery.fn_.html",
-                        "tf": 110
-                      }
-                    },
-                    "a": {
-                      "docs": {},
-                      "l": {
-                        "docs": {},
-                        ":": {
-                          "docs": {},
-                          "\"": {
-                            "docs": {},
-                            "j": {
-                              "docs": {},
-                              "q": {
-                                "docs": {},
-                                "u": {
-                                  "docs": {},
-                                  "e": {
-                                    "docs": {},
-                                    "r": {
-                                      "docs": {},
-                                      "y": {
-                                        "docs": {},
-                                        ".": {
-                                          "docs": {},
-                                          "f": {
-                                            "docs": {},
-                                            "n": {
-                                              "docs": {
-                                                "external-_jQuery.fn_.html": {
-                                                  "ref": "external-_jQuery.fn_.html",
-                                                  "tf": 1150
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "n": {
-                  "docs": {},
-                  "d": {
-                    "docs": {
-                      "FooGallery.utils.Class.html": {
-                        "ref": "FooGallery.utils.Class.html",
-                        "tf": 1.4705882352941175
-                      },
-                      "FooGallery.utils.Class.html#.extend": {
-                        "ref": "FooGallery.utils.Class.html#.extend",
-                        "tf": 616.1111111111112
-                      },
-                      "FooGallery.utils.Throttle.html#.extend": {
-                        "ref": "FooGallery.utils.Throttle.html#.extend",
-                        "tf": 616.1111111111112
-                      },
-                      "FooGallery.Loader.html#.extend": {
-                        "ref": "FooGallery.Loader.html#.extend",
-                        "tf": 641.1111111111112
-                      },
-                      "FooGallery.utils.Factory.html#.extend": {
-                        "ref": "FooGallery.utils.Factory.html#.extend",
-                        "tf": 616.1111111111112
-                      },
-                      "FooGallery.utils.obj.html#.extend": {
-                        "ref": "FooGallery.utils.obj.html#.extend",
-                        "tf": 591.6666666666666
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "a": {
-              "docs": {},
-              "m": {
-                "docs": {},
-                "p": {
-                  "docs": {},
-                  "l": {
-                    "docs": {
-                      "FooGallery.utils.Class.html": {
-                        "ref": "FooGallery.utils.Class.html",
-                        "tf": 1.4705882352941175
-                      },
-                      "FooGallery.utils.Throttle.html": {
-                        "ref": "FooGallery.utils.Throttle.html",
-                        "tf": 1.2195121951219512
-                      },
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 0.6493506493506493
-                      },
-                      "FooGallery.utils.str.html#.format": {
-                        "ref": "FooGallery.utils.str.html#.format",
-                        "tf": 1.3888888888888888
-                      },
-                      "FooGallery.utils.obj.html#~Mappings": {
-                        "ref": "FooGallery.utils.obj.html#~Mappings",
-                        "tf": 2.083333333333333
-                      },
-                      "FooGallery.utils.obj.html#~Validators": {
-                        "ref": "FooGallery.utils.obj.html#~Validators",
-                        "tf": 2.1739130434782608
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "e": {
-              "docs": {},
-              "c": {
-                "docs": {},
-                "u": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.utils.Class.html": {
-                        "ref": "FooGallery.utils.Class.html",
-                        "tf": 1.4705882352941175
-                      },
-                      "FooGallery.utils.Throttle.html": {
-                        "ref": "FooGallery.utils.Throttle.html",
-                        "tf": 19.9390243902439
-                      },
-                      "FooGallery.utils.Throttle.html#idle": {
-                        "ref": "FooGallery.utils.Throttle.html#idle",
-                        "tf": 6.363636363636364
-                      },
-                      "FooGallery.utils.Throttle.html#limit": {
-                        "ref": "FooGallery.utils.Throttle.html#limit",
-                        "tf": 7
-                      },
-                      "FooGallery.utils.Throttle.html#clear": {
-                        "ref": "FooGallery.utils.Throttle.html#clear",
-                        "tf": 10
-                      },
-                      "FooGallery.utils.Factory.html": {
-                        "ref": "FooGallery.utils.Factory.html",
-                        "tf": 2.272727272727273
-                      },
-                      "FooGallery.utils.fn.html#.addOrOverride": {
-                        "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                        "tf": 1.9230769230769231
-                      },
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 8.430735930735931
-                      },
-                      "FooGallery.html#.ready": {
-                        "ref": "FooGallery.html#.ready",
-                        "tf": 11.666666666666666
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "p": {
-              "docs": {},
-              "o": {
-                "docs": {},
-                "s": {
-                  "docs": {
-                    "FooGallery.utils.Class.html": {
-                      "ref": "FooGallery.utils.Class.html",
-                      "tf": 1.4705882352941175
-                    },
-                    "FooGallery.utils.fn.html#.addOrOverride": {
-                      "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                      "tf": 0.9615384615384616
-                    }
-                  }
-                }
-              },
-              "e": {
-                "docs": {},
-                "n": {
-                  "docs": {},
-                  "s": {
-                    "docs": {
-                      "FooGallery.utils.Throttle.html": {
-                        "ref": "FooGallery.utils.Throttle.html",
-                        "tf": 1.2195121951219512
-                      }
-                    }
-                  }
-                },
-                "c": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                        "tf": 1.5625
-                      }
-                    }
-                  }
-                }
-              },
-              "i": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.Throttle.html#limit": {
-                      "ref": "FooGallery.utils.Throttle.html#limit",
-                      "tf": 7
-                    }
-                  }
-                }
-              },
-              "r": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "s": {
-                    "docs": {},
-                    "s": {
-                      "docs": {
-                        "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                          "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                          "tf": 10.125
-                        },
-                        "FooGallery.utils.str.html#.escapeRegExp": {
-                          "ref": "FooGallery.utils.str.html#.escapeRegExp",
-                          "tf": 14
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "c": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "u": {
-                  "docs": {},
-                  "d": {
-                    "docs": {
-                      "FooGallery.Loader.html#loadingSelector": {
-                        "ref": "FooGallery.Loader.html#loadingSelector",
-                        "tf": 11.666666666666666
-                      },
-                      "FooGallery.Loader.html#loadedSelector": {
-                        "ref": "FooGallery.Loader.html#loadedSelector",
-                        "tf": 11.666666666666666
-                      },
-                      "FooGallery.Loader.html#errorSelector": {
-                        "ref": "FooGallery.Loader.html#errorSelector",
-                        "tf": 11.666666666666666
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "i": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "t": {
-                  "docs": {
-                    "FooGallery.utils.fn.html#.addOrOverride": {
-                      "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                      "tf": 0.9615384615384616
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "a": {
-            "docs": {},
-            "s": {
-              "docs": {},
-              "i": {
-                "docs": {
-                  "FooGallery.utils.Class.html": {
-                    "ref": "FooGallery.utils.Class.html",
-                    "tf": 1.4705882352941175
-                  }
-                },
-                "l": {
-                  "docs": {},
-                  "i": {
-                    "docs": {
-                      "FooGallery.utils.fn.html#.check": {
-                        "ref": "FooGallery.utils.fn.html#.check",
-                        "tf": 1.0638297872340425
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "c": {
-              "docs": {},
-              "h": {
-                "docs": {
-                  "FooGallery.utils.fn.html#.enqueue": {
-                    "ref": "FooGallery.utils.fn.html#.enqueue",
-                    "tf": 6.482683982683982
-                  },
-                  "FooGallery.utils.str.html#.join": {
-                    "ref": "FooGallery.utils.str.html#.join",
-                    "tf": 2
-                  }
-                }
-              }
-            }
-          },
-          "n": {
-            "docs": {},
-            "a": {
-              "docs": {},
-              "b": {
-                "docs": {},
-                "l": {
-                  "docs": {
-                    "FooGallery.utils.Debugger.html": {
-                      "ref": "FooGallery.utils.Debugger.html",
-                      "tf": 8.927738927738929
-                    },
-                    "FooGallery.utils.Debugger.html#enabled": {
-                      "ref": "FooGallery.utils.Debugger.html#enabled",
-                      "tf": 625.8333333333334
-                    },
-                    "FooGallery.utils.Debugger.html#enable": {
-                      "ref": "FooGallery.utils.Debugger.html#enable",
-                      "tf": 685
-                    },
-                    "FooGallery.utils.Debugger.html#log": {
-                      "ref": "FooGallery.utils.Debugger.html#log",
-                      "tf": 13.333333333333334
-                    },
-                    "FooGallery.utils.Debugger.html#logf": {
-                      "ref": "FooGallery.utils.Debugger.html#logf",
-                      "tf": 10
-                    }
-                  }
-                }
-              }
-            },
-            "s": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.fn.html#.check": {
-                      "ref": "FooGallery.utils.fn.html#.check",
-                      "tf": 12.73049645390071
-                    },
-                    "FooGallery.utils.fn.html#.enqueue": {
-                      "ref": "FooGallery.utils.fn.html#.enqueue",
-                      "tf": 0.6493506493506493
-                    },
-                    "FooGallery.utils.url.html#.full": {
-                      "ref": "FooGallery.utils.url.html#.full",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.transition.html#.start": {
-                      "ref": "FooGallery.utils.transition.html#.start",
-                      "tf": 1
-                    }
-                  }
-                }
-              }
-            },
-            "q": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "u": {
-                    "docs": {
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 595.1190476190477
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "d": {
-              "docs": {
-                "FooGallery.utils.str.html#.endsWith": {
-                  "ref": "FooGallery.utils.str.html#.endsWith",
-                  "tf": 14
-                },
-                "FooGallery.utils.str.html#.format": {
-                  "ref": "FooGallery.utils.str.html#.format",
-                  "tf": 1.3888888888888888
-                },
-                "FooGallery.utils.transition.html#.end": {
-                  "ref": "FooGallery.utils.transition.html#.end",
-                  "tf": 608.3333333333334
-                }
-              },
-              "s": {
-                "docs": {},
-                "w": {
-                  "docs": {},
-                  "i": {
-                    "docs": {},
-                    "t": {
-                      "docs": {},
-                      "h": {
-                        "docs": {
-                          "FooGallery.utils.str.html#.endsWith": {
-                            "ref": "FooGallery.utils.str.html#.endsWith",
-                            "tf": 595
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "v": {
-            "docs": {},
-            "e": {
-              "docs": {},
-              "n": {
-                "docs": {
-                  "FooGallery.utils.fn.html#.check": {
-                    "ref": "FooGallery.utils.fn.html#.check",
-                    "tf": 1.0638297872340425
-                  }
-                },
-                "t": {
-                  "docs": {
-                    "FooGallery.utils.Throttle.html": {
-                      "ref": "FooGallery.utils.Throttle.html",
-                      "tf": 2.4390243902439024
-                    },
-                    "FooGallery.Loader.html#init": {
-                      "ref": "FooGallery.Loader.html#init",
-                      "tf": 10
-                    },
-                    "FooGallery.Loader.html#destroy": {
-                      "ref": "FooGallery.Loader.html#destroy",
-                      "tf": 10
-                    },
-                    "FooGallery.Loader.html#onscroll": {
-                      "ref": "FooGallery.Loader.html#onscroll",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.fn.html#.enqueue": {
-                      "ref": "FooGallery.utils.fn.html#.enqueue",
-                      "tf": 0.6493506493506493
-                    },
-                    "FooGallery.utils.transition.html#.end": {
-                      "ref": "FooGallery.utils.transition.html#.end",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.transition.html#.start": {
-                      "ref": "FooGallery.utils.transition.html#.start",
-                      "tf": 2
-                    }
-                  }
-                }
-              }
-            },
-            "a": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "u": {
-                  "docs": {
-                    "FooGallery.utils.fn.html#.enqueue": {
-                      "ref": "FooGallery.utils.fn.html#.enqueue",
-                      "tf": 0.6493506493506493
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "l": {
-            "docs": {},
-            "e": {
-              "docs": {},
-              "m": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "n": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.Loader.html#$target": {
-                          "ref": "FooGallery.Loader.html#$target",
-                          "tf": 14
-                        },
-                        "FooGallery.Loader.html#getElementBounds": {
-                          "ref": "FooGallery.Loader.html#getElementBounds",
-                          "tf": 47.33333333333333
-                        },
-                        "FooGallery.Loader.html#~Bounds": {
-                          "ref": "FooGallery.Loader.html#~Bounds",
-                          "tf": 8.75
-                        },
-                        "FooGallery.utils.html#.uniqueId": {
-                          "ref": "FooGallery.utils.html#.uniqueId",
-                          "tf": 31.666666666666664
-                        },
-                        "FooGallery.utils.html#.removeUniqueId": {
-                          "ref": "FooGallery.utils.html#.removeUniqueId",
-                          "tf": 42.08333333333333
-                        },
-                        "FooGallery.utils.is.html#.element": {
-                          "ref": "FooGallery.utils.is.html#.element",
-                          "tf": 623.3333333333334
-                        },
-                        "FooGallery.utils.transition.html#.duration": {
-                          "ref": "FooGallery.utils.transition.html#.duration",
-                          "tf": 30
-                        },
-                        "FooGallery.utils.transition.html#.start": {
-                          "ref": "FooGallery.utils.transition.html#.start",
-                          "tf": 25.95238095238095
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "r": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "o": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.Loader.html#errorSelector": {
-                      "ref": "FooGallery.Loader.html#errorSelector",
-                      "tf": 11.666666666666666
-                    },
-                    "FooGallery.utils.is.html#.error": {
-                      "ref": "FooGallery.utils.is.html#.error",
-                      "tf": 623.3333333333334
-                    },
-                    "FooGallery.utils.fn.html#.enqueue": {
-                      "ref": "FooGallery.utils.fn.html#.enqueue",
-                      "tf": 0.6493506493506493
-                    }
-                  },
-                  "s": {
-                    "docs": {},
-                    "e": {
-                      "docs": {},
-                      "l": {
-                        "docs": {},
-                        "e": {
-                          "docs": {},
-                          "c": {
-                            "docs": {},
-                            "t": {
-                              "docs": {},
-                              "o": {
-                                "docs": {},
-                                "r": {
-                                  "docs": {
-                                    "FooGallery.Loader.html#errorSelector": {
-                                      "ref": "FooGallery.Loader.html#errorSelector",
-                                      "tf": 633.3333333333334
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          ".": {
-            "docs": {},
-            "g": {
-              "docs": {
-                "FooGallery.utils.html#.versionCompare": {
-                  "ref": "FooGallery.utils.html#.versionCompare",
-                  "tf": 2.1739130434782608
-                }
-              }
-            }
-          },
-          "m": {
-            "docs": {},
-            "p": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "i": {
-                  "docs": {
-                    "FooGallery.utils.is.html#.empty": {
-                      "ref": "FooGallery.utils.is.html#.empty",
-                      "tf": 636.4912280701755
-                    },
-                    "FooGallery.utils.str.html#.join": {
-                      "ref": "FooGallery.utils.str.html#.join",
-                      "tf": 2
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "f": {
-            "docs": {},
-            "f": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "c": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                        "tf": 1.5625
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "s": {
-            "docs": {},
-            "c": {
-              "docs": {},
-              "a": {
-                "docs": {},
-                "p": {
-                  "docs": {
-                    "FooGallery.utils.str.html#.escapeRegExp": {
-                      "ref": "FooGallery.utils.str.html#.escapeRegExp",
-                      "tf": 14
-                    }
-                  },
-                  "e": {
-                    "docs": {},
-                    "r": {
-                      "docs": {},
-                      "e": {
-                        "docs": {},
-                        "g": {
-                          "docs": {},
-                          "e": {
-                            "docs": {},
-                            "x": {
-                              "docs": {},
-                              "p": {
-                                "docs": {
-                                  "FooGallery.utils.str.html#.escapeRegExp": {
-                                    "ref": "FooGallery.utils.str.html#.escapeRegExp",
-                                    "tf": 600
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "m": {
-          "docs": {},
-          "e": {
-            "docs": {},
-            "m": {
-              "docs": {},
-              "b": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "r": {
-                    "docs": {
-                      "list_external.html": {
-                        "ref": "list_external.html",
-                        "tf": 23.333333333333332
-                      },
-                      "FooGallery.utils.Debugger.html#key": {
-                        "ref": "FooGallery.utils.Debugger.html#key",
-                        "tf": 110
-                      },
-                      "FooGallery.utils.Debugger.html#enabled": {
-                        "ref": "FooGallery.utils.Debugger.html#enabled",
-                        "tf": 110
-                      },
-                      "FooGallery.utils.Throttle.html#id": {
-                        "ref": "FooGallery.utils.Throttle.html#id",
-                        "tf": 110
-                      },
-                      "FooGallery.utils.Throttle.html#active": {
-                        "ref": "FooGallery.utils.Throttle.html#active",
-                        "tf": 110
-                      },
-                      "FooGallery.utils.Throttle.html#idle": {
-                        "ref": "FooGallery.utils.Throttle.html#idle",
-                        "tf": 110
-                      },
-                      "FooGallery.Loader.html#$target": {
-                        "ref": "FooGallery.Loader.html#$target",
-                        "tf": 110
-                      },
-                      "FooGallery.Loader.html#options": {
-                        "ref": "FooGallery.Loader.html#options",
-                        "tf": 110
-                      },
-                      "FooGallery.Loader.html#loadingSelector": {
-                        "ref": "FooGallery.Loader.html#loadingSelector",
-                        "tf": 110
-                      },
-                      "FooGallery.Loader.html#loadedSelector": {
-                        "ref": "FooGallery.Loader.html#loadedSelector",
-                        "tf": 110
-                      },
-                      "FooGallery.Loader.html#errorSelector": {
-                        "ref": "FooGallery.Loader.html#errorSelector",
-                        "tf": 110
-                      },
-                      "FooGallery.Loader.html#imgSelector": {
-                        "ref": "FooGallery.Loader.html#imgSelector",
-                        "tf": 110
-                      },
-                      "FooGallery.Loader.html#.defaults": {
-                        "ref": "FooGallery.Loader.html#.defaults",
-                        "tf": 110
-                      },
-                      "FooGallery.utils.Factory.html#registered": {
-                        "ref": "FooGallery.utils.Factory.html#registered",
-                        "tf": 110
-                      },
-                      "FooGallery.utils.html#.$": {
-                        "ref": "FooGallery.utils.html#.$",
-                        "tf": 110
-                      },
-                      "FooGallery.utils.html#.version": {
-                        "ref": "FooGallery.utils.html#.version",
-                        "tf": 110
-                      },
-                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                        "tf": 110
-                      },
-                      "FooGallery.utils.transition.html": {
-                        "ref": "FooGallery.utils.transition.html",
-                        "tf": 8.75
-                      },
-                      "FooGallery.utils.transition.html#.supported": {
-                        "ref": "FooGallery.utils.transition.html#.supported",
-                        "tf": 110
-                      },
-                      "FooGallery.utils.transition.html#.end": {
-                        "ref": "FooGallery.utils.transition.html#.end",
-                        "tf": 110
-                      },
-                      "FooGallery.html": {
-                        "ref": "FooGallery.html",
-                        "tf": 2.7777777777777777
-                      },
-                      "FooGallery.html#.$": {
-                        "ref": "FooGallery.html#.$",
-                        "tf": 110
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "t": {
-              "docs": {},
-              "h": {
-                "docs": {},
-                "o": {
-                  "docs": {},
-                  "d": {
-                    "docs": {
-                      "FooGallery.utils.Class.html": {
-                        "ref": "FooGallery.utils.Class.html",
-                        "tf": 14.411764705882353
-                      },
-                      "FooGallery.utils.Class.html#.extend": {
-                        "ref": "FooGallery.utils.Class.html#.extend",
-                        "tf": 8.333333333333332
-                      },
-                      "FooGallery.utils.Class.html#.override": {
-                        "ref": "FooGallery.utils.Class.html#.override",
-                        "tf": 23.38235294117647
-                      },
-                      "FooGallery.utils.Debugger.html#log": {
-                        "ref": "FooGallery.utils.Debugger.html#log",
-                        "tf": 6.666666666666667
-                      },
-                      "FooGallery.utils.Throttle.html": {
-                        "ref": "FooGallery.utils.Throttle.html",
-                        "tf": 1.2195121951219512
-                      },
-                      "FooGallery.utils.Throttle.html#idle": {
-                        "ref": "FooGallery.utils.Throttle.html#idle",
-                        "tf": 6.363636363636364
-                      },
-                      "FooGallery.utils.Throttle.html#.extend": {
-                        "ref": "FooGallery.utils.Throttle.html#.extend",
-                        "tf": 8.333333333333332
-                      },
-                      "FooGallery.utils.Throttle.html#.override": {
-                        "ref": "FooGallery.utils.Throttle.html#.override",
-                        "tf": 23.38235294117647
-                      },
-                      "FooGallery.Loader.html#.extend": {
-                        "ref": "FooGallery.Loader.html#.extend",
-                        "tf": 8.333333333333332
-                      },
-                      "FooGallery.Loader.html#.override": {
-                        "ref": "FooGallery.Loader.html#.override",
-                        "tf": 23.38235294117647
-                      },
-                      "FooGallery.utils.Factory.html": {
-                        "ref": "FooGallery.utils.Factory.html",
-                        "tf": 2.272727272727273
-                      },
-                      "FooGallery.utils.Factory.html#load": {
-                        "ref": "FooGallery.utils.Factory.html#load",
-                        "tf": 2.083333333333333
-                      },
-                      "FooGallery.utils.Factory.html#register": {
-                        "ref": "FooGallery.utils.Factory.html#register",
-                        "tf": 3.8461538461538463
-                      },
-                      "FooGallery.utils.Factory.html#.extend": {
-                        "ref": "FooGallery.utils.Factory.html#.extend",
-                        "tf": 8.333333333333332
-                      },
-                      "FooGallery.utils.Factory.html#.override": {
-                        "ref": "FooGallery.utils.Factory.html#.override",
-                        "tf": 23.38235294117647
-                      },
-                      "FooGallery.utils.html": {
-                        "ref": "FooGallery.utils.html",
-                        "tf": 7.777777777777778
-                      },
-                      "FooGallery.utils.html#.versionCompare": {
-                        "ref": "FooGallery.utils.html#.versionCompare",
-                        "tf": 4.3478260869565215
-                      },
-                      "FooGallery.utils.html#.removeUniqueId": {
-                        "ref": "FooGallery.utils.html#.removeUniqueId",
-                        "tf": 8.75
-                      },
-                      "FooGallery.utils.is.html": {
-                        "ref": "FooGallery.utils.is.html",
-                        "tf": 11.666666666666666
-                      },
-                      "FooGallery.utils.is.html#.empty": {
-                        "ref": "FooGallery.utils.is.html#.empty",
-                        "tf": 2.631578947368421
-                      },
-                      "FooGallery.utils.is.html#.promise": {
-                        "ref": "FooGallery.utils.is.html#.promise",
-                        "tf": 1.3513513513513513
-                      },
-                      "FooGallery.utils.fn.html": {
-                        "ref": "FooGallery.utils.fn.html",
-                        "tf": 14
-                      },
-                      "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                        "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                        "tf": 14
-                      },
-                      "FooGallery.utils.fn.html#.addOrOverride": {
-                        "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                        "tf": 13.547008547008547
-                      },
-                      "FooGallery.utils.fn.html#.apply": {
-                        "ref": "FooGallery.utils.fn.html#.apply",
-                        "tf": 12.916666666666666
-                      },
-                      "FooGallery.utils.fn.html#.arg2arr": {
-                        "ref": "FooGallery.utils.fn.html#.arg2arr",
-                        "tf": 5.555555555555555
-                      },
-                      "FooGallery.utils.fn.html#.check": {
-                        "ref": "FooGallery.utils.fn.html#.check",
-                        "tf": 3.1914893617021276
-                      },
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 11.677489177489177
-                      },
-                      "FooGallery.utils.url.html": {
-                        "ref": "FooGallery.utils.url.html",
-                        "tf": 14
-                      },
-                      "FooGallery.utils.url.html#~Parts": {
-                        "ref": "FooGallery.utils.url.html#~Parts",
-                        "tf": 11.666666666666666
-                      },
-                      "FooGallery.utils.str.html": {
-                        "ref": "FooGallery.utils.str.html",
-                        "tf": 14
-                      },
-                      "FooGallery.utils.str.html#.containsWord": {
-                        "ref": "FooGallery.utils.str.html#.containsWord",
-                        "tf": 3.3333333333333335
-                      },
-                      "FooGallery.utils.str.html#.join": {
-                        "ref": "FooGallery.utils.str.html#.join",
-                        "tf": 2
-                      },
-                      "FooGallery.utils.str.html#.format": {
-                        "ref": "FooGallery.utils.str.html#.format",
-                        "tf": 1.3888888888888888
-                      },
-                      "FooGallery.utils.obj.html": {
-                        "ref": "FooGallery.utils.obj.html",
-                        "tf": 14
-                      },
-                      "FooGallery.utils.obj.html#.create": {
-                        "ref": "FooGallery.utils.obj.html#.create",
-                        "tf": 12.5
-                      },
-                      "FooGallery.utils.obj.html#.extend": {
-                        "ref": "FooGallery.utils.obj.html#.extend",
-                        "tf": 5.263157894736842
-                      },
-                      "FooGallery.utils.obj.html#.merge": {
-                        "ref": "FooGallery.utils.obj.html#.merge",
-                        "tf": 5.555555555555555
-                      },
-                      "FooGallery.utils.obj.html#~Mappings": {
-                        "ref": "FooGallery.utils.obj.html#~Mappings",
-                        "tf": 7
-                      },
-                      "FooGallery.utils.obj.html#~Validators": {
-                        "ref": "FooGallery.utils.obj.html#~Validators",
-                        "tf": 12.753623188405797
-                      },
-                      "FooGallery.utils.transition.html": {
-                        "ref": "FooGallery.utils.transition.html",
-                        "tf": 8.75
-                      },
-                      "FooGallery.utils.transition.html#.start": {
-                        "ref": "FooGallery.utils.transition.html#.start",
-                        "tf": 4
-                      },
-                      "FooGallery.html#.addSize": {
-                        "ref": "FooGallery.html#.addSize",
-                        "tf": 1.5873015873015872
-                      },
-                      "FooGallery.html#~readyCallback": {
-                        "ref": "FooGallery.html#~readyCallback",
-                        "tf": 23.333333333333332
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "s": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "a": {
-                  "docs": {},
-                  "g": {
-                    "docs": {
-                      "FooGallery.utils.Debugger.html#log": {
-                        "ref": "FooGallery.utils.Debugger.html#log",
-                        "tf": 43.33333333333333
-                      },
-                      "FooGallery.utils.Debugger.html#logf": {
-                        "ref": "FooGallery.utils.Debugger.html#logf",
-                        "tf": 35
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "a": {
-              "docs": {},
-              "n": {
-                "docs": {
-                  "FooGallery.utils.str.html#.format": {
-                    "ref": "FooGallery.utils.str.html#.format",
-                    "tf": 1.3888888888888888
-                  },
-                  "FooGallery.utils.obj.html#~Validators": {
-                    "ref": "FooGallery.utils.obj.html#~Validators",
-                    "tf": 1.0869565217391304
-                  }
-                },
-                "t": {
-                  "docs": {
-                    "FooGallery.utils.Throttle.html": {
-                      "ref": "FooGallery.utils.Throttle.html",
-                      "tf": 1.2195121951219512
-                    }
-                  }
-                }
-              }
-            },
-            "r": {
-              "docs": {},
-              "g": {
-                "docs": {
-                  "FooGallery.utils.obj.html#.extend": {
-                    "ref": "FooGallery.utils.obj.html#.extend",
-                    "tf": 10.409356725146198
-                  },
-                  "FooGallery.utils.obj.html#.merge": {
-                    "ref": "FooGallery.utils.obj.html#.merge",
-                    "tf": 606.5277777777778
-                  },
-                  "FooGallery.utils.obj.html#.mergeValid": {
-                    "ref": "FooGallery.utils.obj.html#.mergeValid",
-                    "tf": 8.75
-                  }
-                },
-                "e": {
-                  "docs": {},
-                  "v": {
-                    "docs": {},
-                    "a": {
-                      "docs": {},
-                      "l": {
-                        "docs": {},
-                        "i": {
-                          "docs": {},
-                          "d": {
-                            "docs": {
-                              "FooGallery.utils.obj.html#.mergeValid": {
-                                "ref": "FooGallery.utils.obj.html#.mergeValid",
-                                "tf": 589.2857142857143
-                              },
-                              "FooGallery.utils.obj.html#~Mappings": {
-                                "ref": "FooGallery.utils.obj.html#~Mappings",
-                                "tf": 7
-                              },
-                              "FooGallery.utils.obj.html#~Validators": {
-                                "ref": "FooGallery.utils.obj.html#~Validators",
-                                "tf": 11.666666666666666
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "a": {
-            "docs": {},
-            "k": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "FooGallery.utils.Class.html": {
-                    "ref": "FooGallery.utils.Class.html",
-                    "tf": 1.4705882352941175
-                  },
-                  "FooGallery.utils.Factory.html#make": {
-                    "ref": "FooGallery.utils.Factory.html#make",
-                    "tf": 595
-                  },
-                  "FooGallery.utils.Factory.html#register": {
-                    "ref": "FooGallery.utils.Factory.html#register",
-                    "tf": 3.8461538461538463
-                  },
-                  "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                    "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                    "tf": 1.5625
-                  },
-                  "FooGallery.utils.obj.html#.extend": {
-                    "ref": "FooGallery.utils.obj.html#.extend",
-                    "tf": 2.631578947368421
-                  },
-                  "FooGallery.html": {
-                    "ref": "FooGallery.html",
-                    "tf": 2.7777777777777777
-                  }
-                }
-              }
-            },
-            "t": {
-              "docs": {},
-              "h": {
-                "docs": {
-                  "FooGallery.Loader.html#.reduce": {
-                    "ref": "FooGallery.Loader.html#.reduce",
-                    "tf": 5.833333333333333
-                  }
-                }
-              },
-              "c": {
-                "docs": {},
-                "h": {
-                  "docs": {
-                    "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                      "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                      "tf": 3.125
-                    }
-                  }
-                }
-              }
-            },
-            "j": {
-              "docs": {},
-              "o": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.obj.html#~Validators": {
-                      "ref": "FooGallery.utils.obj.html#~Validators",
-                      "tf": 1.0869565217391304
-                    }
-                  },
-                  ".": {
-                    "docs": {},
-                    "m": {
-                      "docs": {},
-                      "i": {
-                        "docs": {},
-                        "n": {
-                          "docs": {},
-                          "o": {
-                            "docs": {},
-                            "r": {
-                              "docs": {},
-                              ".": {
-                                "docs": {},
-                                "p": {
-                                  "docs": {},
-                                  "a": {
-                                    "docs": {},
-                                    "t": {
-                                      "docs": {},
-                                      "c": {
-                                        "docs": {},
-                                        "h": {
-                                          "docs": {
-                                            "FooGallery.utils.html#.versionCompare": {
-                                              "ref": "FooGallery.utils.html#.versionCompare",
-                                              "tf": 2.1739130434782608
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "p": {
-              "docs": {
-                "FooGallery.utils.obj.html#.mergeValid": {
-                  "ref": "FooGallery.utils.obj.html#.mergeValid",
-                  "tf": 23.035714285714285
-                },
-                "FooGallery.utils.obj.html#~Mappings": {
-                  "ref": "FooGallery.utils.obj.html#~Mappings",
-                  "tf": 613.25
-                }
-              }
-            }
-          },
-          "u": {
-            "docs": {},
-            "l": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "p": {
-                    "docs": {},
-                    "l": {
-                      "docs": {
-                        "FooGallery.utils.Throttle.html": {
-                          "ref": "FooGallery.utils.Throttle.html",
-                          "tf": 1.2195121951219512
-                        },
-                        "FooGallery.utils.html#.$": {
-                          "ref": "FooGallery.utils.html#.$",
-                          "tf": 3.571428571428571
-                        },
-                        "FooGallery.utils.obj.html#~Validators": {
-                          "ref": "FooGallery.utils.obj.html#~Validators",
-                          "tf": 1.0869565217391304
-                        },
-                        "FooGallery.html#.$": {
-                          "ref": "FooGallery.html#.$",
-                          "tf": 3.571428571428571
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "i": {
-            "docs": {},
-            "l": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "s": {
-                    "docs": {},
-                    "e": {
-                      "docs": {},
-                      "c": {
-                        "docs": {},
-                        "o": {
-                          "docs": {},
-                          "n": {
-                            "docs": {},
-                            "d": {
-                              "docs": {
-                                "FooGallery.utils.Throttle.html#idle": {
-                                  "ref": "FooGallery.utils.Throttle.html#idle",
-                                  "tf": 6.363636363636364
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "o": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "FooGallery.utils.is.html#.promise": {
-                    "ref": "FooGallery.utils.is.html#.promise",
-                    "tf": 1.3513513513513513
-                  },
-                  "FooGallery.utils.obj.html#.extend": {
-                    "ref": "FooGallery.utils.obj.html#.extend",
-                    "tf": 7.777777777777778
-                  }
-                }
-              }
-            }
-          },
-          "y": {
-            "docs": {},
-            "c": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "a": {
-                  "docs": {},
-                  "s": {
-                    "docs": {},
-                    "s": {
-                      "docs": {},
-                      ".": {
-                        "docs": {},
-                        "p": {
-                          "docs": {},
-                          "r": {
-                            "docs": {},
-                            "o": {
-                              "docs": {},
-                              "t": {
-                                "docs": {},
-                                "o": {
-                                  "docs": {},
-                                  "t": {
-                                    "docs": {},
-                                    "y": {
-                                      "docs": {},
-                                      "p": {
-                                        "docs": {
-                                          "FooGallery.utils.fn.html#.addOrOverride": {
-                                            "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                                            "tf": 0.9615384615384616
-                                          }
-                                        },
-                                        "e": {
-                                          "docs": {},
-                                          ".": {
-                                            "docs": {},
-                                            "s": {
-                                              "docs": {},
-                                              "o": {
-                                                "docs": {},
-                                                "m": {
-                                                  "docs": {},
-                                                  "e": {
-                                                    "docs": {},
-                                                    "m": {
-                                                      "docs": {},
-                                                      "e": {
-                                                        "docs": {},
-                                                        "t": {
-                                                          "docs": {},
-                                                          "h": {
-                                                            "docs": {},
-                                                            "o": {
-                                                              "docs": {},
-                                                              "d": {
-                                                                "docs": {
-                                                                  "FooGallery.utils.fn.html#.addOrOverride": {
-                                                                    "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                                                                    "tf": 1.9230769230769231
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
         "n": {
           "docs": {},
           "a": {
@@ -13973,14 +15703,6 @@ window.lunrData = {
                 "docs": {
                   "FooGallery.utils.Class.html#.override": {
                     "ref": "FooGallery.utils.Class.html#.override",
-                    "tf": 25
-                  },
-                  "FooGallery.utils.Throttle.html#.override": {
-                    "ref": "FooGallery.utils.Throttle.html#.override",
-                    "tf": 25
-                  },
-                  "FooGallery.Loader.html#.override": {
-                    "ref": "FooGallery.Loader.html#.override",
                     "tf": 25
                   },
                   "FooGallery.utils.Factory.html": {
@@ -14005,6 +15727,18 @@ window.lunrData = {
                   },
                   "FooGallery.utils.Factory.html#.override": {
                     "ref": "FooGallery.utils.Factory.html#.override",
+                    "tf": 25
+                  },
+                  "FooGallery.utils.Throttle.html#.override": {
+                    "ref": "FooGallery.utils.Throttle.html#.override",
+                    "tf": 25
+                  },
+                  "FooGallery.Loader.html#.override": {
+                    "ref": "FooGallery.Loader.html#.override",
+                    "tf": 25
+                  },
+                  "FooGallery.ImageViewer.html#.override": {
+                    "ref": "FooGallery.ImageViewer.html#.override",
                     "tf": 25
                   },
                   "FooGallery.utils.fn.html#.addOrOverride": {
@@ -14058,7 +15792,7 @@ window.lunrData = {
                           },
                           "external-_jQuery.fn_.html": {
                             "ref": "external-_jQuery.fn_.html",
-                            "tf": 16.666666666666664
+                            "tf": 23.333333333333332
                           },
                           "FooGallery.utils.html": {
                             "ref": "FooGallery.utils.html",
@@ -14098,6 +15832,24 @@ window.lunrData = {
                   }
                 }
               }
+            },
+            "v": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "g": {
+                  "docs": {
+                    "FooGallery.ImageViewer.html#prev": {
+                      "ref": "FooGallery.ImageViewer.html#prev",
+                      "tf": 21.666666666666664
+                    },
+                    "FooGallery.ImageViewer.html#next": {
+                      "ref": "FooGallery.ImageViewer.html#next",
+                      "tf": 21.666666666666664
+                    }
+                  }
+                }
+              }
             }
           },
           "e": {
@@ -14106,18 +15858,6 @@ window.lunrData = {
               "docs": {
                 "FooGallery.utils.Class.html#.extend": {
                   "ref": "FooGallery.utils.Class.html#.extend",
-                  "tf": 7.777777777777778
-                },
-                "FooGallery.utils.Throttle.html#limit": {
-                  "ref": "FooGallery.utils.Throttle.html#limit",
-                  "tf": 7
-                },
-                "FooGallery.utils.Throttle.html#.extend": {
-                  "ref": "FooGallery.utils.Throttle.html#.extend",
-                  "tf": 7.777777777777778
-                },
-                "FooGallery.Loader.html#.extend": {
-                  "ref": "FooGallery.Loader.html#.extend",
                   "tf": 7.777777777777778
                 },
                 "FooGallery.utils.Factory.html#load": {
@@ -14134,6 +15874,22 @@ window.lunrData = {
                 },
                 "FooGallery.utils.Factory.html#.extend": {
                   "ref": "FooGallery.utils.Factory.html#.extend",
+                  "tf": 7.777777777777778
+                },
+                "FooGallery.utils.Throttle.html#limit": {
+                  "ref": "FooGallery.utils.Throttle.html#limit",
+                  "tf": 7
+                },
+                "FooGallery.utils.Throttle.html#.extend": {
+                  "ref": "FooGallery.utils.Throttle.html#.extend",
+                  "tf": 7.777777777777778
+                },
+                "FooGallery.Loader.html#.extend": {
+                  "ref": "FooGallery.Loader.html#.extend",
+                  "tf": 7.777777777777778
+                },
+                "FooGallery.ImageViewer.html#.extend": {
+                  "ref": "FooGallery.ImageViewer.html#.extend",
                   "tf": 7.777777777777778
                 },
                 "FooGallery.utils.fn.html#.addOrOverride": {
@@ -14191,6 +15947,25 @@ window.lunrData = {
                   "FooGallery.html#.addSize": {
                     "ref": "FooGallery.html#.addSize",
                     "tf": 0.7936507936507936
+                  }
+                }
+              }
+            },
+            "x": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "FooGallery.ImageViewer.html#$next": {
+                    "ref": "FooGallery.ImageViewer.html#$next",
+                    "tf": 667.5
+                  },
+                  "FooGallery.ImageViewer.html#next": {
+                    "ref": "FooGallery.ImageViewer.html#next",
+                    "tf": 721.6666666666666
+                  },
+                  "FooGallery.ImageViewer.html#onNextClick": {
+                    "ref": "FooGallery.ImageViewer.html#onNextClick",
+                    "tf": 14
                   }
                 }
               }
@@ -14351,6 +16126,14 @@ window.lunrData = {
                       "ref": "FooGallery.utils.Class.html#.extend",
                       "tf": 11.944444444444443
                     },
+                    "FooGallery.utils.Factory.html": {
+                      "ref": "FooGallery.utils.Factory.html",
+                      "tf": 11.022727272727273
+                    },
+                    "FooGallery.utils.Factory.html#.extend": {
+                      "ref": "FooGallery.utils.Factory.html#.extend",
+                      "tf": 11.944444444444443
+                    },
                     "FooGallery.utils.Debugger.html": {
                       "ref": "FooGallery.utils.Debugger.html",
                       "tf": 2.564102564102564
@@ -14363,12 +16146,16 @@ window.lunrData = {
                       "ref": "FooGallery.Loader.html#.extend",
                       "tf": 11.944444444444443
                     },
-                    "FooGallery.utils.Factory.html": {
-                      "ref": "FooGallery.utils.Factory.html",
-                      "tf": 11.022727272727273
+                    "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                      "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                      "tf": 7.777777777777778
                     },
-                    "FooGallery.utils.Factory.html#.extend": {
-                      "ref": "FooGallery.utils.Factory.html#.extend",
+                    "FooGallery.ImageViewer.html#onFooBoxNext": {
+                      "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                      "tf": 7.777777777777778
+                    },
+                    "FooGallery.ImageViewer.html#.extend": {
+                      "ref": "FooGallery.ImageViewer.html#.extend",
                       "tf": 11.944444444444443
                     },
                     "FooGallery.utils.fn.html#.apply": {
@@ -14481,6 +16268,10 @@ window.lunrData = {
                 "ref": "FooGallery.utils.Class.html#.extend",
                 "tf": 4.166666666666666
               },
+              "FooGallery.utils.Factory.html#.extend": {
+                "ref": "FooGallery.utils.Factory.html#.extend",
+                "tf": 4.166666666666666
+              },
               "FooGallery.utils.Throttle.html#.extend": {
                 "ref": "FooGallery.utils.Throttle.html#.extend",
                 "tf": 4.166666666666666
@@ -14489,8 +16280,8 @@ window.lunrData = {
                 "ref": "FooGallery.Loader.html#.extend",
                 "tf": 4.166666666666666
               },
-              "FooGallery.utils.Factory.html#.extend": {
-                "ref": "FooGallery.utils.Factory.html#.extend",
+              "FooGallery.ImageViewer.html#.extend": {
+                "ref": "FooGallery.ImageViewer.html#.extend",
                 "tf": 4.166666666666666
               }
             },
@@ -14513,10 +16304,6 @@ window.lunrData = {
                       "ref": "FooGallery.utils.Debugger.html#enable",
                       "tf": 10
                     },
-                    "FooGallery.utils.Debugger.html#disable": {
-                      "ref": "FooGallery.utils.Debugger.html#disable",
-                      "tf": 8.75
-                    },
                     "FooGallery.utils.Debugger.html#log": {
                       "ref": "FooGallery.utils.Debugger.html#log",
                       "tf": 10
@@ -14524,6 +16311,10 @@ window.lunrData = {
                     "FooGallery.utils.Debugger.html#logf": {
                       "ref": "FooGallery.utils.Debugger.html#logf",
                       "tf": 10
+                    },
+                    "FooGallery.utils.Debugger.html#disable": {
+                      "ref": "FooGallery.utils.Debugger.html#disable",
+                      "tf": 8.75
                     },
                     "FooGallery.Loader.html#onscroll": {
                       "ref": "FooGallery.Loader.html#onscroll",
@@ -14580,135 +16371,7 @@ window.lunrData = {
                     "docs": {
                       "FooGallery.html#.addSize": {
                         "ref": "FooGallery.html#.addSize",
-                        "tf": 683.3333333333334
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "b": {
-            "docs": {},
-            "i": {
-              "docs": {},
-              "l": {
-                "docs": {
-                  "FooGallery.utils.Debugger.html": {
-                    "ref": "FooGallery.utils.Debugger.html",
-                    "tf": 1.282051282051282
-                  }
-                }
-              }
-            }
-          },
-          "c": {
-            "docs": {},
-            "t": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "a": {
-                  "docs": {},
-                  "l": {
-                    "docs": {
-                      "FooGallery.utils.Debugger.html": {
-                        "ref": "FooGallery.utils.Debugger.html",
-                        "tf": 1.282051282051282
-                      },
-                      "FooGallery.utils.fn.html#.check": {
-                        "ref": "FooGallery.utils.fn.html#.check",
-                        "tf": 1.0638297872340425
-                      }
-                    }
-                  }
-                }
-              },
-              "i": {
-                "docs": {},
-                "v": {
-                  "docs": {
-                    "FooGallery.utils.Throttle.html#active": {
-                      "ref": "FooGallery.utils.Throttle.html#active",
-                      "tf": 631.6666666666667
-                    }
-                  }
-                },
-                "o": {
-                  "docs": {},
-                  "n": {
-                    "docs": {
-                      "FooGallery.utils.transition.html#.start": {
-                        "ref": "FooGallery.utils.transition.html#.start",
-                        "tf": 1
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "c": {
-              "docs": {},
-              "o": {
-                "docs": {},
-                "u": {
-                  "docs": {},
-                  "n": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.Loader.html#load": {
-                          "ref": "FooGallery.Loader.html#load",
-                          "tf": 7.777777777777778
-                        },
-                        "FooGallery.Loader.html#parse": {
-                          "ref": "FooGallery.Loader.html#parse",
-                          "tf": 4.666666666666667
-                        },
-                        "FooGallery.Loader.html#getViewportBounds": {
-                          "ref": "FooGallery.Loader.html#getViewportBounds",
-                          "tf": 7.777777777777778
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "u": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.is.html#.promise": {
-                      "ref": "FooGallery.utils.is.html#.promise",
-                      "tf": 1.3513513513513513
-                    }
-                  }
-                }
-              },
-              "e": {
-                "docs": {},
-                "p": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.utils.obj.html#~Validators": {
-                        "ref": "FooGallery.utils.obj.html#~Validators",
-                        "tf": 1.0869565217391304
-                      }
-                    }
-                  }
-                },
-                "s": {
-                  "docs": {},
-                  "s": {
-                    "docs": {
-                      "FooGallery.html": {
-                        "ref": "FooGallery.html",
-                        "tf": 2.7777777777777777
-                      },
-                      "FooGallery.html#.ready": {
-                        "ref": "FooGallery.html#.ready",
-                        "tf": 11.666666666666666
+                        "tf": 675
                       }
                     }
                   }
@@ -14777,14 +16440,6 @@ window.lunrData = {
               },
               "n": {
                 "docs": {
-                  "FooGallery.utils.Debugger.html#log": {
-                    "ref": "FooGallery.utils.Debugger.html#log",
-                    "tf": 33.33333333333333
-                  },
-                  "FooGallery.utils.Debugger.html#logf": {
-                    "ref": "FooGallery.utils.Debugger.html#logf",
-                    "tf": 25
-                  },
                   "FooGallery.utils.Factory.html#load": {
                     "ref": "FooGallery.utils.Factory.html#load",
                     "tf": 20
@@ -14792,6 +16447,14 @@ window.lunrData = {
                   "FooGallery.utils.Factory.html#make": {
                     "ref": "FooGallery.utils.Factory.html#make",
                     "tf": 20
+                  },
+                  "FooGallery.utils.Debugger.html#log": {
+                    "ref": "FooGallery.utils.Debugger.html#log",
+                    "tf": 33.33333333333333
+                  },
+                  "FooGallery.utils.Debugger.html#logf": {
+                    "ref": "FooGallery.utils.Debugger.html#logf",
+                    "tf": 25
                   },
                   "FooGallery.utils.fn.html#.enqueue": {
                     "ref": "FooGallery.utils.fn.html#.enqueue",
@@ -14813,14 +16476,6 @@ window.lunrData = {
                       "docs": {},
                       "t": {
                         "docs": {
-                          "FooGallery.utils.Debugger.html#log": {
-                            "ref": "FooGallery.utils.Debugger.html#log",
-                            "tf": 13.333333333333334
-                          },
-                          "FooGallery.utils.Debugger.html#logf": {
-                            "ref": "FooGallery.utils.Debugger.html#logf",
-                            "tf": 10
-                          },
                           "FooGallery.utils.Factory.html#load": {
                             "ref": "FooGallery.utils.Factory.html#load",
                             "tf": 9.083333333333332
@@ -14828,6 +16483,14 @@ window.lunrData = {
                           "FooGallery.utils.Factory.html#make": {
                             "ref": "FooGallery.utils.Factory.html#make",
                             "tf": 8.75
+                          },
+                          "FooGallery.utils.Debugger.html#log": {
+                            "ref": "FooGallery.utils.Debugger.html#log",
+                            "tf": 13.333333333333334
+                          },
+                          "FooGallery.utils.Debugger.html#logf": {
+                            "ref": "FooGallery.utils.Debugger.html#logf",
+                            "tf": 10
                           },
                           "FooGallery.utils.fn.html#.arg2arr": {
                             "ref": "FooGallery.utils.fn.html#.arg2arr",
@@ -14852,45 +16515,12 @@ window.lunrData = {
                 }
               }
             },
-            "o": {
-              "docs": {},
-              "u": {
-                "docs": {},
-                "n": {
-                  "docs": {},
-                  "d": {
-                    "docs": {
-                      "FooGallery.utils.Throttle.html": {
-                        "ref": "FooGallery.utils.Throttle.html",
-                        "tf": 1.2195121951219512
-                      },
-                      "FooGallery.Loader.html#$target": {
-                        "ref": "FooGallery.Loader.html#$target",
-                        "tf": 14
-                      },
-                      "FooGallery.utils.html#.$": {
-                        "ref": "FooGallery.utils.html#.$",
-                        "tf": 3.571428571428571
-                      },
-                      "FooGallery.html#.$": {
-                        "ref": "FooGallery.html#.$",
-                        "tf": 3.571428571428571
-                      }
-                    }
-                  }
-                }
-              }
-            },
             "r": {
               "docs": {},
               "a": {
                 "docs": {},
                 "y": {
                   "docs": {
-                    "FooGallery.Loader.html#.reduce": {
-                      "ref": "FooGallery.Loader.html#.reduce",
-                      "tf": 5.833333333333333
-                    },
                     "FooGallery.utils.Factory.html#load": {
                       "ref": "FooGallery.utils.Factory.html#load",
                       "tf": 2.083333333333333
@@ -14898,6 +16528,10 @@ window.lunrData = {
                     "FooGallery.utils.Factory.html#names": {
                       "ref": "FooGallery.utils.Factory.html#names",
                       "tf": 17.5
+                    },
+                    "FooGallery.Loader.html#.reduce": {
+                      "ref": "FooGallery.Loader.html#.reduce",
+                      "tf": 5.833333333333333
                     },
                     "FooGallery.utils.is.html#.array": {
                       "ref": "FooGallery.utils.is.html#.array",
@@ -15083,6 +16717,163 @@ window.lunrData = {
                             }
                           }
                         }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "o": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "n": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "FooGallery.utils.Throttle.html": {
+                        "ref": "FooGallery.utils.Throttle.html",
+                        "tf": 1.2195121951219512
+                      },
+                      "FooGallery.Loader.html#$target": {
+                        "ref": "FooGallery.Loader.html#$target",
+                        "tf": 14
+                      },
+                      "FooGallery.utils.html#.$": {
+                        "ref": "FooGallery.utils.html#.$",
+                        "tf": 3.571428571428571
+                      },
+                      "FooGallery.html#.$": {
+                        "ref": "FooGallery.html#.$",
+                        "tf": 3.571428571428571
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "b": {
+            "docs": {},
+            "i": {
+              "docs": {},
+              "l": {
+                "docs": {
+                  "FooGallery.utils.Debugger.html": {
+                    "ref": "FooGallery.utils.Debugger.html",
+                    "tf": 1.282051282051282
+                  }
+                }
+              }
+            }
+          },
+          "c": {
+            "docs": {},
+            "t": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "l": {
+                    "docs": {
+                      "FooGallery.utils.Debugger.html": {
+                        "ref": "FooGallery.utils.Debugger.html",
+                        "tf": 1.282051282051282
+                      },
+                      "FooGallery.utils.fn.html#.check": {
+                        "ref": "FooGallery.utils.fn.html#.check",
+                        "tf": 1.0638297872340425
+                      }
+                    }
+                  }
+                }
+              },
+              "i": {
+                "docs": {},
+                "v": {
+                  "docs": {
+                    "FooGallery.utils.Throttle.html#active": {
+                      "ref": "FooGallery.utils.Throttle.html#active",
+                      "tf": 631.6666666666667
+                    }
+                  }
+                },
+                "o": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "FooGallery.utils.transition.html#.start": {
+                        "ref": "FooGallery.utils.transition.html#.start",
+                        "tf": 1
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "c": {
+              "docs": {},
+              "o": {
+                "docs": {},
+                "u": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.Loader.html#load": {
+                          "ref": "FooGallery.Loader.html#load",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.Loader.html#parse": {
+                          "ref": "FooGallery.Loader.html#parse",
+                          "tf": 4.666666666666667
+                        },
+                        "FooGallery.Loader.html#getViewportBounds": {
+                          "ref": "FooGallery.Loader.html#getViewportBounds",
+                          "tf": 7.777777777777778
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "u": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.utils.is.html#.promise": {
+                      "ref": "FooGallery.utils.is.html#.promise",
+                      "tf": 1.3513513513513513
+                    }
+                  }
+                }
+              },
+              "e": {
+                "docs": {},
+                "p": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.utils.obj.html#~Validators": {
+                        "ref": "FooGallery.utils.obj.html#~Validators",
+                        "tf": 1.0869565217391304
+                      }
+                    }
+                  }
+                },
+                "s": {
+                  "docs": {},
+                  "s": {
+                    "docs": {
+                      "FooGallery.html": {
+                        "ref": "FooGallery.html",
+                        "tf": 2.7777777777777777
+                      },
+                      "FooGallery.html#.ready": {
+                        "ref": "FooGallery.html#.ready",
+                        "tf": 11.666666666666666
                       }
                     }
                   }
@@ -15358,6 +17149,10 @@ window.lunrData = {
                     "ref": "FooGallery.utils.Class.html#.extend",
                     "tf": 4.166666666666666
                   },
+                  "FooGallery.utils.Factory.html#.extend": {
+                    "ref": "FooGallery.utils.Factory.html#.extend",
+                    "tf": 4.166666666666666
+                  },
                   "FooGallery.utils.Throttle.html#.extend": {
                     "ref": "FooGallery.utils.Throttle.html#.extend",
                     "tf": 4.166666666666666
@@ -15370,8 +17165,8 @@ window.lunrData = {
                     "ref": "FooGallery.Loader.html#.extend",
                     "tf": 4.166666666666666
                   },
-                  "FooGallery.utils.Factory.html#.extend": {
-                    "ref": "FooGallery.utils.Factory.html#.extend",
+                  "FooGallery.ImageViewer.html#.extend": {
+                    "ref": "FooGallery.ImageViewer.html#.extend",
                     "tf": 4.166666666666666
                   },
                   "FooGallery.utils.str.html#.format": {
@@ -15391,6 +17186,14 @@ window.lunrData = {
                     "docs": {},
                     "n": {
                       "docs": {
+                        "FooGallery.utils.Factory.html#contains": {
+                          "ref": "FooGallery.utils.Factory.html#contains",
+                          "tf": 33.33333333333333
+                        },
+                        "FooGallery.utils.Factory.html#register": {
+                          "ref": "FooGallery.utils.Factory.html#register",
+                          "tf": 20
+                        },
                         "FooGallery.utils.Debugger.html#enabled": {
                           "ref": "FooGallery.utils.Debugger.html#enabled",
                           "tf": 33.33333333333333
@@ -15402,14 +17205,6 @@ window.lunrData = {
                         "FooGallery.Loader.html#intersect": {
                           "ref": "FooGallery.Loader.html#intersect",
                           "tf": 25
-                        },
-                        "FooGallery.utils.Factory.html#contains": {
-                          "ref": "FooGallery.utils.Factory.html#contains",
-                          "tf": 33.33333333333333
-                        },
-                        "FooGallery.utils.Factory.html#register": {
-                          "ref": "FooGallery.utils.Factory.html#register",
-                          "tf": 20
                         },
                         "FooGallery.utils.is.html#.array": {
                           "ref": "FooGallery.utils.is.html#.array",
@@ -15518,6 +17313,10 @@ window.lunrData = {
                     "FooGallery.Loader.html#~Bounds": {
                       "ref": "FooGallery.Loader.html#~Bounds",
                       "tf": 608.75
+                    },
+                    "FooGallery.ImageViewer.html#destroy": {
+                      "ref": "FooGallery.ImageViewer.html#destroy",
+                      "tf": 11.666666666666666
                     }
                   },
                   "a": {
@@ -15653,6 +17452,10 @@ window.lunrData = {
                   "FooGallery.Loader.html#init": {
                     "ref": "FooGallery.Loader.html#init",
                     "tf": 10
+                  },
+                  "FooGallery.ImageViewer.html#init": {
+                    "ref": "FooGallery.ImageViewer.html#init",
+                    "tf": 7
                   }
                 }
               }
@@ -15662,6 +17465,38 @@ window.lunrData = {
                 "FooGallery.utils.str.html#.fnv1a": {
                   "ref": "FooGallery.utils.str.html#.fnv1a",
                   "tf": 8.75
+                }
+              }
+            }
+          },
+          "u": {
+            "docs": {},
+            "t": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "o": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "FooGallery.ImageViewer.html#$prev": {
+                        "ref": "FooGallery.ImageViewer.html#$prev",
+                        "tf": 17.5
+                      },
+                      "FooGallery.ImageViewer.html#$next": {
+                        "ref": "FooGallery.ImageViewer.html#$next",
+                        "tf": 17.5
+                      },
+                      "FooGallery.ImageViewer.html#onPrevClick": {
+                        "ref": "FooGallery.ImageViewer.html#onPrevClick",
+                        "tf": 14
+                      },
+                      "FooGallery.ImageViewer.html#onNextClick": {
+                        "ref": "FooGallery.ImageViewer.html#onNextClick",
+                        "tf": 14
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -15737,6 +17572,214 @@ window.lunrData = {
             }
           }
         },
+        "h": {
+          "docs": {},
+          "e": {
+            "docs": {},
+            "l": {
+              "docs": {},
+              "p": {
+                "docs": {
+                  "FooGallery.utils.Throttle.html": {
+                    "ref": "FooGallery.utils.Throttle.html",
+                    "tf": 1.2195121951219512
+                  },
+                  "FooGallery.utils.html#.$": {
+                    "ref": "FooGallery.utils.html#.$",
+                    "tf": 3.571428571428571
+                  },
+                  "FooGallery.html#.$": {
+                    "ref": "FooGallery.html#.$",
+                    "tf": 3.571428571428571
+                  }
+                },
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "FooGallery.utils.Class.html": {
+                        "ref": "FooGallery.utils.Class.html",
+                        "tf": 10
+                      },
+                      "FooGallery.utils.Class.html#.override": {
+                        "ref": "FooGallery.utils.Class.html#.override",
+                        "tf": 2.941176470588235
+                      },
+                      "FooGallery.utils.Factory.html#.override": {
+                        "ref": "FooGallery.utils.Factory.html#.override",
+                        "tf": 2.941176470588235
+                      },
+                      "FooGallery.utils.Throttle.html#.override": {
+                        "ref": "FooGallery.utils.Throttle.html#.override",
+                        "tf": 2.941176470588235
+                      },
+                      "FooGallery.Loader.html#.override": {
+                        "ref": "FooGallery.Loader.html#.override",
+                        "tf": 2.941176470588235
+                      },
+                      "FooGallery.ImageViewer.html#.override": {
+                        "ref": "FooGallery.ImageViewer.html#.override",
+                        "tf": 2.941176470588235
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "i": {
+              "docs": {},
+              "g": {
+                "docs": {},
+                "h": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.Loader.html#getViewportInfo": {
+                        "ref": "FooGallery.Loader.html#getViewportInfo",
+                        "tf": 10
+                      },
+                      "FooGallery.html#.getImages": {
+                        "ref": "FooGallery.html#.getImages",
+                        "tf": 8.75
+                      },
+                      "FooGallery.html#.addSize": {
+                        "ref": "FooGallery.html#.addSize",
+                        "tf": 14.737484737484738
+                      },
+                      "FooGallery.html#.removeSize": {
+                        "ref": "FooGallery.html#.removeSize",
+                        "tf": 7.777777777777778
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "i": {
+            "docs": {},
+            "g": {
+              "docs": {},
+              "h": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "FooGallery.utils.Factory.html#load": {
+                        "ref": "FooGallery.utils.Factory.html#load",
+                        "tf": 2.083333333333333
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "n": {
+              "docs": {},
+              "d": {
+                "docs": {},
+                "l": {
+                  "docs": {
+                    "FooGallery.Loader.html#onscroll": {
+                      "ref": "FooGallery.Loader.html#onscroll",
+                      "tf": 8.75
+                    },
+                    "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                      "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                      "tf": 7.777777777777778
+                    },
+                    "FooGallery.ImageViewer.html#onFooBoxNext": {
+                      "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                      "tf": 7.777777777777778
+                    },
+                    "FooGallery.ImageViewer.html#onPrevClick": {
+                      "ref": "FooGallery.ImageViewer.html#onPrevClick",
+                      "tf": 14
+                    },
+                    "FooGallery.ImageViewer.html#onNextClick": {
+                      "ref": "FooGallery.ImageViewer.html#onNextClick",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.html#.versionCompare": {
+                      "ref": "FooGallery.utils.html#.versionCompare",
+                      "tf": 2.1739130434782608
+                    },
+                    "FooGallery.utils.str.html#.format": {
+                      "ref": "FooGallery.utils.str.html#.format",
+                      "tf": 5.384615384615385
+                    }
+                  },
+                  "e": {
+                    "docs": {},
+                    "r": {
+                      "docs": {
+                        "FooGallery.utils.Throttle.html": {
+                          "ref": "FooGallery.utils.Throttle.html",
+                          "tf": 1.2195121951219512
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "h": {
+                "docs": {
+                  "FooGallery.utils.is.html#.hash": {
+                    "ref": "FooGallery.utils.is.html#.hash",
+                    "tf": 623.3333333333334
+                  },
+                  "FooGallery.utils.str.html#.fnv1a": {
+                    "ref": "FooGallery.utils.str.html#.fnv1a",
+                    "tf": 8.75
+                  }
+                }
+              }
+            },
+            "v": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "FooGallery.utils.fn.html#.addOrOverride": {
+                    "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                    "tf": 0.9615384615384616
+                  }
+                }
+              }
+            }
+          },
+          "o": {
+            "docs": {},
+            "l": {
+              "docs": {},
+              "d": {
+                "docs": {
+                  "FooGallery.ImageViewer.html#options": {
+                    "ref": "FooGallery.ImageViewer.html#options",
+                    "tf": 6.25
+                  }
+                }
+              }
+            },
+            "u": {
+              "docs": {},
+              "s": {
+                "docs": {
+                  "FooGallery.html": {
+                    "ref": "FooGallery.html",
+                    "tf": 2.7777777777777777
+                  }
+                }
+              }
+            }
+          }
+        },
         "o": {
           "docs": {},
           "v": {
@@ -15763,6 +17806,18 @@ window.lunrData = {
                           "ref": "FooGallery.utils.Class.html#.override",
                           "tf": 620.4411764705883
                         },
+                        "FooGallery.utils.Factory.html#load": {
+                          "ref": "FooGallery.utils.Factory.html#load",
+                          "tf": 20
+                        },
+                        "FooGallery.utils.Factory.html#.extend": {
+                          "ref": "FooGallery.utils.Factory.html#.extend",
+                          "tf": 4.166666666666666
+                        },
+                        "FooGallery.utils.Factory.html#.override": {
+                          "ref": "FooGallery.utils.Factory.html#.override",
+                          "tf": 620.4411764705883
+                        },
                         "FooGallery.utils.Throttle.html#.extend": {
                           "ref": "FooGallery.utils.Throttle.html#.extend",
                           "tf": 4.166666666666666
@@ -15779,17 +17834,13 @@ window.lunrData = {
                           "ref": "FooGallery.Loader.html#.override",
                           "tf": 645.4411764705883
                         },
-                        "FooGallery.utils.Factory.html#load": {
-                          "ref": "FooGallery.utils.Factory.html#load",
-                          "tf": 20
-                        },
-                        "FooGallery.utils.Factory.html#.extend": {
-                          "ref": "FooGallery.utils.Factory.html#.extend",
+                        "FooGallery.ImageViewer.html#.extend": {
+                          "ref": "FooGallery.ImageViewer.html#.extend",
                           "tf": 4.166666666666666
                         },
-                        "FooGallery.utils.Factory.html#.override": {
-                          "ref": "FooGallery.utils.Factory.html#.override",
-                          "tf": 620.4411764705883
+                        "FooGallery.ImageViewer.html#.override": {
+                          "ref": "FooGallery.ImageViewer.html#.override",
+                          "tf": 645.4411764705883
                         },
                         "FooGallery.utils.fn.html#.addOrOverride": {
                           "ref": "FooGallery.utils.fn.html#.addOrOverride",
@@ -15830,6 +17881,14 @@ window.lunrData = {
                 "ref": "FooGallery.utils.Class.html#.override",
                 "tf": 2.941176470588235
               },
+              "FooGallery.utils.Factory.html#.extend": {
+                "ref": "FooGallery.utils.Factory.html#.extend",
+                "tf": 7.777777777777778
+              },
+              "FooGallery.utils.Factory.html#.override": {
+                "ref": "FooGallery.utils.Factory.html#.override",
+                "tf": 2.941176470588235
+              },
               "FooGallery.utils.Throttle.html#.extend": {
                 "ref": "FooGallery.utils.Throttle.html#.extend",
                 "tf": 7.777777777777778
@@ -15850,12 +17909,12 @@ window.lunrData = {
                 "ref": "FooGallery.Loader.html#.override",
                 "tf": 2.941176470588235
               },
-              "FooGallery.utils.Factory.html#.extend": {
-                "ref": "FooGallery.utils.Factory.html#.extend",
+              "FooGallery.ImageViewer.html#.extend": {
+                "ref": "FooGallery.ImageViewer.html#.extend",
                 "tf": 7.777777777777778
               },
-              "FooGallery.utils.Factory.html#.override": {
-                "ref": "FooGallery.utils.Factory.html#.override",
+              "FooGallery.ImageViewer.html#.override": {
+                "ref": "FooGallery.ImageViewer.html#.override",
                 "tf": 2.941176470588235
               },
               "FooGallery.utils.is.html#.promise": {
@@ -15881,13 +17940,13 @@ window.lunrData = {
             },
             "c": {
               "docs": {
-                "FooGallery.utils.Throttle.html#limit": {
-                  "ref": "FooGallery.utils.Throttle.html#limit",
-                  "tf": 7
-                },
                 "FooGallery.utils.Factory.html#register": {
                   "ref": "FooGallery.utils.Factory.html#register",
                   "tf": 3.8461538461538463
+                },
+                "FooGallery.utils.Throttle.html#limit": {
+                  "ref": "FooGallery.utils.Throttle.html#limit",
+                  "tf": 7
                 },
                 "FooGallery.utils.transition.html#.start": {
                   "ref": "FooGallery.utils.transition.html#.start",
@@ -15915,6 +17974,122 @@ window.lunrData = {
                 }
               }
             },
+            "f": {
+              "docs": {},
+              "o": {
+                "docs": {},
+                "o": {
+                  "docs": {},
+                  "b": {
+                    "docs": {},
+                    "o": {
+                      "docs": {},
+                      "x": {
+                        "docs": {},
+                        "p": {
+                          "docs": {},
+                          "r": {
+                            "docs": {},
+                            "e": {
+                              "docs": {},
+                              "v": {
+                                "docs": {
+                                  "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                                    "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                                    "tf": 650
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "n": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "x": {
+                              "docs": {},
+                              "t": {
+                                "docs": {
+                                  "FooGallery.ImageViewer.html#onFooBoxNext": {
+                                    "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                                    "tf": 650
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "p": {
+              "docs": {},
+              "r": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "v": {
+                    "docs": {},
+                    "c": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "c": {
+                            "docs": {},
+                            "k": {
+                              "docs": {
+                                "FooGallery.ImageViewer.html#onPrevClick": {
+                                  "ref": "FooGallery.ImageViewer.html#onPrevClick",
+                                  "tf": 650
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "n": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "x": {
+                  "docs": {},
+                  "t": {
+                    "docs": {},
+                    "c": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "c": {
+                            "docs": {},
+                            "k": {
+                              "docs": {
+                                "FooGallery.ImageViewer.html#onNextClick": {
+                                  "ref": "FooGallery.ImageViewer.html#onNextClick",
+                                  "tf": 650
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "t": {
               "docs": {},
               "o": {
@@ -15927,55 +18102,75 @@ window.lunrData = {
               }
             }
           },
-          "c": {
+          "r": {
             "docs": {},
-            "c": {
+            "d": {
               "docs": {},
-              "u": {
+              "e": {
                 "docs": {},
                 "r": {
                   "docs": {
-                    "FooGallery.utils.Debugger.html": {
-                      "ref": "FooGallery.utils.Debugger.html",
-                      "tf": 1.282051282051282
+                    "FooGallery.utils.Factory.html": {
+                      "ref": "FooGallery.utils.Factory.html",
+                      "tf": 2.272727272727273
+                    },
+                    "FooGallery.utils.fn.html#.enqueue": {
+                      "ref": "FooGallery.utils.fn.html#.enqueue",
+                      "tf": 7.132034632034632
                     }
                   }
                 }
               }
-            }
-          },
-          "u": {
-            "docs": {},
-            "t": {
-              "docs": {
-                "FooGallery.utils.fn.html#.addOrOverride": {
-                  "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                  "tf": 0.9615384615384616
-                }
-              },
-              "p": {
-                "docs": {},
-                "u": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.utils.Debugger.html": {
-                        "ref": "FooGallery.utils.Debugger.html",
-                        "tf": 3.8461538461538463
-                      }
-                    }
-                  }
-                }
-              },
-              "s": {
+            },
+            "i": {
+              "docs": {},
+              "g": {
                 "docs": {},
                 "i": {
                   "docs": {},
-                  "d": {
+                  "n": {
                     "docs": {
-                      "FooGallery.utils.Debugger.html#enabled": {
-                        "ref": "FooGallery.utils.Debugger.html#enabled",
-                        "tf": 4.545454545454546
+                      "FooGallery.utils.fn.html#.addOrOverride": {
+                        "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                        "tf": 3.8461538461538463
+                      }
+                    },
+                    "a": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        ".": {
+                          "docs": {},
+                          "c": {
+                            "docs": {},
+                            "a": {
+                              "docs": {},
+                              "l": {
+                                "docs": {},
+                                "l": {
+                                  "docs": {},
+                                  "(": {
+                                    "docs": {},
+                                    "t": {
+                                      "docs": {},
+                                      "h": {
+                                        "docs": {},
+                                        "i": {
+                                          "docs": {
+                                            "FooGallery.utils.fn.html#.addOrOverride": {
+                                              "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                                              "tf": 0.9615384615384616
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -15998,6 +18193,14 @@ window.lunrData = {
                   "docs": {},
                   "t": {
                     "docs": {
+                      "FooGallery.utils.Factory.html#registered": {
+                        "ref": "FooGallery.utils.Factory.html#registered",
+                        "tf": 17.5
+                      },
+                      "FooGallery.utils.Factory.html#make": {
+                        "ref": "FooGallery.utils.Factory.html#make",
+                        "tf": 20
+                      },
                       "FooGallery.Loader.html#options": {
                         "ref": "FooGallery.Loader.html#options",
                         "tf": 10
@@ -16022,13 +18225,25 @@ window.lunrData = {
                         "ref": "FooGallery.Loader.html#~Srcset",
                         "tf": 10
                       },
-                      "FooGallery.utils.Factory.html#registered": {
-                        "ref": "FooGallery.utils.Factory.html#registered",
+                      "FooGallery.ImageViewer.html#$el": {
+                        "ref": "FooGallery.ImageViewer.html#$el",
+                        "tf": 14
+                      },
+                      "FooGallery.ImageViewer.html#$items": {
+                        "ref": "FooGallery.ImageViewer.html#$items",
+                        "tf": 14
+                      },
+                      "FooGallery.ImageViewer.html#$current": {
+                        "ref": "FooGallery.ImageViewer.html#$current",
+                        "tf": 11.666666666666666
+                      },
+                      "FooGallery.ImageViewer.html#$prev": {
+                        "ref": "FooGallery.ImageViewer.html#$prev",
                         "tf": 17.5
                       },
-                      "FooGallery.utils.Factory.html#make": {
-                        "ref": "FooGallery.utils.Factory.html#make",
-                        "tf": 20
+                      "FooGallery.ImageViewer.html#$next": {
+                        "ref": "FooGallery.ImageViewer.html#$next",
+                        "tf": 17.5
                       },
                       "FooGallery.utils.html#.$": {
                         "ref": "FooGallery.utils.html#.$",
@@ -16367,6 +18582,73 @@ window.lunrData = {
               }
             }
           },
+          "c": {
+            "docs": {},
+            "c": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.utils.Debugger.html": {
+                      "ref": "FooGallery.utils.Debugger.html",
+                      "tf": 1.282051282051282
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "u": {
+            "docs": {},
+            "t": {
+              "docs": {
+                "FooGallery.utils.fn.html#.addOrOverride": {
+                  "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                  "tf": 0.9615384615384616
+                }
+              },
+              "p": {
+                "docs": {},
+                "u": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.utils.Debugger.html": {
+                        "ref": "FooGallery.utils.Debugger.html",
+                        "tf": 3.8461538461538463
+                      }
+                    }
+                  }
+                }
+              },
+              "s": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "FooGallery.utils.Debugger.html#enabled": {
+                        "ref": "FooGallery.utils.Debugger.html#enabled",
+                        "tf": 4.545454545454546
+                      }
+                    }
+                  }
+                }
+              },
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.ImageViewer.html#$el": {
+                      "ref": "FooGallery.ImageViewer.html#$el",
+                      "tf": 5.555555555555555
+                    }
+                  }
+                }
+              }
+            }
+          },
           "p": {
             "docs": {},
             "t": {
@@ -16391,6 +18673,14 @@ window.lunrData = {
                       },
                       "FooGallery.Loader.html#~Options": {
                         "ref": "FooGallery.Loader.html#~Options",
+                        "tf": 635
+                      },
+                      "FooGallery.ImageViewer.html#options": {
+                        "ref": "FooGallery.ImageViewer.html#options",
+                        "tf": 691.25
+                      },
+                      "FooGallery.ImageViewer.html#~Options": {
+                        "ref": "FooGallery.ImageViewer.html#~Options",
                         "tf": 635
                       },
                       "FooGallery.utils.fn.html#.check": {
@@ -16425,22 +18715,238 @@ window.lunrData = {
                 }
               }
             }
-          },
+          }
+        },
+        "p": {
+          "docs": {},
           "r": {
             "docs": {},
-            "d": {
+            "o": {
               "docs": {},
-              "e": {
+              "t": {
                 "docs": {},
-                "r": {
+                "o": {
                   "docs": {
-                    "FooGallery.utils.Factory.html": {
-                      "ref": "FooGallery.utils.Factory.html",
-                      "tf": 2.272727272727273
+                    "FooGallery.utils.fn.html#.addOrOverride": {
+                      "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                      "tf": 27.77777777777778
                     },
-                    "FooGallery.utils.fn.html#.enqueue": {
-                      "ref": "FooGallery.utils.fn.html#.enqueue",
-                      "tf": 7.132034632034632
+                    "FooGallery.utils.obj.html#.create": {
+                      "ref": "FooGallery.utils.obj.html#.create",
+                      "tf": 25
+                    }
+                  },
+                  "t": {
+                    "docs": {},
+                    "y": {
+                      "docs": {},
+                      "p": {
+                        "docs": {
+                          "FooGallery.utils.Class.html": {
+                            "ref": "FooGallery.utils.Class.html",
+                            "tf": 11.470588235294118
+                          },
+                          "FooGallery.utils.Class.html#.override": {
+                            "ref": "FooGallery.utils.Class.html#.override",
+                            "tf": 2.941176470588235
+                          },
+                          "FooGallery.utils.Factory.html#.override": {
+                            "ref": "FooGallery.utils.Factory.html#.override",
+                            "tf": 2.941176470588235
+                          },
+                          "FooGallery.utils.Throttle.html#.override": {
+                            "ref": "FooGallery.utils.Throttle.html#.override",
+                            "tf": 2.941176470588235
+                          },
+                          "FooGallery.Loader.html#.override": {
+                            "ref": "FooGallery.Loader.html#.override",
+                            "tf": 2.941176470588235
+                          },
+                          "FooGallery.ImageViewer.html#.override": {
+                            "ref": "FooGallery.ImageViewer.html#.override",
+                            "tf": 2.941176470588235
+                          },
+                          "FooGallery.utils.is.html#.promise": {
+                            "ref": "FooGallery.utils.is.html#.promise",
+                            "tf": 1.3513513513513513
+                          },
+                          "FooGallery.utils.obj.html#.create": {
+                            "ref": "FooGallery.utils.obj.html#.create",
+                            "tf": 14
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "v": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "d": {
+                    "docs": {
+                      "FooGallery.utils.Class.html": {
+                        "ref": "FooGallery.utils.Class.html",
+                        "tf": 11.470588235294118
+                      },
+                      "FooGallery.utils.Class.html#.override": {
+                        "ref": "FooGallery.utils.Class.html#.override",
+                        "tf": 2.941176470588235
+                      },
+                      "FooGallery.utils.Factory.html#.override": {
+                        "ref": "FooGallery.utils.Factory.html#.override",
+                        "tf": 2.941176470588235
+                      },
+                      "FooGallery.utils.Throttle.html#.override": {
+                        "ref": "FooGallery.utils.Throttle.html#.override",
+                        "tf": 2.941176470588235
+                      },
+                      "FooGallery.Loader.html#.override": {
+                        "ref": "FooGallery.Loader.html#.override",
+                        "tf": 2.941176470588235
+                      },
+                      "FooGallery.ImageViewer.html#.override": {
+                        "ref": "FooGallery.ImageViewer.html#.override",
+                        "tf": 2.941176470588235
+                      },
+                      "FooGallery.utils.obj.html#~Validators": {
+                        "ref": "FooGallery.utils.obj.html#~Validators",
+                        "tf": 1.0869565217391304
+                      },
+                      "FooGallery.html#.addSize": {
+                        "ref": "FooGallery.html#.addSize",
+                        "tf": 5.384615384615385
+                      },
+                      "FooGallery.html#.removeSize": {
+                        "ref": "FooGallery.html#.removeSize",
+                        "tf": 7.777777777777778
+                      }
+                    }
+                  }
+                }
+              },
+              "p": {
+                "docs": {
+                  "FooGallery.Loader.html#.reduce": {
+                    "ref": "FooGallery.Loader.html#.reduce",
+                    "tf": 16.666666666666664
+                  },
+                  "FooGallery.utils.obj.html#.prop": {
+                    "ref": "FooGallery.utils.obj.html#.prop",
+                    "tf": 595
+                  }
+                },
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "FooGallery.utils.fn.html#.arg2arr": {
+                        "ref": "FooGallery.utils.fn.html#.arg2arr",
+                        "tf": 11.666666666666666
+                      }
+                    },
+                    "t": {
+                      "docs": {},
+                      "i": {
+                        "docs": {
+                          "FooGallery.utils.Debugger.html#enabled": {
+                            "ref": "FooGallery.utils.Debugger.html#enabled",
+                            "tf": 4.545454545454546
+                          },
+                          "FooGallery.Loader.html#.reduce": {
+                            "ref": "FooGallery.Loader.html#.reduce",
+                            "tf": 5.833333333333333
+                          },
+                          "FooGallery.ImageViewer.html#options": {
+                            "ref": "FooGallery.ImageViewer.html#options",
+                            "tf": 6.25
+                          },
+                          "FooGallery.utils.is.html#.promise": {
+                            "ref": "FooGallery.utils.is.html#.promise",
+                            "tf": 1.3513513513513513
+                          },
+                          "FooGallery.utils.fn.html#.enqueue": {
+                            "ref": "FooGallery.utils.fn.html#.enqueue",
+                            "tf": 0.6493506493506493
+                          },
+                          "FooGallery.utils.obj.html#.extend": {
+                            "ref": "FooGallery.utils.obj.html#.extend",
+                            "tf": 2.631578947368421
+                          },
+                          "FooGallery.utils.obj.html#.merge": {
+                            "ref": "FooGallery.utils.obj.html#.merge",
+                            "tf": 2.7777777777777777
+                          },
+                          "FooGallery.utils.obj.html#.mergeValid": {
+                            "ref": "FooGallery.utils.obj.html#.mergeValid",
+                            "tf": 8.75
+                          },
+                          "FooGallery.utils.obj.html#.prop": {
+                            "ref": "FooGallery.utils.obj.html#.prop",
+                            "tf": 14
+                          },
+                          "FooGallery.utils.obj.html#~Mappings": {
+                            "ref": "FooGallery.utils.obj.html#~Mappings",
+                            "tf": 2.083333333333333
+                          },
+                          "FooGallery.utils.obj.html#~Validators": {
+                            "ref": "FooGallery.utils.obj.html#~Validators",
+                            "tf": 14.927536231884057
+                          },
+                          "FooGallery.utils.transition.html": {
+                            "ref": "FooGallery.utils.transition.html",
+                            "tf": 8.75
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "m": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "s": {
+                    "docs": {
+                      "FooGallery.Loader.html#init": {
+                        "ref": "FooGallery.Loader.html#init",
+                        "tf": 50
+                      },
+                      "FooGallery.Loader.html#check": {
+                        "ref": "FooGallery.Loader.html#check",
+                        "tf": 50
+                      },
+                      "FooGallery.Loader.html#load": {
+                        "ref": "FooGallery.Loader.html#load",
+                        "tf": 33.33333333333333
+                      },
+                      "FooGallery.utils.is.html#.promise": {
+                        "ref": "FooGallery.utils.is.html#.promise",
+                        "tf": 628.7387387387388
+                      },
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 0.6493506493506493
+                      }
+                    }
+                  }
+                }
+              },
+              "b": {
+                "docs": {},
+                "l": {
+                  "docs": {},
+                  "e": {
+                    "docs": {},
+                    "m": {
+                      "docs": {
+                        "FooGallery.html#.addSize": {
+                          "ref": "FooGallery.html#.addSize",
+                          "tf": 0.7936507936507936
+                        }
+                      }
                     }
                   }
                 }
@@ -16448,53 +18954,523 @@ window.lunrData = {
             },
             "i": {
               "docs": {},
+              "o": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "FooGallery.utils.html": {
+                      "ref": "FooGallery.utils.html",
+                      "tf": 5.555555555555555
+                    }
+                  },
+                  "i": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.Factory.html#names": {
+                          "ref": "FooGallery.utils.Factory.html#names",
+                          "tf": 33.33333333333333
+                        }
+                      },
+                      "i": {
+                        "docs": {
+                          "FooGallery.utils.Factory.html": {
+                            "ref": "FooGallery.utils.Factory.html",
+                            "tf": 2.272727272727273
+                          },
+                          "FooGallery.utils.Factory.html#load": {
+                            "ref": "FooGallery.utils.Factory.html#load",
+                            "tf": 11.166666666666666
+                          },
+                          "FooGallery.utils.Factory.html#register": {
+                            "ref": "FooGallery.utils.Factory.html#register",
+                            "tf": 20
+                          },
+                          "FooGallery.utils.fn.html#.enqueue": {
+                            "ref": "FooGallery.utils.fn.html#.enqueue",
+                            "tf": 0.6493506493506493
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "m": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "i": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        "i": {
+                          "docs": {
+                            "FooGallery.utils.fn.html#.check": {
+                              "ref": "FooGallery.utils.fn.html#.check",
+                              "tf": 1.0638297872340425
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "e": {
+              "docs": {
+                "FooGallery.utils.fn.html#.addOrOverride": {
+                  "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                  "tf": 0.9615384615384616
+                }
+              },
+              "v": {
+                "docs": {
+                  "FooGallery.ImageViewer.html#$prev": {
+                    "ref": "FooGallery.ImageViewer.html#$prev",
+                    "tf": 650
+                  },
+                  "FooGallery.ImageViewer.html#prev": {
+                    "ref": "FooGallery.ImageViewer.html#prev",
+                    "tf": 700
+                  }
+                },
+                "i": {
+                  "docs": {},
+                  "o": {
+                    "docs": {},
+                    "u": {
+                      "docs": {
+                        "FooGallery.ImageViewer.html#$prev": {
+                          "ref": "FooGallery.ImageViewer.html#$prev",
+                          "tf": 17.5
+                        },
+                        "FooGallery.ImageViewer.html#prev": {
+                          "ref": "FooGallery.ImageViewer.html#prev",
+                          "tf": 21.666666666666664
+                        },
+                        "FooGallery.ImageViewer.html#onPrevClick": {
+                          "ref": "FooGallery.ImageViewer.html#onPrevClick",
+                          "tf": 14
+                        },
+                        "FooGallery.utils.fn.html#.enqueue": {
+                          "ref": "FooGallery.utils.fn.html#.enqueue",
+                          "tf": 0.6493506493506493
+                        }
+                      },
+                      "s": {
+                        "docs": {
+                          "FooGallery.utils.Throttle.html#limit": {
+                            "ref": "FooGallery.utils.Throttle.html#limit",
+                            "tf": 7
+                          },
+                          "FooGallery.utils.Throttle.html#clear": {
+                            "ref": "FooGallery.utils.Throttle.html#clear",
+                            "tf": 10
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "e": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.Throttle.html#clear": {
+                          "ref": "FooGallery.utils.Throttle.html#clear",
+                          "tf": 10
+                        },
+                        "FooGallery.html": {
+                          "ref": "FooGallery.html",
+                          "tf": 2.7777777777777777
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "f": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "x": {
+                    "docs": {
+                      "FooGallery.utils.html#.uniqueId": {
+                        "ref": "FooGallery.utils.html#.uniqueId",
+                        "tf": 20
+                      }
+                    }
+                  }
+                }
+              },
+              "i": {
+                "docs": {},
+                "n": {
+                  "docs": {},
+                  "i": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.fn.html#.enqueue": {
+                          "ref": "FooGallery.utils.fn.html#.enqueue",
+                          "tf": 2.5974025974025974
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "r": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "m": {
+                  "docs": {
+                    "FooGallery.utils.url.html#.param": {
+                      "ref": "FooGallery.utils.url.html#.param",
+                      "tf": 591.6666666666666
+                    }
+                  },
+                  "e": {
+                    "docs": {},
+                    "t": {
+                      "docs": {
+                        "FooGallery.utils.Factory.html": {
+                          "ref": "FooGallery.utils.Factory.html",
+                          "tf": 2.272727272727273
+                        },
+                        "FooGallery.utils.url.html#.param": {
+                          "ref": "FooGallery.utils.url.html#.param",
+                          "tf": 11.666666666666666
+                        },
+                        "FooGallery.utils.transition.html#.start": {
+                          "ref": "FooGallery.utils.transition.html#.start",
+                          "tf": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "s": {
+                "docs": {
+                  "FooGallery.Loader.html#parse": {
+                    "ref": "FooGallery.Loader.html#parse",
+                    "tf": 638
+                  },
+                  "FooGallery.Loader.html#~Srcset": {
+                    "ref": "FooGallery.Loader.html#~Srcset",
+                    "tf": 10
+                  },
+                  "FooGallery.utils.url.html#.parts": {
+                    "ref": "FooGallery.utils.url.html#.parts",
+                    "tf": 8.75
+                  }
+                }
+              },
+              "t": {
+                "docs": {
+                  "FooGallery.utils.url.html#.parts": {
+                    "ref": "FooGallery.utils.url.html#.parts",
+                    "tf": 608.75
+                  },
+                  "FooGallery.utils.url.html#~Parts": {
+                    "ref": "FooGallery.utils.url.html#~Parts",
+                    "tf": 600
+                  },
+                  "FooGallery.utils.str.html#.containsWord": {
+                    "ref": "FooGallery.utils.str.html#.containsWord",
+                    "tf": 3.3333333333333335
+                  },
+                  "FooGallery.utils.str.html#.join": {
+                    "ref": "FooGallery.utils.str.html#.join",
+                    "tf": 20.666666666666664
+                  },
+                  "FooGallery.utils.str.html#.until": {
+                    "ref": "FooGallery.utils.str.html#.until",
+                    "tf": 7.777777777777778
+                  }
+                },
+                "n": {
+                  "docs": {
+                    "FooGallery.utils.str.html#.join": {
+                      "ref": "FooGallery.utils.str.html#.join",
+                      "tf": 16.666666666666664
+                    }
+                  }
+                }
+              }
+            },
+            "g": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "FooGallery.utils.Debugger.html": {
+                    "ref": "FooGallery.utils.Debugger.html",
+                    "tf": 3.8461538461538463
+                  },
+                  "FooGallery.utils.html": {
+                    "ref": "FooGallery.utils.html",
+                    "tf": 5.555555555555555
+                  },
+                  "FooGallery.utils.html#.$": {
+                    "ref": "FooGallery.utils.html#.$",
+                    "tf": 3.571428571428571
+                  },
+                  "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                    "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                    "tf": 1.5625
+                  },
+                  "FooGallery.html#.$": {
+                    "ref": "FooGallery.html#.$",
+                    "tf": 3.571428571428571
+                  },
+                  "FooGallery.html#.addSize": {
+                    "ref": "FooGallery.html#.addSize",
+                    "tf": 1.5873015873015872
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "s": {
+                "docs": {
+                  "FooGallery.utils.Debugger.html#log": {
+                    "ref": "FooGallery.utils.Debugger.html#log",
+                    "tf": 3.3333333333333335
+                  }
+                }
+              }
+            }
+          },
+          "e": {
+            "docs": {},
+            "r": {
+              "docs": {
+                "FooGallery.utils.Throttle.html": {
+                  "ref": "FooGallery.utils.Throttle.html",
+                  "tf": 1.2195121951219512
+                }
+              },
+              "f": {
+                "docs": {},
+                "o": {
+                  "docs": {},
+                  "r": {
+                    "docs": {},
+                    "m": {
+                      "docs": {
+                        "FooGallery.Loader.html#init": {
+                          "ref": "FooGallery.Loader.html#init",
+                          "tf": 10
+                        },
+                        "FooGallery.Loader.html#onscroll": {
+                          "ref": "FooGallery.Loader.html#onscroll",
+                          "tf": 8.75
+                        },
+                        "FooGallery.ImageViewer.html#init": {
+                          "ref": "FooGallery.ImageViewer.html#init",
+                          "tf": 7
+                        },
+                        "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
+                          "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
+                          "tf": 1.5625
+                        },
+                        "FooGallery.utils.fn.html#.enqueue": {
+                          "ref": "FooGallery.utils.fn.html#.enqueue",
+                          "tf": 0.6493506493506493
+                        },
+                        "FooGallery.utils.str.html#.format": {
+                          "ref": "FooGallery.utils.str.html#.format",
+                          "tf": 1.3888888888888888
+                        },
+                        "FooGallery.utils.transition.html#.start": {
+                          "ref": "FooGallery.utils.transition.html#.start",
+                          "tf": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "l": {
+            "docs": {},
+            "u": {
+              "docs": {},
               "g": {
                 "docs": {},
                 "i": {
                   "docs": {},
                   "n": {
                     "docs": {
-                      "FooGallery.utils.fn.html#.addOrOverride": {
-                        "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                        "tf": 3.8461538461538463
+                      "FooGallery.Loader.html#.defaults": {
+                        "ref": "FooGallery.Loader.html#.defaults",
+                        "tf": 23.333333333333332
+                      },
+                      "FooGallery.Loader.html#init": {
+                        "ref": "FooGallery.Loader.html#init",
+                        "tf": 10
+                      },
+                      "FooGallery.Loader.html#destroy": {
+                        "ref": "FooGallery.Loader.html#destroy",
+                        "tf": 10
+                      },
+                      "FooGallery.Loader.html#~Options": {
+                        "ref": "FooGallery.Loader.html#~Options",
+                        "tf": 35
+                      },
+                      "FooGallery.ImageViewer.html#options": {
+                        "ref": "FooGallery.ImageViewer.html#options",
+                        "tf": 35
+                      },
+                      "FooGallery.ImageViewer.html#$items": {
+                        "ref": "FooGallery.ImageViewer.html#$items",
+                        "tf": 14
+                      },
+                      "FooGallery.ImageViewer.html#.defaults": {
+                        "ref": "FooGallery.ImageViewer.html#.defaults",
+                        "tf": 35
+                      },
+                      "FooGallery.ImageViewer.html#init": {
+                        "ref": "FooGallery.ImageViewer.html#init",
+                        "tf": 7
+                      },
+                      "FooGallery.ImageViewer.html#destroy": {
+                        "ref": "FooGallery.ImageViewer.html#destroy",
+                        "tf": 11.666666666666666
+                      },
+                      "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                        "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.ImageViewer.html#onFooBoxNext": {
+                        "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.ImageViewer.html#~Options": {
+                        "ref": "FooGallery.ImageViewer.html#~Options",
+                        "tf": 35
+                      },
+                      "external-_jQuery.fn_.html": {
+                        "ref": "external-_jQuery.fn_.html",
+                        "tf": 23.333333333333332
+                      },
+                      "FooGallery.utils.html": {
+                        "ref": "FooGallery.utils.html",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 1.2987012987012987
+                      },
+                      "FooGallery.html": {
+                        "ref": "FooGallery.html",
+                        "tf": 16.77777777777778
+                      },
+                      "FooGallery.html#.$": {
+                        "ref": "FooGallery.html#.$",
+                        "tf": 14
                       }
-                    },
-                    "a": {
+                    }
+                  }
+                }
+              }
+            },
+            "a": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "n": {
+                  "docs": {
+                    "FooGallery.utils.url.html#~Parts": {
+                      "ref": "FooGallery.utils.url.html#~Parts",
+                      "tf": 11.666666666666666
+                    }
+                  }
+                }
+              },
+              "c": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "h": {
+                    "docs": {},
+                    "o": {
                       "docs": {},
                       "l": {
                         "docs": {},
-                        ".": {
-                          "docs": {},
-                          "c": {
-                            "docs": {},
-                            "a": {
-                              "docs": {},
-                              "l": {
-                                "docs": {},
-                                "l": {
-                                  "docs": {},
-                                  "(": {
-                                    "docs": {},
-                                    "t": {
-                                      "docs": {},
-                                      "h": {
-                                        "docs": {},
-                                        "i": {
-                                          "docs": {
-                                            "FooGallery.utils.fn.html#.addOrOverride": {
-                                              "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                                              "tf": 0.9615384615384616
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
+                        "d": {
+                          "docs": {
+                            "FooGallery.utils.str.html#.format": {
+                              "ref": "FooGallery.utils.str.html#.format",
+                              "tf": 10.94017094017094
                             }
                           }
                         }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "i": {
+            "docs": {},
+            "x": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "l": {
+                  "docs": {
+                    "FooGallery.Loader.html#getViewportInfo": {
+                      "ref": "FooGallery.Loader.html#getViewportInfo",
+                      "tf": 10
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "o": {
+            "docs": {},
+            "s": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "FooGallery.Loader.html#getViewportBounds": {
+                      "ref": "FooGallery.Loader.html#getViewportBounds",
+                      "tf": 7.777777777777778
+                    }
+                  }
+                }
+              }
+            },
+            "l": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "u": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.html": {
+                        "ref": "FooGallery.html",
+                        "tf": 2.7777777777777777
                       }
                     }
                   }
@@ -16628,6 +19604,10 @@ window.lunrData = {
                 "FooGallery.utils.Throttle.html#clear": {
                   "ref": "FooGallery.utils.Throttle.html#clear",
                   "tf": 10
+                },
+                "FooGallery.ImageViewer.html#init": {
+                  "ref": "FooGallery.ImageViewer.html#init",
+                  "tf": 7
                 },
                 "FooGallery.utils.html#.removeUniqueId": {
                   "ref": "FooGallery.utils.html#.removeUniqueId",
@@ -16805,6 +19785,10 @@ window.lunrData = {
                         "ref": "FooGallery.utils.Class.html#.override",
                         "tf": 2.941176470588235
                       },
+                      "FooGallery.utils.Factory.html#.override": {
+                        "ref": "FooGallery.utils.Factory.html#.override",
+                        "tf": 2.941176470588235
+                      },
                       "FooGallery.utils.Debugger.html#log": {
                         "ref": "FooGallery.utils.Debugger.html#log",
                         "tf": 3.3333333333333335
@@ -16817,8 +19801,8 @@ window.lunrData = {
                         "ref": "FooGallery.Loader.html#.override",
                         "tf": 2.941176470588235
                       },
-                      "FooGallery.utils.Factory.html#.override": {
-                        "ref": "FooGallery.utils.Factory.html#.override",
+                      "FooGallery.ImageViewer.html#.override": {
+                        "ref": "FooGallery.ImageViewer.html#.override",
                         "tf": 2.941176470588235
                       },
                       "FooGallery.utils.is.html#.promise": {
@@ -16872,6 +19856,10 @@ window.lunrData = {
                       "ref": "FooGallery.utils.Class.html#.override",
                       "tf": 20.441176470588236
                     },
+                    "FooGallery.utils.Factory.html#.override": {
+                      "ref": "FooGallery.utils.Factory.html#.override",
+                      "tf": 20.441176470588236
+                    },
                     "FooGallery.utils.Throttle.html#.override": {
                       "ref": "FooGallery.utils.Throttle.html#.override",
                       "tf": 20.441176470588236
@@ -16884,8 +19872,8 @@ window.lunrData = {
                       "ref": "FooGallery.Loader.html#.override",
                       "tf": 20.441176470588236
                     },
-                    "FooGallery.utils.Factory.html#.override": {
-                      "ref": "FooGallery.utils.Factory.html#.override",
+                    "FooGallery.ImageViewer.html#.override": {
+                      "ref": "FooGallery.ImageViewer.html#.override",
                       "tf": 20.441176470588236
                     },
                     "FooGallery.utils.html#.$": {
@@ -16950,6 +19938,10 @@ window.lunrData = {
                         "ref": "FooGallery.utils.Class.html#.extend",
                         "tf": 4.166666666666666
                       },
+                      "FooGallery.utils.Factory.html#.extend": {
+                        "ref": "FooGallery.utils.Factory.html#.extend",
+                        "tf": 4.166666666666666
+                      },
                       "FooGallery.utils.Throttle.html#.extend": {
                         "ref": "FooGallery.utils.Throttle.html#.extend",
                         "tf": 4.166666666666666
@@ -16958,8 +19950,8 @@ window.lunrData = {
                         "ref": "FooGallery.Loader.html#.extend",
                         "tf": 4.166666666666666
                       },
-                      "FooGallery.utils.Factory.html#.extend": {
-                        "ref": "FooGallery.utils.Factory.html#.extend",
+                      "FooGallery.ImageViewer.html#.extend": {
+                        "ref": "FooGallery.ImageViewer.html#.extend",
                         "tf": 4.166666666666666
                       },
                       "FooGallery.utils.fn.html#.enqueue": {
@@ -17501,15 +20493,66 @@ window.lunrData = {
               }
             }
           },
-          "y": {
+          "p": {
             "docs": {},
-            "n": {
+            "e": {
               "docs": {},
               "c": {
-                "docs": {
-                  "FooGallery.utils.Debugger.html#enabled": {
-                    "ref": "FooGallery.utils.Debugger.html#enabled",
-                    "tf": 4.545454545454546
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "f": {
+                    "docs": {},
+                    "i": {
+                      "docs": {
+                        "FooGallery.utils.Factory.html": {
+                          "ref": "FooGallery.utils.Factory.html",
+                          "tf": 2.272727272727273
+                        },
+                        "FooGallery.utils.Throttle.html": {
+                          "ref": "FooGallery.utils.Throttle.html",
+                          "tf": 1.2195121951219512
+                        },
+                        "FooGallery.Loader.html#load": {
+                          "ref": "FooGallery.Loader.html#load",
+                          "tf": 7.777777777777778
+                        },
+                        "FooGallery.Loader.html#.reduce": {
+                          "ref": "FooGallery.Loader.html#.reduce",
+                          "tf": 5.833333333333333
+                        },
+                        "FooGallery.utils.obj.html#.create": {
+                          "ref": "FooGallery.utils.obj.html#.create",
+                          "tf": 14
+                        },
+                        "FooGallery.utils.transition.html#.start": {
+                          "ref": "FooGallery.utils.transition.html#.start",
+                          "tf": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "l": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "FooGallery.utils.str.html#.containsWord": {
+                      "ref": "FooGallery.utils.str.html#.containsWord",
+                      "tf": 3.3333333333333335
+                    },
+                    "FooGallery.utils.str.html#.from": {
+                      "ref": "FooGallery.utils.str.html#.from",
+                      "tf": 8.75
+                    },
+                    "FooGallery.utils.str.html#.until": {
+                      "ref": "FooGallery.utils.str.html#.until",
+                      "tf": 7.777777777777778
+                    }
                   }
                 }
               }
@@ -17525,6 +20568,18 @@ window.lunrData = {
                   "docs": {},
                   "i": {
                     "docs": {
+                      "FooGallery.utils.Factory.html#contains": {
+                        "ref": "FooGallery.utils.Factory.html#contains",
+                        "tf": 8.75
+                      },
+                      "FooGallery.utils.Factory.html#load": {
+                        "ref": "FooGallery.utils.Factory.html#load",
+                        "tf": 7
+                      },
+                      "FooGallery.utils.Factory.html#make": {
+                        "ref": "FooGallery.utils.Factory.html#make",
+                        "tf": 8.75
+                      },
                       "FooGallery.utils.Debugger.html#log": {
                         "ref": "FooGallery.utils.Debugger.html#log",
                         "tf": 13.333333333333334
@@ -17557,17 +20612,9 @@ window.lunrData = {
                         "ref": "FooGallery.Loader.html#.reduce",
                         "tf": 5.833333333333333
                       },
-                      "FooGallery.utils.Factory.html#contains": {
-                        "ref": "FooGallery.utils.Factory.html#contains",
-                        "tf": 8.75
-                      },
-                      "FooGallery.utils.Factory.html#load": {
-                        "ref": "FooGallery.utils.Factory.html#load",
-                        "tf": 7
-                      },
-                      "FooGallery.utils.Factory.html#make": {
-                        "ref": "FooGallery.utils.Factory.html#make",
-                        "tf": 8.75
+                      "FooGallery.ImageViewer.html#options": {
+                        "ref": "FooGallery.ImageViewer.html#options",
+                        "tf": 6.25
                       },
                       "FooGallery.utils.fn.html#.addOrOverride": {
                         "ref": "FooGallery.utils.fn.html#.addOrOverride",
@@ -17738,104 +20785,6 @@ window.lunrData = {
               }
             }
           },
-          "p": {
-            "docs": {},
-            "e": {
-              "docs": {},
-              "c": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "f": {
-                    "docs": {},
-                    "i": {
-                      "docs": {
-                        "FooGallery.utils.Throttle.html": {
-                          "ref": "FooGallery.utils.Throttle.html",
-                          "tf": 1.2195121951219512
-                        },
-                        "FooGallery.Loader.html#load": {
-                          "ref": "FooGallery.Loader.html#load",
-                          "tf": 7.777777777777778
-                        },
-                        "FooGallery.Loader.html#.reduce": {
-                          "ref": "FooGallery.Loader.html#.reduce",
-                          "tf": 5.833333333333333
-                        },
-                        "FooGallery.utils.Factory.html": {
-                          "ref": "FooGallery.utils.Factory.html",
-                          "tf": 2.272727272727273
-                        },
-                        "FooGallery.utils.obj.html#.create": {
-                          "ref": "FooGallery.utils.obj.html#.create",
-                          "tf": 14
-                        },
-                        "FooGallery.utils.transition.html#.start": {
-                          "ref": "FooGallery.utils.transition.html#.start",
-                          "tf": 1
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "l": {
-              "docs": {},
-              "i": {
-                "docs": {},
-                "t": {
-                  "docs": {
-                    "FooGallery.utils.str.html#.containsWord": {
-                      "ref": "FooGallery.utils.str.html#.containsWord",
-                      "tf": 3.3333333333333335
-                    },
-                    "FooGallery.utils.str.html#.from": {
-                      "ref": "FooGallery.utils.str.html#.from",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.str.html#.until": {
-                      "ref": "FooGallery.utils.str.html#.until",
-                      "tf": 7.777777777777778
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "r": {
-            "docs": {},
-            "c": {
-              "docs": {
-                "FooGallery.Loader.html#parse": {
-                  "ref": "FooGallery.Loader.html#parse",
-                  "tf": 4.666666666666667
-                }
-              },
-              "s": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.Loader.html#load": {
-                        "ref": "FooGallery.Loader.html#load",
-                        "tf": 7.777777777777778
-                      },
-                      "FooGallery.Loader.html#parse": {
-                        "ref": "FooGallery.Loader.html#parse",
-                        "tf": 4.666666666666667
-                      },
-                      "FooGallery.Loader.html#~Srcset": {
-                        "ref": "FooGallery.Loader.html#~Srcset",
-                        "tf": 610
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
           "h": {
             "docs": {},
             "a": {
@@ -17886,6 +20835,61 @@ window.lunrData = {
                     "FooGallery.utils.html#.versionCompare": {
                       "ref": "FooGallery.utils.html#.versionCompare",
                       "tf": 2.1739130434782608
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "y": {
+            "docs": {},
+            "n": {
+              "docs": {},
+              "c": {
+                "docs": {
+                  "FooGallery.utils.Debugger.html#enabled": {
+                    "ref": "FooGallery.utils.Debugger.html#enabled",
+                    "tf": 4.545454545454546
+                  },
+                  "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                    "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                    "tf": 7.777777777777778
+                  },
+                  "FooGallery.ImageViewer.html#onFooBoxNext": {
+                    "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                    "tf": 7.777777777777778
+                  }
+                }
+              }
+            }
+          },
+          "r": {
+            "docs": {},
+            "c": {
+              "docs": {
+                "FooGallery.Loader.html#parse": {
+                  "ref": "FooGallery.Loader.html#parse",
+                  "tf": 4.666666666666667
+                }
+              },
+              "s": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "FooGallery.Loader.html#load": {
+                        "ref": "FooGallery.Loader.html#load",
+                        "tf": 7.777777777777778
+                      },
+                      "FooGallery.Loader.html#parse": {
+                        "ref": "FooGallery.Loader.html#parse",
+                        "tf": 4.666666666666667
+                      },
+                      "FooGallery.Loader.html#~Srcset": {
+                        "ref": "FooGallery.Loader.html#~Srcset",
+                        "tf": 610
+                      }
                     }
                   }
                 }
@@ -17953,6 +20957,30 @@ window.lunrData = {
                 "ref": "FooGallery.utils.Class.html#.override",
                 "tf": 2.941176470588235
               },
+              "FooGallery.utils.Factory.html": {
+                "ref": "FooGallery.utils.Factory.html",
+                "tf": 13.295454545454547
+              },
+              "FooGallery.utils.Factory.html#contains": {
+                "ref": "FooGallery.utils.Factory.html#contains",
+                "tf": 8.75
+              },
+              "FooGallery.utils.Factory.html#load": {
+                "ref": "FooGallery.utils.Factory.html#load",
+                "tf": 9.083333333333332
+              },
+              "FooGallery.utils.Factory.html#register": {
+                "ref": "FooGallery.utils.Factory.html#register",
+                "tf": 17.692307692307693
+              },
+              "FooGallery.utils.Factory.html#.extend": {
+                "ref": "FooGallery.utils.Factory.html#.extend",
+                "tf": 4.166666666666666
+              },
+              "FooGallery.utils.Factory.html#.override": {
+                "ref": "FooGallery.utils.Factory.html#.override",
+                "tf": 2.941176470588235
+              },
               "FooGallery.utils.Debugger.html": {
                 "ref": "FooGallery.utils.Debugger.html",
                 "tf": 8.927738927738929
@@ -18009,28 +21037,12 @@ window.lunrData = {
                 "ref": "FooGallery.Loader.html#~Srcset",
                 "tf": 10
               },
-              "FooGallery.utils.Factory.html": {
-                "ref": "FooGallery.utils.Factory.html",
-                "tf": 13.295454545454547
-              },
-              "FooGallery.utils.Factory.html#contains": {
-                "ref": "FooGallery.utils.Factory.html#contains",
-                "tf": 8.75
-              },
-              "FooGallery.utils.Factory.html#load": {
-                "ref": "FooGallery.utils.Factory.html#load",
-                "tf": 9.083333333333332
-              },
-              "FooGallery.utils.Factory.html#register": {
-                "ref": "FooGallery.utils.Factory.html#register",
-                "tf": 17.692307692307693
-              },
-              "FooGallery.utils.Factory.html#.extend": {
-                "ref": "FooGallery.utils.Factory.html#.extend",
+              "FooGallery.ImageViewer.html#.extend": {
+                "ref": "FooGallery.ImageViewer.html#.extend",
                 "tf": 4.166666666666666
               },
-              "FooGallery.utils.Factory.html#.override": {
-                "ref": "FooGallery.utils.Factory.html#.override",
+              "FooGallery.ImageViewer.html#.override": {
+                "ref": "FooGallery.ImageViewer.html#.override",
                 "tf": 2.941176470588235
               },
               "FooGallery.utils.html#.$": {
@@ -18136,6 +21148,10 @@ window.lunrData = {
                   "FooGallery.Loader.html#options": {
                     "ref": "FooGallery.Loader.html#options",
                     "tf": 10
+                  },
+                  "FooGallery.ImageViewer.html#options": {
+                    "ref": "FooGallery.ImageViewer.html#options",
+                    "tf": 6.25
                   }
                 }
               }
@@ -18245,366 +21261,6 @@ window.lunrData = {
                                                 "FooGallery.utils.Class.html#.override": {
                                                   "ref": "FooGallery.utils.Class.html#.override",
                                                   "tf": 75
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "d": {
-                      "docs": {},
-                      "e": {
-                        "docs": {},
-                        "b": {
-                          "docs": {},
-                          "u": {
-                            "docs": {},
-                            "g": {
-                              "docs": {},
-                              "g": {
-                                "docs": {
-                                  "FooGallery.utils.Debugger.html": {
-                                    "ref": "FooGallery.utils.Debugger.html",
-                                    "tf": 100
-                                  }
-                                },
-                                "e": {
-                                  "docs": {},
-                                  "r": {
-                                    "docs": {},
-                                    "#": {
-                                      "docs": {},
-                                      "k": {
-                                        "docs": {},
-                                        "e": {
-                                          "docs": {},
-                                          "y": {
-                                            "docs": {
-                                              "FooGallery.utils.Debugger.html#key": {
-                                                "ref": "FooGallery.utils.Debugger.html#key",
-                                                "tf": 75
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "e": {
-                                        "docs": {},
-                                        "n": {
-                                          "docs": {
-                                            "FooGallery.utils.Debugger.html#enabled": {
-                                              "ref": "FooGallery.utils.Debugger.html#enabled",
-                                              "tf": 75
-                                            },
-                                            "FooGallery.utils.Debugger.html#enable": {
-                                              "ref": "FooGallery.utils.Debugger.html#enable",
-                                              "tf": 75
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "d": {
-                                        "docs": {},
-                                        "i": {
-                                          "docs": {},
-                                          "s": {
-                                            "docs": {
-                                              "FooGallery.utils.Debugger.html#disable": {
-                                                "ref": "FooGallery.utils.Debugger.html#disable",
-                                                "tf": 75
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "l": {
-                                        "docs": {},
-                                        "o": {
-                                          "docs": {},
-                                          "g": {
-                                            "docs": {
-                                              "FooGallery.utils.Debugger.html#log": {
-                                                "ref": "FooGallery.utils.Debugger.html#log",
-                                                "tf": 75
-                                              }
-                                            },
-                                            "f": {
-                                              "docs": {
-                                                "FooGallery.utils.Debugger.html#logf": {
-                                                  "ref": "FooGallery.utils.Debugger.html#logf",
-                                                  "tf": 75
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "t": {
-                      "docs": {},
-                      "h": {
-                        "docs": {},
-                        "r": {
-                          "docs": {},
-                          "o": {
-                            "docs": {},
-                            "t": {
-                              "docs": {},
-                              "t": {
-                                "docs": {},
-                                "l": {
-                                  "docs": {
-                                    "FooGallery.utils.Throttle.html": {
-                                      "ref": "FooGallery.utils.Throttle.html",
-                                      "tf": 100
-                                    }
-                                  },
-                                  "e": {
-                                    "docs": {},
-                                    "#": {
-                                      "docs": {},
-                                      "i": {
-                                        "docs": {},
-                                        "d": {
-                                          "docs": {
-                                            "FooGallery.utils.Throttle.html#id": {
-                                              "ref": "FooGallery.utils.Throttle.html#id",
-                                              "tf": 75
-                                            }
-                                          },
-                                          "l": {
-                                            "docs": {
-                                              "FooGallery.utils.Throttle.html#idle": {
-                                                "ref": "FooGallery.utils.Throttle.html#idle",
-                                                "tf": 75
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "a": {
-                                        "docs": {},
-                                        "c": {
-                                          "docs": {},
-                                          "t": {
-                                            "docs": {
-                                              "FooGallery.utils.Throttle.html#active": {
-                                                "ref": "FooGallery.utils.Throttle.html#active",
-                                                "tf": 75
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "l": {
-                                        "docs": {},
-                                        "i": {
-                                          "docs": {},
-                                          "m": {
-                                            "docs": {},
-                                            "i": {
-                                              "docs": {},
-                                              "t": {
-                                                "docs": {
-                                                  "FooGallery.utils.Throttle.html#limit": {
-                                                    "ref": "FooGallery.utils.Throttle.html#limit",
-                                                    "tf": 75
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "c": {
-                                        "docs": {},
-                                        "l": {
-                                          "docs": {},
-                                          "e": {
-                                            "docs": {},
-                                            "a": {
-                                              "docs": {},
-                                              "r": {
-                                                "docs": {
-                                                  "FooGallery.utils.Throttle.html#clear": {
-                                                    "ref": "FooGallery.utils.Throttle.html#clear",
-                                                    "tf": 75
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    ".": {
-                                      "docs": {},
-                                      "e": {
-                                        "docs": {},
-                                        "x": {
-                                          "docs": {},
-                                          "t": {
-                                            "docs": {},
-                                            "e": {
-                                              "docs": {},
-                                              "n": {
-                                                "docs": {},
-                                                "d": {
-                                                  "docs": {
-                                                    "FooGallery.utils.Throttle.html#.extend": {
-                                                      "ref": "FooGallery.utils.Throttle.html#.extend",
-                                                      "tf": 75
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "o": {
-                                        "docs": {},
-                                        "v": {
-                                          "docs": {},
-                                          "e": {
-                                            "docs": {},
-                                            "r": {
-                                              "docs": {},
-                                              "r": {
-                                                "docs": {},
-                                                "i": {
-                                                  "docs": {},
-                                                  "d": {
-                                                    "docs": {
-                                                      "FooGallery.utils.Throttle.html#.override": {
-                                                        "ref": "FooGallery.utils.Throttle.html#.override",
-                                                        "tf": 75
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "r": {
-                        "docs": {},
-                        "a": {
-                          "docs": {},
-                          "n": {
-                            "docs": {},
-                            "s": {
-                              "docs": {},
-                              "i": {
-                                "docs": {},
-                                "t": {
-                                  "docs": {
-                                    "FooGallery.utils.transition.html": {
-                                      "ref": "FooGallery.utils.transition.html",
-                                      "tf": 100
-                                    }
-                                  },
-                                  "i": {
-                                    "docs": {},
-                                    "o": {
-                                      "docs": {},
-                                      "n": {
-                                        "docs": {},
-                                        ".": {
-                                          "docs": {},
-                                          "s": {
-                                            "docs": {},
-                                            "u": {
-                                              "docs": {},
-                                              "p": {
-                                                "docs": {},
-                                                "p": {
-                                                  "docs": {},
-                                                  "o": {
-                                                    "docs": {},
-                                                    "r": {
-                                                      "docs": {},
-                                                      "t": {
-                                                        "docs": {
-                                                          "FooGallery.utils.transition.html#.supported": {
-                                                            "ref": "FooGallery.utils.transition.html#.supported",
-                                                            "tf": 75
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            },
-                                            "t": {
-                                              "docs": {},
-                                              "a": {
-                                                "docs": {},
-                                                "r": {
-                                                  "docs": {},
-                                                  "t": {
-                                                    "docs": {
-                                                      "FooGallery.utils.transition.html#.start": {
-                                                        "ref": "FooGallery.utils.transition.html#.start",
-                                                        "tf": 75
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          },
-                                          "e": {
-                                            "docs": {},
-                                            "n": {
-                                              "docs": {},
-                                              "d": {
-                                                "docs": {
-                                                  "FooGallery.utils.transition.html#.end": {
-                                                    "ref": "FooGallery.utils.transition.html#.end",
-                                                    "tf": 75
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          },
-                                          "d": {
-                                            "docs": {},
-                                            "u": {
-                                              "docs": {},
-                                              "r": {
-                                                "docs": {
-                                                  "FooGallery.utils.transition.html#.duration": {
-                                                    "ref": "FooGallery.utils.transition.html#.duration",
-                                                    "tf": 75
-                                                  }
                                                 }
                                               }
                                             }
@@ -18984,6 +21640,366 @@ window.lunrData = {
                                         "FooGallery.utils.fn.html#.enqueue": {
                                           "ref": "FooGallery.utils.fn.html#.enqueue",
                                           "tf": 75
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "d": {
+                      "docs": {},
+                      "e": {
+                        "docs": {},
+                        "b": {
+                          "docs": {},
+                          "u": {
+                            "docs": {},
+                            "g": {
+                              "docs": {},
+                              "g": {
+                                "docs": {
+                                  "FooGallery.utils.Debugger.html": {
+                                    "ref": "FooGallery.utils.Debugger.html",
+                                    "tf": 100
+                                  }
+                                },
+                                "e": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {},
+                                    "#": {
+                                      "docs": {},
+                                      "k": {
+                                        "docs": {},
+                                        "e": {
+                                          "docs": {},
+                                          "y": {
+                                            "docs": {
+                                              "FooGallery.utils.Debugger.html#key": {
+                                                "ref": "FooGallery.utils.Debugger.html#key",
+                                                "tf": 75
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "e": {
+                                        "docs": {},
+                                        "n": {
+                                          "docs": {
+                                            "FooGallery.utils.Debugger.html#enabled": {
+                                              "ref": "FooGallery.utils.Debugger.html#enabled",
+                                              "tf": 75
+                                            },
+                                            "FooGallery.utils.Debugger.html#enable": {
+                                              "ref": "FooGallery.utils.Debugger.html#enable",
+                                              "tf": 75
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "l": {
+                                        "docs": {},
+                                        "o": {
+                                          "docs": {},
+                                          "g": {
+                                            "docs": {
+                                              "FooGallery.utils.Debugger.html#log": {
+                                                "ref": "FooGallery.utils.Debugger.html#log",
+                                                "tf": 75
+                                              }
+                                            },
+                                            "f": {
+                                              "docs": {
+                                                "FooGallery.utils.Debugger.html#logf": {
+                                                  "ref": "FooGallery.utils.Debugger.html#logf",
+                                                  "tf": 75
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "d": {
+                                        "docs": {},
+                                        "i": {
+                                          "docs": {},
+                                          "s": {
+                                            "docs": {
+                                              "FooGallery.utils.Debugger.html#disable": {
+                                                "ref": "FooGallery.utils.Debugger.html#disable",
+                                                "tf": 75
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "t": {
+                      "docs": {},
+                      "h": {
+                        "docs": {},
+                        "r": {
+                          "docs": {},
+                          "o": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              "t": {
+                                "docs": {},
+                                "l": {
+                                  "docs": {
+                                    "FooGallery.utils.Throttle.html": {
+                                      "ref": "FooGallery.utils.Throttle.html",
+                                      "tf": 100
+                                    }
+                                  },
+                                  "e": {
+                                    "docs": {},
+                                    "#": {
+                                      "docs": {},
+                                      "i": {
+                                        "docs": {},
+                                        "d": {
+                                          "docs": {
+                                            "FooGallery.utils.Throttle.html#id": {
+                                              "ref": "FooGallery.utils.Throttle.html#id",
+                                              "tf": 75
+                                            }
+                                          },
+                                          "l": {
+                                            "docs": {
+                                              "FooGallery.utils.Throttle.html#idle": {
+                                                "ref": "FooGallery.utils.Throttle.html#idle",
+                                                "tf": 75
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "a": {
+                                        "docs": {},
+                                        "c": {
+                                          "docs": {},
+                                          "t": {
+                                            "docs": {
+                                              "FooGallery.utils.Throttle.html#active": {
+                                                "ref": "FooGallery.utils.Throttle.html#active",
+                                                "tf": 75
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "l": {
+                                        "docs": {},
+                                        "i": {
+                                          "docs": {},
+                                          "m": {
+                                            "docs": {},
+                                            "i": {
+                                              "docs": {},
+                                              "t": {
+                                                "docs": {
+                                                  "FooGallery.utils.Throttle.html#limit": {
+                                                    "ref": "FooGallery.utils.Throttle.html#limit",
+                                                    "tf": 75
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "c": {
+                                        "docs": {},
+                                        "l": {
+                                          "docs": {},
+                                          "e": {
+                                            "docs": {},
+                                            "a": {
+                                              "docs": {},
+                                              "r": {
+                                                "docs": {
+                                                  "FooGallery.utils.Throttle.html#clear": {
+                                                    "ref": "FooGallery.utils.Throttle.html#clear",
+                                                    "tf": 75
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    ".": {
+                                      "docs": {},
+                                      "e": {
+                                        "docs": {},
+                                        "x": {
+                                          "docs": {},
+                                          "t": {
+                                            "docs": {},
+                                            "e": {
+                                              "docs": {},
+                                              "n": {
+                                                "docs": {},
+                                                "d": {
+                                                  "docs": {
+                                                    "FooGallery.utils.Throttle.html#.extend": {
+                                                      "ref": "FooGallery.utils.Throttle.html#.extend",
+                                                      "tf": 75
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "o": {
+                                        "docs": {},
+                                        "v": {
+                                          "docs": {},
+                                          "e": {
+                                            "docs": {},
+                                            "r": {
+                                              "docs": {},
+                                              "r": {
+                                                "docs": {},
+                                                "i": {
+                                                  "docs": {},
+                                                  "d": {
+                                                    "docs": {
+                                                      "FooGallery.utils.Throttle.html#.override": {
+                                                        "ref": "FooGallery.utils.Throttle.html#.override",
+                                                        "tf": 75
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "r": {
+                        "docs": {},
+                        "a": {
+                          "docs": {},
+                          "n": {
+                            "docs": {},
+                            "s": {
+                              "docs": {},
+                              "i": {
+                                "docs": {},
+                                "t": {
+                                  "docs": {
+                                    "FooGallery.utils.transition.html": {
+                                      "ref": "FooGallery.utils.transition.html",
+                                      "tf": 100
+                                    }
+                                  },
+                                  "i": {
+                                    "docs": {},
+                                    "o": {
+                                      "docs": {},
+                                      "n": {
+                                        "docs": {},
+                                        ".": {
+                                          "docs": {},
+                                          "s": {
+                                            "docs": {},
+                                            "u": {
+                                              "docs": {},
+                                              "p": {
+                                                "docs": {},
+                                                "p": {
+                                                  "docs": {},
+                                                  "o": {
+                                                    "docs": {},
+                                                    "r": {
+                                                      "docs": {},
+                                                      "t": {
+                                                        "docs": {
+                                                          "FooGallery.utils.transition.html#.supported": {
+                                                            "ref": "FooGallery.utils.transition.html#.supported",
+                                                            "tf": 75
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "t": {
+                                              "docs": {},
+                                              "a": {
+                                                "docs": {},
+                                                "r": {
+                                                  "docs": {},
+                                                  "t": {
+                                                    "docs": {
+                                                      "FooGallery.utils.transition.html#.start": {
+                                                        "ref": "FooGallery.utils.transition.html#.start",
+                                                        "tf": 75
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "e": {
+                                            "docs": {},
+                                            "n": {
+                                              "docs": {},
+                                              "d": {
+                                                "docs": {
+                                                  "FooGallery.utils.transition.html#.end": {
+                                                    "ref": "FooGallery.utils.transition.html#.end",
+                                                    "tf": 75
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "d": {
+                                            "docs": {},
+                                            "u": {
+                                              "docs": {},
+                                              "r": {
+                                                "docs": {
+                                                  "FooGallery.utils.transition.html#.duration": {
+                                                    "ref": "FooGallery.utils.transition.html#.duration",
+                                                    "tf": 75
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
                                         }
                                       }
                                     }
@@ -20054,1507 +23070,32 @@ window.lunrData = {
           },
           "p": {
             "docs": {
+              "FooGallery.ImageViewer.html#init": {
+                "ref": "FooGallery.ImageViewer.html#init",
+                "tf": 7
+              },
+              "FooGallery.ImageViewer.html#destroy": {
+                "ref": "FooGallery.ImageViewer.html#destroy",
+                "tf": 11.666666666666666
+              },
               "FooGallery.utils.str.html#.format": {
                 "ref": "FooGallery.utils.str.html#.format",
                 "tf": 1.3888888888888888
               }
-            }
-          }
-        },
-        "w": {
-          "docs": {},
-          "a": {
-            "docs": {},
-            "y": {
-              "docs": {
-                "FooGallery.utils.Class.html": {
-                  "ref": "FooGallery.utils.Class.html",
-                  "tf": 2.941176470588235
-                },
-                "FooGallery.utils.fn.html#.enqueue": {
-                  "ref": "FooGallery.utils.fn.html#.enqueue",
-                  "tf": 0.6493506493506493
-                }
-              }
-            },
-            "i": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "FooGallery.utils.Throttle.html#idle": {
-                    "ref": "FooGallery.utils.Throttle.html#idle",
-                    "tf": 6.363636363636364
-                  },
-                  "FooGallery.html#.ready": {
-                    "ref": "FooGallery.html#.ready",
-                    "tf": 11.666666666666666
-                  }
-                }
-              }
-            },
-            "n": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "FooGallery.utils.obj.html#~Mappings": {
-                    "ref": "FooGallery.utils.obj.html#~Mappings",
-                    "tf": 2.083333333333333
-                  },
-                  "FooGallery.utils.obj.html#~Validators": {
-                    "ref": "FooGallery.utils.obj.html#~Validators",
-                    "tf": 1.0869565217391304
-                  }
-                }
-              }
-            }
-          },
-          "i": {
-            "docs": {},
-            "t": {
-              "docs": {},
-              "h": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "n": {
-                    "docs": {
-                      "FooGallery.utils.Class.html": {
-                        "ref": "FooGallery.utils.Class.html",
-                        "tf": 1.4705882352941175
-                      },
-                      "FooGallery.utils.Debugger.html": {
-                        "ref": "FooGallery.utils.Debugger.html",
-                        "tf": 1.282051282051282
-                      },
-                      "FooGallery.Loader.html#imgSelector": {
-                        "ref": "FooGallery.Loader.html#imgSelector",
-                        "tf": 11.666666666666666
-                      },
-                      "FooGallery.utils.Factory.html#load": {
-                        "ref": "FooGallery.utils.Factory.html#load",
-                        "tf": 2.083333333333333
-                      },
-                      "FooGallery.utils.fn.html#.addOrOverride": {
-                        "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                        "tf": 0.9615384615384616
-                      },
-                      "FooGallery.utils.fn.html#.enqueue": {
-                        "ref": "FooGallery.utils.fn.html#.enqueue",
-                        "tf": 0.6493506493506493
-                      },
-                      "FooGallery.utils.str.html#.format": {
-                        "ref": "FooGallery.utils.str.html#.format",
-                        "tf": 1.3888888888888888
-                      },
-                      "FooGallery.utils.transition.html#.start": {
-                        "ref": "FooGallery.utils.transition.html#.start",
-                        "tf": 1
-                      },
-                      "FooGallery.html": {
-                        "ref": "FooGallery.html",
-                        "tf": 2.7777777777777777
-                      }
-                    }
-                  }
-                },
-                "o": {
-                  "docs": {},
-                  "u": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.html#.addSize": {
-                          "ref": "FooGallery.html#.addSize",
-                          "tf": 0.7936507936507936
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "n": {
-              "docs": {},
-              "d": {
-                "docs": {},
-                "o": {
-                  "docs": {},
-                  "w": {
-                    "docs": {
-                      "FooGallery.utils.Throttle.html": {
-                        "ref": "FooGallery.utils.Throttle.html",
-                        "tf": 1.2195121951219512
-                      },
-                      "FooGallery.Loader.html#onscroll": {
-                        "ref": "FooGallery.Loader.html#onscroll",
-                        "tf": 8.75
-                      }
-                    },
-                    ".": {
-                      "docs": {},
-                      "c": {
-                        "docs": {},
-                        "l": {
-                          "docs": {},
-                          "e": {
-                            "docs": {},
-                            "a": {
-                              "docs": {},
-                              "r": {
-                                "docs": {},
-                                "t": {
-                                  "docs": {},
-                                  "i": {
-                                    "docs": {},
-                                    "m": {
-                                      "docs": {},
-                                      "e": {
-                                        "docs": {},
-                                        "o": {
-                                          "docs": {},
-                                          "u": {
-                                            "docs": {},
-                                            "t": {
-                                              "docs": {
-                                                "FooGallery.utils.Throttle.html": {
-                                                  "ref": "FooGallery.utils.Throttle.html",
-                                                  "tf": 1.2195121951219512
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      },
-                      "s": {
-                        "docs": {},
-                        "e": {
-                          "docs": {},
-                          "t": {
-                            "docs": {},
-                            "t": {
-                              "docs": {},
-                              "i": {
-                                "docs": {},
-                                "m": {
-                                  "docs": {},
-                                  "e": {
-                                    "docs": {},
-                                    "o": {
-                                      "docs": {},
-                                      "u": {
-                                        "docs": {},
-                                        "t": {
-                                          "docs": {
-                                            "FooGallery.utils.Throttle.html": {
-                                              "ref": "FooGallery.utils.Throttle.html",
-                                              "tf": 1.2195121951219512
-                                            },
-                                            "FooGallery.utils.Throttle.html#id": {
-                                              "ref": "FooGallery.utils.Throttle.html#id",
-                                              "tf": 17.5
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
             },
             "d": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "h": {
-                  "docs": {
-                    "FooGallery.Loader.html#getViewportInfo": {
-                      "ref": "FooGallery.Loader.html#getViewportInfo",
-                      "tf": 10
-                    },
-                    "FooGallery.html#.getImages": {
-                      "ref": "FooGallery.html#.getImages",
-                      "tf": 8.75
-                    },
-                    "FooGallery.html#.addSize": {
-                      "ref": "FooGallery.html#.addSize",
-                      "tf": 13.943833943833944
-                    },
-                    "FooGallery.html#.removeSize": {
-                      "ref": "FooGallery.html#.removeSize",
-                      "tf": 7.777777777777778
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "o": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "k": {
-                "docs": {
-                  "FooGallery.utils.Class.html": {
-                    "ref": "FooGallery.utils.Class.html",
-                    "tf": 1.4705882352941175
-                  },
-                  "FooGallery.utils.html#.$": {
-                    "ref": "FooGallery.utils.html#.$",
-                    "tf": 3.571428571428571
-                  },
-                  "FooGallery.html#.$": {
-                    "ref": "FooGallery.html#.$",
-                    "tf": 3.571428571428571
-                  },
-                  "FooGallery.html#.addSize": {
-                    "ref": "FooGallery.html#.addSize",
-                    "tf": 0.7936507936507936
-                  }
-                }
-              },
-              "d": {
-                "docs": {
-                  "FooGallery.utils.str.html#.containsWord": {
-                    "ref": "FooGallery.utils.str.html#.containsWord",
-                    "tf": 37.33333333333333
-                  }
-                }
-              }
-            }
-          },
-          "r": {
-            "docs": {},
-            "i": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "e": {
-                  "docs": {
-                    "FooGallery.utils.Debugger.html": {
-                      "ref": "FooGallery.utils.Debugger.html",
-                      "tf": 1.282051282051282
-                    },
-                    "FooGallery.utils.fn.html#.addOrOverride": {
-                      "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                      "tf": 0.9615384615384616
-                    }
-                  }
-                }
-              }
-            },
-            "a": {
-              "docs": {},
-              "p": {
-                "docs": {
-                  "FooGallery.utils.Debugger.html#log": {
-                    "ref": "FooGallery.utils.Debugger.html#log",
-                    "tf": 3.3333333333333335
-                  },
-                  "FooGallery.utils.fn.html#.check": {
-                    "ref": "FooGallery.utils.fn.html#.check",
-                    "tf": 1.0638297872340425
-                  }
-                },
-                "p": {
-                  "docs": {},
-                  "e": {
-                    "docs": {},
-                    "r": {
-                      "docs": {
-                        "FooGallery.utils.Throttle.html": {
-                          "ref": "FooGallery.utils.Throttle.html",
-                          "tf": 1.2195121951219512
-                        },
-                        "FooGallery.Loader.html#$target": {
-                          "ref": "FooGallery.Loader.html#$target",
-                          "tf": 14
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "h": {
-            "docs": {},
-            "e": {
-              "docs": {},
-              "t": {
-                "docs": {},
-                "h": {
-                  "docs": {},
-                  "e": {
-                    "docs": {},
-                    "r": {
-                      "docs": {
-                        "FooGallery.utils.Debugger.html#enabled": {
-                          "ref": "FooGallery.utils.Debugger.html#enabled",
-                          "tf": 17.5
-                        },
-                        "FooGallery.utils.Throttle.html#active": {
-                          "ref": "FooGallery.utils.Throttle.html#active",
-                          "tf": 23.333333333333332
-                        },
-                        "FooGallery.utils.transition.html#.supported": {
-                          "ref": "FooGallery.utils.transition.html#.supported",
-                          "tf": 14
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "o": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "e": {
-                  "docs": {
-                    "FooGallery.utils.str.html#.containsWord": {
-                      "ref": "FooGallery.utils.str.html#.containsWord",
-                      "tf": 3.3333333333333335
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "t": {
-          "docs": {},
-          "u": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "n": {
-                "docs": {
-                  "FooGallery.utils.Class.html#.extend": {
-                    "ref": "FooGallery.utils.Class.html#.extend",
-                    "tf": 7.777777777777778
-                  },
-                  "FooGallery.utils.Throttle.html#.extend": {
-                    "ref": "FooGallery.utils.Throttle.html#.extend",
-                    "tf": 7.777777777777778
-                  },
-                  "FooGallery.Loader.html#.extend": {
-                    "ref": "FooGallery.Loader.html#.extend",
-                    "tf": 7.777777777777778
-                  },
-                  "FooGallery.utils.Factory.html#.extend": {
-                    "ref": "FooGallery.utils.Factory.html#.extend",
-                    "tf": 7.777777777777778
-                  }
-                }
-              }
-            }
-          },
-          "a": {
-            "docs": {},
-            "k": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "FooGallery.utils.Throttle.html": {
-                    "ref": "FooGallery.utils.Throttle.html",
-                    "tf": 1.2195121951219512
-                  },
-                  "FooGallery.Loader.html#load": {
-                    "ref": "FooGallery.Loader.html#load",
-                    "tf": 7.777777777777778
-                  },
-                  "FooGallery.Loader.html#parse": {
-                    "ref": "FooGallery.Loader.html#parse",
-                    "tf": 4.666666666666667
-                  },
-                  "FooGallery.Loader.html#getViewportBounds": {
-                    "ref": "FooGallery.Loader.html#getViewportBounds",
-                    "tf": 7.777777777777778
-                  }
-                }
-              }
-            },
-            "r": {
-              "docs": {},
-              "g": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "t": {
-                    "docs": {
-                      "FooGallery.Loader.html#$target": {
-                        "ref": "FooGallery.Loader.html#$target",
-                        "tf": 664
-                      },
-                      "FooGallery.utils.str.html#.camel": {
-                        "ref": "FooGallery.utils.str.html#.camel",
-                        "tf": 39
-                      },
-                      "FooGallery.utils.str.html#.contains": {
-                        "ref": "FooGallery.utils.str.html#.contains",
-                        "tf": 30.666666666666664
-                      },
-                      "FooGallery.utils.str.html#.containsWord": {
-                        "ref": "FooGallery.utils.str.html#.containsWord",
-                        "tf": 34
-                      },
-                      "FooGallery.utils.str.html#.endsWith": {
-                        "ref": "FooGallery.utils.str.html#.endsWith",
-                        "tf": 34
-                      },
-                      "FooGallery.utils.str.html#.escapeRegExp": {
-                        "ref": "FooGallery.utils.str.html#.escapeRegExp",
-                        "tf": 39
-                      },
-                      "FooGallery.utils.str.html#.fnv1a": {
-                        "ref": "FooGallery.utils.str.html#.fnv1a",
-                        "tf": 33.75
-                      },
-                      "FooGallery.utils.str.html#.from": {
-                        "ref": "FooGallery.utils.str.html#.from",
-                        "tf": 33.75
-                      },
-                      "FooGallery.utils.str.html#.startsWith": {
-                        "ref": "FooGallery.utils.str.html#.startsWith",
-                        "tf": 34
-                      },
-                      "FooGallery.utils.str.html#.until": {
-                        "ref": "FooGallery.utils.str.html#.until",
-                        "tf": 27.77777777777778
-                      },
-                      "FooGallery.utils.str.html#.format": {
-                        "ref": "FooGallery.utils.str.html#.format",
-                        "tf": 16.666666666666664
-                      },
-                      "FooGallery.utils.obj.html#.extend": {
-                        "ref": "FooGallery.utils.obj.html#.extend",
-                        "tf": 24.444444444444443
-                      },
-                      "FooGallery.utils.obj.html#.merge": {
-                        "ref": "FooGallery.utils.obj.html#.merge",
-                        "tf": 28.75
-                      },
-                      "FooGallery.utils.obj.html#.mergeValid": {
-                        "ref": "FooGallery.utils.obj.html#.mergeValid",
-                        "tf": 23.035714285714285
-                      },
-                      "FooGallery.utils.obj.html#~Mappings": {
-                        "ref": "FooGallery.utils.obj.html#~Mappings",
-                        "tf": 9.083333333333332
-                      },
-                      "FooGallery.html#.getImages": {
-                        "ref": "FooGallery.html#.getImages",
-                        "tf": 33.75
-                      },
-                      "FooGallery.html#.addSize": {
-                        "ref": "FooGallery.html#.addSize",
-                        "tf": 38.717948717948715
-                      },
-                      "FooGallery.html#.removeSize": {
-                        "ref": "FooGallery.html#.removeSize",
-                        "tf": 41.11111111111111
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "h": {
-            "docs": {},
-            "r": {
-              "docs": {},
-              "o": {
-                "docs": {},
-                "t": {
-                  "docs": {},
-                  "t": {
-                    "docs": {},
-                    "l": {
-                      "docs": {
-                        "FooGallery.utils.Throttle.html": {
-                          "ref": "FooGallery.utils.Throttle.html",
-                          "tf": 618.719512195122
-                        }
-                      },
-                      "e": {
-                        "docs": {},
-                        "#": {
-                          "docs": {},
-                          "i": {
-                            "docs": {},
-                            "d": {
-                              "docs": {
-                                "FooGallery.utils.Throttle.html#id": {
-                                  "ref": "FooGallery.utils.Throttle.html#id",
-                                  "tf": 75
-                                }
-                              },
-                              "l": {
-                                "docs": {
-                                  "FooGallery.utils.Throttle.html#idle": {
-                                    "ref": "FooGallery.utils.Throttle.html#idle",
-                                    "tf": 75
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "a": {
-                            "docs": {},
-                            "c": {
-                              "docs": {},
-                              "t": {
-                                "docs": {
-                                  "FooGallery.utils.Throttle.html#active": {
-                                    "ref": "FooGallery.utils.Throttle.html#active",
-                                    "tf": 75
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "l": {
-                            "docs": {},
-                            "i": {
-                              "docs": {},
-                              "m": {
-                                "docs": {},
-                                "i": {
-                                  "docs": {},
-                                  "t": {
-                                    "docs": {
-                                      "FooGallery.utils.Throttle.html#limit": {
-                                        "ref": "FooGallery.utils.Throttle.html#limit",
-                                        "tf": 75
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "c": {
-                            "docs": {},
-                            "l": {
-                              "docs": {},
-                              "e": {
-                                "docs": {},
-                                "a": {
-                                  "docs": {},
-                                  "r": {
-                                    "docs": {
-                                      "FooGallery.utils.Throttle.html#clear": {
-                                        "ref": "FooGallery.utils.Throttle.html#clear",
-                                        "tf": 75
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        ".": {
-                          "docs": {},
-                          "e": {
-                            "docs": {},
-                            "x": {
-                              "docs": {},
-                              "t": {
-                                "docs": {},
-                                "e": {
-                                  "docs": {},
-                                  "n": {
-                                    "docs": {},
-                                    "d": {
-                                      "docs": {
-                                        "FooGallery.utils.Throttle.html#.extend": {
-                                          "ref": "FooGallery.utils.Throttle.html#.extend",
-                                          "tf": 75
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          "o": {
-                            "docs": {},
-                            "v": {
-                              "docs": {},
-                              "e": {
-                                "docs": {},
-                                "r": {
-                                  "docs": {},
-                                  "r": {
-                                    "docs": {},
-                                    "i": {
-                                      "docs": {},
-                                      "d": {
-                                        "docs": {
-                                          "FooGallery.utils.Throttle.html#.override": {
-                                            "ref": "FooGallery.utils.Throttle.html#.override",
-                                            "tf": 75
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "w": {
-                  "docs": {
-                    "FooGallery.utils.fn.html#.enqueue": {
-                      "ref": "FooGallery.utils.fn.html#.enqueue",
-                      "tf": 0.6493506493506493
-                    }
-                  },
-                  "n": {
-                    "docs": {
-                      "FooGallery.Loader.html#errorSelector": {
-                        "ref": "FooGallery.Loader.html#errorSelector",
-                        "tf": 11.666666666666666
-                      }
-                    }
-                  }
-                },
-                "u": {
-                  "docs": {},
-                  "g": {
-                    "docs": {},
-                    "h": {
-                      "docs": {
-                        "FooGallery.utils.Factory.html": {
-                          "ref": "FooGallery.utils.Factory.html",
-                          "tf": 2.272727272727273
-                        },
-                        "FooGallery.utils.fn.html#.check": {
-                          "ref": "FooGallery.utils.fn.html#.check",
-                          "tf": 1.0638297872340425
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "e": {
-              "docs": {},
-              "m": {
-                "docs": {},
-                "s": {
-                  "docs": {},
-                  "e": {
-                    "docs": {},
-                    "l": {
-                      "docs": {},
-                      "v": {
-                        "docs": {
-                          "FooGallery.utils.Factory.html": {
-                            "ref": "FooGallery.utils.Factory.html",
-                            "tf": 2.272727272727273
-                          },
-                          "FooGallery.utils.str.html#.format": {
-                            "ref": "FooGallery.utils.str.html#.format",
-                            "tf": 1.3888888888888888
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "i": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                ".": {
-                  "docs": {},
-                  "_": {
-                    "docs": {},
-                    "s": {
-                      "docs": {},
-                      "u": {
-                        "docs": {},
-                        "p": {
-                          "docs": {
-                            "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                              "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                              "tf": 7
-                            },
-                            "FooGallery.utils.fn.html#.addOrOverride": {
-                              "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                              "tf": 0.9615384615384616
-                            }
-                          },
-                          "e": {
-                            "docs": {},
-                            "r": {
-                              "docs": {},
-                              "(": {
-                                "docs": {},
-                                "a": {
-                                  "docs": {},
-                                  "r": {
-                                    "docs": {},
-                                    "g": {
-                                      "1": {
-                                        "docs": {
-                                          "FooGallery.utils.fn.html#.addOrOverride": {
-                                            "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                                            "tf": 0.9615384615384616
-                                          }
-                                        }
-                                      },
-                                      "docs": {}
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "a": {
-                  "docs": {},
-                  "r": {
-                    "docs": {},
-                    "g": {
-                      "docs": {
-                        "FooGallery.utils.fn.html#.check": {
-                          "ref": "FooGallery.utils.fn.html#.check",
-                          "tf": 14.285714285714285
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "i": {
-            "docs": {},
-            "m": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "FooGallery.utils.Throttle.html": {
-                    "ref": "FooGallery.utils.Throttle.html",
-                    "tf": 2.4390243902439024
-                  },
-                  "FooGallery.utils.Throttle.html#idle": {
-                    "ref": "FooGallery.utils.Throttle.html#idle",
-                    "tf": 6.363636363636364
-                  },
-                  "FooGallery.utils.Factory.html": {
-                    "ref": "FooGallery.utils.Factory.html",
-                    "tf": 2.272727272727273
-                  },
-                  "FooGallery.utils.transition.html#.start": {
-                    "ref": "FooGallery.utils.transition.html#.start",
-                    "tf": 1
-                  }
-                },
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.Throttle.html": {
-                      "ref": "FooGallery.utils.Throttle.html",
-                      "tf": 17.5
-                    },
-                    "FooGallery.utils.Throttle.html#active": {
-                      "ref": "FooGallery.utils.Throttle.html#active",
-                      "tf": 23.333333333333332
-                    },
-                    "FooGallery.utils.Throttle.html#idle": {
-                      "ref": "FooGallery.utils.Throttle.html#idle",
-                      "tf": 6.363636363636364
-                    },
-                    "FooGallery.utils.Throttle.html#limit": {
-                      "ref": "FooGallery.utils.Throttle.html#limit",
-                      "tf": 7
-                    },
-                    "FooGallery.utils.Throttle.html#clear": {
-                      "ref": "FooGallery.utils.Throttle.html#clear",
-                      "tf": 10
-                    },
-                    "FooGallery.utils.transition.html#.start": {
-                      "ref": "FooGallery.utils.transition.html#.start",
-                      "tf": 1
-                    }
-                  }
-                },
-                "o": {
-                  "docs": {},
-                  "u": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.transition.html#.start": {
-                          "ref": "FooGallery.utils.transition.html#.start",
-                          "tf": 15.285714285714285
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "w": {
-            "docs": {},
-            "o": {
-              "docs": {
-                "FooGallery.Loader.html#intersect": {
-                  "ref": "FooGallery.Loader.html#intersect",
-                  "tf": 11.666666666666666
-                },
-                "FooGallery.utils.html#.versionCompare": {
-                  "ref": "FooGallery.utils.html#.versionCompare",
-                  "tf": 19.67391304347826
-                },
-                "FooGallery.utils.obj.html#.extend": {
-                  "ref": "FooGallery.utils.obj.html#.extend",
-                  "tf": 7.777777777777778
-                },
-                "FooGallery.utils.obj.html#.merge": {
-                  "ref": "FooGallery.utils.obj.html#.merge",
-                  "tf": 8.75
-                }
-              }
-            }
-          },
-          "y": {
-            "docs": {},
-            "p": {
-              "docs": {},
-              "e": {
-                "docs": {
-                  "FooGallery.utils.Factory.html#load": {
-                    "ref": "FooGallery.utils.Factory.html#load",
-                    "tf": 2.083333333333333
-                  },
-                  "FooGallery.utils.is.html": {
-                    "ref": "FooGallery.utils.is.html",
-                    "tf": 11.666666666666666
-                  },
-                  "FooGallery.utils.obj.html#~Validators": {
-                    "ref": "FooGallery.utils.obj.html#~Validators",
-                    "tf": 1.0869565217391304
-                  }
-                },
-                "d": {
-                  "docs": {},
-                  "e": {
-                    "docs": {},
-                    "f": {
-                      "docs": {
-                        "FooGallery.Loader.html#~Options": {
-                          "ref": "FooGallery.Loader.html#~Options",
-                          "tf": 110
-                        },
-                        "FooGallery.Loader.html#~Bounds": {
-                          "ref": "FooGallery.Loader.html#~Bounds",
-                          "tf": 110
-                        },
-                        "FooGallery.Loader.html#~ViewportInfo": {
-                          "ref": "FooGallery.Loader.html#~ViewportInfo",
-                          "tf": 110
-                        },
-                        "FooGallery.Loader.html#~Srcset": {
-                          "ref": "FooGallery.Loader.html#~Srcset",
-                          "tf": 110
-                        },
-                        "FooGallery.utils.url.html#~Parts": {
-                          "ref": "FooGallery.utils.url.html#~Parts",
-                          "tf": 110
-                        },
-                        "FooGallery.utils.obj.html#~Mappings": {
-                          "ref": "FooGallery.utils.obj.html#~Mappings",
-                          "tf": 110
-                        },
-                        "FooGallery.utils.obj.html#~Validators": {
-                          "ref": "FooGallery.utils.obj.html#~Validators",
-                          "tf": 110
-                        },
-                        "FooGallery.html#~readyCallback": {
-                          "ref": "FooGallery.html#~readyCallback",
-                          "tf": 110
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "r": {
-            "docs": {},
-            "u": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "i": {
-                  "docs": {
-                    "FooGallery.utils.is.html#.promise": {
-                      "ref": "FooGallery.utils.is.html#.promise",
-                      "tf": 1.3513513513513513
-                    }
-                  }
-                }
-              },
-              "e": {
-                "docs": {
-                  "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                    "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                    "tf": 1.5625
-                  }
-                }
-              }
-            },
-            "e": {
               "docs": {},
               "a": {
                 "docs": {},
                 "t": {
                   "docs": {
-                    "FooGallery.utils.obj.html#.extend": {
-                      "ref": "FooGallery.utils.obj.html#.extend",
-                      "tf": 2.631578947368421
+                    "FooGallery.ImageViewer.html#prev": {
+                      "ref": "FooGallery.ImageViewer.html#prev",
+                      "tf": 4.166666666666666
                     },
-                    "FooGallery.utils.obj.html#.merge": {
-                      "ref": "FooGallery.utils.obj.html#.merge",
-                      "tf": 2.7777777777777777
-                    }
-                  }
-                }
-              }
-            },
-            "a": {
-              "docs": {},
-              "n": {
-                "docs": {},
-                "s": {
-                  "docs": {},
-                  "i": {
-                    "docs": {},
-                    "t": {
-                      "docs": {
-                        "FooGallery.utils.transition.html": {
-                          "ref": "FooGallery.utils.transition.html",
-                          "tf": 608.75
-                        },
-                        "FooGallery.utils.transition.html#.supported": {
-                          "ref": "FooGallery.utils.transition.html#.supported",
-                          "tf": 14
-                        },
-                        "FooGallery.utils.transition.html#.end": {
-                          "ref": "FooGallery.utils.transition.html#.end",
-                          "tf": 4.545454545454546
-                        },
-                        "FooGallery.utils.transition.html#.duration": {
-                          "ref": "FooGallery.utils.transition.html#.duration",
-                          "tf": 10
-                        },
-                        "FooGallery.utils.transition.html#.start": {
-                          "ref": "FooGallery.utils.transition.html#.start",
-                          "tf": 14.666666666666666
-                        }
-                      },
-                      "i": {
-                        "docs": {},
-                        "o": {
-                          "docs": {},
-                          "n": {
-                            "docs": {},
-                            ".": {
-                              "docs": {},
-                              "s": {
-                                "docs": {},
-                                "u": {
-                                  "docs": {},
-                                  "p": {
-                                    "docs": {},
-                                    "p": {
-                                      "docs": {},
-                                      "o": {
-                                        "docs": {},
-                                        "r": {
-                                          "docs": {},
-                                          "t": {
-                                            "docs": {
-                                              "FooGallery.utils.transition.html#.supported": {
-                                                "ref": "FooGallery.utils.transition.html#.supported",
-                                                "tf": 75
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "t": {
-                                  "docs": {},
-                                  "a": {
-                                    "docs": {},
-                                    "r": {
-                                      "docs": {},
-                                      "t": {
-                                        "docs": {
-                                          "FooGallery.utils.transition.html#.start": {
-                                            "ref": "FooGallery.utils.transition.html#.start",
-                                            "tf": 75
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              },
-                              "e": {
-                                "docs": {},
-                                "n": {
-                                  "docs": {},
-                                  "d": {
-                                    "docs": {
-                                      "FooGallery.utils.transition.html#.end": {
-                                        "ref": "FooGallery.utils.transition.html#.end",
-                                        "tf": 75
-                                      }
-                                    }
-                                  }
-                                }
-                              },
-                              "d": {
-                                "docs": {},
-                                "u": {
-                                  "docs": {},
-                                  "r": {
-                                    "docs": {
-                                      "FooGallery.utils.transition.html#.duration": {
-                                        "ref": "FooGallery.utils.transition.html#.duration",
-                                        "tf": 75
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "e": {
-                              "docs": {},
-                              "n": {
-                                "docs": {},
-                                "d": {
-                                  "docs": {
-                                    "FooGallery.utils.transition.html#.end": {
-                                      "ref": "FooGallery.utils.transition.html#.end",
-                                      "tf": 14
-                                    },
-                                    "FooGallery.utils.transition.html#.start": {
-                                      "ref": "FooGallery.utils.transition.html#.start",
-                                      "tf": 2
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "e": {
-            "docs": {},
-            "s": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "FooGallery.utils.fn.html#.CONTAINS_SUPER": {
-                    "ref": "FooGallery.utils.fn.html#.CONTAINS_SUPER",
-                    "tf": 8.5625
-                  },
-                  "FooGallery.utils.obj.html#~Validators": {
-                    "ref": "FooGallery.utils.obj.html#~Validators",
-                    "tf": 1.0869565217391304
-                  }
-                }
-              }
-            }
-          },
-          "o": {
-            "docs": {},
-            "g": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "t": {
-                  "docs": {},
-                  "h": {
-                    "docs": {
-                      "FooGallery.utils.obj.html#.extend": {
-                        "ref": "FooGallery.utils.obj.html#.extend",
-                        "tf": 7.777777777777778
-                      },
-                      "FooGallery.utils.obj.html#.merge": {
-                        "ref": "FooGallery.utils.obj.html#.merge",
-                        "tf": 8.75
-                      }
-                    }
-                  }
-                }
-              },
-              "g": {
-                "docs": {},
-                "l": {
-                  "docs": {
-                    "FooGallery.utils.transition.html#.start": {
-                      "ref": "FooGallery.utils.transition.html#.start",
-                      "tf": 12.666666666666666
-                    }
-                  },
-                  "e": {
-                    "docs": {},
-                    "c": {
-                      "docs": {},
-                      "l": {
-                        "docs": {},
-                        "a": {
-                          "docs": {},
-                          "s": {
-                            "docs": {},
-                            "s": {
-                              "docs": {
-                                "FooGallery.utils.transition.html#.start": {
-                                  "ref": "FooGallery.utils.transition.html#.start",
-                                  "tf": 1
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "g": {
-          "docs": {},
-          "i": {
-            "docs": {},
-            "v": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "n": {
-                  "docs": {
-                    "FooGallery.utils.Debugger.html": {
-                      "ref": "FooGallery.utils.Debugger.html",
-                      "tf": 6.363636363636364
-                    },
-                    "FooGallery.utils.Factory.html#register": {
-                      "ref": "FooGallery.utils.Factory.html#register",
-                      "tf": 10
-                    },
-                    "FooGallery.utils.html#.uniqueId": {
-                      "ref": "FooGallery.utils.html#.uniqueId",
-                      "tf": 11.666666666666666
-                    },
-                    "FooGallery.utils.html#.removeUniqueId": {
-                      "ref": "FooGallery.utils.html#.removeUniqueId",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.fn.html#.addOrOverride": {
-                      "ref": "FooGallery.utils.fn.html#.addOrOverride",
-                      "tf": 7.777777777777778
-                    },
-                    "FooGallery.utils.fn.html#.check": {
-                      "ref": "FooGallery.utils.fn.html#.check",
-                      "tf": 11.666666666666666
-                    },
-                    "FooGallery.utils.fn.html#.fetch": {
-                      "ref": "FooGallery.utils.fn.html#.fetch",
-                      "tf": 17.5
-                    },
-                    "FooGallery.utils.fn.html#.enqueue": {
-                      "ref": "FooGallery.utils.fn.html#.enqueue",
-                      "tf": 11.666666666666666
-                    },
-                    "FooGallery.utils.url.html#.full": {
-                      "ref": "FooGallery.utils.url.html#.full",
-                      "tf": 15
-                    },
-                    "FooGallery.utils.url.html#.param": {
-                      "ref": "FooGallery.utils.url.html#.param",
-                      "tf": 11.666666666666666
-                    },
-                    "FooGallery.utils.str.html#.camel": {
-                      "ref": "FooGallery.utils.str.html#.camel",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.str.html#.contains": {
-                      "ref": "FooGallery.utils.str.html#.contains",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.str.html#.containsWord": {
-                      "ref": "FooGallery.utils.str.html#.containsWord",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.str.html#.endsWith": {
-                      "ref": "FooGallery.utils.str.html#.endsWith",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.str.html#.fnv1a": {
-                      "ref": "FooGallery.utils.str.html#.fnv1a",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.str.html#.from": {
-                      "ref": "FooGallery.utils.str.html#.from",
-                      "tf": 8.75
-                    },
-                    "FooGallery.utils.str.html#.join": {
-                      "ref": "FooGallery.utils.str.html#.join",
-                      "tf": 11.666666666666666
-                    },
-                    "FooGallery.utils.str.html#.startsWith": {
-                      "ref": "FooGallery.utils.str.html#.startsWith",
-                      "tf": 14
-                    },
-                    "FooGallery.utils.str.html#.until": {
-                      "ref": "FooGallery.utils.str.html#.until",
-                      "tf": 7.777777777777778
-                    },
-                    "FooGallery.utils.obj.html#.prop": {
-                      "ref": "FooGallery.utils.obj.html#.prop",
-                      "tf": 14
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "e": {
-            "docs": {},
-            "t": {
-              "docs": {
-                "FooGallery.Loader.html#getViewportInfo": {
-                  "ref": "FooGallery.Loader.html#getViewportInfo",
-                  "tf": 10
-                },
-                "FooGallery.Loader.html#getViewportBounds": {
-                  "ref": "FooGallery.Loader.html#getViewportBounds",
-                  "tf": 7.777777777777778
-                },
-                "FooGallery.Loader.html#getElementBounds": {
-                  "ref": "FooGallery.Loader.html#getElementBounds",
-                  "tf": 14
-                },
-                "FooGallery.utils.Factory.html#names": {
-                  "ref": "FooGallery.utils.Factory.html#names",
-                  "tf": 17.5
-                },
-                "FooGallery.utils.url.html#.param": {
-                  "ref": "FooGallery.utils.url.html#.param",
-                  "tf": 11.666666666666666
-                },
-                "FooGallery.utils.transition.html#.duration": {
-                  "ref": "FooGallery.utils.transition.html#.duration",
-                  "tf": 10
-                },
-                "FooGallery.html#.getImages": {
-                  "ref": "FooGallery.html#.getImages",
-                  "tf": 8.75
-                }
-              },
-              "v": {
-                "docs": {},
-                "i": {
-                  "docs": {},
-                  "e": {
-                    "docs": {},
-                    "w": {
-                      "docs": {},
-                      "p": {
-                        "docs": {},
-                        "o": {
-                          "docs": {},
-                          "r": {
-                            "docs": {},
-                            "t": {
-                              "docs": {},
-                              "i": {
-                                "docs": {},
-                                "n": {
-                                  "docs": {},
-                                  "f": {
-                                    "docs": {},
-                                    "o": {
-                                      "docs": {
-                                        "FooGallery.Loader.html#getViewportInfo": {
-                                          "ref": "FooGallery.Loader.html#getViewportInfo",
-                                          "tf": 650
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              },
-                              "b": {
-                                "docs": {},
-                                "o": {
-                                  "docs": {},
-                                  "u": {
-                                    "docs": {},
-                                    "n": {
-                                      "docs": {},
-                                      "d": {
-                                        "docs": {
-                                          "FooGallery.Loader.html#getViewportBounds": {
-                                            "ref": "FooGallery.Loader.html#getViewportBounds",
-                                            "tf": 650
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "e": {
-                "docs": {},
-                "l": {
-                  "docs": {},
-                  "e": {
-                    "docs": {},
-                    "m": {
-                      "docs": {},
-                      "e": {
-                        "docs": {},
-                        "n": {
-                          "docs": {},
-                          "t": {
-                            "docs": {},
-                            "b": {
-                              "docs": {},
-                              "o": {
-                                "docs": {},
-                                "u": {
-                                  "docs": {},
-                                  "n": {
-                                    "docs": {},
-                                    "d": {
-                                      "docs": {
-                                        "FooGallery.Loader.html#getElementBounds": {
-                                          "ref": "FooGallery.Loader.html#getElementBounds",
-                                          "tf": 633.3333333333334
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "i": {
-                "docs": {},
-                "m": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "g": {
-                      "docs": {
-                        "FooGallery.html#.getImages": {
-                          "ref": "FooGallery.html#.getImages",
-                          "tf": 675
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "n": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "FooGallery.utils.html#.uniqueId": {
-                      "ref": "FooGallery.utils.html#.uniqueId",
-                      "tf": 11.666666666666666
-                    },
-                    "FooGallery.utils.str.html#.fnv1a": {
-                      "ref": "FooGallery.utils.str.html#.fnv1a",
-                      "tf": 8.75
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "l": {
-            "docs": {},
-            "o": {
-              "docs": {},
-              "b": {
-                "docs": {},
-                "a": {
-                  "docs": {},
-                  "l": {
-                    "docs": {
-                      "FooGallery.html": {
-                        "ref": "FooGallery.html",
-                        "tf": 5.555555555555555
-                      }
+                    "FooGallery.ImageViewer.html#next": {
+                      "ref": "FooGallery.ImageViewer.html#next",
+                      "tf": 4.166666666666666
                     }
                   }
                 }
@@ -21564,6 +23105,27 @@ window.lunrData = {
         },
         "k": {
           "docs": {},
+          "l": {
+            "docs": {},
+            "a": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "s": {
+                  "docs": {
+                    "FooGallery.utils.Factory.html#register": {
+                      "ref": "FooGallery.utils.Factory.html#register",
+                      "tf": 30
+                    },
+                    "FooGallery.utils.fn.html#.apply": {
+                      "ref": "FooGallery.utils.fn.html#.apply",
+                      "tf": 20
+                    }
+                  }
+                }
+              }
+            }
+          },
           "e": {
             "docs": {},
             "y": {
@@ -21599,23 +23161,545 @@ window.lunrData = {
                 }
               }
             }
-          },
-          "l": {
+          }
+        },
+        "v": {
+          "docs": {},
+          "i": {
             "docs": {},
-            "a": {
+            "e": {
+              "docs": {},
+              "w": {
+                "docs": {
+                  "FooGallery.utils.Debugger.html": {
+                    "ref": "FooGallery.utils.Debugger.html",
+                    "tf": 1.282051282051282
+                  }
+                },
+                "p": {
+                  "docs": {},
+                  "o": {
+                    "docs": {},
+                    "r": {
+                      "docs": {},
+                      "t": {
+                        "docs": {
+                          "FooGallery.Loader.html#getViewportInfo": {
+                            "ref": "FooGallery.Loader.html#getViewportInfo",
+                            "tf": 10
+                          },
+                          "FooGallery.Loader.html#getViewportBounds": {
+                            "ref": "FooGallery.Loader.html#getViewportBounds",
+                            "tf": 7.777777777777778
+                          },
+                          "FooGallery.Loader.html#~Bounds": {
+                            "ref": "FooGallery.Loader.html#~Bounds",
+                            "tf": 8.75
+                          },
+                          "FooGallery.Loader.html#~ViewportInfo": {
+                            "ref": "FooGallery.Loader.html#~ViewportInfo",
+                            "tf": 8.75
+                          }
+                        },
+                        "i": {
+                          "docs": {},
+                          "n": {
+                            "docs": {},
+                            "f": {
+                              "docs": {},
+                              "o": {
+                                "docs": {
+                                  "FooGallery.Loader.html#~ViewportInfo": {
+                                    "ref": "FooGallery.Loader.html#~ViewportInfo",
+                                    "tf": 600
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "FooGallery.ImageViewer.html": {
+                        "ref": "FooGallery.ImageViewer.html",
+                        "tf": 11.666666666666666
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "l": {
+              "docs": {},
+              "u": {
+                "docs": {
+                  "FooGallery.utils.Debugger.html#enabled": {
+                    "ref": "FooGallery.utils.Debugger.html#enabled",
+                    "tf": 4.545454545454546
+                  },
+                  "FooGallery.Loader.html#~Srcset": {
+                    "ref": "FooGallery.Loader.html#~Srcset",
+                    "tf": 10
+                  },
+                  "FooGallery.utils.is.html#.array": {
+                    "ref": "FooGallery.utils.is.html#.array",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.is.html#.boolean": {
+                    "ref": "FooGallery.utils.is.html#.boolean",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.is.html#.element": {
+                    "ref": "FooGallery.utils.is.html#.element",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.is.html#.empty": {
+                    "ref": "FooGallery.utils.is.html#.empty",
+                    "tf": 50.964912280701746
+                  },
+                  "FooGallery.utils.is.html#.error": {
+                    "ref": "FooGallery.utils.is.html#.error",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.is.html#.fn": {
+                    "ref": "FooGallery.utils.is.html#.fn",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.is.html#.hash": {
+                    "ref": "FooGallery.utils.is.html#.hash",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.is.html#.jq": {
+                    "ref": "FooGallery.utils.is.html#.jq",
+                    "tf": 42.5
+                  },
+                  "FooGallery.utils.is.html#.number": {
+                    "ref": "FooGallery.utils.is.html#.number",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.is.html#.object": {
+                    "ref": "FooGallery.utils.is.html#.object",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.is.html#.promise": {
+                    "ref": "FooGallery.utils.is.html#.promise",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.is.html#.size": {
+                    "ref": "FooGallery.utils.is.html#.size",
+                    "tf": 39
+                  },
+                  "FooGallery.utils.is.html#.string": {
+                    "ref": "FooGallery.utils.is.html#.string",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.is.html#.undef": {
+                    "ref": "FooGallery.utils.is.html#.undef",
+                    "tf": 48.33333333333333
+                  },
+                  "FooGallery.utils.fn.html#.check": {
+                    "ref": "FooGallery.utils.fn.html#.check",
+                    "tf": 27.01621073961499
+                  },
+                  "FooGallery.utils.url.html#.param": {
+                    "ref": "FooGallery.utils.url.html#.param",
+                    "tf": 16.666666666666664
+                  },
+                  "FooGallery.utils.str.html#.format": {
+                    "ref": "FooGallery.utils.str.html#.format",
+                    "tf": 1.3888888888888888
+                  },
+                  "FooGallery.utils.obj.html#.prop": {
+                    "ref": "FooGallery.utils.obj.html#.prop",
+                    "tf": 34
+                  },
+                  "FooGallery.utils.obj.html#~Mappings": {
+                    "ref": "FooGallery.utils.obj.html#~Mappings",
+                    "tf": 7
+                  },
+                  "FooGallery.utils.obj.html#~Validators": {
+                    "ref": "FooGallery.utils.obj.html#~Validators",
+                    "tf": 1.0869565217391304
+                  },
+                  "FooGallery.utils.transition.html#.end": {
+                    "ref": "FooGallery.utils.transition.html#.end",
+                    "tf": 4.545454545454546
+                  },
+                  "FooGallery.utils.transition.html#.duration": {
+                    "ref": "FooGallery.utils.transition.html#.duration",
+                    "tf": 10
+                  },
+                  "FooGallery.html#.addSize": {
+                    "ref": "FooGallery.html#.addSize",
+                    "tf": 5.384615384615385
+                  },
+                  "FooGallery.html#.removeSize": {
+                    "ref": "FooGallery.html#.removeSize",
+                    "tf": 7.777777777777778
+                  }
+                }
+              },
+              "i": {
+                "docs": {},
+                "d": {
+                  "docs": {
+                    "FooGallery.utils.is.html#.size": {
+                      "ref": "FooGallery.utils.is.html#.size",
+                      "tf": 14
+                    },
+                    "FooGallery.utils.obj.html#.mergeValid": {
+                      "ref": "FooGallery.utils.obj.html#.mergeValid",
+                      "tf": 23.035714285714285
+                    },
+                    "FooGallery.utils.obj.html#~Validators": {
+                      "ref": "FooGallery.utils.obj.html#~Validators",
+                      "tf": 614.927536231884
+                    }
+                  }
+                }
+              }
+            },
+            "r": {
+              "docs": {
+                "FooGallery.utils.fn.html#.addOrOverride": {
+                  "ref": "FooGallery.utils.fn.html#.addOrOverride",
+                  "tf": 0.9615384615384616
+                }
+              },
+              "i": {
+                "docs": {},
+                "o": {
+                  "docs": {},
+                  "u": {
+                    "docs": {
+                      "FooGallery.utils.fn.html#.enqueue": {
+                        "ref": "FooGallery.utils.fn.html#.enqueue",
+                        "tf": 0.6493506493506493
+                      },
+                      "FooGallery.html": {
+                        "ref": "FooGallery.html",
+                        "tf": 2.7777777777777777
+                      }
+                    }
+                  }
+                },
+                "a": {
+                  "docs": {},
+                  "b": {
+                    "docs": {},
+                    "l": {
+                      "docs": {
+                        "FooGallery.html": {
+                          "ref": "FooGallery.html",
+                          "tf": 2.7777777777777777
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "e": {
+            "docs": {},
+            "r": {
               "docs": {},
               "s": {
                 "docs": {},
-                "s": {
-                  "docs": {
-                    "FooGallery.utils.Factory.html#register": {
-                      "ref": "FooGallery.utils.Factory.html#register",
-                      "tf": 30
-                    },
-                    "FooGallery.utils.fn.html#.apply": {
-                      "ref": "FooGallery.utils.fn.html#.apply",
-                      "tf": 20
+                "i": {
+                  "docs": {},
+                  "o": {
+                    "docs": {},
+                    "n": {
+                      "1": {
+                        "docs": {
+                          "FooGallery.utils.html#.versionCompare": {
+                            "ref": "FooGallery.utils.html#.versionCompare",
+                            "tf": 20
+                          }
+                        }
+                      },
+                      "2": {
+                        "docs": {
+                          "FooGallery.utils.html#.versionCompare": {
+                            "ref": "FooGallery.utils.html#.versionCompare",
+                            "tf": 20
+                          }
+                        }
+                      },
+                      "docs": {
+                        "FooGallery.utils.html#.version": {
+                          "ref": "FooGallery.utils.html#.version",
+                          "tf": 668.3333333333334
+                        },
+                        "FooGallery.utils.html#.versionCompare": {
+                          "ref": "FooGallery.utils.html#.versionCompare",
+                          "tf": 21.847826086956523
+                        }
+                      },
+                      "c": {
+                        "docs": {},
+                        "o": {
+                          "docs": {},
+                          "m": {
+                            "docs": {},
+                            "p": {
+                              "docs": {},
+                              "a": {
+                                "docs": {},
+                                "r": {
+                                  "docs": {
+                                    "FooGallery.utils.html#.versionCompare": {
+                                      "ref": "FooGallery.utils.html#.versionCompare",
+                                      "tf": 620
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
+                  }
+                },
+                "u": {
+                  "docs": {
+                    "FooGallery.utils.html#.versionCompare": {
+                      "ref": "FooGallery.utils.html#.versionCompare",
+                      "tf": 2.1739130434782608
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "j": {
+          "docs": {},
+          "q": {
+            "docs": {
+              "FooGallery.utils.is.html#.jq": {
+                "ref": "FooGallery.utils.is.html#.jq",
+                "tf": 600
+              }
+            },
+            "u": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "i": {
+                    "docs": {
+                      "FooGallery.Loader.html#$target": {
+                        "ref": "FooGallery.Loader.html#$target",
+                        "tf": 64
+                      },
+                      "FooGallery.Loader.html#parse": {
+                        "ref": "FooGallery.Loader.html#parse",
+                        "tf": 4.666666666666667
+                      },
+                      "FooGallery.ImageViewer.html#$el": {
+                        "ref": "FooGallery.ImageViewer.html#$el",
+                        "tf": 64
+                      },
+                      "FooGallery.ImageViewer.html#$items": {
+                        "ref": "FooGallery.ImageViewer.html#$items",
+                        "tf": 64
+                      },
+                      "FooGallery.ImageViewer.html#$current": {
+                        "ref": "FooGallery.ImageViewer.html#$current",
+                        "tf": 61.666666666666664
+                      },
+                      "FooGallery.ImageViewer.html#$prev": {
+                        "ref": "FooGallery.ImageViewer.html#$prev",
+                        "tf": 67.5
+                      },
+                      "FooGallery.ImageViewer.html#$next": {
+                        "ref": "FooGallery.ImageViewer.html#$next",
+                        "tf": 67.5
+                      },
+                      "external-_jQuery.fn_.html": {
+                        "ref": "external-_jQuery.fn_.html",
+                        "tf": 23.333333333333332
+                      },
+                      "FooGallery.utils.html": {
+                        "ref": "FooGallery.utils.html",
+                        "tf": 5.555555555555555
+                      },
+                      "FooGallery.utils.html#.$": {
+                        "ref": "FooGallery.utils.html#.$",
+                        "tf": 71.14285714285714
+                      },
+                      "FooGallery.utils.is.html#.empty": {
+                        "ref": "FooGallery.utils.is.html#.empty",
+                        "tf": 2.631578947368421
+                      },
+                      "FooGallery.utils.is.html#.jq": {
+                        "ref": "FooGallery.utils.is.html#.jq",
+                        "tf": 17.5
+                      },
+                      "FooGallery.utils.is.html#.promise": {
+                        "ref": "FooGallery.utils.is.html#.promise",
+                        "tf": 2.7027027027027026
+                      },
+                      "FooGallery.utils.obj.html#.extend": {
+                        "ref": "FooGallery.utils.obj.html#.extend",
+                        "tf": 2.631578947368421
+                      },
+                      "FooGallery.utils.obj.html#.merge": {
+                        "ref": "FooGallery.utils.obj.html#.merge",
+                        "tf": 2.7777777777777777
+                      },
+                      "FooGallery.utils.transition.html#.duration": {
+                        "ref": "FooGallery.utils.transition.html#.duration",
+                        "tf": 10
+                      },
+                      "FooGallery.html#.$": {
+                        "ref": "FooGallery.html#.$",
+                        "tf": 71.14285714285714
+                      },
+                      "FooGallery.html#.getImages": {
+                        "ref": "FooGallery.html#.getImages",
+                        "tf": 25
+                      }
+                    }
+                  },
+                  "y": {
+                    "docs": {},
+                    ".": {
+                      "docs": {},
+                      "f": {
+                        "docs": {},
+                        "n": {
+                          "docs": {
+                            "external-_jQuery.fn_.html": {
+                              "ref": "external-_jQuery.fn_.html",
+                              "tf": 500
+                            }
+                          }
+                        }
+                      },
+                      "d": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          "f": {
+                            "docs": {
+                              "FooGallery.utils.is.html#.promise": {
+                                "ref": "FooGallery.utils.is.html#.promise",
+                                "tf": 1.3513513513513513
+                              },
+                              "FooGallery.utils.transition.html#.start": {
+                                "ref": "FooGallery.utils.transition.html#.start",
+                                "tf": 14.285714285714285
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "p": {
+                        "docs": {},
+                        "r": {
+                          "docs": {},
+                          "o": {
+                            "docs": {},
+                            "m": {
+                              "docs": {},
+                              "i": {
+                                "docs": {},
+                                "s": {
+                                  "docs": {
+                                    "FooGallery.utils.fn.html#.enqueue": {
+                                      "ref": "FooGallery.utils.fn.html#.enqueue",
+                                      "tf": 14.285714285714285
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "'": {
+                      "docs": {
+                        "FooGallery.utils.transition.html#.start": {
+                          "ref": "FooGallery.utils.transition.html#.start",
+                          "tf": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "v": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "s": {
+                  "docs": {},
+                  "c": {
+                    "docs": {},
+                    "r": {
+                      "docs": {},
+                      "i": {
+                        "docs": {},
+                        "p": {
+                          "docs": {},
+                          "t": {
+                            "docs": {
+                              "FooGallery.utils.url.html#~Parts": {
+                                "ref": "FooGallery.utils.url.html#~Parts",
+                                "tf": 11.666666666666666
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "o": {
+            "docs": {},
+            "i": {
+              "docs": {},
+              "n": {
+                "docs": {
+                  "FooGallery.utils.str.html#.join": {
+                    "ref": "FooGallery.utils.str.html#.join",
+                    "tf": 605.3333333333333
+                  }
+                }
+              }
+            }
+          },
+          "u": {
+            "docs": {},
+            "m": {
+              "docs": {},
+              "p": {
+                "docs": {
+                  "FooGallery.html#.addSize": {
+                    "ref": "FooGallery.html#.addSize",
+                    "tf": 1.5873015873015872
                   }
                 }
               }
@@ -21632,6 +23716,142 @@ window.lunrData = {
                 "docs": {},
                 ";": {
                   "docs": {},
+                  "f": {
+                    "docs": {},
+                    "o": {
+                      "docs": {},
+                      "o": {
+                        "docs": {},
+                        "b": {
+                          "docs": {},
+                          "o": {
+                            "docs": {},
+                            "x": {
+                              "docs": {},
+                              ".": {
+                                "docs": {},
+                                "p": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {},
+                                    "e": {
+                                      "docs": {},
+                                      "v": {
+                                        "docs": {},
+                                        "i": {
+                                          "docs": {},
+                                          "o": {
+                                            "docs": {},
+                                            "u": {
+                                              "docs": {},
+                                              "s": {
+                                                "docs": {},
+                                                "&": {
+                                                  "docs": {},
+                                                  "q": {
+                                                    "docs": {},
+                                                    "u": {
+                                                      "docs": {},
+                                                      "o": {
+                                                        "docs": {},
+                                                        "t": {
+                                                          "docs": {
+                                                            "FooGallery.ImageViewer.html#onFooBoxPrev": {
+                                                              "ref": "FooGallery.ImageViewer.html#onFooBoxPrev",
+                                                              "tf": 7.777777777777778
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "n": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "x": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {},
+                                        "&": {
+                                          "docs": {},
+                                          "q": {
+                                            "docs": {},
+                                            "u": {
+                                              "docs": {},
+                                              "o": {
+                                                "docs": {},
+                                                "t": {
+                                                  "docs": {
+                                                    "FooGallery.ImageViewer.html#onFooBoxNext": {
+                                                      "ref": "FooGallery.ImageViewer.html#onFooBoxNext",
+                                                      "tf": 7.777777777777778
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "c": {
+                    "docs": {},
+                    "l": {
+                      "docs": {},
+                      "i": {
+                        "docs": {},
+                        "c": {
+                          "docs": {},
+                          "k": {
+                            "docs": {},
+                            "&": {
+                              "docs": {},
+                              "q": {
+                                "docs": {},
+                                "u": {
+                                  "docs": {},
+                                  "o": {
+                                    "docs": {},
+                                    "t": {
+                                      "docs": {
+                                        "FooGallery.ImageViewer.html#onPrevClick": {
+                                          "ref": "FooGallery.ImageViewer.html#onPrevClick",
+                                          "tf": 14
+                                        },
+                                        "FooGallery.ImageViewer.html#onNextClick": {
+                                          "ref": "FooGallery.ImageViewer.html#onNextClick",
+                                          "tf": 14
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
                   "j": {
                     "docs": {},
                     "q": {
@@ -22227,7 +24447,7 @@ window.lunrData = {
           }
         }
       },
-      "length": 2050
+      "length": 2267
     },
     "corpusTokens": [
       "0",
@@ -22296,6 +24516,7 @@ window.lunrData = {
       "bound",
       "boundari",
       "browser",
+      "button",
       "calcul",
       "call",
       "callback",
@@ -22304,13 +24525,16 @@ window.lunrData = {
       "case",
       "caus",
       "check",
+      "checkcontain",
       "child",
       "class",
       "class.extend",
       "class.overrid",
       "classnam",
+      "clean",
       "clear",
       "code",
+      "collect",
       "combin",
       "common",
       "compar",
@@ -22335,7 +24559,9 @@ window.lunrData = {
       "copi",
       "core",
       "correct",
+      "count",
       "creat",
+      "creation",
       "css",
       "ctx",
       "current",
@@ -22375,6 +24601,7 @@ window.lunrData = {
       "easi",
       "easili",
       "effect",
+      "el",
       "element",
       "empti",
       "enabl",
@@ -22399,6 +24626,7 @@ window.lunrData = {
       "expos",
       "express",
       "extend",
+      "extens",
       "extern",
       "external:\"jquery.fn",
       "factori",
@@ -22432,6 +24660,25 @@ window.lunrData = {
       "foogalleri",
       "foogallery.adds",
       "foogallery.getimag",
+      "foogallery.imageview",
+      "foogallery.imageviewer#$curr",
+      "foogallery.imageviewer#$el",
+      "foogallery.imageviewer#$item",
+      "foogallery.imageviewer#$next",
+      "foogallery.imageviewer#$prev",
+      "foogallery.imageviewer#destroy",
+      "foogallery.imageviewer#init",
+      "foogallery.imageviewer#next",
+      "foogallery.imageviewer#onfooboxnext",
+      "foogallery.imageviewer#onfooboxprev",
+      "foogallery.imageviewer#onnextclick",
+      "foogallery.imageviewer#onprevclick",
+      "foogallery.imageviewer#opt",
+      "foogallery.imageviewer#prev",
+      "foogallery.imageviewer.default",
+      "foogallery.imageviewer.extend",
+      "foogallery.imageviewer.overrid",
+      "foogallery.imageviewer~opt",
       "foogallery.load",
       "foogallery.loader#$target",
       "foogallery.loader#check",
@@ -22552,6 +24799,7 @@ window.lunrData = {
       "function",
       "function(arg1",
       "function.prototype.appli",
+      "galleri",
       "gener",
       "get",
       "getelementbound",
@@ -22568,14 +24816,32 @@ window.lunrData = {
       "help",
       "helper",
       "higher",
+      "hold",
       "hous",
-      "html",
       "id",
       "idl",
-      "ifram",
       "ignor",
       "ignorecas",
       "imag",
+      "imageview",
+      "imageviewer#$curr",
+      "imageviewer#$el",
+      "imageviewer#$item",
+      "imageviewer#$next",
+      "imageviewer#$prev",
+      "imageviewer#destroy",
+      "imageviewer#init",
+      "imageviewer#next",
+      "imageviewer#onfooboxnext",
+      "imageviewer#onfooboxprev",
+      "imageviewer#onnextclick",
+      "imageviewer#onprevclick",
+      "imageviewer#opt",
+      "imageviewer#prev",
+      "imageviewer.default",
+      "imageviewer.extend",
+      "imageviewer.overrid",
+      "imageviewer~opt",
       "img",
       "imgselector",
       "implement",
@@ -22595,6 +24861,7 @@ window.lunrData = {
       "interfac",
       "intern",
       "intersect",
+      "intuit",
       "is.array",
       "is.boolean",
       "is.el",
@@ -22611,6 +24878,7 @@ window.lunrData = {
       "is.undef",
       "issu",
       "it'",
+      "item",
       "itself",
       "javascript",
       "join",
@@ -22679,9 +24947,11 @@ window.lunrData = {
       "lt;readonly&gt",
       "lt;static",
       "lt;static&gt",
+      "main",
       "major",
       "major.minor.patch",
       "make",
+      "manag",
       "map",
       "match",
       "math",
@@ -22699,10 +24969,12 @@ window.lunrData = {
       "myclass.prototype.somemethod",
       "name",
       "namespac",
+      "navig",
       "need",
       "net",
       "never",
       "new",
+      "next",
       "notat",
       "nullable&gt",
       "number",
@@ -22723,6 +24995,10 @@ window.lunrData = {
       "occur",
       "on",
       "onc",
+      "onfooboxnext",
+      "onfooboxprev",
+      "onnextclick",
+      "onprevclick",
       "onscrol",
       "onto",
       "oper",
@@ -22731,6 +25007,7 @@ window.lunrData = {
       "origin",
       "original.call(thi",
       "out",
+      "outer",
       "output",
       "outsid",
       "overrid",
@@ -22742,7 +25019,6 @@ window.lunrData = {
       "part",
       "partn",
       "pass",
-      "pdf",
       "per",
       "perform",
       "pixel",
@@ -22754,6 +25030,7 @@ window.lunrData = {
       "pre",
       "prefix",
       "preinit",
+      "prev",
       "prevent",
       "previou",
       "previous",
@@ -22772,6 +25049,9 @@ window.lunrData = {
       "queue",
       "quick",
       "quot;&quot",
+      "quot;click&quot",
+      "quot;foobox.next&quot",
+      "quot;foobox.previous&quot",
       "quot;jquery.fn&quot",
       "quot;name.first&quot",
       "quot;name.last&quot",
@@ -22794,6 +25074,7 @@ window.lunrData = {
       "reject",
       "rel",
       "reli",
+      "remain",
       "remaind",
       "remov",
       "removes",
@@ -22865,6 +25146,7 @@ window.lunrData = {
       "sync",
       "take",
       "target",
+      "templat",
       "test",
       "themselv",
       "this._sup",
@@ -22887,6 +25169,7 @@ window.lunrData = {
       "togeth",
       "toggl",
       "toggleclass",
+      "tool",
       "transit",
       "transition.dur",
       "transition.end",
@@ -22907,6 +25190,7 @@ window.lunrData = {
       "uniqueid",
       "until",
       "up",
+      "updat",
       "url",
       "url.ful",
       "url.param",
@@ -23008,8 +25292,8 @@ window.lunrData = {
       "version2",
       "versioncompar",
       "versu",
-      "video",
       "view",
+      "viewer",
       "viewport",
       "viewportinfo",
       "wait",
@@ -23024,6 +25308,7 @@ window.lunrData = {
       "within",
       "without",
       "word",
+      "wordpress",
       "work",
       "wrap",
       "wrapper",
@@ -23043,7 +25328,7 @@ window.lunrData = {
       "longname": "index",
       "name": "FooGallery",
       "tags": "index",
-      "summary": "A responsive jQuery lightbox plugin for displaying images, videos, iframes, PDFs and HTML content.",
+      "summary": "The Most Intuitive and Extensible Gallery Creation and Management Tool Ever Created for WordPress.",
       "description": "",
       "body": ""
     },
@@ -23111,6 +25396,97 @@ window.lunrData = {
       "summary": "Overrides a single method on this class.",
       "description": "This is a helper method for overriding a single function of a FooGallery.utils.Class or one of its child classes. This uses the FooGallery.utils.fn.addOrOverride method internally and simply provides the correct prototype."
     },
+    "FooGallery.utils.Factory.html": {
+      "id": "FooGallery.utils.Factory.html",
+      "kind": "class",
+      "title": "FooGallery.utils.Factory",
+      "longname": "FooGallery.utils.Factory",
+      "name": "Factory",
+      "tags": "FooGallery.utils.Factory utils.Factory Factory",
+      "summary": "A factory for classes allowing them to be registered and created using a friendly name.",
+      "description": "This class allows other classes to register themselves for use at a later time. Depending on how you intend to use the registered classes you can also specify a load and execution order through the priority parameter of the register method.",
+      "body": ""
+    },
+    "FooGallery.utils.Factory.html#registered": {
+      "id": "FooGallery.utils.Factory.html#registered",
+      "kind": "member",
+      "title": "&lt;readonly&gt; registered :Object.&lt;string, Object&gt;",
+      "longname": "FooGallery.utils.Factory#registered",
+      "name": "registered",
+      "tags": "FooGallery.utils.Factory#registered utils.Factory#registered Factory#registered registered",
+      "summary": "An object containing all registered classes.",
+      "description": ""
+    },
+    "FooGallery.utils.Factory.html#contains": {
+      "id": "FooGallery.utils.Factory.html#contains",
+      "kind": "function",
+      "title": "contains( name ) → {boolean}",
+      "longname": "FooGallery.utils.Factory#contains",
+      "name": "contains",
+      "tags": "FooGallery.utils.Factory#contains utils.Factory#contains Factory#contains contains",
+      "summary": "Checks if the factory contains a class registered using the supplied name.",
+      "description": ""
+    },
+    "FooGallery.utils.Factory.html#load": {
+      "id": "FooGallery.utils.Factory.html#load",
+      "kind": "function",
+      "title": "load( overrides, arg1 [, ...argN ] ) → {Array.&lt;Object&gt;}",
+      "longname": "FooGallery.utils.Factory#load",
+      "name": "load",
+      "tags": "FooGallery.utils.Factory#load utils.Factory#load Factory#load load",
+      "summary": "Creates new instances of all registered classes using there registered priority and the supplied arguments.",
+      "description": "The class indexes within the result array are determined by the priority they were registered with, the higher the priority the lower the index. This method is designed to be used when all registered classes share a common interface or base type and constructor arguments."
+    },
+    "FooGallery.utils.Factory.html#make": {
+      "id": "FooGallery.utils.Factory.html#make",
+      "kind": "function",
+      "title": "make( name, arg1 [, ...argN ] ) → {Object}",
+      "longname": "FooGallery.utils.Factory#make",
+      "name": "make",
+      "tags": "FooGallery.utils.Factory#make utils.Factory#make Factory#make make",
+      "summary": "Create a new instance of a class registered with the supplied name and arguments.",
+      "description": ""
+    },
+    "FooGallery.utils.Factory.html#names": {
+      "id": "FooGallery.utils.Factory.html#names",
+      "kind": "function",
+      "title": "names( [ prioritize ] ) → {Array.&lt;string&gt;}",
+      "longname": "FooGallery.utils.Factory#names",
+      "name": "names",
+      "tags": "FooGallery.utils.Factory#names utils.Factory#names Factory#names names",
+      "summary": "Gets an array of all registered names.",
+      "description": ""
+    },
+    "FooGallery.utils.Factory.html#register": {
+      "id": "FooGallery.utils.Factory.html#register",
+      "kind": "function",
+      "title": "register( name, klass [, priority ] ) → {boolean}",
+      "longname": "FooGallery.utils.Factory#register",
+      "name": "register",
+      "tags": "FooGallery.utils.Factory#register utils.Factory#register Factory#register register",
+      "summary": "Registers a klass constructor with the factory using the given name.",
+      "description": "Once a class is registered you can use either the load or make methods to create new instances depending on your use case."
+    },
+    "FooGallery.utils.Factory.html#.extend": {
+      "id": "FooGallery.utils.Factory.html#.extend",
+      "kind": "function",
+      "title": "&lt;static&gt; extend( [ definition ] ) → {function}",
+      "longname": "FooGallery.utils.Factory.extend",
+      "name": "extend",
+      "tags": "FooGallery.utils.Factory.extend utils.Factory.extend Factory.extend extend",
+      "summary": "Creates a new class that inherits from this one which in turn allows itself to be extended.",
+      "description": "Every class created using this method has both the extend and override static methods added to it to allow it to be extended."
+    },
+    "FooGallery.utils.Factory.html#.override": {
+      "id": "FooGallery.utils.Factory.html#.override",
+      "kind": "function",
+      "title": "&lt;static&gt; override( name, fn )",
+      "longname": "FooGallery.utils.Factory.override",
+      "name": "override",
+      "tags": "FooGallery.utils.Factory.override utils.Factory.override Factory.override override",
+      "summary": "Overrides a single method on this class.",
+      "description": "This is a helper method for overriding a single function of a FooGallery.utils.Class or one of its child classes. This uses the FooGallery.utils.fn.addOrOverride method internally and simply provides the correct prototype."
+    },
     "FooGallery.utils.Debugger.html": {
       "id": "FooGallery.utils.Debugger.html",
       "kind": "class",
@@ -23152,16 +25528,6 @@ window.lunrData = {
       "summary": "Enable the debugger causing additional info to be logged to the console.",
       "description": ""
     },
-    "FooGallery.utils.Debugger.html#disable": {
-      "id": "FooGallery.utils.Debugger.html#disable",
-      "kind": "function",
-      "title": "disable()",
-      "longname": "FooGallery.utils.Debugger#disable",
-      "name": "disable",
-      "tags": "FooGallery.utils.Debugger#disable utils.Debugger#disable Debugger#disable disable",
-      "summary": "Disable the debugger stopping additional info being logged to the console.",
-      "description": ""
-    },
     "FooGallery.utils.Debugger.html#log": {
       "id": "FooGallery.utils.Debugger.html#log",
       "kind": "function",
@@ -23180,6 +25546,16 @@ window.lunrData = {
       "name": "logf",
       "tags": "FooGallery.utils.Debugger#logf utils.Debugger#logf Debugger#logf logf",
       "summary": "Logs the formatted message and additional arguments to the console when enabled.",
+      "description": ""
+    },
+    "FooGallery.utils.Debugger.html#disable": {
+      "id": "FooGallery.utils.Debugger.html#disable",
+      "kind": "function",
+      "title": "disable()",
+      "longname": "FooGallery.utils.Debugger#disable",
+      "name": "disable",
+      "tags": "FooGallery.utils.Debugger#disable utils.Debugger#disable Debugger#disable disable",
+      "summary": "Disable the debugger stopping additional info being logged to the console.",
       "description": ""
     },
     "FooGallery.utils.Throttle.html": {
@@ -23514,96 +25890,196 @@ window.lunrData = {
       "summary": "A simple object used to represent a parsed srcset value.",
       "description": ""
     },
-    "FooGallery.utils.Factory.html": {
-      "id": "FooGallery.utils.Factory.html",
+    "FooGallery.ImageViewer.html": {
+      "id": "FooGallery.ImageViewer.html",
       "kind": "class",
-      "title": "FooGallery.utils.Factory",
-      "longname": "FooGallery.utils.Factory",
-      "name": "Factory",
-      "tags": "FooGallery.utils.Factory utils.Factory Factory",
-      "summary": "A factory for classes allowing them to be registered and created using a friendly name.",
-      "description": "This class allows other classes to register themselves for use at a later time. Depending on how you intend to use the registered classes you can also specify a load and execution order through the priority parameter of the register method.",
+      "title": "FooGallery.ImageViewer",
+      "longname": "FooGallery.ImageViewer",
+      "name": "ImageViewer",
+      "tags": "FooGallery.ImageViewer ImageViewer",
+      "summary": "The main class for the Image Viewer template for FooGallery.",
+      "description": "",
       "body": ""
     },
-    "FooGallery.utils.Factory.html#registered": {
-      "id": "FooGallery.utils.Factory.html#registered",
+    "FooGallery.ImageViewer.html#options": {
+      "id": "FooGallery.ImageViewer.html#options",
       "kind": "member",
-      "title": "&lt;readonly&gt; registered :Object.&lt;string, Object&gt;",
-      "longname": "FooGallery.utils.Factory#registered",
-      "name": "registered",
-      "tags": "FooGallery.utils.Factory#registered utils.Factory#registered Factory#registered registered",
-      "summary": "An object containing all registered classes.",
+      "title": "options :FooGallery.ImageViewer~Options",
+      "longname": "FooGallery.ImageViewer#options",
+      "name": "options",
+      "tags": "FooGallery.ImageViewer#options ImageViewer#options options",
+      "summary": "The options for the plugin.",
+      "description": "This property holds a copy of any user supplied options merged with the defaults."
+    },
+    "FooGallery.ImageViewer.html#$el": {
+      "id": "FooGallery.ImageViewer.html#$el",
+      "kind": "member",
+      "title": "$el :jQuery",
+      "longname": "FooGallery.ImageViewer#$el",
+      "name": "$el",
+      "tags": "FooGallery.ImageViewer#$el ImageViewer#$el $el",
+      "summary": "The jQuery object wrapping the templates items.",
+      "description": "This is the outer most element that wraps all the templates items and is generally the foogallery-container element."
+    },
+    "FooGallery.ImageViewer.html#$items": {
+      "id": "FooGallery.ImageViewer.html#$items",
+      "kind": "member",
+      "title": "$items :jQuery",
+      "longname": "FooGallery.ImageViewer#$items",
+      "name": "$items",
+      "tags": "FooGallery.ImageViewer#$items ImageViewer#$items $items",
+      "summary": "The jQuery object containing all items for the plugin.",
       "description": ""
     },
-    "FooGallery.utils.Factory.html#contains": {
-      "id": "FooGallery.utils.Factory.html#contains",
-      "kind": "function",
-      "title": "contains( name ) → {boolean}",
-      "longname": "FooGallery.utils.Factory#contains",
-      "name": "contains",
-      "tags": "FooGallery.utils.Factory#contains utils.Factory#contains Factory#contains contains",
-      "summary": "Checks if the factory contains a class registered using the supplied name.",
+    "FooGallery.ImageViewer.html#$current": {
+      "id": "FooGallery.ImageViewer.html#$current",
+      "kind": "member",
+      "title": "$current :jQuery",
+      "longname": "FooGallery.ImageViewer#$current",
+      "name": "$current",
+      "tags": "FooGallery.ImageViewer#$current ImageViewer#$current $current",
+      "summary": "The jQuery object that displays the current image count.",
       "description": ""
     },
-    "FooGallery.utils.Factory.html#load": {
-      "id": "FooGallery.utils.Factory.html#load",
-      "kind": "function",
-      "title": "load( overrides, arg1 [, ...argN ] ) → {Array.&lt;Object&gt;}",
-      "longname": "FooGallery.utils.Factory#load",
-      "name": "load",
-      "tags": "FooGallery.utils.Factory#load utils.Factory#load Factory#load load",
-      "summary": "Creates new instances of all registered classes using there registered priority and the supplied arguments.",
-      "description": "The class indexes within the result array are determined by the priority they were registered with, the higher the priority the lower the index. This method is designed to be used when all registered classes share a common interface or base type and constructor arguments."
-    },
-    "FooGallery.utils.Factory.html#make": {
-      "id": "FooGallery.utils.Factory.html#make",
-      "kind": "function",
-      "title": "make( name, arg1 [, ...argN ] ) → {Object}",
-      "longname": "FooGallery.utils.Factory#make",
-      "name": "make",
-      "tags": "FooGallery.utils.Factory#make utils.Factory#make Factory#make make",
-      "summary": "Create a new instance of a class registered with the supplied name and arguments.",
+    "FooGallery.ImageViewer.html#$prev": {
+      "id": "FooGallery.ImageViewer.html#$prev",
+      "kind": "member",
+      "title": "$prev :jQuery",
+      "longname": "FooGallery.ImageViewer#$prev",
+      "name": "$prev",
+      "tags": "FooGallery.ImageViewer#$prev ImageViewer#$prev $prev",
+      "summary": "The jQuery object for the previous button.",
       "description": ""
     },
-    "FooGallery.utils.Factory.html#names": {
-      "id": "FooGallery.utils.Factory.html#names",
-      "kind": "function",
-      "title": "names( [ prioritize ] ) → {Array.&lt;string&gt;}",
-      "longname": "FooGallery.utils.Factory#names",
-      "name": "names",
-      "tags": "FooGallery.utils.Factory#names utils.Factory#names Factory#names names",
-      "summary": "Gets an array of all registered names.",
+    "FooGallery.ImageViewer.html#$next": {
+      "id": "FooGallery.ImageViewer.html#$next",
+      "kind": "member",
+      "title": "$next :jQuery",
+      "longname": "FooGallery.ImageViewer#$next",
+      "name": "$next",
+      "tags": "FooGallery.ImageViewer#$next ImageViewer#$next $next",
+      "summary": "The jQuery object for the next button.",
       "description": ""
     },
-    "FooGallery.utils.Factory.html#register": {
-      "id": "FooGallery.utils.Factory.html#register",
-      "kind": "function",
-      "title": "register( name, klass [, priority ] ) → {boolean}",
-      "longname": "FooGallery.utils.Factory#register",
-      "name": "register",
-      "tags": "FooGallery.utils.Factory#register utils.Factory#register Factory#register register",
-      "summary": "Registers a klass constructor with the factory using the given name.",
-      "description": "Once a class is registered you can use either the load or make methods to create new instances depending on your use case."
+    "FooGallery.ImageViewer.html#.defaults": {
+      "id": "FooGallery.ImageViewer.html#.defaults",
+      "kind": "member",
+      "title": "&lt;static&gt; defaults :FooGallery.ImageViewer~Options",
+      "longname": "FooGallery.ImageViewer.defaults",
+      "name": "defaults",
+      "tags": "FooGallery.ImageViewer.defaults ImageViewer.defaults defaults",
+      "summary": "The defaults for the plugin.",
+      "description": ""
     },
-    "FooGallery.utils.Factory.html#.extend": {
-      "id": "FooGallery.utils.Factory.html#.extend",
+    "FooGallery.ImageViewer.html#init": {
+      "id": "FooGallery.ImageViewer.html#init",
+      "kind": "function",
+      "title": "init()",
+      "longname": "FooGallery.ImageViewer#init",
+      "name": "init",
+      "tags": "FooGallery.ImageViewer#init ImageViewer#init init",
+      "summary": "Initialize the plugin performing initial binding of events and setting up of CSS classes.",
+      "description": ""
+    },
+    "FooGallery.ImageViewer.html#destroy": {
+      "id": "FooGallery.ImageViewer.html#destroy",
+      "kind": "function",
+      "title": "destroy()",
+      "longname": "FooGallery.ImageViewer#destroy",
+      "name": "destroy",
+      "tags": "FooGallery.ImageViewer#destroy ImageViewer#destroy destroy",
+      "summary": "Destroy the plugin cleaning up any bound events.",
+      "description": ""
+    },
+    "FooGallery.ImageViewer.html#prev": {
+      "id": "FooGallery.ImageViewer.html#prev",
+      "kind": "function",
+      "title": "prev()",
+      "longname": "FooGallery.ImageViewer#prev",
+      "name": "prev",
+      "tags": "FooGallery.ImageViewer#prev ImageViewer#prev prev",
+      "summary": "Navigate to the previous item in the collection.",
+      "description": "If there is a previous item in the collection calling this method will navigate to it displaying its' image and updating the current image count."
+    },
+    "FooGallery.ImageViewer.html#next": {
+      "id": "FooGallery.ImageViewer.html#next",
+      "kind": "function",
+      "title": "next()",
+      "longname": "FooGallery.ImageViewer#next",
+      "name": "next",
+      "tags": "FooGallery.ImageViewer#next ImageViewer#next next",
+      "summary": "Navigate to the next item in the collection.",
+      "description": "If there is a next item in the collection calling this method will navigate to it displaying its' image and updating the current image count."
+    },
+    "FooGallery.ImageViewer.html#onFooBoxPrev": {
+      "id": "FooGallery.ImageViewer.html#onFooBoxPrev",
+      "kind": "function",
+      "title": "onFooBoxPrev( e )",
+      "longname": "FooGallery.ImageViewer#onFooBoxPrev",
+      "name": "onFooBoxPrev",
+      "tags": "FooGallery.ImageViewer#onFooBoxPrev ImageViewer#onFooBoxPrev onFooBoxPrev",
+      "summary": "Handles the &quot;foobox.previous&quot; event allowing the plugin to remain in sync with what is displayed in the lightbox.",
+      "description": ""
+    },
+    "FooGallery.ImageViewer.html#onFooBoxNext": {
+      "id": "FooGallery.ImageViewer.html#onFooBoxNext",
+      "kind": "function",
+      "title": "onFooBoxNext( e )",
+      "longname": "FooGallery.ImageViewer#onFooBoxNext",
+      "name": "onFooBoxNext",
+      "tags": "FooGallery.ImageViewer#onFooBoxNext ImageViewer#onFooBoxNext onFooBoxNext",
+      "summary": "Handles the &quot;foobox.next&quot; event allowing the plugin to remain in sync with what is displayed in the lightbox.",
+      "description": ""
+    },
+    "FooGallery.ImageViewer.html#onPrevClick": {
+      "id": "FooGallery.ImageViewer.html#onPrevClick",
+      "kind": "function",
+      "title": "onPrevClick( e )",
+      "longname": "FooGallery.ImageViewer#onPrevClick",
+      "name": "onPrevClick",
+      "tags": "FooGallery.ImageViewer#onPrevClick ImageViewer#onPrevClick onPrevClick",
+      "summary": "Handles the &quot;click&quot; event of the previous button.",
+      "description": ""
+    },
+    "FooGallery.ImageViewer.html#onNextClick": {
+      "id": "FooGallery.ImageViewer.html#onNextClick",
+      "kind": "function",
+      "title": "onNextClick( e )",
+      "longname": "FooGallery.ImageViewer#onNextClick",
+      "name": "onNextClick",
+      "tags": "FooGallery.ImageViewer#onNextClick ImageViewer#onNextClick onNextClick",
+      "summary": "Handles the &quot;click&quot; event of the next button.",
+      "description": ""
+    },
+    "FooGallery.ImageViewer.html#.extend": {
+      "id": "FooGallery.ImageViewer.html#.extend",
       "kind": "function",
       "title": "&lt;static&gt; extend( [ definition ] ) → {function}",
-      "longname": "FooGallery.utils.Factory.extend",
+      "longname": "FooGallery.ImageViewer.extend",
       "name": "extend",
-      "tags": "FooGallery.utils.Factory.extend utils.Factory.extend Factory.extend extend",
+      "tags": "FooGallery.ImageViewer.extend ImageViewer.extend extend",
       "summary": "Creates a new class that inherits from this one which in turn allows itself to be extended.",
       "description": "Every class created using this method has both the extend and override static methods added to it to allow it to be extended."
     },
-    "FooGallery.utils.Factory.html#.override": {
-      "id": "FooGallery.utils.Factory.html#.override",
+    "FooGallery.ImageViewer.html#.override": {
+      "id": "FooGallery.ImageViewer.html#.override",
       "kind": "function",
       "title": "&lt;static&gt; override( name, fn )",
-      "longname": "FooGallery.utils.Factory.override",
+      "longname": "FooGallery.ImageViewer.override",
       "name": "override",
-      "tags": "FooGallery.utils.Factory.override utils.Factory.override Factory.override override",
+      "tags": "FooGallery.ImageViewer.override ImageViewer.override override",
       "summary": "Overrides a single method on this class.",
       "description": "This is a helper method for overriding a single function of a FooGallery.utils.Class or one of its child classes. This uses the FooGallery.utils.fn.addOrOverride method internally and simply provides the correct prototype."
+    },
+    "FooGallery.ImageViewer.html#~Options": {
+      "id": "FooGallery.ImageViewer.html#~Options",
+      "kind": "typedef",
+      "title": "Options",
+      "longname": "FooGallery.ImageViewer~Options",
+      "name": "Options",
+      "tags": "FooGallery.ImageViewer~Options ImageViewer~Options",
+      "summary": "The options for the plugin.",
+      "description": ""
     },
     "external-_jQuery.fn_.html": {
       "id": "external-_jQuery.fn_.html",
@@ -23612,8 +26088,8 @@ window.lunrData = {
       "longname": "external:\"jQuery.fn\"",
       "name": "\"jQuery.fn\"",
       "tags": "external:\"jQuery.fn\" fn\"",
-      "summary": "",
-      "description": "The jQuery plugin namespace.",
+      "summary": "The jQuery plugin namespace.",
+      "description": "",
       "body": ""
     },
     "FooGallery.utils.html": {
@@ -24257,7 +26733,7 @@ window.lunrData = {
     "FooGallery.html#.addSize": {
       "id": "FooGallery.html#.addSize",
       "kind": "function",
-      "title": "&lt;static&gt; addSize( target )",
+      "title": "&lt;static&gt; addSize( target [, checkContainer ] )",
       "longname": "FooGallery.addSize",
       "name": "addSize",
       "tags": "FooGallery.addSize addSize",
