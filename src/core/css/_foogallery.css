@@ -1,29 +1,41 @@
-/* Caption Styles */
-.foogallery-container .foogallery-caption {
-	display: none;
-	background-color: rgba(0,0,0,0.8);
-	position: absolute;
-	z-index: 100;
-	-webkit-transition: all 300ms ease-out;
-	-moz-transition: all 300ms ease-out;
-	-o-transition: all 300ms ease-out;
-	transition: all 300ms ease-out;
-	width: 100%;
-	overflow: hidden;
-	font-size: 12px;
-	font-weight: 300;
-	line-height: 1.2;
-	font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+.foogallery, .foogallery * {
+	box-sizing: border-box;
+}
+.foogallery {
+	z-index: 1;
+	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.foogallery .fg-item {
+	background-color: transparent;
+	z-index: 1;
+}
+.foogallery .fg-item-inner {
+	visibility: hidden;
+	opacity: 0;
+	z-index: 1;
+	border: solid 0 transparent;
+}
+.foogallery .fg-item.fg-idle,
+.foogallery .fg-item.fg-loading {
+	background: no-repeat center;
+}
+.foogallery .fg-item.fg-loaded {
+	z-index: 2;
+}
+.foogallery .fg-loaded .fg-item-inner {
+	visibility: visible;
+	opacity: 1;
+	z-index: 3;
 }
 
-.foogallery-container .foogallery-caption-title,
-.foogallery-container .foogallery-caption-desc {
-	color: #fff;
-	padding: 5px;
-}
-.foogallery-container .foogallery-caption-title+.foogallery-caption-desc {
-	padding-top: 0;
-}
-.foogallery-container .foogallery-caption-title {
-	font-size: 14px;
+/* Utility */
+.fg-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0,0,0,0);
+	border: 0;
 }

@@ -1,25 +1,32 @@
-(function(_, _is){
-	_.ready(function($){
+(function($, _){
 
-		/* Justified Gallery */
-		$(".foogallery-justified").each(function(){
-			var $gallery = $(this),
-				// get the options for the plugin
-				options = $gallery.data("justified-options"),
-				// get the options for the loader
-				loader = $gallery.data("loader-options");
-
-			$gallery.fgJustified( options ).fgLoader( $.extend(true, loader, {
-				oninit: function(){
-					// the first time the gallery is initialized it triggers a window resize event
-					$(window).trigger("resize");
-				}
-			}) );
-
-		});
-
+	_.JustifiedTemplate = _.Template.extend({
+		construct: function(gallery){
+			this._super(gallery);
+			this.justified = new _.Justified( this.gallery.$elem.get(0), this.options );
+		},
+		onpreinit: function(){
+			this.justified.init();
+		},
+		onparsed: function(){
+			this.justified.layout();
+		},
+		onbatched: function(){
+			this.justified.layout();
+		},
+		onappended: function(){
+			this.justified.layout( true );
+		},
+		ondetached: function(){
+			this.justified.layout( true );
+		}
 	});
+
+	_.templates.register("justified", _.JustifiedTemplate, function($elem){
+		return $elem.is(".fg-justified");
+	});
+
 })(
-	FooGallery,
-	FooGallery.utils.is
+	FooGallery.$,
+	FooGallery
 );

@@ -19,15 +19,15 @@ The following files for the template must be included after all dependencies are
 ### Standard
 
 ```html
-<div class="foogallery-container foogallery-justified"
+<div class="foogallery foogallery-justified"
 		 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
-	<div class="foogallery-item">
-		<a class="foogallery-thumb foogallery-item-inner" href="">
+	<div class="fg-item">
+		<a class="fg-thumb fg-item-inner" href="">
 			<img data-src="http://satyr.io/150x150/31?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/31?delay=1-1000 300w,http://satyr.io/450x450/31?delay=1-1000 450w"/>
 		</a>
 	</div>
-	<div class="foogallery-item">
-		<a class="foogallery-thumb foogallery-item-inner" href="">
+	<div class="fg-item">
+		<a class="fg-thumb fg-item-inner" href="">
 			<img data-src="http://satyr.io/300x150/32?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/32?delay=1-1000 600w,http://satyr.io/900x450/32?delay=1-1000 900w"/>
 		</a>
 	</div>
@@ -37,16 +37,16 @@ The following files for the template must be included after all dependencies are
 ### Lazy Load
 
 ```html
-<div class="foogallery-container foogallery-justified"
+<div class="foogallery foogallery-justified"
 		 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'
 		 data-loader-options='{"lazy":true}'>
-	<div class="foogallery-item">
-		<a class="foogallery-thumb foogallery-item-inner" href="">
+	<div class="fg-item">
+		<a class="fg-thumb fg-item-inner" href="">
 			<img data-src="http://satyr.io/150x150/31?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/31?delay=1-1000 300w,http://satyr.io/450x450/31?delay=1-1000 450w"/>
 		</a>
 	</div>
-	<div class="foogallery-item">
-		<a class="foogallery-thumb foogallery-item-inner" href="">
+	<div class="fg-item">
+		<a class="fg-thumb fg-item-inner" href="">
 			<img data-src="http://satyr.io/300x150/32?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/32?delay=1-1000 600w,http://satyr.io/900x450/32?delay=1-1000 900w"/>
 		</a>
 	</div>
@@ -55,29 +55,29 @@ The following files for the template must be included after all dependencies are
 
 ### Captions
 
-This template supports the default `foogallery-caption` markup as seen below, this allows it to use the various caption hover effects available in the core files.
+This template supports the default `fg-caption` markup as seen below, this allows it to use the various caption hover effects available in the core files.
 
 ```html
-<div class="foogallery-container foogallery-justified"
+<div class="foogallery foogallery-justified"
 		 data-justified-options='{"rowHeight": 150, "maxRowHeight": "200%", "margins": 3}'>
-	<div class="foogallery-item">
-		<a class="foogallery-thumb foogallery-item-inner" href="">
+	<div class="fg-item">
+		<a class="fg-thumb fg-item-inner" href="">
 			<img data-src="http://satyr.io/150x150/31?delay=1-1000" width="150" height="150" data-srcset="http://satyr.io/300x300/31?delay=1-1000 300w,http://satyr.io/450x450/31?delay=1-1000 450w"/>
-			<div class="foogallery-caption">
-				<div class="foogallery-caption-inner">
-					<div class="foogallery-caption-title">Title</div>
-					<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+			<div class="fg-caption">
+				<div class="fg-caption-inner">
+					<div class="fg-caption-title">Title</div>
+					<div class="fg-caption-desc">This is the longer description for the image.</div>
 				</div>
 			</div>
 		</a>
 	</div>
-	<div class="foogallery-item">
-		<a class="foogallery-thumb foogallery-item-inner" href="">
+	<div class="fg-item">
+		<a class="fg-thumb fg-item-inner" href="">
 			<img data-src="http://satyr.io/300x150/32?delay=1-1000" width="300" height="150" data-srcset="http://satyr.io/600x300/32?delay=1-1000 600w,http://satyr.io/900x450/32?delay=1-1000 900w"/>
-			<div class="foogallery-caption">
-				<div class="foogallery-caption-inner">
-					<div class="foogallery-caption-title">Title</div>
-					<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+			<div class="fg-caption">
+				<div class="fg-caption-inner">
+					<div class="fg-caption-title">Title</div>
+					<div class="fg-caption-desc">This is the longer description for the image.</div>
 				</div>
 			</div>
 		</a>
@@ -89,13 +89,13 @@ This template supports the default `foogallery-caption` markup as seen below, th
 
 - The `width` and `height` attributes are required on each `<img/>` to prevent layout jumps while loading images.
 - Images should use `data-src` and `data-srcset` instead of `src` and `srcset`.
-- The only difference between standard loading and lazy loading is that the `foogallery-container` has a `data-loader-options='{"lazy":true}'` attribute.
+- The only difference between standard loading and lazy loading is that the `foogallery` has a `data-loader-options='{"lazy":true}'` attribute.
 
 ## Options
 
 ### JavaScript
 
-This template supports the following JS options by applying the `data-justified-options` attribute to the `foogallery-container` element. The value for the attribute must be a valid JSON string, including quotes around property names.
+This template supports the following JS options by applying the `data-justified-options` attribute to the `foogallery` element. The value for the attribute must be a valid JSON string, including quotes around property names.
 
 | Name                | Default        | Description                                                                                                                                                                                                                                                                                                                   |
 |---------------------|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

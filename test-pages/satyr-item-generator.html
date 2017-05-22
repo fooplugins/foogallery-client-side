@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Satyr Item Generator</title>
+	<link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="../node_modules/jquery/dist/jquery.js"></script>
+	<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script>
+		(function($){
+
+			function SatyrGenerator(){
+				if (!(this instanceof SatyrGenerator)) return new SatyrGenerator();
+				this.$options = $("#options");
+				this.$output = $("#output");
+				this.$generate = $("#generate").on("click", {self: this}, this.onGenerateClick);
+				this._desc = [
+					"This is a short description for item {{I}}.",
+					"This is a medium description for item {{I}} to see how templates handle various lengths.",
+					"This is a long description for item {{I}} to see how templates handle various lengths even if they start to get very, very long. Ideally if your descriptions are this long you should only display the title."
+				];
+				this._templates = {
+					"150x94": {
+						href: "https://satyr.io/1920x1200/{{I}}?delay=1-1000",
+						src: "https://satyr.io/150x94/{{I}}?delay=1-1000",
+						srcset: "https://satyr.io/300x188/{{I}}?delay=1-1000 300w,https://satyr.io/450x282/{{I}}?delay=1-1000 450w",
+						width: 150,
+						height: 94,
+						title: "Title for {{I}}",
+						description: "",
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"150x225": {
+						href: "https://satyr.io/1920x1200/{{I}}?delay=1-1000",
+						src: "https://satyr.io/150x225/{{I}}?delay=1-1000",
+						srcset: "https://satyr.io/300x450/{{I}}?delay=1-1000 300w,https://satyr.io/450x675/{{I}}?delay=1-1000 450w",
+						width: 150,
+						height: 225,
+						title: "Title for {{I}}",
+						description: "",
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"150x150": {
+						href: "https://satyr.io/1920x1200/{{I}}?delay=1-1000",
+						src: "https://satyr.io/150x150/{{I}}?delay=1-1000",
+						srcset: "https://satyr.io/300x300/{{I}}?delay=1-1000 300w,https://satyr.io/450x450/{{I}}?delay=1-1000 450w",
+						width: 150,
+						height: 150,
+						title: "Title for {{I}}",
+						description: "",
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"250x250": {
+						href: "https://satyr.io/1920x1200/{{I}}?delay=1-1000",
+						src: "https://satyr.io/250x250/{{I}}?delay=1-1000",
+						srcset: "https://satyr.io/500x500/{{I}}?delay=1-1000 500w,https://satyr.io/750x750/{{I}}?delay=1-1000 750w",
+						width: 250,
+						height: 250,
+						title: "Title for {{I}}",
+						description: "",
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					}
+				};
+			}
+
+			SatyrGenerator.prototype.templates = function(size){
+				return $.map(this._templates, function(template, name){
+					return size === "random" || name === size ? template : null;
+				});
+			};
+
+			SatyrGenerator.prototype.options = function(){
+				return {
+					amount: parseInt(this.$options.find("#amount").val()),
+					size: this.$options.find("[name=size]:checked").val()
+				};
+			};
+
+			SatyrGenerator.prototype.generate = function(amount, size){
+				var templates = this.templates(size), items = [];
+				for (var i = 0, min = 0, max = templates.length - 1, ti; i < amount; i++){
+					ti = max > 0 ? Math.floor(Math.random() * (max - min + 1)) + min : 0;
+					items.push(this.item(templates[ti], i));
+				}
+				return items;
+			};
+
+			SatyrGenerator.prototype.item = function(template, index){
+				var item = $.extend(true, {}, template);
+				item.href = item.href.replace(/\{\{I}}/g, index);
+				item.src = item.src.replace(/\{\{I}}/g, index);
+				item.srcset = item.srcset.replace(/\{\{I}}/g, index);
+				item.title = item.title.replace(/\{\{I}}/g, index);
+
+				var min = 0, max = this._desc.length - 1, i = max > 0 ? Math.floor(Math.random() * (max - min + 1)) + min : 0;
+				item.description = this._desc[i].replace(/\{\{I}}/g, index);
+				return item;
+			};
+
+			SatyrGenerator.prototype.output = function(items){
+				this.$output.text(JSON.stringify(items, null, 2));
+			};
+
+			SatyrGenerator.prototype.onGenerateClick = function(e){
+				var self = e.data.self, o = self.options();
+				self.output(self.generate(o.amount, o.size));
+			};
+
+			$(function(){
+				SatyrGenerator();
+			});
+
+		})(jQuery);
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				Options
+			</div>
+			<div class="panel-body">
+				<form id="options" class="form-horizontal">
+					<div class="form-group">
+						<label for="amount" class="col-sm-2 control-label">Amount</label>
+						<div class="col-sm-1">
+							<input id="amount" name="amount" class="form-control" title="The total number of items to generate." type="number" value="300"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="size1" class="col-sm-2 control-label">Size</label>
+						<div class="col-sm-10">
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size1" value="random" checked>
+									Random
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size2" value="150x94">
+									150x94
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size3" value="150x225">
+									150x225
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size4" value="150x150">
+									150x150
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size5" value="250x250">
+									250x250
+								</label>
+							</div>
+						</div>
+					</div>
+					<button type="button" id="generate" class="btn btn-default pull-right">Generate</button>
+				</form>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Output
+			</div>
+			<div class="panel-body">
+				<textarea id="output" name="output" class="form-control" title="Once generated the JSON output will be displayed in this textarea" rows="30" readonly></textarea>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

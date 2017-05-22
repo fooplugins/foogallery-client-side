@@ -25,7 +25,7 @@
 			 * @memberof FooGallery.ImageViewer#
 			 * @name $el
 			 * @type {jQuery}
-			 * @description This is the outer most element that wraps all the templates items and is generally the `foogallery-container` element.
+			 * @description This is the outer most element that wraps all the templates items and is generally the `foogallery` element.
 			 */
 			this.$el = $(element);
 			/**
@@ -34,7 +34,7 @@
 			 * @name $items
 			 * @type {jQuery}
 			 */
-			this.$items = this.$el.find('.fiv-inner-container > .foogallery-item');
+			this.$items = this.$el.find('.fiv-inner-container > .fg-item');
 			/**
 			 * @summary The jQuery object that displays the current image count.
 			 * @memberof FooGallery.ImageViewer#
@@ -204,7 +204,7 @@
 	_.ready(function($){
 
 		// Find each Image Viewer gallery in the current page
-		$(".foogallery-image-viewer").each(function(){
+		$(".fg-image-viewer").each(function(){
 			var $gallery = $(this),
 				// Get the options for the plugin
 				options = $gallery.data("loader-options"),
@@ -214,7 +214,7 @@
 						// the first time the gallery is initialized it triggers a window resize event
 						$(window).trigger("resize");
 					},
-					onload: function(image){
+					onloaded: function(image){
 						// once the actual image is loaded we no longer need the inline css used to prevent layout jumps so remove it
 						$(image).fgRemoveSize();
 					}

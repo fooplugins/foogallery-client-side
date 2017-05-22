@@ -1,111 +1,87 @@
-.foogallery-container.loaded-fade-in .foogallery-item > .foogallery-item-inner,
-.foogallery-container.loaded-slide-up .foogallery-item > .foogallery-item-inner,
-.foogallery-container.loaded-scale-up .foogallery-item > .foogallery-item-inner,
-.foogallery-container.loaded-swing-down .foogallery-item > .foogallery-item-inner,
-.foogallery-container.loaded-drop .foogallery-item > .foogallery-item-inner,
-.foogallery-container.loaded-fly .foogallery-item > .foogallery-item-inner,
-.foogallery-container.loaded-flip .foogallery-item > .foogallery-item-inner {
+.foogallery.loaded-fade-in .fg-item,
+.foogallery.loaded-slide-up .fg-item,
+.foogallery.loaded-scale-up .fg-item,
+.foogallery.loaded-swing-down .fg-item,
+.foogallery.loaded-drop .fg-item,
+.foogallery.loaded-fly .fg-item,
+.foogallery.loaded-flip .fg-item {
+	transition-timing-function: ease;
+	transition-duration: 650ms;
+	transition-property: background-color;
+}
+.foogallery.loaded-fade-in .fg-item-inner,
+.foogallery.loaded-slide-up .fg-item-inner,
+.foogallery.loaded-scale-up .fg-item-inner,
+.foogallery.loaded-swing-down .fg-item-inner,
+.foogallery.loaded-drop .fg-item-inner,
+.foogallery.loaded-fly .fg-item-inner,
+.foogallery.loaded-flip .fg-item-inner {
 	transition-timing-function: ease;
 	transition-duration: 650ms;
 }
 /* Fade In */
-.foogallery-container.loaded-fade-in .foogallery-item > .foogallery-item-inner {
+.foogallery.loaded-fade-in .fg-item-inner {
 	transition-property: visibility, opacity;
-	visibility: hidden;
-	opacity: 0;
-}
-.foogallery-container.loaded-fade-in .foogallery-item.foogallery-loaded > .foogallery-item-inner {
-	visibility: visible;
-	opacity: 1;
 }
 /* Slide Up */
-.foogallery-container.loaded-slide-up .foogallery-item > .foogallery-item-inner {
+.foogallery.loaded-slide-up .fg-item-inner {
 	transition-property: visibility, opacity, transform;
-	visibility: hidden;
-	opacity: 0;
 	transform: translateY(200px);
 }
-.foogallery-container.loaded-slide-up .foogallery-item.foogallery-loaded > .foogallery-item-inner {
-	visibility: visible;
-	opacity: 1;
+.foogallery.loaded-slide-up .fg-loaded .fg-item-inner {
 	transform: translateY(0px);
 }
 /* Scale Up */
-.foogallery-container.loaded-scale-up .foogallery-item > .foogallery-item-inner {
+.foogallery.loaded-scale-up .fg-item-inner {
 	transition-property: visibility, opacity, transform;
-	visibility: hidden;
-	opacity: 0;
 	transform: scale(0.6);
 }
-.foogallery-container.loaded-scale-up .foogallery-item.foogallery-loaded > .foogallery-item-inner {
-	visibility: visible;
-	opacity: 1;
+.foogallery.loaded-scale-up .fg-loaded .fg-item-inner {
 	transform: scale(1);
 }
-/* Swing Down */
-.foogallery-container.loaded-swing-down {
+/* Only apply the perspective once loaded otherwise transitions could take place behind other items*/
+.foogallery.loaded-swing-down .fg-item.fg-loaded,
+.foogallery.loaded-drop .fg-item.fg-loaded,
+.foogallery.loaded-fly .fg-item.fg-loaded,
+.foogallery.loaded-flip .fg-item.fg-loaded {
 	perspective: 1300px;
 }
-.foogallery-container.loaded-swing-down .foogallery-item > .foogallery-item-inner {
+/* Swing Down */
+.foogallery.loaded-swing-down .fg-item-inner {
 	transition-property: visibility, opacity, transform;
-	visibility: hidden;
-	opacity: 0;
 	transform-style: preserve-3d;
 	transform-origin: 0 0;
 	transform: rotateX(-80deg);
 }
-.foogallery-container.loaded-swing-down .foogallery-item.foogallery-loaded > .foogallery-item-inner {
-	visibility: visible;
-	opacity: 1;
+.foogallery.loaded-swing-down .fg-loaded .fg-item-inner {
 	transform: rotateX(0deg);
 }
 /* Drop */
-.foogallery-container.loaded-drop {
-	perspective: 1300px;
-}
-.foogallery-container.loaded-drop .foogallery-item > .foogallery-item-inner {
+.foogallery.loaded-drop .fg-item-inner {
 	transition-property: visibility, opacity, transform;
-	visibility: hidden;
-	opacity: 0;
 	transform-style: preserve-3d;
 	transform: translateZ(400px) translateY(300px) rotateX(-90deg);
 }
-.foogallery-container.loaded-drop .foogallery-item.foogallery-loaded > .foogallery-item-inner {
-	visibility: visible;
-	opacity: 1;
+.foogallery.loaded-drop .fg-loaded .fg-item-inner {
 	transform: translateZ(0px) translateY(0px) rotateX(0deg);
 }
 /* Fly */
-.foogallery-container.loaded-fly {
-	perspective: 1300px;
-}
-.foogallery-container.loaded-fly .foogallery-item > .foogallery-item-inner {
+.foogallery.loaded-fly .fg-item-inner {
 	transition-property: visibility, opacity, transform;
-	visibility: hidden;
-	opacity: 0;
 	transform-style: preserve-3d;
 	transform-origin: 50% 50% -300px;
 	transform: rotateX(-180deg);
 }
-.foogallery-container.loaded-fly .foogallery-item.foogallery-loaded > .foogallery-item-inner {
-	visibility: visible;
-	opacity: 1;
+.foogallery.loaded-fly .fg-loaded .fg-item-inner {
 	transform: rotateX(0deg);
 }
 /* Flip */
-.foogallery-container.loaded-flip {
-	perspective: 1300px;
-}
-.foogallery-container.loaded-flip .foogallery-item > .foogallery-item-inner {
+.foogallery.loaded-flip .fg-item-inner {
 	transition-property: visibility, opacity, transform;
 	backface-visibility: hidden;
-	visibility: hidden;
-	opacity: 0;
 	transform-style: preserve-3d;
 	transform: rotateY(-180deg);
 }
-.foogallery-container.loaded-flip .foogallery-item.foogallery-loaded > .foogallery-item-inner {
-	visibility: visible;
-	opacity: 1;
+.foogallery.loaded-flip .fg-loaded .fg-item-inner {
 	transform: rotateY(0deg);
 }

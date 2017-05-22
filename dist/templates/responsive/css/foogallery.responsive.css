@@ -1,22 +1,22 @@
 /* Base styles */
-.foogallery-default:after {
+.fg-responsive:after {
 	content: '';
 	display: block;
 	clear: both;
 }
 
-.foogallery-default .foogallery-item,
-.foogallery-default .foogallery-item-inner,
-.foogallery-default .foogallery-thumb {
+.fg-responsive .fg-item,
+.fg-responsive .fg-item-inner,
+.fg-responsive .fg-thumb {
 	display: inline-block;
 	vertical-align: top;
 	max-width: 100%;
 }
 
-.foogallery-default .foogallery-thumb {
+.fg-responsive .fg-thumb {
 	overflow: hidden;
 }
-.foogallery-default .foogallery-thumb > img {
+.fg-responsive .fg-image {
 	border-radius: 0;
 	display: block;
 	-webkit-transition: none;
@@ -28,44 +28,44 @@
 }
 
 /* Horizontal alignment */
-.foogallery-default .foogallery-thumb > img {
+.fg-responsive .fg-image {
 	vertical-align: top;
 }
 
-.foogallery-default.alignment-left {
+.fg-responsive.fg-left {
 	text-align: left;
 }
 
-.foogallery-default.alignment-center {
+.fg-responsive.fg-center {
 	text-align: center;
 }
 
-.foogallery-default.alignment-right {
+.fg-responsive.fg-right {
 	text-align: right;
 }
 
 /* Gutter widths */
-.foogallery-default.spacing-width-5 .foogallery-item {
+.fg-responsive.fg-gutter-5 .fg-item {
 	margin-right: 5px;
 	margin-bottom: 5px;
 }
 
-.foogallery-default.spacing-width-10 .foogallery-item {
+.fg-responsive.fg-gutter-10 .fg-item {
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
 
-.foogallery-default.spacing-width-15 .foogallery-item {
+.fg-responsive.fg-gutter-15 .fg-item {
 	margin-right: 15px;
 	margin-bottom: 15px;
 }
 
-.foogallery-default.spacing-width-20 .foogallery-item {
+.fg-responsive.fg-gutter-20 .fg-item {
 	margin-right: 20px;
 	margin-bottom: 20px;
 }
 
-.foogallery-default.spacing-width-25 .foogallery-item {
+.fg-responsive.fg-gutter-25 .fg-item {
 	margin-right: 25px;
 	margin-bottom: 25px;
 }

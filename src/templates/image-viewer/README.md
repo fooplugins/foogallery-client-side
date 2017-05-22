@@ -19,16 +19,16 @@ The following files for the template must be included after all dependencies are
 ### Standard
 
 ```html
-<div class="foogallery-container foogallery-image-viewer">
+<div class="foogallery fg-image-viewer">
 	<div class="fiv-inner">
 		<div class="fiv-inner-container">
-			<div class="foogallery-item">
-				<a class="foogallery-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000">
+			<div class="fg-item">
+				<a class="fg-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000">
 					<img data-src="http://satyr.io/640x360/1?delay=1-1000" width="640" height="360" data-srcset="http://satyr.io/1280x720/1?delay=1-1000 1280w"/>
 				</a>
 			</div>
-			<div class="foogallery-item">
-				<a class="foogallery-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000">
+			<div class="fg-item">
+				<a class="fg-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000">
 					<img data-src="http://satyr.io/640x360/2?delay=1-1000" width="640" height="360" data-srcset="http://satyr.io/1280x720/2?delay=1-1000 1280w"/>
 				</a>
 			</div>
@@ -45,16 +45,16 @@ The following files for the template must be included after all dependencies are
 ### Lazy Load
 
 ```html
-<div class="foogallery-container foogallery-image-viewer" data-loader-options='{"lazy":true}'>
+<div class="foogallery fg-image-viewer" data-loader-options='{"lazy":true}'>
 	<div class="fiv-inner">
 		<div class="fiv-inner-container">
-			<div class="foogallery-item">
-				<a class="foogallery-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000">
+			<div class="fg-item">
+				<a class="fg-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000">
 					<img data-src="http://satyr.io/640x360/1?delay=1-1000" width="640" height="360" data-srcset="http://satyr.io/1280x720/1?delay=1-1000 1280w"/>
 				</a>
 			</div>
-			<div class="foogallery-item">
-				<a class="foogallery-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000">
+			<div class="fg-item">
+				<a class="fg-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000">
 					<img data-src="http://satyr.io/640x360/2?delay=1-1000" width="640" height="360" data-srcset="http://satyr.io/1280x720/2?delay=1-1000 1280w"/>
 				</a>
 			</div>
@@ -70,30 +70,30 @@ The following files for the template must be included after all dependencies are
 
 ### Captions
 
-This template supports the default `foogallery-caption` markup as seen below, this allows it to use the various caption hover effects available in the core files.
+This template supports the default `fg-caption` markup as seen below, this allows it to use the various caption hover effects available in the core files.
 
 ```html
-<div class="foogallery-container foogallery-image-viewer">
+<div class="foogallery fg-image-viewer">
 	<div class="fiv-inner">
 		<div class="fiv-inner-container">
-			<div class="foogallery-item">
-				<a class="foogallery-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000">
+			<div class="fg-item">
+				<a class="fg-thumb" href="http://satyr.io/1920x1200/1?delay=1-1000">
 					<img data-src="http://satyr.io/640x360/1?delay=1-1000" width="640" height="360" data-srcset="http://satyr.io/1280x720/1?delay=1-1000 1280w"/>
-					<div class="foogallery-caption">
-						<div class="foogallery-caption-inner">
-							<div class="foogallery-caption-title">Title</div>
-							<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+					<div class="fg-caption">
+						<div class="fg-caption-inner">
+							<div class="fg-caption-title">Title</div>
+							<div class="fg-caption-desc">This is the longer description for the image.</div>
 						</div>
 					</div>
 				</a>
 			</div>
-			<div class="foogallery-item">
-				<a class="foogallery-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000">
+			<div class="fg-item">
+				<a class="fg-thumb" href="http://satyr.io/1920x1200/2?delay=1-1000">
 					<img data-src="http://satyr.io/640x360/2?delay=1-1000" width="640" height="360" data-srcset="http://satyr.io/1280x720/2?delay=1-1000 1280w"/>
-					<div class="foogallery-caption">
-						<div class="foogallery-caption-inner">
-							<div class="foogallery-caption-title">Title</div>
-							<div class="foogallery-caption-desc">This is the longer description for the image.</div>
+					<div class="fg-caption">
+						<div class="fg-caption-inner">
+							<div class="fg-caption-title">Title</div>
+							<div class="fg-caption-desc">This is the longer description for the image.</div>
 						</div>
 					</div>
 				</a>
@@ -111,7 +111,7 @@ This template supports the default `foogallery-caption` markup as seen below, th
 
 - The `width` and `height` attributes are required on each `<img/>` to prevent layout jumps while loading images.
 - Images should use `data-src` and `data-srcset` instead of `src` and `srcset`.
-- The only difference between standard loading and lazy loading is that the `foogallery-container` has a `data-loader-options='{"lazy":true}'` attribute.
+- The only difference between standard loading and lazy loading is that the `foogallery` has a `data-loader-options='{"lazy":true}'` attribute.
 - The text for the `div.fiv-prev` and `div.fiv-next` buttons can be changed to support any language as required.
 - The `label.fiv-count` total must be set in the HTML, the plugin only updates the `div.fiv-count-current` element.
 
@@ -123,7 +123,7 @@ This template supports no JavaScript options at present.
 
 ### CSS
 
-This template supports the following CSS options by applying the specified CSS class to the `foogallery-container` element.
+This template supports the following CSS options by applying the specified CSS class to the `foogallery` element.
 
 | Class Name  | Description                                                  |
 |-------------|--------------------------------------------------------------|
@@ -137,7 +137,7 @@ This template supports the following CSS options by applying the specified CSS c
 ## Border Styles
 
 - This template supports all of the border styles provided by the FooGallery Core CSS & JS.
-- While you can apply the `border-style-circle-white` and `border-style-circle-black` CSS classes they do not work very well with this template as they only round the `foogallery-thumb` itself and not the `foogallery-container`.
+- While you can apply the `border-style-circle-white` and `border-style-circle-black` CSS classes they do not work very well with this template as they only round the `fg-thumb` itself and not the `foogallery`.
 
 ## Loaded Effects
 

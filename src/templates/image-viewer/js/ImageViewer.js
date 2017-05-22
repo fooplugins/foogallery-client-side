@@ -25,7 +25,7 @@
 			 * @memberof FooGallery.ImageViewer#
 			 * @name $el
 			 * @type {jQuery}
-			 * @description This is the outer most element that wraps all the templates items and is generally the `foogallery-container` element.
+			 * @description This is the outer most element that wraps all the templates items and is generally the `foogallery` element.
 			 */
 			this.$el = $(element);
 			/**
@@ -34,7 +34,7 @@
 			 * @name $items
 			 * @type {jQuery}
 			 */
-			this.$items = this.$el.find('.fiv-inner-container > .foogallery-item');
+			this.$items = this.$el.find('.fiv-inner-container > .fg-item');
 			/**
 			 * @summary The jQuery object that displays the current image count.
 			 * @memberof FooGallery.ImageViewer#

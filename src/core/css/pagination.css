@@ -1,0 +1,121 @@
+.fg-pagination {
+	display: block;
+	padding: 10px;
+	text-align: center;
+	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.fg-pagination .fg-pages {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.fg-pagination .fg-page-item {
+	display: inline-block;
+	list-style: none;
+}
+.fg-pagination .fg-page-item {
+	display: none;
+}
+.fg-pagination .fg-page-item.fg-visible,
+.fg-pagination .fg-page-item.fg-page-button {
+	display: inline-block;
+}
+.fg-pagination .fg-page-item .fg-page-link {
+	display: inline-block;
+	min-width: 40px;
+	padding: 6px 12px;
+	margin: 1px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	background-image: none;
+	text-decoration: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+.fg-pagination .fg-page-item:hover .fg-page-link,
+.fg-pagination .fg-page-item:focus .fg-page-link {
+	text-decoration: none;
+}
+.fg-pagination .fg-page-item.fg-disabled .fg-page-link,
+.fg-pagination .fg-page-item.fg-selected .fg-page-link {
+	cursor: not-allowed;
+	pointer-events: none;
+}
+.fg-pagination .fg-page-item.fg-selected .fg-page-link {
+	z-index: 2;
+}
+.fg-pagination .fg-page-item.fg-disabled .fg-page-link {
+	cursor: not-allowed;
+	pointer-events: none;
+	outline: none;
+}
+
+/* Light - Default */
+.fg-pagination.fg-light .fg-page-item .fg-page-link {
+	color: #333;
+	background-color: transparent;
+	border-color: transparent;
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-pagination.fg-light .fg-page-item:hover .fg-page-link,
+.fg-pagination.fg-light .fg-page-item:focus .fg-page-link,
+.fg-pagination.fg-light .fg-page-item.fg-selected .fg-page-link {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+.fg-pagination.fg-light .fg-page-item.fg-selected .fg-page-link {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+}
+.fg-pagination.fg-light .fg-page-item.fg-disabled .fg-page-link,
+.fg-pagination.fg-light .fg-page-item.fg-disabled:hover .fg-page-link,
+.fg-pagination.fg-light .fg-page-item.fg-disabled:focus .fg-page-link {
+	color: #333;
+	background-color: transparent;
+	border-color: transparent;
+	opacity: 0.5;
+}
+
+/* Dark */
+.fg-pagination.fg-dark .fg-page-item .fg-page-link {
+	color: #9d9d9d;
+	background-color: transparent;
+	border-color: transparent;
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-pagination.fg-dark .fg-page-item:hover .fg-page-link,
+.fg-pagination.fg-dark .fg-page-item:focus .fg-page-link {
+	color: #FFF;
+	background-color: #444;
+	border-color: #333;
+}
+.fg-pagination.fg-dark .fg-page-item.fg-selected .fg-page-link {
+	color: #FFF;
+	background-color: #333;
+	border-color: #222;
+}
+.fg-pagination.fg-dark .fg-page-item.fg-disabled .fg-page-link,
+.fg-pagination.fg-dark .fg-page-item.fg-disabled:hover .fg-page-link,
+.fg-pagination.fg-dark .fg-page-item.fg-disabled:focus .fg-page-link {
+	color: #9d9d9d;
+	background-color: transparent;
+	border-color: transparent;
+	opacity: 0.5;
+}

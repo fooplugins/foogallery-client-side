@@ -15,7 +15,15 @@
 					self.options.maxRowHeight = parseInt(self.options.maxRowHeight);
 				}
 			}
-			self._items = self.$el.find(self.options.itemSelector).map(function(i, el){
+			self.layout(true);
+			$(window).on("resize.justified", {self: self}, self.onWindowResize);
+		},
+		destroy: function(){
+			$(window).off("resize.justified");
+		},
+		parse: function(){
+			var self = this;
+			return self._items = self.$el.find(self.options.itemSelector).map(function(i, el){
 				var $item = $(el),
 					width = $item.outerWidth(),
 					height = $item.outerHeight(),
@@ -30,18 +38,19 @@
 					$item: $item
 				};
 			}).get();
-			$(window).on("resize.justified", {self: self}, self.onwindowresize);
-			self.layout();
-		},
-		destroy: function(){
-			$(window).off("resize.justified");
 		},
 		round: function(value){
 			return Math.round(value);
 			//return Math.round(value*2) / 2;
 		},
-		layout: function(autoCorrect){
+		layout: function(refresh, autoCorrect){
+			refresh = _is.boolean(refresh) ? refresh : false;
 			autoCorrect = _is.boolean(autoCorrect) ? autoCorrect : true;
+
+			if (refresh || this._items.length === 0){
+				this.parse();
+			}
+
 			var self = this,
 				containerWidth = self.$el.width(),
 				rows = self.rows(containerWidth),
@@ -60,7 +69,7 @@
 			// if our layout caused the container width to get smaller
 			// i.e. makes a scrollbar appear then layout again to account for it
 			if (autoCorrect && self.$el.width() < containerWidth){
-				self.layout(false);
+				self.layout(false, false);
 			}
 		},
 		render: function(row){
@@ -74,7 +83,7 @@
 						left: item.left,
 						display: "",
 						maxHeight: this.options.maxRowHeight > 0 ? this.options.maxRowHeight : ""
-					}).addClass("justified");
+					}).addClass("fg-positioned");
 				} else {
 					item.$item.css("display", "none");
 				}
@@ -90,7 +99,7 @@
 					offsetTop = self.justify(row, containerWidth, offsetTop);
 					break;
 				case "nojustify":
-					if (containerWidth / row.width > self.options.justifyThreshold){
+					if (row.width / containerWidth > self.options.justifyThreshold){
 						offsetTop = self.justify(row, containerWidth, offsetTop);
 					} else {
 						offsetTop = self.position(row, containerWidth, offsetTop, "left");
@@ -209,30 +218,18 @@
 			}
 			return rows;
 		},
-		onwindowresize: function(e){
+		onWindowResize: function(e){
 			e.data.self.layout();
 		}
 	});
 
 	_.Justified.defaults = {
-		itemSelector: ".foogallery-item",
+		itemSelector: ".fg-item",
 		rowHeight: 150,
 		maxRowHeight: "200%",
 		margins: 0,
 		lastRow: "nojustify",
 		justifyThreshold: 0.5
-	};
-
-	$.fn.fgJustified = function(options){
-		return this.each(function(){
-			var fj = $.data(this, "__FooGalleryJustified__");
-			if (fj){
-				fj.destroy();
-			}
-			fj = new _.Justified(this, options);
-			fj.init();
-			$.data(this, "__FooGalleryJustified__", fj);
-		});
 	};
 
 })(
@@ -241,28 +238,35 @@
 	FooGallery.utils,
 	FooGallery.utils.is
 );
-(function(_, _is){
-	_.ready(function($){
+(function($, _){
 
-		/* Justified Gallery */
-		$(".foogallery-justified").each(function(){
-			var $gallery = $(this),
-				// get the options for the plugin
-				options = $gallery.data("justified-options"),
-				// get the options for the loader
-				loader = $gallery.data("loader-options");
-
-			$gallery.fgJustified( options ).fgLoader( $.extend(true, loader, {
-				oninit: function(){
-					// the first time the gallery is initialized it triggers a window resize event
-					$(window).trigger("resize");
-				}
-			}) );
-
-		});
-
+	_.JustifiedTemplate = _.Template.extend({
+		construct: function(gallery){
+			this._super(gallery);
+			this.justified = new _.Justified( this.gallery.$elem.get(0), this.options );
+		},
+		onpreinit: function(){
+			this.justified.init();
+		},
+		onparsed: function(){
+			this.justified.layout();
+		},
+		onbatched: function(){
+			this.justified.layout();
+		},
+		onappended: function(){
+			this.justified.layout( true );
+		},
+		ondetached: function(){
+			this.justified.layout( true );
+		}
 	});
+
+	_.templates.register("justified", _.JustifiedTemplate, function($elem){
+		return $elem.is(".fg-justified");
+	});
+
 })(
-	FooGallery,
-	FooGallery.utils.is
+	FooGallery.$,
+	FooGallery
 );

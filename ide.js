@@ -40,3 +40,9 @@
  * @typedef {jQuery} jQuery
  * @property {object} fn
  */
+
+/**
+ * @summary The jQuery.extend function.
+ * @typedef {jQuery} jQuery
+ * @property {function} extend
+ */

@@ -1,70 +1,77 @@
 /* Hover Effects */
 /* Icon & Overlay */
-.foogallery-container.hover-effect-zoom .foogallery-thumb,
-.foogallery-container.hover-effect-zoom2 .foogallery-thumb,
-.foogallery-container.hover-effect-zoom3 .foogallery-thumb,
-.foogallery-container.hover-effect-plus .foogallery-thumb,
-.foogallery-container.hover-effect-circle-plus .foogallery-thumb,
-.foogallery-container.hover-effect-eye .foogallery-thumb,
-.foogallery-container.hover-effect-tint .foogallery-thumb {
+.foogallery.fg-hover-zoom .fg-thumb,
+.foogallery.fg-hover-zoom2 .fg-thumb,
+.foogallery.fg-hover-zoom3 .fg-thumb,
+.foogallery.fg-hover-plus .fg-thumb,
+.foogallery.fg-hover-circle-plus .fg-thumb,
+.foogallery.fg-hover-eye .fg-thumb,
+.foogallery.fg-hover-tint .fg-thumb {
 	position: relative;
 	z-index: 1;
 }
 
-.foogallery-container.hover-effect-zoom .foogallery-thumb:before,
-.foogallery-container.hover-effect-zoom2 .foogallery-thumb:before,
-.foogallery-container.hover-effect-zoom3 .foogallery-thumb:before,
-.foogallery-container.hover-effect-plus .foogallery-thumb:before,
-.foogallery-container.hover-effect-circle-plus .foogallery-thumb:before,
-.foogallery-container.hover-effect-eye .foogallery-thumb:before,
-.foogallery-container.hover-effect-tint .foogallery-thumb:before {
+.foogallery.fg-hover-zoom .fg-thumb:before,
+.foogallery.fg-hover-zoom2 .fg-thumb:before,
+.foogallery.fg-hover-zoom3 .fg-thumb:before,
+.foogallery.fg-hover-plus .fg-thumb:before,
+.foogallery.fg-hover-circle-plus .fg-thumb:before,
+.foogallery.fg-hover-eye .fg-thumb:before,
+.foogallery.fg-hover-tint .fg-thumb:before {
 	content: "";
 	display: block;
 	position: absolute;
+	visibility: hidden;
+	opacity: 0;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	z-index: 2;
-	background: none no-repeat center center;
-	-moz-transition: all .3s linear;
-	-webkit-transition: all .3s linear;
-	-o-transition: all .3s linear;
+	background: rgba(0,0,0,0.5) no-repeat center center;
+	background-size: 32px 32px;
 	transition: all .3s linear;
 }
 
-.foogallery-container.hover-effect-zoom .foogallery-thumb:hover:before,
-.foogallery-container.hover-effect-zoom2 .foogallery-thumb:hover:before,
-.foogallery-container.hover-effect-zoom3 .foogallery-thumb:hover:before,
-.foogallery-container.hover-effect-plus .foogallery-thumb:hover:before,
-.foogallery-container.hover-effect-circle-plus .foogallery-thumb:hover:before,
-.foogallery-container.hover-effect-eye .foogallery-thumb:hover:before,
-.foogallery-container.hover-effect-tint .foogallery-thumb:hover:before {
-	background-color: rgba(0,0,0,0.5);
-	background-size: 32px 32px;
+.foogallery.fg-hover-zoom .fg-thumb:hover:before,
+.foogallery.fg-hover-zoom2 .fg-thumb:hover:before,
+.foogallery.fg-hover-zoom3 .fg-thumb:hover:before,
+.foogallery.fg-hover-plus .fg-thumb:hover:before,
+.foogallery.fg-hover-circle-plus .fg-thumb:hover:before,
+.foogallery.fg-hover-eye .fg-thumb:hover:before,
+.foogallery.fg-hover-tint .fg-thumb:hover:before,
+.foogallery.fg-hover-zoom .fg-thumb:focus:before,
+.foogallery.fg-hover-zoom2 .fg-thumb:focus:before,
+.foogallery.fg-hover-zoom3 .fg-thumb:focus:before,
+.foogallery.fg-hover-plus .fg-thumb:focus:before,
+.foogallery.fg-hover-circle-plus .fg-thumb:focus:before,
+.foogallery.fg-hover-eye .fg-thumb:focus:before,
+.foogallery.fg-hover-tint .fg-thumb:focus:before {
+	visibility: visible;
+	opacity: 1;
 }
 
-.foogallery-container.hover-effect-zoom .foogallery-thumb:hover:before {
+.foogallery.fg-hover-zoom .fg-thumb:before {
 	background-image: url('../img/zoom.png');
 }
 
-.foogallery-container.hover-effect-zoom2 .foogallery-thumb:hover:before {
+.foogallery.fg-hover-zoom2 .fg-thumb:before {
 	background-image: url('../img/zoom2.png');
 }
 
-.foogallery-container.hover-effect-zoom3 .foogallery-thumb:hover:before {
+.foogallery.fg-hover-zoom3 .fg-thumb:before {
 	background-image: url('../img/zoom3.png');
 }
 
-.foogallery-container.hover-effect-plus .foogallery-thumb:hover:before {
+.foogallery.fg-hover-plus .fg-thumb:before {
 	background-image: url('../img/plus.png');
 }
 
-.foogallery-container.hover-effect-circle-plus .foogallery-thumb:hover:before {
+.foogallery.fg-hover-circle-plus .fg-thumb:before {
 	background-image: url('../img/circle-plus.png');
 }
 
-.foogallery-container.hover-effect-eye .foogallery-thumb:hover:before {
+.foogallery.fg-hover-eye .fg-thumb:before {
 	background-image: url('../img/eye.png');
 }
 
@@ -74,27 +81,27 @@ only screen and (-webkit-min-device-pixel-ratio: 1.25),
 only screen and (min-device-pixel-ratio: 1.25),
 only screen and (min-resolution: 1.25dppx) {
 
-	.foogallery-container.hover-effect-zoom .foogallery-thumb:hover:before {
+	.foogallery.fg-hover-zoom .fg-thumb:before {
 		background-image: url('../img/zoom@2x.png');
 	}
 
-	.foogallery-container.hover-effect-zoom2 .foogallery-thumb:hover:before {
+	.foogallery.fg-hover-zoom2 .fg-thumb:before {
 		background-image: url('../img/zoom2@2x.png');
 	}
 
-	.foogallery-container.hover-effect-zoom3 .foogallery-thumb:hover:before {
+	.foogallery.fg-hover-zoom3 .fg-thumb:before {
 		background-image: url('../img/zoom3@2x.png');
 	}
 
-	.foogallery-container.hover-effect-plus .foogallery-thumb:hover:before{
+	.foogallery.fg-hover-plus .fg-thumb:before{
 		background-image: url('../img/plus@2x.png');
 	}
 
-	.foogallery-container.hover-effect-circle-plus .foogallery-thumb:hover:before {
+	.foogallery.fg-hover-circle-plus .fg-thumb:before {
 		background-image: url('../img/circle-plus@2x.png');
 	}
 
-	.foogallery-container.hover-effect-eye .foogallery-thumb:hover:before {
+	.foogallery.fg-hover-eye .fg-thumb:before {
 		background-image: url('../img/eye@2x.png');
 	}
 }
@@ -105,38 +112,36 @@ only screen and (-webkit-min-device-pixel-ratio: 2.25),
 only screen and (min-device-pixel-ratio: 2.25),
 only screen and (min-resolution: 2.25dppx) {
 
-	.foogallery-container.hover-effect-zoom .foogallery-thumb:hover:before {
+	.foogallery.fg-hover-zoom .fg-thumb:before {
 		background-image: url('../img/zoom@3x.png');
 	}
 
-	.foogallery-container.hover-effect-zoom2 .foogallery-thumb:hover:before {
+	.foogallery.fg-hover-zoom2 .fg-thumb:before {
 		background-image: url('../img/zoom2@3x.png');
 	}
 
-	.foogallery-container.hover-effect-zoom3 .foogallery-thumb:hover:before {
+	.foogallery.fg-hover-zoom3 .fg-thumb:before {
 		background-image: url('../img/zoom3@3x.png');
 	}
 
-	.foogallery-container.hover-effect-plus .foogallery-thumb:hover:before{
+	.foogallery.fg-hover-plus .fg-thumb:before{
 		background-image: url('../img/plus@3x.png');
 	}
 
-	.foogallery-container.hover-effect-circle-plus .foogallery-thumb:hover:before {
+	.foogallery.fg-hover-circle-plus .fg-thumb:before {
 		background-image: url('../img/circle-plus@3x.png');
 	}
 
-	.foogallery-container.hover-effect-eye .foogallery-thumb:hover:before {
+	.foogallery.fg-hover-eye .fg-thumb:before {
 		background-image: url('../img/eye@3x.png');
 	}
 }
 
-.foogallery-container.hover-effect-tint .foogallery-thumb:hover:before {
-	background-image: none;
-	background-color:rgba(0,0,0, 0.5);
-}
-
 /* Colorize/Grayscale */
-.foogallery-container.hover-effect-color .foogallery-thumb > img {
+.foogallery.fg-hover-color .fg-thumb:before {
+	background: none;
+}
+.foogallery.fg-hover-color .fg-image {
 	background-image: none;
 	background-color: transparent;
 	/* For Webkit browsers */
@@ -151,169 +156,25 @@ only screen and (min-resolution: 2.25dppx) {
 	-o-transition: filter .3s linear;
 	transition: filter .3s linear;
 }
-
-.foogallery-container.hover-effect-color .foogallery-thumb:hover > img {
+.foogallery.fg-hover-color .fg-thumb:hover .fg-image {
 	-webkit-filter: none;
 	filter: none;
 	opacity: 1;
 }
 
-.foogallery-container.hover-effect-color .foogallery-thumb:hover:before {
-	background: none;
-}
-
 /* Scale */
-.foogallery-container.hover-effect-scale .foogallery-thumb {
-	-webkit-transition: -webkit-transform 0.2s linear; /** Chrome & Safari **/
-	-moz-transition: -moz-transform 0.2s linear; /** Firefox **/
-	-o-transition: -o-tranform 0.2s linear; /** Opera **/
+.foogallery.fg-hover-scale .fg-thumb {
 	transition: transform 0.2s linear;
 	z-index: 1;
 }
 
-.foogallery-container.hover-effect-scale .foogallery-thumb:hover {
-	-webkit-transform: scale(1.05);
-	-moz-transform: scale(1.05);
-	-o-transform: scale(1.05);
+.foogallery.fg-hover-scale .fg-thumb:hover {
 	transform: scale(1.05);
 	z-index: 2;
 }
 
 /* None */
-.foogallery-container.hover-effect-none .foogallery-thumb:before,
-.foogallery-container.hover-effect-none .foogallery-thumb:before:hover {
+.foogallery.fg-hover-none .fg-thumb:before,
+.foogallery.fg-hover-none .fg-thumb:before:hover {
 	background: none;
-}
-
-/* Caption Styles */
-.foogallery-container.hover-effect-caption .foogallery-thumb {
-	position: relative;
-	overflow: hidden;
-}
-
-.foogallery-container.hover-effect-caption .foogallery-thumb:before,
-.foogallery-container.hover-effect-caption .foogallery-thumb:before:hover {
-	background: none;
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-simple .foogallery-caption {
-	bottom: 0;
-	display: block;
-	left: 0;
-	text-align: center;
-	-webkit-transform: translateY(100%);
-	-moz-transform: translateY(100%);
-	-o-transform: translateY(100%);
-	transform: translateY(100%);
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-simple .foogallery-thumb:hover .foogallery-caption {
-	-webkit-transform: translateY(0);
-	-moz-transform: translateY(0);
-	-o-transform: translateY(0);
-	transform: translateY(0);
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-simple-always .foogallery-caption {
-	display: block;
-	left: 0;
-	bottom: 0;
-	text-align: center;
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-full-drop .foogallery-caption {
-	display: block;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	text-align: center;
-	-webkit-transform: translateY(-100%);
-	-moz-transform: translateY(-100%);
-	-o-transform: translateY(-100%);
-	transform: translateY(-100%);
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-full-drop .foogallery-thumb:hover .foogallery-caption {
-	-webkit-transform: translateY(0);
-	-moz-transform: translateY(0);
-	-o-transform: translateY(0);
-	transform: translateY(0);
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-full-drop .foogallery-caption-inner {
-	width: 100%;
-	position: absolute;
-	top: 50%;
-	left: 0;
-	-webkit-transform: translateY(-50%);
-	-moz-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-full-fade .foogallery-caption {
-	display: block;
-	opacity: 0;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	text-align: center;
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-full-fade .foogallery-caption-inner {
-	width: 100%;
-	position: absolute;
-	top: 50%;
-	left: 0;
-	-webkit-transform: translateY(-50%);
-	-moz-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-full-fade .foogallery-thumb:hover .foogallery-caption {
-	opacity: 1;
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-push .foogallery-caption {
-	display: block;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	text-align: center;
-	-webkit-transform: translateX(100%);
-	-moz-transform: translateX(100%);
-	-o-transform: translateX(100%);
-	transform: translateX(100%);
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-push .foogallery-thumb:hover .foogallery-caption {
-	-webkit-transform: translateY(0);
-	-moz-transform: translateY(0);
-	-o-transform: translateY(0);
-	transform: translateY(0);
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-push .foogallery-thumb img {
-	-webkit-transition: all 300ms ease-out;
-	-moz-transition: all 300ms ease-out;
-	-o-transition: all 300ms ease-out;
-	transition: all 300ms ease-out;
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-push .foogallery-thumb:hover img {
-	-webkit-transform: translateX(-100%);
-	-moz-transform: translateX(-100%);
-	-o-transform: translateX(-100%);
-	transform: translateX(-100%);
-}
-
-.foogallery-container.hover-effect-caption.hover-caption-push .foogallery-caption-inner {
-	width: 100%;
-	position: absolute;
-	top: 50%;
-	left: 0;
-	-webkit-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
 }

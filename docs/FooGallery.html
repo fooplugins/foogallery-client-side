@@ -36,8 +36,11 @@
 							<li class="dropdown">
 								<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 								<ul class="dropdown-menu">
+										<li><a href="FooGallery.Gallery.html">FooGallery.Gallery</a></li>
+										<li><a href="FooGallery.Gallery.Item.html">FooGallery.Gallery.Item</a></li>
+										<li><a href="FooGallery.Gallery.Items.InfiniteScroll.html">FooGallery.Gallery.Items.InfiniteScroll</a></li>
+										<li><a href="FooGallery.Gallery.Items.Pagination.html">FooGallery.Gallery.Items.Pagination</a></li>
 										<li><a href="FooGallery.ImageViewer.html">FooGallery.ImageViewer</a></li>
-										<li><a href="FooGallery.Loader.html">FooGallery.Loader</a></li>
 										<li><a href="FooGallery.utils.Class.html">FooGallery.utils.Class</a></li>
 										<li><a href="FooGallery.utils.Debugger.html">FooGallery.utils.Debugger</a></li>
 										<li><a href="FooGallery.utils.Factory.html">FooGallery.utils.Factory</a></li>
@@ -152,8 +155,8 @@
 									<dl class="symbol">
 											<hr/>
 											<dt class="symbol-title class">
-			<h4 id="Loader" class="class"><a href="FooGallery.Loader.html"><span class="signature-new">new&nbsp;</span><span class="name">Loader</span><span class="signature-params">( <span class="signature-param">target</span>, <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"></span></a></h4>
-				<div class="summary"><p>The core class for the loading for images.</p></div></dt>
+			<h4 id="Gallery" class="class"><a href="FooGallery.Gallery.html"><span class="signature-new">new&nbsp;</span><span class="name">Gallery</span><span class="signature-params">( <span class="signature-param">target</span> [,&nbsp;<span class="signature-param">options</span> [,&nbsp;<span class="signature-param">overrides</span>&nbsp;]&nbsp;]&nbsp;)</span><span class="signature-type"></span></a></h4>
+				<div class="summary"><p>The core class for FooGallery galleries.</p></div></dt>
 <dd class="symbol-details class">
 	<div class="symbol-details-inner">
 	</div>
@@ -262,7 +265,11 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>This method can be used as a replacement for the jQuery ready callback and is used by all FooGallery plugins to avoid an error in another script stopping our plugins from running.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">FooGallery.ready(function($){	$(&quot;.foogallery-container&quot;).fgImageViewer();});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
 			
 			
 			
@@ -282,7 +289,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2752">line 2752</a></p>
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2753">line 2753</a></p>
 								</div>
 							</div>
 			
@@ -294,34 +301,13 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function collapsible-symbol">
-			<h4 id=".getImages" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">getImages</span><span class="signature-params">( <span class="signature-param">target</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{jQuery}</span></h4>
-				<div class="summary"><p>Gets all images from the supplied target that have a <code>width</code> and <code>height</code> attribute set.</p></div></dt>
+			<h4 id=".getViewportBounds" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">getViewportBounds</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{<a href="FooGallery.html#~Bounds">FooGallery~Bounds</a>}</span></h4>
+				<div class="summary"><p>Gets the bounding rectangle and pixel density of the current viewport.</p></div></dt>
 <dd class="symbol-details function  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>target</code></td>
-							<td><span class="param-type">jQuery</span> | <span class="param-type">HTMLElement</span> | <span class="param-type">string</span></td>
-							<td class="last">
-									<p>The jQuery object, selector or the HTMLElement of either the <code>.foogallery-container</code>, <code>.foogallery-thumb</code> or just the actual <code>img</code> element.</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
 			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
 							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">jQuery</span></label>
+								<label class="col-sm-3 control-label returns-type"><span class="param-type"><a href="FooGallery.html#~Bounds">FooGallery~Bounds</a></span></label>
 								<div class="col-sm-9">
 									<div class="form-control-static returns-description"></div>
 								</div>
@@ -347,7 +333,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2767">line 2767</a></p>
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2773">line 2773</a></p>
 								</div>
 							</div>
 			
@@ -359,79 +345,8 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function collapsible-symbol">
-			<h4 id=".addSize" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">addSize</span><span class="signature-params">( <span class="signature-param">target</span> [,&nbsp;<span class="signature-param">checkContainer</span>&nbsp;]&nbsp;)</span><span class="signature-type"></span></h4>
-				<div class="summary"><p>Sets an inline CSS width and height value for the provided target images calculated from there <code>width</code> and <code>height</code> attributes.</p></div></dt>
-<dd class="symbol-details function  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>This method is used on page load to calculate a CSS <code>width</code> and <code>height</code> for images that have yet to be loaded. This is done to avoid layout jumps and is needed as for responsive images to work in most layouts they must have a CSS <code>width</code> of <code>100%</code> and a <code>height</code> of <code>auto</code>. This allows the browser to automatically calculate the height to display the image without causing any stretching.<br>The problem with this approach is that it leads to layout jumps as before the image is loaded and the browser can determine its size it is simply displayed in the page as a 0 height block at 100% width of its' container. This method fixes this issue by setting a CSS <code>width</code> and <code>height</code> for all images supplied.</p></div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-							<th>Attributes</th>
-							<th>Default</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>target</code></td>
-							<td><span class="param-type">jQuery</span> | <span class="param-type">HTMLElement</span> | <span class="param-type">string</span></td>
-								<td class="attributes"></td>
-								<td></td>
-							<td class="last">
-									<p>The jQuery object, selector or the HTMLElement of either the <code>.foogallery-container</code>, <code>.foogallery-thumb</code> or just the actual <code>img</code> element.</p>
-							</td>
-						</tr>
-						<tr>
-								<td><code>checkContainer</code></td>
-							<td><span class="param-type">boolean</span></td>
-								<td class="attributes">&lt;optional&gt;<br/></td>
-								<td>false</td>
-							<td class="last">
-									<p>Whether or not to check the <code>.foogallery-container</code> parents' width when determining the widths of the images.</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2786">line 2786</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function collapsible-symbol">
-			<h4 id=".removeSize" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">removeSize</span><span class="signature-params">( <span class="signature-param">target</span>&nbsp;)</span><span class="signature-type"></span></h4>
-				<div class="summary"><p>Removes any inline CSS width and height value for the provided target images.</p></div></dt>
+			<h4 id=".getElementBounds" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">getElementBounds</span><span class="signature-params">( <span class="signature-param">element</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{<a href="FooGallery.html#~Bounds">FooGallery~Bounds</a>}</span></h4>
+				<div class="summary"><p>Get the bounding rectangle for the supplied element.</p></div></dt>
 <dd class="symbol-details function  collapsible-symbol">
 	<div class="symbol-details-inner">
 			<div class="callout callout-info">
@@ -446,16 +361,24 @@
 					</thead>
 					<tbody>
 						<tr>
-								<td><code>target</code></td>
+								<td><code>element</code></td>
 							<td><span class="param-type">jQuery</span> | <span class="param-type">HTMLElement</span> | <span class="param-type">string</span></td>
 							<td class="last">
-									<p>The jQuery object, selector or the HTMLElement of either the <code>.foogallery-container</code>, <code>.foogallery-thumb</code> or just the actual <code>img</code> element.</p>
+									<p>The jQuery wrapper around the element, the element itself, or a CSS selector to retrieve the element with.</p>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type"><a href="FooGallery.html#~Bounds">FooGallery~Bounds</a></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
 			
 			
 			
@@ -475,7 +398,79 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2832">line 2832</a></p>
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2792">line 2792</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function collapsible-symbol">
+			<h4 id=".intersects" class="function"><span class="signature-attribs">&lt;static> </span><span class="name">intersects</span><span class="signature-params">( <span class="signature-param">bounds1</span>, <span class="signature-param">bounds2</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{boolean}</span></h4>
+				<div class="summary"><p>Checks if the supplied bounding rectangles intersect each other.</p></div></dt>
+<dd class="symbol-details function  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>bounds1</code></td>
+							<td><span class="param-type"><a href="FooGallery.html#~Bounds">FooGallery~Bounds</a></span></td>
+							<td class="last">
+									<p>The first rectangle.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>bounds2</code></td>
+							<td><span class="param-type"><a href="FooGallery.html#~Bounds">FooGallery~Bounds</a></span></td>
+							<td class="last">
+									<p>The second rectangle to compare with the first.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2809">line 2809</a></p>
 								</div>
 							</div>
 			
@@ -547,6 +542,180 @@
 							</div>
 			
 			
+							<!-- see -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">See</label>
+								<div class="col-sm-9">
+										<p class="form-control-static">Take a look at the <a href="FooGallery.html#.ready">FooGallery.ready</a> method for example usage.</p>
+								</div>
+							</div>
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title typedef collapsible-symbol">
+			<h4 id="~Bounds" class="typedef"><span class="name">Bounds</span></h4>
+				<div class="summary"><p>A simple object used to represent the bounding rectangle of an element.</p></div></dt>
+<dd class="symbol-details typedef  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>width</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									<p>The width of the rectangle.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>height</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									<p>The height of the rectangle.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>top</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									<p>The top co-ordinate of the rectangle.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>left</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									<p>The left co-ordinate of the rectangle.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>bottom</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									<p>The bottom co-ordinate of the rectangle.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>right</code></td>
+							<td><span class="param-type">number</span></td>
+							<td class="last">
+									<p>The right co-ordinate of the rectangle.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">object</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2821">line 2821</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title typedef collapsible-symbol">
+			<h4 id="~ViewportBounds" class="typedef"><span class="name">ViewportBounds</span></h4>
+				<div class="summary"><p>A simple object used to represent the current viewports required information.</p></div></dt>
+<dd class="symbol-details typedef  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+							<th>Default</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>dpr</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>1</td>
+							<td class="last">
+									<p>The pixel density of the current viewport.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type"><a href="FooGallery.html#~Bounds">FooGallery~Bounds</a></span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2832">line 2832</a></p>
+								</div>
+							</div>
+			
+			
 			
 			
 					</form>
@@ -563,7 +732,7 @@
 	</div>
 	<footer>
 				<div class="copyright">FooGallery Copyright © 2016</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on 13th Apr 2017 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on 16th May 2017 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

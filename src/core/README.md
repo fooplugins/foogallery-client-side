@@ -8,22 +8,22 @@ The core CSS supplies some basic functionality that can be shared across all tem
 
 ## Hover Effects
 
-The FooGallery Core CSS & JS provides some built in hover effects for the thumbnails in the various galleries. These CSS classes must be applied to the `foogallery-container` element and the thumbnails must have the CSS class `foogallery-thumb` applied to them.
+The FooGallery Core CSS & JS provides some built in hover effects for the thumbnails in the various galleries. These CSS classes must be applied to the `foogallery` element and the thumbnails must have the CSS class `fg-thumb` applied to them.
 
 ### Icons
 
-- `hover-effect-zoom`
-- `hover-effect-zoom2`
-- `hover-effect-zoom3`
-- `hover-effect-plus`
-- `hover-effect-circle-plus`
-- `hover-effect-eye`
+- `fg-hover-zoom`
+- `fg-hover-zoom2`
+- `fg-hover-zoom3`
+- `fg-hover-plus`
+- `fg-hover-circle-plus`
+- `fg-hover-eye`
 
 ### Transitions
 
-- `hover-effect-tint`
-- `hover-effect-color`
-- `hover-effect-scale`
+- `fg-hover-tint`
+- `fg-hover-color`
+- `fg-hover-scale`
 
 ### Captions
 
@@ -36,16 +36,16 @@ The FooGallery Core CSS & JS provides some built in hover effects for the thumbn
     
 #### Notes
 
-- When applying a caption hover effect two CSS classes are required on the `foogallery-container`, the base `hover-effect-caption` class plus one of the effects such as `hover-caption-simple`.
-- The basic markup for supporting captions within a `foogallery-thumb` element is as follows:
+- When applying a caption hover effect two CSS classes are required on the `foogallery`, the base `hover-effect-caption` class plus one of the effects such as `hover-caption-simple`.
+- The basic markup for supporting captions within a `fg-thumb` element is as follows:
 
 ```html
-<a class="foogallery-thumb">
+<a class="fg-thumb">
   <img/>
-  <div class="foogallery-caption">
-    <div class="foogallery-caption-inner">
-      <div class="foogallery-caption-title">My Title</div>
-      <div class="foogallery-caption-desc">My description will go here.</div>
+  <div class="fg-caption">
+    <div class="fg-caption-inner">
+      <div class="fg-caption-title">My Title</div>
+      <div class="fg-caption-desc">My description will go here.</div>
     </div>
   </div>
 </a>
@@ -53,7 +53,7 @@ The FooGallery Core CSS & JS provides some built in hover effects for the thumbn
     
 ## Border Styles
 
-The FooGallery Core CSS & JS provides some built in border styles for the thumbnails in the various galleries. These CSS classes must be applied to the `foogallery-container` element and the thumbnails must have the CSS class `foogallery-thumb` applied to them.
+The FooGallery Core CSS & JS provides some built in border styles for the thumbnails in the various galleries. These CSS classes must be applied to the `foogallery` element and the thumbnails must have the CSS class `fg-thumb` applied to them.
 
 - `border-style-rounded`
 - `border-style-square-white`
@@ -68,7 +68,7 @@ The FooGallery Core CSS & JS provides some built in border styles for the thumbn
 
 ## Loader Effects
 
-The FooGallery Core CSS & JS provides some built in CSS effects to use once an item is loaded. These CSS classes must be applied to the `foogallery-container` element. `foogallery-items` must have a direct child element with the `foogallery-item-inner` class applied for these effects to work.
+The FooGallery Core CSS & JS provides some built in CSS effects to use once an item is loaded. These CSS classes must be applied to the `foogallery` element. `foogallery-items` must have a direct child element with the `fg-item-inner` class applied for these effects to work.
 
 - `loaded-fade-in`
 - `loaded-slide-up`
@@ -82,7 +82,7 @@ The FooGallery Core CSS & JS provides some built in CSS effects to use once an i
 
 ## Loading Icons
 
-The FooGallery Core CSS & JS provides some built in loading icons that can be used by simply applying the below listed classes to the `foogallery-container`.
+The FooGallery Core CSS & JS provides some built in loading icons that can be used by simply applying the below listed classes to the `foogallery`.
 
 - `loading-icon-none`
-- `loading-icon-default`
+- `fg-icon-default`

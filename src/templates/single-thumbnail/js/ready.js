@@ -16,7 +16,7 @@
 					// the first time the gallery is initialized it triggers a window resize event
 					$(window).trigger("resize");
 				},
-				onload: function(image){
+				onloaded: function(image){
 					// once the actual image is loaded we no longer need the inline css used to prevent layout jumps so remove it
 					$(image).fgRemoveSize();
 				}

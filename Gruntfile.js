@@ -24,14 +24,23 @@ module.exports = function ( grunt ) {
 						"./src/core/js/__foogallery.js",
 						"./dist/foogallery.utils.js",
 						"./src/core/js/_foogallery.js",
-						"./src/core/js/Loader.js"
+						"./src/core/js/Gallery.js",
+						"./src/core/js/TemplateFactory.js",
+						"./src/core/js/Template.js",
+						"./src/core/js/Item.js",
+						"./src/core/js/InfiniteScroll.js",
+						"./src/core/js/Pagination.js",
+						"./src/core/js/Pagination.Control.js"
 					],
 					"./dist/core/css/foogallery.css": [
 						"./src/core/css/_foogallery.css",
 						"./src/core/css/border-styles.css",
 						"./src/core/css/hover-effects.css",
+						"./src/core/css/captions.css",
 						"./src/core/css/loaded-effects.css",
-						"./src/core/css/loading-icons.css"
+						"./src/core/css/loading-icons.css",
+						"./src/core/css/infinite-scroll.css",
+						"./src/core/css/pagination.css"
 					]
 				}
 			},
@@ -87,14 +96,14 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
-			"simple-portfolio": {
+			"portfolio": {
 				"files": {
-					"./dist/templates/simple-portfolio/js/foogallery.simple-portfolio.js": [
-						"./src/templates/simple-portfolio/js/SimplePortfolio.js",
-						"./src/templates/simple-portfolio/js/ready.js"
+					"./dist/templates/portfolio/js/foogallery.portfolio.js": [
+						"./src/templates/portfolio/js/Portfolio.js",
+						"./src/templates/portfolio/js/ready.js"
 					],
-					"./dist/templates/simple-portfolio/css/foogallery.simple-portfolio.css": [
-						"./src/templates/simple-portfolio/css/simple-portfolio.css"
+					"./dist/templates/portfolio/css/foogallery.portfolio.css": [
+						"./src/templates/portfolio/css/portfolio.css"
 					]
 				}
 			},
@@ -150,9 +159,9 @@ module.exports = function ( grunt ) {
 					"./dist/templates/justified/js/foogallery.justified.min.js": "./dist/templates/justified/js/foogallery.justified.js"
 				}
 			},
-			"simple-portfolio": {
+			"portfolio": {
 				"files": {
-					"./dist/templates/simple-portfolio/js/foogallery.simple-portfolio.min.js": "./dist/templates/simple-portfolio/js/foogallery.simple-portfolio.js"
+					"./dist/templates/portfolio/js/foogallery.portfolio.min.js": "./dist/templates/portfolio/js/foogallery.portfolio.js"
 				}
 			},
 			"single-thumbnail": {
@@ -202,9 +211,9 @@ module.exports = function ( grunt ) {
 					"./dist/templates/justified/css/foogallery.justified.min.css": "./dist/templates/justified/css/foogallery.justified.css"
 				}
 			},
-			"simple-portfolio": {
+			"portfolio": {
 				"files": {
-					"./dist/templates/simple-portfolio/css/foogallery.simple-portfolio.min.css": "./dist/templates/simple-portfolio/css/foogallery.simple-portfolio.css"
+					"./dist/templates/portfolio/css/foogallery.portfolio.min.css": "./dist/templates/portfolio/css/foogallery.portfolio.css"
 				}
 			},
 			"single-thumbnail": {
@@ -229,7 +238,7 @@ module.exports = function ( grunt ) {
 					"./dist/templates/masonry/js/foogallery.masonry.js",
 					"./dist/templates/image-viewer/js/foogallery.image-viewer.js",
 					"./dist/templates/justified/js/foogallery.justified.js",
-					"./dist/templates/simple-portfolio/js/foogallery.simple-portfolio.js",
+					"./dist/templates/portfolio/js/foogallery.portfolio.js",
 					"./dist/templates/single-thumbnail/js/foogallery.single-thumbnail.js"
 				],
 				"jsdoc": "./node_modules/jsdoc/jsdoc.js",
@@ -277,9 +286,9 @@ module.exports = function ( grunt ) {
 		"concat:justified",
 		"uglify:justified",
 		"cssmin:justified",
-		"concat:simple-portfolio",
-		"uglify:simple-portfolio",
-		"cssmin:simple-portfolio",
+		"concat:portfolio",
+		"uglify:portfolio",
+		"cssmin:portfolio",
 		"concat:single-thumbnail",
 		"uglify:single-thumbnail",
 		"cssmin:single-thumbnail"
