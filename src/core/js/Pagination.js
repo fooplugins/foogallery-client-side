@@ -1,228 +1,102 @@
 (function($, _, _utils, _is){
 
-	_.Pagination = _utils.Class.extend(/** @lends FooGallery.Pagination */{
-		/**
-		 * @summary The core class for pagination of items.
-		 * @memberof FooGallery.Gallery.Items
-		 * @constructs Pagination
-		 * @param {FooGallery.Gallery} gallery - The parent gallery instance.
-		 * @augments FooGallery.utils.Class
-		 * @borrows FooGallery.utils.Class.extend as extend
-		 * @borrows FooGallery.utils.Class.override as override
-		 */
-		construct: function(gallery){
+	_.Pagination = _.Paged.extend({
+		construct: function(gallery, options, classes, il8n, selectors){
+			this._super(gallery, options, classes, il8n, selectors);
+			this.sel.firstPrev = [this.sel.first, this.sel.prev].join(",");
+			this.sel.nextLast = [this.sel.next, this.sel.last].join(",");
+			this.opt.showPrevNextMore = this.opt.limit === 0 ? false : this.opt.showPrevNextMore;
 			/**
-			 * @summary The parent gallery instance.
-			 * @memberof FooGallery.Pagination#
-			 * @name g
-			 * @type {FooGallery.Gallery}
-			 */
-			this.g = gallery;
-			/**
-			 * @summary The options for this instance.
-			 * @memberof FooGallery.Pagination#
-			 * @name o
-			 * @type {FooGallery.Pagination~Options}
-			 */
-			this.o = this.g.options.paging;
-			/**
-			 * @summary The CSS classes for this instance.
-			 * @memberof FooGallery.Pagination#
-			 * @name classes
-			 * @type {FooGallery.Pagination~CSSClasses}
-			 */
-			this.classes = this.g.options.classes.paging;
-			/**
-			 * @summary The il8n strings for this instance.
-			 * @memberof FooGallery.Pagination#
-			 * @name il8n
-			 * @type {FooGallery.Pagination~il8n}
-			 */
-			this.il8n = this.g.options.il8n.paging;
-			/**
-			 * @summary Whether or not this instance of pagination is enabled.
-			 * @memberof FooGallery.Pagination#
-			 * @name enabled
-			 * @type {boolean}
-			 * @readonly
-			 */
-			this.enabled = this.o.enabled;
-			/**
-			 * @summary An array of control objects created for pagination.
+			 * @summary An array of control objects used by the pagination.
 			 * @memberof FooGallery.Pagination#
 			 * @name controls
-			 * @type {FooGallery.Pagination.Control[]}
+			 * @type {FooGallery.PaginationControl[]}
 			 * @readonly
 			 */
-			this.controls = null;
-			/**
-			 * @summary An array of pages used for the pagination.
-			 * @memberof FooGallery.Pagination#
-			 * @name pages
-			 * @type {Array.<FooGallery.Pagination~Page>}
-			 * @readonly
-			 */
-			this.pages = [];
-			/**
-			 * @summary The currently displayed page index.
-			 * @memberof FooGallery.Pagination#
-			 * @name index
-			 * @type {number}
-			 * @readonly
-			 */
-			this.index = this.o.index;
-			/**
-			 * @summary Whether or not to display all page item links.
-			 * @memberof FooGallery.Pagination#
-			 * @name displayAll
-			 * @type {boolean}
-			 * @readonly
-			 */
-			this.displayAll = false;
-			/**
-			 * @summary The cached result of the last call to the {@link FooGallery.Pagination#getSelectors|getSelectors} method.
-			 * @memberof FooGallery.Pagination#
-			 * @name _selectors
-			 * @type {?FooGallery.Pagination~Selectors}
-			 * @private
-			 */
-			this._selectors = null;
+			this.controls = [];
 			/**
 			 * @summary The previous range of visible page links.
 			 * @memberof FooGallery.Pagination#
-			 * @name _range
-			 * @type {Array.<number>}
+			 * @name _visible
+			 * @type {number[]}
 			 * @private
 			 */
-			this._range = [-1,-1];
+			this._visible = [-1,-1];
 		},
-		/**
-		 * @summary Initializes the paging extension of the loader.
-		 * @memberof FooGallery.Pagination#
-		 * @function init
-		 */
-		init: function(){
+		buildPages: function(items, size){
 			var self = this;
-			if (self.enabled){
-				self.pages = self.getPages();
-				self.displayAll = self.pages.length <= self.o.limit;
-				if (self.enabled = self.pages.length > 1){
-					self.controls = self.createControls();
-					self.goto(self.index + 1, true);
-				}
+			self._super(items, _is.number(size) ? size : self.opt.size);
+			self.buildControls();
+		},
+		buildControls: function(){
+			var self = this, pos = self.opt.position, top, bottom;
+			self.destroyControls();
+			if (pos === "both" || pos === "top"){
+				top = new _.PaginationControl(self.fg, self, "top");
+				top.createDOM();
+				self.controls.push(top);
+			}
+			if (pos === "both" || pos === "bottom"){
+				bottom = new _.PaginationControl(self.fg, self, "bottom");
+				bottom.createDOM();
+				self.controls.push(bottom);
 			}
 		},
-		/**
-		 * @summary Destroys the paging extension for the loader.
-		 * @memberof FooGallery.Pagination#
-		 * @function destroy
-		 */
-		destroy: function(){
+		destroyControls: function(){
 			var self = this;
-			if (self.enabled){
-				$.each(self.controls, function(i, control){
+			if (!_is.empty(self.controls)){
+				$.each(self.controls.splice(0, self.controls.length), function(control){
 					control.destroyDOM();
 				});
 			}
-		},
-		getPages: function(){
-			var self = this, o = self.o, pages = [], all = self.g.items.slice(), total = Math.ceil(all.length / o.size);
-			for (var i = 0, page; i < total; i++){
-				page = {
-					items: all.splice(0, o.size),
-					created: false,
-					attached: false
-				};
-				for (var j = 0, l = page.items.length; j < l; j++){
-					if (page.items[j].isCreated){
-						page.isCreated = true;
-						page.isAttached = true;
-						break;
-					}
-				}
-				// if a page is marked as created
-				if (page.isCreated){
-					self.g.createItems(page.items);
-				}
-				// and if they're attached
-				if (page.isAttached){
-					// then detach their items from the gallery
-					self.g.detachItems(page.items);
-					page.isAttached = false;
-				}
-				pages.push(page);
-			}
-			return pages;
-		},
-		/**
-		 * @summary Gets the required CSS selectors from the CSS classes supplied in the options.
-		 * @memberof FooGallery.Pagination#
-		 * @function getSelectors
-		 * @param {boolean} [refresh=false] - Whether or not to force a refresh of the CSS selectors.
-		 * @returns {FooGallery.Pagination~Selectors}
-		 */
-		getSelectors: function(refresh){
-			var self = this;
-			refresh = _is.boolean(refresh) ? refresh : false;
-			if (!refresh && _is.hash(self._selectors)) return self._selectors;
-			var classes = self.classes, selector = self.g.selectorFromCSSClass;
-			return self._selectors = {
-				item: selector(classes.item),
-				button: selector(classes.button),
-				link: selector(classes.link),
-				firstPrev: selector([classes.first, classes.prev]),
-				nextLast: selector([classes.next, classes.last]),
-				prevMore: selector(classes.prevMore),
-				nextMore: selector(classes.nextMore),
-				disabled: selector(classes.disabled),
-				selected: selector(classes.selected),
-				visible: selector(classes.visible),
-				reader: selector(classes.reader)
-			};
-		},
-		/**
-		 * @summary Create the controls for the pagination.
-		 * @memberof FooGallery.Pagination#
-		 * @function createControls
-		 * @returns {FooGallery.Pagination.Control[]}
-		 */
-		createControls: function(){
-			var pos = this.o.position, top, bottom, controls = [];
-			if (pos === "both" || pos === "top"){
-				top = new _.Pagination.Control(this.g);
-				if (top.createDOM().isCreated){
-					top.$container.insertBefore(this.g.$elem);
-					controls.push(top);
-				}
-			}
-			if (pos === "both" || pos === "bottom"){
-				bottom = new _.Pagination.Control(this.g);
-				if (bottom.createDOM().isCreated){
-					bottom.$container.insertAfter(this.g.$elem);
-					controls.push(bottom);
-				}
-			}
-			return controls;
 		},
 		/**
 		 * @summary Calculates the range of page links to display.
 		 * @memberof FooGallery.Pagination#
 		 * @function range
+		 * @param {(number|string)} pageNumber - The page number or one of the page keywords; `"first"`, `"prev"`, `"prevMore"`, `"nextMore"`, `"next"` or `"last"` to determine the range for.
+		 * @returns {FooGallery.Pagination~Range}
+		 */
+		range: function(pageNumber){
+			var self = this;
+			switch(pageNumber){
+				case "first":
+					return self._range(0, true);
+				case "last":
+					return self._range(self.pages.length - 1, false);
+				case "prev":
+					return self._range(self.currentPage - 2, true);
+				case "prevMore":
+					return self._range(self._visible[0] - 1, false, false);
+				case "next":
+					return self._range(self.currentPage, false);
+				case "nextMore":
+					return self._range(self._visible[1] + 1, true, false);
+				default:
+					pageNumber = self.safePageNumber(pageNumber);
+					return self._range(pageNumber - 1, pageNumber <= self.currentPage)
+			}
+		},
+		/**
+		 * @summary Calculates the range of page links to display.
+		 * @memberof FooGallery.Pagination#
+		 * @function _range
 		 * @param {number} index - The page index used to determine the range.
 		 * @param {boolean} [leftMost=false] - Whether or not the index should be displayed as the left most item or not.
 		 * @param {boolean} [selected=true] - Whether or not the supplied index is also selected.
 		 * @returns {FooGallery.Pagination~Range}
+		 * @private
 		 */
-		range: function(index, leftMost, selected){
+		_range: function(index, leftMost, selected){
 			var self = this, range = {
 				index: index,
-				start: self._range[0],
-				end: self._range[1],
+				start: self._visible[0],
+				end: self._visible[1],
 				changed: false,
 				selected: _is.boolean(selected) ? selected : true
 			};
-			// if we have less pages than the limit
-			if (self.displayAll){
+			// if we have less pages than the limit or there is no limit
+			if (self.pages.length <= self.opt.limit || self.opt.limit === 0){
 				// then set the range so that all page links are displayed
 				range.start = 0;
 				range.end = self.pages.length - 1;
@@ -230,8 +104,8 @@
 			// else if the goto index falls outside the current range
 			else if (index < range.start || index > range.end) {
 				// then calculate the correct range to display
-				var max = index + (self.o.limit - 1),
-					min = index - (self.o.limit - 1);
+				var max = index + (self.opt.limit - 1),
+					min = index - (self.opt.limit - 1);
 
 				// if the goto index is to be displayed as the left most page link
 				if (leftMost) {
@@ -257,130 +131,228 @@
 				}
 			}
 			// if the current visible range of links has changed
-			if (range.changed = range.start !== self._range[0] || range.end !== self._range[1]){
+			if (range.changed = range.start !== self._visible[0] || range.end !== self._visible[1]){
 				// then cache the start and end values for the next time this method is called
-				self._range = [range.start, range.end];
+				self._visible = [range.start, range.end];
 			}
 			return range;
 		},
-		/**
-		 * @summary Go to and display the supplied page number.
-		 * @memberof FooGallery.Pagination#
-		 * @function goto
-		 * @param {(number|string)} pageNumber - The page number to go to or one of the page keywords; `"first"`, `"prev"`, `"prevMore"`, `"nextMore"`, `"next"` or `"last"`.
-		 * @param {boolean} [reset=false] - Whether or not to reset the cache of the previously displayed range.
-		 */
-		goto: function(pageNumber, reset){
-			reset = _is.boolean(reset) ? reset : false;
-			var self = this, range;
-			if (_is.number(pageNumber)){
-				pageNumber = pageNumber < 1 ? 1 : (pageNumber > self.pages.length ? self.pages.length : pageNumber);
-				range = self.range(pageNumber - 1, reset || pageNumber - 1 < self.index);
-			} else if (_is.string(pageNumber)){
-				switch(pageNumber){
-					case "first":
-						range = self.range(0, true);
-						break;
-					case "last":
-						range = self.range(self.pages.length - 1, false);
-						break;
-					case "prev":
-						range = self.range(self.index - 1, true);
-						break;
-					case "prevMore":
-						range = self.range(self._range[0] - 1, false, false);
-						break;
-					case "next":
-						range = self.range(self.index + 1, false);
-						break;
-					case "nextMore":
-						range = self.range(self._range[1] + 1, true, false);
-						break;
-				}
-			}
-
-			// set the ui state of the paging controls
+		update: function(pageNumber){
+			var self = this, range = self.range(pageNumber);
 			$.each(self.controls, function(i, control){
-				control.setState(range, reset);
+				control.update(range);
 			});
-
-			// if the range index is selected
-			if (range.selected){
-				// first store the scroll info for later use
-				var scroll = false;
-				if (!reset && self.controls.length > 0){
-					scroll = self._scrollInfo();
-				}
-				// then iterate all pages
-				$.each(self.pages, function(i, page){
-					// and if they're attached
-					if (page.isAttached){
-						// then detach their items from the gallery
-						self.g.detachItems(page.items);
-						page.isAttached = false;
-					}
-				});
-				// now grab the current page
-				var page = self.pages[range.index];
-				// if it's not created
-				if (!page.isCreated){
-					// then create and append its' items
-					self.g.createItems(page.items, true);
-					// and mark it as such
-					page.isAttached = page.isCreated = true;
-				} else {
-					// then append the created items to the gallery
-					self.g.appendItems(page.items);
-					page.isAttached = true;
-				}
-				self.index = range.index;
-				if (scroll){
-					window.scrollTo(scroll.x, scroll.y);
-				}
-				if (!reset){
-					self.g.checkItems();
-				}
-			}
+			return range;
 		},
-		/**
-		 * @summary Gets the scroll information for the current page or if not required returns `false`.
-		 * @memberof FooGallery.Pagination#
-		 * @function _scrollInfo
-		 * @returns {({x: number, y: number}|boolean)}
-		 * @private
-		 */
-		_scrollInfo: function(){
-			var self = this, info = {
-				y: _is.undef(window.scrollY) ? document.documentElement.scrollTop : window.scrollY,
-				x: _is.undef(window.scrollX) ? document.documentElement.scrollLeft : window.scrollX
-			}, top;
-			if (self.o.position === "both" || self.o.position === "top"){
-				top = self.controls[0].$container.offset().top;
-			} else {
-				top = self.items.l.$elem.offset().top;
+		goto: function(pageNumber, scroll){
+			var self = this, range = self.update(pageNumber);
+			if (!_is.boolean(scroll)){
+				var vb = _.getViewportBounds(), gb = _.getElementBounds(self.fg.$el);
+				scroll = _.intersects(vb, gb) && vb.bottom > gb.bottom;
 			}
-			if (top <= info.y){
-				info.y = top;
-				return info;
-			}
-			return false;
+			return self._super(range.index + 1, scroll);
 		}
 	});
 
-	_.Gallery.options.paging = {
-		enabled: false,
+	_.PaginationControl = _.Component.extend({
+		construct: function(gallery, pagination, position){
+			this._super(gallery);
+			this.p = pagination;
+			this.position = position;
+			this.$el = $();
+			this.$list = $();
+			this.$items = $();
+			this.$buttons = $();
+		},
+		createDOM: function(){
+			var self = this,
+				opt = self.p.opt, cls = self.p.cls, il8n = self.p.il8n,
+				displayAll = self.p.pages.length <= opt.limit || opt.limit === 0,
+				items = [], buttons = [],
+				$button, $list = $("<ul/>", {"class": cls.list});
+
+			if (opt.showFirstLast){
+				buttons.push($button = self._buttonDOM("first"));
+				$list.append($button);
+			}
+			if (opt.showPrevNext){
+				buttons.push($button = self._buttonDOM("prev"));
+				$list.append($button);
+			}
+			if (!displayAll && opt.showPrevNextMore){
+				buttons.push($button = self._buttonDOM("prevMore"));
+				$list.append($button);
+			}
+			for (var i = 0, l = self.p.pages.length, $item; i < l; i++){
+				items.push($item = self._itemDOM(i + 1, il8n.labels.page));
+				$list.append($item);
+			}
+			if (!displayAll && opt.showPrevNextMore){
+				buttons.push($button = self._buttonDOM("nextMore"));
+				$list.append($button);
+			}
+			if (opt.showPrevNext){
+				buttons.push($button = self._buttonDOM("next"));
+				$list.append($button);
+			}
+			if (opt.showFirstLast){
+				buttons.push($button = self._buttonDOM("last"));
+				$list.append($button);
+			}
+			self.$list = $list;
+			self.$container = $("<nav/>", {"class": cls.container}).addClass(opt.theme).append($list);
+			self.$items = $($.map(items, function($item){ return $item.get(); }));
+			self.$buttons = $($.map(buttons, function($button){ return $button.get(); }));
+
+			if (self.position === "top"){
+				self.$container.insertBefore(self.fg.$el);
+			} else {
+				self.$container.insertAfter(self.fg.$el);
+			}
+		},
+		destroyDOM: function(){
+			var self = this, sel = self.p.sel;
+			self.$list.find(sel.link).off("click.foogallery", self.onLinkClick);
+			self.$container.remove();
+			self.$container = $();
+			self.$list = $();
+			self.$items = $();
+			self.$buttons = $();
+		},
+		update: function(range){
+			var self = this, sel = self.p.sel;
+			// if the range changed update the visible links
+			if (range.changed) {
+				self.setVisible(range.start, range.end);
+			}
+			// if the range index is selected
+			if (range.selected) {
+				// then update the items as required
+				self.setSelected(range.index);
+
+				// if this is the first page then we need to disable the first and prev buttons
+				self.toggleDisabled(self.$buttons.filter(sel.firstPrev), range.index <= 0);
+				// if this is the last page we need to disable the next and last buttons
+				self.toggleDisabled(self.$buttons.filter(sel.nextLast), range.index >= self.p.pages.length - 1);
+			}
+			// if the visible range starts with the first page then we need to disable the prev more button
+			self.toggleDisabled(self.$buttons.filter(sel.prevMore), range.start <= 0);
+			// if the visible range ends with the last page then we need to disable the next more button
+			self.toggleDisabled(self.$buttons.filter(sel.nextMore), range.end >= self.p.pages.length - 1);
+		},
+		setVisible: function(start, end){
+			var self = this, cls = self.p.cls;
+			// when we slice we add + 1 to the upper limit of the range as $.slice does not include the end index in the result
+			self.$items.removeClass(cls.visible).slice(start, end + 1).addClass(cls.visible);
+		},
+		setSelected: function(index){
+			var self = this, cls = self.p.cls, il8n = self.p.il8n, sel = self.p.sel;
+			// first find any previous selected items and deselect them
+			self.$items.filter(sel.selected).removeClass(cls.selected).each(function (i, el) {
+				// we need to revert the original items screen-reader text if it existed as being selected sets it to the value of the labels.current option
+				var $item = $(el), label = $item.data("label"), $sr = $item.find(sel.reader);
+				// if we have an original value and a screen-reader element then update it
+				if (_is.string(label) && $sr.length !== 0) {
+					$sr.html(label);
+				}
+			});
+			// next find the newly selected item and set it as selected
+			self.$items.eq(index).addClass(cls.selected).each(function (i, el) {
+				// we need to update the items screen-reader text to appropriately show it as selected using the value of the labels.current option
+				var $item = $(el), $sr = $item.find(sel.reader), label = $sr.html();
+				// if we have a current label to backup and a screen-reader element then update it
+				if (_is.string(label) && $sr.length !== 0) {
+					// store the original screen-reader text so we can revert it later
+					$item.data("label", label);
+					$sr.html(il8n.labels.current);
+				}
+			});
+		},
+		toggleDisabled: function($buttons, state){
+			var self = this, cls = self.p.cls, sel = self.p.sel;
+			if (state) {
+				$buttons.addClass(cls.disabled).find(sel.link).attr("tabindex", -1);
+			} else {
+				$buttons.removeClass(cls.disabled).find(sel.link).removeAttr("tabindex");
+			}
+		},
+		/**
+		 * @summary Create and return a jQuery object containing a single `li` and its' button.
+		 * @memberof FooGallery.PaginationControl#
+		 * @function _buttonDOM
+		 * @param {string} keyword - One of the page keywords; `"first"`, `"prev"`, `"prevMore"`, `"nextMore"`, `"next"` or `"last"`.
+		 * @returns {jQuery}
+		 * @private
+		 */
+		_buttonDOM: function(keyword){
+			var self = this, cls = self.p.cls, il8n = self.p.il8n;
+			return this._itemDOM(keyword, il8n.labels[keyword], il8n.buttons[keyword], cls.button + " " + cls[keyword]);
+		},
+		/**
+		 * @summary Create and return a jQuery object containing a single `li` and its' link.
+		 * @memberof FooGallery.PaginationControl#
+		 * @function _itemDOM
+		 * @param {(number|string)} pageNumber - The page number or one of the page keywords; `"first"`, `"prev"`, `"prevMore"`, `"nextMore"`, `"next"` or `"last"`.
+		 * @param {string} [label=""] - The label that is displayed when hovering over an item.
+		 * @param {string} [text=""] - The text to display for the item, if not supplied this defaults to the `pageNumber` value.
+		 * @param {string} [classNames=""] - A space separated list of CSS class names to apply to the item.
+		 * @param {string} [sr=""] - The text to use for screen readers, if not supplied this defaults to the `label` value.
+		 * @returns {jQuery}
+		 * @private
+		 */
+		_itemDOM: function(pageNumber, label, text, classNames, sr){
+			text = _is.string(text) ? text : pageNumber;
+			label = _is.string(label) ? label : "";
+			var self = this, opt = self.p.opt, cls = self.p.cls;
+			var $link = $("<a/>", {"class": cls.link, "href": "#page-" + pageNumber}).html(text).on("click.foogallery", {self: self, page: pageNumber}, self.onLinkClick);
+			if (!_is.empty(label)){
+				$link.attr("title", label.replace(/\{PAGE}/g, pageNumber).replace(/\{LIMIT}/g, opt.limit + ""));
+			}
+			sr = _is.string(sr) ? sr : label;
+			if (!_is.empty(sr)){
+				$link.prepend($("<span/>", {"class":cls.reader, text: sr.replace(/\{PAGE}/g, "").replace(/\{LIMIT}/g, opt.limit + "")}));
+			}
+			var $item = $("<li/>", {"class": cls.item}).append($link);
+			classNames = _is.string(classNames) ? classNames : "";
+			if (!_is.empty(classNames)){
+				$item.addClass(classNames);
+			}
+			return $item;
+		},
+		/**
+		 * @summary Handles the click event of the paging links.
+		 * @memberof FooGallery.Pagination.Control#
+		 * @function onLinkClick
+		 * @param {jQuery.Event} e - The jQuery.Event object for the click event.
+		 * @private
+		 */
+		onLinkClick: function(e){
+			e.preventDefault();
+			var self = e.data.self, page = e.data.page, sel = self.p.sel;
+			// this check should not be required as we use the CSS pointer-events: none; property on disabled links but just in case test for the class here
+			if (!$(this).closest(sel.item).is(sel.disabled)){
+				if (page === "prevMore" || page === "nextMore"){
+					self.p.update(page);
+				} else {
+					self.p.goto(page, true);
+					self.p.load(self.p.loadable(self.p.available()));
+				}
+			}
+		}
+	});
+
+	_.Gallery.options.pagination = {
+		theme: "fg-light",
 		size: 15,
-		index: 0,
 		limit: 5,
 		position: "both",
-		theme: "fg-light",
 		showPrevNext: true,
 		showFirstLast: true,
 		showPrevNextMore: true
 	};
 
-	_.Gallery.options.classes.paging = {
-		container: "fg-pagination",
+	_.Gallery.options.classes.pagination = {
+		container: "fg-paging-container",
 		list: "fg-pages",
 		item: "fg-page-item",
 		button: "fg-page-button",
@@ -397,14 +369,14 @@
 		reader: "fg-sr-only"
 	};
 
-	_.Gallery.options.il8n.paging = {
+	_.Gallery.options.il8n.pagination = {
 		buttons: {
 			first: "&laquo;",
 			prev: "&lsaquo;",
 			next: "&rsaquo;",
 			last: "&raquo;",
-			prevMore: "...",
-			nextMore: "..."
+			prevMore: "&hellip;",
+			nextMore: "&hellip;"
 		},
 		labels: {
 			current: "Current page",
@@ -418,92 +390,9 @@
 		}
 	};
 
-	// ######################
-	// ## Type Definitions ##
-	// ######################
+	_.items.register("pagination", _.Pagination);
 
-	/**
-	 * @summary The options for pagination.
-	 * @typedef {object} FooGallery.Pagination~Options
-	 * @property {boolean} [enabled=false] - Whether or not the pagination is enabled.
-	 * @property {number} [size=30] - The number of items to display on each page.
-	 * @property {number} [index=0] - The initial zero based page index to load.
-	 * @property {number} [limit=5] - The maximum number of page links to display.
-	 * @property {string} [position="both"] - Where to display the paging controls, supported values are; `"both"`, `"top"` and `"bottom"`
-	 * @property {string} [theme="fg-light"] - The theme to apply to the paging controls.
-	 * @property {boolean} [showPrevNext=true] - Whether or not to show the "Previous" and "Next" buttons.
-	 * @property {boolean} [showFirstLast=true] - Whether or not to show the "First" and "Last" buttons.
-	 * @property {boolean} [showPrevNextMore=true] - Whether or not to show the "Previous More" and "Next More" buttons.
-	 */
 
-	/**
-	 * @summary The il8n options for the paging extension.
-	 * @typedef {object} FooGallery.Pagination~il8n
-	 * @property {object} buttons - The HTML displayed within the buttons.
-	 * @property {string} [buttons.first="&laquo;"] - The HTML to display within the "First" button.
-	 * @property {string} [buttons.prev="&lsaquo;"] - The HTML to display within the "Previous" button.
-	 * @property {string} [buttons.prevMore="..."] - The HTML to display within the "Previous More" button.
-	 * @property {string} [buttons.nextMore="..."] - The HTML to display within the "Next More" button.
-	 * @property {string} [buttons.next="&rsaquo;"] - The HTML to display within the "Next" button.
-	 * @property {string} [buttons.last="&raquo;"] - The HTML to display within the "Last" button.
-	 * @property {object} labels - The text displayed when hovering over a page and to screen readers.
-	 * @property {string} [labels.current="Current page"] - The text to display for the current selected page.
-	 * @property {string} [labels.page="Page {PAGE}"] - The text to display for any page.
-	 * @property {string} [labels.first="First page"] - The text to display for the "First" button.
-	 * @property {string} [labels.prev="Previous page"] - The text to display for the "Previous" button.
-	 * @property {string} [labels.prevMore="Select from previous {LIMIT} pages"] - The text to display for the "Previous More" button.
-	 * @property {string} [labels.nextMore="Select from next {LIMIT} pages"] - The text to display for the "Next More" button.
-	 * @property {string} [labels.next="Next page"] - The text to display for the "Next" button.
-	 * @property {string} [labels.last="Last page"] - The text to display for the "Last" button.
-	 * @description There are currently just two place holders available for use;
-	 * `"{LIMIT}"` will substitute in the current `limit` options' value.
-	 * `"{PAGE}"` will substitute in the current page number.
-	 * @example {@caption When supplied as part of the {@link FooGallery.Pagination~Options|options} it would look like the following.}
-	 * {
-	 * 	// other options
-	 * 	"il8n": {
-	 * 		"buttons": {
-	 * 			"first": "<"
-	 * 		},
-	 * 		"labels": {
-	 * 			"first": "Goto first page"
-	 * 		}
-	 * 	}
-	 * }
-	 */
-
-	/**
-	 * @summary A simple object containing the CSS selectors used by the gallery.
-	 * @typedef {object} FooGallery.Pagination~Selectors
-	 * @property {string} item - The CSS selector to target page items.
-	 * @property {string} button - The CSS selector to target page buttons.
-	 * @property {string} link - The CSS selector to target page item links.
-	 * @property {string} firstPrev - The CSS selector to target the "First" and "Previous" buttons.
-	 * @property {string} nextLast - The CSS selector to target the "Next" and "Last" buttons.
-	 * @property {string} prevMore - The CSS selector to target the "Previous More" button.
-	 * @property {string} nextMore - The CSS selector to target the "Next More" button.
-	 * @property {string} disabled - The CSS selector to target disabled items.
-	 * @property {string} selected - The CSS selector to target selected items.
-	 * @property {string} reader - The CSS selector to target screen reader elements.
-	 */
-
-	/**
-	 * @summary A pagination page.
-	 * @typedef {object} FooGallery.Pagination~Page
-	 * @property {boolean} [created=false] - Whether or not the pages' items are created.
-	 * @property {boolean} [attached=false] - Whether or not the pages' items are attached to the gallery.
-	 * @property {Array.<FooGallery.Item>} [items=[]] - The items to display for this page.
-	 */
-
-	/**
-	 * @summary A pagination range.
-	 * @typedef {object} FooGallery.Pagination~Range
-	 * @property {boolean} [selected=true] - Whether or not the index is selected.
-	 * @property {boolean} [changed=false] - Whether or not the start and end indexes have changed.
-	 * @property {number} [index=-1] - The index of the range.
-	 * @property {number} [start=-1] - The start index of the range.
-	 * @property {number} [end=-1] - The end index of the range.
-	 */
 })(
 	FooGallery.$,
 	FooGallery,

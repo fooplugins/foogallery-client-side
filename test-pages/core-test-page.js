@@ -6,14 +6,16 @@
 		this.types = {
 			classes: ["caption","hover-effect","loaded-effect","loading-icon","item-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
 			bool: [
-				"lazy", "background",
-				"paging-enabled","paging-showPrevNext","paging-showFirstLast","paging-showPrevNextMore",
-				"infinite-enabled","infinite-auto"
+				"state",
+				"lazy-enabled", "background",
+				"pagination-enabled","pagination-showPrevNext","pagination-showFirstLast","pagination-showPrevNextMore"
 			],
 			int: [
-				"throttle","distance",
-				"paging-limit","paging-size",
-				"infinite-threshold","infinite-size","infinite-distance"
+				"lazy-viewport",
+				"dots-size",
+				"pagination-size","pagination-limit",
+				"infinite-size","infinite-distance",
+				"loadMore-size","loadMore-distance","loadMore-amount"
 			]
 		};
 	}
@@ -23,13 +25,12 @@
 		this.$templates = $("#template");
 		this.$generate = $("#generate");
 		this.$clear = $("#clear");
-		this.$infiniteThreshold = $("#infinite-threshold");
-		this.$infiniteAuto = $("#infinite-auto");
-		this.$pagingOptionsFieldSet = $("#paging-options");
-		this.$pagingEnabled = $("#paging-enabled");
+		this.$paging = $("[name=paging]");
 		this.$infiniteOptionsFieldSet = $("#infinite-options");
-		this.$infiniteEnabled = $("#infinite-enabled");
-		this.$lazyEnabled = $("#lazy");
+		this.$loadMoreOptionsFieldSet = $("#loadMore-options");
+		this.$paginationOptionsFieldSet = $("#pagination-options");
+		this.$dotsOptionsFieldSet = $("#dots-options");
+		this.$lazyEnabled = $("#lazy-enabled");
 		this.$lazyOptionsFieldSet = $("#lazy-options");
 		this.$borderStyle = $("[name=border-style]");
 		this.$borderStyleOptionsFieldSet = $("#border-style-options");
@@ -37,6 +38,7 @@
 		this.$current = $();
 		this.$viewport = $("#viewport");
 		this.$infiniteArea = $("#infinite-area");
+		this.$loadMoreArea = $("#loadMore-area");
 	};
 
 	CoreTestPage.prototype.formData = function(data){
@@ -61,6 +63,11 @@
 					}
 				}
 			});
+			if (_is.string(data.tab)){
+				var $settings = $(".foogallery-settings");
+				$settings.find(".foogallery-tab-active").removeClass("foogallery-tab-active");
+				$settings.find('[data-name="'+data.tab+'"]').addClass("foogallery-tab-active");
+			}
 		} else {
 			data = {};
 			$.each(inputs, function() {
@@ -75,18 +82,21 @@
 				}
 				data[this.name] = value;
 			});
+			data.tab = $(".foogallery-vertical-tab.foogallery-tab-active").data("name");
 			return data;
 		}
 	};
 
 	CoreTestPage.prototype.clear = function(){
 		localStorage.removeItem("optionsFormData");
+		if (history && history.replaceState) history.replaceState(null, "", location.pathname + location.search);
 		location.reload(true);
 	};
 
 	CoreTestPage.prototype.generate = function(){
 		var formData = this.formData();
 		localStorage.setItem("optionsFormData", JSON.stringify(formData));
+		if (history && history.replaceState) history.replaceState(null, "", location.pathname + location.search);
 		location.reload(true);
 	};
 
@@ -112,18 +122,14 @@
 		self.$lazyEnabled.on("change", function(){
 			self.updateLazyFieldSets();
 		});
-		self.$pagingEnabled.add(self.$infiniteEnabled).on("change", function(){
-			self.updatePagingAndInfiniteDisabled();
-		});
-		self.$infiniteThreshold.on("change", function(){
-			self.updateInfiniteAutoDisabled();
+		self.$paging.on("change", function(){
+			self.updatePagingFieldSets();
 		});
 	};
 
 	CoreTestPage.prototype.initFormInputs = function(){
 		this.updateLazyFieldSets();
-		this.updatePagingAndInfiniteDisabled();
-		this.updateInfiniteAutoDisabled();
+		this.updatePagingFieldSets();
 		this.updateBorderStylesFieldSets();
 	};
 
@@ -144,8 +150,9 @@
 			this.$current.addClass(json.classes.join(' '));
 			this.$output.empty().append(this.$current);
 
-			this.setViewportArea(json.options);
+			this.setViewportArea(json.options.lazy);
 			this.setInfiniteArea(json.options.infinite);
+			this.setLoadMoreArea(json.options.loadMore);
 
 			if (json.dark){
 				$("body").addClass("dark");
@@ -159,17 +166,18 @@
 		} else {
 			this.setViewportArea();
 			this.setInfiniteArea();
+			this.setLoadMoreArea();
 
 			this.initFormInputs();
 		}
 	};
 
 	CoreTestPage.prototype.setViewportArea = function(options){
-		if (_is.hash(options) && _is.number(options.distance) && options.distance < 0){
-			var $win = $(window), diff = options.distance * 2;
+		if (_is.hash(options) && _is.number(options.viewport) && options.viewport < 0){
+			var $win = $(window), diff = options.viewport * 2;
 			this.$viewport.css({
-				top: -(options.distance),
-				left: -(options.distance),
+				top: -(options.viewport),
+				left: -(options.viewport),
 				width: $win.width() + diff,
 				height: $win.height() + diff
 			});
@@ -181,7 +189,7 @@
 	CoreTestPage.prototype.setInfiniteArea = function(options){
 		if (_is.hash(options) && _is.number(options.distance) && options.distance < 0){
 			var $win = $(window), diff = options.distance * 2;
-			$("body").addClass("infinite-tracked");
+			$("body").addClass("gallery-tracked");
 			this.$infiniteArea.css({
 				top: -(options.distance),
 				left: -(options.distance),
@@ -190,6 +198,21 @@
 			});
 		} else {
 			this.$infiniteArea.hide();
+		}
+	};
+
+	CoreTestPage.prototype.setLoadMoreArea = function(options){
+		if (_is.hash(options) && _is.number(options.distance) && options.distance < 0){
+			var $win = $(window), diff = options.distance * 2;
+			$("body").addClass("gallery-tracked");
+			this.$loadMoreArea.css({
+				top: -(options.distance),
+				left: -(options.distance),
+				width: $win.width() + diff,
+				height: $win.height() + diff
+			});
+		} else {
+			this.$loadMoreArea.hide();
 		}
 	};
 
@@ -205,8 +228,11 @@
 			classes: [],
 			options: {
 				items: "items.json",
-				paging: {},
-				infinite: {}
+				lazy: {},
+				dots: {},
+				pagination: {},
+				infinite: {},
+				loadMore: {}
 			},
 			template: "",
 			dark: false
@@ -236,33 +262,6 @@
 		return obj;
 	};
 
-	CoreTestPage.prototype.updatePagingAndInfiniteDisabled = function(){
-		var pagingChecked = this.$pagingEnabled.prop("checked"),
-			infiniteChecked = this.$infiniteEnabled.prop("checked");
-
-		if (pagingChecked){
-			this.$infiniteEnabled.prop("checked", false).prop("disabled", true);
-			this.$infiniteOptionsFieldSet.prop("disabled", true);
-			this.$pagingOptionsFieldSet.prop("disabled", false);
-		} else {
-			this.$infiniteEnabled.prop("disabled", false);
-			this.$pagingOptionsFieldSet.prop("disabled", true);
-		}
-		if (infiniteChecked){
-			this.$pagingEnabled.prop("checked", false).prop("disabled", true);
-			this.$pagingOptionsFieldSet.prop("disabled", true);
-			this.$infiniteOptionsFieldSet.prop("disabled", false);
-		} else {
-			this.$pagingEnabled.prop("disabled", false);
-			this.$infiniteOptionsFieldSet.prop("disabled", true);
-		}
-	};
-
-	CoreTestPage.prototype.updateInfiniteAutoDisabled = function(){
-		var threshold = parseInt(this.$infiniteThreshold.val());
-		this.$infiniteAuto.prop("disabled", isNaN(threshold) || threshold <= 0);
-	};
-
 	CoreTestPage.prototype.updateLazyFieldSets = function(){
 		var enabled = this.$lazyEnabled.prop("checked");
 		this.$lazyOptionsFieldSet.prop("disabled", !enabled);
@@ -271,6 +270,14 @@
 	CoreTestPage.prototype.updateBorderStylesFieldSets = function(){
 		var value = this.$borderStyle.filter(":checked").val();
 		this.$borderStyleOptionsFieldSet.prop("disabled", _is.empty(value));
+	};
+
+	CoreTestPage.prototype.updatePagingFieldSets = function(){
+		var value = this.$paging.filter(":checked").val();
+		this.$infiniteOptionsFieldSet.prop("disabled", value !== "infinite");
+		this.$loadMoreOptionsFieldSet.prop("disabled", value !== "loadMore");
+		this.$paginationOptionsFieldSet.prop("disabled", value !== "pagination");
+		this.$dotsOptionsFieldSet.prop("disabled", value !== "dots");
 	};
 
 	CoreTestPage.prototype.getTemplate = function(options){

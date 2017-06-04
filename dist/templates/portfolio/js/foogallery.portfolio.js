@@ -178,45 +178,25 @@
 	FooGallery.utils,
 	FooGallery.utils.is
 );
-// (function(_){
-// 	_.ready(function($){
-//
-// 		/* Simple Portfolio Gallery */
-// 		$(".foogallery-simple-portfolio").each(function(){
-// 			var $gallery = $(this),
-// 				// get the options for the plugin
-// 				options = $gallery.data("simple-portfolio-options"),
-// 				// get the options for the loader
-// 				loader = $gallery.data("loader-options");
-//
-// 			$gallery.fgSimplePortfolio( options ).fgLoader( $.extend(true, {}, loader, {
-// 				oninit: function(){
-// 					$(window).trigger("resize");
-// 				}
-// 			}) );
-//
-// 		});
-//
-// 	});
-// })(
-// 	FooGallery
-// );
 (function($, _){
 
 	_.PortfolioTemplate = _.Template.extend({
 		construct: function(gallery){
 			this._super(gallery);
-			this.portfolio = new _.Portfolio( this.gallery.$elem.get(0), this.options );
+			this.portfolio = new _.Portfolio( this.fg.$el.get(0), this.options );
 			this.isCaptionTop = false;
 		},
 		onpreinit: function(){
-			this.isCaptionTop = this.gallery.$elem.hasClass("fg-captions-top");
+			this.isCaptionTop = this.fg.$el.hasClass("fg-captions-top");
 			this.portfolio.init();
+			this._super();
 		},
-		onparsed: function(){
+		onitemsparsed: function(items){
 			this.portfolio.layout();
+			this._super(items);
 		},
-		oncreate: function(item){
+		onitemcreate: function(item){
+			this.raise("item-create", [item]);
 			item.createDOM(true);
 			if (item.isCaptionCreated){
 				if (this.isCaptionTop){
@@ -225,20 +205,22 @@
 					item.$caption.insertAfter(item.$anchor);
 				}
 			}
-			return item;
 		},
-		onbatched: function(){
+		onitemsloaded: function(items){
 			this.portfolio.layout();
+			this._super(items);
 		},
-		onappended: function(){
+		onitemsappended: function(items){
 			this.portfolio.layout( true );
+			this._super(items);
 		},
-		ondetached: function(){
+		onitemsdetached: function(items){
 			this.portfolio.layout( true );
+			this._super(items);
 		}
 	});
 
-	_.templates.register("portfolio", _.PortfolioTemplate, function($elem){
+	_.template.register("portfolio", _.PortfolioTemplate, function($elem){
 		return $elem.is(".fg-portfolio");
 	});
 

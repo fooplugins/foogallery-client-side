@@ -1,14 +1,4 @@
-.fg-infinite {
-	display: block;
-	padding: 10px;
-	text-align: center;
-	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-.fg-infinite .fg-load-more {
+.fg-paging-container .fg-load-more {
 	display: inline-block;
 	padding: 6px 12px;
 	margin: 0;
@@ -26,7 +16,7 @@
 }
 
 /* Light - Default */
-.fg-infinite.fg-light .fg-load-more {
+.fg-paging-container.fg-light .fg-load-more {
 	color: #333;
 	background-color: #fff;
 	border-color: #ccc;
@@ -34,15 +24,15 @@
 	transition-duration: 0.3s;
 	transition-property: color, border-color, background-color;
 }
-.fg-infinite.fg-light .fg-load-more:hover,
-.fg-infinite.fg-light .fg-load-more:focus {
+.fg-paging-container.fg-light .fg-load-more:hover,
+.fg-paging-container.fg-light .fg-load-more:focus {
 	color: #333;
 	background-color: #e6e6e6;
 	border-color: #adadad;
 }
 
 /* Dark */
-.fg-infinite.fg-dark .fg-load-more {
+.fg-paging-container.fg-dark .fg-load-more {
 	color: #FFF;
 	background-color: #333;
 	border-color: #222;
@@ -50,8 +40,8 @@
 	transition-duration: 0.3s;
 	transition-property: color, border-color, background-color;
 }
-.fg-infinite.fg-dark .fg-load-more:hover,
-.fg-infinite.fg-dark .fg-load-more:focus {
+.fg-paging-container.fg-dark .fg-load-more:hover,
+.fg-paging-container.fg-dark .fg-load-more:focus {
 	color: #FFF;
 	background-color: #444;
 	border-color: #333;

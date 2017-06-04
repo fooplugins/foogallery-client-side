@@ -1,27 +1,32 @@
-(function($, _, _utils, _is){
+(function($, _, _utils, _is, _obj){
 
-
-	_.Item = _utils.Class.extend(/** @lends FooGallery.Item */{
+	_.Item = _.Component.extend(/** @lends FooGallery.Item */{
 		/**
 		 * @summary The base class for an item.
-		 * @memberof FooGallery.Gallery
+		 * @memberof FooGallery
 		 * @constructs Item
 		 * @param {FooGallery.Gallery} gallery - The gallery this item belongs to.
 		 * @param {FooGallery.Item~Defaults} [defaults] - The default values to initialize the item with.
-		 * @augments FooGallery.utils.Class
+		 * @augments FooGallery.Component
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */
 		construct: function(gallery, defaults){
-			defaults = $.extend(true, {}, _.Item.defaults, _is.hash(defaults) ? defaults : {});
+			defaults = _obj.extend({}, _.Item.defaults, _is.hash(defaults) ? defaults : {});
 			/**
-			 * @summary The gallery this item belongs to.
+			 * @ignore
 			 * @memberof FooGallery.Item#
-			 * @name g
-			 * @type {FooGallery.Gallery}
+			 * @function _super
+			 */
+			this._super(gallery);
+			/**
+			 * @summary Whether or not the item is filtered from the gallery.
+			 * @memberof FooGallery.Item#
+			 * @name isFiltered
+			 * @type {boolean}
 			 * @readonly
 			 */
-			this.g = gallery;
+			this.isFiltered = false;
 			/**
 			 * @summary Whether or not the items' elements are appended to the gallery.
 			 * @memberof FooGallery.Item#
@@ -102,6 +107,12 @@
 			this.$caption = null;
 			/**
 			 * @memberof FooGallery.Item#
+			 * @name id
+			 * @type {string}
+			 */
+			this.id = defaults.id;
+			/**
+			 * @memberof FooGallery.Item#
 			 * @name href
 			 * @type {string}
 			 */
@@ -148,6 +159,12 @@
 			 * @type {FooGallery.Item~Attributes}
 			 */
 			this.attr = defaults.attr;
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name tags
+			 * @type {string[]}
+			 */
+			this.tags = defaults.tags;
 			/**
 			 * @summary The cached result of the last call to the {@link FooGallery.Item#getThumbUrl|getThumbUrl} method.
 			 * @memberof FooGallery.Item#
@@ -207,11 +224,11 @@
 		 * @memberof FooGallery.Item#
 		 * @function parseDOM
 		 * @param {(jQuery|HTMLElement|string)} element - The element to parse.
-		 * @returns {FooGallery.Item}
+		 * @returns {boolean}
 		 */
 		parseDOM: function(element){
-			var self = this, o = self.g.options, selectors = self.g.getSelectors(), $el = $(element);
-			if (self.isCreated = $el.is(selectors.item)){
+			var self = this, o = self.fg.opt, selectors = self.fg.sel.item, $el = $(element);
+			if (self.isCreated = $el.is(selectors.elem)){
 				self.$el = $el.data("__FooGalleryItem__", self);
 				self.$inner = self.$el.find(selectors.inner);
 				self.$anchor = self.$el.find(selectors.anchor).on("click.fg.item", {self: self}, self.onAnchorClick);
@@ -222,6 +239,8 @@
 				self.isLoaded = self.$el.is(selectors.loaded);
 				self.isError = self.$el.is(selectors.error);
 				self.isCaptionCreated = self.$caption.length > 0;
+				self.id = self.$el.data("id");
+				self.tags = self.$el.data("tags");
 				self.href = self.$anchor.attr("href");
 				self.src = self.$image.attr(o.src);
 				self.srcset = self.$image.attr(o.srcset);
@@ -239,7 +258,7 @@
 				// We don't load the attributes when parsing as they are only ever
 				// used to create an item and if you're parsing it's already created.
 			}
-			return self;
+			return self.isCreated;
 		},
 		/**
 		 * @summary Create the items' DOM elements and populate the corresponding properties.
@@ -247,72 +266,75 @@
 		 * @function createDOM
 		 * @param {boolean} [inner=false] - Whether to create an additional `<div>` or use the anchor as the inner element for the item.
 		 * @param {boolean} [caption=true] - Whether or not to generate the caption markup.
-		 * @returns {FooGallery.Item}
+		 * @returns {boolean}
 		 */
 		createDOM: function(inner, caption){
 			var self = this;
-			if (self.isCreated || !self.canCreate()) return self;
+			if (self.canCreate()){
+				inner = _is.boolean(inner) ? inner : false;
+				caption = _is.boolean(caption) ? caption : true;
 
-			inner = _is.boolean(inner) ? inner : false;
-			caption = _is.boolean(caption) ? caption : true;
+				var o = self.fg.opt, classes = self.fg.cls.item, attr = self.attr;
+				attr.elem["class"] = classes.elem + " " + classes.idle;
+				attr.elem["data-id"] = self.id;
+				attr.elem["data-tags"] = JSON.stringify(self.tags);
 
-			var o = self.g.options, classes = o.classes.item, attr = self.attr;
-			attr.elem["class"] = classes.elem + " " + classes.idle;
+				if (inner){
+					attr.inner["class"] = classes.inner;
+					attr.anchor["class"] = classes.anchor;
+				} else {
+					attr.anchor["class"] = classes.anchor + " " + classes.inner;
+				}
+				attr.anchor["href"] = self.href;
 
-			if (inner){
-				attr.inner["class"] = classes.inner;
-				attr.anchor["class"] = classes.anchor;
-			} else {
-				attr.anchor["class"] = classes.anchor + " " + classes.inner;
+				attr.image["class"] = classes.image;
+				attr.image["src"] = o.placeholder;
+				attr.image[o.src] = self.src;
+				attr.image[o.srcset] = self.srcset;
+				attr.image["width"] = self.width;
+				attr.image["height"] = self.height;
+				attr.image["title"] = self.title;
+				attr.image["alt"] = self.description;
+
+				self.$el = $("<div/>").attr(attr.elem).data("__FooGalleryItem__", self);
+				self.$anchor = $("<a/>").attr(attr.anchor).on("click.fg.item", {self: self}, self.onAnchorClick);
+				self.$image = $("<img/>").attr(attr.image).appendTo(self.$anchor);
+				self.$el.append(self.$inner = inner ? $("<div/>").attr(attr.inner).append(self.$anchor) : self.$anchor);
+
+				if (caption && self.createCaptionDOM()){
+					self.$anchor.append(self.$caption);
+				}
+				self.isCreated = true;
 			}
-			attr.anchor["href"] = self.href;
-
-			attr.image["class"] = classes.image;
-			attr.image["src"] = o.placeholder;
-			attr.image[o.src] = self.src;
-			attr.image[o.srcset] = self.srcset;
-			attr.image["width"] = self.width;
-			attr.image["height"] = self.height;
-			attr.image["title"] = self.title;
-			attr.image["alt"] = self.description;
-
-			self.$el = $("<div/>").attr(attr.elem).data("__FooGalleryItem__", self);
-			self.$anchor = $("<a/>").attr(attr.anchor).on("click.fg.item", {self: self}, self.onAnchorClick);
-			self.$image = $("<img/>").attr(attr.image).appendTo(self.$anchor);
-			self.$el.append(self.$inner = inner ? $("<div/>").attr(attr.inner).append(self.$anchor) : self.$anchor);
-
-			if (caption && self.createCaptionDOM().isCaptionCreated){
-				self.$anchor.append(self.$caption);
-			}
-			self.isCreated = true;
-			return self;
+			return self.isCreated;
 		},
 		/**
 		 * @summary Create the captions' DOM elements and populate the corresponding properties.
 		 * @memberof FooGallery.Item#
 		 * @function createCaptionDOM
-		 * @returns {FooGallery.Item}
+		 * @returns {boolean}
 		 */
 		createCaptionDOM: function(){
 			var self = this;
-			if (!self.canCreateCaption()) return self;
-			var o = self.g.options, classes = o.classes.item.caption, attr = self.attr.caption;
+			if (self.canCreateCaption()){
+				var classes = self.fg.cls.item.caption, attr = self.attr.caption;
 
-			attr.elem["class"] = classes.elem;
-			attr.inner["class"] = classes.inner;
-			attr.title["class"] = classes.title;
-			attr.description["class"] = classes.description;
+				attr.elem["class"] = classes.elem;
+				attr.inner["class"] = classes.inner;
+				attr.title["class"] = classes.title;
+				attr.description["class"] = classes.description;
 
-			self.$caption = $("<div/>").attr(attr.elem);
-			var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
-			if (!_is.empty(self.title)){
-				$inner.append($("<div/>").attr(attr.title).html(self.title));
+				self.$caption = $("<div/>").attr(attr.elem);
+				var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
+				if (!_is.empty(self.title)){
+					$inner.append($("<div/>").attr(attr.title).html(self.title));
+				}
+				if (!_is.empty(self.description)){
+					$inner.append($("<div/>").attr(attr.description).html(self.description));
+				}
+				self.isCaptionCreated = true;
 			}
-			if (!_is.empty(self.description)){
-				$inner.append($("<div/>").attr(attr.description).html(self.description));
-			}
-			self.isCaptionCreated = true;
-			return self;
+			return self.isCaptionCreated;
 		},
 		/**
 		 * @summary Append the item to the current gallery.
@@ -323,7 +345,7 @@
 		append: function(){
 			var self = this;
 			if (self.canAppend()){
-				self.g.$elem.append(self.$el);
+				self.fg.$el.append(self.$el);
 				self.isAttached = true;
 			}
 			return self;
@@ -356,6 +378,8 @@
 					return;
 				}
 				var img = self.$image.get(0);
+				// if Firefox reset to empty src or else the onload and onerror callbacks are executed immediately
+				if (!_is.undef(window.InstallTrigger)) img.src = "";
 				img.onload = function () {
 					img.onload = img.onerror = null;
 					def.resolve(self);
@@ -377,7 +401,7 @@
 		setLoading: function(){
 			var self = this;
 			if (self.canLoad()){
-				var classes = self.g.options.classes.item;
+				var classes = self.fg.cls.item;
 				self.isLoading = true;
 				self.$el.removeClass(classes.idle).removeClass(classes.loaded).removeClass(classes.error).addClass(classes.loading);
 			}
@@ -392,7 +416,7 @@
 		setLoaded: function(){
 			var self = this;
 			if (self.isLoading){
-				var classes = self.g.options.classes.item;
+				var classes = self.fg.cls.item;
 				self.isLoading = false;
 				self.isLoaded = true;
 				self.$el.removeClass(classes.loading).addClass(classes.loaded);
@@ -408,12 +432,12 @@
 		setError: function(){
 			var self = this;
 			if (self.isLoading){
-				var classes = self.g.options.classes.item;
+				var classes = self.fg.cls.item;
 				self.isLoading = false;
 				self.isError = true;
 				self.$el.removeClass(classes.loading).addClass(classes.error);
-				if (_is.string(self.g.options.error)) {
-					self.$image.prop("src", self.g.options.error);
+				if (_is.string(self.fg.opt.error)) {
+					self.$image.prop("src", self.fg.opt.error);
 				}
 			}
 			return self;
@@ -465,63 +489,7 @@
 			refresh = _is.boolean(refresh) ? refresh : false;
 			var self = this;
 			if (!refresh && _is.string(self._thumbUrl)) return self._thumbUrl;
-			// if there is no srcset just return the src
-			if (!_is.string(self.srcset)) return self._thumbUrl = self.src;
-
-			// parse the srcset into objects containing the url, width, height and pixel density for each supplied source
-			var list = $.map(self.srcset.replace(/(\s[\d.]+[whx]),/g, '$1 @,@ ').split(' @,@ '), function (val) {
-				return {
-					url: /^\s*(\S*)/.exec(val)[1],
-					w: parseFloat((/\S\s+(\d+)w/.exec(val) || [0, Infinity])[1]),
-					h: parseFloat((/\S\s+(\d+)h/.exec(val) || [0, Infinity])[1]),
-					x: parseFloat((/\S\s+([\d.]+)x/.exec(val) || [0, 1])[1])
-				};
-			});
-
-			// if there is no items parsed from the srcset then just return the src
-			if (!list.length) return self._thumbUrl = self.src;
-
-			// add the current src into the mix by inspecting the first parsed item to figure out how to handle it
-			list.unshift({
-				url: self.src,
-				w: list[0].w !== Infinity && list[0].h === Infinity ? self.width : Infinity,
-				h: list[0].h !== Infinity && list[0].w === Infinity ? self.height : Infinity,
-				x: 1
-			});
-
-			// get the current viewport info and use it to determine the correct src to load
-			var dpr = window.devicePixelRatio || 1,
-				area = {w: self.$anchor.innerWidth() * dpr, h: self.$anchor.innerHeight() * dpr, x: dpr},
-				property;
-
-			// first check each of the viewport properties against the max values of the same properties in our src array
-			// only src's with a property greater than the viewport or equal to the max are kept
-			for (property in area) {
-				if (!area.hasOwnProperty(property)) continue;
-				list = $.grep(list, (function (prop, limit) {
-					return function (item) {
-						return item[prop] >= area[prop] || item[prop] === limit;
-					};
-				})(property, Math.max.apply(null, $.map(list, function (item) {
-					return item[property];
-				}))));
-			}
-
-			// next reduce our src array by comparing the viewport properties against the minimum values of the same properties of each src
-			// only src's with a property equal to the minimum are kept
-			for (property in area) {
-				if (!area.hasOwnProperty(property)) continue;
-				list = $.grep(list, (function (prop, limit) {
-					return function (item) {
-						return item[prop] === limit;
-					};
-				})(property, Math.min.apply(null, $.map(list, function (item) {
-					return item[property];
-				}))));
-			}
-
-			// return the first url as it is the best match for the current viewport
-			return self._thumbUrl = list[0].url;
+			return self._thumbUrl = _.parseSrc(self.src, self.width, self.height, self.srcset, self.$anchor.innerWidth(), self.$anchor.innerHeight());
 		},
 		/**
 		 * @summary Scroll the item into the center of the viewport.
@@ -545,30 +513,19 @@
 			}
 			return self;
 		},
-		pushState: function(){
-			var self = this;
-			if (self.isAttached && history && history.pushState){
-				var index = $.inArray(self, self.g.items);
-				if (index !== -1){
-					history.pushState({index: index,type:"push"}, "", "#"+self.g.id+"/"+index);
-					self.g.lastState = "push";
-				}
-			}
-		},
 		replaceState: function(){
 			var self = this;
-			if (self.isAttached && history && history.replaceState){
-				var index = $.inArray(self, self.g.items);
-				if (index !== -1){
-					history.replaceState({index: index,type:"replace"}, "", "#"+self.g.id+"/"+index);
-					self.g.lastState = "replace";
-				}
+			if (self.isAttached){
+				var state = self.fg.items.getState(self);
+				self.fg.items.replaceState(state);
 			}
 		},
 		onAnchorClick: function(e){
-			e.data.self.pushState();
+			e.data.self.replaceState();
 		}
 	});
+
+	_.components.register("item", _.Item);
 
 	/**
 	 * @summary The default values for an item.
@@ -577,6 +534,7 @@
 	 * @type {FooGallery.Item~Defaults}
 	 */
 	_.Item.defaults = {
+		id: "",
 		href: "",
 		src: "",
 		srcset: "",
@@ -584,6 +542,7 @@
 		height: 0,
 		title: "",
 		description: "",
+		tags: [],
 		attr: {
 			elem: {},
 			inner: {},
@@ -628,6 +587,7 @@
 	/**
 	 * @summary A simple object containing an items' default values.
 	 * @typedef {object} FooGallery.Item~Defaults
+	 * @property {?string} [id=null] - The `data-id` attribute for the outer element.
 	 * @property {?string} [href=null] - The `href` attribute for the anchor element.
 	 * @property {?string} [src=null] - The `src` attribute for the image element.
 	 * @property {?string} [srcset=null] - The `srcset` attribute for the image element.
@@ -684,5 +644,6 @@
 	FooGallery.$,
 	FooGallery,
 	FooGallery.utils,
-	FooGallery.utils.is
+	FooGallery.utils.is,
+	FooGallery.utils.obj
 );

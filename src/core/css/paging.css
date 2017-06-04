@@ -1,0 +1,10 @@
+.fg-paging-container {
+	display: block;
+	padding: 10px;
+	text-align: center;
+	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}

@@ -49,13 +49,13 @@
 
 /* Drop Shadows */
 .foogallery.fg-shadow-small .fg-item-inner {
-	box-shadow:0 1px 5px rgba(119, 119, 119, 0.8);
+	box-shadow:0 1px 5px rgba(0, 0, 0, 0.5);
 }
 .foogallery.fg-shadow-medium .fg-item-inner {
-	box-shadow:0 1px 10px rgba(119, 119, 119, 0.8);
+	box-shadow:0 1px 10px rgba(0, 0, 0, 0.5);
 }
 .foogallery.fg-shadow-large .fg-item-inner {
-	box-shadow:0 1px 15px rgba(119, 119, 119, 0.8);
+	box-shadow:0 1px 15px rgba(0, 0, 0, 0.5);
 }
 /* Inset Shadows */
 .foogallery.fg-shadow-inset-small .fg-thumb:after,

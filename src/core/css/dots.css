@@ -1,0 +1,112 @@
+.fg-paging-container .fg-dots {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.fg-paging-container .fg-dot-item {
+	display: inline-block;
+	list-style: none;
+}
+.fg-paging-container .fg-dot-item .fg-dot-link {
+	display: inline-block;
+	margin: 3px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	background-image: none;
+	text-decoration: none;
+	border: 1px solid transparent;
+	position: relative;
+	border-radius: 50%;
+	padding: 0;
+	font-size: 0;
+}
+.fg-paging-container .fg-dot-item .fg-dot-link:before {
+	content: "";
+	background-color: transparent;
+	border: 1px solid transparent;
+	display: block;
+	border-radius: 50%;
+	width: 9px;
+	height: 9px;
+	padding: 0;
+	margin: 2px;
+}
+.fg-paging-container .fg-dot-item .fg-dot-link:hover,
+.fg-paging-container .fg-dot-item .fg-dot-link:focus {
+	text-decoration: none;
+}
+.fg-paging-container .fg-dot-item.fg-disabled .fg-dot-link,
+.fg-paging-container .fg-dot-item.fg-selected .fg-dot-link {
+	cursor: not-allowed;
+	pointer-events: none;
+}
+.fg-paging-container .fg-dot-item.fg-selected .fg-dot-link {
+	z-index: 2;
+}
+.fg-paging-container .fg-dot-item.fg-disabled .fg-dot-link {
+	cursor: not-allowed;
+	pointer-events: none;
+	outline: none;
+}
+
+/* Light - Dots */
+.fg-paging-container.fg-light .fg-dot-item .fg-dot-link,
+.fg-paging-container.fg-light .fg-dot-item .fg-dot-link:before {
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-paging-container.fg-light .fg-dot-item .fg-dot-link {
+	background-color: #eee;
+	border-color: #9e9e9e;
+}
+.fg-paging-container.fg-light .fg-dot-item.fg-selected .fg-dot-link {
+	border-color: #8a8a8a;
+}
+.fg-paging-container.fg-light .fg-dot-item.fg-selected .fg-dot-link:before,
+.fg-paging-container.fg-light .fg-dot-item .fg-dot-link:hover:before,
+.fg-paging-container.fg-light .fg-dot-item .fg-dot-link:focus:before {
+	background-color: #666;
+	border-color: #8a8a8a;
+}
+.fg-paging-container.fg-light .fg-dot-item.fg-disabled .fg-dot-link,
+.fg-paging-container.fg-light .fg-dot-item.fg-disabled .fg-dot-link:hover,
+.fg-paging-container.fg-light .fg-dot-item.fg-disabled .fg-dot-link:focus {
+	background-color: #eee;
+	border-color: #9e9e9e;
+	opacity: 0.5;
+}
+
+/* Dark - Dots */
+.fg-paging-container.fg-dark .fg-dot-item .fg-dot-link,
+.fg-paging-container.fg-dark .fg-dot-item .fg-dot-link:before {
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-paging-container.fg-dark .fg-dot-item .fg-dot-link {
+	background-color: #666;
+	border-color: #333;
+}
+.fg-paging-container.fg-dark .fg-dot-item.fg-selected .fg-dot-link {
+	border-color: #444;
+}
+.fg-paging-container.fg-dark .fg-dot-item.fg-selected .fg-dot-link:before,
+.fg-paging-container.fg-dark .fg-dot-item .fg-dot-link:hover:before,
+.fg-paging-container.fg-dark .fg-dot-item .fg-dot-link:focus:before {
+	background-color: #333;
+	border-color: #444;
+}
+.fg-paging-container.fg-dark .fg-dot-item.fg-disabled .fg-dot-link,
+.fg-paging-container.fg-dark .fg-dot-item.fg-disabled .fg-dot-link:hover,
+.fg-paging-container.fg-dark .fg-dot-item.fg-disabled .fg-dot-link:focus {
+	background-color: #666;
+	border-color: #333;
+	opacity: 0.5;
+}

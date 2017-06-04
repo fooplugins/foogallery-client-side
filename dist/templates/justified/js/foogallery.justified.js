@@ -243,26 +243,31 @@
 	_.JustifiedTemplate = _.Template.extend({
 		construct: function(gallery){
 			this._super(gallery);
-			this.justified = new _.Justified( this.gallery.$elem.get(0), this.options );
+			this.justified = new _.Justified( this.fg.$el.get(0), this.options );
 		},
 		onpreinit: function(){
 			this.justified.init();
+			this._super();
 		},
-		onparsed: function(){
+		onitemsparsed: function(items){
 			this.justified.layout();
+			this._super(items);
 		},
-		onbatched: function(){
+		onitemsloaded: function(items){
 			this.justified.layout();
+			this._super(items);
 		},
-		onappended: function(){
+		onitemsappended: function(items){
 			this.justified.layout( true );
+			this._super(items);
 		},
-		ondetached: function(){
+		onitemsdetached: function(items){
 			this.justified.layout( true );
+			this._super(items);
 		}
 	});
 
-	_.templates.register("justified", _.JustifiedTemplate, function($elem){
+	_.template.register("justified", _.JustifiedTemplate, function($elem){
 		return $elem.is(".fg-justified");
 	});
 

@@ -19,6 +19,7 @@
 					"This is a medium description for item {{I}} to see how templates handle various lengths.",
 					"This is a long description for item {{I}} to see how templates handle various lengths even if they start to get very, very long. Ideally if your descriptions are this long you should only display the title."
 				];
+				this._tags = ["tag1","tag2","tag3","tag4","tag5"];
 				this._templates = {
 					"150x94": {
 						href: "https://satyr.io/1920x1200/{{I}}?delay=1-1000",
@@ -28,6 +29,7 @@
 						height: 94,
 						title: "Title for {{I}}",
 						description: "",
+						tags: [],
 						attr: {
 							item: {},
 							inner: {},
@@ -43,6 +45,7 @@
 						height: 225,
 						title: "Title for {{I}}",
 						description: "",
+						tags: [],
 						attr: {
 							item: {},
 							inner: {},
@@ -58,6 +61,7 @@
 						height: 150,
 						title: "Title for {{I}}",
 						description: "",
+						tags: [],
 						attr: {
 							item: {},
 							inner: {},
@@ -73,6 +77,7 @@
 						height: 250,
 						title: "Title for {{I}}",
 						description: "",
+						tags: [],
 						attr: {
 							item: {},
 							inner: {},
@@ -111,9 +116,19 @@
 				item.src = item.src.replace(/\{\{I}}/g, index);
 				item.srcset = item.srcset.replace(/\{\{I}}/g, index);
 				item.title = item.title.replace(/\{\{I}}/g, index);
-
 				var min = 0, max = this._desc.length - 1, i = max > 0 ? Math.floor(Math.random() * (max - min + 1)) + min : 0;
 				item.description = this._desc[i].replace(/\{\{I}}/g, index);
+
+				item.tags.push(item.width + "x" + item.height);
+				max = this._tags.length - 1;
+				var num = Math.floor(Math.random() * (max - 1)) + 2;
+				for (var j = 0; j < num; j++){
+					i = max > 0 ? Math.floor(Math.random() * (max + 1)) : 0;
+					if ($.inArray(this._tags[i], item.tags) === -1){
+						item.tags.push(this._tags[i]);
+					}
+				}
+
 				return item;
 			};
 

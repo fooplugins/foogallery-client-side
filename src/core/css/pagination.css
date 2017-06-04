@@ -1,31 +1,21 @@
-.fg-pagination {
-	display: block;
-	padding: 10px;
-	text-align: center;
-	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-.fg-pagination .fg-pages {
+.fg-paging-container .fg-pages {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
-.fg-pagination .fg-page-item {
+.fg-paging-container .fg-page-item {
 	display: inline-block;
 	list-style: none;
 }
-.fg-pagination .fg-page-item {
+.fg-paging-container .fg-page-item {
 	display: none;
 }
-.fg-pagination .fg-page-item.fg-visible,
-.fg-pagination .fg-page-item.fg-page-button {
+.fg-paging-container .fg-page-item.fg-visible,
+.fg-paging-container .fg-page-item.fg-page-button {
 	display: inline-block;
 }
-.fg-pagination .fg-page-item .fg-page-link {
+.fg-paging-container .fg-page-item .fg-page-link {
 	display: inline-block;
 	min-width: 40px;
 	padding: 6px 12px;
@@ -43,26 +33,26 @@
 	border: 1px solid transparent;
 	border-radius: 4px;
 }
-.fg-pagination .fg-page-item:hover .fg-page-link,
-.fg-pagination .fg-page-item:focus .fg-page-link {
+.fg-paging-container .fg-page-item:hover .fg-page-link,
+.fg-paging-container .fg-page-item:focus .fg-page-link {
 	text-decoration: none;
 }
-.fg-pagination .fg-page-item.fg-disabled .fg-page-link,
-.fg-pagination .fg-page-item.fg-selected .fg-page-link {
+.fg-paging-container .fg-page-item.fg-disabled .fg-page-link,
+.fg-paging-container .fg-page-item.fg-selected .fg-page-link {
 	cursor: not-allowed;
 	pointer-events: none;
 }
-.fg-pagination .fg-page-item.fg-selected .fg-page-link {
+.fg-paging-container .fg-page-item.fg-selected .fg-page-link {
 	z-index: 2;
 }
-.fg-pagination .fg-page-item.fg-disabled .fg-page-link {
+.fg-paging-container .fg-page-item.fg-disabled .fg-page-link {
 	cursor: not-allowed;
 	pointer-events: none;
 	outline: none;
 }
 
-/* Light - Default */
-.fg-pagination.fg-light .fg-page-item .fg-page-link {
+/* Light - Numbers */
+.fg-paging-container.fg-light .fg-page-item .fg-page-link {
 	color: #333;
 	background-color: transparent;
 	border-color: transparent;
@@ -70,29 +60,29 @@
 	transition-duration: 0.3s;
 	transition-property: color, border-color, background-color;
 }
-.fg-pagination.fg-light .fg-page-item:hover .fg-page-link,
-.fg-pagination.fg-light .fg-page-item:focus .fg-page-link,
-.fg-pagination.fg-light .fg-page-item.fg-selected .fg-page-link {
+.fg-paging-container.fg-light .fg-page-item:hover .fg-page-link,
+.fg-paging-container.fg-light .fg-page-item:focus .fg-page-link,
+.fg-paging-container.fg-light .fg-page-item.fg-selected .fg-page-link {
 	color: #333;
 	background-color: #e6e6e6;
 	border-color: #adadad;
 }
-.fg-pagination.fg-light .fg-page-item.fg-selected .fg-page-link {
+.fg-paging-container.fg-light .fg-page-item.fg-selected .fg-page-link {
 	color: #333;
 	background-color: #fff;
 	border-color: #ccc;
 }
-.fg-pagination.fg-light .fg-page-item.fg-disabled .fg-page-link,
-.fg-pagination.fg-light .fg-page-item.fg-disabled:hover .fg-page-link,
-.fg-pagination.fg-light .fg-page-item.fg-disabled:focus .fg-page-link {
+.fg-paging-container.fg-light .fg-page-item.fg-disabled .fg-page-link,
+.fg-paging-container.fg-light .fg-page-item.fg-disabled:hover .fg-page-link,
+.fg-paging-container.fg-light .fg-page-item.fg-disabled:focus .fg-page-link {
 	color: #333;
 	background-color: transparent;
 	border-color: transparent;
 	opacity: 0.5;
 }
 
-/* Dark */
-.fg-pagination.fg-dark .fg-page-item .fg-page-link {
+/* Dark - Numbers */
+.fg-paging-container.fg-dark .fg-page-item .fg-page-link {
 	color: #9d9d9d;
 	background-color: transparent;
 	border-color: transparent;
@@ -100,22 +90,100 @@
 	transition-duration: 0.3s;
 	transition-property: color, border-color, background-color;
 }
-.fg-pagination.fg-dark .fg-page-item:hover .fg-page-link,
-.fg-pagination.fg-dark .fg-page-item:focus .fg-page-link {
+.fg-paging-container.fg-dark .fg-page-item:hover .fg-page-link,
+.fg-paging-container.fg-dark .fg-page-item:focus .fg-page-link {
 	color: #FFF;
 	background-color: #444;
 	border-color: #333;
 }
-.fg-pagination.fg-dark .fg-page-item.fg-selected .fg-page-link {
+.fg-paging-container.fg-dark .fg-page-item.fg-selected .fg-page-link {
 	color: #FFF;
 	background-color: #333;
 	border-color: #222;
 }
-.fg-pagination.fg-dark .fg-page-item.fg-disabled .fg-page-link,
-.fg-pagination.fg-dark .fg-page-item.fg-disabled:hover .fg-page-link,
-.fg-pagination.fg-dark .fg-page-item.fg-disabled:focus .fg-page-link {
+.fg-paging-container.fg-dark .fg-page-item.fg-disabled .fg-page-link,
+.fg-paging-container.fg-dark .fg-page-item.fg-disabled:hover .fg-page-link,
+.fg-paging-container.fg-dark .fg-page-item.fg-disabled:focus .fg-page-link {
 	color: #9d9d9d;
 	background-color: transparent;
 	border-color: transparent;
+	opacity: 0.5;
+}
+
+
+/* Dots */
+.fg-paging-container.fg-dots .fg-page-item .fg-page-link {
+	position: relative;
+	border-radius: 50%;
+	min-width: 0;
+	padding: 0;
+	font-size: 0;
+}
+.fg-paging-container.fg-dots .fg-page-item .fg-page-link:before {
+	content: "";
+	display: block;
+	border-radius: 50%;
+	width: 15px;
+	height: 15px;
+	padding: 0;
+	margin: 2px;
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-first .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-prev .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-prev-more .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-next-more .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-next .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-last .fg-page-link:after {
+	display: inline-block;
+	font-size: 15px;
+	line-height: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-first .fg-page-link:after {
+	content: "\00ab";
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-prev .fg-page-link:after {
+	content: "\2039";
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-prev-more .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-next-more .fg-page-link:after {
+	content: "\2026";
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-next .fg-page-link:after {
+	content: "\203A";
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-last .fg-page-link:after {
+	content: "\00bb";
+}
+
+/* Light - Dots */
+.fg-paging-container.fg-light.fg-dots .fg-page-item .fg-page-link {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-paging-container.fg-light.fg-dots .fg-page-item:hover .fg-page-link,
+.fg-paging-container.fg-light.fg-dots .fg-page-item:focus .fg-page-link,
+.fg-paging-container.fg-light.fg-dots .fg-page-item.fg-selected .fg-page-link {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+.fg-paging-container.fg-light.fg-dots .fg-page-item.fg-selected .fg-page-link:before {
+	background-color: #333;
+	border-color: #ccc;
+}
+.fg-paging-container.fg-light.fg-dots .fg-page-item.fg-disabled .fg-page-link,
+.fg-paging-container.fg-light.fg-dots .fg-page-item.fg-disabled:hover .fg-page-link,
+.fg-paging-container.fg-light.fg-dots .fg-page-item.fg-disabled:focus .fg-page-link {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
 	opacity: 0.5;
 }

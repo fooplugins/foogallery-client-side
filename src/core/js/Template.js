@@ -1,206 +1,108 @@
-(function($, _, _utils, _is){
+(function($, _, _utils, _is, _str){
 
-	_.Template = _utils.Class.extend(/** @lends FooGallery.Template */{
-		/**
-		 * @summary The base class for all templates.
-		 * @memberof FooGallery
-		 * @constructs Template
-		 * @param {FooGallery.Gallery} gallery - The gallery loading the template.
-		 * @augments FooGallery.utils.Class
-		 * @borrows FooGallery.utils.Class.extend as extend
-		 * @borrows FooGallery.utils.Class.override as override
-		 */
+	_.Template = _.Component.extend({
 		construct: function(gallery){
-			/**
-			 * @summary The gallery using this template.
-			 * @memberof FooGallery.Template#
-			 * @name gallery
-			 * @type {FooGallery.Gallery}
-			 */
-			this.gallery = gallery;
-			/**
-			 * @summary The options supplied for this template .
-			 * @memberof FooGallery.Template#
-			 * @name options
-			 * @type {object}
-			 */
-			this.options = this.gallery.options.template;
+			this._super(gallery);
+			this.options = this.fg.opt.template;
+			this.eventNamespace = ".foogallery";
 		},
-
-		// ###############
-		// ## Callbacks ##
-		// ###############
-
-		/**
-		 * @summary Called just before the gallery is initialized for the first time.
-		 * @memberof FooGallery.Gallery#
-		 * @function onpreinit
-		 * @returns {?Promise}
-		 * @description Execute code after the gallery's `construct` but before its' `init`. If required this method can return a `Promise` object halting further initialization of the gallery until it is resolved. If rejected the initialization is aborted and the plugin destroyed.
-		 */
-		onpreinit: function(){},
-		/**
-		 * @summary Called when the gallery is initialized for the first time.
-		 * @memberof FooGallery.Gallery#
-		 * @function oninit
-		 * @returns {?Promise}
-		 * @description Execute code after the gallery's `preinit` but before its' `postinit`. If required this method can return a `Promise` object halting further initialization of the gallery until it is resolved. If rejected the initialization is aborted and the plugin destroyed.
-		 */
-		oninit: function(){},
-		/**
-		 * @summary Called just after the gallery is initialized for the first time.
-		 * @memberof FooGallery.Gallery#
-		 * @function onpostinit
-		 * @returns {?Promise}
-		 * @description Execute code after the gallery's `init`. If required this method can return a `Promise` object halting further initialization of the gallery until it is resolved. If rejected the initialization is aborted and the plugin destroyed.
-		 */
+		raise: function (eventName, args) {
+			args = _is.array(args) ? args : [];
+			var self = this,
+				name = _str.contains(eventName, ".") ? eventName : eventName + self.eventNamespace,
+				event = $.Event(name);
+			if (self.fg.opt.debug) console.log(self.fg.id + ":" + name, args);
+			self.fg.$el.trigger(event, args);
+			return event;
+		},
+		onpreinit: function(){
+			this.raise("preinit");
+		},
+		oninit: function(){
+			this.raise("init");
+		},
 		onpostinit: function(){
-			// the first time the gallery is initialized it triggers a window resize event
-			$(window).trigger("resize");
+			this.raise("postinit");
 		},
-		/**
-		 * @summary Called just before the gallery is destroyed.
-		 * @memberof FooGallery.Gallery#
-		 * @function ondestroy
-		 * @returns {?Promise}
-		 * @description Execute code just before the gallery is destroyed. If required this method can return a `Promise` object which will halt the destruction of the gallery until it is resolved. If rejected the destruction is aborted and the plugin will remain intact.
-		 */
-		ondestroy: function(){},
-		/**
-		 * @summary Called whenever the gallery needs to parse an items' element into a {@link FooGallery.Item}.
-		 * @memberof FooGallery.Gallery#
-		 * @function onparse
-		 * @param {HTMLElement} element - The items' HTMLElement to parse.
-		 * @returns {FooGallery.Item}
-		 * @see {@link FooGallery.Item#parseDOM}
-		 */
-		onparse: function(element){
-			return new _.Item(this.gallery).parseDOM(element).fix();
+		ondestroy: function(){
+			this.raise("destroy");
 		},
-		/**
-		 * @summary Called just after the gallery has finished parsing all items.
-		 * @memberof FooGallery.Gallery#
-		 * @function onparsed
-		 * @param {FooGallery.Item[]} items - The array of items that were parsed.
-		 */
-		onparsed: function(items){},
-		/**
-		 * @summary Called whenever the gallery needs to create an items' elements.
-		 * @memberof FooGallery.Gallery#
-		 * @function oncreate
-		 * @param {FooGallery.Item} item - The item to create.
-		 * @returns {FooGallery.Item}
-		 * @description This method expects the items' jQuery and state properties to be updated and then the item to be returned.
-		 * @see {@link FooGallery.Item#createDOM}
-		 */
-		oncreate: function(item){
-			return item.createDOM();
+		onpredraw: function(){
+			this.raise("predraw");
 		},
-		/**
-		 * @summary Called just after the gallery has finished creating a batch of items.
-		 * @memberof FooGallery.Gallery#
-		 * @function oncreated
-		 * @param {FooGallery.Item[]} items - The array of items that were created.
-		 */
-		oncreated: function(items){},
-		/**
-		 * @summary Called whenever the gallery needs to append an items' HTML elements to its' container.
-		 * @memberof FooGallery.Gallery#
-		 * @function onappend
-		 * @param {FooGallery.Item} item - The item to append.
-		 * @returns {FooGallery.Item}
-		 * @description This method expects the items' jQuery and state properties to be updated and then the item to be returned.
-		 * @see {@link FooGallery.Item#append}
-		 */
-		onappend: function(item){
-			return item.append().fix();
+		ondraw: function(){
+			this.raise("draw");
 		},
-		/**
-		 * @summary Called just after the gallery has finished appending a batch of items.
-		 * @memberof FooGallery.Gallery#
-		 * @function onappended
-		 * @param {FooGallery.Item[]} items - The array of items that were appended.
-		 */
-		onappended: function(items){},
-		/**
-		 * @summary Called whenever the gallery needs to detach an items' HTML elements from its' container.
-		 * @memberof FooGallery.Gallery#
-		 * @function ondetach
-		 * @param {FooGallery.Item} item - The item to detach.
-		 * @returns {FooGallery.Item}
-		 * @description This method expects the items' jQuery and state properties to be updated and then the item to be returned.
-		 * @see {@link FooGallery.Item#detach}
-		 */
-		ondetach: function(item){
-			return item.detach().unfix();
+		onpostdraw: function(){
+			this.raise("postdraw");
 		},
-		/**
-		 * @summary Called just after the gallery has finished detaching a batch of items.
-		 * @memberof FooGallery.Gallery#
-		 * @function ondetached
-		 * @param {FooGallery.Item[]} items - The array of items that were detached.
-		 */
-		ondetached: function(items){},
-		/**
-		 * @summary Called whenever the gallery begins loading an items' image.
-		 * @memberof FooGallery.Gallery#
-		 * @function onloading
-		 * @param {FooGallery.Item} item - The item that is loading.
-		 * @returns {FooGallery.Item}
-		 * @description This method expects the items' jQuery and state properties to be updated and then the item to be returned.
-		 * @see {@link FooGallery.Item#setLoading}
-		 */
-		onloading: function(item){
-			return item.setLoading();
+		onitemparse: function(element){
+			this.raise("item-parse", [element]);
+			var item = _.components.make("item", this.fg);
+			if (item.parseDOM(element)){
+				return item.fix();
+			}
+			return null;
 		},
-		/**
-		 * @summary Called whenever the gallery has loaded an items' image.
-		 * @memberof FooGallery.Gallery#
-		 * @function onload
-		 * @param {FooGallery.Item} item - The item that was loaded.
-		 * @returns {FooGallery.Item}
-		 * @description This method expects the items' jQuery and state properties to be updated and then the item to be returned.
-		 * @see {@link FooGallery.Item#setLoading}
-		 */
-		onload: function(item){
-			return item.setLoaded().unfix();
+		onitemsparsed: function(items){
+			this.raise("items-parsed", [items]);
 		},
-		/**
-		 * @summary Called whenever the gallery encounters an error while loading an items' image.
-		 * @memberof FooGallery.Gallery#
-		 * @function onerror
-		 * @param {FooGallery.Item} item - The item that threw an error.
-		 * @returns {FooGallery.Item}
-		 * @description This method expects the items' jQuery and state properties to be updated and then the item to be returned.
-		 * @see {@link FooGallery.Item#setError}
-		 */
-		onerror: function(item){
-			return item.setError();
+		onitemmake: function(definition){
+			this.raise("item-make", [definition]);
+			return _.components.make("item", this.fg, definition);
 		},
-		/**
-		 * @summary Called just before the gallery begins loading a batch of items.
-		 * @memberof FooGallery.Gallery#
-		 * @function onbatch
-		 * @param {FooGallery.Item[]} items - The array of items about to be loaded.
-		 */
-		onbatch: function(items){},
-		/**
-		 * @summary Called just after the gallery has loaded a batch of items.
-		 * @memberof FooGallery.Gallery#
-		 * @function onbatched
-		 * @param {FooGallery.Item[]} items - The array of items that were loaded.
-		 */
-		onbatched: function(items){}
+		onitemsmade: function(items){
+			this.raise("items-made", [items]);
+		},
+		onitemcreate: function(item){
+			this.raise("item-create", [item]);
+			item.createDOM();
+		},
+		onitemscreated: function(items){
+			this.raise("items-created", [items]);
+		},
+		onitemappend: function(item){
+			this.raise("item-append", [item]);
+			item.append().fix();
+		},
+		onitemsappended: function(items){
+			this.raise("items-appended", [items]);
+		},
+		onitemdetach: function(item){
+			this.raise("item-detach", [item]);
+			item.detach().unfix();
+		},
+		onitemsdetached: function(items){
+			this.raise("items-detached", [items]);
+		},
+		onitemsload: function(items){
+			this.raise("items-load", [items]);
+		},
+		onitemloading: function(item){
+			this.raise("item-loading", [item]);
+			item.setLoading();
+		},
+		onitemloaded: function(item){
+			this.raise("item-loaded", [item]);
+			item.setLoaded().unfix();
+		},
+		onitemerror: function(item){
+			this.raise("item-error", [item]);
+			item.setError();
+		},
+		onitemsloaded: function(items){
+			this.raise("items-loaded", [items]);
+		}
 	});
 
-	_.templates.register("default", _.Template, function($elem){
-		return $elem.is(".foogallery");
-	});
+	_.template.register("default", _.Template, function($element){
+		return $element.is(".foogallery");
+	}, 1000);
 
 })(
 	FooGallery.$,
 	FooGallery,
 	FooGallery.utils,
-	FooGallery.utils.is
+	FooGallery.utils.is,
+	FooGallery.utils.str
 );
-

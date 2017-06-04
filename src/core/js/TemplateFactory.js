@@ -53,38 +53,39 @@
 			return result;
 		},
 		/**
-		 * @summary Create a new instance of a registered template using the supplied `element` and arguments.
+		 * @summary Create a new instance of a registered template from the supplied `element` and arguments.
 		 * @memberof FooGallery.TemplateFactory#
-		 * @function make
+		 * @function from
 		 * @param {(jQuery|HTMLElement|string)} element - The jQuery object, HTMLElement or selector of the gallery element to create a template for.
 		 * @param {*} arg1 - The first argument to supply to the new instance.
 		 * @param {...*} [argN] - Any number of additional arguments to supply to the new instance.
 		 * @returns {FooGallery.Template}
 		 */
-		make: function(element, arg1, argN){
+		from: function(element, arg1, argN){
 			element = _is.jq(element) ? element : element;
-			var self = this, args = _fn.arg2arr(arguments), name;
-			for (name in self.registered){
-				if (!self.registered.hasOwnProperty(name) || name === "default") continue;
-				if (self.registered[name].test(element)){
-					args.shift();
-					args.unshift(name);
-					return self._super.apply(self, args);
+			var self = this, names = self.names(true);
+			if (_is.empty(names)) return null;
+			var args = _fn.arg2arr(arguments), reg = self.registered, name = names.shift();
+			args.shift();
+			for (var i = 0, l = names.length; i < l; i++) {
+				if (!reg.hasOwnProperty(names[i])) continue;
+				if (reg[names[i]].test(element)) {
+					name = names[i];
+					break;
 				}
 			}
-			args.shift();
-			args.unshift("default");
-			return self._super.apply(self, args);
+			args.unshift(name);
+			return self.make.apply(self, args);
 		}
 	});
 
 	/**
 	 * @summary The factory used to register and create the various templates of FooGallery.
 	 * @memberof FooGallery
-	 * @name templates
+	 * @name template
 	 * @type {FooGallery.TemplateFactory}
 	 */
-	_.templates = new _.TemplateFactory();
+	_.template = new _.TemplateFactory();
 
 })(
 	FooGallery,

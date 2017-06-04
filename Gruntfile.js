@@ -24,13 +24,18 @@ module.exports = function ( grunt ) {
 						"./src/core/js/__foogallery.js",
 						"./dist/foogallery.utils.js",
 						"./src/core/js/_foogallery.js",
+						"./src/core/js/Component.js",
 						"./src/core/js/Gallery.js",
 						"./src/core/js/TemplateFactory.js",
 						"./src/core/js/Template.js",
 						"./src/core/js/Item.js",
-						"./src/core/js/InfiniteScroll.js",
-						"./src/core/js/Pagination.js",
-						"./src/core/js/Pagination.Control.js"
+						"./src/core/js/ItemsFactory.js",
+						"./src/core/js/Items.js",
+						"./src/core/js/Paged.js",
+						"./src/core/js/Infinite.js",
+						"./src/core/js/LoadMore.js",
+						"./src/core/js/Dots.js",
+						"./src/core/js/Pagination.js"
 					],
 					"./dist/core/css/foogallery.css": [
 						"./src/core/css/_foogallery.css",
@@ -39,7 +44,9 @@ module.exports = function ( grunt ) {
 						"./src/core/css/captions.css",
 						"./src/core/css/loaded-effects.css",
 						"./src/core/css/loading-icons.css",
-						"./src/core/css/infinite-scroll.css",
+						"./src/core/css/paging.css",
+						"./src/core/css/load-more.css",
+						"./src/core/css/dots.css",
 						"./src/core/css/pagination.css"
 					]
 				}
