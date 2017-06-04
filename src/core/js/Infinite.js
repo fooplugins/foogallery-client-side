@@ -51,8 +51,8 @@
 
 	_.Gallery.options.infinite = {
 		theme: "fg-light",
-		size: 20,
-		distance: 0
+		size: 30,
+		distance: 200
 	};
 
 	_.items.register("infinite", _.Infinite);

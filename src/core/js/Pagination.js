@@ -343,7 +343,7 @@
 
 	_.Gallery.options.pagination = {
 		theme: "fg-light",
-		size: 15,
+		size: 30,
 		limit: 5,
 		position: "both",
 		showPrevNext: true,

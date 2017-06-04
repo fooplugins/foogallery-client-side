@@ -3088,7 +3088,7 @@
 		},
 		state: false,
 		items: [],
-		paging: "loadMore",
+		paging: "",
 		srcset: "data-srcset",
 		src: "data-src",
 		throttle: 50,
@@ -4466,8 +4466,8 @@
 
 	_.Gallery.options.infinite = {
 		theme: "fg-light",
-		size: 20,
-		distance: 0
+		size: 30,
+		distance: 200
 	};
 
 	_.items.register("infinite", _.Infinite);
@@ -4532,9 +4532,9 @@
 
 	_.Gallery.options.loadMore = {
 		theme: "fg-light",
-		size: 20,
+		size: 30,
 		amount: 1,
-		distance: 0
+		distance: 200
 	};
 
 	_.Gallery.options.il8n.loadMore = {
@@ -5100,7 +5100,7 @@
 
 	_.Gallery.options.pagination = {
 		theme: "fg-light",
-		size: 15,
+		size: 30,
 		limit: 5,
 		position: "both",
 		showPrevNext: true,

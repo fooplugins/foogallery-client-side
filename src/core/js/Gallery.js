@@ -80,7 +80,7 @@
 		},
 		state: false,
 		items: [],
-		paging: "loadMore",
+		paging: "",
 		srcset: "data-srcset",
 		src: "data-src",
 		throttle: 50,

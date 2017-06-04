@@ -51,9 +51,9 @@
 
 	_.Gallery.options.loadMore = {
 		theme: "fg-light",
-		size: 20,
+		size: 30,
 		amount: 1,
-		distance: 0
+		distance: 200
 	};
 
 	_.Gallery.options.il8n.loadMore = {
