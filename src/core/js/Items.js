@@ -1,22 +1,29 @@
 (function($, _, _utils, _is, _fn){
 
-	_.Items = _.Component.extend({
-		construct: function(gallery, options, classes, il8n, selectors){
-			this._super(gallery);
-			this.opt = options;
-			this.cls = classes;
-			this.il8n = il8n;
-			this.sel = selectors;
-			this.array = [];
-			this.idMap = {};
-			this._init = null;
-			this._available = [];
-			this._throttle = new _utils.Throttle(this.fg.opt.throttle);
-			this._regex = {
-				state: new RegExp("^#"+gallery.id+"\/.+?"),
-				param: /(\w+):([^/]+)/g
-			};
-			this._filter = [];
+	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
+		/**
+		 * @summary This class controls everything related to items and serves as the base class for the various paging types.
+		 * @memberof FooGallery
+		 * @constructs Items
+		 * @param {FooGallery.Gallery} gallery - The gallery for this component.
+		 * @augments FooGallery.Component
+		 * @borrows FooGallery.utils.Class.extend as extend
+		 * @borrows FooGallery.utils.Class.override as override
+		 */
+		construct: function(gallery){
+			var self = this;
+			/**
+			 * @ignore
+			 * @memberof FooGallery.Items#
+			 * @function _super
+			 */
+			self._super(gallery);
+			self.array = [];
+			self.idMap = {};
+			self._init = null;
+			self._available = [];
+			self._throttle = new _utils.Throttle(self.g.opt.throttle);
+			self._filter = [];
 		},
 		preinit: function(){
 			return $.when();
@@ -24,7 +31,7 @@
 		init: function(){
 			var self = this;
 			if (_is.promise(self._init)) return self._init;
-			var fg = self.fg, selectors = fg.sel,
+			var fg = self.g, selectors = fg.sel,
 				option = fg.opt.items,
 				def = $.Deferred();
 
@@ -52,12 +59,13 @@
 			def.then(function(items){
 				self.array = items;
 				self.idMap = _.idToItemMap(self.array);
+				var state = self.g.state.parse();
+				self.setState(_is.empty(state) ? self.getState() : state);
 			});
 			return self._init = def.promise();
 		},
 		postinit: function(){
 			var self = this;
-			self.setState(self.parseState());
 			return self.load(self.loadable(self.available())).then(function(){
 				$(window).on("scroll.foogallery", {self: self}, self.onWindowScroll)
 					.on("popstate.foogallery", {self: self}, self.onWindowPopState);
@@ -74,9 +82,9 @@
 			return self._available = self.array.slice();
 		},
 		loadable: function(items){
-			var self = this, opt = self.fg.opt.lazy;
+			var self = this, opt = self.g.opt;
 			items = self.idle(items);
-			if (opt.enabled){
+			if (opt.lazy){
 				items = self.visible(items, _.getViewportBounds(opt.viewport));
 			}
 			return items;
@@ -114,7 +122,7 @@
 			}));
 		},
 		make: function(items){
-			var self = this, args = _fn.arg2arr(arguments), t = self.fg.tmpl, result = [], parsed = [];
+			var self = this, args = _fn.arg2arr(arguments), t = self.g.tmpl, result = [], parsed = [];
 			for (var i = 0, l = args.length, arg; i < l; i++){
 				arg = args[i];
 				if (!_is.jq(arg) && !_is.array(arg)) continue;
@@ -131,7 +139,7 @@
 		create: function(items, append){
 			var self = this;
 			if (_is.array(items) && items.length > 0) {
-				var t = self.fg.tmpl;
+				var t = self.g.tmpl;
 				append = _is.boolean(append) ? append : false;
 				var created = [], appended = [];
 				$.each(items, function(i, item){
@@ -151,7 +159,7 @@
 		append: function(items){
 			var self = this;
 			if (_is.array(items) && items.length > 0) {
-				var t = self.fg.tmpl, appended = $.map(items, function(item){
+				var t = self.g.tmpl, appended = $.map(items, function(item){
 					if (item.canAppend()) {
 						t.onitemappend(item);
 						if (item.isAttached) return item;
@@ -164,7 +172,7 @@
 		detach: function(items){
 			var self = this;
 			if (_is.array(items) && items.length > 0) {
-				var t = self.fg.tmpl, detached = $.map(items, function(item){
+				var t = self.g.tmpl, detached = $.map(items, function(item){
 					if (item.canDetach()) {
 						t.onitemdetach(item);
 						if (!item.isAttached) return item;
@@ -177,7 +185,7 @@
 		load: function(items){
 			var self = this;
 			if (_is.array(items) && items.length > 0){
-				var t = self.fg.tmpl;
+				var t = self.g.tmpl;
 				t.onitemsload(items);
 				var loading = $.map(items, function(item){
 					if (item.canLoad()){
@@ -199,45 +207,6 @@
 				return $.Deferred().resolve().promise();
 			}
 		},
-		parseState: function(){
-			var self = this, regex = self._regex, obj = {};
-			if (regex.state.test(location.hash) && regex.param.test(location.hash)){
-				if (self.fg.opt.state){
-					var pairs = location.hash.match(regex.param);
-					$.each(pairs, function(i, pair){
-						var parts = pair.split(":");
-						if (parts.length === 2){
-							obj[parts[0]] = parts[1];
-						}
-					});
-					if (!_is.empty(obj.f)){
-						obj.f = obj.f.split("+");
-					}
-				} else if (history && history.replaceState){
-					history.replaceState(null, "", location.pathname + location.search);
-				} else {
-					location.hash = "#";
-				}
-			}
-			return obj;
-		},
-		replaceState: function(state){
-			if (this.fg.opt.state && history && history.replaceState){
-				var empty = true, hash = ["#"+this.fg.id];
-				if (_is.hash(state)){
-					if (!_is.empty(state.f)){
-						state.f = state.f.join("+");
-					}
-					$.each(state, function(name, value){
-						if (!_is.empty(value)){
-							hash.push(name + ":" + value);
-							empty = false;
-						}
-					});
-				}
-				history.replaceState(empty ? null : state, "", empty ? location.pathname + location.search : hash.join("/"));
-			}
-		},
 		getState: function(item){
 			var self = this, state = {};
 			if (!_is.empty(self._filter)){
@@ -253,6 +222,7 @@
 			if (_is.hash(state)){
 				var items = self.array.slice();
 				if (!_is.empty(state.f)){
+					self.detach(items);
 					items = self.filter(items, state.f);
 				}
 				self.create(items, true);
@@ -262,7 +232,7 @@
 						item.scrollTo();
 					}
 					state.i = null;
-					self.replaceState(state);
+					self.g.state.replace(state);
 				}
 			}
 		},
@@ -273,13 +243,11 @@
 			});
 		},
 		onWindowPopState: function(e){
-			var self = e.data.self;
-			if (!_is.empty(e.originalEvent.state)){
-				self.setState(e.originalEvent.state);
-			} else {
-				self.setState(self.parseState());
+			var self = e.data.self, state = e.originalEvent.state;
+			if (!_is.empty(state) && state.id === self.g.id){
+				self.setState(state);
+				self.load(self.loadable(self.available()));
 			}
-			console.log("popstate");
 		}
 	});
 
@@ -290,5 +258,6 @@
 	FooGallery,
 	FooGallery.utils,
 	FooGallery.utils.is,
-	FooGallery.utils.fn
+	FooGallery.utils.fn,
+	FooGallery.utils.str
 );

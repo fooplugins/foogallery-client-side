@@ -1,87 +1,87 @@
-.foogallery.loaded-fade-in .fg-item,
-.foogallery.loaded-slide-up .fg-item,
-.foogallery.loaded-scale-up .fg-item,
-.foogallery.loaded-swing-down .fg-item,
-.foogallery.loaded-drop .fg-item,
-.foogallery.loaded-fly .fg-item,
-.foogallery.loaded-flip .fg-item {
+.foogallery.fg-loaded-fade-in .fg-item,
+.foogallery.fg-loaded-slide-up .fg-item,
+.foogallery.fg-loaded-scale-up .fg-item,
+.foogallery.fg-loaded-swing-down .fg-item,
+.foogallery.fg-loaded-drop .fg-item,
+.foogallery.fg-loaded-fly .fg-item,
+.foogallery.fg-loaded-flip .fg-item {
 	transition-timing-function: ease;
 	transition-duration: 650ms;
 	transition-property: background-color;
 }
-.foogallery.loaded-fade-in .fg-item-inner,
-.foogallery.loaded-slide-up .fg-item-inner,
-.foogallery.loaded-scale-up .fg-item-inner,
-.foogallery.loaded-swing-down .fg-item-inner,
-.foogallery.loaded-drop .fg-item-inner,
-.foogallery.loaded-fly .fg-item-inner,
-.foogallery.loaded-flip .fg-item-inner {
+.foogallery.fg-loaded-fade-in .fg-item-inner,
+.foogallery.fg-loaded-slide-up .fg-item-inner,
+.foogallery.fg-loaded-scale-up .fg-item-inner,
+.foogallery.fg-loaded-swing-down .fg-item-inner,
+.foogallery.fg-loaded-drop .fg-item-inner,
+.foogallery.fg-loaded-fly .fg-item-inner,
+.foogallery.fg-loaded-flip .fg-item-inner {
 	transition-timing-function: ease;
 	transition-duration: 650ms;
 }
 /* Fade In */
-.foogallery.loaded-fade-in .fg-item-inner {
+.foogallery.fg-loaded-fade-in .fg-item-inner {
 	transition-property: visibility, opacity;
 }
 /* Slide Up */
-.foogallery.loaded-slide-up .fg-item-inner {
+.foogallery.fg-loaded-slide-up .fg-item-inner {
 	transition-property: visibility, opacity, transform;
 	transform: translateY(200px);
 }
-.foogallery.loaded-slide-up .fg-loaded .fg-item-inner {
+.foogallery.fg-loaded-slide-up .fg-loaded .fg-item-inner {
 	transform: translateY(0px);
 }
 /* Scale Up */
-.foogallery.loaded-scale-up .fg-item-inner {
+.foogallery.fg-loaded-scale-up .fg-item-inner {
 	transition-property: visibility, opacity, transform;
 	transform: scale(0.6);
 }
-.foogallery.loaded-scale-up .fg-loaded .fg-item-inner {
+.foogallery.fg-loaded-scale-up .fg-loaded .fg-item-inner {
 	transform: scale(1);
 }
 /* Only apply the perspective once loaded otherwise transitions could take place behind other items*/
-.foogallery.loaded-swing-down .fg-item.fg-loaded,
-.foogallery.loaded-drop .fg-item.fg-loaded,
-.foogallery.loaded-fly .fg-item.fg-loaded,
-.foogallery.loaded-flip .fg-item.fg-loaded {
+.foogallery.fg-loaded-swing-down .fg-item.fg-loaded,
+.foogallery.fg-loaded-drop .fg-item.fg-loaded,
+.foogallery.fg-loaded-fly .fg-item.fg-loaded,
+.foogallery.fg-loaded-flip .fg-item.fg-loaded {
 	perspective: 1300px;
 }
 /* Swing Down */
-.foogallery.loaded-swing-down .fg-item-inner {
+.foogallery.fg-loaded-swing-down .fg-item-inner {
 	transition-property: visibility, opacity, transform;
 	transform-style: preserve-3d;
 	transform-origin: 0 0;
 	transform: rotateX(-80deg);
 }
-.foogallery.loaded-swing-down .fg-loaded .fg-item-inner {
+.foogallery.fg-loaded-swing-down .fg-loaded .fg-item-inner {
 	transform: rotateX(0deg);
 }
 /* Drop */
-.foogallery.loaded-drop .fg-item-inner {
+.foogallery.fg-loaded-drop .fg-item-inner {
 	transition-property: visibility, opacity, transform;
 	transform-style: preserve-3d;
 	transform: translateZ(400px) translateY(300px) rotateX(-90deg);
 }
-.foogallery.loaded-drop .fg-loaded .fg-item-inner {
+.foogallery.fg-loaded-drop .fg-loaded .fg-item-inner {
 	transform: translateZ(0px) translateY(0px) rotateX(0deg);
 }
 /* Fly */
-.foogallery.loaded-fly .fg-item-inner {
+.foogallery.fg-loaded-fly .fg-item-inner {
 	transition-property: visibility, opacity, transform;
 	transform-style: preserve-3d;
 	transform-origin: 50% 50% -300px;
 	transform: rotateX(-180deg);
 }
-.foogallery.loaded-fly .fg-loaded .fg-item-inner {
+.foogallery.fg-loaded-fly .fg-loaded .fg-item-inner {
 	transform: rotateX(0deg);
 }
 /* Flip */
-.foogallery.loaded-flip .fg-item-inner {
+.foogallery.fg-loaded-flip .fg-item-inner {
 	transition-property: visibility, opacity, transform;
 	backface-visibility: hidden;
 	transform-style: preserve-3d;
 	transform: rotateY(-180deg);
 }
-.foogallery.loaded-flip .fg-loaded .fg-item-inner {
+.foogallery.fg-loaded-flip .fg-loaded .fg-item-inner {
 	transform: rotateY(0deg);
 }

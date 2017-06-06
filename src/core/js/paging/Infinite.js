@@ -3,12 +3,13 @@
 	_.Infinite = _.Paged.extend({
 		construct: function(gallery, options, classes, il8n, selectors){
 			this._super(gallery, options, classes, il8n, selectors);
+			this.g.state.pushOrReplace = options.pushOrReplace;
+			this.distance = options.distance;
 			this._created = [];
 		},
-		buildPages: function(items, size){
-			var self = this;
-			self._super(items, _is.number(size) ? size : self.opt.size);
-			self._created = [];
+		buildPages: function(items){
+			this._super(items);
+			this._created = [];
 		},
 		available: function(){
 			var self = this;
@@ -16,19 +17,18 @@
 			return self._available = self.array.slice();
 		},
 		loadable: function(items){
-			var self = this, page = self.pages[self.currentPage - 1];
+			var self = this, page = self.getPage(self.currentPage);
 			if (!_is.empty(page)){
 				var vb = _.getViewportBounds(), ib = _.getElementBounds(page[page.length - 1].$el);
-				if (ib.top - vb.bottom < self.opt.distance){
+				if (ib.top - vb.bottom < self.distance){
 					self.goto(self.currentPage + 1, false);
 				}
 			}
 			return self._super(items);
 		},
-		goto: function(pageNumber, scroll){
+		setPage: function(pageNumber){
 			var self = this;
-			pageNumber = self.safePageNumber(pageNumber);
-			if (pageNumber !== self.currentPage){
+			if (self.isValidPage(pageNumber)){
 				for (var i = 0; i < pageNumber; i++){
 					if ($.inArray(i, self._created) === -1){
 						self.create(self.pages[i], true);
@@ -36,23 +36,15 @@
 					}
 				}
 				self.currentPage = pageNumber;
-				self.replaceState(self.getState());
+				return self.pages[pageNumber - 1];
 			}
-			var page = self.pages[self.currentPage - 1];
-			scroll = _is.boolean(scroll) ? scroll : false;
-			if (scroll){
-				if (page.length > 0){
-					page[0].scrollTo();
-				}
-			}
-			return page;
+			return [];
 		}
 	});
 
 	_.Gallery.options.infinite = {
-		theme: "fg-light",
-		size: 30,
-		distance: 200
+		distance: 200,
+		pushOrReplace: "replace"
 	};
 
 	_.items.register("infinite", _.Infinite);

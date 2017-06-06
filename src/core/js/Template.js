@@ -3,7 +3,7 @@
 	_.Template = _.Component.extend({
 		construct: function(gallery){
 			this._super(gallery);
-			this.options = this.fg.opt.template;
+			this.options = this.g.opt.template;
 			this.eventNamespace = ".foogallery";
 		},
 		raise: function (eventName, args) {
@@ -11,8 +11,8 @@
 			var self = this,
 				name = _str.contains(eventName, ".") ? eventName : eventName + self.eventNamespace,
 				event = $.Event(name);
-			if (self.fg.opt.debug) console.log(self.fg.id + ":" + name, args);
-			self.fg.$el.trigger(event, args);
+			if (self.g.opt.debug) console.log(self.g.id + ":" + name, args);
+			self.g.$el.trigger(event, args);
 			return event;
 		},
 		onpreinit: function(){
@@ -38,7 +38,7 @@
 		},
 		onitemparse: function(element){
 			this.raise("item-parse", [element]);
-			var item = _.components.make("item", this.fg);
+			var item = _.components.make("item", this.g);
 			if (item.parseDOM(element)){
 				return item.fix();
 			}
@@ -49,14 +49,14 @@
 		},
 		onitemmake: function(definition){
 			this.raise("item-make", [definition]);
-			return _.components.make("item", this.fg, definition);
+			return _.components.make("item", this.g, definition);
 		},
 		onitemsmade: function(items){
 			this.raise("items-made", [items]);
 		},
 		onitemcreate: function(item){
 			this.raise("item-create", [item]);
-			item.createDOM();
+			item.createDOM(true);
 		},
 		onitemscreated: function(items){
 			this.raise("items-created", [items]);

@@ -10,19 +10,15 @@
 				this.options.isFitWidth = false;
 				this.options.percentPosition = true;
 			}
-			this.masonry = new Masonry( this.fg.$el.get(0), this.options );
+			this.masonry = new Masonry( this.g.$el.get(0), this.options );
 		},
 		onitemsparsed: function(items){
 			this.masonry.layout();
 			this._super(items);
 		},
-		onitemsloaded: function(items){
-			this.masonry.layout();
-			this._super(items);
-		},
 		onitemsappended: function(items){
 			// add and layout the new items with no transitions
-			this.masonry.layoutItems( this.masonry.addItems( this.fg.items.jq(items) ), true );
+			this.masonry.layoutItems( this.masonry.addItems( this.g.items.jq(items) ), true );
 			this._super(items);
 		},
 		onitemdetach: function(item){

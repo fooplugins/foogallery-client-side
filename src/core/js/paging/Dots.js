@@ -3,73 +3,21 @@
 	_.Dots = _.Paged.extend({
 		construct: function(gallery, options, classes, il8n, selectors){
 			this._super(gallery, options, classes, il8n, selectors);
-			/**
-			 * @summary An array of control objects used by the pagination.
-			 * @memberof FooGallery.Dots#
-			 * @name controls
-			 * @type {FooGallery.DotsControl[]}
-			 * @readonly
-			 */
-			this.controls = [];
-		},
-		buildPages: function(items, size){
-			var self = this;
-			self._super(items, _is.number(size) ? size : self.opt.size);
-			self.buildControls();
-		},
-		buildControls: function(){
-			var self = this, pos = self.opt.position, top, bottom;
-			self.destroyControls();
-			if (pos === "both" || pos === "top"){
-				top = new _.DotsControl(self.fg, self, "top");
-				top.createDOM();
-				self.controls.push(top);
-			}
-			if (pos === "both" || pos === "bottom"){
-				bottom = new _.DotsControl(self.fg, self, "bottom");
-				bottom.createDOM();
-				self.controls.push(bottom);
-			}
-		},
-		destroyControls: function(){
-			var self = this;
-			if (!_is.empty(self.controls)){
-				$.each(self.controls.splice(0, self.controls.length), function(control){
-					control.destroyDOM();
-				});
-			}
-		},
-		updateControls: function(pageNumber){
-			var self = this;
-			pageNumber = self.safePageNumber(pageNumber);
-			$.each(self.controls, function(i, control){
-				control.update(pageNumber);
-			});
-			return pageNumber;
-		},
-		goto: function(pageNumber, scroll){
-			var self = this;
-			pageNumber = self.updateControls(pageNumber);
-			if (!_is.boolean(scroll)){
-				var vb = _.getViewportBounds(), gb = _.getElementBounds(self.fg.$el);
-				scroll = _.intersects(vb, gb) && vb.bottom > gb.bottom;
-			}
-			return self._super(pageNumber, scroll);
+			this.g.state.pushOrReplace = options.pushOrReplace;
+			this.position = options.position;
+			this.ctrl = options.control;
 		}
 	});
 
-	_.DotsControl = _.Component.extend({
-		construct: function(gallery, dots, position){
-			this._super(gallery);
-			this.p = dots;
-			this.position = position;
-			this.$el = $();
+	_.DotsControl = _.PagedControl.extend({
+		construct: function(gallery, position){
+			this._super(gallery, position);
+			this.$container = $();
 			this.$list = $();
 			this.$items = $();
 		},
-		createDOM: function(){
-			var self = this,
-				opt = self.p.opt, cls = self.p.cls, il8n = self.p.il8n,
+		create: function(){
+			var self = this, cls = self.p.cls, il8n = self.p.il8n,
 				items = [], $list = $("<ul/>", {"class": cls.list});
 
 			for (var i = 0, l = self.p.pages.length, $item; i < l; i++){
@@ -77,16 +25,19 @@
 				$list.append($item);
 			}
 			self.$list = $list;
-			self.$container = $("<nav/>", {"class": cls.container}).addClass(opt.theme).append($list);
+			self.$container = $("<nav/>", {"class": cls.container}).addClass(self.p.theme).append($list);
 			self.$items = $($.map(items, function($item){ return $item.get(); }));
-
+			return true;
+		},
+		append: function(){
+			var self = this;
 			if (self.position === "top"){
-				self.$container.insertBefore(self.fg.$el);
+				self.$container.insertBefore(self.g.$el);
 			} else {
-				self.$container.insertAfter(self.fg.$el);
+				self.$container.insertAfter(self.g.$el);
 			}
 		},
-		destroyDOM: function(){
+		destroy: function(){
 			var self = this, sel = self.p.sel;
 			self.$list.find(sel.link).off("click.foogallery", self.onLinkClick);
 			self.$container.remove();
@@ -169,9 +120,9 @@
 	});
 
 	_.Gallery.options.dots = {
-		theme: "fg-light",
-		size: 15,
-		position: "both"
+		position: "both",
+		pushOrReplace: "push",
+		control: "dots-control"
 	};
 
 	_.Gallery.options.classes.dots = {
@@ -191,6 +142,8 @@
 	};
 
 	_.items.register("dots", _.Dots);
+
+	_.controls.register("dots-control", _.DotsControl);
 
 })(
 	FooGallery.$,

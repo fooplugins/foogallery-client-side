@@ -227,14 +227,14 @@
 		 * @returns {boolean}
 		 */
 		parseDOM: function(element){
-			var self = this, o = self.fg.opt, selectors = self.fg.sel.item, $el = $(element);
+			var self = this, o = self.g.opt, selectors = self.g.sel.item, $el = $(element);
 			if (self.isCreated = $el.is(selectors.elem)){
 				self.$el = $el.data("__FooGalleryItem__", self);
 				self.$inner = self.$el.find(selectors.inner);
-				self.$anchor = self.$el.find(selectors.anchor).on("click.fg.item", {self: self}, self.onAnchorClick);
+				self.$anchor = self.$el.find(selectors.anchor).on("click.foogallery", {self: self}, self.onAnchorClick);
 				self.$image = self.$anchor.find(selectors.image);
 				self.$caption = self.$el.find(selectors.caption.elem);
-				self.isAttached = self.$el.parent.length > 0;
+				self.isAttached = self.$el.parent().length > 0;
 				self.isLoading = self.$el.is(selectors.loading);
 				self.isLoaded = self.$el.is(selectors.loaded);
 				self.isError = self.$el.is(selectors.error);
@@ -274,7 +274,7 @@
 				inner = _is.boolean(inner) ? inner : false;
 				caption = _is.boolean(caption) ? caption : true;
 
-				var o = self.fg.opt, classes = self.fg.cls.item, attr = self.attr;
+				var o = self.g.opt, classes = self.g.cls.item, attr = self.attr;
 				attr.elem["class"] = classes.elem + " " + classes.idle;
 				attr.elem["data-id"] = self.id;
 				attr.elem["data-tags"] = JSON.stringify(self.tags);
@@ -297,7 +297,7 @@
 				attr.image["alt"] = self.description;
 
 				self.$el = $("<div/>").attr(attr.elem).data("__FooGalleryItem__", self);
-				self.$anchor = $("<a/>").attr(attr.anchor).on("click.fg.item", {self: self}, self.onAnchorClick);
+				self.$anchor = $("<a/>").attr(attr.anchor).on("click.foogallery", {self: self}, self.onAnchorClick);
 				self.$image = $("<img/>").attr(attr.image).appendTo(self.$anchor);
 				self.$el.append(self.$inner = inner ? $("<div/>").attr(attr.inner).append(self.$anchor) : self.$anchor);
 
@@ -317,12 +317,12 @@
 		createCaptionDOM: function(){
 			var self = this;
 			if (self.canCreateCaption()){
-				var classes = self.fg.cls.item.caption, attr = self.attr.caption;
+				var cls = self.g.cls.item.caption, attr = self.attr.caption;
 
-				attr.elem["class"] = classes.elem;
-				attr.inner["class"] = classes.inner;
-				attr.title["class"] = classes.title;
-				attr.description["class"] = classes.description;
+				attr.elem["class"] = cls.elem;
+				attr.inner["class"] = cls.inner;
+				attr.title["class"] = cls.title;
+				attr.description["class"] = cls.description;
 
 				self.$caption = $("<div/>").attr(attr.elem);
 				var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
@@ -345,7 +345,7 @@
 		append: function(){
 			var self = this;
 			if (self.canAppend()){
-				self.fg.$el.append(self.$el);
+				self.g.$el.append(self.$el);
 				self.isAttached = true;
 			}
 			return self;
@@ -401,7 +401,7 @@
 		setLoading: function(){
 			var self = this;
 			if (self.canLoad()){
-				var classes = self.fg.cls.item;
+				var classes = self.g.cls.item;
 				self.isLoading = true;
 				self.$el.removeClass(classes.idle).removeClass(classes.loaded).removeClass(classes.error).addClass(classes.loading);
 			}
@@ -416,7 +416,7 @@
 		setLoaded: function(){
 			var self = this;
 			if (self.isLoading){
-				var classes = self.fg.cls.item;
+				var classes = self.g.cls.item;
 				self.isLoading = false;
 				self.isLoaded = true;
 				self.$el.removeClass(classes.loading).addClass(classes.loaded);
@@ -432,12 +432,12 @@
 		setError: function(){
 			var self = this;
 			if (self.isLoading){
-				var classes = self.fg.cls.item;
+				var classes = self.g.cls.item;
 				self.isLoading = false;
 				self.isError = true;
 				self.$el.removeClass(classes.loading).addClass(classes.error);
-				if (_is.string(self.fg.opt.error)) {
-					self.$image.prop("src", self.fg.opt.error);
+				if (_is.string(self.g.opt.error)) {
+					self.$image.prop("src", self.g.opt.error);
 				}
 			}
 			return self;
@@ -496,12 +496,21 @@
 		 * @memberof FooGallery.Item#
 		 * @function scrollTo
 		 */
-		scrollTo: function(){
+		scrollTo: function(align){
 			var self = this;
 			if (self.isAttached){
 				var offset = self.$el.offset(), vb = _.getViewportBounds();
-				offset.left += (self.$el.outerWidth() / 2) - (vb.width / 2);
-				offset.top += (self.$el.outerHeight() / 2) - (vb.height / 2);
+				switch(align){
+					case "top": // attempts to center the item horizontally but aligns the top with the middle of the viewport
+						offset.left += (self.$el.outerWidth() / 2) - (vb.width / 2);
+						offset.top -= (vb.height / 5);
+						break;
+					default: // attempts to center the item in the viewport
+						offset.left += (self.$el.outerWidth() / 2) - (vb.width / 2);
+						offset.top += (self.$el.outerHeight() / 2) - (vb.height / 2);
+						break;
+				}
+				console.log("scrollTo:", align, offset);
 				window.scrollTo(offset.left, offset.top);
 			}
 			return self;
@@ -516,8 +525,8 @@
 		replaceState: function(){
 			var self = this;
 			if (self.isAttached){
-				var state = self.fg.items.getState(self);
-				self.fg.items.replaceState(state);
+				var state = self.g.items.getState(self);
+				self.g.state.replace(state);
 			}
 		},
 		onAnchorClick: function(e){

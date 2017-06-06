@@ -183,11 +183,11 @@
 	_.PortfolioTemplate = _.Template.extend({
 		construct: function(gallery){
 			this._super(gallery);
-			this.portfolio = new _.Portfolio( this.fg.$el.get(0), this.options );
+			this.portfolio = new _.Portfolio( this.g.$el.get(0), this.options );
 			this.isCaptionTop = false;
 		},
 		onpreinit: function(){
-			this.isCaptionTop = this.fg.$el.hasClass("fg-captions-top");
+			this.isCaptionTop = this.g.$el.hasClass("fg-captions-top");
 			this.portfolio.init();
 			this._super();
 		},
@@ -205,10 +205,6 @@
 					item.$caption.insertAfter(item.$anchor);
 				}
 			}
-		},
-		onitemsloaded: function(items){
-			this.portfolio.layout();
-			this._super(items);
 		},
 		onitemsappended: function(items){
 			this.portfolio.layout( true );

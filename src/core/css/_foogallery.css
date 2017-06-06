@@ -7,10 +7,12 @@
 	position: relative;
 }
 .foogallery .fg-item {
+	position: relative;
 	background-color: transparent;
 	z-index: 1;
 }
 .foogallery .fg-item-inner {
+	position: relative;
 	visibility: hidden;
 	opacity: 0;
 	z-index: 1;
@@ -27,6 +29,10 @@
 	visibility: visible;
 	opacity: 1;
 	z-index: 3;
+}
+.foogallery .fg-thumb,
+.foogallery .fg-item {
+	position: relative;
 }
 
 /* Utility */

@@ -6,16 +6,16 @@
 		this.types = {
 			classes: ["caption","hover-effect","loaded-effect","loading-icon","item-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
 			bool: [
-				"state",
-				"lazy-enabled", "background",
-				"pagination-enabled","pagination-showPrevNext","pagination-showFirstLast","pagination-showPrevNextMore"
+				"state-enabled",
+				"lazy", "background",
+				"pagination-showPrevNext","pagination-showFirstLast","pagination-showPrevNextMore"
 			],
 			int: [
-				"lazy-viewport",
-				"dots-size",
-				"pagination-size","pagination-limit",
-				"infinite-size","infinite-distance",
-				"loadMore-size","loadMore-distance","loadMore-amount"
+				"viewport",
+				"paging-size",
+				"pagination-limit",
+				"infinite-distance",
+				"loadMore-distance","loadMore-amount"
 			]
 		};
 	}
@@ -25,18 +25,19 @@
 		this.$templates = $("#template");
 		this.$generate = $("#generate");
 		this.$clear = $("#clear");
-		this.$paging = $("[name=paging]");
+		this.$pagingType = $("[name=paging-type]");
+		this.$pagingOptionsFieldSet = $("#paging-options");
 		this.$infiniteOptionsFieldSet = $("#infinite-options");
 		this.$loadMoreOptionsFieldSet = $("#loadMore-options");
 		this.$paginationOptionsFieldSet = $("#pagination-options");
 		this.$dotsOptionsFieldSet = $("#dots-options");
-		this.$lazyEnabled = $("#lazy-enabled");
+		this.$lazyEnabled = $("#lazy");
 		this.$lazyOptionsFieldSet = $("#lazy-options");
 		this.$borderStyle = $("[name=border-style]");
 		this.$borderStyleOptionsFieldSet = $("#border-style-options");
 		this.$output = $("#output");
 		this.$current = $();
-		this.$viewport = $("#viewport");
+		this.$viewportArea = $("#viewport-area");
 		this.$infiniteArea = $("#infinite-area");
 		this.$loadMoreArea = $("#loadMore-area");
 	};
@@ -122,7 +123,7 @@
 		self.$lazyEnabled.on("change", function(){
 			self.updateLazyFieldSets();
 		});
-		self.$paging.on("change", function(){
+		self.$pagingType.on("change", function(){
 			self.updatePagingFieldSets();
 		});
 	};
@@ -150,7 +151,7 @@
 			this.$current.addClass(json.classes.join(' '));
 			this.$output.empty().append(this.$current);
 
-			this.setViewportArea(json.options.lazy);
+			this.setViewportArea(json.options);
 			this.setInfiniteArea(json.options.infinite);
 			this.setLoadMoreArea(json.options.loadMore);
 
@@ -173,16 +174,16 @@
 	};
 
 	CoreTestPage.prototype.setViewportArea = function(options){
-		if (_is.hash(options) && _is.number(options.viewport) && options.viewport < 0){
+		if (_is.hash(options) && options.lazy && _is.number(options.viewport) && options.viewport < 0){
 			var $win = $(window), diff = options.viewport * 2;
-			this.$viewport.css({
+			this.$viewportArea.css({
 				top: -(options.viewport),
 				left: -(options.viewport),
 				width: $win.width() + diff,
 				height: $win.height() + diff
 			});
 		} else {
-			this.$viewport.hide();
+			this.$viewportArea.hide();
 		}
 	};
 
@@ -229,6 +230,8 @@
 			options: {
 				items: "items.json",
 				lazy: {},
+				state: {},
+				paging: {},
 				dots: {},
 				pagination: {},
 				infinite: {},
@@ -273,7 +276,8 @@
 	};
 
 	CoreTestPage.prototype.updatePagingFieldSets = function(){
-		var value = this.$paging.filter(":checked").val();
+		var value = this.$pagingType.filter(":checked").val();
+		this.$pagingOptionsFieldSet.prop("disabled", _is.empty(value) || value === "none");
 		this.$infiniteOptionsFieldSet.prop("disabled", value !== "infinite");
 		this.$loadMoreOptionsFieldSet.prop("disabled", value !== "loadMore");
 		this.$paginationOptionsFieldSet.prop("disabled", value !== "pagination");

@@ -243,17 +243,13 @@
 	_.JustifiedTemplate = _.Template.extend({
 		construct: function(gallery){
 			this._super(gallery);
-			this.justified = new _.Justified( this.fg.$el.get(0), this.options );
+			this.justified = new _.Justified( this.g.$el.get(0), this.options );
 		},
 		onpreinit: function(){
 			this.justified.init();
 			this._super();
 		},
 		onitemsparsed: function(items){
-			this.justified.layout();
-			this._super(items);
-		},
-		onitemsloaded: function(items){
 			this.justified.layout();
 			this._super(items);
 		},

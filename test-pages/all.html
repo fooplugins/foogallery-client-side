@@ -63,7 +63,7 @@
 			height: 400px;
 			background-color: #b1b1b1;
 		}
-		#viewport,
+		#viewport-area,
 		#infinite-area,
 		#loadMore-area {
 			position: fixed;
@@ -75,13 +75,13 @@
 			pointer-events: none;
 		}
 		@media screen and (min-width:0) and (min-resolution:.001dpcm) {
-			#viewport,
+			#viewport-area,
 			#infinite-area,
 			#loadMore-area {
 				display: none/0;
 			}
 		}
-		#viewport:before,
+		#viewport-area:before,
 		#infinite-area:before,
 		#loadMore-area:before,
 		.gallery-tracked .foogallery:before {
@@ -100,11 +100,11 @@
 		.gallery-tracked .foogallery:before {
 			content: "gallery";
 		}
-		#viewport {
+		#viewport-area {
 			border: dashed 1px #ff0500;
 			color: #ff0500;
 		}
-		#viewport:before {
+		#viewport-area:before {
 			content: "lazy - viewport";
 		}
 		#infinite-area,#loadMore-area {
@@ -134,7 +134,7 @@
 	</style>
 </head>
 <body>
-<div id="viewport"></div>
+<div id="viewport-area"></div>
 <div id="infinite-area"></div>
 <div id="loadMore-area"></div>
 	<div id="wrap" class="container">
@@ -171,6 +171,10 @@
 									<span class="dashicons dashicons-admin-generic"></span>
 									<span class="foogallery-tab-text">Advanced</span>
 								</div>
+								<div class="foogallery-vertical-tab" data-name="paging">
+									<span class="dashicons dashicons-admin-page"></span>
+									<span class="foogallery-tab-text">Paging</span>
+								</div>
 							</div>
 							<div class="foogallery-tab-contents">
 								<div class="foogallery-tab-content foogallery-tab-active" data-name="appearance">
@@ -182,20 +186,20 @@
 											<div class="col-sm-10">
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="item-style" id="item-style1" value="" checked>
-														None
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="item-style" id="item-style2" value="fg-item-light">
+														<input type="radio" name="item-style" id="item-style1" value="fg-item-light" checked>
 														Light
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="item-style" id="item-style3" value="fg-item-dark">
+														<input type="radio" name="item-style" id="item-style2" value="fg-item-dark">
 														Dark
+													</label>
+												</div>
+												<div class="radio-inline">
+													<label>
+														<input type="radio" name="item-style" id="item-style3" value="">
+														None
 													</label>
 												</div>
 											</div>
@@ -214,19 +218,25 @@
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="border-size" id="border-size1" value="fg-border-thin">
+														<input type="radio" name="border-size" id="border-size1" value="fg-border-outline">
+														Outline <code>1px</code> *
+													</label>
+												</div>
+												<div class="radio-inline">
+													<label>
+														<input type="radio" name="border-size" id="border-size2" value="fg-border-thin">
 														Thin <code>5px</code> *
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="border-size" id="border-size2" value="fg-border-medium">
+														<input type="radio" name="border-size" id="border-size3" value="fg-border-medium">
 														Medium <code>10px</code> *
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="border-size" id="border-size3" value="fg-border-thick">
+														<input type="radio" name="border-size" id="border-size4" value="fg-border-thick">
 														Thick <code>15px</code> *
 													</label>
 												</div>
@@ -340,13 +350,13 @@
 											<div class="col-sm-10">
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="loading-icon" id="loading-icon0" value="" checked>
+														<input type="radio" name="loading-icon" id="loading-icon0" value="">
 														None
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label title="Default">
-														<input type="radio" name="loading-icon" id="loading-icon1" value="fg-loading-default">
+														<input type="radio" name="loading-icon" id="loading-icon1" value="fg-loading-default" checked>
 														<span><img src="../dist/core/img/loading-default.gif" /></span>
 													</label>
 												</div>
@@ -414,49 +424,49 @@
 											<div class="col-sm-10">
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="loaded-effect" id="loaded-effect1" value="" checked>
+														<input type="radio" name="loaded-effect" id="loaded-effect1" value="">
 														None
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="loaded-effect" id="loaded-effect2" value="loaded-fade-in">
+														<input type="radio" name="loaded-effect" id="loaded-effect2" value="fg-loaded-fade-in" checked>
 														Fade In
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="loaded-effect" id="loaded-effect3" value="loaded-slide-up">
+														<input type="radio" name="loaded-effect" id="loaded-effect3" value="fg-loaded-slide-up">
 														Slide Up
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="loaded-effect" id="loaded-effect4" value="loaded-scale-up">
+														<input type="radio" name="loaded-effect" id="loaded-effect4" value="fg-loaded-scale-up">
 														Scale Up
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="loaded-effect" id="loaded-effect5" value="loaded-swing-down">
+														<input type="radio" name="loaded-effect" id="loaded-effect5" value="fg-loaded-swing-down">
 														Swing Down *
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="loaded-effect" id="loaded-effect6" value="loaded-drop">
+														<input type="radio" name="loaded-effect" id="loaded-effect6" value="fg-loaded-drop">
 														Drop *
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="loaded-effect" id="loaded-effect7" value="loaded-fly">
+														<input type="radio" name="loaded-effect" id="loaded-effect7" value="fg-loaded-fly">
 														Fly *
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="loaded-effect" id="loaded-effect8" value="loaded-flip">
+														<input type="radio" name="loaded-effect" id="loaded-effect8" value="fg-loaded-flip">
 														Flip *
 													</label>
 												</div>
@@ -514,13 +524,13 @@
 											<div class="col-sm-10">
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect0" value="" checked>
+														<input type="radio" name="hover-effect" id="hover-effect0" value="">
 														None
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect1" value="fg-hover-zoom">
+														<input type="radio" name="hover-effect" id="hover-effect1" value="fg-hover-zoom" checked>
 														Zoom
 													</label>
 												</div>
@@ -557,18 +567,24 @@
 												<div class="radio-inline">
 													<label>
 														<input type="radio" name="hover-effect" id="hover-effect7" value="fg-hover-color">
-														Color
+														Colorize
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect8" value="fg-hover-scale">
+														<input type="radio" name="hover-effect" id="hover-effect8" value="fg-hover-gray">
+														Grayscale
+													</label>
+												</div>
+												<div class="radio-inline">
+													<label>
+														<input type="radio" name="hover-effect" id="hover-effect9" value="fg-hover-scale">
 														Scale
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect9" value="fg-hover-tint">
+														<input type="radio" name="hover-effect" id="hover-effect10" value="fg-hover-tint">
 														Tint
 													</label>
 												</div>
@@ -584,11 +600,11 @@
 									<fieldset>
 
 										<div class="form-group">
-											<label for="lazy-enabled" class="col-sm-2 control-label">Lazy Load</label>
+											<label for="lazy" class="col-sm-2 control-label">Lazy Load</label>
 											<div class="col-sm-8">
 												<div class="checkbox-inline">
 													<label>
-														<input id="lazy-enabled" name="lazy-enabled" type="checkbox" value="1" checked>
+														<input id="lazy" name="lazy" type="checkbox" value="1" checked>
 														Only load images once they are within the viewport.
 													</label>
 												</div>
@@ -597,20 +613,20 @@
 
 										<fieldset id="lazy-options" disabled>
 											<div class="form-group">
-												<label for="lazy-viewport" class="col-sm-2 control-label">Adjust Viewport</label>
+												<label for="viewport" class="col-sm-2 control-label">Adjust Viewport</label>
 												<div class="col-sm-2">
-													<input id="lazy-viewport" name="lazy-viewport" class="form-control" type="number" value="200" min="-800" max="800" step="50"/>
+													<input id="viewport" name="viewport" class="form-control" type="number" value="200" min="-800" max="800" step="50"/>
 												</div>
 												<p class="help-block col-sm-offset-2 col-sm-10">When checking if items are within the viewport for lazy loading inflate its' boundaries by this amount of pixels.</p>
 											</div>
 										</fieldset>
 
 										<div class="form-group">
-											<label for="state" class="col-sm-2 control-label">State</label>
+											<label for="state-enabled" class="col-sm-2 control-label">State</label>
 											<div class="col-sm-8">
 												<div class="checkbox-inline">
 													<label>
-														<input id="state" name="state" type="checkbox" value="1">
+														<input id="state-enabled" name="state-enabled" type="checkbox" value="1">
 														Update the pages' url as a user navigates the gallery.
 													</label>
 												</div>
@@ -621,76 +637,84 @@
 											</p>
 										</div>
 
-										<!-- Paging -->
+									</fieldset>
+								</div>
+								<div class="foogallery-tab-content" data-name="paging">
+									<!-- Paging -->
+									<fieldset>
+
 										<div class="form-group">
-											<label for="paging1" class="col-sm-2 control-label">Paging</label>
+											<label for="paging-type1" class="col-sm-2 control-label">Paging</label>
 											<div class="col-sm-10">
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="paging" id="paging1" value="" checked>
+														<input type="radio" name="paging-type" id="paging-type1" value="" checked>
 														None
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label title="A very simple layout of dots.">
-														<input type="radio" name="paging" id="paging2" value="dots">
+														<input type="radio" name="paging-type" id="paging-type2" value="dots">
 														Dots
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label title="A more complete pagination control displaying numbers and optional buttons.">
-														<input type="radio" name="paging" id="paging3" value="pagination">
+														<input type="radio" name="paging-type" id="paging-type3" value="pagination">
 														Pagination
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label title="Why won't it stop? :(">
-														<input type="radio" name="paging" id="paging4" value="infinite">
+														<input type="radio" name="paging-type" id="paging-type4" value="infinite">
 														Infinite
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label title="Load additional pages at the click of a button.">
-														<input type="radio" name="paging" id="paging5" value="loadMore">
+														<input type="radio" name="paging-type" id="paging-type5" value="loadMore">
 														Load More
 													</label>
 												</div>
 											</div>
-											<p class="help-block col-sm-offset-2 col-sm-10">Specify whether the items should be displayed in a paged format.</p>
+											<p class="help-block col-sm-offset-2 col-sm-10">Specify if the items are displayed in a paged format.</p>
 										</div>
 
-										<fieldset id="dots-options" disabled>
+										<fieldset id="paging-options" disabled>
 											<div class="form-group">
-												<label for="dots-theme3" class="col-sm-2 control-label">Theme</label>
+												<label for="paging-theme1" class="col-sm-2 control-label">Theme</label>
 												<div class="col-sm-10">
 													<div class="radio-inline">
 														<label>
-															<input id="dots-theme1" name="dots-theme" type="radio" value="fg-light" checked>
+															<input id="paging-theme1" name="paging-theme" type="radio" value="fg-light" checked>
 															Light
 														</label>
 													</div>
 													<div class="radio-inline">
 														<label>
-															<input id="dots-theme2" name="dots-theme" type="radio" value="fg-dark">
+															<input id="paging-theme2" name="paging-theme" type="radio" value="fg-dark">
 															Dark
 														</label>
 													</div>
 													<div class="radio-inline">
 														<label>
-															<input id="dots-theme3" name="dots-theme" type="radio" value="">
+															<input id="paging-theme3" name="paging-theme" type="radio" value="">
 															None
 														</label>
 													</div>
 												</div>
-												<p class="help-block col-sm-offset-2 col-sm-10">The theme to apply to the dots controls.</p>
+												<p class="help-block col-sm-offset-2 col-sm-10">The theme to apply to any controls.</p>
 											</div>
 											<div class="form-group">
-												<label for="dots-size" class="col-sm-2 control-label">Size</label>
+												<label for="paging-size" class="col-sm-2 control-label">Size</label>
 												<div class="col-sm-2">
-													<input id="dots-size" name="dots-size" class="form-control" type="number" value="30" min="1"/>
+													<input id="paging-size" name="paging-size" class="form-control" type="number" value="30" min="1"/>
 												</div>
 												<p class="help-block col-sm-offset-2 col-sm-10">The number of items per page.</p>
 											</div>
+										</fieldset>
+
+										<fieldset id="dots-options" disabled>
 											<div class="form-group">
 												<label for="dots-position1" class="col-sm-2 control-label">Position</label>
 												<div class="col-sm-10">
@@ -713,42 +737,11 @@
 														</label>
 													</div>
 												</div>
-												<p class="help-block col-sm-offset-2 col-sm-10">Where to display the dots controls.</p>
+												<p class="help-block col-sm-offset-2 col-sm-10">Where to display the controls.</p>
 											</div>
 										</fieldset>
 
 										<fieldset id="pagination-options" disabled>
-											<div class="form-group">
-												<label for="pagination-theme1" class="col-sm-2 control-label">Theme</label>
-												<div class="col-sm-10">
-													<div class="radio-inline">
-														<label>
-															<input id="pagination-theme1" name="pagination-theme" type="radio" value="fg-light" checked>
-															Light
-														</label>
-													</div>
-													<div class="radio-inline">
-														<label>
-															<input id="pagination-theme2" name="pagination-theme" type="radio" value="fg-dark">
-															Dark
-														</label>
-													</div>
-													<div class="radio-inline">
-														<label>
-															<input id="pagination-theme3" name="pagination-theme" type="radio" value="">
-															None
-														</label>
-													</div>
-												</div>
-												<p class="help-block col-sm-offset-2 col-sm-10">The theme to apply to the pagination controls.</p>
-											</div>
-											<div class="form-group">
-												<label for="pagination-size" class="col-sm-2 control-label">Size</label>
-												<div class="col-sm-2">
-													<input id="pagination-size" name="pagination-size" class="form-control" type="number" value="30" min="1"/>
-												</div>
-												<p class="help-block col-sm-offset-2 col-sm-10">The number of items per page.</p>
-											</div>
 											<div class="form-group">
 												<label for="pagination-limit" class="col-sm-2 control-label">Limit</label>
 												<div class="col-sm-2">
@@ -808,37 +801,6 @@
 
 										<fieldset id="infinite-options" disabled>
 											<div class="form-group">
-												<label for="infinite-theme1" class="col-sm-2 control-label">Theme</label>
-												<div class="col-sm-10">
-													<div class="radio-inline">
-														<label>
-															<input id="infinite-theme1" name="infinite-theme" type="radio" value="fg-light" checked>
-															Light
-														</label>
-													</div>
-													<div class="radio-inline">
-														<label>
-															<input id="infinite-theme2" name="infinite-theme" type="radio" value="fg-dark">
-															Dark
-														</label>
-													</div>
-													<div class="radio-inline">
-														<label>
-															<input id="infinite-theme3" name="infinite-theme" type="radio" value="">
-															None
-														</label>
-													</div>
-												</div>
-												<p class="help-block col-sm-offset-2 col-sm-10">The theme to apply to the infinite scroll controls.</p>
-											</div>
-											<div class="form-group">
-												<label for="infinite-size" class="col-sm-2 control-label">Size</label>
-												<div class="col-sm-2">
-													<input id="infinite-size" name="infinite-size" class="form-control" type="number" value="30" min="1" step="1"/>
-												</div>
-												<p class="help-block col-sm-offset-2 col-sm-10">The number of items per page.</p>
-											</div>
-											<div class="form-group">
 												<label for="infinite-distance" class="col-sm-2 control-label">Distance</label>
 												<div class="col-sm-2">
 													<input id="infinite-distance" name="infinite-distance" class="form-control" type="number" value="200" min="-800" max="800" step="50"/>
@@ -850,37 +812,6 @@
 										</fieldset>
 
 										<fieldset id="loadMore-options" disabled>
-											<div class="form-group">
-												<label for="loadMore-theme1" class="col-sm-2 control-label">Theme</label>
-												<div class="col-sm-10">
-													<div class="radio-inline">
-														<label>
-															<input id="loadMore-theme1" name="loadMore-theme" type="radio" value="fg-light">
-															Light
-														</label>
-													</div>
-													<div class="radio-inline">
-														<label>
-															<input id="loadMore-theme2" name="loadMore-theme" type="radio" value="fg-dark">
-															Dark
-														</label>
-													</div>
-													<div class="radio-inline">
-														<label>
-															<input id="loadMore-theme3" name="loadMore-theme" type="radio" value="" checked>
-															None
-														</label>
-													</div>
-												</div>
-												<p class="help-block col-sm-offset-2 col-sm-10">The theme to apply to the load more controls.</p>
-											</div>
-											<div class="form-group">
-												<label for="loadMore-size" class="col-sm-2 control-label">Size</label>
-												<div class="col-sm-2">
-													<input id="loadMore-size" name="loadMore-size" class="form-control" type="number" value="30" min="1" step="1"/>
-												</div>
-												<p class="help-block col-sm-offset-2 col-sm-10">The number of items per page.</p>
-											</div>
 											<div class="form-group">
 												<label for="loadMore-amount" class="col-sm-2 control-label">Amount</label>
 												<div class="col-sm-2">
