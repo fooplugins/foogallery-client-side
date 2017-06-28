@@ -1,0 +1,3177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--<link rel="icon" href="../../favicon.ico">-->
+
+	<title>Options - FooGallery</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	<!-- FooGallery Full CSS -->
+	<link href="../dist/full/css/foogallery.min.css" rel="stylesheet">
+
+	<!-- Prism -->
+	<link href="css/prism.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="css/docs.css" rel="stylesheet">
+
+	<!-- TOC -->
+	<link href="css/toc.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<style>
+		.css-examples {
+			position: relative;
+			text-align: center;
+		}
+		.css-example {
+			position: relative;
+			display: inline-block;
+			margin: 7px;
+		}
+		.css-example .foogallery {
+			text-align: center;
+		}
+		.css-example > h4 {
+			text-align: center;
+			font-size: 12px;
+		}
+		.css-example .fg-item {
+			display: inline-block;
+		}
+		.css-example .fg-item-inner,
+		.css-example .fg-thumb {
+			display: block;
+		}
+		.css-example .anchor-link,
+		.css-example h4:hover .anchor-link {
+			visibility: hidden;
+			opacity: 0;
+		}
+		.css-example.loaded-effects.disable .fg-item,
+		.css-example.loaded-effects.disable .fg-item-inner {
+			transition: none !important;
+		}
+
+		.css-example.item-theme .fg-item {
+			position: relative;
+		}
+		.css-example.item-theme .fg-caption {
+			width: 200px;
+		}
+	</style>
+</head>
+<body class="docs">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="../index.html" class="navbar-brand">FooGallery</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="getting-started.html">Getting started</a></li>
+				<li class="active"><a>Options</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Templates <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="templates/masonry.html">Masonry</a></li>
+						<li><a href="templates/portfolio.html">Portfolio</a></li>
+						<li><a href="templates/justified.html">Justified</a></li>
+						<li><a href="templates/responsive.html">Responsive</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paging <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="paging/dots.html">Dots</a></li>
+						<li><a href="paging/pagination.html">Pagination</a></li>
+						<li><a href="paging/infinite.html">Infinite</a></li>
+						<li><a href="paging/loadMore.html">Load More</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="jsdocs/index.html" target="_blank">JSDocs</a></li>
+				<li><a href="https://github.com/fooplugins/foogallery-client-side" target="_blank">GitHub</a></li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
+
+<!-- Header -->
+<div class="jumbotron">
+	<div class="container">
+		<h1>Options</h1>
+		<h2>An overview of FooGallery's CSS and JavaScript options.</h2>
+	</div>
+</div>
+
+<div class="container">
+
+	<!-- Main -->
+	<div class="main-content col-md-9">
+
+	<!-- CSS -->
+	<div class="docs-section">
+		<h2 class="page-header first">CSS</h2>
+		<p class="lead">
+			The below lists the various CSS classes that are included in FooGallery's core files providing some out of the box functionality to templates.
+		</p>
+
+		<div class="examples">
+			<div class="example">
+				To use any of these classes all you need to do is apply it to the FooGallery container element.
+			</div>
+			<pre class="language-markup" data-lang="markup"><code>&lt;div id=&quot;[id]&quot; class=&quot;foogallery fg-light fg-loading-default fg-loaded-fade-in&quot;&gt;
+	&lt;!-- repeatable items --&gt;
+&lt;/div&gt;</code></pre>
+		</div>
+
+		<div class="callout callout-info">
+			<h5>Note</h5>
+			<p>
+				Not every CSS class listed will work with every template so please check the templates documentation to see if it lists any incompatibilities.
+			</p>
+		</div>
+
+		<!-- Item theme -->
+		<div class="docs-option">
+			<h3 class="page-header">Item theme</h3>
+			<p>
+				These CSS classes determine the overall appearance of an item, affecting properties such as the border, background, font and shadow colors and even the loading icons.
+			</p>
+
+			<div class="css-examples">
+
+				<div class="css-example item-theme">
+					<div class="foogallery fg-portfolio fg-light fg-border-thick fg-shadow-outline">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-light" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/200x200/1"/>
+								</a>
+								<div class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-light">fg-light</h4>
+				</div>
+
+				<div class="css-example item-theme">
+					<div class="foogallery fg-portfolio fg-dark fg-border-thick fg-shadow-outline">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-dark" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/200x200/2"/>
+								</a>
+								<div class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-dark">fg-dark</h4>
+				</div>
+
+			</div>
+
+			<div class="callout callout-info">
+				<h5>Note</h5>
+				<p>
+					If no theme is set some classes like the border size and rounded corners will still apply there sizes but no colors will be set. This can be useful when creating a custom style however
+					note that as we use <code>.gif</code> for the loading icons they are created with solid background colors matching the light and dark themes. If you are creating your own theme that
+					changes the background color of loading items you will need to provide your own icons with the correct background color.
+				</p>
+			</div>
+
+		</div>
+
+		<!-- Border size -->
+		<div class="docs-option">
+			<h3 class="page-header">Border size</h3>
+			<p>
+				These CSS classes specify the <code>border-width</code> for an item and are dependent on an item theme for the actual <code>border-color</code>. In this example we are using the
+				<code>fg-dark</code> theme so the border stands out against the white background.
+			</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-dark fg-border-thin">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-border-thin" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/1"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-border-thin">fg-border-thin</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-dark fg-border-medium">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-border-medium" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/2"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-border-medium">fg-border-medium</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-dark fg-border-thick">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-border-thick" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/3"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-border-thick">fg-border-thick</h4>
+				</div>
+
+			</div>
+
+			<p>If we want to use the <code>fg-light</code> theme we could use the <code>fg-shadow-outline</code> class to give our edges some definition.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-outline fg-border-thin">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-border-thin" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/1"/>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-outline fg-border-medium">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-border-medium" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/2"/>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-outline fg-border-thick">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-border-thick" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/3"/>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Rounded corners -->
+		<div class="docs-option">
+			<h3 class="page-header">Rounded corners</h3>
+			<p>These CSS classes specify the <code>border-radius</code> for an item.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-round-small">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-round-small" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/1"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-round-small">fg-round-small</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-round-medium">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-round-medium" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/2"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-round-medium">fg-round-medium</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-round-large">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-round-large" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/3"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-round-large">fg-round-large</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-round-full">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-round-full" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/4"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-round-full">fg-round-full</h4>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Drop shadows -->
+		<div class="docs-option">
+			<h3 class="page-header">Drop shadows</h3>
+			<p>These CSS classes specify the <code>box-shadow</code> for an item and are dependent on a item theme being set.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-outline">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-shadow-outline" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-shadow-outline">fg-shadow-outline</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-small">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-shadow-small" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-shadow-small">fg-shadow-small</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-medium">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-shadow-medium" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-shadow-medium">fg-shadow-medium</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-large">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-shadow-large" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-shadow-large">fg-shadow-large</h4>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Inner shadows -->
+		<div class="docs-option">
+			<h3 class="page-header">Inner shadows</h3>
+			<p>These CSS classes specify the inner <code>box-shadow</code> for an items thumbnail and are dependent on a item theme being set.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-inset-small">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-shadow-inset-small" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-shadow-inset-small">fg-shadow-inset-small</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-inset-medium">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-shadow-inset-medium" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-shadow-inset-medium">fg-shadow-inset-medium</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-inset-large">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-shadow-inset-large" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-shadow-inset-large">fg-shadow-inset-large</h4>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Hover effects -->
+		<div class="docs-option">
+			<h3 class="page-header">Hover effects</h3>
+			<p>These CSS classes provide simple effects for when a user hovers over an item. All icons all retina ready with multiple sizes available.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-external">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-external" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/1"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-external">fg-hover-external</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-zoom">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-zoom" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/2"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-zoom">fg-hover-zoom</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-zoom2">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-zoom2" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/3"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-zoom2">fg-hover-zoom2</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-zoom3">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-zoom3" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/4"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-zoom3">fg-hover-zoom3</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-plus">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-plus" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/5"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-plus">fg-hover-plus</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-circle-plus">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-circle-plus" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/6"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-circle-plus">fg-hover-circle-plus</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-eye">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-eye" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/7"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-eye">fg-hover-eye</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-tint">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-tint" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/8"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-tint">fg-hover-tint</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-color">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-color" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/9"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-color">fg-hover-color</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-gray">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-gray" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/10"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-gray">fg-hover-gray</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-scale">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-hover-scale" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/11"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-hover-scale">fg-hover-scale</h4>
+				</div>
+
+			</div>
+
+			<div class="callout callout-info">
+				<h5>Notes</h5>
+				<ul>
+					<li>
+						<p><code>fg-hover-scale</code> can result in blurry text in items in some browsers, most notably Chrome.</p>
+					</li>
+					<li>
+						<p>
+							<code>fg-hover-color</code> and <code>fg-hover-gray</code> will not work in Internet Explorer 10 & 11 as Microsoft removed support for the proprietary <code>filter: gray</code>
+							CSS property and supplied no replacement.
+						</p>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<!-- Captions -->
+		<div class="docs-option">
+			<h3 class="page-header">Captions</h3>
+			<p>These CSS classes control if and how captions are displayed for an item.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-always">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-caption-always" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/200x200/1"/>
+									<div class="fg-caption">
+										<div class="fg-caption-inner">
+											<div class="fg-caption-title">Lorem ipsum dolor.</div>
+											<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-caption-always">fg-caption-always</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-simple">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-caption-simple" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/200x200/2"/>
+									<div class="fg-caption">
+										<div class="fg-caption-inner">
+											<div class="fg-caption-title">Lorem ipsum dolor.</div>
+											<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-caption-simple">fg-caption-simple</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-drop">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-caption-drop" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/200x200/3"/>
+									<div class="fg-caption">
+										<div class="fg-caption-inner">
+											<div class="fg-caption-title">Lorem ipsum dolor.</div>
+											<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-caption-drop">fg-caption-drop</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-fade">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-caption-fade" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/200x200/4"/>
+									<div class="fg-caption">
+										<div class="fg-caption-inner">
+											<div class="fg-caption-title">Lorem ipsum dolor.</div>
+											<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-caption-fade">fg-caption-fade</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-push">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-caption-push" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/200x200/5"/>
+									<div class="fg-caption">
+										<div class="fg-caption-inner">
+											<div class="fg-caption-title">Lorem ipsum dolor.</div>
+											<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-caption-push">fg-caption-push</h4>
+				</div>
+
+			</div>
+
+			<div class="callout callout-info">
+				<h5>Note</h5>
+				<p>Using <code>fg-caption-drop</code>, <code>fg-caption-fade</code> or <code>fg-caption-push</code> will disable all hover effects except <code>fg-hover-color</code>, <code>fg-hover-gray</code> and <code>fg-hover-scale</code> due to the way the captions are displayed.</p>
+			</div>
+
+		</div>
+
+		<!-- Loaded effects -->
+		<div class="docs-option">
+			<h3 class="page-header">Loaded effects</h3>
+			<p>These CSS classes control the effect an item uses to display itself once it has been loaded.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example loaded-effects">
+					<div class="foogallery fg-loaded-fade-in">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-loaded-fade-in" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/1"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loaded-fade-in">fg-loaded-fade-in</h4>
+					<div class="align-center">
+						<button type="button" class="btn btn-xs btn-default">Run</button>
+					</div>
+				</div>
+
+				<div class="css-example loaded-effects">
+					<div class="foogallery fg-loaded-slide-up">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-loaded-slide-up" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/2"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loaded-slide-up">fg-loaded-slide-up</h4>
+					<div class="align-center">
+						<button type="button" class="btn btn-xs btn-default">Run</button>
+					</div>
+				</div>
+
+				<div class="css-example loaded-effects">
+					<div class="foogallery fg-loaded-scale-up">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-loaded-scale-up" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/3"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loaded-scale-up">fg-loaded-scale-up</h4>
+					<div class="align-center">
+						<button type="button" class="btn btn-xs btn-default">Run</button>
+					</div>
+				</div>
+
+				<div class="css-example loaded-effects">
+					<div class="foogallery fg-loaded-swing-down">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-loaded-swing-down" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/4"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loaded-swing-down">fg-loaded-swing-down</h4>
+					<div class="align-center">
+						<button type="button" class="btn btn-xs btn-default">Run</button>
+					</div>
+				</div>
+
+				<div class="css-example loaded-effects">
+					<div class="foogallery fg-loaded-drop">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-loaded-drop" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/5"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loaded-drop">fg-loaded-drop</h4>
+					<div class="align-center">
+						<button type="button" class="btn btn-xs btn-default">Run</button>
+					</div>
+				</div>
+
+				<div class="css-example loaded-effects">
+					<div class="foogallery fg-loaded-fly">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-loaded-fly" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/6"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loaded-fly">fg-loaded-fly</h4>
+					<div class="align-center">
+						<button type="button" class="btn btn-xs btn-default">Run</button>
+					</div>
+				</div>
+
+				<div class="css-example loaded-effects">
+					<div class="foogallery fg-loaded-flip">
+						<div class="fg-item fg-loaded">
+							<div class="fg-item-inner">
+								<a href="#fg-loaded-flip" class="fg-thumb">
+									<img class="fg-image" src="https://satyr.io/150x150/7"/>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loaded-flip">fg-loaded-flip</h4>
+					<div class="align-center">
+						<button type="button" class="btn btn-xs btn-default">Run</button>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="callout callout-info">
+				<h5>Note</h5>
+				<p>
+					If viewed in a browser that does not support the <code>transition</code> CSS property the items are simply made visible once loaded.
+				</p>
+			</div>
+
+		</div>
+
+		<!-- Loading icons -->
+		<div class="docs-option">
+			<h3 class="page-header">Loading icons</h3>
+			<p>
+				These CSS classes specify the icon to display when loading an items' thumbnail.
+			</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-loading-default">
+						<div class="fg-item fg-loading">
+							<div class="fg-item-inner">
+								<a href="#fg-loading-default" class="fg-thumb">
+									<div style="width: 100px; height: 100px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loading-default">fg-loading-default</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-loading-ellipsis">
+						<div class="fg-item fg-loading">
+							<div class="fg-item-inner">
+								<a href="#fg-loading-ellipsis" class="fg-thumb">
+									<div style="width: 100px; height: 100px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loading-ellipsis">fg-loading-ellipsis</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-loading-gears">
+						<div class="fg-item fg-loading">
+							<div class="fg-item-inner">
+								<a href="#fg-loading-gears" class="fg-thumb">
+									<div style="width: 100px; height: 100px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loading-gears">fg-loading-gears</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-loading-hourglass">
+						<div class="fg-item fg-loading">
+							<div class="fg-item-inner">
+								<a href="#fg-loading-hourglass" class="fg-thumb">
+									<div style="width: 100px; height: 100px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loading-hourglass">fg-loading-hourglass</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-loading-reload">
+						<div class="fg-item fg-loading">
+							<div class="fg-item-inner">
+								<a href="#fg-loading-reload" class="fg-thumb">
+									<div style="width: 100px; height: 100px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loading-reload">fg-loading-reload</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-loading-ripple">
+						<div class="fg-item fg-loading">
+							<div class="fg-item-inner">
+								<a href="#fg-loading-ripple" class="fg-thumb">
+									<div style="width: 100px; height: 100px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loading-ripple">fg-loading-ripple</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-loading-bars">
+						<div class="fg-item fg-loading">
+							<div class="fg-item-inner">
+								<a href="#fg-loading-bars" class="fg-thumb">
+									<div style="width: 100px; height: 100px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loading-bars">fg-loading-bars</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-loading-spin">
+						<div class="fg-item fg-loading">
+							<div class="fg-item-inner">
+								<a href="#fg-loading-spin" class="fg-thumb">
+									<div style="width: 100px; height: 100px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loading-spin">fg-loading-spin</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-loading-squares">
+						<div class="fg-item fg-loading">
+							<div class="fg-item-inner">
+								<a href="#fg-loading-squares" class="fg-thumb">
+									<div style="width: 100px; height: 100px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loading-squares">fg-loading-squares</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-loading-cube">
+						<div class="fg-item fg-loading">
+							<div class="fg-item-inner">
+								<a href="#fg-loading-cube" class="fg-thumb">
+									<div style="width: 100px; height: 100px;"></div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<h4 id="fg-loading-cube">fg-loading-cube</h4>
+				</div>
+
+			</div>
+
+			<div class="callout callout-info">
+				<h5>Note</h5>
+				<p>
+					All loading icons were generated using <a href="https://loading.io/">loading.io</a> so if you are creating a custom item theme and need to create your own icons with
+					a specific background color it is quite simple.
+				</p>
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- JavaScript -->
+	<div class="docs-section">
+		<h2 id="javascript" class="page-header">JavaScript</h2>
+		<p class="lead">
+			The below lists all JavaScript options that are available in FooGallery's core files which configure features such as lazy loading, paging and state management.
+		</p>
+
+		<p>
+			FooGallery is designed to work from an HTML first perspective meaning options parsed from the DOM take precedence over those supplied through JavaScript.
+			The options can be supplied as an object to the jQuery <code>.foogallery()</code> plugin method or by supplying them with the <code>data-foogallery</code> attribute on the container element
+			using <a href="http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example">valid JSON syntax</a> <em>including quoted property names</em>.
+		</p>
+
+		<div class="examples">
+			<div class="example">
+				<p>
+					If the same option is supplied directly to the plugin method and in the <code>data-foogallery</code> attribute, the value from the attribute is used. In the below the <code>lazy</code>
+					option would be <code>true</code>.
+				</p>
+			</div>
+			<pre class="language-markup" data-lang="markup"><code>&lt;!-- Supply options using the attribute --&gt;
+&lt;div id=&quot;gallery-1&quot; class=&quot;foogallery&quot; data-foogallery=&#39;{&quot;lazy&quot;: true}&#39;&gt;
+  ...
+&lt;/div&gt;
+&lt;script&gt;
+    jQuery(function($){
+        // Supply options directly to the plugin method
+        $(&quot;#gallery-1&quot;).foogallery({
+            lazy: false // Overridden by the attribute value
+        });
+    });
+&lt;/script&gt;</code></pre>
+		</div>
+
+		<div class="list-group list-group-detailed">
+			<h3 id="options" class="list-group-header">Options<small class="pull-right"><code>*</code> Are required</small></h3>
+
+			<!-- id -->
+			<a href="#id" class="list-group-item">
+				<h4 id="id" class="list-group-item-heading">id <small>string</small> <code>*</code></h4>
+				<p class="list-group-item-text">A string specifying the id for the gallery.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+					<div class="examples">
+						<div class="example default">
+							<p><code>null</code></p>
+							<p>If not supplied directly as an option the container element for the gallery must have an <code>id</code> attribute.</p>
+						</div>
+					</div>
+
+					<div class="examples">
+						<div class="example plural">
+							<p>To supply this option through markup you must specify the <code>id</code> attribute on the container element.</p>
+						</div>
+						<pre class="language-markup" data-lang="markup"><code>&lt;div id=&quot;gallery-1&quot;&gt;
+	...
+&lt;/div&gt;</code></pre>
+						<p>Otherwise you can supply it directly to the plugin method.</p>
+						<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;id&quot;: &quot;gallery-1&quot;
+	});
+});</code></pre>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- type -->
+			<a href="#type" class="list-group-item">
+				<h4 id="type" class="list-group-item-heading">type <small>string</small> <code>*</code></h4>
+				<p class="list-group-item-text">A string specifying the type of template for the gallery.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+					<div class="examples">
+						<div class="example default">
+							<p><code>"default"</code></p>
+							<p>If not supplied as an option the gallery containers' CSS classes will be inspected to determine the correct template to use.</p>
+						</div>
+					</div>
+
+					<div class="example supports">
+						<div class="doc-list-item">
+							<h5 class="doc-list-title first"><a href="templates/default.html">"default"</a></h5>
+							<p class="doc-list-summary">Performs no layout of items but implements the core features such as item, paging and state management.</p>
+						</div>
+						<div class="doc-list-item">
+							<h5 class="doc-list-title first"><a href="templates/masonry.html">"masonry"</a></h5>
+							<p class="doc-list-summary">Uses the Masonry library to layout it's items.</p>
+						</div>
+						<div class="doc-list-item">
+							<h5 class="doc-list-title first"><a href="templates/justified.html">"justified"</a></h5>
+							<p class="doc-list-summary">Performs item layout using a justified algorithm.</p>
+						</div>
+						<div class="doc-list-item">
+							<h5 class="doc-list-title first"><a href="templates/responsive.html">"responsive"</a></h5>
+							<p class="doc-list-summary">Performs item layout using basic responsive CSS.</p>
+						</div>
+						<div class="doc-list-item">
+							<h5 class="doc-list-title first"><a href="templates/portfolio.html">"portfolio"</a></h5>
+							<p class="doc-list-summary">Performs item layout using a portfolio appearance with always visible captions.</p>
+						</div>
+					</div>
+
+					<div class="examples">
+						<div class="example plural">
+							<p>
+								Probably the most common way this option will be set is by the plugin inspecting the container element CSS classes to determine which template to load. The following shows the
+								required classes for each of the supported template types.
+							</p>
+						</div>
+						<pre class="language-markup" data-lang="markup"><code>&lt;!-- masonry --&gt;
+&lt;div classes=&quot;foogallery fg-masonry&quot;&gt;
+	...
+&lt;/div&gt;
+
+&lt;!-- justified --&gt;
+&lt;div classes=&quot;foogallery fg-justified&quot;&gt;
+	...
+&lt;/div&gt;
+
+&lt;!-- portfolio --&gt;
+&lt;div classes=&quot;foogallery fg-portfolio&quot;&gt;
+	...
+&lt;/div&gt;
+
+&lt;!-- responsive --&gt;
+&lt;div classes=&quot;foogallery fg-responsive&quot;&gt;
+	...
+&lt;/div&gt;
+
+&lt;!-- default - only matched if no others do --&gt;
+&lt;div classes=&quot;foogallery&quot;&gt;
+	...
+&lt;/div&gt;</code></pre>
+
+						<p>You can also provide this option by specifying the <code>data-foogallery</code> attribute on the container element and supplying it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+						<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;type&quot;:&quot;masonry&quot;}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+
+						<p>Otherwise you can supply it directly to the plugin method.</p>
+						<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;type&quot;: &quot;masonry&quot;
+	});
+});</code></pre>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- lazy -->
+			<a href="#lazy" class="list-group-item">
+				<h4 id="lazy" class="list-group-item-heading">lazy <small>boolean</small></h4>
+				<p class="list-group-item-text">Whether or not to enable the lazy loading of images.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+					<div class="examples">
+						<div class="example default">
+							<p><code>true</code></p>
+							<p>This is enabled by default as it improves page load speeds and data consumption.</p>
+						</div>
+					</div>
+
+					<div class="examples">
+						<div class="example plural">
+							<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+						</div>
+						<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;lazy&quot;:true}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+						<p>Otherwise you can supply it directly to the plugin method.</p>
+						<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;lazy&quot;: true
+	});
+});</code></pre>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- viewport -->
+			<a href="#viewport" class="list-group-item">
+				<h4 id="viewport" class="list-group-item-heading">viewport <small>number</small></h4>
+				<p class="list-group-item-text">The number of pixels to inflate the viewport by when checking for any images to lazy load.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+					<div class="examples">
+						<div class="example default">
+							<p><code>200</code></p>
+							<p>By default the plugin will expand the viewport by 200 pixels in all directions and lazy load any images that fall within those bounds.</p>
+						</div>
+					</div>
+
+					<div class="examples">
+						<div class="example plural">
+							<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+						</div>
+						<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;viewport&quot;:200}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+
+						<p>Otherwise you can supply it directly to the plugin method.</p>
+						<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;viewport&quot;: 200
+	});
+});</code></pre>
+					</div>
+
+					<div class="callout callout-info">
+						<h5>Note</h5>
+						<p>Setting a negative value for this option will effectively shrink the viewport resulting in images only being lazy loaded after they are already visible.</p>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- items -->
+			<a href="#items" class="list-group-item">
+				<h4 id="items" class="list-group-item-heading">items <small>array | string</small></h4>
+				<p class="list-group-item-text">An array of simple objects containing item data.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+					<div class="examples">
+						<div class="example default">
+							<p><code>[]</code></p>
+							<p>
+								By default this is simply an empty array as items are generally parsed from the container element. If items are supplied using this option they will be appended after any that
+								have been parsed.
+							</p>
+						</div>
+					</div>
+
+					<div class="examples">
+						<div class="example plural">
+							<p>
+								Probably the most common way items will be supplied is through markup letting the plugin parse each of the containers' <code>div.fg-item</code> elements. These items should conform
+								to the following structure. For more information on each of the <code>[values]</code> please see the options below.
+							</p>
+						</div>
+						<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot; data-id=&quot;[id]&quot;&gt;
+	&lt;div class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot; href=&quot;[href]&quot;&gt;
+			&lt;img class=&quot;fg-image&quot; title=&quot;[title]&quot; alt=&quot;[description]&quot; width=&quot;[width]&quot; height=&quot;[height]&quot; data-src=&quot;[src]&quot; data-srcset=&quot;[srcset]&quot; /&gt;
+			&lt;div class=&quot;fg-caption&quot;&gt;
+				&lt;div class=&quot;fg-caption-inner&quot;&gt;
+					&lt;div class=&quot;fg-caption-title&quot;&gt;[title]&lt;/div&gt;
+					&lt;div class=&quot;fg-caption-desc&quot;&gt;[description]&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+						<p>
+							You can also provide items by specifying the <code>data-foogallery</code> attribute on the container element and supplying them as a property of the options object using
+							valid JSON syntax <i>including quoted property names</i>.
+						</p>
+						<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;items&quot;:[{...}]}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+
+						<p>Otherwise you can supply items directly to the plugin method.</p>
+						<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;href&quot;: &quot;https://url-to-your/item&quot;,
+			&quot;src&quot;: &quot;https://url-to-your/thumb.jpg&quot;,
+			&quot;width&quot;: 200,
+			...
+		},{
+			...
+		}]
+	});
+});</code></pre>
+
+						<p>
+							The last way to provide items is by supplying a url to an endpoint that returns them as a JSON array. The plugin will simply make a
+							<a href="https://api.jquery.com/jquery.get/" target="_blank">jQuery.get()</a> call using the supplied url.
+						</p>
+						<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: &quot;https://url-to-your/endpoint.json&quot;
+	});
+});</code></pre>
+
+					</div>
+
+					<!-- item options -->
+					<div class="list-group list-group-detailed">
+						<h4 class="list-group-header toc-ignore">Item options<small class="pull-right"><code>*</code> Are required</small></h4>
+
+						<!-- href -->
+						<a href="#item-href" class="list-group-item">
+							<h5 id="item-href" class="list-group-item-heading">href <small>string</small> <code>*</code></h5>
+							<p class="list-group-item-text">The url for the items thumbnail anchor.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>""</code></p>
+										<p>This value must be supplied.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>href</code> attribute on the <code>fg-thumb</code> element.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;div class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot; href=&quot;https://url-to-your/item&quot;&gt;
+			...
+		&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;href&quot;: &quot;https://url-to-your/item&quot;
+		}]
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- src -->
+						<a href="#item-src" class="list-group-item">
+							<h5 id="item-src" class="list-group-item-heading">src <small>string</small> <code>*</code></h5>
+							<p class="list-group-item-text">The url to the items thumbnail image.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>""</code></p>
+										<p>This value must be supplied.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-src</code> attribute on the <code>fg-image</code> element.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;div class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot;&gt;
+			&lt;img class=&quot;fg-image&quot; data-src=&quot;https://url-to-your/thumb.jpg&quot; /&gt;
+			...
+		&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;src&quot;: &quot;https://url-to-your/thumb.jpg&quot;
+		}]
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- width -->
+						<a href="#item-width" class="list-group-item">
+							<h5 id="item-width" class="list-group-item-heading">width <small>number</small> <code>*</code></h5>
+							<p class="list-group-item-text">The width of the <code>src</code> image.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>0</code></p>
+										<p>This is the actual width of the <code>src</code> image and must be supplied. It is used not only for layout purposes but for determining the correct thumbnail image to use if a <code>srcset</code> value is supplied.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>width</code> attribute on the <code>fg-image</code> element.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;div class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot;&gt;
+			&lt;img class=&quot;fg-image&quot; width=&quot;250&quot; /&gt;
+			...
+		&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;width&quot;: 250
+		}]
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- height -->
+						<a href="#item-height" class="list-group-item">
+							<h5 id="item-height" class="list-group-item-heading">height <small>number</small> <code>*</code></h5>
+							<p class="list-group-item-text">The height of the <code>src</code> image.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>0</code></p>
+										<p>This is the actual height of the <code>src</code> image and must be supplied. It is used not only for layout purposes but for determining the correct thumbnail image to use if a <code>srcset</code> value is supplied.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>height</code> attribute on the <code>fg-image</code> element.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;div class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot;&gt;
+			&lt;img class=&quot;fg-image&quot; height=&quot;250&quot; /&gt;
+			...
+		&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;height&quot;: 250
+		}]
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- id -->
+						<a href="#item-id" class="list-group-item">
+							<h5 id="item-id" class="list-group-item-heading">id <small>string</small></h5>
+							<p class="list-group-item-text">A unique id within the gallery for the item.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>null</code></p>
+										<p>By default the plugin will generate an id based on the items initial index within the array on startup. If using the state feature it is recommended to provide an id for each item so that if its' index changes the across page visits the correct item can be found.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through data attributes you must specify the <code>data-id</code> attribute on the outer <code>fg-item</code> element.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot; data-id=&quot;item-1&quot;&gt;
+	...
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;id&quot;: &quot;item-1&quot;
+		}]
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- srcset -->
+						<a href="#item-srcset" class="list-group-item">
+							<h5 id="item-srcset" class="list-group-item-heading">srcset <small>string</small></h5>
+							<p class="list-group-item-text">The srcset for an items thumbnail image.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>""</code></p>
+										<p>If supplied FooGallery parses the value to determine which image it should use for the thumbnail otherwise it simply uses the <code>src</code> value.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-srcset</code> attribute on the <code>fg-image</code> element. The following examples assume a <code>width</code> of <code>250</code> for the <code>src</code> image.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;div class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot;&gt;
+			&lt;img class=&quot;fg-image&quot; data-srcset=&quot;https://url-to-your/thumb@2x.jpg 500w,https://url-to-thumb/thumb@3x.jpg 750w&quot; /&gt;
+			...
+		&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;srcset&quot;: &quot;https://url-to-your/thumb@2x.jpg 500w,https://url-to-thumb/thumb@3x.jpg 750w&quot;
+		}]
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+			<!-- paging -->
+			<a href="#paging" class="list-group-item">
+				<h4 id="paging" class="list-group-item-heading">paging <small>object</small></h4>
+				<p class="list-group-item-text">An object containing the paging specific options for the gallery.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example default">
+							<p>
+								The below shows the default paging options available to all types.
+							</p>
+							<pre class="language-javascript" data-lang="javascript"><code>{
+	&quot;type&quot;: &quot;none&quot;,
+	&quot;theme&quot;: &quot;fg-light&quot;,
+	&quot;size&quot;: 30,
+	&quot;position&quot;: &quot;none&quot;,
+	&quot;pushOrReplace&quot;: &quot;push&quot;,
+	&quot;scrollToTop&quot;: true
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- paging options -->
+					<div class="list-group list-group-detailed">
+
+						<!-- paging-type -->
+						<a href="#paging-type" class="list-group-item">
+							<h5 id="paging-type" class="list-group-item-heading">type <small>string</small></h5>
+							<p class="list-group-item-text">A string specifying the type of paging for the gallery.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>"none"</code></p>
+										<p>By default paging is disabled and all items are displayed.</p>
+									</div>
+								</div>
+
+								<div class="example supports">
+									<div class="doc-list-item">
+										<h5 class="doc-list-title first"><a href="examples/custom-paging.html">"default"</a></h5>
+										<p class="doc-list-summary">Allows for basic implementation of custom paging controls.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><a href="paging/dots.html">"dots"</a></h5>
+										<p class="doc-list-summary">Displays small dots allowing a user to navigate between pages.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><a href="paging/pagination.html">"pagination"</a></h5>
+										<p class="doc-list-summary">Displays standard pagination controls using page numbers and buttons to navigate between pages.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><a href="paging/infinite.html">"infinite"</a></h5>
+										<p class="doc-list-summary">Creates pages as a user scrolls down the document.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><a href="paging/loadMore.html">"loadMore"</a></h5>
+										<p class="doc-list-summary">Creates pages after a user clicks its' button.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;type&quot;:&quot;dots&quot;}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			&quot;type&quot;: &quot;dots&quot;
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+
+						</div>
+
+						<!-- paging-theme -->
+						<a href="#paging-theme" class="list-group-item">
+							<h5 id="paging-theme" class="list-group-item-heading">theme <small>string</small></h5>
+							<p class="list-group-item-text">A space delimited string of CSS class names to apply to any paging controls for the gallery.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>"fg-light"</code></p>
+										<p>By default paging uses the light theme and currently only has one alternate dark theme. If this value is not one of the supported types the color scheme is left completely up to the class that is supplied.</p>
+									</div>
+								</div>
+
+								<div class="example supports">
+									<div class="doc-list-item">
+										<h5 class="doc-list-title first"><span>"fg-light"</span></h5>
+										<p class="doc-list-summary">This theme compliments the <a href="#fg-light">light item theme</a>.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"fg-dark"</span></h5>
+										<p class="doc-list-summary">This theme compliments the <a href="#fg-dark">dark item theme</a>.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;theme&quot;:&quot;fg-dark&quot;}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			&quot;theme&quot;: &quot;fg-dark&quot;
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+
+						</div>
+
+						<!-- paging-size -->
+						<a href="#paging-size" class="list-group-item">
+							<h5 id="paging-size" class="list-group-item-heading">size <small>number</small></h5>
+							<p class="list-group-item-text">The number of items to display per page for the gallery.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>30</code></p>
+										<p>
+											For <code>"dots"</code> and <code>"pagination"</code> this is the number of items displayed per page while for <code>"infinite"</code> and <code>"loadMore"</code> this is
+											the number of items loaded as the user scrolls down the page or clicks the <i>Load More</i> button.
+										</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;size&quot;:30}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			&quot;size&quot;: 30
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- paging-position -->
+						<a href="#paging-position" class="list-group-item">
+							<h5 id="paging-position" class="list-group-item-heading">position <small>string</small></h5>
+							<p class="list-group-item-text">Where to display the paging controls for the gallery.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>"none"</code></p>
+										<p>
+											By default there are no controls as the <code>type</code> is set to <code>"none"</code> however the <code>"dots"</code>, <code>"pagination"</code> and <code>"loadMore"</code>
+											types define there own default value for this option.
+										</p>
+									</div>
+								</div>
+
+								<div class="example supports">
+									<div class="doc-list-item">
+										<h5 class="doc-list-title first"><span>"none"</span></h5>
+										<p class="doc-list-summary">No controls are displayed even if the type has a registered control.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"top"</span></h5>
+										<p class="doc-list-summary">Displays the controls above the gallery container.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"bottom"</span></h5>
+										<p class="doc-list-summary">Displays the controls below the gallery container.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"both"</span></h5>
+										<p class="doc-list-summary">Displays the controls both above and below the gallery container.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;position&quot;:&quot;top&quot;}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			&quot;position&quot;: &quot;top&quot;
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- paging-pushOrReplace -->
+						<a href="#paging-pushOrReplace" class="list-group-item">
+							<h5 id="paging-pushOrReplace" class="list-group-item-heading">pushOrReplace <small>string</small></h5>
+							<p class="list-group-item-text">The default method to use when updating the state on page change.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>"push"</code></p>
+									</div>
+								</div>
+
+								<div class="example supports">
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"push"</span></h5>
+										<p class="doc-list-summary">
+											A new history entry is created whenever a page changes. This allows a user to navigate previously viewed pages using their browsers <i>Back</i> and <i>Forward</i> buttons.
+										</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title first"><span>"replace"</span></h5>
+										<p class="doc-list-summary">The current history entry is updated to reflect any page changes.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;pushOrReplace&quot;:&quot;replace&quot;}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			&quot;pushOrReplace&quot;: &quot;replace&quot;
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- paging-scrollToTop -->
+						<a href="#paging-scrollToTop" class="list-group-item">
+							<h5 id="paging-scrollToTop" class="list-group-item-heading">scrollToTop <small>boolean</small></h5>
+							<p class="list-group-item-text">Whether or not to scroll to the top of the next page when navigating between pages.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>true</code></p>
+										<p>By default the scroll position is changed to ensure the first item in the new page is visible within the viewport.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;scrollToTop&quot;:true}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			&quot;scrollToTop&quot;: true
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="callout callout-info">
+						<h5>Note</h5>
+						<p>Please see the individual documentation for each paging type for more information on any custom options they may support.</p>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- state -->
+			<a href="#state" class="list-group-item">
+				<h4 id="state" class="list-group-item-heading">state <small>object</small></h4>
+				<p class="list-group-item-text">An object containing the state specific options for the gallery.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example default">
+							<p>
+								The below shows the default state options.
+							</p>
+							<pre class="language-javascript" data-lang="javascript"><code>{
+	&quot;enabled&quot;: false,
+	&quot;pushOrReplace&quot;: &quot;replace&quot;
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- state options -->
+					<div class="list-group list-group-detailed">
+
+						<!-- state-enabled -->
+						<a href="#state-enabled" class="list-group-item">
+							<h5 id="state-enabled" class="list-group-item-heading">enabled <small>boolean</small></h5>
+							<p class="list-group-item-text">Whether or not state is enabled for the gallery.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>false</code></p>
+										<p>By default the state is not enabled meaning the browser history is not changed and there is no integration with the <i>Back</i> and <i>Forward</i> buttons.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;state&quot;:{&quot;enabled&quot;:true}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;state&quot;: {
+			&quot;enabled&quot;: true
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- state-pushOrReplace -->
+						<a href="#state-pushOrReplace" class="list-group-item">
+							<h5 id="state-pushOrReplace" class="list-group-item-heading">pushOrReplace <small>string</small></h5>
+							<p class="list-group-item-text">The default method to use when updating the state.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>"replace"</code></p>
+										<p>By default if state is enabled the current history entry is updated to reflect any changes.</p>
+									</div>
+								</div>
+
+								<div class="example supports">
+									<div class="doc-list-item">
+										<h5 class="doc-list-title first"><span>"push"</span></h5>
+										<p class="doc-list-summary">
+											A new history entry is created whenever a change occurs. <i>Not recommended but available.</i>
+										</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"replace"</span></h5>
+										<p class="doc-list-summary">The current history entry is updated to reflect any changes.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;state&quot;:{&quot;pushOrReplace&quot;:&quot;replace&quot;}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;state&quot;: {
+			&quot;pushOrReplace&quot;: &quot;replace&quot;
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+			<!-- on -->
+			<a href="#" class="list-group-item">
+				<h4 id="on" class="list-group-item-heading">on <small>object</small></h4>
+				<p class="list-group-item-text">An object containing event names and listeners to bind to the gallery.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example default">
+							<p><code>null</code></p>
+							<p>
+								If supplied this simply binds events to the gallery ensuring that the various start up events such as <code>pre-init.foogallery</code> or <code>init.foogallery</code> are bound
+								before they are raised. This option is an object in which the keys represent one or more space separated events and the values represent a listener to be called when those
+								events are raised.
+							</p>
+						</div>
+					</div>
+
+					<div class="examples">
+						<div class="example plural">
+							<p>The below shows supplying the object directly through the options.</p>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;on&quot;: {
+			&quot;init.foogallery&quot;: function(event, tmpl){
+				// bind to the plugin initialize event to do something
+			}
+		}
+	});
+});</code></pre>
+						<p>
+							Which is the equivalent to writing it like the below, the call to initialize <i>foogallery</i> must occur after binding the events or else you risk any start up event
+							listeners not being called.
+						</p>
+						<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).on({
+		&quot;init.foogallery&quot;: function(event, tmpl){
+			// bind to the plugin initialize event to do something
+		}
+	}).foogallery();
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<!-- base events -->
+		<div class="list-group list-group-detailed">
+			<h3 class="list-group-header">Events</h3>
+
+			<!-- pre-init.foogallery -->
+			<a href="#pre-init.foogallery" class="list-group-item">
+				<h4 id="pre-init.foogallery" class="list-group-item-heading event">"pre-init.foogallery"</h4>
+				<p class="list-group-item-text">Raised before the gallery is fully initialized.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<p>
+						At this point in the initialization chain the options have not undergone any additional parsing and are simply the result of the defaults being extended with any user supplied options.
+					</p>
+					<br/>
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent the gallery being initialized.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;pre-init.foogallery&quot;: function(event, tmpl){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- init.foogallery -->
+			<a href="#init.foogallery" class="list-group-item">
+				<h4 id="init.foogallery" class="list-group-item-heading event">"init.foogallery"</h4>
+				<p class="list-group-item-text">Raised before the gallery is initialized but after any pre-initialization work is complete.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<p>
+						At this point in the initialization chain all additional option parsing has been completed but the base components such as the items or state are not yet initialized.
+					</p>
+					<br/>
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent the gallery being initialized.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;init.foogallery&quot;: function(event, tmpl){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+
+				</div>
+			</div>
+
+			<!-- post-init.foogallery -->
+			<a href="#post-init.foogallery" class="list-group-item">
+				<h4 id="post-init.foogallery" class="list-group-item-heading event">"post-init.foogallery"</h4>
+				<p class="list-group-item-text">Raised after the gallery is initialized but before any post-initialization work is complete.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<p>
+						At this point in the initialization chain all options, objects and elements required by the template have been parsed or created however the initial state
+						has not been set yet and no items have been loaded.
+					</p>
+					<br/>
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent the gallery being initialized.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;post-init.foogallery&quot;: function(event, tmpl){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- ready.foogallery -->
+			<a href="#ready.foogallery" class="list-group-item">
+				<h4 id="ready.foogallery" class="list-group-item-heading event">"ready.foogallery"</h4>
+				<p class="list-group-item-text">Raised after the gallery is fully initialized and is ready to be interacted with.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<p>
+						This event is raised after all post-initialization work such as setting the initial state and performing the first load are completed.
+					</p>
+					<br/>
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;ready.foogallery&quot;: function(event, tmpl){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- destroy.foogallery -->
+			<a href="#destroy.foogallery" class="list-group-item">
+				<h4 id="destroy.foogallery" class="list-group-item-heading event">"destroy.foogallery"</h4>
+				<p class="list-group-item-text">Raised when the gallery is destroyed.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;destroy.foogallery&quot;: function(event, tmpl){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<!-- item make events -->
+		<div class="list-group list-group-detailed">
+
+			<!-- make-items.foogallery -->
+			<a href="#make-items.foogallery" class="list-group-item">
+				<h4 id="make-items.foogallery" class="list-group-item-heading event">"make-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised before the gallery makes a jQuery object, element array or object array into items.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent any items being made.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>jQuery | array&lt;HTMLElement&gt; | array&lt;object&gt;</small></h5>
+								<p class="doc-list-summary">The jQuery object, element array or object array to make into items.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;make-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- parse-item.foogallery -->
+			<a href="#parse-item.foogallery" class="list-group-item">
+				<h4 id="parse-item.foogallery" class="list-group-item-heading event">"parse-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised before an item is parsed from an element.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent the item being parsed.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item to populate.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>$elem</span> ~ <small>jQuery</small></h5>
+								<p class="doc-list-summary">The jQuery object of the element to parse.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;parse-item.foogallery&quot;: function(event, tmpl, item, $elem){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- parsed-item.foogallery -->
+			<a href="#parsed-item.foogallery" class="list-group-item">
+				<h4 id="parsed-item.foogallery" class="list-group-item-heading event">"parsed-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised after an item has been parsed from an element.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item that was parsed.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>$elem</span> ~ <small>jQuery</small></h5>
+								<p class="doc-list-summary">The jQuery object of the element that was parsed.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;parsed-item.foogallery&quot;: function(event, tmpl, item, $elem){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- parsed-items.foogallery -->
+			<a href="#parsed-items.foogallery" class="list-group-item">
+				<h4 id="parsed-items.foogallery" class="list-group-item-heading event">"parsed-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised after the gallery has parsed any elements into items.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>array&lt;<a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a>&gt;</small></h5>
+								<p class="doc-list-summary">The items that were parsed.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;parsed-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- made-items.foogallery -->
+			<a href="#made-items.foogallery" class="list-group-item">
+				<h4 id="made-items.foogallery" class="list-group-item-heading event">"made-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised after the gallery has made any items.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>array&lt;<a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a>&gt;</small></h5>
+								<p class="doc-list-summary">The items that were made, including parsed items.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;made-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<!-- item create events -->
+		<div class="list-group list-group-detailed">
+
+			<!-- create-items.foogallery -->
+			<a href="#create-items.foogallery" class="list-group-item">
+				<h4 id="create-items.foogallery" class="list-group-item-heading event">"create-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised before the gallery creates any items elements.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent any items being created.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>array&lt;<a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a>&gt;</small></h5>
+								<p class="doc-list-summary">The array of items about to be created.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;create-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- create-item.foogallery -->
+			<a href="#create-item.foogallery" class="list-group-item">
+				<h4 id="create-item.foogallery" class="list-group-item-heading event">"create-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised before an item creates its' elements.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent the items' elements being created.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item about to create its' elements.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;create-item.foogallery&quot;: function(event, tmpl, item){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- created-item.foogallery -->
+			<a href="#created-item.foogallery" class="list-group-item">
+				<h4 id="created-item.foogallery" class="list-group-item-heading event">"created-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised after an item has created its' elements.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item that was created.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;created-item.foogallery&quot;: function(event, tmpl, item){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- created-items.foogallery -->
+			<a href="#created-items.foogallery" class="list-group-item">
+				<h4 id="created-items.foogallery" class="list-group-item-heading event">"created-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised after the gallery has created any items elements.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>array&lt;<a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a>&gt;</small></h5>
+								<p class="doc-list-summary">The array of items that were created.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;created-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<!-- item append events -->
+		<div class="list-group list-group-detailed">
+
+			<!-- append-items.foogallery -->
+			<a href="#append-items.foogallery" class="list-group-item">
+				<h4 id="append-items.foogallery" class="list-group-item-heading event">"append-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised before the gallery appends any items elements to itself.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent any items being appended.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>array&lt;<a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a>&gt;</small></h5>
+								<p class="doc-list-summary">The array of items about to append elements to the gallery.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;append-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- append-item.foogallery -->
+			<a href="#append-item.foogallery" class="list-group-item">
+				<h4 id="append-item.foogallery" class="list-group-item-heading event">"append-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised before an item appends its' elements to the gallery.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent the items' elements being appended.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item about to append its' elements to the gallery.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;append-item.foogallery&quot;: function(event, tmpl, item){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- appended-item.foogallery -->
+			<a href="#appended-item.foogallery" class="list-group-item">
+				<h4 id="appended-item.foogallery" class="list-group-item-heading event">"appended-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised after an item has appended its' elements to the gallery.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item that was appended to the gallery.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;appended-item.foogallery&quot;: function(event, tmpl, item){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- appended-items.foogallery -->
+			<a href="#appended-items.foogallery" class="list-group-item">
+				<h4 id="appended-items.foogallery" class="list-group-item-heading event">"appended-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised after the gallery has appended any items elements to itself.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>array&lt;<a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a>&gt;</small></h5>
+								<p class="doc-list-summary">The array of items that were appended to the gallery.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;appended-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<!-- item detach events -->
+		<div class="list-group list-group-detailed">
+
+			<!-- detach-items.foogallery -->
+			<a href="#detach-items.foogallery" class="list-group-item">
+				<h4 id="detach-items.foogallery" class="list-group-item-heading event">"detach-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised before the gallery detaches any items elements from itself.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent any items being detached.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>array&lt;<a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a>&gt;</small></h5>
+								<p class="doc-list-summary">The array of items about to detach elements from the gallery.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;detach-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- detach-item.foogallery -->
+			<a href="#detach-item.foogallery" class="list-group-item">
+				<h4 id="detach-item.foogallery" class="list-group-item-heading event">"detach-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised before an item detaches its' elements from the gallery.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent the items' elements being detached.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item about to detach its' elements from the gallery.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;detach-item.foogallery&quot;: function(event, tmpl, item){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- detached-item.foogallery -->
+			<a href="#detached-item.foogallery" class="list-group-item">
+				<h4 id="detached-item.foogallery" class="list-group-item-heading event">"detached-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised after an item has detached its' elements from the gallery.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item that was detached from the gallery.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;detached-item.foogallery&quot;: function(event, tmpl, item){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- detached-items.foogallery -->
+			<a href="#detached-items.foogallery" class="list-group-item">
+				<h4 id="detached-items.foogallery" class="list-group-item-heading event">"detached-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised after the gallery has detached any items elements from itself.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>array&lt;<a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a>&gt;</small></h5>
+								<p class="doc-list-summary">The array of items that were detached from the gallery.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;detached-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<!-- item destroy events -->
+		<div class="list-group list-group-detailed">
+
+			<!-- destroy-items.foogallery -->
+			<a href="#destroy-items.foogallery" class="list-group-item">
+				<h4 id="destroy-items.foogallery" class="list-group-item-heading event">"destroy-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised when the gallery destroys any items.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>array&lt;<a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a>&gt;</small></h5>
+								<p class="doc-list-summary">The array of items about to be destroyed.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;destroy-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- destroy-item.foogallery -->
+			<a href="#destroy-item.foogallery" class="list-group-item">
+				<h4 id="destroy-item.foogallery" class="list-group-item-heading event">"destroy-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised when an item destroys itself.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent the items' elements being detached.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item about to detach its' elements from the gallery.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;detach-item.foogallery&quot;: function(event, tmpl, item){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<!-- item load events -->
+		<div class="list-group list-group-detailed">
+
+			<!-- load-items.foogallery -->
+			<a href="#load-items.foogallery" class="list-group-item">
+				<h4 id="load-items.foogallery" class="list-group-item-heading event">"load-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised before the gallery loads any items.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent any items being loaded.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>jQuery | array&lt;HTMLElement&gt; | array&lt;object&gt;</small></h5>
+								<p class="doc-list-summary">The items about to be loaded.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;load-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- load-item.foogallery -->
+			<a href="#loading-item.foogallery" class="list-group-item">
+				<h4 id="loading-item.foogallery" class="list-group-item-heading event">"load-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised before an item is loaded.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event. Calling <code>preventDefault</code> will prevent the item being loaded.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item being loaded.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;load-item.foogallery&quot;: function(event, tmpl, item){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- error-item.foogallery -->
+			<a href="#error-item.foogallery" class="list-group-item">
+				<h4 id="error-item.foogallery" class="list-group-item-heading event">"error-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised when an error occurs loading an item.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item that errored.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;error-item.foogallery&quot;: function(event, tmpl, item){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- loaded-item.foogallery -->
+			<a href="#loaded-item.foogallery" class="list-group-item">
+				<h4 id="loaded-item.foogallery" class="list-group-item-heading event">"loaded-item.foogallery"</h4>
+				<p class="list-group-item-text">Raised after an item has been successfully loaded.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>item</span> ~ <small><a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a></small></h5>
+								<p class="doc-list-summary">The item that was loaded.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;loaded-item.foogallery&quot;: function(event, tmpl, item){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- loaded-items.foogallery -->
+			<a href="#loaded-items.foogallery" class="list-group-item">
+				<h4 id="loaded-items.foogallery" class="list-group-item-heading event">"loaded-items.foogallery"</h4>
+				<p class="list-group-item-text">Raised after the gallery has loaded any items.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example params">
+							<div class="doc-list">
+								<h5 class="doc-list-title first"><span>event</span> ~ <small>jQuery.Event</small></h5>
+								<p class="doc-list-summary">The jQuery.Event object for the current event.</p>
+							</div>
+							<div class="doc-list">
+								<h5 class="doc-list-title"><span>tmpl</span> ~ <small><a href="jsdocs/FooGallery.Template.html">FooGallery.Template</a></small></h5>
+								<p class="doc-list-summary">The template that raised the event.</p>
+							</div>
+							<div class="doc-list">
+								<h5 class="doc-list-title"><span>items</span> ~ <small>array&lt;<a href="jsdocs/FooGallery.Item.html">FooGallery.Item</a>&gt;</small></h5>
+								<p class="doc-list-summary">The items that were loaded.</p>
+							</div>
+						</div>
+						<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	on: {
+		&quot;loaded-items.foogallery&quot;: function(event, tmpl, items){
+			// do something
+		}
+	}
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	</div>
+
+	<!-- Side -->
+	<div class="side-content col-md-3">
+		<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+	</div>
+
+</div> <!-- /container -->
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="js/prism.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+<script src="js/docs.js"></script>
+<script src="js/table-of-contents.js"></script>
+<script>
+	jQuery(function($){
+		$(".css-example > h4").each(function(){
+			var $header = $(this), id = $header.attr("id"), $container = $header.closest(".css-example");
+			$header.removeAttr("id");
+			$container.append($("<span/>", {id: id}).css({visibility: "hidden", position: "absolute", top: 0, left: 0}));
+			if ($container.is(".loaded-effects")){
+				$container.find("button").on("click", function(e){
+					e.preventDefault();
+					var $example = $(this).closest(".loaded-effects").addClass("disable"),
+						$item = $example.find(".fg-item").removeClass("fg-loaded");
+					setTimeout(function () {
+						$example.removeClass("disable");
+						$item.addClass("fg-loaded");
+					}, 500);
+				});
+			}
+		});
+//		$(".loaded-effects > h4 > button").on("click", function(e){
+//			e.preventDefault();
+//			var $example = $(this).closest(".loaded-effects").addClass("disable"),
+//				$item = $example.find(".fg-item").removeClass("fg-loaded");
+//			setTimeout(function () {
+//				$example.removeClass("disable");
+//				$item.addClass("fg-loaded");
+//			}, 500);
+//		});
+	});
+</script>
+</body>
+</html>

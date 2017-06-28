@@ -6,7 +6,7 @@ module.exports = function ( grunt ) {
 		"clean": {
 			"dist": "./dist/",
 			"foo-utils": "./dist/foogallery.utils.js",
-			"docs": "./docs/"
+			"jsdoc": "./docs/jsdocs"
 		},
 		"foo-utils": {
 			"options": {
@@ -25,14 +25,13 @@ module.exports = function ( grunt ) {
 						"./dist/foogallery.utils.js",
 						"./src/core/js/_foogallery.js",
 						"./src/core/js/factories/TemplateFactory.js",
-						"./src/core/js/factories/ItemsFactory.js",
-						"./src/core/js/Component.js",
-						"./src/core/js/Gallery.js",
-						"./src/core/js/State.js",
+						"./src/core/js/factories/PagingFactory.js",
 						"./src/core/js/Template.js",
+						"./src/core/js/Component.js",
+						"./src/core/js/State.js",
 						"./src/core/js/Item.js",
 						"./src/core/js/Items.js",
-						"./src/core/js/paging/Paged.js",
+						"./src/core/js/paging/Paging.js",
 						"./src/core/js/paging/Infinite.js",
 						"./src/core/js/paging/LoadMore.js",
 						"./src/core/js/paging/Dots.js",
@@ -40,7 +39,7 @@ module.exports = function ( grunt ) {
 					],
 					"./dist/core/css/foogallery.css": [
 						"./src/core/css/_foogallery.css",
-						"./src/core/css/border-styles.css",
+						"./src/core/css/item-styles.css",
 						"./src/core/css/hover-effects.css",
 						"./src/core/css/captions.css",
 						"./src/core/css/loaded-effects.css",
@@ -124,6 +123,24 @@ module.exports = function ( grunt ) {
 						"./src/templates/single-thumbnail/css/single-thumbnail.css"
 					]
 				}
+			},
+			"full": {
+				"files": {
+					"./dist/full/js/foogallery.js": [
+						"./dist/core/js/foogallery.js",
+						"./dist/templates/responsive/js/foogallery.responsive.js",
+						"./dist/templates/masonry/js/foogallery.masonry.js",
+						"./dist/templates/justified/js/foogallery.justified.js",
+						"./dist/templates/portfolio/js/foogallery.portfolio.js"
+					],
+					"./dist/full/css/foogallery.css": [
+						"./dist/core/css/foogallery.css",
+						"./dist/templates/responsive/css/foogallery.responsive.css",
+						"./dist/templates/masonry/css/foogallery.masonry.css",
+						"./dist/templates/justified/css/foogallery.justified.css",
+						"./dist/templates/portfolio/css/foogallery.portfolio.css"
+					]
+				}
 			}
 		},
 		"uglify": {
@@ -136,6 +153,11 @@ module.exports = function ( grunt ) {
 					'* @copyright Steven Usher & Brad Vincent 2015\n' +
 					'* @license Released under the GPLv3 license.\n' +
 					'*/\n'
+			},
+			"full": {
+				"files": {
+					"./dist/full/js/foogallery.min.js": "./dist/full/js/foogallery.js"
+				}
 			},
 			"core": {
 				"files": {
@@ -189,6 +211,11 @@ module.exports = function ( grunt ) {
 					'* @license Released under the GPLv3 license.\n' +
 					'*/\n'
 			},
+			"full": {
+				"files": {
+					"./dist/full/css/foogallery.min.css": "./dist/full/css/foogallery.css"
+				}
+			},
 			"core": {
 				"files": {
 					"./dist/core/css/foogallery.min.css": "./dist/core/css/foogallery.css"
@@ -231,6 +258,12 @@ module.exports = function ( grunt ) {
 			}
 		},
 		"copy": {
+			"full": {
+				"expand": true,
+				"src": "./src/core/img/*",
+				"dest": "./dist/full/img",
+				"flatten": true
+			},
 			"core": {
 				"expand": true,
 				"src": "./src/core/img/*",
@@ -251,7 +284,7 @@ module.exports = function ( grunt ) {
 				],
 				"jsdoc": "./node_modules/jsdoc/jsdoc.js",
 				"options": {
-					"destination": "./docs",
+					"destination": "./docs/jsdocs",
 					"recurse": true,
 					"configure": "./jsdoc.json",
 					"template": "./node_modules/foodoc/template",
@@ -275,10 +308,10 @@ module.exports = function ( grunt ) {
 		"clean:dist",
 		"foo-utils", // create the foogallery.utils.js file that is then included as part of the core
 		"concat:core",
-		"clean:foo-utils", // remove the foogallery.utils.js file as it is now part of foobox.core.js
 		"uglify:core",
 		"cssmin:core",
 		"copy:core",
+		"clean:foo-utils", // remove the foogallery.utils.js file as it is now part of foobox.core.js
 		"concat:admin",
 		"uglify:admin",
 		"cssmin:admin",
@@ -299,12 +332,16 @@ module.exports = function ( grunt ) {
 		"cssmin:portfolio",
 		"concat:single-thumbnail",
 		"uglify:single-thumbnail",
-		"cssmin:single-thumbnail"
+		"cssmin:single-thumbnail",
+		"concat:full", // create the full version
+		"uglify:full",
+		"cssmin:full",
+		"copy:full"
 	]);
 
 	grunt.registerTask("docs", [
 		"build",
-		"clean:docs",
+		"clean:jsdoc",
 		"jsdoc:all"
 	]);
 

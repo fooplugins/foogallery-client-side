@@ -162,7 +162,7 @@
 			if (_is.fn(template.ready)){
 				template.ready.call(this, options);
 			} else {
-				_.init(this.$current, options);
+				_.init(options, this.$current);
 			}
 		} else {
 			this.setViewportArea();

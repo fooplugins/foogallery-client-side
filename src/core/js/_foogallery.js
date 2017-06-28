@@ -1,168 +1,69 @@
-(function($, _, _utils, _is, _obj){
+(function($, _, _utils, _is, _fn){
+
+	_.debug = new _utils.Debugger("__FooGallery__");
 
 	/**
-	 * @summary The callback for the {@link FooGallery.ready} method.
-	 * @callback FooGallery~readyCallback
-	 * @param {jQuery} $ - The instance of jQuery the plugin was registered with.
-	 * @this window
-	 * @see Take a look at the {@link FooGallery.ready} method for example usage.
+	 * @summary Simple utility method to convert space delimited strings of CSS class names into a CSS selector.
+	 * @memberof FooGallery.utils
+	 * @function selectify
+	 * @param {(string|string[]|object)} classes - A single space delimited string of CSS class names to convert or an array of them with each item being included in the selector using the OR (`,`) syntax as a separator. If an object is supplied the result will be an object with the same property names but the values converted to selectors.
+	 * @returns {(object|string)}
 	 */
-
-	/**
-	 * @summary Waits for the DOM to be accessible and then executes the supplied callback.
-	 * @memberof FooGallery
-	 * @function ready
-	 * @param {FooGallery~readyCallback} callback - The function to execute once the DOM is accessible.
-	 * @example {@caption This method can be used as a replacement for the jQuery ready callback and is used by all FooGallery plugins to avoid an error in another script stopping our plugins from running.}
-	 * FooGallery.ready(function($){
-	 * 	$(".foogallery").fgImageViewer();
-	 * });
-	 */
-	_.ready = function (callback) {
-		function onready(){
-			try { callback.call(window, _.$); }
-			catch(err) { console.error(err); }
+	_utils.selectify = function(classes){
+		if (_is.hash(classes)){
+			var result = {}, selector;
+			for (var name in classes){
+				if (!classes.hasOwnProperty(name)) continue;
+				if (selector = _utils.selectify(classes[name])){
+					result[name] = selector;
+				}
+			}
+			return result;
 		}
-		if (Function('/*@cc_on return true@*/')() ? document.readyState === "complete" : document.readyState !== "loading") onready();
-		else document.addEventListener('DOMContentLoaded', onready, false);
+		if (_is.string(classes) || _is.array(classes)){
+			if (_is.string(classes)) classes = [classes];
+			return $.map(classes, function(str){
+				return _is.string(str) ? "." + str.split(/\s/g).join(".") : null;
+			}).join(",");
+		}
+		return null;
 	};
 
 	/**
-	 * @summary Waits for the outcome of all promises regardless of failure and resolves supplying the results of just those that succeeded.
+	 * @summary The url of an empty 1x1 pixel image used as the default value for the `placeholder` and `error` {@link FooGallery.defaults|options}.
 	 * @memberof FooGallery
-	 * @function when
-	 * @param {Promise[]} promises - The array of promises to wait for.
-	 * @returns {Promise}
+	 * @name emptyImage
+	 * @type {string}
+	 * @default "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
 	 */
-	_.when = function(promises){
-		if (!_is.array(promises) || _is.empty(promises)) return $.when();
-		var d = $.Deferred(), results = [];
-		var remaining = promises.length;
-		for(var i = 0; i < promises.length; i++){
-			promises[i].then(function(res){
-				results.push(res); // on success, add to results
-			}).always(function(){
-				remaining--; // always mark as finished
-				if(!remaining) d.resolve(results);
-			})
-		}
-		return d.promise(); // return a promise on the remaining values
-	};
-
-	var __$window;
-	/**
-	 * @summary Gets the bounding rectangle and pixel density of the current viewport.
-	 * @memberof FooGallery
-	 * @function getViewportBounds
-	 * @param {number} [inflate] - An amount to inflate the bounds by. A positive number will expand the bounds outside of the visible viewport while a negative one effectively shrinks the bounds.
-	 * @returns {FooGallery~Bounds}
-	 */
-	_.getViewportBounds = function(inflate){
-		if (!__$window) __$window = $(window);
-		var viewport = {
-			top: __$window.scrollTop(),
-			left: __$window.scrollLeft(),
-			width: __$window.width(),
-			height: __$window.height()
-		};
-		viewport.right = viewport.left + viewport.width;
-		viewport.bottom = viewport.top + viewport.height;
-		if (_is.number(inflate)){
-			viewport.top -= inflate;
-			viewport.right += inflate;
-			viewport.bottom += inflate;
-			viewport.left -= inflate;
-			viewport.width += inflate * 2;
-			viewport.height += inflate * 2;
-		}
-		return viewport;
-	};
+	_.emptyImage = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
 	/**
-	 * @summary Get the bounding rectangle for the supplied element.
+	 * @summary The name to use when getting or setting an instance of a {@link FooGallery.Template|template} on an element using jQuery's `.data()` method.
 	 * @memberof FooGallery
-	 * @function getElementBounds
-	 * @param {(jQuery|HTMLElement|string)} element - The jQuery wrapper around the element, the element itself, or a CSS selector to retrieve the element with.
-	 * @returns {FooGallery~Bounds}
+	 * @name dataTemplate
+	 * @type {string}
+	 * @default "__FooGallery__"
 	 */
-	_.getElementBounds = function(element){
-		if (!_is.jq(element)) element = $(element);
-		var bounds = {top: 0, left: 0, width: 0, height: 0};
-		if (element.length !== 0){
-			bounds = element.offset();
-			bounds.width = element.width();
-			bounds.height = element.height();
-		}
-		bounds.right = bounds.left + bounds.width;
-		bounds.bottom = bounds.top + bounds.height;
-		return bounds;
-	};
+	_.dataTemplate = "__FooGallery__";
 
 	/**
-	 * @summary Checks if the supplied bounding rectangles intersect each other.
+	 * @summary The name to use when getting or setting an instance of a {@link FooGallery.Item|item} on an element using jQuery's `.data()` method.
 	 * @memberof FooGallery
-	 * @function intersects
-	 * @param {FooGallery~Bounds} bounds1 - The first rectangle.
-	 * @param {FooGallery~Bounds} bounds2 - The second rectangle to compare with the first.
-	 * @returns {boolean}
+	 * @name dataItem
+	 * @type {string}
+	 * @default "__FooGalleryItem__"
 	 */
-	_.intersects = function(bounds1, bounds2){
-		return bounds1.left <= bounds2.right && bounds2.left <= bounds1.right && bounds1.top <= bounds2.bottom && bounds2.top <= bounds1.bottom;
-	};
+	_.dataItem = "__FooGalleryItem__";
 
-	/**
-	 * @summary Simple utility method to convert a space delimited string of CSS class names into a CSS selector.
-	 * @memberof FooGallery
-	 * @function selectorFromClassName
-	 * @param {(string|string[])} classes - A single space delimited string of CSS class names to convert or an array of them with each item being included in the selector using the OR (`,`) syntax as a separator.
-	 * @returns {string}
-	 */
-	_.selectorFromClassName = function(classes){
-		if (!_is.array(classes)) classes = [classes];
-		return $.map(classes, function(str){
-			return _is.string(str) ? "." + str.split(/\s/g).join(".") : null;
-		}).join(",");
-	};
-
-	_.selectorsFromClassNames = function(classes){
-		var result = {};
-		for (var name in classes){
-			if (!classes.hasOwnProperty(name)) continue;
-			result[name] = _is.hash(classes[name]) ? _.selectorsFromClassNames(classes[name]) : _.selectorFromClassName(classes[name]);
-		}
-		return result;
-	};
-
-	_.get = function(elem){
-		elem = _is.jq(elem) ? elem : $(elem);
-		return elem.data("__FooGallery__") || null;
-	};
-
-	_.init = function(elem, options){
-		elem = _is.jq(elem) ? elem : $(elem);
-		options = _obj.extend({}, options, elem.data("foogallery"));
-		var gallery = _.get(elem);
-		if (gallery instanceof _.Gallery){
-			gallery.destroy();
-		}
-		gallery = new _.Gallery(elem, options);
-		gallery.initialize();
-		return gallery;
+	_.init = function(options, element){
+		return _.template.make(options, element).initialize();
 	};
 
 	_.initAll = function(options){
-		$(".foogallery").each(function(i, elem){
-			_.init(elem, options);
-		});
-	};
-
-	_.idToItemMap = function(items){
-		var map = {};
-		$.each(items, function(i, item){
-			if (_is.empty(item.id)) item.id = "" + (i + 1);
-			map[item.id] = item;
-		});
-		return map;
+		return _fn.when($(".foogallery").map(function(i, element){
+			return _.init(options, element);
+		}).get());
 	};
 
 	_.parseSrc = function(src, srcWidth, srcHeight, srcset, renderWidth, renderHeight){
@@ -227,20 +128,74 @@
 	};
 
 	/**
-	 * @summary A simple object used to represent the bounding rectangle of an element.
-	 * @typedef {object} FooGallery~Bounds
-	 * @property {number} width - The width of the rectangle.
-	 * @property {number} height - The height of the rectangle.
-	 * @property {number} top - The top co-ordinate of the rectangle.
-	 * @property {number} left - The left co-ordinate of the rectangle.
-	 * @property {number} bottom - The bottom co-ordinate of the rectangle.
-	 * @property {number} right - The right co-ordinate of the rectangle.
+	 * @summary Expose FooGallery as a jQuery plugin.
+	 * @memberof external:"jQuery.fn"#
+	 * @function foogallery
+	 * @param {object} [options] - The options to supply to FooGallery.
+	 * @param {external:"jQuery.fn"~readyCallback} [ready] - A callback executed once each template initialized is ready.
+	 * @returns {jQuery}
+	 * @example {@caption The below shows using this method in its simplest form, initializing a template on pre-existing elements.}{@lang html}
+	 * <!-- The container element for the template -->
+	 * <div id="gallery-1" class="foogallery">
+	 *   <!-- A single item -->
+	 *   <div class="fg-item" data-id="[item.id]">
+	 *     <div class="fg-item-inner">
+	 *       <a class="fg-thumb" href="[item.href]">
+	 *         <img class="fg-image" width="[item.width]" height="[item.height]"
+	 *         	title="[item.title]" alt="[item.description]"
+	 *         	data-src="[item.src]"
+	 *         	data-srcset="[item.srcset]" />
+	 *         <!-- Optional caption markup -->
+	 *         <div class="fg-caption">
+	 *         	<div class="fg-caption-inner">
+	 *         	 <div class="fg-caption-title">[item.title]</div>
+	 *         	 <div class="fg-caption-desc">[item.description]</div>
+	 *         	</div>
+	 *         </div>
+	 *       </a>
+	 *     </div>
+	 *   </div>
+	 *   <!-- Any number of additional items -->
+	 * </div>
+	 * <script>
+	 * 	jQuery(function($){
+	 * 		$("#gallery-1").foogallery();
+	 * 	});
+	 * </script>
+	 * @example {@caption Options can be supplied directly to the `.foogallery()` method or by supplying them using the `data-foogallery` attribute. If supplied using the attribute the value must follow [valid JSON syntax](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example) including quoted property names. If the same option is supplied in both locations as it is below, the value from the attribute overrides the value supplied to the method, in this case `lazy` would be `true`.}{@lang html}
+	 * <!-- Supplying the options using the attribute -->
+	 * <div id="gallery-1" class="foogallery fg-responsive" data-foogallery='{"lazy": true}'>
+	 * 	<!-- Items -->
+	 * </div>
+	 * <script>
+	 * 	jQuery(function($){
+	 * 		// Supply the options directly to the method
+	 * 		$("#gallery-1").foogallery({
+	 * 			lazy: false
+	 * 		});
+	 * 	});
+	 * </script>
 	 */
+	$.fn.foogallery = function(options, ready){
+		return this.filter(".foogallery").each(function(i, element){
+			_.template.make(options, element).initialize().then(function(template){
+				if (_is.fn(ready)){
+					ready(template);
+				}
+			});
+		});
+	};
 
 	/**
-	 * @summary A simple object used to represent the current viewports required information.
-	 * @typedef {FooGallery~Bounds} FooGallery~ViewportBounds
-	 * @property {number} [dpr=1] - The pixel density of the current viewport.
+	 * @summary If supplied this method is executed after each template is initialized.
+	 * @callback external:"jQuery.fn"~readyCallback
+	 * @param {FooGallery.Template} template - The template that was initialized.
+	 * @example {@caption The below shows an example of supplying this callback to the `.foogallery()` method.}
+	 * jQuery(".foogallery").foogallery({
+	 * 	// Options here
+	 * }, function(template){
+	 * 	// Called after each template is initialized on the matched elements
+	 * });
 	 */
 
 })(
@@ -248,5 +203,5 @@
 	FooGallery,
 	FooGallery.utils,
 	FooGallery.utils.is,
-	FooGallery.utils.obj
+	FooGallery.utils.fn
 );

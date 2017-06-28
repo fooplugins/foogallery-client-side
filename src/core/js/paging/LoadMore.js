@@ -1,51 +1,58 @@
 (function($, _, _utils, _is){
 
 	_.LoadMore = _.Infinite.extend({
-		construct: function(gallery, options, classes, il8n, selectors){
-			this._super(gallery, options, classes, il8n, selectors);
-			this.position = options.position;
-			this.ctrl = options.control;
-			this.amount = options.amount;
-			this._count = options.amount;
+		construct: function(template){
+			this._super(template);
+			this.amount = this.opt.amount;
+			this._count = this.opt.amount;
 		},
-		buildPages: function(items){
+		build: function(items){
 			this._super(items);
 			this._count = this.amount;
 		},
-		loadable: function(items){
-			var self = this, page = self.getPage(self.currentPage);
+		available: function(){
+			var self = this, items = [], page = self.get(self.current);
 			if (!_is.empty(page)){
-				var vb = _.getViewportBounds(), ib = _.getElementBounds(page[page.length - 1].$el);
+				var vb = _utils.getViewportBounds(), ib = page[page.length - 1].bounds();
 				if (ib.top - vb.bottom < self.distance){
-					var pageNumber = self.currentPage + 1;
-					if (self.isValidPage(pageNumber) && self._count < self.amount){
+					var pageNumber = self.current + 1;
+					if (self.isValid(pageNumber) && self._count < self.amount){
 						self._count++;
-						self.goto(pageNumber, false)
+						self.set(pageNumber, false);
 					}
-					if (self.currentPage === self.total){
-						self.destroyControls();
+					if (self.current === self.total){
+						if (!_is.empty(self.ctrls)){
+							$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
+								control.destroy();
+							});
+						}
 					}
 				}
 			}
-			return _.Paged.prototype.loadable.call(self, items);
+			for (var pg = self.current - 3; pg <= self.current; pg++){
+				if (self.isValid(pg)){
+					items.push.apply(items, self.get(pg));
+				}
+			}
+			return items;
 		},
 		loadMore: function(){
 			var self = this;
 			self._count = 0;
-			self.load(self.loadable(self.available()));
+			self.tmpl.loadAvailable();
 		}
 	});
 
-	_.LoadMoreControl = _.PagedControl.extend({
-		construct: function(gallery, position){
-			this._super(gallery, position);
+	_.LoadMoreControl = _.PagingControl.extend({
+		construct: function(template, parent, position){
+			this._super(template, parent, position);
 			this.$container = $();
 			this.$button = $();
 		},
 		create: function(){
 			var self = this;
-			self.$container = $("<div/>", {"class": self.p.cls.container}).addClass(self.p.theme);
-			self.$button = $("<button/>", {"class": self.p.cls.button, "type": "button"}).html(self.p.il8n.button)
+			self.$container = $("<nav/>", {"class": self.pages.cls.container}).addClass(self.pages.theme);
+			self.$button = $("<button/>", {"class": self.pages.cls.button, "type": "button"}).html(self.pages.il8n.button)
 				.on("click.foogallery", {self: self}, self.onButtonClick)
 				.appendTo(self.$container);
 			return true;
@@ -60,37 +67,28 @@
 		append: function(){
 			var self = this;
 			if (self.position === "top"){
-				self.$container.insertBefore(self.g.$el);
+				self.$container.insertBefore(self.tmpl.$el);
 			} else {
-				self.$container.insertAfter(self.g.$el);
+				self.$container.insertAfter(self.tmpl.$el);
 			}
 		},
 		onButtonClick: function(e){
 			e.preventDefault();
-			e.data.self.p.loadMore();
+			e.data.self.pages.loadMore();
 		}
 	});
 
-	_.Gallery.options.loadMore = {
-		amount: 1,
-		distance: 200,
-		pushOrReplace: "replace",
+	_.paging.register("loadMore", _.LoadMore, _.LoadMoreControl, {
+		type: "loadMore",
 		position: "bottom",
-		control: "loadMore-control"
-	};
-
-	_.Gallery.options.il8n.loadMore = {
-		button: "Load More"
-	};
-
-	_.Gallery.options.classes.loadMore = {
-		container: "fg-paging-container",
+		pushOrReplace: "replace",
+		amount: 1,
+		distance: 200
+	}, {
 		button: "fg-load-more"
-	};
-
-	_.items.register("loadMore", _.LoadMore);
-
-	_.controls.register("loadMore-control", _.LoadMoreControl);
+	}, {
+		button: "Load More"
+	});
 
 
 })(

@@ -51,13 +51,22 @@
 	position: relative;
 	display: block;
 	background-color: transparent;
-	color: #828282;
 	border-width: 10px;
 }
 .fg-portfolio .fg-caption-title {
+	text-align: left;
+}
+.fg-portfolio .fg-caption-desc {
+	text-align: justify;
+}
+.fg-portfolio.fg-light .fg-caption,
+.fg-portfolio.fg-dark .fg-caption {
+	color: #828282;
+}
+.fg-portfolio.fg-light .fg-caption-title {
 	color: #222;
 }
-.fg-portfolio.fg-item-dark .fg-caption-title {
+.fg-portfolio.fg-dark .fg-caption-title {
 	color: #FFF;
 }
 
@@ -68,9 +77,6 @@
 }
 
 /* Handle Border Sizing */
-.fg-portfolio.fg-border-outline .fg-caption {
-	border-width: 10px;
-}
 .fg-portfolio.fg-border-thin .fg-caption {
 	border-width: 10px 5px;
 }
@@ -79,21 +85,4 @@
 }
 .fg-portfolio.fg-border-thick .fg-caption {
 	border-width: 15px 0;
-}
-
-/* Handle Hover Effect Scale */
-.fg-portfolio.fg-hover-scale .fg-thumb {
-	transition: none;
-}
-.fg-portfolio.fg-hover-scale .fg-thumb:hover {
-	transform: none;
-}
-
-.fg-portfolio.fg-hover-scale .fg-item-inner {
-	transition: transform 0.2s linear;
-	z-index: 4;
-}
-.fg-portfolio.fg-hover-scale .fg-item-inner:hover {
-	transform: scale(1.05);
-	z-index: 10;
 }

@@ -1,44 +1,37 @@
 (function($, _, _utils, _is){
 
-	_.Dots = _.Paged.extend({
-		construct: function(gallery, options, classes, il8n, selectors){
-			this._super(gallery, options, classes, il8n, selectors);
-			this.g.state.pushOrReplace = options.pushOrReplace;
-			this.position = options.position;
-			this.ctrl = options.control;
-		}
-	});
+	_.Dots = _.Paging.extend({});
 
-	_.DotsControl = _.PagedControl.extend({
-		construct: function(gallery, position){
-			this._super(gallery, position);
+	_.DotsControl = _.PagingControl.extend({
+		construct: function(template, parent, position){
+			this._super(template, parent, position);
 			this.$container = $();
 			this.$list = $();
 			this.$items = $();
 		},
 		create: function(){
-			var self = this, cls = self.p.cls, il8n = self.p.il8n,
+			var self = this, cls = self.pages.cls, il8n = self.pages.il8n,
 				items = [], $list = $("<ul/>", {"class": cls.list});
 
-			for (var i = 0, l = self.p.pages.length, $item; i < l; i++){
-				items.push($item = self.createItem(i + 1, il8n.dot));
+			for (var i = 0, l = self.pages.total, $item; i < l; i++){
+				items.push($item = self.createItem(i + 1, il8n.page));
 				$list.append($item);
 			}
 			self.$list = $list;
-			self.$container = $("<nav/>", {"class": cls.container}).addClass(self.p.theme).append($list);
+			self.$container = $("<nav/>", {"class": cls.container}).addClass(self.pages.theme).append($list);
 			self.$items = $($.map(items, function($item){ return $item.get(); }));
 			return true;
 		},
 		append: function(){
 			var self = this;
 			if (self.position === "top"){
-				self.$container.insertBefore(self.g.$el);
+				self.$container.insertBefore(self.tmpl.$el);
 			} else {
-				self.$container.insertAfter(self.g.$el);
+				self.$container.insertAfter(self.tmpl.$el);
 			}
 		},
 		destroy: function(){
-			var self = this, sel = self.p.sel;
+			var self = this, sel = self.pages.sel;
 			self.$list.find(sel.link).off("click.foogallery", self.onLinkClick);
 			self.$container.remove();
 			self.$container = $();
@@ -49,7 +42,7 @@
 			this.setSelected(pageNumber - 1);
 		},
 		setSelected: function(index){
-			var self = this, cls = self.p.cls, il8n = self.p.il8n, sel = self.p.sel;
+			var self = this, cls = self.pages.cls, il8n = self.pages.il8n, sel = self.pages.sel;
 			// first find any previous selected items and deselect them
 			self.$items.filter(sel.selected).removeClass(cls.selected).each(function (i, el) {
 				// we need to revert the original items screen-reader text if it existed as being selected sets it to the value of the labels.current option
@@ -75,7 +68,7 @@
 		 * @summary Create and return a jQuery object containing a single `li` and its' link.
 		 * @memberof FooGallery.DotsControl#
 		 * @function createItem
-		 * @param {(number|string)} pageNumber - The page number or one of the page keywords; `"first"`, `"prev"`, `"prevMore"`, `"nextMore"`, `"next"` or `"last"`.
+		 * @param {(number|string)} pageNumber - The page number for the item.
 		 * @param {string} [label=""] - The label that is displayed when hovering over an item.
 		 * @param {string} [text=""] - The text to display for the item, if not supplied this defaults to the `pageNumber` value.
 		 * @param {string} [classNames=""] - A space separated list of CSS class names to apply to the item.
@@ -85,7 +78,7 @@
 		createItem: function(pageNumber, label, text, classNames, sr){
 			text = _is.string(text) ? text : pageNumber;
 			label = _is.string(label) ? label : "";
-			var self = this, opt = self.p.opt, cls = self.p.cls;
+			var self = this, opt = self.pages.opt, cls = self.pages.cls;
 			var $link = $("<a/>", {"class": cls.link, "href": "#page-" + pageNumber}).html(text).on("click.foogallery", {self: self, page: pageNumber}, self.onLinkClick);
 			if (!_is.empty(label)){
 				$link.attr("title", label.replace(/\{PAGE}/g, pageNumber).replace(/\{LIMIT}/g, opt.limit + ""));
@@ -110,23 +103,20 @@
 		 */
 		onLinkClick: function(e){
 			e.preventDefault();
-			var self = e.data.self, page = e.data.page, sel = self.p.sel;
+			var self = e.data.self, page = e.data.page, sel = self.pages.sel;
 			// this check should not be required as we use the CSS pointer-events: none; property on disabled links but just in case test for the class here
 			if (!$(this).closest(sel.item).is(sel.disabled)){
-				self.p.goto(page, true);
-				self.p.load(self.p.loadable(self.p.available()));
+				self.pages.set(page, true);
+				self.tmpl.loadAvailable();
 			}
 		}
 	});
 
-	_.Gallery.options.dots = {
+	_.paging.register("dots", _.Dots, _.DotsControl, {
+		type: "dots",
 		position: "both",
-		pushOrReplace: "push",
-		control: "dots-control"
-	};
-
-	_.Gallery.options.classes.dots = {
-		container: "fg-paging-container",
+		pushOrReplace: "push"
+	}, {
 		list: "fg-dots",
 		item: "fg-dot-item",
 		link: "fg-dot-link",
@@ -134,16 +124,10 @@
 		selected: "fg-selected",
 		visible: "fg-visible",
 		reader: "fg-sr-only"
-	};
-
-	_.Gallery.options.il8n.dots = {
+	}, {
 		current: "Current page",
-		dot: "Page {PAGE}"
-	};
-
-	_.items.register("dots", _.Dots);
-
-	_.controls.register("dots-control", _.DotsControl);
+		page: "Page {PAGE}"
+	});
 
 })(
 	FooGallery.$,

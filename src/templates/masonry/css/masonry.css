@@ -103,40 +103,113 @@
 .fg-masonry.fg-masonry-5col.fg-gutter-large .fg-column-width { width: 17%; }
 .fg-masonry.fg-masonry-5col.fg-gutter-large .fg-gutter-width { width: 3%; }
 
+/* Force 3 column layout < 720px */
+@media screen and (max-width: 720px) {
+	/* default gutter */
+	.fg-masonry.fg-masonry-5col .fg-item,
+	.fg-masonry.fg-masonry-4col .fg-item { margin-bottom: 1%; width: 32%; }
+	.fg-masonry.fg-masonry-5col .fg-column-width,
+	.fg-masonry.fg-masonry-4col .fg-column-width { width: 32%; }
+	.fg-masonry.fg-masonry-5col .fg-gutter-width,
+	.fg-masonry.fg-masonry-4col .fg-gutter-width { width: 1%; }
+
+	/* no gutter */
+	.fg-masonry.fg-masonry-5col.fg-gutter-none .fg-item,
+	.fg-masonry.fg-masonry-4col.fg-gutter-none .fg-item { margin-bottom: 0; width: 33%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-none .fg-column-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-none .fg-column-width { width: 33%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-none .fg-gutter-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-none .fg-gutter-width { width: 0; }
+
+	/* large gutter */
+	.fg-masonry.fg-masonry-5col.fg-gutter-large .fg-item,
+	.fg-masonry.fg-masonry-4col.fg-gutter-large .fg-item { margin-bottom: 3%; width: 30%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-large .fg-column-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-large .fg-column-width { width: 30%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-large .fg-gutter-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-large .fg-gutter-width { width: 3%; }
+
+}
+
 /* Force 2 column layout < 480px */
 @media screen and (max-width: 480px) {
-	.fg-masonry.fg-masonry-5col .fg-column-width,
-	.fg-masonry.fg-masonry-4col .fg-column-width,
-	.fg-masonry.fg-masonry-3col .fg-column-width,
-	.fg-masonry.fg-masonry-2col .fg-column-width { width: 49%; }
-
+	/* default gutter */
 	.fg-masonry.fg-masonry-5col .fg-item,
 	.fg-masonry.fg-masonry-4col .fg-item,
-	.fg-masonry.fg-masonry-3col .fg-item,
-	.fg-masonry.fg-masonry-2col .fg-item { width: 49%; }
-
+	.fg-masonry.fg-masonry-3col .fg-item { margin-bottom: 1%; width: 49%; }
+	.fg-masonry.fg-masonry-5col .fg-column-width,
+	.fg-masonry.fg-masonry-4col .fg-column-width,
+	.fg-masonry.fg-masonry-3col .fg-column-width { width: 49%; }
 	.fg-masonry.fg-masonry-5col .fg-gutter-width,
 	.fg-masonry.fg-masonry-4col .fg-gutter-width,
-	.fg-masonry.fg-masonry-3col .fg-gutter-width,
-	.fg-masonry.fg-masonry-2col .fg-gutter-width { width: 1%; }
+	.fg-masonry.fg-masonry-3col .fg-gutter-width { width: 1%; }
+
+	/* no gutter */
+	.fg-masonry.fg-masonry-5col.fg-gutter-none .fg-item,
+	.fg-masonry.fg-masonry-4col.fg-gutter-none .fg-item,
+	.fg-masonry.fg-masonry-3col.fg-gutter-none .fg-item { margin-bottom: 0; width: 50%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-none .fg-column-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-none .fg-column-width,
+	.fg-masonry.fg-masonry-3col.fg-gutter-none .fg-column-width { width: 50%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-none .fg-gutter-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-none .fg-gutter-width,
+	.fg-masonry.fg-masonry-3col.fg-gutter-none .fg-gutter-width { width: 0; }
+
+	/* large gutter */
+	.fg-masonry.fg-masonry-5col.fg-gutter-large .fg-item,
+	.fg-masonry.fg-masonry-4col.fg-gutter-large .fg-item,
+	.fg-masonry.fg-masonry-3col.fg-gutter-large .fg-item { margin-bottom: 3%; width: 47%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-large .fg-column-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-large .fg-column-width,
+	.fg-masonry.fg-masonry-3col.fg-gutter-large .fg-column-width { width: 47%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-large .fg-gutter-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-large .fg-gutter-width,
+	.fg-masonry.fg-masonry-3col.fg-gutter-large .fg-gutter-width { width: 3%; }
 }
 
 /* Force 1 column layout < 320px */
 @media screen and (max-width: 320px) {
+	/* default gutter */
+	.fg-masonry.fg-masonry-5col .fg-item,
+	.fg-masonry.fg-masonry-4col .fg-item,
+	.fg-masonry.fg-masonry-3col .fg-item,
+	.fg-masonry.fg-masonry-2col .fg-item { margin-bottom: 1%; width: 100%; }
 	.fg-masonry.fg-masonry-5col .fg-column-width,
 	.fg-masonry.fg-masonry-4col .fg-column-width,
 	.fg-masonry.fg-masonry-3col .fg-column-width,
 	.fg-masonry.fg-masonry-2col .fg-column-width { width: 100%; }
-
-	.fg-masonry.fg-masonry-5col .fg-item,
-	.fg-masonry.fg-masonry-4col .fg-item,
-	.fg-masonry.fg-masonry-3col .fg-item,
-	.fg-masonry.fg-masonry-2col .fg-item { width: 100%; margin-bottom: 2%; }
-
 	.fg-masonry.fg-masonry-5col .fg-gutter-width,
 	.fg-masonry.fg-masonry-4col .fg-gutter-width,
 	.fg-masonry.fg-masonry-3col .fg-gutter-width,
 	.fg-masonry.fg-masonry-2col .fg-gutter-width { width: 0; }
+
+	/* no gutter */
+	.fg-masonry.fg-masonry-5col.fg-gutter-none .fg-item,
+	.fg-masonry.fg-masonry-4col.fg-gutter-none .fg-item,
+	.fg-masonry.fg-masonry-3col.fg-gutter-none .fg-item,
+	.fg-masonry.fg-masonry-2col.fg-gutter-none .fg-item { margin-bottom: 0; width: 100%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-none .fg-column-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-none .fg-column-width,
+	.fg-masonry.fg-masonry-3col.fg-gutter-none .fg-column-width,
+	.fg-masonry.fg-masonry-2col.fg-gutter-none .fg-column-width { width: 100%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-none .fg-gutter-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-none .fg-gutter-width,
+	.fg-masonry.fg-masonry-3col.fg-gutter-none .fg-gutter-width,
+	.fg-masonry.fg-masonry-2col.fg-gutter-none .fg-gutter-width { width: 0; }
+
+	/* large gutter */
+	.fg-masonry.fg-masonry-5col.fg-gutter-large .fg-item,
+	.fg-masonry.fg-masonry-4col.fg-gutter-large .fg-item,
+	.fg-masonry.fg-masonry-3col.fg-gutter-large .fg-item,
+	.fg-masonry.fg-masonry-2col.fg-gutter-large .fg-item { margin-bottom: 3%; width: 100%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-large .fg-column-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-large .fg-column-width,
+	.fg-masonry.fg-masonry-3col.fg-gutter-large .fg-column-width,
+	.fg-masonry.fg-masonry-2col.fg-gutter-large .fg-column-width { width: 100%; }
+	.fg-masonry.fg-masonry-5col.fg-gutter-large .fg-gutter-width,
+	.fg-masonry.fg-masonry-4col.fg-gutter-large .fg-gutter-width,
+	.fg-masonry.fg-masonry-3col.fg-gutter-large .fg-gutter-width,
+	.fg-masonry.fg-masonry-2col.fg-gutter-large .fg-gutter-width { width: 0; }
 }
 
 /* Border Styles - We must apply width changing border styles to the fg-column-width element so that the plugin can correctly determine the item widths. */

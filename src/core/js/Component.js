@@ -2,23 +2,30 @@
 
 	_.Component = _utils.Class.extend(/** @lend FooGallery.Component */{
 		/**
-		 * @summary This base class for all child components of a {@link FooGallery.Gallery|gallery}.
+		 * @summary The base class for all child components of a {@link FooGallery.Template|template}.
 		 * @memberof FooGallery
 		 * @constructs Component
-		 * @param {FooGallery.Gallery} gallery - The gallery creating this component.
+		 * @param {FooGallery.Template} template - The template creating the component.
 		 * @augments FooGallery.utils.Class
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */
-		construct: function(gallery){
+		construct: function(template){
 			/**
-			 * @summary The gallery that created this component.
+			 * @summary The template that created this component.
 			 * @memberof FooGallery.Component#
-			 * @name g
-			 * @type {FooGallery.Gallery}
-			 * @readonly
+			 * @name tmpl
+			 * @type {FooGallery.Template}
 			 */
-			this.g = gallery;
+			this.tmpl = template;
+		},
+		/**
+		 * @summary Destroy the component making it ready for garbage collection.
+		 * @memberof FooGallery.Component#
+		 * @function destroy
+		 */
+		destroy: function(){
+			this.tmpl = null;
 		}
 	});
 

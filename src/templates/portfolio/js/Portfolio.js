@@ -169,8 +169,8 @@
 	});
 
 	_.Portfolio.defaults = {
-		gutter: 40, // number in pixels of the gutter between items. This is used as a minimum value for vertical gutters and an absolute value for horizontal ones.
-		align: "center" // center, left, right
+		gutter: 40,
+		align: "center"
 	};
 
 })(

@@ -46,9 +46,6 @@
 	cursor: not-allowed;
 	pointer-events: none;
 }
-.fg-paging-container .fg-dot-item.fg-selected .fg-dot-link {
-	z-index: 2;
-}
 .fg-paging-container .fg-dot-item.fg-disabled .fg-dot-link {
 	cursor: not-allowed;
 	pointer-events: none;

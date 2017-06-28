@@ -7,7 +7,7 @@
 .foogallery.fg-loaded-flip .fg-item {
 	transition-timing-function: ease;
 	transition-duration: 650ms;
-	transition-property: background-color;
+	transition-property: background-color, transform;
 }
 .foogallery.fg-loaded-fade-in .fg-item-inner,
 .foogallery.fg-loaded-slide-up .fg-item-inner,

@@ -1,53 +1,49 @@
 (function($, _, _utils, _is){
 
-	_.Infinite = _.Paged.extend({
-		construct: function(gallery, options, classes, il8n, selectors){
-			this._super(gallery, options, classes, il8n, selectors);
-			this.g.state.pushOrReplace = options.pushOrReplace;
-			this.distance = options.distance;
-			this._created = [];
+	_.Infinite = _.Paging.extend({
+		construct: function(template){
+			var self = this;
+			self._super(template);
+			self.distance = self.opt.distance;
+			self._created = [];
 		},
-		buildPages: function(items){
+		build: function(items){
 			this._super(items);
 			this._created = [];
 		},
 		available: function(){
-			var self = this;
-			if (!_is.empty(self._available)) return self._available;
-			return self._available = self.array.slice();
-		},
-		loadable: function(items){
-			var self = this, page = self.getPage(self.currentPage);
+			var self = this, items = [], page = self.get(self.current);
 			if (!_is.empty(page)){
-				var vb = _.getViewportBounds(), ib = _.getElementBounds(page[page.length - 1].$el);
+				var vb = _utils.getViewportBounds(), ib = page[page.length - 1].bounds();
 				if (ib.top - vb.bottom < self.distance){
-					self.goto(self.currentPage + 1, false);
+					self.set(self.current + 1, false);
 				}
 			}
-			return self._super(items);
+			for (var pg = self.current - 3; pg <= self.current; pg++){
+				if (self.isValid(pg)){
+					items.push.apply(items, self.get(pg));
+				}
+			}
+			return items;
 		},
-		setPage: function(pageNumber){
+		create: function(pageNumber){
 			var self = this;
-			if (self.isValidPage(pageNumber)){
-				for (var i = 0; i < pageNumber; i++){
-					if ($.inArray(i, self._created) === -1){
-						self.create(self.pages[i], true);
-						self._created.push(i);
-					}
+			pageNumber = self.number(pageNumber);
+			for (var i = 0; i < pageNumber; i++){
+				if ($.inArray(i, self._created) === -1){
+					self.tmpl.items.create(self._arr[i], true);
+					self._created.push(i);
 				}
-				self.currentPage = pageNumber;
-				return self.pages[pageNumber - 1];
 			}
-			return [];
+			self.current = pageNumber;
 		}
 	});
 
-	_.Gallery.options.infinite = {
-		distance: 200,
-		pushOrReplace: "replace"
-	};
-
-	_.items.register("infinite", _.Infinite);
+	_.paging.register("infinite", _.Infinite, null, {
+		type: "infinite",
+		pushOrReplace: "replace",
+		distance: 200
+	});
 
 
 })(

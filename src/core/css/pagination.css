@@ -42,9 +42,6 @@
 	cursor: not-allowed;
 	pointer-events: none;
 }
-.fg-paging-container .fg-page-item.fg-selected .fg-page-link {
-	z-index: 2;
-}
 .fg-paging-container .fg-page-item.fg-disabled .fg-page-link {
 	cursor: not-allowed;
 	pointer-events: none;

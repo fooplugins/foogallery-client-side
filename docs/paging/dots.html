@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--<link rel="icon" href="../../favicon.ico">-->
+
+	<title>Dots paging - FooGallery</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	<!-- FooGallery Full CSS -->
+	<link href="../../dist/full/css/foogallery.min.css" rel="stylesheet">
+
+	<!-- Prism -->
+	<link href="../css/prism.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="../css/docs.css" rel="stylesheet">
+
+	<!-- TOC -->
+	<link href="../css/toc.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="docs">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="../../index.html" class="navbar-brand">FooGallery</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="../getting-started.html">Getting started</a></li>
+				<li><a href="../options.html">Options</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Templates <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="../templates/masonry.html">Masonry</a></li>
+						<li><a href="../templates/portfolio.html">Portfolio</a></li>
+						<li><a href="../templates/justified.html">Justified</a></li>
+						<li><a href="../templates/responsive.html">Responsive</a></li>
+					</ul>
+				</li>
+				<li class="dropdown active">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paging <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li class="active"><a>Dots</a></li>
+						<li><a href="pagination.html">Pagination</a></li>
+						<li><a href="infinite.html">Infinite</a></li>
+						<li><a href="loadMore.html">Load More</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../jsdocs/index.html" target="_blank">JSDocs</a></li>
+				<li><a href="https://github.com/fooplugins/foogallery-client-side" target="_blank">GitHub</a></li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
+
+<!-- Header -->
+<div class="jumbotron">
+	<div class="container">
+		<h1>Dots paging</h1>
+		<h2>Displays small dots allowing a user to navigate between pages.</h2>
+	</div>
+</div>
+
+<div class="container">
+
+	<!-- Main -->
+	<div class="main-content col-md-9">
+
+		<!-- JavaScript -->
+		<div class="docs-section">
+			<h2 id="javascript" class="page-header first">JavaScript</h2>
+			<p class="lead">
+				All of the <a href="../options.html#paging">core paging options</a> can be used with this type however it does override the default value of the
+				<a href="#position">position</a> option and implements its' own take of the light and dark themes.
+			</p>
+
+			<div class="examples">
+				<div class="example default">
+					<p>
+						The below shows the dots default options object.
+					</p>
+					<pre class="language-javascript" data-lang="javascript"><code>{
+	// required
+	&quot;type&quot;: &quot;dots&quot;,
+	// overridden
+	&quot;position&quot;: &quot;both&quot;,
+	// inherited
+	&quot;theme&quot;: &quot;fg-light&quot;,
+	&quot;size&quot;: 30,
+	&quot;pushOrReplace&quot;: &quot;push&quot;,
+	&quot;scrollToTop&quot;: true
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="list-group list-group-detailed">
+				<h3 id="options" class="list-group-header">Options</h3>
+
+				<!-- position -->
+				<a href="#position" class="list-group-item">
+					<h4 id="position" class="list-group-item-heading">position <small>string</small></h4>
+					<p class="list-group-item-text">Where to display the dots controls for the gallery. <i>Overrides the default value.</i></p>
+				</a>
+				<div class="list-group-detail">
+					<div class="list-group-detail-inner">
+						<div class="examples">
+							<div class="example default">
+								<p><code>"both"</code></p>
+								<p>
+									By default the controls for the dots type are displayed both above and below the gallery.
+								</p>
+							</div>
+						</div>
+
+						<div class="example supports">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>"none"</span></h5>
+								<p class="doc-list-summary">No controls are displayed even if the type has a registered control.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>"top"</span></h5>
+								<p class="doc-list-summary">Displays the controls above the gallery container.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>"bottom"</span></h5>
+								<p class="doc-list-summary">Displays the controls below the gallery container.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>"both"</span></h5>
+								<p class="doc-list-summary">Displays the controls both above and below the gallery container.</p>
+							</div>
+						</div>
+
+						<div class="examples">
+							<div class="example static">
+								<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+							</div>
+							<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;position&quot;:&quot;top&quot;}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+							<p>Otherwise you can supply it directly to the plugin method.</p>
+							<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			&quot;position&quot;: &quot;top&quot;
+		}
+	});
+});</code></pre>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- theme -->
+				<a href="#theme" class="list-group-item">
+					<h4 id="theme" class="list-group-item-heading">theme <small>string</small></h4>
+					<p class="list-group-item-text">A space delimited string of CSS class names to apply to the dots controls.</p>
+				</a>
+				<div class="list-group-detail">
+					<div class="list-group-detail-inner">
+						<div class="examples">
+							<div class="example default">
+								<p><code>"fg-light"</code></p>
+								<p>
+									By default this type uses the light theme and currently only supports one alternate dark theme. If this value is not one of the supported types the controls will still be created
+									and positioned however the color scheme is left completely up to the class(es) that are supplied.
+								</p>
+							</div>
+						</div>
+
+						<div class="example supports">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>"fg-light"</span></h5>
+								<p class="doc-list-summary">This theme compliments the <a href="../options.html#fg-light">light item theme</a>.</p>
+								<nav class="fg-paging-container fg-light">
+									<ul class="fg-dots">
+										<li class="fg-dot-item fg-selected"><a class="fg-dot-link" href="#" title="Page 1"><span class="fg-sr-only">Current page</span>1</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 2"><span class="fg-sr-only">Page </span>2</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 3"><span class="fg-sr-only">Page </span>3</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 4"><span class="fg-sr-only">Page </span>4</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 5"><span class="fg-sr-only">Page </span>5</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 6"><span class="fg-sr-only">Page </span>6</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 7"><span class="fg-sr-only">Page </span>7</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 8"><span class="fg-sr-only">Page </span>8</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 9"><span class="fg-sr-only">Page </span>9</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 10"><span class="fg-sr-only">Page </span>10</a></li>
+									</ul>
+								</nav>
+							</div>
+							<hr/>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>"fg-dark"</span></h5>
+								<p class="doc-list-summary">This theme compliments the <a href="../options.html#fg-dark">dark item theme</a>.</p>
+								<nav class="fg-paging-container fg-dark">
+									<ul class="fg-dots">
+										<li class="fg-dot-item fg-selected"><a class="fg-dot-link" href="#" title="Page 1"><span class="fg-sr-only">Current page</span>1</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 2"><span class="fg-sr-only">Page </span>2</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 3"><span class="fg-sr-only">Page </span>3</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 4"><span class="fg-sr-only">Page </span>4</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 5"><span class="fg-sr-only">Page </span>5</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 6"><span class="fg-sr-only">Page </span>6</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 7"><span class="fg-sr-only">Page </span>7</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 8"><span class="fg-sr-only">Page </span>8</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 9"><span class="fg-sr-only">Page </span>9</a></li>
+										<li class="fg-dot-item"><a class="fg-dot-link" href="#" title="Page 10"><span class="fg-sr-only">Page </span>10</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+
+						<div class="examples">
+							<div class="example plural">
+								<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+							</div>
+							<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;theme&quot;:&quot;fg-dark&quot;}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+							<p>Otherwise you can supply it directly to the plugin method.</p>
+							<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			&quot;theme&quot;: &quot;fg-dark&quot;
+		}
+	});
+});</code></pre>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Usage -->
+		<div class="docs-section">
+
+			<h2 id="usage" class="page-header">Usage</h2>
+			<p class="lead">
+				Probably the simplest type this is best suited for displaying a small number of pages, up to about fifteen, anything above that may start to look too
+				cluttered and we would recommend trying one of the other paging types.
+			</p>
+
+			<div class="examples">
+				<div class="example">
+					<p>The below shows dots being used with its' default options by just setting the type.</p>
+					<pre class="language-markup" data-lang="markup"><code>&lt;!-- The container element --&gt;
+&lt;div id=&quot;example_1&quot; class=&quot;foogallery fg-responsive fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center fg-gutter-15&quot;&gt;
+	&lt;!-- items-150x150.json --&gt;
+&lt;/div&gt;</code></pre>
+					<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&quot;#example_1&quot;).foogallery({
+		&quot;items&quot;: &quot;../content/items-150x150.json&quot;,
+		&quot;paging&quot;: {
+			&quot;type&quot;: &quot;dots&quot;
+		}
+	});
+});</code></pre>
+					<div class="callout callout-info">
+						<h5>Notes</h5>
+						<ul>
+							<li>
+								<p>
+									The items in the example are created from the
+									<a href="../content/items-150x150.json">items-150x150.json</a> file and then displayed using the <a href="../templates/responsive.html">responsive template</a>,
+									<a href="../options.html#fg-light">light item style</a>, <a href="../options.html#fg-hover-external">external hover icon</a>,
+									<a href="../options.html#fg-loading-default">default loading icon</a> and the <a href="../options.html#fg-loaded-fade-in">fade in loaded effect</a>. All these options
+									are available in the Lite version.
+								</p>
+							</li>
+							<li>
+								<p>The images in the example are loaded from <a href="https://satyr.io" target="_blank">satyr.io</a>.</p>
+							</li>
+						</ul>
+					</div>
+
+					<div id="example_1" class="foogallery fg-responsive fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center fg-gutter-15">
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Side -->
+	<div class="side-content col-md-3">
+		<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+	</div>
+
+</div> <!-- /container -->
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="../js/prism.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../js/ie10-viewport-bug-workaround.js"></script>
+<script src="../js/docs.js"></script>
+<script src="../js/table-of-contents.js"></script>
+<!-- Add in FooGallery JS -->
+<script src="../../dist/full/js/foogallery.js"></script>
+<!-- Initialize FooGallery -->
+<script>
+	jQuery(function($){
+		$('#example_1').foogallery({
+			"items": "../content/items-150x150.json",
+			"paging": {
+				"type": "dots"
+			}
+		});
+	});
+</script>
+</body>
+</html>

@@ -5,33 +5,76 @@
 		 * @summary This class controls everything related to items and serves as the base class for the various paging types.
 		 * @memberof FooGallery
 		 * @constructs Items
-		 * @param {FooGallery.Gallery} gallery - The gallery for this component.
+		 * @param {FooGallery.Template} template - The template for this component.
 		 * @augments FooGallery.Component
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */
-		construct: function(gallery){
+		construct: function(template){
 			var self = this;
 			/**
 			 * @ignore
 			 * @memberof FooGallery.Items#
 			 * @function _super
 			 */
-			self._super(gallery);
-			self.array = [];
+			self._super(template);
 			self.idMap = {};
-			self._init = null;
+			self._fetched = null;
+			self._arr = [];
 			self._available = [];
-			self._throttle = new _utils.Throttle(self.g.opt.throttle);
-			self._filter = [];
 		},
-		preinit: function(){
-			return $.when();
+		destroy: function(){
+			var self = this, items = self.all(), destroyed = [];
+			if (items.length > 0) {
+				/**
+				 * @summary Raised before the template destroys its' items.
+				 * @event FooGallery.Template~"destroy-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items about to be destroyed.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"destroy-items.foogallery": function(event, template, items){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				self.tmpl.raise("destroy-items", [items]);
+				destroyed = $.map(items, function(item){
+					return item.destroy() ? item : null;
+				});
+				/**
+				 * @summary Raised after the template has destroyed items.
+				 * @event FooGallery.Template~"destroyed-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items destroyed.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"destroyed-items.foogallery": function(event, template, items){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				if (destroyed.length > 0) self.tmpl.raise("destroyed-items", [destroyed]);
+				// should we handle a case where the destroyed.length != items.length??
+			}
+			self.idMap = {};
+			self._fetched = null;
+			self._arr = [];
+			self._available = [];
+			self._super();
 		},
-		init: function(){
+		fetch: function(refresh){
 			var self = this;
-			if (_is.promise(self._init)) return self._init;
-			var fg = self.g, selectors = fg.sel,
+			if (!refresh && _is.promise(self._fetched)) return self._fetched;
+			var fg = self.tmpl, selectors = fg.sel,
 				option = fg.opt.items,
 				def = $.Deferred();
 
@@ -57,201 +100,467 @@
 				def.resolve(items);
 			}
 			def.then(function(items){
-				self.array = items;
-				self.idMap = _.idToItemMap(self.array);
-				var state = self.g.state.parse();
-				self.setState(_is.empty(state) ? self.getState() : state);
+				self._arr = items;
+				self.idMap = self.createIdMap(items);
+				self.setAvailable(self.all());
 			});
-			return self._init = def.promise();
+			return self._fetched = def.promise();
 		},
-		postinit: function(){
-			var self = this;
-			return self.load(self.loadable(self.available())).then(function(){
-				$(window).on("scroll.foogallery", {self: self}, self.onWindowScroll)
-					.on("popstate.foogallery", {self: self}, self.onWindowPopState);
-			});
-		},
-		destroy: function(){
-			var self = this;
-			$(window).off("scroll.foogallery", self.onWindowScroll)
-				.off("popstate.foogallery", self.onWindowPopState);
+		all: function(){
+			return this._arr.slice();
 		},
 		available: function(){
-			var self = this;
-			if (!_is.empty(self._available)) return self._available;
-			return self._available = self.array.slice();
+			return this._available.slice();
 		},
+		get: function(id){
+			return !_is.empty(id) && !!this.idMap[id] ? this.idMap[id] : null;
+		},
+		setAvailable: function(items){
+			this._available = _is.array(items) ? items : [];
+		},
+		reset: function(){
+			this.setAvailable(this.all());
+		},
+		/**
+		 * @summary Filter the supplied `items` and return only those that can be loaded.
+		 * @memberof FooGallery.Items#
+		 * @function loadable
+		 * @param {FooGallery.Item[]} items - The items to filter.
+		 * @returns {FooGallery.Item[]}
+		 */
 		loadable: function(items){
-			var self = this, opt = self.g.opt;
-			items = self.idle(items);
+			var self = this, opt = self.tmpl.opt, viewport;
 			if (opt.lazy){
-				items = self.visible(items, _.getViewportBounds(opt.viewport));
+				viewport = _utils.getViewportBounds(opt.viewport);
 			}
-			return items;
+			return _is.array(items) ? $.map(items, function(item){
+				return item.isCreated && item.isAttached && !item.isLoading && !item.isLoaded && !item.isError && (!opt.lazy || (opt.lazy && item.intersects(viewport))) ? item : null;
+			}) : [];
 		},
-		filter: function(items, tags){
-			var self = this;
-			self._filter = tags;
-			return self._available = $.map(items, function(i, item){
-				for (var j = 0, l = tags.length; j < l; j++){
-					if ($.inArray(tags[j], item.tags) !== -1) return item;
-				}
-				return null;
-			});
+		/**
+		 * @summary Filter the supplied `items` and return only those that can be created.
+		 * @memberof FooGallery.Items#
+		 * @function creatable
+		 * @param {FooGallery.Item[]} items - The items to filter.
+		 * @returns {FooGallery.Item[]}
+		 */
+		creatable: function(items){
+			return _is.array(items) ? $.map(items, function(item){
+				return item instanceof _.Item && !item.isCreated ? item : null;
+			}) : [];
 		},
-		idle: function(items){
-			return $.map(items, function(item){
-				return item.canLoad() ? item : null;
-			});
+		/**
+		 * @summary Filter the supplied `items` and return only those that can be appended.
+		 * @memberof FooGallery.Items#
+		 * @function appendable
+		 * @param {FooGallery.Item[]} items - The items to filter.
+		 * @returns {FooGallery.Item[]}
+		 */
+		appendable: function(items){
+			return _is.array(items) ? $.map(items, function(item){
+					return item instanceof _.Item && item.isCreated && !item.isAttached ? item : null;
+				}) : [];
 		},
-		visible: function(items, viewport){
-			return $.map(items, function(item){
-				return _.intersects(viewport, _.getElementBounds(item.$el)) ? item : null;
-			});
+		/**
+		 * @summary Filter the supplied `items` and return only those that can be detached.
+		 * @memberof FooGallery.Items#
+		 * @function detachable
+		 * @param {FooGallery.Item[]} items - The items to filter.
+		 * @returns {FooGallery.Item[]}
+		 */
+		detachable: function(items){
+			return _is.array(items) ? $.map(items, function(item){
+				return item instanceof _.Item && item.isCreated && item.isAttached ? item : null;
+			}) : [];
 		},
 		/**
 		 * @summary Get a single jQuery object containing all the supplied items' elements.
 		 * @memberof FooGallery.Items#
-		 * @function jq
+		 * @function jquerify
 		 * @param {FooGallery.Item[]} items - The items to get a jQuery object for.
 		 * @returns {jQuery}
 		 */
-		jq: function(items){
+		jquerify: function(items){
 			return $($.map(items, function (item) {
 				return item.$el.get();
 			}));
 		},
+		/**
+		 * @summary Makes a jQuery object, NodeList or an array of elements or item options, into an array of {@link FooGallery.Item|item} objects.
+		 * @memberof FooGallery.Items#
+		 * @function make
+		 * @param {(jQuery|NodeList|Node[]|FooGallery.Item~Options[])} items - The value to convert into an array of items.
+		 * @returns {FooGallery.Item[]} The array of items successfully made.
+		 * @fires FooGallery.Template~"make-items.foogallery"
+		 * @fires FooGallery.Template~"made-items.foogallery"
+		 * @fires FooGallery.Template~"parsed-items.foogallery"
+		 */
 		make: function(items){
-			var self = this, args = _fn.arg2arr(arguments), t = self.g.tmpl, result = [], parsed = [];
-			for (var i = 0, l = args.length, arg; i < l; i++){
-				arg = args[i];
-				if (!_is.jq(arg) && !_is.array(arg)) continue;
-				result.push.apply(result, $.map($.makeArray(arg), function(item){
-					if (_is.hash(item)) item = t.onitemmake(item);
-					else if (_is.element(item)) parsed.push(item = t.onitemparse(item));
-					return item instanceof _.Item ? item : null;
-				}));
+			var self = this, made = [];
+			if (_is.jq(items) || _is.array(items)){
+				var parsed = [], arr = $.makeArray(items);
+				if (arr.length === 0) return made;
+				/**
+				 * @summary Raised before the template makes an array of elements or item options into an array of {@link FooGallery.Item|item} objects.
+				 * @event FooGallery.Template~"make-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {(HTMLElement[]|FooGallery.Item~Options[])} items - The array of Nodes or item options.
+				 * @returns {(HTMLElement[]|FooGallery.Item~Options[])} A filtered list of items to make.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"make-items.foogallery": function(event, template, items){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent any items being made.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"make-items.foogallery": function(event, template, items){
+				 * 			if ("some condition"){
+				 * 				// stop any items being made
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("make-items", [arr]);
+				if (!e.isDefaultPrevented()){
+					made = $.map(arr, function(obj){
+						var item = _.components.make("item", self.tmpl, _is.hash(obj) ? obj : {});
+						if (_is.element(obj)){
+							if (item.parse(obj)){
+								parsed.push(item);
+								return item;
+							}
+							return null;
+						}
+						return item;
+					});
+				}
+
+				/**
+				 * @summary Raised after the template has made an array of {@link FooGallery.Item|item} objects.
+				 * @event FooGallery.Template~"made-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items made, this includes parsed items.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"made-items.foogallery": function(event, template, items){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				if (made.length > 0) self.tmpl.raise("made-items", [made]);
+
+				/**
+				 * @summary Raised after the template has parsed any elements into an array of {@link FooGallery.Item|item} objects.
+				 * @event FooGallery.Template~"parsed-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items parsed.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"parsed-items.foogallery": function(event, template, items){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				if (parsed.length > 0) self.tmpl.raise("parsed-items", [parsed]);
 			}
-			if (parsed.length > 0) t.onitemsparsed(parsed);
-			if (result.length > 0) t.onitemsmade(result);
-			return result;
+			return made;
 		},
+		/**
+		 * @summary Create each of the supplied {@link FooGallery.Item|`items`} elements.
+		 * @memberof FooGallery.Items#
+		 * @function create
+		 * @param {FooGallery.Item[]} items - The array of items to create.
+		 * @param {boolean} [append=false] - Whether or not to automatically append the item after it is created.
+		 * @returns {FooGallery.Item[]} The array of items that were created or if `append` is `true` the array of items that were appended.
+		 * @description This will only create and/or append items that are not already created and/or appended so it is safe to call without worrying about the items' pre-existing state.
+		 * @fires FooGallery.Template~"create-items.foogallery"
+		 * @fires FooGallery.Template~"created-items.foogallery"
+		 * @fires FooGallery.Template~"append-items.foogallery"
+		 * @fires FooGallery.Template~"appended-items.foogallery"
+		 */
 		create: function(items, append){
-			var self = this;
-			if (_is.array(items) && items.length > 0) {
-				var t = self.g.tmpl;
-				append = _is.boolean(append) ? append : false;
-				var created = [], appended = [];
-				$.each(items, function(i, item){
-					if (item.canCreate()) {
-						t.onitemcreate(item);
-						if (item.isCreated) created.push(item);
-					}
-					if (append && item.canAppend()) {
-						t.onitemappend(item);
-						if (item.isAttached) appended.push(item);
-					}
-				});
-				if (created.length > 0) t.onitemscreated(created);
-				if (appended.length > 0) t.onitemsappended(appended);
+			var self = this, created = [], creatable = self.creatable(items);
+			if (creatable.length > 0) {
+				/**
+				 * @summary Raised before the template creates the `items` elements.
+				 * @event FooGallery.Template~"create-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items to create.
+				 * @param {boolean} [append=false] - Whether or not to automatically append the item after it is created.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"create-items.foogallery": function(event, template, items){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent any items being created.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"create-items.foogallery": function(event, template, items){
+				 * 			if ("some condition"){
+				 * 				// stop any items being created
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("create-items", [creatable]);
+				if (!e.isDefaultPrevented()){
+					created = $.map(creatable, function(item){
+						return item.create() ? item : null;
+					});
+				}
+				/**
+				 * @summary Raised after the template has created the `items` elements.
+				 * @event FooGallery.Template~"created-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items created.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"created-items.foogallery": function(event, template, items){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				if (created.length > 0) self.tmpl.raise("created-items", [created]);
 			}
+			if (_is.boolean(append) ? append : false) return self.append(items);
+			return created;
 		},
+		/**
+		 * @summary Append each of the supplied {@link FooGallery.Item|`items`} to the template.
+		 * @memberof FooGallery.Items#
+		 * @function append
+		 * @param {FooGallery.Item[]} items - The array of items to append.
+		 * @returns {FooGallery.Item[]} The array of items that were appended.
+		 * @fires FooGallery.Template~"append-items.foogallery"
+		 * @fires FooGallery.Template~"appended-items.foogallery"
+		 */
 		append: function(items){
-			var self = this;
-			if (_is.array(items) && items.length > 0) {
-				var t = self.g.tmpl, appended = $.map(items, function(item){
-					if (item.canAppend()) {
-						t.onitemappend(item);
-						if (item.isAttached) return item;
-					}
-					return null;
-				});
-				if (appended.length > 0) t.onitemsappended(appended);
+			var self = this, appended = [], appendable = self.appendable(items);
+			if (appendable.length > 0) {
+				/**
+				 * @summary Raised before the template appends any items to itself.
+				 * @event FooGallery.Template~"append-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items to append.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"append-items.foogallery": function(event, template, items){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent any items being appended.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"append-items.foogallery": function(event, template, items){
+				 * 			if ("some condition"){
+				 * 				// stop any items being appended
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("append-items", [appendable]);
+				if (!e.isDefaultPrevented()){
+					appended = $.map(appendable, function(item){
+						return item.append() ? item : null;
+					});
+				}
+				/**
+				 * @summary Raised after the template has appended items to itself.
+				 * @event FooGallery.Template~"appended-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items appended.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"appended-items.foogallery": function(event, template, items){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+				 */
+				if (appended.length > 0) self.tmpl.raise("appended-items", [appended]);
 			}
+			return appended;
 		},
+		/**
+		 * @summary Detach each of the supplied {@link FooGallery.Item|`items`} from the template.
+		 * @memberof FooGallery.Items#
+		 * @function detach
+		 * @param {FooGallery.Item[]} items - The array of items to detach.
+		 * @returns {FooGallery.Item[]} The array of items that were detached.
+		 * @fires FooGallery.Template~"detach-items.foogallery"
+		 * @fires FooGallery.Template~"detached-items.foogallery"
+		 */
 		detach: function(items){
-			var self = this;
-			if (_is.array(items) && items.length > 0) {
-				var t = self.g.tmpl, detached = $.map(items, function(item){
-					if (item.canDetach()) {
-						t.onitemdetach(item);
-						if (!item.isAttached) return item;
-					}
-					return null;
-				});
-				if (detached.length > 0) t.onitemsdetached(detached);
+			var self = this, detached = [], detachable = self.detachable(items);
+			if (detachable.length > 0) {
+				/**
+				 * @summary Raised before the template detaches any items from itself.
+				 * @event FooGallery.Template~"detach-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items to detach.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"detach-items.foogallery": function(event, template, items){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent any items being detached.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"detach-items.foogallery": function(event, template, items){
+				 * 			if ("some condition"){
+				 * 				// stop any items being detached
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("detach-items", [detachable]);
+				if (!e.isDefaultPrevented()){
+					detached = $.map(detachable, function(item){
+						return item.detach() ? item : null;
+					});
+				}
+				/**
+				 * @summary Raised after the template has detached items from itself.
+				 * @event FooGallery.Template~"detached-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items detached.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"detached-items.foogallery": function(event, template, items){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+				 */
+				if (detached.length > 0) self.tmpl.raise("detached-items", [detached]);
 			}
+			return detached;
 		},
+		/**
+		 * @summary Load each of the supplied `items` images.
+		 * @memberof FooGallery.Items#
+		 * @function load
+		 * @param {FooGallery.Item[]} items - The array of items to load.
+		 * @returns {Promise<FooGallery.Item[]>} Resolved with an array of {@link FooGallery.Item|items} as the first argument. If no items are loaded this array is empty.
+		 * @fires FooGallery.Template~"load-items.foogallery"
+		 * @fires FooGallery.Template~"loaded-items.foogallery"
+		 */
 		load: function(items){
 			var self = this;
-			if (_is.array(items) && items.length > 0){
-				var t = self.g.tmpl;
-				t.onitemsload(items);
-				var loading = $.map(items, function(item){
-					if (item.canLoad()){
-						t.onitemloading(item);
-						return item.load().then(function(item){
-							t.onitemloaded(item);
-							return item;
-						}, function(item){
-							t.onitemerror(item);
-							return item;
-						});
-					}
-					return null;
-				});
-				return _.when(loading).done(function (results) {
-					t.onitemsloaded(results);
-				});
-			} else {
-				return $.Deferred().resolve().promise();
-			}
-		},
-		getState: function(item){
-			var self = this, state = {};
-			if (!_is.empty(self._filter)){
-				state.f = self._filter.slice();
-			}
-			if (item instanceof _.Item){
-				state.i = item.id;
-			}
-			return state;
-		},
-		setState: function(state){
-			var self = this;
-			if (_is.hash(state)){
-				var items = self.array.slice();
-				if (!_is.empty(state.f)){
-					self.detach(items);
-					items = self.filter(items, state.f);
+			items = self.loadable(items);
+			if (items.length > 0){
+				/**
+				 * @summary Raised before the template loads any items.
+				 * @event FooGallery.Template~"load-items.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Item[]} items - The array of items to load.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"load-items.foogallery": function(event, template, items){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent any `items` being loaded.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"load-items.foogallery": function(event, template, items){
+				 * 			if ("some condition"){
+				 * 				// stop any items being loaded
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("load-items", [items]);
+				if (!e.isDefaultPrevented()){
+					var loading = $.map(items, function(item){
+						return item.load();
+					});
+					return _fn.when(loading).done(function(loaded) {
+						/**
+						 * @summary Raised after the template has loaded items.
+						 * @event FooGallery.Template~"loaded-items.foogallery"
+						 * @type {jQuery.Event}
+						 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+						 * @param {FooGallery.Template} template - The template raising the event.
+						 * @param {FooGallery.Item[]} items - The array of items that were loaded.
+						 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+						 * $(".foogallery").foogallery({
+						 * 	on: {
+						 * 		"loaded-items.foogallery": function(event, template, items){
+						 * 			// do something
+						 * 		}
+						 * 	}
+						 * });
+						 */
+						self.tmpl.raise("loaded-items", [loaded]);
+					});
 				}
-				self.create(items, true);
-				if (!_is.empty(state.i)){
-					var item = self.idMap[state.i];
-					if (item instanceof _.Item){
-						item.scrollTo();
-					}
-					state.i = null;
-					self.g.state.replace(state);
-				}
 			}
+			return _fn.resolveWith([]);
 		},
-		onWindowScroll: function(e){
-			var self = e.data.self;
-			self._throttle.limit(function(){
-				self.load(self.loadable(self.available()));
+		createIdMap: function(items){
+			var map = {};
+			$.each(items, function(i, item){
+				if (_is.empty(item.id)) item.id = "" + (i + 1);
+				map[item.id] = item;
 			});
-		},
-		onWindowPopState: function(e){
-			var self = e.data.self, state = e.originalEvent.state;
-			if (!_is.empty(state) && state.id === self.g.id){
-				self.setState(state);
-				self.load(self.loadable(self.available()));
-			}
+			return map;
 		}
 	});
 
-	_.items.register("items", _.Items, 1000);
+	_.components.register("items", _.Items);
 
 })(
 	FooGallery.$,

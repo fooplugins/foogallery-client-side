@@ -238,36 +238,32 @@
 	FooGallery.utils,
 	FooGallery.utils.is
 );
-(function($, _){
+(function($, _, _utils){
 
 	_.JustifiedTemplate = _.Template.extend({
-		construct: function(gallery){
-			this._super(gallery);
-			this.justified = new _.Justified( this.g.$el.get(0), this.options );
+		onPreInit: function(event, self){
+			self.justified = new _.Justified( self.$el.get(0), self.template );
 		},
-		onpreinit: function(){
-			this.justified.init();
-			this._super();
+		onInit: function(event, self){
+			self.justified.init();
 		},
-		onitemsparsed: function(items){
-			this.justified.layout();
-			this._super(items);
+		onParsedItems: function(event, self, items){
+			self.justified.layout();
 		},
-		onitemsappended: function(items){
-			this.justified.layout( true );
-			this._super(items);
+		onAppendedItems: function(event, self, items){
+			self.justified.layout( true );
 		},
-		onitemsdetached: function(items){
-			this.justified.layout( true );
-			this._super(items);
+		onDetachedItems: function(event, self, items){
+			self.justified.layout( true );
 		}
 	});
 
-	_.template.register("justified", _.JustifiedTemplate, function($elem){
-		return $elem.is(".fg-justified");
+	_.template.register("justified", _.JustifiedTemplate, null, {
+		container: "foogallery fg-justified"
 	});
 
 })(
 	FooGallery.$,
-	FooGallery
+	FooGallery,
+	FooGallery.utils
 );

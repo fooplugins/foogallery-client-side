@@ -1,18 +1,18 @@
-(function(_, _utils, _is, _fn){
+(function($, _, _utils, _is, _fn, _obj){
 
 	_.TemplateFactory = _utils.Factory.extend(/** @lends FooGallery.TemplateFactory */{
 		/**
-		 * @summary A factory for templates allowing them to be easily registered and created.
+		 * @summary A factory for galleries allowing them to be easily registered and created.
 		 * @memberof FooGallery
 		 * @constructs TemplateFactory
-		 * @description This class allows templates to register themselves for use at a later time.
-		 * @augments FooGallery.Factory
-		 * @borrows FooGallery.Factory.extend as extend
-		 * @borrows FooGallery.Factory.override as override
+		 * @description The plugin makes use of an instance of this class exposed as {@link FooGallery.template}.
+		 * @augments FooGallery.utils.Factory
+		 * @borrows FooGallery.utils.Class.extend as extend
+		 * @borrows FooGallery.utils.Class.override as override
 		 */
 		construct: function(){
 			/**
-			 * @summary An object containing all registered templates.
+			 * @summary An object containing all registered galleries.
 			 * @memberof FooGallery.TemplateFactory#
 			 * @name registered
 			 * @type {Object.<string, Object>}
@@ -37,50 +37,112 @@
 			this.registered = {};
 		},
 		/**
-		 * @summary Registers a `template` constructor with the factory using the given `name` and `test` function.
+		 * @summary Registers a template constructor with the factory using the given `name` and `test` function.
 		 * @memberof FooGallery.TemplateFactory#
 		 * @function register
 		 * @param {string} name - The friendly name of the class.
 		 * @param {FooGallery.Template} template - The template constructor to register.
-		 * @param {function} test - The testing function to register.
+		 * @param {object} options - The default options for the template.
+		 * @param {object} [classes={}] - The CSS classes for the template.
+		 * @param {object} [il8n={}] - The il8n strings for the template.
 		 * @param {number} [priority=0] - This determines the index for the class when using either the {@link FooGallery.TemplateFactory#load|load} or {@link FooGallery.TemplateFactory#names|names} methods, a higher value equals a lower index.
 		 * @returns {boolean} `true` if the `klass` was successfully registered.
 		 */
-		register: function(name, template, test, priority){
-			if (!_is.fn(test)) return false;
+		register: function(name, template, options, classes, il8n, priority){
 			var self = this, result = self._super(name, template, priority);
-			if (result) self.registered[name].test = test;
+			if (result){
+				var reg = self.registered;
+				reg[name].opt = _is.hash(options) ? options : {};
+				reg[name].cls = _is.hash(classes) ? classes : {};
+				reg[name].il8n = _is.hash(il8n) ? il8n : {};
+			}
 			return result;
 		},
 		/**
-		 * @summary Create a new instance of a registered template from the supplied `element` and arguments.
+		 * @summary Create a new instance of a registered template from the supplied `element` and `options`.
 		 * @memberof FooGallery.TemplateFactory#
-		 * @function from
-		 * @param {(jQuery|HTMLElement|string)} element - The jQuery object, HTMLElement or selector of the gallery element to create a template for.
-		 * @param {*} arg1 - The first argument to supply to the new instance.
-		 * @param {...*} [argN] - Any number of additional arguments to supply to the new instance.
+		 * @function make
+		 * @param {(object|FooGallery~Options)} [options] - The options for the template. If not supplied this will fall back to using the {@link FooGallery.defaults|defaults}.
+		 * @param {(jQuery|HTMLElement|string)} [element] - The jQuery object, HTMLElement or selector of the template element to create. If not supplied the {@link FooGallery~Options#type|type} options' value is used.
 		 * @returns {FooGallery.Template}
 		 */
-		from: function(element, arg1, argN){
-			element = _is.jq(element) ? element : element;
-			var self = this, names = self.names(true);
-			if (_is.empty(names)) return null;
-			var args = _fn.arg2arr(arguments), reg = self.registered, name = names.shift();
-			args.shift();
-			for (var i = 0, l = names.length; i < l; i++) {
-				if (!reg.hasOwnProperty(names[i])) continue;
-				if (reg[names[i]].test(element)) {
-					name = names[i];
-					break;
+		// make: function(options, element){
+		// 	options = _.options(options, element.data("foogallery"));
+		// 	element = _is.jq(element) ? element : $(element);
+		// 	var self = this, names = self.names(true);
+		// 	if (_is.empty(names)) return null;
+		// 	var reg = self.registered;
+		// 	if (element.length > 0){
+		// 		for (var i = 0, l = names.length; i < l; i++) {
+		// 			if (!reg.hasOwnProperty(names[i]) || !_is.fn(reg[names[i]].test)) continue;
+		// 			if (reg[names[i]].test(element, options)) {
+		// 				options.type = names[i];
+		// 				break;
+		// 			}
+		// 		}
+		// 	}
+		// 	if (_is.hash(options[options.type])){
+		// 		options.custom = _obj.extend({}, options[options.type], options.custom);
+		// 	}
+		// 	return self._super(options.type, options, element);
+		// },
+		make: function(options, element){
+			element = _is.jq(element) ? element : $(element);
+			var self = this, type = self.type(options, element);
+			if (!self.contains(type)) return null;
+			options = self.options(type, options);
+			return self._super(type, options, element);
+		},
+		type: function(options, element){
+			element = _is.jq(element) ? element : $(element);
+			var self = this, type = _is.hash(options) && _is.hash(options) && _is.string(options.type) && self.contains(options.type) ? options.type : "default";
+			if (type === "default" && element.length > 0){
+				var reg = self.registered, names = self.names(true);
+				for (var i = 0, l = names.length; i < l; i++) {
+					if (!reg.hasOwnProperty(names[i])) continue;
+					var name = names[i], cls = reg[name].cls;
+					if (!_is.string(cls.container)) continue;
+					var selector = _utils.selectify(cls.container);
+					if (element.is(selector)) {
+						type = names[i];
+						break;
+					}
 				}
 			}
-			args.unshift(name);
-			return self.make.apply(self, args);
+			return type;
+		},
+		configure: function(name, options, classes, il8n){
+			var self = this;
+			if (self.contains(name)){
+				var reg = self.registered;
+				_obj.extend(reg[name].opt, options);
+				_obj.extend(reg[name].cls, classes);
+				_obj.extend(reg[name].il8n, il8n);
+			}
+		},
+		options: function(name, options){
+			options = _is.hash(options) ? options : {};
+			var self = this, reg = self.registered,
+				def = reg["default"].opt,
+				cls = reg["default"].cls,
+				il8n = reg["default"].il8n;
+
+			options = _.paging.merge(options);
+			if (name !== "default" && self.contains(name)){
+				options = _obj.extend({}, def, reg[name].opt, options);
+				options.cls = _obj.extend({}, cls, reg[name].cls, options.cls);
+				options.il8n = _obj.extend({}, il8n, reg[name].il8n, options.il8n);
+			} else {
+				options = _obj.extend({}, def, options);
+				options.cls = _obj.extend({}, cls, options.cls);
+				options.il8n = _obj.extend({}, il8n, options.il8n);
+			}
+			return options;
 		}
 	});
 
 	/**
-	 * @summary The factory used to register and create the various templates of FooGallery.
+	 * @summary The factory used to register and create the various template types of FooGallery.
 	 * @memberof FooGallery
 	 * @name template
 	 * @type {FooGallery.TemplateFactory}
@@ -88,8 +150,10 @@
 	_.template = new _.TemplateFactory();
 
 })(
+	FooGallery.$,
 	FooGallery,
 	FooGallery.utils,
 	FooGallery.utils.is,
-	FooGallery.utils.fn
+	FooGallery.utils.fn,
+	FooGallery.utils.obj
 );

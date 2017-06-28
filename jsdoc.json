@@ -7,6 +7,7 @@
     "systemName": "FooGallery",
     "systemSummary": "The Most Intuitive and Extensible Gallery Creation and Management Tool Ever Created for WordPress.",
     "copyright": "FooGallery Copyright © 2016",
+    "sort": "linenum, longname, version, since",
     "stylesheets": [],
     "scripts": [
       "../dist/core/js/foogallery.js"

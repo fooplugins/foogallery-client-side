@@ -1,46 +1,46 @@
-(function($, _){
+(function($, _, _utils){
 
 	_.PortfolioTemplate = _.Template.extend({
-		construct: function(gallery){
-			this._super(gallery);
-			this.portfolio = new _.Portfolio( this.g.$el.get(0), this.options );
-			this.isCaptionTop = false;
+		construct: function(element, options){
+			var self = this;
+			self._super(element, options);
+			self.isCaptionTop = self.template.captionTop;
 		},
-		onpreinit: function(){
-			this.isCaptionTop = this.g.$el.hasClass("fg-captions-top");
-			this.portfolio.init();
-			this._super();
+		onPreInit: function(event, self){
+			self.isCaptionTop = !self.template.captionTop ? self.$el.hasClass("fg-captions-top") : self.template.captionTop;
+			self.portfolio = new _.Portfolio( self.$el.get(0), self.template );
 		},
-		onitemsparsed: function(items){
-			this.portfolio.layout();
-			this._super(items);
+		onInit: function(event, self){
+			self.portfolio.init();
 		},
-		onitemcreate: function(item){
-			this.raise("item-create", [item]);
-			item.createDOM(true);
-			if (item.isCaptionCreated){
-				if (this.isCaptionTop){
+		onCreatedItem: function(event, self, item){
+			if (item.isCreated && item.$caption.length > 0){
+				if (self.isCaptionTop){
 					item.$caption.insertBefore(item.$anchor);
 				} else {
 					item.$caption.insertAfter(item.$anchor);
 				}
 			}
 		},
-		onitemsappended: function(items){
-			this.portfolio.layout( true );
-			this._super(items);
+		onParsedItems: function(event, self, items){
+			self.portfolio.layout();
 		},
-		onitemsdetached: function(items){
-			this.portfolio.layout( true );
-			this._super(items);
+		onAppendedItems: function(event, self, items){
+			self.portfolio.layout( true );
+		},
+		onDetachedItems: function(event, self, items){
+			self.portfolio.layout( true );
 		}
 	});
 
-	_.template.register("portfolio", _.PortfolioTemplate, function($elem){
-		return $elem.is(".fg-portfolio");
+	_.template.register("portfolio", _.PortfolioTemplate, {
+		captionTop: false
+	}, {
+		container: "foogallery fg-portfolio"
 	});
 
 })(
 	FooGallery.$,
-	FooGallery
+	FooGallery,
+	FooGallery.utils
 );

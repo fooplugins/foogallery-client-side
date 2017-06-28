@@ -54,6 +54,7 @@ The core CSS supplies common styles that can be shared across all galleries. To 
 
 ### Hover Effects
 
+- `fg-hover-external`
 - `fg-hover-zoom`
 - `fg-hover-zoom2`
 - `fg-hover-zoom3`
@@ -79,14 +80,13 @@ The core CSS supplies common styles that can be shared across all galleries. To 
 
 The overall appearance of an item, affecting properties such as the border, background and font colors.
 
-- `fg-item-light`
-- `fg-item-dark`
+- `fg-light`
+- `fg-dark`
 
 &#42; If no item style is applied everything will still work however there will be no colors applied to any of the items. This can be useful when creating a custom style.
 
 ### Border Size
 
-- `fg-border-outline` (1px)
 - `fg-border-thin`  (5px)
 - `fg-border-medium` (10px)
 - `fg-border-thick` (15px)
@@ -100,6 +100,7 @@ The overall appearance of an item, affecting properties such as the border, back
 
 ### Drop Shadow
 
+- `fg-shadow-outline` (0 0 1px)
 - `fg-shadow-small` (0 1px 5px)
 - `fg-shadow-medium` (0 1px 10px)
 - `fg-shadow-large` (0 1px 15px)
@@ -110,7 +111,7 @@ The overall appearance of an item, affecting properties such as the border, back
 - `fg-shadow-inset-medium` (0 1px 10px)
 - `fg-shadow-inset-large` (0 1px 15px)
 
-## Loader Effects
+### Loader Effects
 
 - `fg-loaded-fade-in`
 - `fg-loaded-slide-up`
@@ -122,7 +123,7 @@ The overall appearance of an item, affecting properties such as the border, back
 
 &#42; Internet Explorer does not support the `preserve-3d` value for `transform-style` CSS property which will result in the effects looking odd.
 
-## Loading Icons
+### Loading Icons
 
 - `fg-icon-default`
 - `fg-icon-ellipsis`
@@ -135,7 +136,6 @@ The overall appearance of an item, affecting properties such as the border, back
 - `fg-icon-squares`
 - `fg-icon-cube`
 
-
 ### OLD - Border Styles
 
 TODO: map the old border styles to a combination of the new classes to achieve similar effects.
@@ -146,3 +146,10 @@ TODO: map the old border styles to a combination of the new classes to achieve s
 - `border-style-square-black`
 - `border-style-circle-black`
 - `border-style-inset`
+
+## JavaScript
+
+The core JS supplies common features that can be shared across all galleries such as lazy loading and paging. The default options are as follows:
+
+| Name        | Default | Description |
+|-------------|---------|-------------|

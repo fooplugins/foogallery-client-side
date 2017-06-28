@@ -30,11 +30,11 @@
 	<script src="../dist/core/js/foogallery.js"></script>
 	<script src="../dist/admin/js/foogallery.admin.js"></script>
 	<script>
-		FooGallery.Gallery.options.debug = false;
+		FooGallery.defaults.debug = true;
 	</script>
+	<script src="../dist/templates/responsive/js/foogallery.responsive.js"></script>
 	<script src="../dist/templates/masonry/js/foogallery.masonry.js"></script>
 	<script src="../dist/templates/justified/js/foogallery.justified.js"></script>
-	<script src="../dist/templates/responsive/js/foogallery.responsive.js"></script>
 	<script src="../dist/templates/portfolio/js/foogallery.portfolio.js"></script>
 	<script src="core-test-page.js"></script>
 	<style>
@@ -218,25 +218,19 @@
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="border-size" id="border-size1" value="fg-border-outline">
-														Outline <code>1px</code> *
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="border-size" id="border-size2" value="fg-border-thin">
+														<input type="radio" name="border-size" id="border-size1" value="fg-border-thin">
 														Thin <code>5px</code> *
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="border-size" id="border-size3" value="fg-border-medium">
+														<input type="radio" name="border-size" id="border-size2" value="fg-border-medium">
 														Medium <code>10px</code> *
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="border-size" id="border-size4" value="fg-border-thick">
+														<input type="radio" name="border-size" id="border-size3" value="fg-border-thick">
 														Thick <code>15px</code> *
 													</label>
 												</div>
@@ -293,19 +287,25 @@
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="drop-shadow" id="drop-shadow2" value="fg-shadow-small">
+														<input type="radio" name="drop-shadow" id="drop-shadow2" value="fg-shadow-outline">
+														Outline
+													</label>
+												</div>
+												<div class="radio-inline">
+													<label>
+														<input type="radio" name="drop-shadow" id="drop-shadow3" value="fg-shadow-small">
 														Small
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="drop-shadow" id="drop-shadow3" value="fg-shadow-medium">
+														<input type="radio" name="drop-shadow" id="drop-shadow4" value="fg-shadow-medium">
 														Medium
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="drop-shadow" id="drop-shadow4" value="fg-shadow-large">
+														<input type="radio" name="drop-shadow" id="drop-shadow5" value="fg-shadow-large">
 														Large
 													</label>
 												</div>
@@ -530,61 +530,67 @@
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect1" value="fg-hover-zoom" checked>
+														<input type="radio" name="hover-effect" id="hover-effect1" value="fg-hover-external" checked>
+														External
+													</label>
+												</div>
+												<div class="radio-inline">
+													<label>
+														<input type="radio" name="hover-effect" id="hover-effect2" value="fg-hover-zoom">
 														Zoom
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect2" value="fg-hover-zoom2">
+														<input type="radio" name="hover-effect" id="hover-effect3" value="fg-hover-zoom2">
 														Zoom 2
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect3" value="fg-hover-zoom3">
+														<input type="radio" name="hover-effect" id="hover-effect4" value="fg-hover-zoom3">
 														Zoom 3
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect4" value="fg-hover-plus">
+														<input type="radio" name="hover-effect" id="hover-effect5" value="fg-hover-plus">
 														Plus
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect5" value="fg-hover-circle-plus">
+														<input type="radio" name="hover-effect" id="hover-effect6" value="fg-hover-circle-plus">
 														Circle Plus
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect6" value="fg-hover-eye">
+														<input type="radio" name="hover-effect" id="hover-effect7" value="fg-hover-eye">
 														Eye
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect7" value="fg-hover-color">
+														<input type="radio" name="hover-effect" id="hover-effect8" value="fg-hover-color">
 														Colorize
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect8" value="fg-hover-gray">
+														<input type="radio" name="hover-effect" id="hover-effect9" value="fg-hover-gray">
 														Grayscale
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect9" value="fg-hover-scale">
+														<input type="radio" name="hover-effect" id="hover-effect10" value="fg-hover-scale">
 														Scale
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="hover-effect" id="hover-effect10" value="fg-hover-tint">
+														<input type="radio" name="hover-effect" id="hover-effect11" value="fg-hover-tint">
 														Tint
 													</label>
 												</div>
@@ -860,27 +866,27 @@
 	</div>
 <script type="application/javascript">
 
-	FooGallery.ready(function(){
+	FooGallery.utils.ready(function(){
 
 		window.ctp = new CoreTestPage({
-			"masonry": {
-				"title": "Masonry",
-				"selector": "#masonry-template"
-			},
-			"justified": {
-				"title": "Justified",
-				"selector": "#justified-template"
-			},
 			"responsive": {
 				"title": "Responsive",
 				"selector": "#responsive-template",
 				"items": "items-250x250.json"
 			},
-			"portfolio": {
-				"title": "Portfolio",
-				"selector": "#portfolio-template",
-				"items": "items-250x250.json"
-			}
+			"masonry": {
+				"title": "Masonry",
+				"selector": "#masonry-template"
+			},
+//			"justified": {
+//				"title": "Justified",
+//				"selector": "#justified-template"
+//			},
+//			"portfolio": {
+//				"title": "Portfolio",
+//				"selector": "#portfolio-template",
+//				"items": "items-250x250.json"
+//			}
 		});
 		window.ctp.init();
 
@@ -889,7 +895,7 @@
 </script>
 <script id="masonry-template" type="text/plain">
 	<div id="foogallery-gallery-1" class="foogallery fg-center fg-masonry fg-masonry-4col"
-			 data-foogallery='{"template":{ "layout": "column" }}'>
+			 data-foogallery='{"template":{ "layout": "col4" }}'>
 		<div class="fg-column-width"></div>
 		<div class="fg-gutter-width"></div>
 	</div>

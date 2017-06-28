@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--<link rel="icon" href="../../favicon.ico">-->
+
+	<title>Advanced custom paging - FooGallery</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	<!-- FooGallery Full CSS -->
+	<link href="../../dist/full/css/foogallery.min.css" rel="stylesheet">
+
+	<!-- Prism -->
+	<link href="../css/prism.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="../css/docs.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+<style>
+/* The basic CSS for the controls, colors are applied by themes */
+.custom-paging {
+	box-sizing: border-box;
+	display: block;
+	padding: 15px;
+	text-align: center;
+	margin-bottom: 20px;
+	vertical-align: middle;
+}
+.custom-paging:after {
+	display: table;
+	content: "";
+	clear: both;
+}
+.custom-label {
+	font-weight: normal;
+	line-height: 40px;
+	margin: 0;
+}
+.custom-btn {
+	margin: 0;
+	min-width: 80px;
+	padding: 10px 15px;
+}
+.custom-prev {
+	float: left;
+}
+.custom-next {
+	float: right;
+}
+
+/* Support the default light theme */
+.custom-paging.fg-light {
+	background-color: #eee;
+	border: solid 1px #ddd;
+}
+.fg-light .custom-label {
+	color: #555;
+}
+.fg-light .custom-btn {
+	color: #555;
+	border: solid 1px #ccc;
+	background-color: #fbfbfb;
+}
+.fg-light .custom-btn:hover,
+.fg-light .custom-btn:focus {
+	color: #333;
+	border: solid 1px #a8a8a8;
+	background-color: #FFF;
+}
+
+/* Support the alternate dark theme */
+.custom-paging.fg-dark {
+	background-color: #333;
+	border: solid 1px #222;
+}
+.fg-dark .custom-label {
+	color: #ddd;
+}
+.fg-dark .custom-btn {
+	color: #ddd;
+	border: solid 1px #333;
+	background-color: #444;
+}
+.fg-dark .custom-btn:hover,
+.fg-dark .custom-btn:focus {
+	color: #fff;
+	border: solid 1px #444;
+	background-color: #555;
+}
+</style>
+</head>
+<body class="docs">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="../../index.html" class="navbar-brand">FooGallery</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="../getting-started.html">Getting started</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Templates <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="../templates/default.html">Default</a></li>
+						<li><a href="../templates/masonry.html">Masonry</a></li>
+						<li><a href="../templates/portfolio.html">Portfolio</a></li>
+						<li><a href="../templates/justified.html">Justified</a></li>
+						<li><a href="../templates/responsive.html">Responsive</a></li>
+					</ul>
+				</li>
+				<li class="dropdown active">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paging <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li class="active"><a>Default</a></li>
+						<li><a href="dots.html">Dots</a></li>
+						<li><a href="pagination.html">Pagination</a></li>
+						<li><a href="infinite.html">Infinite</a></li>
+						<li><a href="loadMore.html">Load More</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../jsdocs/index.html" target="_blank">JSDocs</a></li>
+				<li><a href="https://github.com/fooplugins/foogallery-client-side" target="_blank">GitHub</a></li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
+
+<!-- Header -->
+<div class="jumbotron">
+	<div class="container">
+		<h1>Advanced custom paging</h1>
+		<h2>Create re-usable controls that are registered with FooGallery.</h2>
+	</div>
+</div>
+
+<div class="container">
+	<p class="lead">
+		The <a href="custom-paging.html">basic example</a> works well and will probably be the way the majority of users implement custom paging. If however you
+		intend to re-use your controls across multiple galleries, pages or projects you may want to turn it into a paging type that is then registered with FooGallery.
+		This allows you to use your controls by simply setting the <a href="../getting-started.html#paging-type">type option</a> to the name you registered it with.
+	</p>
+
+	<p>
+		In this example we take the <a href="custom-paging.html">custom paging</a> controls and convert them into a re-usable paging type that can be included on any page after the FooGallery files.
+		We also extend the functionality by adding in support for the <a href="../getting-started.html#paging-theme">theme</a> and <a href="../getting-started.html#paging-position">position</a> options
+		as well as adding in a label that displays the relevant page information.
+	</p>
+
+	<!-- CSS -->
+	<div class="docs-section">
+		<h2 class="page-header anchored"><span id="css" class="anchor">&nbsp;</span>CSS</h2>
+		<p>
+			The first thing we change when making the <a href="custom-paging.html">basic example</a> controls re-usable is the CSS. As it stands the color properties are all mixed in with the layout
+			properties of the various classes. Instead we want our re-usable control to support the <a href="../getting-started.html#paging-theme">theme option</a> and its' two basic themes
+			<code>"fg-light"</code> and <code>"fg-dark"</code>.	To do this we need to split all the colors out and by default only apply basic layout and positioning properties in the classes.
+		</p>
+		<pre class="language-css" data-lang="css"><code>.custom-paging {
+	box-sizing: border-box;
+	display: block;
+	padding: 15px;
+	text-align: center;
+	margin-bottom: 20px;
+	vertical-align: middle;
+}
+.custom-paging:after {
+	display: table;
+	content: &quot;&quot;;
+	clear: both;
+}
+.custom-label {
+	font-weight: normal;
+	line-height: 40px;
+	margin: 0;
+}
+.custom-btn {
+	margin: 0;
+	min-width: 80px;
+	padding: 10px 15px;
+}
+.custom-prev {
+	float: left;
+}
+.custom-next {
+	float: right;
+}</code></pre>
+		<br/>
+
+		<h4>Supporting the light theme</h4>
+		<p>
+			Now that the controls have there basic layout and positioning taken care of we can add in support for the two basic themes, the first being <code>"fg-light"</code>.
+			The light theme is intended to be used on light background colors, the original colors we just stripped from the layout classes can now be used to create it.
+		</p>
+		<pre class="language-css" data-lang="css"><code>.custom-paging.fg-light {
+	background-color: #eee;
+	border: solid 1px #ddd;
+}
+.fg-light .custom-label {
+	color: #555;
+}
+.fg-light .custom-btn {
+	color: #555;
+	border: solid 1px #ccc;
+	background-color: #fbfbfb;
+}
+.fg-light .custom-btn:hover,
+.fg-light .custom-btn:focus {
+	color: #333;
+	border: solid 1px #a8a8a8;
+	background-color: #FFF;
+}</code></pre>
+		<div class="examples">
+			<div class="example">
+				<nav class="custom-paging fg-light">
+					<button class="custom-btn custom-prev" type="button">Previous</button>
+					<label class="custom-label">Showing 1 of 10</label>
+					<button class="custom-btn custom-next" type="button">Next</button>
+				</nav>
+			</div>
+		</div>
+
+		<h4>Supporting the dark theme</h4>
+		<p>Now that we have a light theme we need to support its' alternate <code>"fg-dark"</code> theme which is intended to be used on dark background colors.</p>
+		<pre class="language-css" data-lang="css"><code>.custom-paging.fg-dark {
+	background-color: #333;
+	border: solid 1px #222;
+}
+.fg-dark .custom-label {
+	color: #ddd;
+}
+.fg-dark .custom-btn {
+	color: #ddd;
+	border: solid 1px #333;
+	background-color: #444;
+}
+.fg-dark .custom-btn:hover,
+.fg-dark .custom-btn:focus {
+	color: #fff;
+	border: solid 1px #444;
+	background-color: #555;
+}</code></pre>
+		<div class="examples">
+			<div class="example">
+				<nav class="custom-paging fg-dark">
+					<button class="custom-btn custom-prev" type="button">Previous</button>
+					<label class="custom-label">Showing 1 of 10</label>
+					<button class="custom-btn custom-next" type="button">Next</button>
+				</nav>
+			</div>
+		</div>
+	</div>
+
+	<!-- JavaScript -->
+	<div class="docs-section">
+		<h2 class="page-header anchored"><span id="javascript" class="anchor">&nbsp;</span>JavaScript</h2>
+		<p>
+			Instead of simply binding to events like we did in the <a href="custom-paging.html">basic example</a> here we inherit from the <a href="../jsdocs/FooGallery.Paging.html">FooGallery.Paging</a>
+			and <a href="../jsdocs/FooGallery.PagingControl.html">FooGallery.PagingControl</a> classes, make our modifications and then register them with FooGallery as a new type using our own name.
+		</p>
+
+		<h3>Where to start?</h3>
+		<p>
+			We begin by creating a new scope to use for our custom type to avoid polluting the global one. It also gives us the opportunity to alias the required <code>jQuery</code> and
+			<code>FooGallery</code> objects to <code>$</code> and <code>_</code> respectively.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>(function($, _){
+
+	// create our type here
+
+})(jQuery, FooGallery);</code></pre>
+
+		<h3>Figuring out the configuration</h3>
+		<p>
+			Let's look at the raw HTML of our desired custom controls keeping in mind we want to make it as configurable as possible to allow for easy re-use.
+		</p>
+		<pre class="language-markup" data-lang="markup"><code>&lt;nav class=&quot;custom-paging&quot;&gt;
+	&lt;button class=&quot;custom-btn custom-prev&quot; type=&quot;button&quot;&gt;Previous&lt;/button&gt;
+	&lt;label class=&quot;custom-label&quot;&gt;Showing 1 of 10&lt;/label&gt;
+	&lt;button class=&quot;custom-btn custom-next&quot; type=&quot;button&quot;&gt;Next&lt;/button&gt;
+&lt;/nav&gt;</code></pre>
+
+		<br/>
+		<h4>CSS classes</h4>
+		<p>
+			From the above HTML we extract the CSS classes into an object that contains a property for each element.
+			This object is merged with the <a href="../jsdocs/FooGallery.Paging.html#~CSSClasses">default classes</a> and exposed as the
+			<a href="../jsdocs/FooGallery.Paging.html#cls"><code>cls</code></a> property when an instance of our custom type is created.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>var classes = {
+	container: &quot;custom-paging&quot;, // overrides the default so we can use the base create method
+	prev: &quot;custom-btn custom-prev&quot;,
+	next: &quot;custom-btn custom-next&quot;,
+	label: &quot;custom-label&quot;
+};</code></pre>
+
+		<br/>
+		<h4>Localization</h4>
+		<p>
+			We can also see that we need to expose three strings for translation, two for the <i>Previous</i> and <i>Next</i> buttons and another for the label. The label requires
+			information that we do not have when it is configured so we add in some placeholders for the real values. To do this we create an object with a property for each of these strings.
+			This object is merged with the <a href="../jsdocs/FooGallery.Paging.html#~il8n">default strings</a> and exposed as the
+			<a href="../jsdocs/FooGallery.Paging.html#il8n"><code>il8n</code></a> property when an instance of our custom type is created.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>var il8n = {
+	prev: &quot;Previous&quot;,
+	next: &quot;Next&quot;,
+	label: &quot;Showing [current] of [total]&quot;
+};</code></pre>
+
+		<br/>
+		<h4>Options</h4>
+		<p>
+			There are no custom options for our controls however we do want to change the default <code>position</code> value to <code>"top"</code>. To do this we create an object containing just
+			that property as it is merged with the <a href="../jsdocs/FooGallery.Paging.html#~Options">default paging options</a> and exposed as the
+			<a href="../jsdocs/FooGallery.Paging.html#opt"><code>opt</code></a> property when an instance of our custom type is created.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>var options = {
+	position: &quot;top&quot;
+};</code></pre>
+
+		<h3>Why break it down like this?</h3>
+		<p>
+			As said before we want to make our controls as configurable as possible as the next time we use it we may want to add an additional class to one of the elements or change the text of the label.
+			There are two ways to configure a registered type; globally which changes the defaults for all new instances and then per instance which changes just that single instance.
+		</p>
+		<p>
+			To configure a registered types defaults you can use the <a href="../jsdocs/FooGallery.PagingFactory.html#configure">FooGallery.paging.configure(name, options, classes, il8n)</a>
+			method. In the below example we change the default position from <code>"top"</code> to <code>"both"</code>, add an extra CSS class to the label and then change its' string from
+			<code>"Showing [current] of [total]"</code> to <code>"[current]/[total]"</code>.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>FooGallery.paging.configure(&quot;custom&quot;, {
+	position: &quot;both&quot;
+}, {
+	label: &quot;custom-label extra-class&quot;
+}, {
+	label: &quot;[current]/[total]&quot;
+});</code></pre>
+		<p>
+			The second way is simply providing the options when a new template is constructed. In the below example we change the values as seen above however we do it at the instance level.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>$(&quot;.foogallery&quot;).foogallery({
+	paging: {
+		type: &quot;custom&quot;,
+		position: &quot;both&quot;
+	},
+	cls: {
+		paging: {
+			label: &quot;custom-label extra-class&quot;
+		}
+	},
+	il8n: {
+		paging: {
+			label: &quot;[current]/[total]&quot;
+		}
+	}
+});</code></pre>
+
+		<h2 class="page-header anchored"><span id="js-implementation" class="anchor">&nbsp;</span>Implementation</h2>
+		<p>
+			Now that we have our basic configuration objects it's time to put them to use. The two classes we will be working with are the
+			<a href="../jsdocs/FooGallery.Paging.html">FooGallery.Paging</a> and <a href="../jsdocs/FooGallery.PagingControl.html">FooGallery.PagingControl</a> classes. These two classes provide
+			the foundation and core logic on top of which all paging types for FooGallery are built.
+		</p>
+
+		<h3>Paging class</h3>
+		<p>
+			To create a new paging type we need to inherit from the <a href="../jsdocs/FooGallery.Paging.html">FooGallery.Paging</a> class. This class contains all the core logic to handle paging
+			and allows us to override the default behavior or expose any custom methods we may need. This base class also contains the logic that calls the various methods of the
+			<a href="../jsdocs/FooGallery.Paging.html">FooGallery.PagingControl</a> class.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>var Paging = _.Paging.extend({
+	// extend the base object with any methods or properties you want
+	// this object is exposed as the &#39;.pages&#39; property of the current
+	// template and paging control objects
+});</code></pre>
+		<p>
+			In this example we don't actually create any additional properties or methods so we can leave it just like the above. If however you did want to add in some custom members you
+			could do so like the below.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>var Paging = _.Paging.extend({
+	// override the base construct method to set our own properties
+	construct: function(template){
+		// call the base method so it can perform its&#39; setup logic
+		this._super(template);
+		// add a custom property here
+		this.someProperty = false;
+	},
+	// extend the base object with a method
+	doSomething: function(){
+		if (this.someProperty){
+			// do something
+		}
+	}
+});</code></pre>
+		<h3>PagingControl class</h3>
+		<p>
+			To create a new paging control we need to inherit from the <a href="../jsdocs/FooGallery.PagingControl.html">FooGallery.PagingControl</a> class. This class contains the majority of our
+			customizations as we are simply creating custom controls for our type and not changing any default behavior. To do this we make use of the base
+			<a href="../jsdocs/FooGallery.PagingControl.html#$container">$container</a> property and the <a href="../jsdocs/FooGallery.PagingControl.html#create">create</a>,
+			<a href="../jsdocs/FooGallery.PagingControl.html#destroy">destroy</a> and <a href="../jsdocs/FooGallery.PagingControl.html#update">update</a> methods. We also create a utility method
+			for retrieving a formatted version of the <code>label</code> configuration string.
+		</p>
+		<p>
+			As previously mentioned the localized strings are exposed as the <a href="../jsdocs/FooGallery.Paging.html#il8n"><code>il8n</code></a> property of the
+			<a href="../jsdocs/FooGallery.Paging.html">FooGallery.Paging</a> class which is then exposed on the control class as the <code>pages</code> property. This means we can access our custom
+			strings using <code>this.pages.il8n</code> when within the context of the control.
+		</p>
+
+		<br/>
+		<h4>label method</h4>
+		<p>
+			The first method we create is the custom <code>label</code> utility method which simply provides us a formatted version of the <code>label</code> configuration string.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>// extend the base object with a new label method that returns the text to display
+label: function(pageNumber){
+	// instead of hard-coding the format string we supply it as a localized string when
+	// registering the paging type so it can be changed easily.
+	return this.pages.il8n.label
+		.replace(/\[current]/g, pageNumber)
+		.replace(/\[total]/g, this.pages.total);
+}</code></pre>
+
+		<br/>
+		<h4>create method</h4>
+		<p>
+			The next method we create is the <a href="../jsdocs/FooGallery.PagingControl.html#create">create</a> method. This method is called by the parent
+			<a href="../jsdocs/FooGallery.Paging.html">FooGallery.Paging</a> class whenever it needs to create the elements for the custom control. The base method populates the
+			<a href="../jsdocs/FooGallery.PagingControl.html#$container">$container</a> property so we still want to execute that. We get back an element with the correct <code>custom-paging</code>
+			CSS class as we override the default <code>container</code> CSS class.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>// override the base create method so we can also create our custom elements
+create: function(){
+	// call the base method
+	if (this._super()){
+		// the &#39;$container&#39; was created so create our custom elements
+		return true;
+	}
+	return false;
+}</code></pre>
+		<p>At this point the elements created using the above method would just be the container as seen below.</p>
+		<pre class="language-markup" data-lang="markup"><code>&lt;nav class=&quot;custom-paging&quot;&gt;
+	&lt;!-- We still need to create our inner elements --&gt;
+&lt;/nav&gt;</code></pre>
+		<p>So let's create the inner elements making use of the CSS classes and localized strings provided by the configuration.</p>
+		<pre class="language-javascript" data-lang="javascript"><code>// override the base create method so we can also create our custom elements
+create: function(){
+	// call the base method
+	if (this._super()){
+		// the &#39;$container&#39; was created so create our custom elements.
+		// first hold a reference to the parent paging class to use within the button
+		// event listeners as &#39;this&#39; refers to the element the event occured on.
+		var pages = this.pages,
+			// the custom classes have been merged and are exposed as the &#39;pages.cls&#39; property
+			classes = pages.cls,
+			// the custom strings have been merged and are exposed as the &#39;pages.il8n&#39; property
+			il8n = pages.il8n;
+
+		// then create the custom previous, next and label elements
+		this.$prev = $(&quot;&lt;button/&gt;&quot;, {
+			&quot;class&quot;: classes.prev,
+			&quot;type&quot;: &quot;button&quot;,
+			&quot;text&quot;: il8n.prev
+		}).on(&quot;click.custom-paging&quot;, function(e){
+			// first stop any default behavior
+			e.preventDefault();
+			// then tell the parent paging class to show the previous page
+			pages.prev();
+		});
+
+		this.$next = $(&quot;&lt;button/&gt;&quot;, {
+			&quot;class&quot;: classes.next,
+			&quot;type&quot;: &quot;button&quot;,
+			&quot;text&quot;: il8n.next
+		}).on(&quot;click.custom-paging&quot;, function(e){
+			// first stop any default behavior
+			e.preventDefault();
+			// then tell the parent paging class to show the next page
+			pages.next();
+		});
+
+		// when creating the label we get the text by calling the &#39;label&#39; utility method passing
+		// in the current page number
+		this.$label = $(&quot;&lt;label/&gt;&quot;, {
+			&quot;class&quot;: classes.label,
+			&quot;text&quot;: this.label(pages.current)
+		});
+
+		// then add them to the container.
+		this.$container.append(this.$prev, this.$label, this.$next);
+
+		// true = success; if for some reason you can&#39;t or don&#39;t want to create the
+		// controls&#39; elements you can exit early by returning false.
+		return true;
+	}
+	// something went wrong and no elements were created!
+	return false;
+}
+</code></pre>
+		<p>At this point all our control elements are created and the HTML output for a ten page template would look something like the below.</p>
+		<pre class="language-markup" data-lang="markup"><code>&lt;nav class=&quot;custom-paging&quot;&gt;
+	&lt;button class=&quot;custom-btn custom-prev&quot; type=&quot;button&quot;&gt;Previous&lt;/button&gt;
+	&lt;label class=&quot;custom-label&quot;&gt;Showing 1 of 10&lt;/label&gt;
+	&lt;button class=&quot;custom-btn custom-next&quot; type=&quot;button&quot;&gt;Next&lt;/button&gt;
+&lt;/nav&gt;</code></pre>
+
+		<br/>
+		<h4>update method</h4>
+		<p>
+			OK, now we're getting somewhere but the <code>create</code> method is not called when ever the page changes so how can we update the label? We can do it by overriding the
+			<a href="../jsdocs/FooGallery.PagingControl.html#update">update</a> method which is called by the parent <a href="../jsdocs/FooGallery.Paging.html">FooGallery.Paging</a> class and is
+			supplied the new page number as it's only argument whenever the controls need to update there elements.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>// override the base update method so we can update the label
+update: function(pageNumber){
+	// get the formatted localized string using our utility method
+	var text = this.label(pageNumber);
+	// then simply update the $label&#39;s text
+	this.$label.text(text);
+
+	// if you wanted to this is where you would add in logic to enable or disable the buttons
+	// depending on the current page number.
+}</code></pre>
+
+		<br/>
+		<h4>destroy method</h4>
+		<p>
+			Finally we need to ensure that we cleanup up after ourselves preparing our custom type for garbage collection. We do this by overriding the
+			<a href="../jsdocs/FooGallery.PagingControl.html#destroy">destroy</a> method and performing any required work. In this case we need to unbind our events and release some of the properties
+			to ensure the object is disposed of correctly.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>// override the base destroy method
+destroy: function(){
+	// cleanup our custom elements unbinding events, removing the elements and resetting any properties
+	// basically preparing this object for garbage collection.
+	this.$prev.add(this.$next).off(&quot;.custom-paging&quot;).add(this.$label).remove();
+	this.$prev = this.$next = this.$label = null;
+	// call the base destroy method that amongst other things cleans up the $container element
+	this._super();
+}</code></pre>
+
+		<h3>Registering the custom type</h3>
+		<p>
+			All right, we now have our custom classes and the configuration objects that go with them, how do we register them with FooGallery? Quite simply actually, you just need to call the
+			<a href="">FooGallery.paging.register(name, klass, ctrl, options, classes, il8n)</a> method supplying it the various arguments.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>// Now that we have all the parts we need register the type with FooGallery.
+_.paging.register(&quot;custom&quot;, Paging, Control, options, classes, il8n);</code></pre>
+
+	</div>
+
+	<div class="docs-section">
+		<h2 class="page-header anchored"><span id="finished" class="anchor">&nbsp;</span>Finished!</h2>
+
+		<p>That's it, combining all the above CSS and JavaScript examples we get the following completed custom paging type which can be included on any page across projects.</p>
+
+		<pre class="language-css" data-lang="css"><code>.custom-paging {
+	box-sizing: border-box;
+	display: block;
+	padding: 15px;
+	text-align: center;
+	margin-bottom: 20px;
+	vertical-align: middle;
+}
+.custom-paging:after {
+	display: table;
+	content: &quot;&quot;;
+	clear: both;
+}
+.custom-label {
+	font-weight: normal;
+	line-height: 40px;
+	margin: 0;
+}
+.custom-btn {
+	margin: 0;
+	min-width: 80px;
+	padding: 10px 15px;
+}
+.custom-prev {
+	float: left;
+}
+.custom-next {
+	float: right;
+}
+
+
+.custom-paging.fg-light {
+	background-color: #eee;
+	border: solid 1px #ddd;
+}
+.fg-light .custom-label {
+	color: #555;
+}
+.fg-light .custom-btn {
+	color: #555;
+	border: solid 1px #ccc;
+	background-color: #fbfbfb;
+}
+.fg-light .custom-btn:hover,
+.fg-light .custom-btn:focus {
+	color: #333;
+	border: solid 1px #a8a8a8;
+	background-color: #FFF;
+}
+
+
+.custom-paging.fg-dark {
+	background-color: #333;
+	border: solid 1px #222;
+}
+.fg-dark .custom-label {
+	color: #ddd;
+}
+.fg-dark .custom-btn {
+	color: #ddd;
+	border: solid 1px #333;
+	background-color: #444;
+}
+.fg-dark .custom-btn:hover,
+.fg-dark .custom-btn:focus {
+	color: #fff;
+	border: solid 1px #444;
+	background-color: #555;
+}</code></pre>
+		<pre class="language-javascript" data-lang="javascript"><code>(function($, _){
+
+	var classes = {
+		container: &quot;custom-paging&quot;,
+		prev: &quot;custom-btn custom-prev&quot;,
+		next: &quot;custom-btn custom-next&quot;,
+		label: &quot;custom-label&quot;
+	};
+
+	var il8n = {
+		prev: &quot;Previous&quot;,
+		next: &quot;Next&quot;,
+		label: &quot;Showing [current] of [total]&quot;
+	};
+
+	var defaults = {
+		position: &quot;top&quot;
+	};
+
+	var Paging = _.Paging.extend({});
+
+	var Control = _.PagingControl.extend({
+		construct: function(template, parent, position){
+			this._super(template, parent, position);
+			this.$prev = $();
+			this.$next = $();
+			this.$label = $();
+		},
+		label: function(pageNumber){
+			return this.pages.il8n.label
+				.replace(/\[current]/g, pageNumber)
+				.replace(/\[total]/g, this.pages.total);
+		},
+		create: function(){
+			if (this._super()){
+				var pages = this.pages,
+					classes = pages.cls,
+					il8n = pages.il8n;
+
+				this.$prev = $(&quot;&lt;button/&gt;&quot;, {
+					&quot;class&quot;: classes.prev,
+					&quot;type&quot;: &quot;button&quot;,
+					&quot;text&quot;: il8n.prev
+				}).on(&quot;click.custom-paging&quot;, function(e){
+					e.preventDefault();
+					pages.prev();
+				});
+
+				this.$next = $(&quot;&lt;button/&gt;&quot;, {
+					&quot;class&quot;: classes.next,
+					&quot;type&quot;: &quot;button&quot;,
+					&quot;text&quot;: il8n.next
+				}).on(&quot;click.custom-paging&quot;, function(e){
+					e.preventDefault();
+					pages.next();
+				});
+
+				this.$label = $(&quot;&lt;label/&gt;&quot;, {
+					&quot;class&quot;: classes.label,
+					&quot;text&quot;: this.label(pages.current)
+				});
+
+				this.$container.append(this.$prev, this.$label, this.$next);
+				return true;
+			}
+			return false;
+		},
+		update: function(pageNumber){
+			var text = this.label(pageNumber);
+			this.$label.text(text);
+		},
+		destroy: function(){
+			this.$prev.add(this.$next).off(&quot;.custom-paging&quot;).add(this.$label).remove();
+			this.$prev = this.$next = this.$label = null;
+			this._super();
+		}
+	});
+
+	_.paging.register(&quot;custom&quot;, Paging, Control, defaults, classes, il8n);
+
+})(jQuery, FooGallery);</code></pre>
+
+	</div>
+
+	<!-- Example -->
+	<div class="docs-section">
+
+		<h2 class="page-header anchored"><span id="example" class="anchor">&nbsp;</span>Example</h2>
+
+		<p>
+			Once our custom type is included in the page after the FooGallery files we can then use it by setting the <a href="../getting-started.html#paging-type">type option</a>
+			to <code>"custom"</code>.
+		</p>
+		<div class="examples">
+			<pre class="language-markup" data-lang="markup"><code>&lt;!-- The container element --&gt;
+&lt;div id=&quot;custom_example_1&quot; class=&quot;foogallery fg-responsive fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center fg-gutter-15&quot;&gt;
+	&lt;!-- items-250x250.json --&gt;
+&lt;/div&gt;</code></pre>
+			<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&quot;#custom_example_1&quot;).foogallery({
+		&quot;items&quot;: &quot;../content/items-250x250.json&quot;,
+		&quot;paging&quot;: {
+			&quot;type&quot;: &quot;custom&quot;
+		}
+	});
+});</code></pre>
+
+		</div>
+
+		<div class="callout callout-info">
+			<h5>Notes</h5>
+			<ul>
+				<li>
+					<p>
+						The items in the example are created from the
+						<a href="../content/items-150x150.json">items-150x150.json</a> file and then displayed using the <a href="../templates/responsive.html">responsive template</a>,
+						<a href="../options.html#fg-light">light item style</a>, <a href="../options.html#fg-hover-external">external hover icon</a>,
+						<a href="../options.html#fg-loading-default">default loading icon</a> and the <a href="../options.html#fg-loaded-fade-in">fade in loaded effect</a>. All these options
+						are available in the Lite version.
+					</p>
+				</li>
+				<li>
+					<p>The images in the example are loaded from <a href="https://satyr.io" target="_blank">satyr.io</a>.</p>
+				</li>
+			</ul>
+		</div>
+
+		<div id="custom_example_1" class="foogallery fg-responsive fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center fg-gutter-15">
+		</div>
+
+	</div>
+
+</div> <!-- /container -->
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="../js/prism.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../js/ie10-viewport-bug-workaround.js"></script>
+<script src="../js/docs.js"></script>
+<!-- Add in FooGallery JS -->
+<script src="../../dist/full/js/foogallery.js"></script>
+<!-- Include the custom paging script, ideally this would be in its' own file -->
+<script>
+	// Create a new scope so variables don't pollute the global namespace. This also provides
+	// the jQuery object aliased to '$' and the FooGallery object aliased to '_'.
+	(function($, _){
+
+		// Any CSS classes used by the custom type, these are merged with the default
+		// classes and exposed as the '.cls' property of the '.pages' object. We
+		// provide these as options instead of simply hard-coding the values as we
+		// want our type to be configurable.
+		var classes = {
+			container: "custom-paging", // overrides the default so we can use the base create method
+			prev: "custom-btn custom-prev",
+			next: "custom-btn custom-next",
+			label: "custom-label"
+		};
+
+		// Any localization strings for the custom type, these are merged with the default
+		// strings and exposed as the '.il8n' property of the '.pages' object. We provide
+		// these as options for the same configuration based reasoning as the CSS classes.
+		var il8n = {
+			prev: "Previous",
+			next: "Next",
+			label: "Showing [current] of [total]"
+		};
+
+		// Any options for the custom type, these are merged with the default options
+		// and exposed as the '.opt' property of the '.pages' object. In this case
+		// we set the default 'position' option to 'top' so our controls are created.
+		var defaults = {
+			position: "top"
+		};
+
+		// inherit from the base FooGallery.Paging class
+		var Paging = _.Paging.extend({
+			// extend the base object with any methods or properties you want
+			// this object is exposed as the '.pages' property of the current
+			// template and paging control objects
+		});
+
+		// inherit from the base FooGallery.PagingControl class
+		var Control = _.PagingControl.extend({
+			// override the base constructor so we can setup our custom properties
+			construct: function(template, parent, position){
+				// first call the base method so it can setup the default properties.
+				this._super(template, parent, position);
+				// then set the default values for our custom properties
+				this.$prev = $();
+				this.$next = $();
+				this.$label = $();
+			},
+			// extend the base object with a new label method that returns the text to display
+			label: function(pageNumber){
+				// instead of hard-coding the format string we supply it as a localized string when
+				// registering the paging type so it can be changed easily.
+				return this.pages.il8n.label
+					.replace(/\[current]/g, pageNumber)
+					.replace(/\[total]/g, this.pages.total);
+			},
+			// override the base create method so we can also create our custom elements
+			create: function(){
+				// call the base method
+				if (this._super()){
+					// the &#39;$container&#39; was created so create our custom elements.
+					// first hold a reference to the parent paging class to use within the button
+					// event listeners as 'this' refers to the element the event occured on.
+					var pages = this.pages,
+						// the custom classes have been merged and are exposed as the 'pages.cls' property
+						classes = pages.cls,
+						// the custom strings have been merged and are exposed as the 'pages.il8n' property
+						il8n = pages.il8n;
+
+					// then create the custom previous, next and label elements
+					this.$prev = $("<button/>", {
+						"class": classes.prev,
+						"type": "button",
+						"text": il8n.prev
+					}).on("click.custom-paging", function(e){
+						// first stop any default behavior
+						e.preventDefault();
+						// then tell the parent paging class to show the previous page
+						pages.prev();
+					});
+
+					this.$next = $("<button/>", {
+						"class": classes.next,
+						"type": "button",
+						"text": il8n.next
+					}).on("click.custom-paging", function(e){
+						// first stop any default behavior
+						e.preventDefault();
+						// then tell the parent paging class to show the next page
+						pages.next();
+					});
+
+					// when creating the label we get the text by calling the 'label' utility method passing
+					// in the current page number
+					this.$label = $("<label/>", {
+						"class": classes.label,
+						"text": this.label(pages.current)
+					});
+
+					// then add them to the container.
+					this.$container.append(this.$prev, this.$label, this.$next);
+
+					// true = success; if for some reason you can't or don't want to create the
+					// controls' elements you can exit early by returning false.
+					return true;
+				}
+				// something went wrong and no elements were created!
+				return false;
+			},
+			// override the base update method so we can update the label
+			update: function(pageNumber){
+				// get the formatted localized string
+				var text = this.label(pageNumber);
+				// then simply update the $label
+				this.$label.text(text);
+
+				// if you wanted to this is where you would add in logic to enable or disable the buttons
+				// depending on the current page number.
+			},
+			// override the base destroy method
+			destroy: function(){
+				// cleanup our custom elements unbinding events, removing the elements and resetting any properties
+				// basically preparing this object for garbage collection.
+				this.$prev.add(this.$next).off(".custom-paging").add(this.$label).remove();
+				this.$prev = this.$next = this.$label = null;
+				// call the base destroy method that amongst other things cleans up the $container element
+				this._super();
+			}
+		});
+
+	// Now that we have all the parts we need register the type with FooGallery.
+	_.paging.register("custom", Paging, Control, defaults, classes, il8n);
+
+	})(jQuery, FooGallery);
+</script>
+<!-- Initialize FooGallery -->
+<script>
+	jQuery(function($){
+		$("#custom_example_1").foogallery({
+			"items": "../content/items-250x250.json",
+			"paging": {
+				"type": "custom"
+			}
+		});
+	});
+</script>
+</body>
+</html>

@@ -9,13 +9,14 @@
 .foogallery .fg-item {
 	position: relative;
 	background-color: transparent;
-	z-index: 1;
+	z-index: 2;
 }
 .foogallery .fg-item-inner {
 	position: relative;
 	visibility: hidden;
+	overflow: hidden;
 	opacity: 0;
-	z-index: 1;
+	z-index: 3;
 	border: solid 0 transparent;
 }
 .foogallery .fg-item.fg-idle,
@@ -23,16 +24,33 @@
 	background: no-repeat center;
 }
 .foogallery .fg-item.fg-loaded {
-	z-index: 2;
+	z-index: 4;
 }
 .foogallery .fg-loaded .fg-item-inner {
 	visibility: visible;
 	opacity: 1;
-	z-index: 3;
+	z-index: 5;
 }
-.foogallery .fg-thumb,
-.foogallery .fg-item {
+.foogallery .fg-thumb {
 	position: relative;
+	overflow: hidden;
+	border: none;
+	outline: 0;
+	text-decoration: none;
+	z-index: 4;
+}
+.foogallery .fg-image {
+	position: relative;
+	border: none;
+	outline: 0;
+	text-decoration: none;
+	z-index: 5;
+}
+.foogallery .fg-loaded .fg-thumb {
+	z-index: 6;
+}
+.foogallery .fg-loaded .fg-image {
+	z-index: 7;
 }
 
 /* Utility */

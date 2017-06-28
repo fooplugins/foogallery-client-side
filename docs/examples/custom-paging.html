@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--<link rel="icon" href="../../favicon.ico">-->
+
+	<title>Custom paging - FooGallery</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	<!-- FooGallery Full CSS -->
+	<link href="../../dist/full/css/foogallery.min.css" rel="stylesheet">
+
+	<!-- Prism -->
+	<link href="../css/prism.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="../css/docs.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<style>
+		/* The CSS for the custom controls */
+.custom-paging {
+	box-sizing: border-box;
+	display: block;
+	padding: 15px;
+	text-align: center;
+	margin-bottom: 20px;
+	vertical-align: middle;
+	background-color: #eee;
+	border: solid 1px #ddd;
+}
+.custom-paging:after {
+	display: table;
+	content: "";
+	clear: both;
+}
+.custom-btn {
+	margin: 0;
+	min-width: 80px;
+	padding: 10px 15px;
+	color: #555;
+	border: solid 1px #ccc;
+	background-color: #fbfbfb;
+}
+.custom-btn:hover,
+.custom-btn:focus {
+	color: #333;
+	border: solid 1px #a8a8a8;
+	background-color: #FFF;
+}
+.custom-prev {
+	float: left;
+}
+.custom-next {
+	float: right;
+}
+	</style>
+</head>
+<body class="docs">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="../../index.html" class="navbar-brand">FooGallery</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="../getting-started.html">Getting started</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Templates <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="../templates/default.html">Default</a></li>
+						<li><a href="../templates/masonry.html">Masonry</a></li>
+						<li><a href="../templates/portfolio.html">Portfolio</a></li>
+						<li><a href="../templates/justified.html">Justified</a></li>
+						<li><a href="../templates/responsive.html">Responsive</a></li>
+					</ul>
+				</li>
+				<li class="dropdown active">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paging <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="dots.html">Dots</a></li>
+						<li><a href="pagination.html">Pagination</a></li>
+						<li><a href="infinite.html">Infinite</a></li>
+						<li><a href="loadMore.html">Load More</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../jsdocs/index.html" target="_blank">JSDocs</a></li>
+				<li><a href="https://github.com/fooplugins/foogallery-client-side" target="_blank">GitHub</a></li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
+
+<!-- Header -->
+<div class="jumbotron">
+	<div class="container">
+		<h1>Custom paging</h1>
+		<h2>Create custom paging controls by using the default type.</h2>
+	</div>
+</div>
+
+<div class="container">
+	<p class="lead">
+		In this example we create some custom paging controls instead of using one of the built-in types. This method is quick and easy to get basic controls created and working however if
+		you would like to create re-usable controls that can be used across galleries, pages or projects please take a look at the <a href="advanced-custom-paging.html">advanced example</a>.
+	</p>
+
+	<div class="docs-section">
+		<h1 class="page-header anchored"><span id="markup" class="anchor">&nbsp;</span>Markup</h1>
+		<p>
+			The first thing we want to do is create some basic markup for our custom controls, the raw HTML could look something like the below and be placed anywhere in the page.
+		</p>
+		<pre class="language-markup" data-lang="markup"><code>&lt;nav&gt;
+	&lt;button id=&quot;prev-btn&quot; type=&quot;button&quot;&gt;Previous&lt;/button&gt;
+	&lt;button id=&quot;next-btn&quot; type=&quot;button&quot;&gt;Next&lt;/button&gt;
+&lt;/nav&gt;</code></pre>
+
+		<div class="examples">
+			<div class="example">
+				<nav>
+					<button type="button">Previous</button>
+					<button type="button">Next</button>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="docs-section">
+		<h1 class="page-header anchored"><span id="css" class="anchor">&nbsp;</span>CSS</h1>
+		<p>
+			While we could just use our markup as is we are going to give it some styling to make it fit in with the page. Nothing fancy here, just basic layout, position and styling for each of our elements.
+			As these documentation pages use Bootstrap ideally we would have just used some of its' CSS classes to style the markup however for the sake of the example we will style the controls ourselves
+			using the following CSS.
+		</p>
+		<pre class="language-css" data-lang="css"><code>.custom-paging {
+	box-sizing: border-box;
+	display: block;
+	padding: 15px;
+	text-align: center;
+	margin-bottom: 20px;
+	vertical-align: middle;
+	background-color: #eee;
+	border: solid 1px #ddd;
+}
+.custom-paging:after {
+	display: table;
+	content: &quot;&quot;;
+	clear: both;
+}
+.custom-btn {
+	margin: 0;
+	min-width: 80px;
+	padding: 10px 15px;
+	color: #555;
+	border: solid 1px #ccc;
+	background-color: #fbfbfb;
+}
+.custom-btn:hover,
+.custom-btn:focus {
+	color: #333;
+	border: solid 1px #a8a8a8;
+	background-color: #FFF;
+}
+.custom-prev {
+	float: left;
+}
+.custom-next {
+	float: right;
+}</code></pre>
+		<p>With these CSS classes our markup now looks like the following.</p>
+		<pre class="language-markup" data-lang="markup"><code>&lt;nav class=&quot;custom-paging&quot;&gt;
+	&lt;button id=&quot;prev-btn&quot; class=&quot;custom-btn custom-prev&quot; type=&quot;button&quot;&gt;Previous&lt;/button&gt;
+	&lt;button id=&quot;next-btn&quot; class=&quot;custom-btn custom-next&quot; type=&quot;button&quot;&gt;Next&lt;/button&gt;
+&lt;/nav&gt;</code></pre>
+
+		<div class="examples">
+			<div class="example">
+				<nav class="custom-paging">
+					<button class="custom-btn custom-prev" type="button">Previous</button>
+					<button class="custom-btn custom-next" type="button">Next</button>
+				</nav>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- JavaScript -->
+	<div class="docs-section">
+		<h1 class="page-header anchored"><span id="javascript" class="anchor">&nbsp;</span>JavaScript</h1>
+		<p>
+			When creating custom paging the <a href="../getting-started.html#paging-type">type option</a> must be set to <code>"default"</code> so FooGallery actually performs the required paging logic.
+			Due to this only the <a href="../getting-started.html#paging">default options</a> are available for use and in this example we do not implement the <code>theme</code> or <code>position</code>
+			options as that is left solely up to the custom CSS and where the markup is placed.
+		</p>
+		<p><i>Shows all the default options that can be used.</i></p>
+		<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			// required
+			&quot;type&quot;: &quot;default&quot;,
+			// inherited
+			&quot;size&quot;: 30,
+			&quot;pushOrReplace&quot;: &quot;push&quot;,
+			&quot;scrollToTop&quot;: true,
+			// ignored
+			&quot;theme&quot;: &quot;fg-light&quot;,
+			&quot;position&quot;: &quot;none&quot;
+		}
+	});
+});</code></pre>
+
+		<br/>
+		<p>
+			To hook up our controls we make use of the <a href="../getting-started.html#event_ready"><code>"ready.foogallery"</code></a> and
+			<a href="../getting-started.html#event_destroy"><code>"destroy.foogallery"</code></a> events to setup and then teardown our controls.
+		</p>
+
+		<br/>
+		<h4>ready.foogallery listener</h4>
+		<p>
+			This event is raised once the template is fully initialized and ready to be worked with. It allows us to setup our custom buttons by binding to there click events and then calling the
+			appropriate methods of the <a href="../jsdocs/FooGallery.Paging.html">FooGallery.Paging</a> instance.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>&quot;ready.foogallery&quot;: function(e, tmpl){
+	// bind the buttons once the template is ready
+	$(&quot;#prev-btn&quot;).on(&quot;click.paging&quot;, function(e){
+		e.preventDefault();
+		tmpl.pages.prev();
+	});
+	$(&quot;#next-btn&quot;).on(&quot;click.paging&quot;, function(e){
+		e.preventDefault();
+		tmpl.pages.next();
+	});
+}</code></pre>
+
+		<br/>
+		<h4>destroy.foogallery listener</h4>
+		<p>
+			This event is raised when the template is being destroyed and prepared for garbage collection. It allows us to teardown our custom controls by unbinding the click events.
+		</p>
+		<pre class="language-javascript" data-lang="javascript"><code>&quot;destroy.foogallery&quot;: function(e, tmpl){
+	// cleanup the buttons when the template is destroyed
+	$(&quot;#prev-btn,#next-btn&quot;).off(&quot;click.paging&quot;);
+}</code></pre>
+
+	</div>
+
+	<!-- Finished -->
+	<div class="docs-section">
+
+		<h2 class="page-header anchored"><span id="finished" class="anchor">&nbsp;</span>Finished!</h2>
+
+		<p>That's it, we now have all the pieces to implement our custom paging controls. The below shows the combined output of each of the above examples.</p>
+
+		<pre class="language-markup" data-lang="markup"><code>&lt;!-- The custom control markup --&gt;
+&lt;nav class=&quot;custom-paging&quot;&gt;
+	&lt;button id=&quot;prev-btn&quot; class=&quot;custom-btn custom-prev&quot; type=&quot;button&quot;&gt;Previous&lt;/button&gt;
+	&lt;button id=&quot;next-btn&quot; class=&quot;custom-btn custom-next&quot; type=&quot;button&quot;&gt;Next&lt;/button&gt;
+&lt;/nav&gt;</code></pre>
+
+		<pre class="language-css" data-lang="css"><code>.custom-paging {
+	box-sizing: border-box;
+	display: block;
+	padding: 15px;
+	text-align: center;
+	margin-bottom: 20px;
+	vertical-align: middle;
+	background-color: #eee;
+	border: solid 1px #ddd;
+}
+.custom-paging:after {
+	display: table;
+	content: &quot;&quot;;
+	clear: both;
+}
+.custom-btn {
+	margin: 0;
+	min-width: 80px;
+	padding: 10px 15px;
+	color: #555;
+	border: solid 1px #ccc;
+	background-color: #fbfbfb;
+}
+.custom-btn:hover,
+.custom-btn:focus {
+	color: #333;
+	border: solid 1px #a8a8a8;
+	background-color: #FFF;
+}
+.custom-prev {
+	float: left;
+}
+.custom-next {
+	float: right;
+}</code></pre>
+
+		<pre class="language-javascript" data-lang="javascript"><code>{
+	&quot;ready.foogallery&quot;: function(e, tmpl){
+		// bind the buttons once the template is ready
+		$(&quot;#prev-btn&quot;).on(&quot;click.paging&quot;, function(e){
+			e.preventDefault();
+			tmpl.pages.prev();
+		});
+		$(&quot;#next-btn&quot;).on(&quot;click.paging&quot;, function(e){
+			e.preventDefault();
+			tmpl.pages.next();
+		});
+	},
+	&quot;destroy.foogallery&quot;: function(e, tmpl){
+		// cleanup the buttons when the template is destroyed
+		$(&quot;#prev-btn,#next-btn&quot;).off(&quot;click.paging&quot;);
+	}
+}</code></pre>
+
+	</div>
+
+	<!-- Example -->
+	<div class="docs-section">
+
+		<h2 class="page-header anchored"><span id="example" class="anchor">&nbsp;</span>Example</h2>
+		<p>Once the custom markup and CSS from above are included in the page the below shows how to initialize FooGallery using the required default paging type and event listeners.</p>
+
+		<div class="examples">
+
+		<pre class="language-markup" data-lang="markup"><code>&lt;!-- The FooGallery container element --&gt;
+&lt;div id=&quot;custom_example_1&quot; class=&quot;foogallery fg-responsive fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center fg-gutter-15&quot;&gt;
+	&lt;!-- items-250x250.json --&gt;
+&lt;/div&gt;</code></pre>
+
+		<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&quot;#custom_example_1&quot;).foogallery({
+		&quot;items&quot;: &quot;../content/items-250x250.json&quot;,
+		&quot;paging&quot;: {
+			&quot;type&quot;: &quot;default&quot;
+		},
+		&quot;on&quot;: {
+			&quot;ready.foogallery&quot;: function(e, tmpl){
+				// bind the buttons once the template is ready
+				$(&quot;#prev-btn&quot;).on(&quot;click.paging&quot;, function(e){
+					e.preventDefault();
+					tmpl.pages.prev();
+				});
+				$(&quot;#next-btn&quot;).on(&quot;click.paging&quot;, function(e){
+					e.preventDefault();
+					tmpl.pages.next();
+				});
+			},
+			&quot;destroy.foogallery&quot;: function(e, tmpl){
+				// cleanup the buttons when the template is destroyed
+				$(&quot;#prev-btn,#next-btn&quot;).off(&quot;click.paging&quot;);
+			}
+		}
+	});
+});</code></pre>
+
+		</div>
+
+		<div class="callout callout-info">
+			<h5>Notes</h5>
+			<ul>
+				<li>
+					<p>
+						The items in the example are created from the
+						<a href="../content/items-150x150.json">items-150x150.json</a> file and then displayed using the <a href="../templates/responsive.html">responsive template</a>,
+						<a href="../options.html#fg-light">light item style</a>, <a href="../options.html#fg-hover-external">external hover icon</a>,
+						<a href="../options.html#fg-loading-default">default loading icon</a> and the <a href="../options.html#fg-loaded-fade-in">fade in loaded effect</a>. All these options
+						are available in the Lite version.
+					</p>
+				</li>
+				<li>
+					<p>The images in the example are loaded from <a href="https://satyr.io" target="_blank">satyr.io</a>.</p>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Custom controls -->
+		<nav class="custom-paging">
+			<button id="prev-btn" class="custom-btn custom-prev" type="button">Previous</button>
+			<button id="next-btn" class="custom-btn custom-next" type="button">Next</button>
+		</nav>
+		<!-- The container element -->
+		<div id="custom_example_1" class="foogallery fg-responsive fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center fg-gutter-15">
+		</div>
+
+	</div>
+
+</div> <!-- /container -->
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="../js/prism.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../js/ie10-viewport-bug-workaround.js"></script>
+<script src="../js/docs.js"></script>
+<!-- Add in FooGallery JS -->
+<script src="../../dist/full/js/foogallery.js"></script>
+<!-- Initialize FooGallery -->
+<script>
+	jQuery(function($){
+		$("#custom_example_1").foogallery({
+			"items": "../content/items-250x250.json",
+			"paging": {
+				"type": "default"
+			},
+			"on": {
+				"ready.foogallery": function(e, tmpl){
+					// bind the buttons once the template is ready
+					$("#prev-btn").on("click.paging", function(e){
+						e.preventDefault();
+						tmpl.pages.prev();
+					});
+					$("#next-btn").on("click.paging", function(e){
+						e.preventDefault();
+						tmpl.pages.next();
+					});
+				},
+				"destroy.foogallery": function(e, tmpl){
+					// cleanup the buttons when the template is destroyed
+					$("#prev-btn,#next-btn").off("click.paging");
+				}
+			}
+		});
+	});
+</script>
+</body>
+</html>

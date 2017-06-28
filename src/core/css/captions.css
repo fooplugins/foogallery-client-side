@@ -4,7 +4,7 @@
 	background-color: rgba(0,0,0,0.6);
 	color: #fff;
 	position: absolute;
-	z-index: 100;
+	z-index: 8;
 	transition: all 300ms ease-out;
 	width: 100%;
 	max-height: 100%;
@@ -13,6 +13,7 @@
 	font-weight: 300;
 	line-height: 1.2;
 	border: solid 5px transparent;
+	text-align: center;
 }
 
 .foogallery .fg-caption-title {
@@ -20,27 +21,10 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	font-size: 15px;
 }
 .foogallery .fg-caption-title+.fg-caption-desc {
 	margin-top: 5px;
-}
-.foogallery .fg-caption-title {
-	font-size: 15px;
-}
-
-/* Caption Effects */
-.foogallery.fg-caption-simple .fg-thumb,
-.foogallery.fg-caption-always .fg-thumb,
-.foogallery.fg-caption-drop .fg-thumb,
-.foogallery.fg-caption-fade .fg-thumb,
-.foogallery.fg-caption-push .fg-thumb {
-	position: relative;
-	overflow: hidden;
-}
-.foogallery.fg-caption-drop .fg-thumb:before,
-.foogallery.fg-caption-fade .fg-thumb:before,
-.foogallery.fg-caption-push .fg-thumb:before {
-	display: none;
 }
 
 /* Simple */
@@ -48,11 +32,16 @@
 	bottom: 0;
 	display: block;
 	left: 0;
-	text-align: center;
 	transform: translateY(100%);
 }
 .foogallery.fg-caption-simple .fg-thumb:hover .fg-caption {
 	transform: translateY(0);
+}
+.foogallery.fg-caption-simple .fg-thumb .fg-caption-title {
+	text-align: left;
+}
+.foogallery.fg-caption-simple .fg-thumb .fg-caption-desc {
+	text-align: justify;
 }
 
 /* Always */
@@ -60,16 +49,23 @@
 	display: block;
 	left: 0;
 	bottom: 0;
-	text-align: center;
+}
+.foogallery.fg-caption-always .fg-thumb .fg-caption-title {
+	text-align: left;
+}
+.foogallery.fg-caption-always .fg-thumb .fg-caption-desc {
+	text-align: justify;
 }
 
 /* Drop */
+.foogallery.fg-caption-drop .fg-thumb:before {
+	display: none;
+}
 .foogallery.fg-caption-drop .fg-thumb .fg-caption {
 	display: block;
 	left: 0;
 	top: 0;
 	bottom: 0;
-	text-align: center;
 	transform: translateY(-100%);
 }
 .foogallery.fg-caption-drop .fg-thumb:hover .fg-caption {
@@ -84,13 +80,15 @@
 }
 
 /* Fade */
+.foogallery.fg-caption-fade .fg-thumb:before {
+	display: none;
+}
 .foogallery.fg-caption-fade .fg-thumb .fg-caption {
 	display: block;
 	opacity: 0;
 	left: 0;
 	top: 0;
 	bottom: 0;
-	text-align: center;
 }
 .foogallery.fg-caption-fade .fg-thumb .fg-caption-inner {
 	width: 100%;
@@ -104,12 +102,14 @@
 }
 
 /* Push */
+.foogallery.fg-caption-push .fg-thumb:before {
+	display: none;
+}
 .foogallery.fg-caption-push .fg-thumb .fg-caption {
 	display: block;
 	left: 0;
 	top: 0;
 	bottom: 0;
-	text-align: center;
 	transform: translateX(100%);
 }
 .foogallery.fg-caption-push .fg-thumb:hover .fg-caption {

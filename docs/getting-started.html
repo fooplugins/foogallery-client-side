@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--<link rel="icon" href="../../favicon.ico">-->
+
+	<title>Getting started - FooGallery</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	<!-- Prism -->
+	<link href="css/prism.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="css/docs.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="docs">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="../index.html" class="navbar-brand">FooGallery</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a>Getting started</a></li>
+				<li><a href="options.html">Options</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Templates <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="templates/masonry.html">Masonry</a></li>
+						<li><a href="templates/portfolio.html">Portfolio</a></li>
+						<li><a href="templates/justified.html">Justified</a></li>
+						<li><a href="templates/responsive.html">Responsive</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paging <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="paging/dots.html">Dots</a></li>
+						<li><a href="paging/pagination.html">Pagination</a></li>
+						<li><a href="paging/infinite.html">Infinite</a></li>
+						<li><a href="paging/loadMore.html">Load More</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="jsdocs/index.html" target="_blank">JSDocs</a></li>
+				<li><a href="https://github.com/fooplugins/foogallery-client-side" target="_blank">GitHub</a></li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
+
+<!-- Header -->
+<div class="jumbotron">
+	<div class="container">
+		<h1>Getting started</h1>
+		<h2>An overview of FooGallery, how to download and use, and basic examples.</h2>
+	</div>
+</div>
+
+<div class="container">
+	<!-- Download -->
+	<div class="docs-section">
+		<h2 class="page-header first">Download</h2>
+		<p class="lead">
+			FooGallery has two easy and quick ways to get started.
+			There is the Full version which contains all core features and templates and then there is the Lite version which contains only a sub-set of features and templates.
+			The third option which provides the individual components is intended for advanced users who want to pick exactly which features and/or templates they want to include. The selection of files should then be combined and/or minified for production work.
+		</p>
+		<div class="row">
+			<div class="col-sm-4">
+				<h3>Full Version</h3>
+				<div class="well">
+					<p>The full compiled and minified CSS and JavaScript.</p>
+					<p class="align-center">
+						<a class="btn btn-default btn-lg btn-block" href="../releases/foogallery.latest.zip" role="button" download>Download</a>
+					</p>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<h3>Lite Version</h3>
+				<div class="well">
+					<p>A sub-set of the full compiled and minified CSS and JavaScript.</p>
+					<p class="align-center">
+						<a class="btn btn-default btn-lg btn-block" href="../releases/foogallery-lite.latest.zip" role="button" download>Download</a>
+					</p>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<h3>Components Version</h3>
+				<div class="well">
+					<p>Compiled and minified CSS and JavaScript for all components of FooGallery that make up the Full and Lite versions.</p>
+					<p class="align-center">
+						<a class="btn btn-default btn-lg btn-block" href="../releases/foogallery-components.latest.zip" role="button" download>Download</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- What's included -->
+	<div class="docs-section">
+		<h2 class="page-header">What's included</h2>
+		<p class="lead">FooGallery is downloadable in three forms, within each you'll find the following directories and files, logically grouping common resources and providing both compiled and minified variations.</p>
+
+		<div class="callout callout-warning">
+			<h5>Required files</h5>
+			<ul>
+				<li>Please note that <strong>FooGallery requires jQuery 1.8+</strong> to be included.</li>
+			</ul>
+		</div>
+
+		<!-- Tab Headers -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#whats-included-full" aria-controls="full-version" role="tab" data-toggle="tab">Full Version</a></li>
+			<li role="presentation"><a href="#whats-included-lite" aria-controls="lite-version" role="tab" data-toggle="tab">Lite Version</a></li>
+			<li role="presentation"><a href="#whats-included-components" aria-controls="individual-components" role="tab" data-toggle="tab">Components Version</a></li>
+			<li role="presentation"><a href="#whats-included-comparison" aria-controls="comparison" role="tab" data-toggle="tab">Comparison</a></li>
+		</ul>
+		<!-- Tab Content -->
+		<div class="tab-content">
+			<!-- Full Version -->
+			<div role="tabpanel" class="tab-pane active" id="whats-included-full">
+				<p>Once downloaded, unzip the compressed folder to see the structure of the Full version. You'll see something like this:</p>
+				<pre><code class="language-text">foogallery/
+├── css/
+│   ├── foogallery.css
+│   └── foogallery.min.css
+├── img/
+│   └── All images required by the CSS
+└── js/
+    ├── foogallery.js
+    └── foogallery.min.js</code></pre>
+				<p>This is the easiest way to use FooGallery; precompiled files for quick drop-in usage. We provide compiled CSS and JS (<code>foogallery.*</code>), as well as compiled and minified CSS and JS (<code>foogallery.*.min.*</code>).</p>
+			</div>
+
+			<!-- Lite Version -->
+			<div role="tabpanel" class="tab-pane" id="whats-included-lite">
+				<p>Once downloaded, unzip the compressed folder to see the structure of the Lite version. You'll see something like this:</p>
+				<pre><code class="language-text">foogallery/
+├── css/
+│   ├── foogallery.css
+│   └── foogallery.min.css
+├── img/
+│   └── All images required by the CSS
+└── js/
+    ├── foogallery.js
+    └── foogallery.min.js</code></pre>
+				<p>This is the second easiest way to use FooGallery; precompiled files for quick drop-in usage. We provide compiled CSS and JS (<code>foogallery.*</code>), as well as compiled and minified CSS and JS (<code>foogallery.*.min.*</code>). This version does not support all the features and options the Full version does making it smaller in size.</p>
+				<p>The difference between this and the Full version is simply the number of features and templates included; For a full list of differences please see the Comparison tab.</p>
+			</div>
+
+			<!-- Individual Components -->
+			<div role="tabpanel" class="tab-pane" id="whats-included-components">
+				<p>Once downloaded, unzip the compressed folder to see the structure of the components version. You'll see something like this:</p>
+				<pre><code class="language-text">foogallery/
+├── css/
+│   ├── foogallery.css
+│   ├── foogallery.min.css
+│   ├── foogallery.image-viewer.css
+│   ├── foogallery.image-viewer.min.css
+│   ├── foogallery.justified.css
+│   ├── foogallery.justified.min.css
+│   ├── foogallery.masonry.css
+│   ├── foogallery.masonry.min.css
+│   ├── foogallery.portfolio.css
+│   ├── foogallery.portfolio.min.css
+│   ├── foogallery.responsive.css
+│   └── foogallery.responsive.min.css
+├── img/
+│   └── All images required by the CSS
+└── js/
+    ├── foogallery.js
+    ├── foogallery.min.js
+    ├── foogallery.image-viewer.js
+    ├── foogallery.image-viewer.min.js
+    ├── foogallery.justified.js
+    ├── foogallery.justified.min.js
+    ├── foogallery.masonry.js
+    ├── foogallery.masonry.min.js
+    ├── foogallery.portfolio.js
+    ├── foogallery.portfolio.min.js
+    ├── foogallery.responsive.js
+    └── foogallery.responsive.min.js</code></pre>
+				<p>This is the most complicated method of using FooTable, however it provides the ability to tailor the plugin to your needs by leaving out components that you will not use. We provide compiled CSS and JS (<code>footable.*</code>), as well as compiled and minified CSS and JS (<code>footable.*.min.*</code>) of all components that make up FooTable.</p>
+				<div class="callout callout-warning" id="components-required">
+					<h5>Required files</h5>
+					<p>When using the individual components <strong>FooTable requires <code>footable.core.js</code></strong> and then either the <strong><code>footable.core.bootstrap.css</code> OR <code>footable.core.standalone.css</code></strong> files or there minified equivalents to be included.</p>
+				</div>
+				<div class="callout callout-info" id="components-note">
+					<h5>Note</h5>
+					<p>When including components such as sorting its JavaScript and CSS files should be included after the core files mentioned above.</p>
+				</div>
+			</div>
+
+			<!-- Comparison -->
+			<div role="tabpanel" class="tab-pane" id="whats-included-comparison">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="list-group">
+							<h4 class="list-group-header">Lite</h4>
+							<div class="list-group-item">
+								<ul>
+									<li>Retina support</li>
+									<li>Lazy loading</li>
+									<li>
+										Basic paging:
+										<ul>
+											<li>None</li>
+											<li>Dots</li>
+										</ul>
+									</li>
+									<li>
+										Hover effects:
+										<ul>
+											<li>None</li>
+											<li>External link icon</li>
+											<li>Zoom icon + 2 alternate zoom icons</li>
+											<li>Plus icon</li>
+											<li>Circle with a plus icon</li>
+											<li>Eye icon</li>
+											<li>Dark tint</li>
+											<li>Colorize</li>
+											<li>Grayscale</li>
+											<li>Scale</li>
+										</ul>
+									</li>
+									<li>
+										Basic item styling:
+										<ul>
+											<li>TODO: And old item border styles</li>
+										</ul>
+									</li>
+									<li>Captions support and effects</li>
+									<li>
+										Basic loaded effects:
+										<ul>
+											<li>None</li>
+											<li>Fade In</li>
+										</ul>
+									</li>
+									<li>
+										Basic loading icons:
+										<ul>
+											<li>None</li>
+											<li>Default</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="list-group">
+							<h4 class="list-group-header">Full</h4>
+							<div class="list-group-item">
+								<p>All of the features from Lite as well as the following:</p>
+								<ul>
+									<li>
+										Additional paging types:
+										<ul>
+											<li>Pagination</li>
+											<li>Infinite</li>
+											<li>Load More</li>
+										</ul>
+									</li>
+									<li>
+										Additional loaded effects:
+										<ul>
+											<li>Slide Up</li>
+											<li>Scale Up</li>
+											<li>Swing Up</li>
+											<li>Drop</li>
+											<li>Fly</li>
+											<li>Flip</li>
+										</ul>
+									</li>
+									<li>
+										Additional loading icons:
+										<ul>
+											<li>Ellipsis</li>
+											<li>Gears</li>
+											<li>Hourglass</li>
+											<li>Reload</li>
+											<li>Ripple</li>
+											<li>Bars</li>
+											<li>Spin</li>
+											<li>Squares</li>
+											<li>Cube</li>
+										</ul>
+									</li>
+									<li>
+										Advanced item styling:
+										<ul>
+											<li>Light and dark based themes</li>
+											<li>Border sizing</li>
+											<li>Rounded corners</li>
+											<li>Drop shadows</li>
+											<li>Inset shadows</li>
+										</ul>
+									</li>
+									<li>
+										State management
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Basic template -->
+	<div class="docs-section">
+		<h2 class="page-header">Basic markup</h2>
+		<p class="lead">
+			Now that you have got the files and included them in your page you need to decide what type of gallery you want to create. FooGallery refers to these types as templates and has a number of them
+			built-in for easy use. The markup required by each of these templates may change so please check its' documentation for more details.
+		</p>
+
+		<p>
+			The following shows the markup required to get the default template to initialize providing the core features of FooGallery.
+		</p>
+
+		<pre class="language-markup" data-lang="markup"><code>&lt;div id=&quot;[id]&quot; class=&quot;foogallery&quot;&gt;
+	&lt;!-- repeatable items --&gt;
+&lt;/div&gt;</code></pre>
+
+		<p>When supplying an items' markup it must look something like the below. For more information on the actual <code>[values]</code> see the <a href="options.html#items">items</a> option.</p>
+		<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot; data-id=&quot;[id]&quot;&gt;
+	&lt;div class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot; href=&quot;[href]&quot;&gt;
+			&lt;img class=&quot;fg-image&quot; title=&quot;[title]&quot; alt=&quot;[description]&quot; width=&quot;[width]&quot; height=&quot;[height]&quot; data-src=&quot;[src]&quot; data-srcset=&quot;[srcset]&quot; /&gt;
+			&lt;div class=&quot;fg-caption&quot;&gt;
+				&lt;div class=&quot;fg-caption-inner&quot;&gt;
+					&lt;div class=&quot;fg-caption-title&quot;&gt;[title]&lt;/div&gt;
+					&lt;div class=&quot;fg-caption-desc&quot;&gt;[description]&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+		<div class="list-group">
+			<h3 class="list-group-header">Supported templates</h3>
+
+			<a href="templates/default.html" class="list-group-item">
+				<h4 class="list-group-item-heading">"default"</h4>
+				<p class="list-group-item-text">Performs no layout of items but implements the core features such as item, paging and state management.</p>
+			</a>
+			<a href="templates/masonry.html" class="list-group-item">
+				<h4 class="list-group-item-heading">"masonry"</h4>
+				<p class="list-group-item-text">Uses the Masonry library to layout it's items.</p>
+			</a>
+			<a href="templates/justified.html" class="list-group-item">
+				<h4 class="list-group-item-heading">"justified"</h4>
+				<p class="list-group-item-text">Performs item layout using a justified algorithm.</p>
+			</a>
+			<a href="templates/responsive.html" class="list-group-item">
+				<h4 class="list-group-item-heading">"responsive"</h4>
+				<p class="list-group-item-text">Performs item layout using basic responsive CSS.</p>
+			</a>
+			<a href="templates/portfolio.html" class="list-group-item">
+				<h4 class="list-group-item-heading">"portfolio"</h4>
+				<p class="list-group-item-text">Performs item layout using a portfolio appearance with always visible captions.</p>
+			</a>
+		</div>
+	</div>
+
+	<!-- Examples -->
+	<div class="docs-section">
+		<h2 class="page-header">Examples</h2>
+		<p class="lead">
+			The below lists various examples to help you get started using FooGallery in your projects. Keep in mind FooGallery is designed
+			to be extended and modified to suit your projects needs.
+		</p>
+
+		<div class="list-group">
+			<h3 class="list-group-header">Paging examples</h3>
+
+			<a href="examples/custom-paging.html" class="list-group-item">
+				<h4 class="list-group-item-heading">Custom paging</h4>
+				<p class="list-group-item-text">Create custom paging controls by using the default type.</p>
+			</a>
+			<a href="examples/advanced-custom-paging.html" class="list-group-item">
+				<h4 class="list-group-item-heading">Advanced custom paging</h4>
+				<p class="list-group-item-text">Create re-usable paging controls that are registered with FooGallery.</p>
+			</a>
+		</div>
+
+	</div>
+</div> <!-- /container -->
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="js/prism.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+<script src="js/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--<link rel="icon" href="../../favicon.ico">-->
+
+	<title>Infinite paging - FooGallery</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	<!-- FooGallery Full CSS -->
+	<link href="../../dist/full/css/foogallery.min.css" rel="stylesheet">
+
+	<!-- Prism -->
+	<link href="../css/prism.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="../css/docs.css" rel="stylesheet">
+
+	<!-- TOC -->
+	<link href="../css/toc.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="docs">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="../../index.html" class="navbar-brand">FooGallery</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="../getting-started.html">Getting started</a></li>
+				<li><a href="../options.html">Options</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Templates <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="../templates/masonry.html">Masonry</a></li>
+						<li><a href="../templates/portfolio.html">Portfolio</a></li>
+						<li><a href="../templates/justified.html">Justified</a></li>
+						<li><a href="../templates/responsive.html">Responsive</a></li>
+					</ul>
+				</li>
+				<li class="dropdown active">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paging <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="dots.html">Dots</a></li>
+						<li><a href="pagination.html">Pagination</a></li>
+						<li class="active"><a>Infinite</a></li>
+						<li><a href="loadMore.html">Load More</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../jsdocs/index.html" target="_blank">JSDocs</a></li>
+				<li><a href="https://github.com/fooplugins/foogallery-client-side" target="_blank">GitHub</a></li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
+
+<!-- Header -->
+<div class="jumbotron">
+	<div class="container">
+		<h1>Infinite paging</h1>
+		<h2>Creates pages as a user scrolls down the document.</h2>
+	</div>
+</div>
+
+<div class="container">
+
+	<!-- Main -->
+	<div class="main-content col-md-9">
+
+		<!-- Options -->
+		<div class="docs-section">
+			<h2 id="javascript" class="page-header first">JavaScript</h2>
+			<p class="lead">
+				All of the <a href="../options.html#paging">core paging options</a> can be used with this type however it does override the default value of the
+				<a href="#pushOrReplace">pushOrReplace</a> option and as it has no controls it ignores the <a href="../options.html#paging-theme">theme</a> and
+				<a href="../options.html#paging-position">position</a> options.
+			</p>
+
+			<div class="examples">
+				<div class="example default">
+					<p>
+						The below shows the infinite default options object.
+					</p>
+					<pre class="language-javascript" data-lang="javascript"><code>{
+	// required
+	&quot;type&quot;: &quot;pagination&quot;,
+	// overrides
+	&quot;pushOrReplace&quot;: &quot;replace&quot;,
+	// ignored
+	&quot;position&quot;: &quot;none&quot;,
+	&quot;theme&quot;: &quot;fg-light&quot;,
+	// inherited
+	&quot;size&quot;: 30,
+	&quot;scrollToTop&quot;: true,
+	// custom
+	&quot;distance&quot;: 200
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="list-group list-group-detailed">
+				<h3 id="options" class="list-group-header">Options</h3>
+
+				<!-- pushOrReplace -->
+				<a href="#pushOrReplace" class="list-group-item">
+					<h5 id="pushOrReplace" class="list-group-item-heading">pushOrReplace <small>string</small></h5>
+					<p class="list-group-item-text">The default method to use when updating the state on page change. <i>Overrides the default value.</i></p>
+				</a>
+				<div class="list-group-detail">
+					<div class="list-group-detail-inner">
+						<div class="examples">
+							<div class="example default">
+								<p><code>"replace"</code></p>
+								<p>By default this type updates the current history entry to reflect page changes.</p>
+							</div>
+						</div>
+
+						<div class="example supports">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>"push"</span></h5>
+								<p class="doc-list-summary">
+									A new history entry is created whenever a page changes. This allows a user to navigate previously viewed pages using their browsers <i>Back</i> and <i>Forward</i> buttons.
+								</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>"replace"</span></h5>
+								<p class="doc-list-summary">The current history entry is updated to reflect any page changes.</p>
+							</div>
+						</div>
+
+						<div class="examples">
+							<div class="example plural">
+								<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+							</div>
+							<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;pushOrReplace&quot;:&quot;replace&quot;}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+							<p>Otherwise you can supply it directly to the plugin method.</p>
+							<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			&quot;pushOrReplace&quot;: &quot;replace&quot;
+		}
+	});
+});</code></pre>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- distance -->
+				<a href="#distance" class="list-group-item">
+					<h4 id="distance" class="list-group-item-heading">distance <small>number</small></h4>
+					<p class="list-group-item-text">The maximum distance between the top of the last item and the bottom of the viewport before the next page is created.</p>
+				</a>
+				<div class="list-group-detail">
+					<div class="list-group-detail-inner">
+						<div class="examples">
+							<div class="example default">
+								<p><code>200</code></p>
+								<p>Setting this option to a negative value would result in the next page being created only after the top of the last item is already visible.</p>
+							</div>
+						</div>
+
+						<div class="examples">
+							<div class="example plural">
+								<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+							</div>
+							<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;distance&quot;:200}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+							<p>Otherwise you can supply it directly to the plugin method.</p>
+							<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;paging&quot;: {
+			&quot;distance&quot;: 200
+		}
+	});
+});</code></pre>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Usage -->
+		<div class="docs-section">
+
+			<h2 id="usage" class="page-header">Usage</h2>
+			<p class="lead">
+				As the user scrolls down the document the infinite type will automatically create pages of items until it has no more items available. The one drawback to using this type is that
+				it makes it difficult for users to reach your site footer. If this is an issue take a look at the <a href="loadMore.html">loadMore</a> type which gives control over when items
+				are created back to the user.
+			</p>
+
+			<div class="examples">
+				<div class="example">
+					<p>The below shows infinite being used with its' default options by just setting the type.</p>
+					<pre class="language-markup" data-lang="markup"><code>&lt;!-- The container element --&gt;
+&lt;div id=&quot;example_1&quot; class=&quot;foogallery fg-responsive fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center fg-gutter-15&quot;&gt;
+	&lt;!-- items-150x150.json --&gt;
+&lt;/div&gt;</code></pre>
+					<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&quot;#example_1&quot;).foogallery({
+		&quot;items&quot;: &quot;../content/items-150x150.json&quot;,
+		&quot;paging&quot;: {
+			&quot;type&quot;: &quot;infinite&quot;
+		}
+	});
+});</code></pre>
+					<div class="callout callout-info">
+						<h5>Notes</h5>
+						<ul>
+							<li>
+								<p>
+									The items in the example are created from the
+									<a href="../content/items-150x150.json">items-150x150.json</a> file and then displayed using the <a href="../templates/responsive.html">responsive template</a>,
+									<a href="../options.html#fg-light">light item style</a>, <a href="../options.html#fg-hover-external">external hover icon</a>,
+									<a href="../options.html#fg-loading-default">default loading icon</a> and the <a href="../options.html#fg-loaded-fade-in">fade in loaded effect</a>. All these options
+									are available in the Lite version.
+								</p>
+							</li>
+							<li>
+								<p>The images in the example are loaded from <a href="https://satyr.io" target="_blank">satyr.io</a>.</p>
+							</li>
+						</ul>
+					</div>
+
+					<div id="example_1" class="foogallery fg-responsive fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center fg-gutter-15">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="callout callout-warning">
+			<h5>Warning</h5>
+			<p>This would be difficult to reach for the user.</p>
+		</div>
+
+	</div>
+
+	<!-- Side -->
+	<div class="side-content col-md-3">
+		<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+	</div>
+
+</div> <!-- /container -->
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="../js/prism.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../js/ie10-viewport-bug-workaround.js"></script>
+<script src="../js/docs.js"></script>
+<script src="../js/table-of-contents.js"></script>
+<!-- Add in FooGallery JS -->
+<script src="../../dist/full/js/foogallery.js"></script>
+<!-- Initialize FooGallery -->
+<script>
+	jQuery(function($){
+		$('#example_1').foogallery({
+			"items": "../content/items-150x150.json",
+			"paging": {
+				"type": "infinite"
+			}
+		});
+	});
+</script>
+</body>
+</html>

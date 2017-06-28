@@ -1,31 +1,12 @@
 /* Hover Effects */
 /* Icon & Overlay */
-.foogallery.fg-hover-zoom .fg-thumb,
-.foogallery.fg-hover-zoom2 .fg-thumb,
-.foogallery.fg-hover-zoom3 .fg-thumb,
-.foogallery.fg-hover-plus .fg-thumb,
-.foogallery.fg-hover-circle-plus .fg-thumb,
-.foogallery.fg-hover-eye .fg-thumb,
-.foogallery.fg-hover-tint .fg-thumb {
-	position: relative;
-	z-index: 1;
-}
-.foogallery.fg-hover-zoom .fg-image,
-.foogallery.fg-hover-zoom2 .fg-image,
-.foogallery.fg-hover-zoom3 .fg-image,
-.foogallery.fg-hover-plus .fg-image,
-.foogallery.fg-hover-circle-plus .fg-image,
-.foogallery.fg-hover-eye .fg-image,
-.foogallery.fg-hover-tint .fg-image {
-	z-index: 2;
-}
-
 .foogallery.fg-hover-zoom .fg-thumb:before,
 .foogallery.fg-hover-zoom2 .fg-thumb:before,
 .foogallery.fg-hover-zoom3 .fg-thumb:before,
 .foogallery.fg-hover-plus .fg-thumb:before,
 .foogallery.fg-hover-circle-plus .fg-thumb:before,
 .foogallery.fg-hover-eye .fg-thumb:before,
+.foogallery.fg-hover-external .fg-thumb:before,
 .foogallery.fg-hover-tint .fg-thumb:before {
 	content: "";
 	display: block;
@@ -36,7 +17,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	z-index: 3;
+	z-index: 8;
 	background: rgba(0,0,0,0.5) no-repeat center center;
 	background-size: 32px 32px;
 	transition: all .3s linear;
@@ -48,6 +29,7 @@
 .foogallery.fg-hover-plus .fg-thumb:hover:before,
 .foogallery.fg-hover-circle-plus .fg-thumb:hover:before,
 .foogallery.fg-hover-eye .fg-thumb:hover:before,
+.foogallery.fg-hover-external .fg-thumb:hover:before,
 .foogallery.fg-hover-tint .fg-thumb:hover:before,
 .foogallery.fg-hover-zoom .fg-thumb:focus:before,
 .foogallery.fg-hover-zoom2 .fg-thumb:focus:before,
@@ -55,6 +37,7 @@
 .foogallery.fg-hover-plus .fg-thumb:focus:before,
 .foogallery.fg-hover-circle-plus .fg-thumb:focus:before,
 .foogallery.fg-hover-eye .fg-thumb:focus:before,
+.foogallery.fg-hover-external .fg-thumb:focus:before,
 .foogallery.fg-hover-tint .fg-thumb:focus:before {
 	visibility: visible;
 	opacity: 1;
@@ -82,6 +65,10 @@
 
 .foogallery.fg-hover-eye .fg-thumb:before {
 	background-image: url('../img/eye.png');
+}
+
+.foogallery.fg-hover-external .fg-thumb:before {
+	background-image: url('../img/external.png');
 }
 
 /* @2x Images (Pixel Ratio of 1.25+) */
@@ -113,6 +100,11 @@ only screen and (min-resolution: 1.25dppx) {
 	.foogallery.fg-hover-eye .fg-thumb:before {
 		background-image: url('../img/eye@2x.png');
 	}
+
+	.foogallery.fg-hover-external .fg-thumb:before {
+		background-image: url('../img/external@2x.png');
+	}
+
 }
 
 /* @3x Images (Pixel Ratio of 2.25+) */
@@ -144,6 +136,11 @@ only screen and (min-resolution: 2.25dppx) {
 	.foogallery.fg-hover-eye .fg-thumb:before {
 		background-image: url('../img/eye@3x.png');
 	}
+
+	.foogallery.fg-hover-external .fg-thumb:before {
+		background-image: url('../img/external@3x.png');
+	}
+
 }
 
 /* Colorize */
@@ -153,16 +150,14 @@ only screen and (min-resolution: 2.25dppx) {
 .foogallery.fg-hover-color .fg-image {
 	background-image: none;
 	background-color: transparent;
-	/* For Webkit browsers */
-	-webkit-filter: grayscale(1);
-	-webkit-filter: grayscale(100%);
-	/* Standard */
-	filter: grayscale(100%);
-	/* For IE 6 - 9 */
+	/* Firefox 10+, Firefox on Android */
+	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'saturate\' values=\'0\'/></filter></svg>#grayscale");
+	/* IE 6-9 */
 	filter: gray;
+	/* Chrome 19+, Safari 6+, Safari 6+ iOS */
+	-webkit-filter: grayscale(100%);
+
 	-webkit-transition: -webkit-filter .3s linear;
-	-moz-transition: filter .3s linear;
-	-o-transition: filter .3s linear;
 	transition: filter .3s linear;
 }
 .foogallery.fg-hover-color .fg-thumb:hover .fg-image {
@@ -195,13 +190,15 @@ only screen and (min-resolution: 2.25dppx) {
 }
 
 /* Scale */
-.foogallery.fg-hover-scale .fg-thumb {
-	transition: transform 0.2s linear;
+.foogallery.fg-hover-scale .fg-item {
+	transition-timing-function: ease;
+	transition-duration: 300ms;
+	transition-property: transform;
 	z-index: 4;
 }
 
-.foogallery.fg-hover-scale .fg-thumb:hover {
-	transform: scale(1.05);
+.foogallery.fg-hover-scale .fg-item:hover {
+	transform: scale(1.048);
 	z-index: 10;
 }
 

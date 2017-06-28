@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--<link rel="icon" href="../../favicon.ico">-->
+
+	<title>Masonry template - FooGallery</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	<!-- FooGallery Full CSS -->
+	<link href="../../dist/full/css/foogallery.min.css" rel="stylesheet">
+
+	<!-- Prism -->
+	<link href="../css/prism.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="../css/docs.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body class="docs">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="../../index.html" class="navbar-brand">FooGallery</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="../getting-started.html">Getting started</a></li>
+				<li><a href="../options.html">Options</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Templates <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li class="active"><a>Masonry</a></li>
+						<li><a href="portfolio.html">Portfolio</a></li>
+						<li><a href="justified.html">Justified</a></li>
+						<li><a href="responsive.html">Responsive</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paging <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="../paging/dots.html">Dots</a></li>
+						<li><a href="../paging/pagination.html">Pagination</a></li>
+						<li><a href="../paging/infinite.html">Infinite</a></li>
+						<li><a href="../paging/loadMore.html">Load More</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../jsdocs/index.html" target="_blank">JSDocs</a></li>
+				<li><a href="https://github.com/fooplugins/foogallery-client-side" target="_blank">GitHub</a></li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
+
+<!-- Header -->
+<div class="jumbotron">
+	<div class="container">
+		<h1>Masonry template</h1>
+		<h2>Uses the Masonry library to layout it's items.</h2>
+	</div>
+</div>
+
+<div class="container">
+	<!-- Markup -->
+	<div class="docs-section">
+		<h1 class="page-header">Markup</h1>
+		<p class="lead">
+			The following shows the markup required to get the Masonry template to correctly initialize.
+		</p>
+
+		<pre class="language-markup" data-lang="markup"><code>&lt;div id=&quot;[id]&quot; class=&quot;foogallery fg-masonry&quot;&gt;
+	&lt;!-- repeatable items --&gt;
+&lt;/div&gt;</code></pre>
+
+		<p>When supplying an items' markup it must look like the below. For more information on the actual <code>[values]</code> see the <a href="../options.html#items">items</a> option.</p>
+		<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot; data-id=&quot;[id]&quot;&gt;
+	&lt;div class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot; href=&quot;[href]&quot;&gt;
+			&lt;img class=&quot;fg-image&quot; title=&quot;[title]&quot; alt=&quot;[description]&quot; width=&quot;[width]&quot; height=&quot;[height]&quot; data-src=&quot;[src]&quot; data-srcset=&quot;[srcset]&quot; /&gt;
+			&lt;div class=&quot;fg-caption&quot;&gt;
+				&lt;div class=&quot;fg-caption-inner&quot;&gt;
+					&lt;div class=&quot;fg-caption-title&quot;&gt;[title]&lt;/div&gt;
+					&lt;div class=&quot;fg-caption-desc&quot;&gt;[description]&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+	</div>
+
+	<!-- CSS -->
+	<div class="docs-section">
+		<h2 class="page-header">CSS</h2>
+		<p class="lead">
+			The following lists the CSS classes support by this template.
+		</p>
+
+		<div class="examples">
+			<div class="example">
+				To use any of these classes all you need to do is apply it to the FooGallery container element.
+			</div>
+			<pre class="language-markup" data-lang="markup"><code>&lt;div id=&quot;[id]&quot; class=&quot;foogallery fg-masonry fg-gutter&quot;&gt;
+	&lt;!-- repeatable items --&gt;
+&lt;/div&gt;</code></pre>
+		</div>
+
+	</div>
+
+	<!-- JavaScript -->
+	<div class="docs-section">
+		<h2 class="page-header">JavaScript</h2>
+		<p class="lead">
+			The following lists all the Masonry specific options that can be supplied using the <a href="../options.html#template">template</a> option.
+		</p>
+
+		<div class="list-group list-group-detailed">
+			<h3 class="list-group-header">Options<small class="pull-right"><code>*</code> Are required</small></h3>
+
+			<!-- layout -->
+			<a href="#layout" class="list-group-item">
+				<h5 id="layout" class="list-group-item-heading">layout <small>string</small></h5>
+				<p class="list-group-item-text">The type of layout to use for the items.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+					<div class="examples">
+						<div class="example default">
+							<p><code>"col4"</code></p>
+							<p>By default this template uses a four column layout for its items.</p>
+						</div>
+					</div>
+
+					<div class="example supports">
+						<div class="doc-list-item">
+							<h5 class="doc-list-title first"><span>"fixed"</span></h5>
+							<p class="doc-list-summary">Items have a fixed width with a fluid number of columns.</p>
+						</div>
+						<div class="doc-list-item">
+							<h5 class="doc-list-title"><span>"col2"</span></h5>
+							<p class="doc-list-summary">Items have a fluid width and are displayed in two columns.</p>
+						</div>
+						<div class="doc-list-item">
+							<h5 class="doc-list-title"><span>"col3"</span></h5>
+							<p class="doc-list-summary">Items have a fluid width and are displayed in three columns.</p>
+						</div>
+						<div class="doc-list-item">
+							<h5 class="doc-list-title"><span>"col4"</span></h5>
+							<p class="doc-list-summary">Items have a fluid width and are displayed in four columns.</p>
+						</div>
+						<div class="doc-list-item">
+							<h5 class="doc-list-title"><span>"col5"</span></h5>
+							<p class="doc-list-summary">Items have a fluid width and are displayed in five columns.</p>
+						</div>
+					</div>
+
+					<div class="examples">
+						<div class="example plural">
+							<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+						</div>
+						<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;template&quot;:{&quot;layout&quot;:&quot;col4&quot;}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+						<p>Otherwise you can supply it directly to the plugin method.</p>
+						<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;template&quot;: {
+			&quot;layout&quot;: &quot;col4&quot;
+		}
+	});
+});</code></pre>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- Usage -->
+	<div class="docs-section">
+
+		<h2 id="usage" class="page-header">Usage</h2>
+		<p class="lead">
+			Probably the simplest type this is best suited for displaying a small number of pages, up to about fifteen, anything above that may start to look too
+			cluttered and we would recommend trying one of the other paging types.
+		</p>
+
+		<div class="examples">
+			<div class="example">
+				<p>The below shows a Masonry template being used with its' default options by just applying the <code>fg-masonry</code> CSS class.</p>
+				<pre class="language-markup" data-lang="markup"><code>&lt;!-- The container element --&gt;
+&lt;div id=&quot;example_1&quot; class=&quot;foogallery fg-masonry fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center&quot;&gt;
+	&lt;div class=&quot;fg-item&quot; data-id=&quot;item_1&quot;&gt;
+		&lt;div class=&quot;fg-item-inner&quot;&gt;
+			&lt;a class=&quot;fg-thumb&quot; href=&quot;https://satyr.io/1920x1200/1&quot;&gt;
+				&lt;img class=&quot;fg-image&quot; title=&quot;Lorem ipsum dolor.&quot; alt=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis.&quot;
+						 width=&quot;250&quot; height=&quot;250&quot;
+						 data-src=&quot;https://satyr.io/250x250/1&quot;
+						 data-srcset=&quot;https://satyr.io/500x500/1 500w,https://satyr.io/750x750/1 750w&quot; /&gt;
+			&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;fg-item&quot; data-id=&quot;item_2&quot;&gt;
+		&lt;div class=&quot;fg-item-inner&quot;&gt;
+			&lt;a class=&quot;fg-thumb&quot; href=&quot;https://satyr.io/1920x1200/2&quot;&gt;
+				&lt;img class=&quot;fg-image&quot; title=&quot;Lorem ipsum dolor.&quot; alt=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis.&quot;
+						 width=&quot;250&quot; height=&quot;250&quot;
+						 data-src=&quot;https://satyr.io/250x250/2&quot;
+						 data-srcset=&quot;https://satyr.io/500x500/2 500w,https://satyr.io/750x750/2 750w&quot; /&gt;
+			&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;fg-item&quot; data-id=&quot;item_3&quot;&gt;
+		&lt;div class=&quot;fg-item-inner&quot;&gt;
+			&lt;a class=&quot;fg-thumb&quot; href=&quot;https://satyr.io/1920x1200/3&quot;&gt;
+				&lt;img class=&quot;fg-image&quot; title=&quot;Lorem ipsum dolor.&quot; alt=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis.&quot;
+						 width=&quot;250&quot; height=&quot;250&quot;
+						 data-src=&quot;https://satyr.io/250x250/3&quot;
+						 data-srcset=&quot;https://satyr.io/500x500/3 500w,https://satyr.io/750x750/3 750w&quot; /&gt;
+			&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;fg-item&quot; data-id=&quot;item_4&quot;&gt;
+		&lt;div class=&quot;fg-item-inner&quot;&gt;
+			&lt;a class=&quot;fg-thumb&quot; href=&quot;https://satyr.io/1920x1200/4&quot;&gt;
+				&lt;img class=&quot;fg-image&quot; title=&quot;Lorem ipsum dolor.&quot; alt=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis.&quot;
+						 width=&quot;250&quot; height=&quot;250&quot;
+						 data-src=&quot;https://satyr.io/250x250/4&quot;
+						 data-srcset=&quot;https://satyr.io/500x500/4 500w,https://satyr.io/750x750/4 750w&quot; /&gt;
+			&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;fg-item&quot; data-id=&quot;item_5&quot;&gt;
+		&lt;div class=&quot;fg-item-inner&quot;&gt;
+			&lt;a class=&quot;fg-thumb&quot; href=&quot;https://satyr.io/1920x1200/5&quot;&gt;
+				&lt;img class=&quot;fg-image&quot; title=&quot;Lorem ipsum dolor.&quot; alt=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis.&quot;
+						 width=&quot;250&quot; height=&quot;250&quot;
+						 data-src=&quot;https://satyr.io/250x250/5&quot;
+						 data-srcset=&quot;https://satyr.io/500x500/5 500w,https://satyr.io/750x750/5 750w&quot; /&gt;
+			&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;fg-item&quot; data-id=&quot;item_6&quot;&gt;
+		&lt;div class=&quot;fg-item-inner&quot;&gt;
+			&lt;a class=&quot;fg-thumb&quot; href=&quot;https://satyr.io/1920x1200/6&quot;&gt;
+				&lt;img class=&quot;fg-image&quot; title=&quot;Lorem ipsum dolor.&quot; alt=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis.&quot;
+						 width=&quot;250&quot; height=&quot;250&quot;
+						 data-src=&quot;https://satyr.io/250x250/6&quot;
+						 data-srcset=&quot;https://satyr.io/500x500/6 500w,https://satyr.io/750x750/6 750w&quot; /&gt;
+			&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;fg-item&quot; data-id=&quot;item_7&quot;&gt;
+		&lt;div class=&quot;fg-item-inner&quot;&gt;
+			&lt;a class=&quot;fg-thumb&quot; href=&quot;https://satyr.io/1920x1200/7&quot;&gt;
+				&lt;img class=&quot;fg-image&quot; title=&quot;Lorem ipsum dolor.&quot; alt=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis.&quot;
+						 width=&quot;250&quot; height=&quot;250&quot;
+						 data-src=&quot;https://satyr.io/250x250/7&quot;
+						 data-srcset=&quot;https://satyr.io/500x500/7 500w,https://satyr.io/750x750/7 750w&quot; /&gt;
+			&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+				<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&quot;#example_1&quot;).foogallery();
+});</code></pre>
+				<div class="callout callout-info">
+					<h5>Notes</h5>
+					<ul>
+						<li>
+							<p>
+								The items in the example are created from the
+								<a href="../content/items-150x150.json">items-150x150.json</a> file and then displayed using the <a href="../templates/responsive.html">responsive template</a>,
+								<a href="../options.html#fg-light">light item style</a>, <a href="../options.html#fg-hover-external">external hover icon</a>,
+								<a href="../options.html#fg-loading-default">default loading icon</a> and the <a href="../options.html#fg-loaded-fade-in">fade in loaded effect</a>. All these options
+								are available in the Lite version.
+							</p>
+						</li>
+						<li>
+							<p>The images in the example are loaded from <a href="https://satyr.io" target="_blank">satyr.io</a>.</p>
+						</li>
+					</ul>
+				</div>
+
+				<!-- The container element -->
+				<div id="example_1" class="foogallery fg-masonry fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center">
+					<div class="fg-item" data-id="item_1">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://satyr.io/1920x1200/1">
+								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
+										 width="250" height="250"
+										 data-src="https://satyr.io/250x250/1"
+										 data-srcset="https://satyr.io/500x500/1 500w,https://satyr.io/750x750/1 750w" />
+							</a>
+						</div>
+					</div>
+					<div class="fg-item" data-id="item_2">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://satyr.io/1920x1200/2">
+								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
+										 width="250" height="250"
+										 data-src="https://satyr.io/250x250/2"
+										 data-srcset="https://satyr.io/500x500/2 500w,https://satyr.io/750x750/2 750w" />
+							</a>
+						</div>
+					</div>
+					<div class="fg-item" data-id="item_3">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://satyr.io/1920x1200/3">
+								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
+										 width="250" height="250"
+										 data-src="https://satyr.io/250x250/3"
+										 data-srcset="https://satyr.io/500x500/3 500w,https://satyr.io/750x750/3 750w" />
+							</a>
+						</div>
+					</div>
+					<div class="fg-item" data-id="item_4">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://satyr.io/1920x1200/4">
+								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
+										 width="250" height="250"
+										 data-src="https://satyr.io/250x250/4"
+										 data-srcset="https://satyr.io/500x500/4 500w,https://satyr.io/750x750/4 750w" />
+							</a>
+						</div>
+					</div>
+					<div class="fg-item" data-id="item_5">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://satyr.io/1920x1200/5">
+								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
+										 width="250" height="250"
+										 data-src="https://satyr.io/250x250/5"
+										 data-srcset="https://satyr.io/500x500/5 500w,https://satyr.io/750x750/5 750w" />
+							</a>
+						</div>
+					</div>
+					<div class="fg-item" data-id="item_6">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://satyr.io/1920x1200/6">
+								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
+										 width="250" height="250"
+										 data-src="https://satyr.io/250x250/6"
+										 data-srcset="https://satyr.io/500x500/6 500w,https://satyr.io/750x750/6 750w" />
+							</a>
+						</div>
+					</div>
+					<div class="fg-item" data-id="item_7">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://satyr.io/1920x1200/7">
+								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
+										 width="250" height="250"
+										 data-src="https://satyr.io/250x250/7"
+										 data-srcset="https://satyr.io/500x500/7 500w,https://satyr.io/750x750/7 750w" />
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div> <!-- /container -->
+
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="../js/prism.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="../js/ie10-viewport-bug-workaround.js"></script>
+<script src="../js/docs.js"></script>
+<!-- Add in FooGallery JS -->
+<script src="../js/masonry.pkgd.min.js"></script>
+<script src="../../dist/full/js/foogallery.js"></script>
+<!-- Initialize FooGallery -->
+<script>
+	jQuery(function($){
+		$('#example_1').foogallery();
+	});
+</script>
+</body>
+</html>

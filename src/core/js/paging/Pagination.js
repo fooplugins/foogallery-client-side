@@ -1,12 +1,12 @@
 (function($, _, _utils, _is){
 
 	_.Pagination = _.Dots.extend({
-		construct: function(gallery, options, classes, il8n, selectors){
-			this._super(gallery, options, classes, il8n, selectors);
-			this.limit = options.limit;
-			this.showFirstLast = options.showFirstLast;
-			this.showPrevNext = options.showPrevNext;
-			this.showPrevNextMore = options.limit === 0 ? false : options.showPrevNextMore;
+		construct: function(template){
+			this._super(template);
+			this.limit = this.opt.limit;
+			this.showFirstLast = this.opt.showFirstLast;
+			this.showPrevNext = this.opt.showPrevNext;
+			this.showPrevNextMore = this.opt.limit === 0 ? false : this.opt.showPrevNextMore;
 			this.pageKeywords = ["first","prev","prevMore","nextMore","next","last"];
 			this.sel.firstPrev = [this.sel.first, this.sel.prev].join(",");
 			this.sel.nextLast = [this.sel.next, this.sel.last].join(",");
@@ -18,7 +18,7 @@
 				selected: false
 			};
 		},
-		buildPages: function(items){
+		build: function(items){
 			this._super(items);
 			this.range = {
 				index: -1,
@@ -28,28 +28,28 @@
 				selected: false
 			};
 		},
-		updateControls: function(pageNumber){
+		controls: function(pageNumber){
 			var self = this;
-			if (self.isValidPage(pageNumber)){
+			if (self.isValid(pageNumber)){
 				self.range = self.getControlRange(pageNumber);
-				$.each(self.controls, function(i, control){
+				$.each(self.ctrls, function(i, control){
 					control.update(self.range);
 				});
 			}
 		},
-		isValidPage: function(pageNumber){
+		isValid: function(pageNumber){
 			return this._super(pageNumber) || this.isKeyword(pageNumber);
 		},
 		isKeyword: function(pageNumber){
 			return _is.string(pageNumber) && $.inArray(pageNumber, this.pageKeywords) !== -1;
 		},
-		getPageNumber: function(value){
+		number: function(value){
 			var self = this;
 			if (value === "first") value = 1;
-			if (value === "prev") value = self.currentPage - 1;
-			if (value === "next") value = self.currentPage + 1;
+			if (value === "prev") value = self.current - 1;
+			if (value === "next") value = self.current + 1;
 			if (value === "last") value = self.total;
-			if (value === "prevMore" || value === "nextMore") value = self.currentPage;
+			if (value === "prevMore" || value === "nextMore") value = self.current;
 			return self._super(value);
 		},
 		getControlRange: function(pageNumber){
@@ -60,8 +60,8 @@
 				case "nextMore":
 					return self._range(self.range.end + 1, true, false);
 				default:
-					pageNumber = self.getPageNumber(pageNumber);
-					return self._range(pageNumber - 1, pageNumber <= self.currentPage)
+					pageNumber = self.number(pageNumber);
+					return self._range(pageNumber - 1, pageNumber <= self.current)
 			}
 		},
 		_range: function(index, leftMost, selected){
@@ -117,37 +117,37 @@
 	});
 
 	_.PaginationControl = _.DotsControl.extend({
-		construct: function(gallery, position){
-			this._super(gallery, position);
+		construct: function(template, parent, position){
+			this._super(template, parent, position);
 			this.$buttons = $();
 		},
 		create: function(){
 			var self = this;
 			if (self._super()){
-				var displayAll = self.p.total <= self.p.limit || self.p.limit === 0,
+				var displayAll = self.pages.total <= self.pages.limit || self.pages.limit === 0,
 					buttons = [], $button;
 
-				if (!displayAll && self.p.showPrevNextMore){
+				if (!displayAll && self.pages.showPrevNextMore){
 					buttons.push($button = self.createButton("prevMore"));
 					self.$list.prepend($button);
 				}
-				if (self.p.showPrevNext){
+				if (self.pages.showPrevNext){
 					buttons.push($button = self.createButton("prev"));
 					self.$list.prepend($button);
 				}
-				if (self.p.showFirstLast){
+				if (self.pages.showFirstLast){
 					buttons.push($button = self.createButton("first"));
 					self.$list.prepend($button);
 				}
-				if (!displayAll && self.p.showPrevNextMore){
+				if (!displayAll && self.pages.showPrevNextMore){
 					buttons.push($button = self.createButton("nextMore"));
 					self.$list.append($button);
 				}
-				if (self.p.showPrevNext){
+				if (self.pages.showPrevNext){
 					buttons.push($button = self.createButton("next"));
 					self.$list.append($button);
 				}
-				if (self.p.showFirstLast){
+				if (self.pages.showFirstLast){
 					buttons.push($button = self.createButton("last"));
 					self.$list.append($button);
 				}
@@ -162,7 +162,7 @@
 			this.$buttons = $();
 		},
 		update: function(range){
-			var self = this, sel = self.p.sel;
+			var self = this, sel = self.pages.sel;
 			// if the range changed update the visible links
 			if (range.changed) {
 				self.setVisible(range.start, range.end);
@@ -175,20 +175,20 @@
 				// if this is the first page then we need to disable the first and prev buttons
 				self.toggleDisabled(self.$buttons.filter(sel.firstPrev), range.index <= 0);
 				// if this is the last page we need to disable the next and last buttons
-				self.toggleDisabled(self.$buttons.filter(sel.nextLast), range.index >= self.p.pages.length - 1);
+				self.toggleDisabled(self.$buttons.filter(sel.nextLast), range.index >= self.pages.total - 1);
 			}
 			// if the visible range starts with the first page then we need to disable the prev more button
 			self.toggleDisabled(self.$buttons.filter(sel.prevMore), range.start <= 0);
 			// if the visible range ends with the last page then we need to disable the next more button
-			self.toggleDisabled(self.$buttons.filter(sel.nextMore), range.end >= self.p.pages.length - 1);
+			self.toggleDisabled(self.$buttons.filter(sel.nextMore), range.end >= self.pages.total - 1);
 		},
 		setVisible: function(start, end){
-			var self = this, cls = self.p.cls;
+			var self = this, cls = self.pages.cls;
 			// when we slice we add + 1 to the upper limit of the range as $.slice does not include the end index in the result
 			self.$items.removeClass(cls.visible).slice(start, end + 1).addClass(cls.visible);
 		},
 		toggleDisabled: function($buttons, state){
-			var self = this, cls = self.p.cls, sel = self.p.sel;
+			var self = this, cls = self.pages.cls, sel = self.pages.sel;
 			if (state) {
 				$buttons.addClass(cls.disabled).find(sel.link).attr("tabindex", -1);
 			} else {
@@ -203,23 +203,20 @@
 		 * @returns {jQuery}
 		 */
 		createButton: function(keyword){
-			var self = this, cls = self.p.cls, il8n = self.p.il8n;
+			var self = this, cls = self.pages.cls, il8n = self.pages.il8n;
 			return self.createItem(keyword, il8n.labels[keyword], il8n.buttons[keyword], cls.button + " " + cls[keyword]);
 		}
 	});
 
-	_.Gallery.options.pagination = {
-		limit: 5,
+	_.paging.register("pagination", _.Pagination, _.PaginationControl, {
+		type: "pagination",
 		position: "both",
+		pushOrReplace: "push",
+		limit: 5,
 		showPrevNext: true,
 		showFirstLast: true,
-		showPrevNextMore: true,
-		pushOrReplace: "push",
-		control: "pagination-control"
-	};
-
-	_.Gallery.options.classes.pagination = {
-		container: "fg-paging-container",
+		showPrevNextMore: true
+	}, {
 		list: "fg-pages",
 		item: "fg-page-item",
 		button: "fg-page-button",
@@ -234,9 +231,7 @@
 		selected: "fg-selected",
 		visible: "fg-visible",
 		reader: "fg-sr-only"
-	};
-
-	_.Gallery.options.il8n.pagination = {
+	}, {
 		buttons: {
 			first: "&laquo;",
 			prev: "&lsaquo;",
@@ -255,12 +250,7 @@
 			prevMore: "Select from previous {LIMIT} pages",
 			nextMore: "Select from next {LIMIT} pages"
 		}
-	};
-
-	_.items.register("pagination", _.Pagination);
-
-	_.controls.register("pagination-control", _.PaginationControl);
-
+	});
 
 })(
 	FooGallery.$,

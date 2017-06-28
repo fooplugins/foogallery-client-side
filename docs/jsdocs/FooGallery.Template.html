@@ -1,0 +1,3944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>FooGallery.Template</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"FooGallery","systemSummary":"The Most Intuitive and Extensible Gallery Creation and Management Tool Ever Created for WordPress.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooGallery Copyright © 2016","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":["../dist/core/js/foogallery.js"],"monospaceLinks":false,"cleverLinks":false};
+			window.DOCLET_TOC_ENABLED = true;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					FooGallery
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+							<li class="dropdown">
+								<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+										<li><a href="FooGallery.Component.html">FooGallery.Component</a></li>
+										<li><a href="FooGallery.ImageViewer.html">FooGallery.ImageViewer</a></li>
+										<li><a href="FooGallery.Item.html">FooGallery.Item</a></li>
+										<li><a href="FooGallery.Items.html">FooGallery.Items</a></li>
+										<li><a href="FooGallery.MasonryTemplate.html">FooGallery.MasonryTemplate</a></li>
+										<li><a href="FooGallery.PagingFactory.html">FooGallery.PagingFactory</a></li>
+										<li><a href="FooGallery.State.html">FooGallery.State</a></li>
+										<li><a href="FooGallery.Template.html">FooGallery.Template</a></li>
+										<li><a href="FooGallery.TemplateFactory.html">FooGallery.TemplateFactory</a></li>
+										<li><a href="FooGallery.utils.Bounds.html">FooGallery.utils.Bounds</a></li>
+										<li><a href="FooGallery.utils.Class.html">FooGallery.utils.Class</a></li>
+										<li><a href="FooGallery.utils.Debugger.html">FooGallery.utils.Debugger</a></li>
+										<li><a href="FooGallery.utils.Factory.html">FooGallery.utils.Factory</a></li>
+										<li><a href="FooGallery.utils.Throttle.html">FooGallery.utils.Throttle</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="list_external.html" class="dropdown-toggle" data-toggle="dropdown">Externals<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+										<li><a href="external-_jQuery.fn_.html">jQuery.fn</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="list_namespace.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+								<ul class="dropdown-menu">
+										<li><a href="FooGallery.html">FooGallery</a></li>
+										<li><a href="FooGallery.utils.html">FooGallery.utils</a></li>
+										<li><a href="FooGallery.utils.fn.html">FooGallery.utils.fn</a></li>
+										<li><a href="FooGallery.utils.is.html">FooGallery.utils.is</a></li>
+										<li><a href="FooGallery.utils.obj.html">FooGallery.utils.obj</a></li>
+										<li><a href="FooGallery.utils.str.html">FooGallery.utils.str</a></li>
+										<li><a href="FooGallery.utils.transition.html">FooGallery.utils.transition</a></li>
+										<li><a href="FooGallery.utils.url.html">FooGallery.utils.url</a></li>
+								</ul>
+							</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">class</span>
+				<h1><span class="ancestors"><a href="FooGallery.html">FooGallery</a>.</span><span class="name">Template</span></h1>
+				<div class="summary"><p>The primary class for FooGallery, this controls the flow of the plugin across all templates.</p></div>			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-9 main-content">
+						<ol class="breadcrumb">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="list_class.html">Classes</a></li>
+							<li class="active"><a href="FooGallery.html">FooGallery</a>.Template</li>
+						</ol>
+					<section>
+							<dl class="symbol primary">
+								<dt class="symbol-title class collapsible-symbol expanded">
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">Template</span><span class="signature-params">( [&nbsp;<span class="signature-param">options</span> [,&nbsp;<span class="signature-param">element</span>&nbsp;]&nbsp;]&nbsp;)</span><span class="signature-type"></span></h2>
+		<div class="summary"><p>The primary class for FooGallery, this controls the flow of the plugin across all templates.</p></div></dt>
+<dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>options</code></td>
+							<td><span class="param-type">FooGallery~Options</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+							<td class="last">
+									<p>The options for the template.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>element</code></td>
+							<td><span class="param-type">jQuery</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+							<td class="last">
+									<p>The jQuery object of the templates' container element. If not supplied one will be created within the <code>parent</code> element supplied to the <a href="FooGallery.Template.html#initialize">initialize</a> method.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+							<!-- augments -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Augments</label>
+								<div class="col-sm-9">
+										<p class="form-control-static"><a href="FooGallery.utils.Class.html">FooGallery.utils.Class</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3473">line 3473</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+							</dl>
+							<article class="secondary">
+									<h3>Members</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="$el" class="member public"><span class="name">$el</span><span class="signature-type"> :jQuery</span></h4>
+				<div class="summary"><p>The jQuery object for the template container.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3475">line 3475</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="opt" class="member public"><span class="name">opt</span><span class="signature-type"> :FooGallery~Options</span></h4>
+				<div class="summary"><p>The options for the template.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">FooGallery~Options</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3482">line 3482</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="template" class="member public"><span class="name">template</span><span class="signature-type"> :object</span></h4>
+				<div class="summary"><p>Any custom options for the template.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">object</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3489">line 3489</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="id" class="member public"><span class="name">id</span><span class="signature-type"> :string</span></h4>
+				<div class="summary"><p>The ID for the template.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">string</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3496">line 3496</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="createdSelf" class="member public"><span class="name">createdSelf</span><span class="signature-type"> :boolean</span></h4>
+				<div class="summary"><p>Whether or not the template created its' own container element.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">boolean</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3503">line 3503</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="cls" class="member public"><span class="name">cls</span><span class="signature-type"> :FooGallery~CSSClasses</span></h4>
+				<div class="summary"><p>The CSS classes for the template.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">FooGallery~CSSClasses</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3510">line 3510</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="il8n" class="member public"><span class="name">il8n</span><span class="signature-type"> :FooGallery~il8n</span></h4>
+				<div class="summary"><p>The il8n strings for the template.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">FooGallery~il8n</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3517">line 3517</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="sel" class="member public"><span class="name">sel</span><span class="signature-type"> :FooGallery~CSSSelectors</span></h4>
+				<div class="summary"><p>The CSS selectors for the template.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">FooGallery~CSSSelectors</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3524">line 3524</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="items" class="member public"><span class="name">items</span><span class="signature-type"> :<a href="FooGallery.Items.html">FooGallery.Items</a></span></h4>
+				<div class="summary"><p>The item manager for the template.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type"><a href="FooGallery.Items.html">FooGallery.Items</a></span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3531">line 3531</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="pages" class="member public"><span class="signature-attribs">&lt;nullable> </span><span class="name">pages</span><span class="signature-type"> :FooGallery.Paging</span></h4>
+				<div class="summary"><p>The page manager for the template.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">FooGallery.Paging</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3538">line 3538</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title member public collapsible-symbol">
+			<h4 id="state" class="member public"><span class="name">state</span><span class="signature-type"> :<a href="FooGallery.State.html">FooGallery.State</a></span></h4>
+				<div class="summary"><p>The state manager for the template.</p></div></dt>
+<dd class="symbol-details member public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type"><a href="FooGallery.State.html">FooGallery.State</a></span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3545">line 3545</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+									</dl>
+									<h3>Methods</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="initialize" class="function public"><span class="name">initialize</span><span class="signature-params">( [&nbsp;<span class="signature-param">parent</span>&nbsp;]&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;<a href="FooGallery.Template.html">FooGallery.Template</a>>}</span></h4>
+				<div class="summary"><p>Initialize the template.</p></div></dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Once resolved all options, objects and elements required by the template have been parsed or created and the initial load is complete.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>parent</code></td>
+							<td><span class="param-type">jQuery</span> | <span class="param-type">HTMLElement</span> | <span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+							<td class="last">
+									<p>If no element was supplied to the constructor you must supply a parent element for the template to append itself to. This can be a jQuery object, HTMLElement or a CSS selector.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;<a href="FooGallery.Template.html">FooGallery.Template</a>></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-warning"><h5>Fires</h5>		<form class="form-horizontal fires">
+							<div class="form-group">
+								<label class="col-sm-3 control-label fires-event"><a href="FooGallery.Template.html#~event:pre-init.foogallery">"pre-init.foogallery"</a></label>
+								<div class="col-sm-9">
+									<div class="form-control-static fires-summary">Raised before the template is fully initialized.</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label fires-event"><a href="FooGallery.Template.html#~event:init.foogallery">"init.foogallery"</a></label>
+								<div class="col-sm-9">
+									<div class="form-control-static fires-summary">Raised before the template is initialized but after any pre-initialization work is complete.</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label fires-event"><a href="FooGallery.Template.html#~event:post-init.foogallery">"post-init.foogallery"</a></label>
+								<div class="col-sm-9">
+									<div class="form-control-static fires-summary">Raised after the template is initialized but before any post-initialization work is complete.</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label fires-event"><a href="FooGallery.Template.html#~event:ready.foogallery">"ready.foogallery"</a></label>
+								<div class="col-sm-9">
+									<div class="form-control-static fires-summary">Raised after the template is fully initialized and is ready to be interacted with.</div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3574">line 3574</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="create" class="function public"><span class="name">create</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{jQuery}</span></h4>
+				<div class="summary"><p>Create a new container element for the template returning the jQuery object.</p></div></dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>This method is called from within the <a href="FooGallery.Template.html#initialize">initialize</a> method only if a container element is required.</p></div>
+			</div>			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">jQuery</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p>A jQuery object to use as the container for the template.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>The below shows an example of what the returned jQuery objects' outer HTML would look like.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-html"><code class="language-html">&lt;div id&#x3D;&quot;{options.id}&quot; class&#x3D;&quot;{options.cls.container} {options.classes}&quot;&gt;&lt;/div&gt;</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3777">line 3777</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="destroy" class="function public"><span class="name">destroy</span><span class="signature-params">()</span><span class="signature-type"></span></h4>
+				<div class="summary"><p>Destroy the template.</p></div></dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Once this method is called it can not be stopped and the template will be destroyed.</p></div>
+			</div>			<div class="callout callout-warning"><h5>Fires</h5>		<form class="form-horizontal fires">
+							<div class="form-group">
+								<label class="col-sm-3 control-label fires-event"><a href="FooGallery.Template.html#~event:destroy.foogallery">"destroy.foogallery"</a></label>
+								<div class="col-sm-9">
+									<div class="form-control-static fires-summary">Raised before the template is destroyed.</div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3796">line 3796</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="loadAvailable" class="function public"><span class="name">loadAvailable</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>>>}</span></h4>
+				<div class="summary"><p>Check if any available items need to be loaded and loads them.</p></div></dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>>></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p>Resolves with an array of <a href="FooGallery.Item.html">items</a> as the first argument. If no items are loaded this array is empty.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3840">line 3840</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="raise" class="function public"><span class="name">raise</span><span class="signature-params">( <span class="signature-param">eventName</span> [,&nbsp;<span class="signature-param">args</span>&nbsp;]&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{jQuery.Event}</span></h4>
+				<div class="summary"><p>Raises the supplied <code>eventName</code> on the template <a href="FooGallery.Template.html#$el">element</a>.</p></div></dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>This method also executes any listeners set on the template object itself. These listeners are not bound to the element but are executed after the event is raised but before any default logic is executed. The names of these listeners use the following convention; prefix the <code>eventName</code> with <code>&quot;on-&quot;</code> and then camel-case the result. e.g. <code>&quot;pre-init&quot;</code> becomes <code>onPreInit</code>.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>eventName</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes"></td>
+							<td class="last">
+									<p>The name of the event to raise.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>args</code></td>
+							<td><span class="param-type">Array</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+							<td class="last">
+									<p>An additional arguments to supply to the listeners for the event.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">jQuery.Event</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p>The jQuery.Event object or null if no <code>eventName</code> was supplied.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>The following displays a listener for the <code>&quot;pre-init.foogallery&quot;</code> event in a sub-classed template.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">FooGallery.MyTemplate &#x3D; FooGallery.Template.extend({	onPreInit: function(event, template){		// do something	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3860">line 3860</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".extend" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">extend</span><span class="signature-params">( [&nbsp;<span class="signature-param">definition</span>&nbsp;]&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{function}</span></h4>
+				<div class="summary"><p>Creates a new class that inherits from this one which in turn allows itself to be extended.</p></div></dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>Every class created using this method has both the <a href="FooGallery.utils.Class.html#.extend">extend</a> and <a href="FooGallery.utils.Class.html#.override">override</a> static methods added to it to allow it to be extended.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>definition</code></td>
+							<td><span class="param-type">Object</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+							<td class="last">
+									<p>An object containing any methods to implement/override.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">function</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p>A new class that inherits from the base class.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>The below shows an example of how to implement inheritance using this method.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">// create a base Person classvar Person &#x3D; FooGallery.utils.Class.extend({	construct: function(isDancing){		this.dancing &#x3D; isDancing;	},	dance: function(){		return this.dancing;	}});var Ninja &#x3D; Person.extend({	construct: function(){		// Call the inherited version of construct()		this._super( false );	},	dance: function(){		// Call the inherited version of dance()		return this._super();	},	swingSword: function(){		return true;	}});var p &#x3D; new Person(true);console.log( p.dance() ); // &#x3D;&gt; truevar n &#x3D; new Ninja();console.log( n.dance() ); // &#x3D;&gt; falseconsole.log( n.swingSword() ); // &#x3D;&gt; trueconsole.log(	p instanceof Person &amp;&amp; p.constructor &#x3D;&#x3D;&#x3D; Person &amp;&amp; p instanceof FooGallery.utils.Class	&amp;&amp; n instanceof Ninja &amp;&amp; n.constructor &#x3D;&#x3D;&#x3D; Ninja &amp;&amp; n instanceof Person &amp;&amp; n instanceof FooGallery.utils.Class); // &#x3D;&gt; true</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="// create a base Person classvar Person &#x3D; FooGallery.utils.Class.extend({	construct: function(isDancing){		this.dancing &#x3D; isDancing;	},	dance: function(){		return this.dancing;	}});var Ninja &#x3D; Person.extend({	construct: function(){		// Call the inherited version of construct()		this._super( false );	},	dance: function(){		// Call the inherited version of dance()		return this._super();	},	swingSword: function(){		return true;	}});var p &#x3D; new Person(true);console.log( p.dance() ); // &#x3D;&gt; truevar n &#x3D; new Ninja();console.log( n.dance() ); // &#x3D;&gt; falseconsole.log( n.swingSword() ); // &#x3D;&gt; trueconsole.log(	p instanceof Person &amp;&amp; p.constructor &#x3D;&#x3D;&#x3D; Person &amp;&amp; p instanceof FooGallery.utils.Class	&amp;&amp; n instanceof Ninja &amp;&amp; n.constructor &#x3D;&#x3D;&#x3D; Ninja &amp;&amp; n instanceof Person &amp;&amp; n instanceof FooGallery.utils.Class); // &#x3D;&gt; true">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2167">line 2167</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id=".override" class="function public"><span class="signature-attribs">&lt;static> </span><span class="name">override</span><span class="signature-params">( <span class="signature-param">name</span>, <span class="signature-param">fn</span>&nbsp;)</span><span class="signature-type"></span></h4>
+				<div class="summary"><p>Overrides a single method on this class.</p></div></dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>This is a helper method for overriding a single function of a <a href="FooGallery.utils.Class.html">FooGallery.utils.Class</a> or one of its child classes. This uses the <a href="FooGallery.utils.fn.html#.addOrOverride">FooGallery.utils.fn.addOrOverride</a> method internally and simply provides the correct prototype.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>name</code></td>
+							<td><span class="param-type">string</span></td>
+							<td class="last">
+									<p>The name of the function to override.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>fn</code></td>
+							<td><span class="param-type">function</span></td>
+							<td class="last">
+									<p>The new function to override with, the <code>_super</code> method will be made available within this function.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>The below example wraps the <code>Person.prototype.dance</code> method with a new one that inverts the result. Note the override applies even to instances of the class that are already created.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">var Person &#x3D; FooGallery.utils.Class.extend({  construct: function(isDancing){    this.dancing &#x3D; isDancing;  },  dance: function(){    return this.dancing;  }});var p &#x3D; new Person(true);console.log( p.dance() ); // &#x3D;&gt; truePerson.override(&quot;dance&quot;, function(){	// Call the original version of dance()	return !this._super();});console.log( p.dance() ); // &#x3D;&gt; false</code></pre>
+					</div>
+					<p class="example-run">
+						<input type="hidden" value="var Person &#x3D; FooGallery.utils.Class.extend({  construct: function(isDancing){    this.dancing &#x3D; isDancing;  },  dance: function(){    return this.dancing;  }});var p &#x3D; new Person(true);console.log( p.dance() ); // &#x3D;&gt; truePerson.override(&quot;dance&quot;, function(){	// Call the original version of dance()	return !this._super();});console.log( p.dance() ); // &#x3D;&gt; false">
+						<button type="button" class="btn btn-default code-run">Run</button>
+					</p>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-2235">line 2235</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+									</dl>
+									<h3>Type Definitions</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title typedef public collapsible-symbol">
+			<h4 id="~Options" class="typedef public"><span class="name">Options</span></h4>
+				<div class="summary"><p>An object containing all default template options.</p></div></dt>
+<dd class="symbol-details typedef public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+							<th>Default</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>id</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/>&lt;nullable&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>The id for the template. This is only required if creating a template without a pre-existing container element that has an <code>id</code> attribute.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>type</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;default&quot;</td>
+							<td class="last">
+									<p>The type of template to load. If no container element exists to parse the type from this must be supplied so the correct type of template is loaded.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>classes</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;&quot;</td>
+							<td class="last">
+									<p>A space delimited string of any additional CSS classes to append to the container element of the template.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>on</code></td>
+							<td><span class="param-type">object</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>{}</td>
+							<td class="last">
+									<p>An object containing any template events to bind to.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>lazy</code></td>
+							<td><span class="param-type">boolean</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>true</td>
+							<td class="last">
+									<p>Whether or not to enable lazy loading of images.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>viewport</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>200</td>
+							<td class="last">
+									<p>The number of pixels to inflate the viewport by when checking to lazy load items.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html#~Options">FooGallery.Item~Options</a>></span> | <span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span> | <span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>[]</td>
+							<td class="last">
+									<p>An array of items to load when required. A url can be provided and the items will be fetched using an ajax call, the response should be a properly formatted JSON array of <a href="FooGallery.Item.html#~Options">item</a> object.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>delay</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>100</td>
+							<td class="last">
+									<p>The number of milliseconds to delay the initialization of a template.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>throttle</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>50</td>
+							<td class="last">
+									<p>The number of milliseconds to wait once scrolling has stopped before performing any work.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>timeout</code></td>
+							<td><span class="param-type">number</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>60000</td>
+							<td class="last">
+									<p>The number of milliseconds to wait before forcing a timeout when loading items.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>src</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;data-src&quot;</td>
+							<td class="last">
+									<p>The name of the attribute to retrieve an images src url from.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>srcset</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;data-srcset&quot;</td>
+							<td class="last">
+									<p>The name of the attribute to retrieve an images srcset url from.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>placeholder</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>The url to an image to use as a placeholder prior to an image being loaded.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>error</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>The url to an image to use in case an item fails to load.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type">object</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>{}</td>
+							<td class="last">
+									<p>An object containing any additional custom options for the template.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>cls</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html#~CSSClasses">FooGallery.Template~CSSClasses</a></span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>An object containing all CSS classes for the template.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>sel</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html#~CSSSelectors">FooGallery.Template~CSSSelectors</a></span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>An object containing all CSS selectors for the template.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>il8n</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html#~il8n">FooGallery.Template~il8n</a></span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>An object containing all il8n strings for the template.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html#~Options">FooGallery.Item~Options</a></span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>An object containing the default values for all items.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>state</code></td>
+							<td><span class="param-type"><a href="FooGallery.State.html#~Options">FooGallery.State~Options</a></span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>An object containing the state options for the template.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>paging</code></td>
+							<td><span class="param-type">FooGallery.Paging~Options</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>An object containing the default paging options for the template.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">object</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3947">line 3947</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title typedef public collapsible-symbol">
+			<h4 id="~CSSClasses" class="typedef public"><span class="name">CSSClasses</span></h4>
+				<div class="summary"><p>An object containing all CSS classes for the default template.</p></div></dt>
+<dd class="symbol-details typedef public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+							<th>Default</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>container</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;foogallery&quot;</td>
+							<td class="last">
+									<p>The base CSS class names to apply to the container element.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html#~CSSClasses">FooGallery.Item~CSSClasses</a></span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>A simple object containing the CSS classes used by an item.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">object</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3973">line 3973</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title typedef public collapsible-symbol">
+			<h4 id="~il8n" class="typedef public"><span class="name">il8n</span></h4>
+				<div class="summary"><p>An object containing all il8n strings for the default template.</p></div></dt>
+<dd class="symbol-details typedef public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">object</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3980">line 3980</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title typedef public collapsible-symbol">
+			<h4 id="~CSSSelectors" class="typedef public"><span class="name">CSSSelectors</span></h4>
+				<div class="summary"><p>An object containing all CSS selectors for the default template.</p></div></dt>
+<dd class="symbol-details typedef public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>This object is automatically generated from a <a href="FooGallery.Template.html#~CSSClasses">classes</a> object and its properties mirror those except the space delimited string of class names is converted into a CSS selector.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Properties</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+							<th>Default</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>container</code></td>
+							<td><span class="param-type">string</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>&quot;.foogallery&quot;</td>
+							<td class="last">
+									<p>The selector for the base CSS class names for the container element.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type">FooGallery.Item~CSSSelectors</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td></td>
+							<td class="last">
+									<p>An object containing the CSS selectors for an item.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">object</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3985">line 3985</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+									</dl>
+									<h3>Events</h3>
+									<dl class="symbol">
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:pre-init.foogallery" class="event public"><span class="name">"pre-init.foogallery"</span></h4>
+				<div class="summary"><p>Raised before the template is fully initialized.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>At this point in the initialization chain the <a href="FooGallery.Template.html#opt">opt</a> property has not undergone any additional parsing and is just the result of the default options being extended with any user supplied ones.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p>Resolved once the pre-initialization work is complete, rejected if an error occurs or execution is prevented.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;pre-init.foogallery&quot;: function(event, template){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent the template being initialized.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;pre-init.foogallery&quot;: function(event, template){			if (&quot;some condition&quot;){				// stop the template being initialized				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3613">line 3613</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:init.foogallery" class="event public"><span class="name">"init.foogallery"</span></h4>
+				<div class="summary"><p>Raised before the template is initialized but after any pre-initialization work is complete.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>At this point in the initialization chain all additional option parsing has been completed but the base components such as the items or state are not yet initialized.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p>Resolved once the initialization work is complete, rejected if an error occurs or execution is prevented.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;init.foogallery&quot;: function(event, template){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent the template being initialized.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;init.foogallery&quot;: function(event, template){			if (&quot;some condition&quot;){				// stop the template being initialized				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>You can also prevent the default logic and replace it with your own by calling the <code>preventDefault</code> method on the <code>event</code> object and returning a promise.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;init.foogallery&quot;: function(event, template){			// stop the default logic			event.preventDefault();			// you can execute the default logic by calling the handler directly yourself			// var promise &#x3D; template.onInit();			// replace the default logic with your own			return Promise;		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3653">line 3653</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:post-init.foogallery" class="event public"><span class="name">"post-init.foogallery"</span></h4>
+				<div class="summary"><p>Raised after the template is initialized but before any post-initialization work is complete.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>At this point in the initialization chain all options, objects and elements required by the template have been parsed or created however the initial state has not been set yet and no items have been loaded.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p>Resolved once the post-initialization work is complete, rejected if an error occurs or execution is prevented.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;post-init.foogallery&quot;: function(event, template){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent the template being initialized.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;post-init.foogallery&quot;: function(event, template){			if (&quot;some condition&quot;){				// stop the template being initialized				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>You can also prevent the default logic and replace it with your own by calling the <code>preventDefault</code> method on the <code>event</code> object and returning a promise.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;post-init.foogallery&quot;: function(event, template){			// stop the default logic			event.preventDefault();			// you can execute the default logic by calling the handler directly yourself			// var promise &#x3D; template.onPostInit();			// replace the default logic with your own			return Promise;		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3700">line 3700</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:ready.foogallery" class="event public"><span class="name">"ready.foogallery"</span></h4>
+				<div class="summary"><p>Raised after the template is fully initialized and is ready to be interacted with.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description"><p>This event is raised after all post-initialization work such as setting the initial state and performing the first load are completed.</p></div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;ready.foogallery&quot;: function(event, template){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3751">line 3751</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:destroy.foogallery" class="event public"><span class="name">"destroy.foogallery"</span></h4>
+				<div class="summary"><p>Raised before the template is destroyed.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;destroy.foogallery&quot;: function(event, template){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-3805">line 3805</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:destroy-item.foogallery" class="event public"><span class="name">"destroy-item.foogallery"</span></h4>
+				<div class="summary"><p>Raised when a template destroys an item.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html">FooGallery.Item</a></span></td>
+							<td class="last">
+									<p>The item to destroy.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">boolean</span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p><code>true</code> if the <a href="FooGallery.Item.html"><code>item</code></a> has been successfully destroyed.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;destroy-item.foogallery&quot;: function(event, template, item){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent the <code>item</code> being destroyed.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;destroy-item.foogallery&quot;: function(event, template, item){			if (&quot;some condition&quot;){				// stop the item being destroyed				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>You can also prevent the default logic and replace it with your own by calling the <code>preventDefault</code> method on the <code>event</code> object.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;destroy-item.foogallery&quot;: function(event, template, item){			// stop the default logic			event.preventDefault();			// replacing it with your own destroying the item yourself			item.$el.off(&quot;.foogallery&quot;).remove();			item.$el &#x3D; null;			...			// once all destroy work is complete you must set tmpl to null			item.tmpl &#x3D; null;		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-4545">line 4545</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:parse-item.foogallery" class="event public"><span class="name">"parse-item.foogallery"</span></h4>
+				<div class="summary"><p>Raised when an item needs to parse properties from an element.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html">FooGallery.Item</a></span></td>
+							<td class="last">
+									<p>The item to populate.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>$element</code></td>
+							<td><span class="param-type">jQuery</span></td>
+							<td class="last">
+									<p>The jQuery object of the element to parse.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;parse-item.foogallery&quot;: function(event, template, item, $element){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent the <code>item</code> properties being parsed from the <code>element</code>.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;parse-item.foogallery&quot;: function(event, template, item, $element){			if (&quot;some condition&quot;){				// stop the item being parsed				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>You can also prevent the default logic and replace it with your own by calling the <code>preventDefault</code> method on the <code>event</code> object and then populating the <code>item</code> properties from the <code>element</code>.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;parse-item.foogallery&quot;: function(event, template, item, $element){			// stop the default logic			event.preventDefault();			// replacing it with your own setting each property of the item yourself			item.$el &#x3D; $element;			...			// once all properties are set you must set isParsed to true			item.isParsed &#x3D; true;		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-4605">line 4605</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:parsed-item.foogallery" class="event public"><span class="name">"parsed-item.foogallery"</span></h4>
+				<div class="summary"><p>Raised after an item has been parsed from an element.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html">FooGallery.Item</a></span></td>
+							<td class="last">
+									<p>The item that was parsed.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>$element</code></td>
+							<td><span class="param-type">jQuery</span></td>
+							<td class="last">
+									<p>The jQuery object of the element that was parsed.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;parsed-item.foogallery&quot;: function(event, template, item, $element){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-4679">line 4679</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:create-item.foogallery" class="event public"><span class="name">"create-item.foogallery"</span></h4>
+				<div class="summary"><p>Raised when an item needs to create its' elements.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html">FooGallery.Item</a></span></td>
+							<td class="last">
+									<p>The item to create the elements for.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;create-item.foogallery&quot;: function(event, template, item){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent the <code>item</code> being created.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;create-item.foogallery&quot;: function(event, template, item){			if (&quot;some condition&quot;){				// stop the item being created				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>You can also prevent the default logic and replace it with your own by calling the <code>preventDefault</code> method on the <code>event</code> object.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;create-item.foogallery&quot;: function(event, template, item){			// stop the default logic			event.preventDefault();			// replacing it with your own creating each element property of the item yourself			item.$el &#x3D; $(&quot;&lt;div/&gt;&quot;);			...			// once all elements are created you must set isCreated to true			item.isCreated &#x3D; true;		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-4711">line 4711</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:created-item.foogallery" class="event public"><span class="name">"created-item.foogallery"</span></h4>
+				<div class="summary"><p>Raised after an items' elements have been created.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html">FooGallery.Item</a></span></td>
+							<td class="last">
+									<p>The item that was created.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;created-item.foogallery&quot;: function(event, template, item){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-4801">line 4801</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:append-item.foogallery" class="event public"><span class="name">"append-item.foogallery"</span></h4>
+				<div class="summary"><p>Raised when an item needs to append its elements to the template.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html">FooGallery.Item</a></span></td>
+							<td class="last">
+									<p>The item to append to the template.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;append-item.foogallery&quot;: function(event, template, item){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent the <code>item</code> being appended.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;append-item.foogallery&quot;: function(event, template, item){			if (&quot;some condition&quot;){				// stop the item being appended				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>You can also prevent the default logic and replace it with your own by calling the <code>preventDefault</code> method on the <code>event</code> object.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;append-item.foogallery&quot;: function(event, template, item){			// stop the default logic			event.preventDefault();			// replacing it with your own appending the item to the template			item.$el.appendTo(template.$el);			...			// once the item is appended you must set isAttached to true			item.isAttached &#x3D; true;		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-4833">line 4833</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:appended-item.foogallery" class="event public"><span class="name">"appended-item.foogallery"</span></h4>
+				<div class="summary"><p>Raised after an item has appended its' elements to the template.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html">FooGallery.Item</a></span></td>
+							<td class="last">
+									<p>The item that was appended.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;appended-item.foogallery&quot;: function(event, template, item){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-4881">line 4881</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:detach-item.foogallery" class="event public"><span class="name">"detach-item.foogallery"</span></h4>
+				<div class="summary"><p>Raised when an item needs to detach its' elements from the template.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html">FooGallery.Item</a></span></td>
+							<td class="last">
+									<p>The item to detach from the template.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;detach-item.foogallery&quot;: function(event, template, item){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent the <code>item</code> being detached.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;detach-item.foogallery&quot;: function(event, template, item){			if (&quot;some condition&quot;){				// stop the item being detached				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>You can also prevent the default logic and replace it with your own by calling the <code>preventDefault</code> method on the <code>event</code> object.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;detach-item.foogallery&quot;: function(event, template, item){			// stop the default logic			event.preventDefault();			// replacing it with your own detaching the item from the template			item.$el.detach();			...			// once the item is detached you must set isAttached to false			item.isAttached &#x3D; false;		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-4911">line 4911</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:detached-item.foogallery" class="event public"><span class="name">"detached-item.foogallery"</span></h4>
+				<div class="summary"><p>Raised after an item has detached its' elements from the template.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>item</code></td>
+							<td><span class="param-type"><a href="FooGallery.Item.html">FooGallery.Item</a></span></td>
+							<td class="last">
+									<p>The item that was detached.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;detached-item.foogallery&quot;: function(event, template, item){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-4959">line 4959</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:destroy-items.foogallery" class="event public"><span class="name">"destroy-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised before the template destroys its' items.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items about to be destroyed.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;destroy-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5268">line 5268</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:destroyed-items.foogallery" class="event public"><span class="name">"destroyed-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised after the template has destroyed items.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items destroyed.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;destroyed-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5288">line 5288</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:make-items.foogallery" class="event public"><span class="name">"make-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised before the template makes an array of elements or item options into an array of <a href="FooGallery.Item.html">item</a> objects.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;HTMLElement></span> | <span class="param-type">Array.&lt;<a href="FooGallery.Item.html#~Options">FooGallery.Item~Options</a>></span></td>
+							<td class="last">
+									<p>The array of Nodes or item options.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Array.&lt;HTMLElement></span> | <span class="param-type">Array.&lt;<a href="FooGallery.Item.html#~Options">FooGallery.Item~Options</a>></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description"><p>A filtered list of items to make.</p></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;make-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent any items being made.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;make-items.foogallery&quot;: function(event, template, items){			if (&quot;some condition&quot;){				// stop any items being made				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5442">line 5442</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:made-items.foogallery" class="event public"><span class="name">"made-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised after the template has made an array of <a href="FooGallery.Item.html">item</a> objects.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items made, this includes parsed items.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;made-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5485">line 5485</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:parsed-items.foogallery" class="event public"><span class="name">"parsed-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised after the template has parsed any elements into an array of <a href="FooGallery.Item.html">item</a> objects.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items parsed.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;parsed-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5503">line 5503</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:create-items.foogallery" class="event public"><span class="name">"create-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised before the template creates the <code>items</code> elements.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+							<th>Attributes</th>
+							<th>Default</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+								<td class="attributes"></td>
+								<td></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+								<td class="attributes"></td>
+								<td></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+								<td class="attributes"></td>
+								<td></td>
+							<td class="last">
+									<p>The array of items to create.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>append</code></td>
+							<td><span class="param-type">boolean</span></td>
+								<td class="attributes">&lt;optional&gt;<br/></td>
+								<td>false</td>
+							<td class="last">
+									<p>Whether or not to automatically append the item after it is created.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;create-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent any items being created.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;create-items.foogallery&quot;: function(event, template, items){			if (&quot;some condition&quot;){				// stop any items being created				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5539">line 5539</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:created-items.foogallery" class="event public"><span class="name">"created-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised after the template has created the <code>items</code> elements.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items created.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;created-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5573">line 5573</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:append-items.foogallery" class="event public"><span class="name">"append-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised before the template appends any items to itself.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items to append.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;append-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent any items being appended.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;append-items.foogallery&quot;: function(event, template, items){			if (&quot;some condition&quot;){				// stop any items being appended				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5606">line 5606</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:appended-items.foogallery" class="event public"><span class="name">"appended-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised after the template has appended items to itself.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items appended.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;appended-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5639">line 5639</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:detach-items.foogallery" class="event public"><span class="name">"detach-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised before the template detaches any items from itself.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items to detach.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;detach-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent any items being detached.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;detach-items.foogallery&quot;: function(event, template, items){			if (&quot;some condition&quot;){				// stop any items being detached				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5671">line 5671</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:detached-items.foogallery" class="event public"><span class="name">"detached-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised after the template has detached items from itself.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items detached.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;detached-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5704">line 5704</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:load-items.foogallery" class="event public"><span class="name">"load-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised before the template loads any items.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items to load.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;load-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+					<div class="example-caption"><p>Calling the <code>preventDefault</code> method on the <code>event</code> object will prevent any <code>items</code> being loaded.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;load-items.foogallery&quot;: function(event, template, items){			if (&quot;some condition&quot;){				// stop any items being loaded				event.preventDefault();			}		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5737">line 5737</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title event public collapsible-symbol">
+			<h4 id="~event:loaded-items.foogallery" class="event public"><span class="name">"loaded-items.foogallery"</span></h4>
+				<div class="summary"><p>Raised after the template has loaded items.</p></div></dt>
+<dd class="symbol-details event public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>event</code></td>
+							<td><span class="param-type">jQuery.Event</span></td>
+							<td class="last">
+									<p>The jQuery.Event object for the current event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>template</code></td>
+							<td><span class="param-type"><a href="FooGallery.Template.html">FooGallery.Template</a></span></td>
+							<td class="last">
+									<p>The template raising the event.</p>
+							</td>
+						</tr>
+						<tr>
+								<td><code>items</code></td>
+							<td><span class="param-type">Array.&lt;<a href="FooGallery.Item.html">FooGallery.Item</a>></span></td>
+							<td class="last">
+									<p>The array of items that were loaded.</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-example"><h5>Examples</h5>		<div class="example-caption"><p>To listen for this event and perform some action when it occurs you would bind to it as follows.</p></div>
+					<div class="example-code">
+						<pre class="prettyprint source language-javascript"><code class="language-javascript">$(&quot;.foogallery&quot;).foogallery({	on: {		&quot;loaded-items.foogallery&quot;: function(event, template, items){			// do something		}	}});</code></pre>
+					</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+							<!-- type -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Type</label>
+								<div class="col-sm-9">
+									<div class="form-control-static type-names"><span class="param-type">jQuery.Event</span></div>
+								</div>
+							</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="core_js_foogallery.js.html">core/js/foogallery.js</a>, <a href="core_js_foogallery.js.html#line-5770">line 5770</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+									</dl>
+							</article>
+					</section>
+			</div>
+				<div class="col-md-3 side-content">
+					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+				</div>
+		</div>
+	</div>
+	<footer>
+				<div class="copyright">FooGallery Copyright © 2016</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on 28th Jun 2017 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+		<script src="../dist/core/js/foogallery.js"></script>
+	
+</body>
+</html>
