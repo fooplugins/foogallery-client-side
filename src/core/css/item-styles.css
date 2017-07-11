@@ -94,3 +94,9 @@
 .foogallery.fg-dark.fg-shadow-inset-large .fg-thumb:after {
 	box-shadow: inset 0 1px 15px 0 rgba(0,0,0,0.3);
 }
+
+.foogallery.fg-round-full.fg-shadow-inset-small .fg-thumb:after,
+.foogallery.fg-round-full.fg-shadow-inset-medium .fg-thumb:after,
+.foogallery.fg-round-full.fg-shadow-inset-large .fg-thumb:after {
+	border-radius: 50%;
+}

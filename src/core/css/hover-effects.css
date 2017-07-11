@@ -1,184 +1,187 @@
 /* Hover Effects */
-/* Icon & Overlay */
-.foogallery.fg-hover-zoom .fg-thumb:before,
-.foogallery.fg-hover-zoom2 .fg-thumb:before,
-.foogallery.fg-hover-zoom3 .fg-thumb:before,
-.foogallery.fg-hover-plus .fg-thumb:before,
-.foogallery.fg-hover-circle-plus .fg-thumb:before,
-.foogallery.fg-hover-eye .fg-thumb:before,
-.foogallery.fg-hover-external .fg-thumb:before,
-.foogallery.fg-hover-tint .fg-thumb:before {
-	content: "";
-	display: block;
-	position: absolute;
-	visibility: hidden;
-	opacity: 0;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	z-index: 8;
-	background: rgba(0,0,0,0.5) no-repeat center center;
-	background-size: 32px 32px;
-	transition: all .3s linear;
+.foogallery.fg-caption-hover.fg-hover-fade .fg-caption,
+.foogallery.fg-caption-hover.fg-hover-drop .fg-caption,
+.foogallery.fg-caption-hover.fg-hover-push .fg-caption,
+.foogallery.fg-caption-hover.fg-hover-colorize .fg-caption,
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-caption,
+.foogallery.fg-hover-fade .fg-thumb:before,
+.foogallery.fg-hover-drop .fg-thumb:before,
+.foogallery.fg-hover-push .fg-thumb,
+.foogallery.fg-hover-colorize .fg-thumb:before,
+.foogallery.fg-hover-grayscale .fg-thumb:before,
+.foogallery.fg-hover-scale .fg-item,
+.foogallery.fg-hover-colorize .fg-image,
+.foogallery.fg-hover-grayscale .fg-image {
+	transition-timing-function: ease;
+	transition-duration: 300ms;
 }
 
-.foogallery.fg-hover-zoom .fg-thumb:hover:before,
-.foogallery.fg-hover-zoom2 .fg-thumb:hover:before,
-.foogallery.fg-hover-zoom3 .fg-thumb:hover:before,
-.foogallery.fg-hover-plus .fg-thumb:hover:before,
-.foogallery.fg-hover-circle-plus .fg-thumb:hover:before,
-.foogallery.fg-hover-eye .fg-thumb:hover:before,
-.foogallery.fg-hover-external .fg-thumb:hover:before,
-.foogallery.fg-hover-tint .fg-thumb:hover:before,
-.foogallery.fg-hover-zoom .fg-thumb:focus:before,
-.foogallery.fg-hover-zoom2 .fg-thumb:focus:before,
-.foogallery.fg-hover-zoom3 .fg-thumb:focus:before,
-.foogallery.fg-hover-plus .fg-thumb:focus:before,
-.foogallery.fg-hover-circle-plus .fg-thumb:focus:before,
-.foogallery.fg-hover-eye .fg-thumb:focus:before,
-.foogallery.fg-hover-external .fg-thumb:focus:before,
-.foogallery.fg-hover-tint .fg-thumb:focus:before {
+/* Fade */
+.foogallery.fg-hover-fade .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-fade .fg-caption {
+	display: block;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	transition-property: visibility, opacity;
+}
+.foogallery.fg-hover-fade .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-fade .fg-item-inner:hover .fg-caption {
 	visibility: visible;
 	opacity: 1;
 }
-
-.foogallery.fg-hover-zoom .fg-thumb:before {
-	background-image: url('../img/zoom.png');
+.foogallery.fg-caption-hover.fg-hover-fade .fg-caption-inner {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+.foogallery.fg-caption-hover.fg-hover-fade .fg-thumb:before {
+	display: none;
 }
 
-.foogallery.fg-hover-zoom2 .fg-thumb:before {
-	background-image: url('../img/zoom2.png');
+/* Drop */
+.foogallery.fg-hover-drop .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-drop .fg-caption {
+	display: block;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	transition-property: transform;
+	transform: translateY(-100%);
+	visibility: visible;
+	opacity: 1;
+}
+.foogallery.fg-hover-drop .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-drop .fg-item-inner:hover .fg-caption {
+	transform: translateY(0);
+}
+.foogallery.fg-caption-hover.fg-hover-drop .fg-caption-inner {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+.foogallery.fg-caption-hover.fg-hover-drop .fg-thumb:before {
+	display: none;
 }
 
-.foogallery.fg-hover-zoom3 .fg-thumb:before {
-	background-image: url('../img/zoom3.png');
+/* Push */
+.foogallery.fg-hover-push .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-push .fg-caption {
+	display: block;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	transform: translateX(100%);
+	visibility: visible;
+	opacity: 1;
+}
+.foogallery.fg-hover-push .fg-thumb,
+.foogallery.fg-caption-hover.fg-hover-push .fg-caption {
+	transition-property: transform;
+}
+.foogallery.fg-caption-hover.fg-hover-push .fg-item-inner:hover .fg-caption {
+	transform: translateY(0);
+}
+.foogallery.fg-hover-push .fg-item-inner:hover .fg-thumb,
+.foogallery.fg-caption-hover.fg-hover-push .fg-item-inner:hover .fg-thumb {
+	transform: translateX(-100%);
+}
+.foogallery.fg-caption-hover.fg-hover-push .fg-item-inner .fg-caption-inner {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+.foogallery.fg-caption-hover.fg-hover-push .fg-thumb:before {
+	display: none;
 }
 
-.foogallery.fg-hover-plus .fg-thumb:before {
-	background-image: url('../img/plus.png');
+/* Scale */
+.foogallery.fg-hover-scale .fg-item {
+	transition-property: transform;
+	z-index: 4;
 }
 
-.foogallery.fg-hover-circle-plus .fg-thumb:before {
-	background-image: url('../img/circle-plus.png');
+.foogallery.fg-hover-scale .fg-item:hover {
+	transform: scale(1.048);
+	z-index: 10;
 }
-
-.foogallery.fg-hover-eye .fg-thumb:before {
-	background-image: url('../img/eye.png');
+.foogallery.fg-hover-scale .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-scale .fg-caption {
+	display: block;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	transition-property: visibility, opacity;
 }
-
-.foogallery.fg-hover-external .fg-thumb:before {
-	background-image: url('../img/external.png');
+.foogallery.fg-hover-scale .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-scale .fg-item-inner:hover .fg-caption {
+	visibility: visible;
+	opacity: 1;
 }
-
-/* @2x Images (Pixel Ratio of 1.25+) */
-@media only screen and (-o-min-device-pixel-ratio: 5/4),
-only screen and (-webkit-min-device-pixel-ratio: 1.25),
-only screen and (min-device-pixel-ratio: 1.25),
-only screen and (min-resolution: 1.25dppx) {
-
-	.foogallery.fg-hover-zoom .fg-thumb:before {
-		background-image: url('../img/zoom@2x.png');
-	}
-
-	.foogallery.fg-hover-zoom2 .fg-thumb:before {
-		background-image: url('../img/zoom2@2x.png');
-	}
-
-	.foogallery.fg-hover-zoom3 .fg-thumb:before {
-		background-image: url('../img/zoom3@2x.png');
-	}
-
-	.foogallery.fg-hover-plus .fg-thumb:before{
-		background-image: url('../img/plus@2x.png');
-	}
-
-	.foogallery.fg-hover-circle-plus .fg-thumb:before {
-		background-image: url('../img/circle-plus@2x.png');
-	}
-
-	.foogallery.fg-hover-eye .fg-thumb:before {
-		background-image: url('../img/eye@2x.png');
-	}
-
-	.foogallery.fg-hover-external .fg-thumb:before {
-		background-image: url('../img/external@2x.png');
-	}
-
+.foogallery.fg-caption-hover.fg-hover-scale .fg-caption-inner {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
 }
-
-/* @3x Images (Pixel Ratio of 2.25+) */
-@media only screen and (-o-min-device-pixel-ratio: 9/4),
-only screen and (-webkit-min-device-pixel-ratio: 2.25),
-only screen and (min-device-pixel-ratio: 2.25),
-only screen and (min-resolution: 2.25dppx) {
-
-	.foogallery.fg-hover-zoom .fg-thumb:before {
-		background-image: url('../img/zoom@3x.png');
-	}
-
-	.foogallery.fg-hover-zoom2 .fg-thumb:before {
-		background-image: url('../img/zoom2@3x.png');
-	}
-
-	.foogallery.fg-hover-zoom3 .fg-thumb:before {
-		background-image: url('../img/zoom3@3x.png');
-	}
-
-	.foogallery.fg-hover-plus .fg-thumb:before{
-		background-image: url('../img/plus@3x.png');
-	}
-
-	.foogallery.fg-hover-circle-plus .fg-thumb:before {
-		background-image: url('../img/circle-plus@3x.png');
-	}
-
-	.foogallery.fg-hover-eye .fg-thumb:before {
-		background-image: url('../img/eye@3x.png');
-	}
-
-	.foogallery.fg-hover-external .fg-thumb:before {
-		background-image: url('../img/external@3x.png');
-	}
-
+.foogallery.fg-caption-hover.fg-hover-scale .fg-thumb:before {
+	display: none;
 }
 
 /* Colorize */
-.foogallery.fg-hover-color .fg-thumb:before {
-	background: none;
-}
-.foogallery.fg-hover-color .fg-image {
-	background-image: none;
-	background-color: transparent;
+.foogallery.fg-hover-colorize .fg-image {
 	/* Firefox 10+, Firefox on Android */
 	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'saturate\' values=\'0\'/></filter></svg>#grayscale");
 	/* IE 6-9 */
 	filter: gray;
 	/* Chrome 19+, Safari 6+, Safari 6+ iOS */
 	-webkit-filter: grayscale(100%);
-
-	-webkit-transition: -webkit-filter .3s linear;
-	transition: filter .3s linear;
+	-webkit-transition-property: -webkit-filter;
+	transition-property: filter;
 }
-.foogallery.fg-hover-color .fg-thumb:hover .fg-image {
+.foogallery.fg-hover-colorize .fg-item-inner:hover .fg-image {
 	-webkit-filter: none;
 	filter: none;
+}
+.foogallery.fg-hover-colorize .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-colorize .fg-caption {
+	display: block;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	transition-property: visibility, opacity;
+}
+.foogallery.fg-hover-colorize .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-colorize .fg-item-inner:hover .fg-caption {
+	visibility: visible;
 	opacity: 1;
+}
+.foogallery.fg-caption-hover.fg-hover-colorize .fg-caption-inner {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+.foogallery.fg-caption-hover.fg-hover-colorize .fg-thumb:before {
+	display: none;
 }
 
 /* Grayscale */
-.foogallery.fg-hover-gray .fg-thumb:before {
-	background: none;
+.foogallery.fg-hover-grayscale .fg-image {
+	-webkit-filter: none;
+	filter: none;
+	-webkit-transition-property: -webkit-filter;
+	transition-property: filter;
 }
-.foogallery.fg-hover-gray .fg-image {
-	background-image: none;
-	background-color: transparent;
-	-webkit-transition: -webkit-filter .3s linear;
-	-moz-transition: filter .3s linear;
-	-o-transition: filter .3s linear;
-	transition: filter .3s linear;
-}
-.foogallery.fg-hover-gray .fg-thumb:hover .fg-image {
+.foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-image {
 	/* For Webkit browsers */
 	-webkit-filter: grayscale(1);
 	-webkit-filter: grayscale(100%);
@@ -188,22 +191,26 @@ only screen and (min-resolution: 2.25dppx) {
 	filter: gray;
 	opacity: 1;
 }
-
-/* Scale */
-.foogallery.fg-hover-scale .fg-item {
-	transition-timing-function: ease;
-	transition-duration: 300ms;
-	transition-property: transform;
-	z-index: 4;
+.foogallery.fg-hover-grayscale .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-caption {
+	display: block;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	transition-property: visibility, opacity;
 }
-
-.foogallery.fg-hover-scale .fg-item:hover {
-	transform: scale(1.048);
-	z-index: 10;
+.foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-item-inner:hover .fg-caption {
+	visibility: visible;
+	opacity: 1;
 }
-
-/* None */
-.foogallery.fg-hover-none .fg-thumb:before,
-.foogallery.fg-hover-none .fg-thumb:before:hover {
-	background: none;
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-caption-inner {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-thumb:before {
+	display: none;
 }

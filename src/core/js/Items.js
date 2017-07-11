@@ -22,6 +22,9 @@
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
+			// add the .all caption selector
+			var cls = self.tmpl.cls.item.caption;
+			self.tmpl.sel.item.caption.all = _utils.selectify([cls.elem, cls.inner, cls.title, cls.description]);
 		},
 		destroy: function(){
 			var self = this, items = self.all(), destroyed = [];

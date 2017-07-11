@@ -13,14 +13,9 @@
 	max-width: 100%;
 }
 
-.fg-responsive .fg-thumb {
-	overflow: hidden;
-}
 .fg-responsive .fg-image {
 	border-radius: 0;
 	display: block;
-	-webkit-transition: none;
-	transition: none;
 	max-width: 100%;
 	height: auto;
 	margin: 0;

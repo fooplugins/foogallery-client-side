@@ -1,0 +1,184 @@
+/* Icon & Overlay */
+.foogallery.fg-hover-zoom 				.fg-thumb:before,
+.foogallery.fg-hover-zoom2 				.fg-thumb:before,
+.foogallery.fg-hover-zoom3 				.fg-thumb:before,
+.foogallery.fg-hover-plus 				.fg-thumb:before,
+.foogallery.fg-hover-circle-plus 	.fg-thumb:before,
+.foogallery.fg-hover-eye 					.fg-thumb:before,
+.foogallery.fg-hover-external 		.fg-thumb:before,
+.foogallery.fg-hover-tint 				.fg-thumb:before {
+	content: "";
+	display: block;
+	position: absolute;
+	visibility: hidden;
+	opacity: 0;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 8;
+	background: rgba(0,0,0,0.5) no-repeat center center;
+	background-size: 32px 32px;
+}
+
+.foogallery.fg-hover-zoom 				.fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-zoom2 				.fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-zoom3 				.fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-plus 				.fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-circle-plus 	.fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-eye 					.fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-external 		.fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-tint 				.fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-zoom 				.fg-thumb:focus:before,
+.foogallery.fg-hover-zoom2 				.fg-thumb:focus:before,
+.foogallery.fg-hover-zoom3 				.fg-thumb:focus:before,
+.foogallery.fg-hover-plus 				.fg-thumb:focus:before,
+.foogallery.fg-hover-circle-plus 	.fg-thumb:focus:before,
+.foogallery.fg-hover-eye 					.fg-thumb:focus:before,
+.foogallery.fg-hover-external 		.fg-thumb:focus:before,
+.foogallery.fg-hover-tint 				.fg-thumb:focus:before {
+	visibility: visible;
+	opacity: 1;
+}
+
+/* Support captions showing the icon */
+.foogallery.fg-hover-zoom 				.fg-caption-inner:before,
+.foogallery.fg-hover-zoom2 				.fg-caption-inner:before,
+.foogallery.fg-hover-zoom3 				.fg-caption-inner:before,
+.foogallery.fg-hover-plus 				.fg-caption-inner:before,
+.foogallery.fg-hover-circle-plus 	.fg-caption-inner:before,
+.foogallery.fg-hover-eye 					.fg-caption-inner:before,
+.foogallery.fg-hover-external 		.fg-caption-inner:before,
+.foogallery.fg-hover-tint 				.fg-caption-inner:before {
+	content: "";
+	display: inline-block;
+	position: relative;
+	width: 32px;
+	height: 32px;
+	margin: 0 0 5px 0;
+	background: transparent no-repeat center center;
+	background-size: 32px 32px;
+	vertical-align: middle;
+}
+
+
+.foogallery.fg-hover-zoom .fg-thumb:before,
+.foogallery.fg-hover-zoom .fg-caption-inner:before {
+	background-image: url('../img/zoom.png');
+}
+
+.foogallery.fg-hover-zoom2 .fg-thumb:before,
+.foogallery.fg-hover-zoom2 .fg-caption-inner:before {
+	background-image: url('../img/zoom2.png');
+}
+
+.foogallery.fg-hover-zoom3 .fg-thumb:before,
+.foogallery.fg-hover-zoom3 .fg-caption-inner:before {
+	background-image: url('../img/zoom3.png');
+}
+
+.foogallery.fg-hover-plus .fg-thumb:before,
+.foogallery.fg-hover-plus .fg-caption-inner:before {
+	background-image: url('../img/plus.png');
+}
+
+.foogallery.fg-hover-circle-plus .fg-thumb:before,
+.foogallery.fg-hover-circle-plus .fg-caption-inner:before {
+	background-image: url('../img/circle-plus.png');
+}
+
+.foogallery.fg-hover-eye .fg-thumb:before,
+.foogallery.fg-hover-eye .fg-caption-inner:before {
+	background-image: url('../img/eye.png');
+}
+
+.foogallery.fg-hover-external .fg-thumb:before,
+.foogallery.fg-hover-external .fg-caption-inner:before {
+	background-image: url('../img/external.png');
+}
+
+/* @2x Images (Pixel Ratio of 1.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 5/4),
+only screen and (-webkit-min-device-pixel-ratio: 1.25),
+only screen and (min-device-pixel-ratio: 1.25),
+only screen and (min-resolution: 1.25dppx) {
+
+	.foogallery.fg-hover-zoom .fg-thumb:before,
+	.foogallery.fg-hover-zoom .fg-caption-inner:before {
+		background-image: url('../img/zoom@2x.png');
+	}
+
+	.foogallery.fg-hover-zoom2 .fg-thumb:before,
+	.foogallery.fg-hover-zoom2 .fg-caption-inner:before {
+		background-image: url('../img/zoom2@2x.png');
+	}
+
+	.foogallery.fg-hover-zoom3 .fg-thumb:before,
+	.foogallery.fg-hover-zoom3 .fg-caption-inner:before {
+		background-image: url('../img/zoom3@2x.png');
+	}
+
+	.foogallery.fg-hover-plus .fg-thumb:before,
+	.foogallery.fg-hover-plus .fg-caption-inner:before {
+		background-image: url('../img/plus@2x.png');
+	}
+
+	.foogallery.fg-hover-circle-plus .fg-thumb:before,
+	.foogallery.fg-hover-circle-plus .fg-caption-inner:before {
+		background-image: url('../img/circle-plus@2x.png');
+	}
+
+	.foogallery.fg-hover-eye .fg-thumb:before,
+	.foogallery.fg-hover-eye .fg-caption-inner:before {
+		background-image: url('../img/eye@2x.png');
+	}
+
+	.foogallery.fg-hover-external .fg-thumb:before,
+	.foogallery.fg-hover-external .fg-caption-inner:before {
+		background-image: url('../img/external@2x.png');
+	}
+
+}
+
+/* @3x Images (Pixel Ratio of 2.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 9/4),
+only screen and (-webkit-min-device-pixel-ratio: 2.25),
+only screen and (min-device-pixel-ratio: 2.25),
+only screen and (min-resolution: 2.25dppx) {
+
+	.foogallery.fg-hover-zoom .fg-thumb:before,
+	.foogallery.fg-hover-zoom .fg-caption-inner:before {
+		background-image: url('../img/zoom@3x.png');
+	}
+
+	.foogallery.fg-hover-zoom2 .fg-thumb:before,
+	.foogallery.fg-hover-zoom2 .fg-caption-inner:before {
+		background-image: url('../img/zoom2@3x.png');
+	}
+
+	.foogallery.fg-hover-zoom3 .fg-thumb:before,
+	.foogallery.fg-hover-zoom3 .fg-caption-inner:before {
+		background-image: url('../img/zoom3@3x.png');
+	}
+
+	.foogallery.fg-hover-plus .fg-thumb:before,
+	.foogallery.fg-hover-plus .fg-caption-inner:before {
+		background-image: url('../img/plus@3x.png');
+	}
+
+	.foogallery.fg-hover-circle-plus .fg-thumb:before,
+	.foogallery.fg-hover-circle-plus .fg-caption-inner:before {
+		background-image: url('../img/circle-plus@3x.png');
+	}
+
+	.foogallery.fg-hover-eye .fg-thumb:before,
+	.foogallery.fg-hover-eye .fg-caption-inner:before {
+		background-image: url('../img/eye@3x.png');
+	}
+
+	.foogallery.fg-hover-external .fg-thumb:before,
+	.foogallery.fg-hover-external .fg-caption-inner:before {
+		background-image: url('../img/external@3x.png');
+	}
+
+}

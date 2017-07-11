@@ -2,16 +2,19 @@
 	box-sizing: border-box;
 }
 .foogallery {
+	display: block;
 	z-index: 1;
 	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 	position: relative;
 }
 .foogallery .fg-item {
+	display: inline-block;
 	position: relative;
 	background-color: transparent;
 	z-index: 2;
 }
 .foogallery .fg-item-inner {
+	display: block;
 	position: relative;
 	visibility: hidden;
 	overflow: hidden;
@@ -32,14 +35,15 @@
 	z-index: 5;
 }
 .foogallery .fg-thumb {
+	display: block;
 	position: relative;
-	overflow: hidden;
 	border: none;
 	outline: 0;
 	text-decoration: none;
 	z-index: 4;
 }
 .foogallery .fg-image {
+	display: block;
 	position: relative;
 	border: none;
 	outline: 0;

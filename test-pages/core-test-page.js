@@ -4,7 +4,7 @@
 		if (!(this instanceof CoreTestPage)) return new CoreTestPage();
 		this.templates = templates;
 		this.types = {
-			classes: ["caption","hover-effect","loaded-effect","loading-icon","item-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
+			classes: ["caption","grayscale","hover-effect","hover-icon","loaded-effect","loading-icon","theme","item-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
 			bool: [
 				"state-enabled",
 				"lazy", "background",
@@ -25,6 +25,10 @@
 		this.$templates = $("#template");
 		this.$generate = $("#generate");
 		this.$clear = $("#clear");
+
+		this.$theme = $("[name=theme]");
+		this.$themeFieldSet = $("#theme-options");
+
 		this.$pagingType = $("[name=paging-type]");
 		this.$pagingOptionsFieldSet = $("#paging-options");
 		this.$infiniteOptionsFieldSet = $("#infinite-options");
@@ -35,6 +39,11 @@
 		this.$lazyOptionsFieldSet = $("#lazy-options");
 		this.$borderStyle = $("[name=border-style]");
 		this.$borderStyleOptionsFieldSet = $("#border-style-options");
+		this.$caption = $("[name=caption]");
+		this.$hoverIcon = $("[name=hover-icon]");
+		this.$hoverEffectFieldSet = $("#hover-effect-options");
+		this.$itemStyle = $("[name=item-style]");
+		this.$customItemStyleFieldSet = $("#custom-item-style-options");
 		this.$output = $("#output");
 		this.$current = $();
 		this.$viewportArea = $("#viewport-area");
@@ -117,6 +126,12 @@
 			e.preventDefault();
 			self.clear();
 		});
+		self.$theme.on("change", function(){
+			self.updateThemeFieldSets();
+		});
+		self.$itemStyle.on("change", function(){
+			self.updateItemStyleFieldSets();
+		});
 		self.$borderStyle.on("change", function(){
 			self.updateBorderStylesFieldSets();
 		});
@@ -126,12 +141,18 @@
 		self.$pagingType.on("change", function(){
 			self.updatePagingFieldSets();
 		});
+		self.$caption.add(self.$hoverIcon).on("change", function(){
+			self.updateHoverEffectFieldSets();
+		});
 	};
 
 	CoreTestPage.prototype.initFormInputs = function(){
+		this.updateThemeFieldSets();
+		this.updateItemStyleFieldSets();
 		this.updateLazyFieldSets();
 		this.updatePagingFieldSets();
 		this.updateBorderStylesFieldSets();
+		this.updateHoverEffectFieldSets();
 	};
 
 	CoreTestPage.prototype.initFormData = function(){
@@ -265,6 +286,16 @@
 		return obj;
 	};
 
+	CoreTestPage.prototype.updateThemeFieldSets = function(){
+		var value = this.$theme.filter(":checked").val();
+		this.$themeFieldSet.prop("disabled", value === "");
+	};
+
+	CoreTestPage.prototype.updateItemStyleFieldSets = function(){
+		var value = this.$itemStyle.filter(":checked").val();
+		this.$customItemStyleFieldSet.prop("disabled", value !== "fg-custom");
+	};
+
 	CoreTestPage.prototype.updateLazyFieldSets = function(){
 		var enabled = this.$lazyEnabled.prop("checked");
 		this.$lazyOptionsFieldSet.prop("disabled", !enabled);
@@ -282,6 +313,12 @@
 		this.$loadMoreOptionsFieldSet.prop("disabled", value !== "loadMore");
 		this.$paginationOptionsFieldSet.prop("disabled", value !== "pagination");
 		this.$dotsOptionsFieldSet.prop("disabled", value !== "dots");
+	};
+
+	CoreTestPage.prototype.updateHoverEffectFieldSets = function(){
+		var caption = this.$caption.filter(":checked").val(),
+			icon = this.$hoverIcon.filter(":checked").val();
+		this.$hoverEffectFieldSet.prop("disabled", caption !== "fg-caption-hover" && icon === "");
 	};
 
 	CoreTestPage.prototype.getTemplate = function(options){

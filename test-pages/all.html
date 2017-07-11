@@ -30,7 +30,7 @@
 	<script src="../dist/core/js/foogallery.js"></script>
 	<script src="../dist/admin/js/foogallery.admin.js"></script>
 	<script>
-		FooGallery.defaults.debug = true;
+		FooGallery.template.configure("default", {debug: true});
 	</script>
 	<script src="../dist/templates/responsive/js/foogallery.responsive.js"></script>
 	<script src="../dist/templates/masonry/js/foogallery.masonry.js"></script>
@@ -50,6 +50,10 @@
 			margin-top: 15px;
 			color: #222;
 		}
+		.radio label small,
+		.checkbox label small {
+			color: #737373;
+		}
 		label {
 			font-weight: 400;
 		}
@@ -63,6 +67,7 @@
 			height: 400px;
 			background-color: #b1b1b1;
 		}
+
 		#viewport-area,
 		#infinite-area,
 		#loadMore-area {
@@ -180,242 +185,30 @@
 								<div class="foogallery-tab-content foogallery-tab-active" data-name="appearance">
 									<!-- Look & Feel -->
 									<fieldset>
-										<!-- Item Style -->
+										<!-- Theme -->
 										<div class="form-group">
-											<label for="item-style1" class="col-sm-2 control-label">Item Style</label>
+											<label for="theme1" class="col-sm-2 control-label">Theme</label>
 											<div class="col-sm-10">
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="item-style" id="item-style1" value="fg-item-light" checked>
+														<input type="radio" name="theme" id="theme1" value="fg-light" checked>
 														Light
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="item-style" id="item-style2" value="fg-item-dark">
+														<input type="radio" name="theme" id="theme2" value="fg-dark">
 														Dark
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
-														<input type="radio" name="item-style" id="item-style3" value="">
+														<input type="radio" name="theme" id="theme0" value="">
 														None
 													</label>
 												</div>
 											</div>
 											<p class="help-block col-sm-offset-2 col-sm-10">The overall appearance of an item, affecting properties such as the border, background and font colors.</p>
-										</div>
-
-										<!-- Border Size -->
-										<div class="form-group">
-											<label for="border-size0" class="col-sm-2 control-label">Border Size</label>
-											<div class="col-sm-10">
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="border-size" id="border-size0" value="" checked>
-														None
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="border-size" id="border-size1" value="fg-border-thin">
-														Thin <code>5px</code> *
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="border-size" id="border-size2" value="fg-border-medium">
-														Medium <code>10px</code> *
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="border-size" id="border-size3" value="fg-border-thick">
-														Thick <code>15px</code> *
-													</label>
-												</div>
-											</div>
-											<p class="help-block col-sm-offset-2 col-sm-10">The size of the border applied to items.<br/><small><code>*</code>If the <b>Item Style</b> is set to <b>None</b> then the borders applied will be transparent.</small></p>
-										</div>
-
-										<!-- Rounded Corners -->
-										<div class="form-group">
-											<label for="rounded-corners1" class="col-sm-2 control-label">Rounded Corners</label>
-											<div class="col-sm-10">
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="rounded-corners" id="rounded-corners1" value="" checked>
-														None
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="rounded-corners" id="rounded-corners2" value="fg-round-small">
-														Small <code>5px</code>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="rounded-corners" id="rounded-corners3" value="fg-round-medium">
-														Medium <code>10px</code>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="rounded-corners" id="rounded-corners4" value="fg-round-large">
-														Large <code>15px</code>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="rounded-corners" id="rounded-corners5" value="fg-round-full">
-														Full <code>50%</code>
-													</label>
-												</div>
-											</div>
-											<p class="help-block col-sm-offset-2 col-sm-10">The amount of <code>border-radius</code> to apply to items.</p>
-										</div>
-										<!-- Drop Shadow -->
-										<div class="form-group">
-											<label for="drop-shadow1" class="col-sm-2 control-label">Drop Shadow</label>
-											<div class="col-sm-10">
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="drop-shadow" id="drop-shadow1" value="" checked>
-														None
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="drop-shadow" id="drop-shadow2" value="fg-shadow-outline">
-														Outline
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="drop-shadow" id="drop-shadow3" value="fg-shadow-small">
-														Small
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="drop-shadow" id="drop-shadow4" value="fg-shadow-medium">
-														Medium
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="drop-shadow" id="drop-shadow5" value="fg-shadow-large">
-														Large
-													</label>
-												</div>
-											</div>
-											<p class="help-block col-sm-offset-2 col-sm-10">The drop shadow to apply to items.</p>
-										</div>
-										<!-- Inset Shadow -->
-										<div class="form-group">
-											<label for="inset-shadow1" class="col-sm-2 control-label">Inset Shadow</label>
-											<div class="col-sm-10">
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="inset-shadow" id="inset-shadow1" value="" checked>
-														None
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="inset-shadow" id="inset-shadow2" value="fg-shadow-inset-small">
-														Small
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="inset-shadow" id="inset-shadow3" value="fg-shadow-inset-medium">
-														Medium
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="inset-shadow" id="inset-shadow4" value="fg-shadow-inset-large">
-														Large
-													</label>
-												</div>
-											</div>
-											<p class="help-block col-sm-offset-2 col-sm-10">The inset shadow to apply to items.</p>
-										</div>
-
-										<!-- Loading Icons -->
-										<div class="form-group loading-icons">
-											<label for="loading-icon0" class="col-sm-2 control-label">Loading Icon</label>
-											<div class="col-sm-10">
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="loading-icon" id="loading-icon0" value="">
-														None
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label title="Default">
-														<input type="radio" name="loading-icon" id="loading-icon1" value="fg-loading-default" checked>
-														<span><img src="../dist/core/img/loading-default.gif" /></span>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label title="Ellipsis">
-														<input type="radio" name="loading-icon" id="loading-icon2" value="fg-loading-ellipsis">
-														<span><img src="../dist/core/img/loading-ellipsis.gif" /></span>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label title="Gears">
-														<input type="radio" name="loading-icon" id="loading-icon3" value="fg-loading-gears">
-														<span><img src="../dist/core/img/loading-gears.gif" /></span>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label title="Hourglass">
-														<input type="radio" name="loading-icon" id="loading-icon4" value="fg-loading-hourglass">
-														<span><img src="../dist/core/img/loading-hourglass.gif" /></span>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label title="Reload">
-														<input type="radio" name="loading-icon" id="loading-icon5" value="fg-loading-reload">
-														<span><img src="../dist/core/img/loading-reload.gif" /></span>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label title="Ripple">
-														<input type="radio" name="loading-icon" id="loading-icon6" value="fg-loading-ripple">
-														<span><img src="../dist/core/img/loading-ripple.gif" /></span>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label title="Bars">
-														<input type="radio" name="loading-icon" id="loading-icon7" value="fg-loading-bars">
-														<span><img src="../dist/core/img/loading-bars.gif" /></span>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label title="Spin">
-														<input type="radio" name="loading-icon" id="loading-icon8" value="fg-loading-spin">
-														<span><img src="../dist/core/img/loading-spin.gif" /></span>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label title="Squares">
-														<input type="radio" name="loading-icon" id="loading-icon9" value="fg-loading-squares">
-														<span><img src="../dist/core/img/loading-squares.gif" /></span>
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label title="Cube">
-														<input type="radio" name="loading-icon" id="loading-icon10" value="fg-loading-cube">
-														<span><img src="../dist/core/img/loading-cube.gif" /></span>
-													</label>
-												</div>
-											</div>
-											<p class="help-block col-sm-offset-2 col-sm-10">The icon to display while an image is loading.</p>
 										</div>
 
 										<!-- Loaded Effects -->
@@ -449,154 +242,436 @@
 												<div class="radio-inline">
 													<label>
 														<input type="radio" name="loaded-effect" id="loaded-effect5" value="fg-loaded-swing-down">
-														Swing Down *
+														Swing Down
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
 														<input type="radio" name="loaded-effect" id="loaded-effect6" value="fg-loaded-drop">
-														Drop *
+														Drop
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
 														<input type="radio" name="loaded-effect" id="loaded-effect7" value="fg-loaded-fly">
-														Fly *
+														Fly
 													</label>
 												</div>
 												<div class="radio-inline">
 													<label>
 														<input type="radio" name="loaded-effect" id="loaded-effect8" value="fg-loaded-flip">
-														Flip *
+														Flip
 													</label>
 												</div>
 											</div>
-											<p class="help-block col-sm-offset-2 col-sm-10">The CSS transition used to display an image once it's loaded.<br/><small><code>*</code> Will not display correctly in Internet Explorer as it does not support the <code>preserve-3d</code> value for the <code>transform-style</code> CSS property.</small></p>
+											<p class="help-block col-sm-offset-2 col-sm-10">The CSS transition used to display an image once it's loaded.</p>
 										</div>
 
-										<!-- Captions -->
-										<div class="form-group">
-											<label for="caption1" class="col-sm-2 control-label">Captions</label>
-											<div class="col-sm-10">
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="caption" id="caption1" value="" checked>
-														None
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="caption" id="caption2" value="fg-caption-always">
-														Always Visible
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="caption" id="caption3" value="fg-caption-simple">
-														Simple
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="caption" id="caption4" value="fg-caption-drop">
-														Drop In *
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="caption" id="caption5" value="fg-caption-fade">
-														Fade In *
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="caption" id="caption6" value="fg-caption-push">
-														Push *
-													</label>
-												</div>
-											</div>
-											<p class="help-block col-sm-offset-2 col-sm-10">Whether or not to display captions for items and how to display them.<br/><small><code>*</code> Will ignore all hover effects except <code>Color</code> and <code>Scale</code>.</small></p>
-										</div>
+										<fieldset id="theme-options" disabled>
 
-										<!-- Hover Effects -->
-										<div class="form-group">
-											<label for="hover-effect0" class="col-sm-2 control-label">Hover Effect</label>
-											<div class="col-sm-10">
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect0" value="">
-														None
-													</label>
+											<!-- Loading Icons -->
+											<div class="form-group loading-icons">
+												<label for="loading-icon0" class="col-sm-2 control-label">Loading Icon</label>
+												<div class="col-sm-10">
+													<div class="radio-inline">
+														<label>
+															<input type="radio" name="loading-icon" id="loading-icon0" value="">
+															None
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label title="Default">
+															<input type="radio" name="loading-icon" id="loading-icon1" value="fg-loading-default" checked>
+															<span><img src="../dist/core/img/loading-default.gif" /></span>
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label title="Ellipsis">
+															<input type="radio" name="loading-icon" id="loading-icon2" value="fg-loading-ellipsis">
+															<span><img src="../dist/core/img/loading-ellipsis.gif" /></span>
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label title="Gears">
+															<input type="radio" name="loading-icon" id="loading-icon3" value="fg-loading-gears">
+															<span><img src="../dist/core/img/loading-gears.gif" /></span>
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label title="Hourglass">
+															<input type="radio" name="loading-icon" id="loading-icon4" value="fg-loading-hourglass">
+															<span><img src="../dist/core/img/loading-hourglass.gif" /></span>
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label title="Reload">
+															<input type="radio" name="loading-icon" id="loading-icon5" value="fg-loading-reload">
+															<span><img src="../dist/core/img/loading-reload.gif" /></span>
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label title="Ripple">
+															<input type="radio" name="loading-icon" id="loading-icon6" value="fg-loading-ripple">
+															<span><img src="../dist/core/img/loading-ripple.gif" /></span>
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label title="Bars">
+															<input type="radio" name="loading-icon" id="loading-icon7" value="fg-loading-bars">
+															<span><img src="../dist/core/img/loading-bars.gif" /></span>
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label title="Spin">
+															<input type="radio" name="loading-icon" id="loading-icon8" value="fg-loading-spin">
+															<span><img src="../dist/core/img/loading-spin.gif" /></span>
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label title="Squares">
+															<input type="radio" name="loading-icon" id="loading-icon9" value="fg-loading-squares">
+															<span><img src="../dist/core/img/loading-squares.gif" /></span>
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label title="Cube">
+															<input type="radio" name="loading-icon" id="loading-icon10" value="fg-loading-cube">
+															<span><img src="../dist/core/img/loading-cube.gif" /></span>
+														</label>
+													</div>
 												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect1" value="fg-hover-external" checked>
-														External
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect2" value="fg-hover-zoom">
-														Zoom
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect3" value="fg-hover-zoom2">
-														Zoom 2
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect4" value="fg-hover-zoom3">
-														Zoom 3
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect5" value="fg-hover-plus">
-														Plus
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect6" value="fg-hover-circle-plus">
-														Circle Plus
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect7" value="fg-hover-eye">
-														Eye
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect8" value="fg-hover-color">
-														Colorize
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect9" value="fg-hover-gray">
-														Grayscale
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect10" value="fg-hover-scale">
-														Scale
-													</label>
-												</div>
-												<div class="radio-inline">
-													<label>
-														<input type="radio" name="hover-effect" id="hover-effect11" value="fg-hover-tint">
-														Tint
-													</label>
-												</div>
+												<p class="help-block col-sm-offset-2 col-sm-10">The icon to display while an image is loading.</p>
 											</div>
-											<p class="help-block col-sm-offset-2 col-sm-10">The effect displayed when hovering</p>
-										</div>
+
+											<!-- Item Style -->
+											<div class="form-group">
+												<label for="item-style1" class="col-sm-2 control-label">Item Style</label>
+												<div class="col-sm-10">
+													<div class="radio-inline">
+														<label>
+															<input type="radio" name="item-style" id="item-style1" value="fg-sadie">
+															Sadie
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label>
+															<input type="radio" name="item-style" id="item-style2" value="fg-layla">
+															Layla
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label>
+															<input type="radio" name="item-style" id="item-style3" value="fg-oscar">
+															Oscar
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label>
+															<input type="radio" name="item-style" id="item-style4" value="fg-sarah">
+															Sarah
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label>
+															<input type="radio" name="item-style" id="item-style5" value="fg-goliath">
+															Goliath
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label>
+															<input type="radio" name="item-style" id="item-styleX" value="fg-custom" checked>
+															Custom
+														</label>
+													</div>
+													<div class="radio-inline">
+														<label>
+															<input type="radio" name="item-style" id="item-style0" value="">
+															None
+														</label>
+													</div>
+												</div>
+												<p class="help-block col-sm-offset-2 col-sm-10">The overall appearance of an item, affecting properties such as the border, background and font colors.</p>
+											</div>
+
+											<fieldset id="custom-item-style-options" disabled>
+
+												<!-- Border Size -->
+												<div class="form-group">
+													<label for="border-size0" class="col-sm-2 control-label">Border Size</label>
+													<div class="col-sm-10">
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="border-size" id="border-size0" value="" checked>
+																None
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="border-size" id="border-size1" value="fg-border-thin">
+																Thin <code>5px</code> *
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="border-size" id="border-size2" value="fg-border-medium">
+																Medium <code>10px</code> *
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="border-size" id="border-size3" value="fg-border-thick">
+																Thick <code>15px</code> *
+															</label>
+														</div>
+													</div>
+													<p class="help-block col-sm-offset-2 col-sm-10">The size of the border applied to items.<br/><small><code>*</code>If the <b>Item Style</b> is set to <b>None</b> then the borders applied will be transparent.</small></p>
+												</div>
+
+												<!-- Rounded Corners -->
+												<div class="form-group">
+													<label for="rounded-corners1" class="col-sm-2 control-label">Rounded Corners</label>
+													<div class="col-sm-10">
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="rounded-corners" id="rounded-corners1" value="" checked>
+																None
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="rounded-corners" id="rounded-corners2" value="fg-round-small">
+																Small <code>5px</code>
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="rounded-corners" id="rounded-corners3" value="fg-round-medium">
+																Medium <code>10px</code>
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="rounded-corners" id="rounded-corners4" value="fg-round-large">
+																Large <code>15px</code>
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="rounded-corners" id="rounded-corners5" value="fg-round-full">
+																Full <code>50%</code>
+															</label>
+														</div>
+													</div>
+													<p class="help-block col-sm-offset-2 col-sm-10">The amount of <code>border-radius</code> to apply to items.</p>
+												</div>
+
+												<!-- Drop Shadow -->
+												<div class="form-group">
+													<label for="drop-shadow1" class="col-sm-2 control-label">Drop Shadow</label>
+													<div class="col-sm-10">
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="drop-shadow" id="drop-shadow1" value="" checked>
+																None
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="drop-shadow" id="drop-shadow2" value="fg-shadow-outline">
+																Outline
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="drop-shadow" id="drop-shadow3" value="fg-shadow-small">
+																Small
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="drop-shadow" id="drop-shadow4" value="fg-shadow-medium">
+																Medium
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="drop-shadow" id="drop-shadow5" value="fg-shadow-large">
+																Large
+															</label>
+														</div>
+													</div>
+													<p class="help-block col-sm-offset-2 col-sm-10">The drop shadow to apply to items.</p>
+												</div>
+
+												<!-- Inset Shadow -->
+												<div class="form-group">
+													<label for="inset-shadow1" class="col-sm-2 control-label">Inset Shadow</label>
+													<div class="col-sm-10">
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="inset-shadow" id="inset-shadow1" value="" checked>
+																None
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="inset-shadow" id="inset-shadow2" value="fg-shadow-inset-small">
+																Small
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="inset-shadow" id="inset-shadow3" value="fg-shadow-inset-medium">
+																Medium
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="inset-shadow" id="inset-shadow4" value="fg-shadow-inset-large">
+																Large
+															</label>
+														</div>
+													</div>
+													<p class="help-block col-sm-offset-2 col-sm-10">The inset shadow to apply to items.</p>
+												</div>
+
+												<!-- Captions -->
+												<div class="form-group">
+													<label for="caption0" class="col-sm-2 control-label">Captions</label>
+													<div class="col-sm-10">
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="caption" id="caption0" value="" checked>
+																None
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="caption" id="caption1" value="fg-caption-hover">
+																On Hover
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="caption" id="caption2" value="fg-caption-always">
+																Always Visible
+															</label>
+														</div>
+													</div>
+													<p class="help-block col-sm-offset-2 col-sm-10">Whether or not to display captions for items and how to display them.</p>
+												</div>
+
+												<!-- Hover Icons -->
+												<div class="form-group">
+													<label for="hover-icon0" class="col-sm-2 control-label">Hover Icon</label>
+													<div class="col-sm-10">
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="hover-icon" id="hover-icon0" value="">
+																None
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="hover-icon" id="hover-icon1" value="fg-hover-external" checked>
+																External
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="hover-icon" id="hover-icon2" value="fg-hover-zoom">
+																Zoom
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="hover-icon" id="hover-icon3" value="fg-hover-zoom2">
+																Zoom 2
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="hover-icon" id="hover-icon4" value="fg-hover-zoom3">
+																Zoom 3
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="hover-icon" id="hover-icon5" value="fg-hover-plus">
+																Plus
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="hover-icon" id="hover-icon6" value="fg-hover-circle-plus">
+																Circle Plus
+															</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="hover-icon" id="hover-icon7" value="fg-hover-eye">
+																Eye
+															</label>
+														</div>
+													</div>
+													<p class="help-block col-sm-offset-2 col-sm-10">The icon displayed when hovering over an image.</p>
+												</div>
+
+												<!-- Hover Effects -->
+												<fieldset id="hover-effect-options" disabled>
+													<div class="form-group">
+														<label for="hover-effect0" class="col-sm-2 control-label">Hover Effect</label>
+														<div class="col-sm-10">
+															<div class="radio-inline">
+																<label>
+																	<input type="radio" name="hover-effect" id="hover-effect0" value="">
+																	None
+																</label>
+															</div>
+															<div class="radio-inline">
+																<label>
+																	<input type="radio" name="hover-effect" id="hover-effect1" value="fg-hover-fade" checked>
+																	Fade In
+																</label>
+															</div>
+															<div class="radio-inline">
+																<label>
+																	<input type="radio" name="hover-effect" id="hover-effect3" value="fg-hover-drop">
+																	Drop In
+																</label>
+															</div>
+															<div class="radio-inline">
+																<label>
+																	<input type="radio" name="hover-effect" id="hover-effect4" value="fg-hover-push">
+																	Push
+																</label>
+															</div>
+															<div class="radio-inline">
+																<label>
+																	<input type="radio" name="hover-effect" id="hover-effect2" value="fg-hover-scale">
+																	Scale
+																</label>
+															</div>
+															<div class="radio-inline">
+																<label>
+																	<input type="radio" name="hover-effect" id="hover-effect5" value="fg-hover-colorize">
+																	Colorize
+																</label>
+															</div>
+															<div class="radio-inline">
+																<label>
+																	<input type="radio" name="hover-effect" id="hover-effect6" value="fg-hover-grayscale">
+																	Grayscale
+																</label>
+															</div>
+														</div>
+														<p class="help-block col-sm-offset-2 col-sm-10">The effect used to display the overlay when hovering.</p>
+													</div>
+												</fieldset>
+
+											</fieldset>
+
+										</fieldset>
 
 									</fieldset>
 
@@ -878,15 +953,15 @@
 				"title": "Masonry",
 				"selector": "#masonry-template"
 			},
-//			"justified": {
-//				"title": "Justified",
-//				"selector": "#justified-template"
-//			},
-//			"portfolio": {
-//				"title": "Portfolio",
-//				"selector": "#portfolio-template",
-//				"items": "items-250x250.json"
-//			}
+			"justified": {
+				"title": "Justified",
+				"selector": "#justified-template"
+			},
+			"portfolio": {
+				"title": "Portfolio",
+				"selector": "#portfolio-template",
+				"items": "items-250x250.json"
+			}
 		});
 		window.ctp.init();
 

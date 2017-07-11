@@ -284,10 +284,9 @@
 					self.$el.data(_.dataTemplate, self);
 					var state = self.state.parse();
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
-					return self.loadAvailable().then(function(){
-						$(window).on("scroll.foogallery", {self: self}, self.onWindowScroll)
-							.on("popstate.foogallery", {self: self}, self.onWindowPopState);
-					});
+					$(window).on("scroll.foogallery", {self: self}, self.onWindowScroll)
+						.on("popstate.foogallery", {self: self}, self.onWindowPopState);
+					return self.loadAvailable();
 				}).then(function(){
 					/**
 					 * @summary Raised after the template is fully initialized and is ready to be interacted with.
