@@ -48,12 +48,18 @@
 }
 
 .foogallery.fg-portfolio .fg-item-inner .fg-caption {
+	visibility: visible;
+	opacity: 1;
+	font-size: 13px;
 	position: relative;
 	display: block;
 	top: auto;
 	bottom: auto;
 	left: auto;
 	right: auto;
+	width: auto;
+	height: auto;
+	text-transform: none;
 	transform: none;
 	transition: none;
 	background-color: transparent;
@@ -63,9 +69,14 @@
 	transition: none;
 }
 .foogallery.fg-portfolio .fg-item-inner .fg-caption-inner {
-	position: relative;
+	display: block;
 	top: auto;
+	bottom: auto;
 	left: auto;
+	right: auto;
+	width: auto;
+	height: auto;
+	border: none;
 	transform: none;
 	transition: none;
 }

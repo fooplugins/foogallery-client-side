@@ -11,7 +11,7 @@
 	overflow: hidden;
 	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 	font-size: 13px;
-	font-weight: 300;
+	font-weight: 400;
 	line-height: 1.2;
 	border: solid 5px transparent;
 	text-align: center;
@@ -19,7 +19,6 @@
 }
 
 .foogallery .fg-caption-title {
-	text-wrap: none;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;

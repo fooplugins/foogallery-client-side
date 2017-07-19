@@ -22,6 +22,7 @@
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
+			self._canvas = document.createElement("canvas");
 			// add the .all caption selector
 			var cls = self.tmpl.cls.item.caption;
 			self.tmpl.sel.item.caption.all = _utils.selectify([cls.elem, cls.inner, cls.title, cls.description]);
@@ -69,7 +70,7 @@
 				// should we handle a case where the destroyed.length != items.length??
 			}
 			self.idMap = {};
-			self._fetched = null;
+			self._canvas = self._fetched = null;
 			self._arr = [];
 			self._available = [];
 			self._super();
@@ -123,6 +124,14 @@
 		},
 		reset: function(){
 			this.setAvailable(this.all());
+		},
+		placeholder: function(width, height){
+			if (this._canvas && this._canvas.toDataURL && _is.number(width) && _is.number(height)){
+				this._canvas.width = width;
+				this._canvas.height = height;
+				return this._canvas.toDataURL();
+			}
+			return _.emptyImage;
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be loaded.

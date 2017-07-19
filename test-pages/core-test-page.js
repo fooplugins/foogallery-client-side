@@ -4,7 +4,7 @@
 		if (!(this instanceof CoreTestPage)) return new CoreTestPage();
 		this.templates = templates;
 		this.types = {
-			classes: ["caption","grayscale","hover-effect","hover-icon","loaded-effect","loading-icon","theme","item-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
+			classes: ["caption","grayscale","hover-effect","hover-icon","loaded-effect","loading-icon","theme","hover-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
 			bool: [
 				"state-enabled",
 				"lazy", "background",
@@ -29,6 +29,9 @@
 		this.$theme = $("[name=theme]");
 		this.$themeFieldSet = $("#theme-options");
 
+		this.$hoverStyle = $("[name=hover-style]");
+		this.$customHoverStyleFieldSet = $("#custom-hover-style-options");
+
 		this.$pagingType = $("[name=paging-type]");
 		this.$pagingOptionsFieldSet = $("#paging-options");
 		this.$infiniteOptionsFieldSet = $("#infinite-options");
@@ -42,8 +45,6 @@
 		this.$caption = $("[name=caption]");
 		this.$hoverIcon = $("[name=hover-icon]");
 		this.$hoverEffectFieldSet = $("#hover-effect-options");
-		this.$itemStyle = $("[name=item-style]");
-		this.$customItemStyleFieldSet = $("#custom-item-style-options");
 		this.$output = $("#output");
 		this.$current = $();
 		this.$viewportArea = $("#viewport-area");
@@ -129,8 +130,8 @@
 		self.$theme.on("change", function(){
 			self.updateThemeFieldSets();
 		});
-		self.$itemStyle.on("change", function(){
-			self.updateItemStyleFieldSets();
+		self.$hoverStyle.on("change", function(){
+			self.updateHoverStyleFieldSets();
 		});
 		self.$borderStyle.on("change", function(){
 			self.updateBorderStylesFieldSets();
@@ -148,7 +149,7 @@
 
 	CoreTestPage.prototype.initFormInputs = function(){
 		this.updateThemeFieldSets();
-		this.updateItemStyleFieldSets();
+		this.updateHoverStyleFieldSets();
 		this.updateLazyFieldSets();
 		this.updatePagingFieldSets();
 		this.updateBorderStylesFieldSets();
@@ -291,9 +292,9 @@
 		this.$themeFieldSet.prop("disabled", value === "");
 	};
 
-	CoreTestPage.prototype.updateItemStyleFieldSets = function(){
-		var value = this.$itemStyle.filter(":checked").val();
-		this.$customItemStyleFieldSet.prop("disabled", value !== "fg-custom");
+	CoreTestPage.prototype.updateHoverStyleFieldSets = function(){
+		var value = this.$hoverStyle.filter(":checked").val();
+		this.$customHoverStyleFieldSet.prop("disabled", value !== "fg-custom");
 	};
 
 	CoreTestPage.prototype.updateLazyFieldSets = function(){

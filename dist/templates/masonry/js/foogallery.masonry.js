@@ -203,7 +203,7 @@
 		 * @function onAppendedItems
 		 * @param {jQuery.Event} event - The jQuery.Event object for the event.
 		 * @param {FooGallery.MasonryTemplate} self - The current instance of the template.
-		 * @param {FooGallery.Item[]} items - The array of items that were parsed.
+		 * @param {FooGallery.Item[]} items - The array of items that were appended.
 		 * @this {HTMLElement} The templates container element that the event was raised on.
 		 * @description Instructs Masonry to perform a layout operation whenever items are appended.
 		 * @protected

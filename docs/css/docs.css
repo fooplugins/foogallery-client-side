@@ -325,3 +325,33 @@ h5 {
 		padding-left: 30px;
 	}
 }
+
+
+.css-examples {
+	position: relative;
+	text-align: center;
+}
+.css-example {
+	position: relative;
+	display: inline-block;
+	margin: 7px;
+}
+.css-example .foogallery {
+	text-align: center;
+}
+.css-example > h4 {
+	text-align: center;
+	font-size: 12px;
+}
+.css-example .fg-item {
+	display: inline-block;
+}
+.css-example .fg-item-inner,
+.css-example .fg-thumb {
+	display: block;
+}
+.css-example .anchor-link,
+.css-example h4:hover .anchor-link {
+	visibility: hidden;
+	opacity: 0;
+}

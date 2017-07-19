@@ -9,27 +9,29 @@
 	color: #FFF;
 	border-color: #333;
 }
-/* Idle / Loading Style */
+/* Idle / Loading / Error Style */
 .foogallery.fg-light .fg-item.fg-idle,
-.foogallery.fg-light .fg-item.fg-loading {
+.foogallery.fg-light .fg-item.fg-loading,
+.foogallery.fg-light .fg-item.fg-error {
 	background-color: #eee;
 	box-shadow: inset 0 0 0 1px #ddd;
 }
 .foogallery.fg-dark .fg-item.fg-idle,
-.foogallery.fg-dark .fg-item.fg-loading {
+.foogallery.fg-dark .fg-item.fg-loading,
+.foogallery.fg-dark .fg-item.fg-error {
 	background-color: #444;
 	box-shadow: inset 0 0 0 1px #333;
 }
 
 /* Border Size */
 .foogallery.fg-border-thin .fg-item-inner {
-	border-width: 5px;
+	border-width: 4px;
 }
 .foogallery.fg-border-medium .fg-item-inner {
 	border-width: 10px;
 }
 .foogallery.fg-border-thick .fg-item-inner {
-	border-width: 15px;
+	border-width: 16px;
 }
 
 /* Rounded Corners */
@@ -59,7 +61,7 @@
 }
 .foogallery.fg-light.fg-shadow-small .fg-item-inner,
 .foogallery.fg-dark.fg-shadow-small .fg-item-inner {
-	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5);
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5);
 }
 .foogallery.fg-light.fg-shadow-medium .fg-item-inner,
 .foogallery.fg-dark.fg-shadow-medium .fg-item-inner {
@@ -67,7 +69,7 @@
 }
 .foogallery.fg-light.fg-shadow-large .fg-item-inner,
 .foogallery.fg-dark.fg-shadow-large .fg-item-inner {
-	box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.5);
+	box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.5);
 }
 /* Inset Shadows */
 .foogallery.fg-shadow-inset-small .fg-thumb:after,
@@ -84,7 +86,7 @@
 }
 .foogallery.fg-light.fg-shadow-inset-small .fg-thumb:after,
 .foogallery.fg-dark.fg-shadow-inset-small .fg-thumb:after {
-	box-shadow: inset 0 1px 5px 0 rgba(0,0,0,0.3);
+	box-shadow: inset 0 1px 4px 0 rgba(0,0,0,0.3);
 }
 .foogallery.fg-light.fg-shadow-inset-medium .fg-thumb:after,
 .foogallery.fg-dark.fg-shadow-inset-medium .fg-thumb:after {
@@ -92,7 +94,7 @@
 }
 .foogallery.fg-light.fg-shadow-inset-large .fg-thumb:after,
 .foogallery.fg-dark.fg-shadow-inset-large .fg-thumb:after {
-	box-shadow: inset 0 1px 15px 0 rgba(0,0,0,0.3);
+	box-shadow: inset 0 1px 16px 0 rgba(0,0,0,0.3);
 }
 
 .foogallery.fg-round-full.fg-shadow-inset-small .fg-thumb:after,

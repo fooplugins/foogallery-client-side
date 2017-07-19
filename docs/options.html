@@ -33,34 +33,6 @@
 	<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 	<style>
-		.css-examples {
-			position: relative;
-			text-align: center;
-		}
-		.css-example {
-			position: relative;
-			display: inline-block;
-			margin: 7px;
-		}
-		.css-example .foogallery {
-			text-align: center;
-		}
-		.css-example > h4 {
-			text-align: center;
-			font-size: 12px;
-		}
-		.css-example .fg-item {
-			display: inline-block;
-		}
-		.css-example .fg-item-inner,
-		.css-example .fg-thumb {
-			display: block;
-		}
-		.css-example .anchor-link,
-		.css-example h4:hover .anchor-link {
-			visibility: hidden;
-			opacity: 0;
-		}
 		.css-example.loaded-effects.disable .fg-item,
 		.css-example.loaded-effects.disable .fg-item-inner {
 			transition: none !important;
@@ -69,7 +41,7 @@
 		.css-example.item-theme .fg-item {
 			position: relative;
 		}
-		.css-example.item-theme .fg-caption {
+		.css-example.item-theme .foogallery .fg-caption {
 			width: 200px;
 		}
 	</style>
@@ -156,7 +128,7 @@
 
 		<!-- Item theme -->
 		<div class="docs-option">
-			<h3 class="page-header">Item theme</h3>
+			<h3 class="page-header">Theme</h3>
 			<p>
 				These CSS classes determine the overall appearance of an item, affecting properties such as the border, background, font and shadow colors and even the loading icons.
 			</p>
@@ -166,17 +138,17 @@
 				<div class="css-example item-theme">
 					<div class="foogallery fg-portfolio fg-light fg-border-thick fg-shadow-outline">
 						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-light" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/200x200/1"/>
+							<figure class="fg-item-inner">
+								<a class="fg-thumb" href="#fg-light">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=11"/>
 								</a>
-								<div class="fg-caption">
+								<figcaption class="fg-caption">
 									<div class="fg-caption-inner">
 										<div class="fg-caption-title">Lorem ipsum dolor.</div>
 										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
 									</div>
-								</div>
-							</div>
+								</figcaption>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-light">fg-light</h4>
@@ -185,17 +157,17 @@
 				<div class="css-example item-theme">
 					<div class="foogallery fg-portfolio fg-dark fg-border-thick fg-shadow-outline">
 						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-dark" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/200x200/2"/>
+							<figure class="fg-item-inner">
+								<a class="fg-thumb" href="#fg-dark">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=12"/>
 								</a>
-								<div class="fg-caption">
+								<figcaption class="fg-caption">
 									<div class="fg-caption-inner">
 										<div class="fg-caption-title">Lorem ipsum dolor.</div>
 										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
 									</div>
-								</div>
-							</div>
+								</figcaption>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-dark">fg-dark</h4>
@@ -214,557 +186,6 @@
 
 		</div>
 
-		<!-- Border size -->
-		<div class="docs-option">
-			<h3 class="page-header">Border size</h3>
-			<p>
-				These CSS classes specify the <code>border-width</code> for an item and are dependent on an item theme for the actual <code>border-color</code>. In this example we are using the
-				<code>fg-dark</code> theme so the border stands out against the white background.
-			</p>
-
-			<div class="css-examples">
-
-				<div class="css-example">
-					<div class="foogallery fg-dark fg-border-thin">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-border-thin" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/1"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-border-thin">fg-border-thin</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-dark fg-border-medium">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-border-medium" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/2"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-border-medium">fg-border-medium</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-dark fg-border-thick">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-border-thick" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/3"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-border-thick">fg-border-thick</h4>
-				</div>
-
-			</div>
-
-			<p>If we want to use the <code>fg-light</code> theme we could use the <code>fg-shadow-outline</code> class to give our edges some definition.</p>
-
-			<div class="css-examples">
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-shadow-outline fg-border-thin">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-border-thin" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/1"/>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-shadow-outline fg-border-medium">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-border-medium" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/2"/>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-shadow-outline fg-border-thick">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-border-thick" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/3"/>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-		</div>
-
-		<!-- Rounded corners -->
-		<div class="docs-option">
-			<h3 class="page-header">Rounded corners</h3>
-			<p>These CSS classes specify the <code>border-radius</code> for an item.</p>
-
-			<div class="css-examples">
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-round-small">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-round-small" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/1"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-round-small">fg-round-small</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-round-medium">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-round-medium" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/2"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-round-medium">fg-round-medium</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-round-large">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-round-large" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/3"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-round-large">fg-round-large</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-round-full">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-round-full" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/4"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-round-full">fg-round-full</h4>
-				</div>
-
-			</div>
-
-		</div>
-
-		<!-- Drop shadows -->
-		<div class="docs-option">
-			<h3 class="page-header">Drop shadows</h3>
-			<p>These CSS classes specify the <code>box-shadow</code> for an item and are dependent on a item theme being set.</p>
-
-			<div class="css-examples">
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-shadow-outline">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-shadow-outline" class="fg-thumb">
-									<div style="width: 150px; height: 150px;"></div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-shadow-outline">fg-shadow-outline</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-shadow-small">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-shadow-small" class="fg-thumb">
-									<div style="width: 150px; height: 150px;"></div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-shadow-small">fg-shadow-small</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-shadow-medium">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-shadow-medium" class="fg-thumb">
-									<div style="width: 150px; height: 150px;"></div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-shadow-medium">fg-shadow-medium</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-shadow-large">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-shadow-large" class="fg-thumb">
-									<div style="width: 150px; height: 150px;"></div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-shadow-large">fg-shadow-large</h4>
-				</div>
-
-			</div>
-
-		</div>
-
-		<!-- Inner shadows -->
-		<div class="docs-option">
-			<h3 class="page-header">Inner shadows</h3>
-			<p>These CSS classes specify the inner <code>box-shadow</code> for an items thumbnail and are dependent on a item theme being set.</p>
-
-			<div class="css-examples">
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-shadow-inset-small">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-shadow-inset-small" class="fg-thumb">
-									<div style="width: 150px; height: 150px;"></div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-shadow-inset-small">fg-shadow-inset-small</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-shadow-inset-medium">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-shadow-inset-medium" class="fg-thumb">
-									<div style="width: 150px; height: 150px;"></div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-shadow-inset-medium">fg-shadow-inset-medium</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-light fg-shadow-inset-large">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-shadow-inset-large" class="fg-thumb">
-									<div style="width: 150px; height: 150px;"></div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-shadow-inset-large">fg-shadow-inset-large</h4>
-				</div>
-
-			</div>
-
-		</div>
-
-		<!-- Hover effects -->
-		<div class="docs-option">
-			<h3 class="page-header">Hover effects</h3>
-			<p>These CSS classes provide simple effects for when a user hovers over an item. All icons all retina ready with multiple sizes available.</p>
-
-			<div class="css-examples">
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-external">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-external" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/1"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-external">fg-hover-external</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-zoom">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-zoom" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/2"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-zoom">fg-hover-zoom</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-zoom2">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-zoom2" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/3"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-zoom2">fg-hover-zoom2</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-zoom3">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-zoom3" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/4"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-zoom3">fg-hover-zoom3</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-plus">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-plus" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/5"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-plus">fg-hover-plus</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-circle-plus">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-circle-plus" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/6"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-circle-plus">fg-hover-circle-plus</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-eye">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-eye" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/7"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-eye">fg-hover-eye</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-tint">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-tint" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/8"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-tint">fg-hover-tint</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-color">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-color" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/9"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-color">fg-hover-color</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-gray">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-gray" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/10"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-gray">fg-hover-gray</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-hover-scale">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-hover-scale" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/11"/>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-hover-scale">fg-hover-scale</h4>
-				</div>
-
-			</div>
-
-			<div class="callout callout-info">
-				<h5>Notes</h5>
-				<ul>
-					<li>
-						<p><code>fg-hover-scale</code> can result in blurry text in items in some browsers, most notably Chrome.</p>
-					</li>
-					<li>
-						<p>
-							<code>fg-hover-color</code> and <code>fg-hover-gray</code> will not work in Internet Explorer 10 & 11 as Microsoft removed support for the proprietary <code>filter: gray</code>
-							CSS property and supplied no replacement.
-						</p>
-					</li>
-				</ul>
-			</div>
-
-		</div>
-
-		<!-- Captions -->
-		<div class="docs-option">
-			<h3 class="page-header">Captions</h3>
-			<p>These CSS classes control if and how captions are displayed for an item.</p>
-
-			<div class="css-examples">
-
-				<div class="css-example">
-					<div class="foogallery fg-caption-always">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-caption-always" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/200x200/1"/>
-									<div class="fg-caption">
-										<div class="fg-caption-inner">
-											<div class="fg-caption-title">Lorem ipsum dolor.</div>
-											<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-caption-always">fg-caption-always</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-caption-simple">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-caption-simple" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/200x200/2"/>
-									<div class="fg-caption">
-										<div class="fg-caption-inner">
-											<div class="fg-caption-title">Lorem ipsum dolor.</div>
-											<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-caption-simple">fg-caption-simple</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-caption-drop">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-caption-drop" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/200x200/3"/>
-									<div class="fg-caption">
-										<div class="fg-caption-inner">
-											<div class="fg-caption-title">Lorem ipsum dolor.</div>
-											<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-caption-drop">fg-caption-drop</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-caption-fade">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-caption-fade" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/200x200/4"/>
-									<div class="fg-caption">
-										<div class="fg-caption-inner">
-											<div class="fg-caption-title">Lorem ipsum dolor.</div>
-											<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-caption-fade">fg-caption-fade</h4>
-				</div>
-
-				<div class="css-example">
-					<div class="foogallery fg-caption-push">
-						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-caption-push" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/200x200/5"/>
-									<div class="fg-caption">
-										<div class="fg-caption-inner">
-											<div class="fg-caption-title">Lorem ipsum dolor.</div>
-											<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-										</div>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-					<h4 id="fg-caption-push">fg-caption-push</h4>
-				</div>
-
-			</div>
-
-			<div class="callout callout-info">
-				<h5>Note</h5>
-				<p>Using <code>fg-caption-drop</code>, <code>fg-caption-fade</code> or <code>fg-caption-push</code> will disable all hover effects except <code>fg-hover-color</code>, <code>fg-hover-gray</code> and <code>fg-hover-scale</code> due to the way the captions are displayed.</p>
-			</div>
-
-		</div>
-
 		<!-- Loaded effects -->
 		<div class="docs-option">
 			<h3 class="page-header">Loaded effects</h3>
@@ -775,11 +196,11 @@
 				<div class="css-example loaded-effects">
 					<div class="foogallery fg-loaded-fade-in">
 						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
-								<a href="#fg-loaded-fade-in" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/1"/>
+							<figure class="fg-item-inner">
+								<a class="fg-thumb" href="#fg-loaded-fade-in">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=11"/>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loaded-fade-in">fg-loaded-fade-in</h4>
@@ -791,11 +212,11 @@
 				<div class="css-example loaded-effects">
 					<div class="foogallery fg-loaded-slide-up">
 						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loaded-slide-up" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/2"/>
+									<img class="fg-image" src="https://unsplash.it/150/150?image=12"/>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loaded-slide-up">fg-loaded-slide-up</h4>
@@ -805,13 +226,61 @@
 				</div>
 
 				<div class="css-example loaded-effects">
+					<div class="foogallery fg-loaded-slide-down">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-loaded-slide-down" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=13"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-loaded-slide-down">fg-loaded-slide-down</h4>
+					<div class="align-center">
+						<button type="button" class="btn btn-xs btn-default">Run</button>
+					</div>
+				</div>
+
+				<div class="css-example loaded-effects">
+					<div class="foogallery fg-loaded-slide-left">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-loaded-slide-left" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=14"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-loaded-slide-left">fg-loaded-slide-left</h4>
+					<div class="align-center">
+						<button type="button" class="btn btn-xs btn-default">Run</button>
+					</div>
+				</div>
+
+				<div class="css-example loaded-effects">
+					<div class="foogallery fg-loaded-slide-right">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-loaded-slide-right" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=15"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-loaded-slide-right">fg-loaded-slide-right</h4>
+					<div class="align-center">
+						<button type="button" class="btn btn-xs btn-default">Run</button>
+					</div>
+				</div>
+
+				<div class="css-example loaded-effects">
 					<div class="foogallery fg-loaded-scale-up">
 						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loaded-scale-up" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/3"/>
+									<img class="fg-image" src="https://unsplash.it/150/150?image=16"/>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loaded-scale-up">fg-loaded-scale-up</h4>
@@ -823,11 +292,11 @@
 				<div class="css-example loaded-effects">
 					<div class="foogallery fg-loaded-swing-down">
 						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loaded-swing-down" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/4"/>
+									<img class="fg-image" src="https://unsplash.it/150/150?image=17"/>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loaded-swing-down">fg-loaded-swing-down</h4>
@@ -839,11 +308,11 @@
 				<div class="css-example loaded-effects">
 					<div class="foogallery fg-loaded-drop">
 						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loaded-drop" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/5"/>
+									<img class="fg-image" src="https://unsplash.it/150/150?image=18"/>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loaded-drop">fg-loaded-drop</h4>
@@ -855,11 +324,11 @@
 				<div class="css-example loaded-effects">
 					<div class="foogallery fg-loaded-fly">
 						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loaded-fly" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/6"/>
+									<img class="fg-image" src="https://unsplash.it/150/150?image=19"/>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loaded-fly">fg-loaded-fly</h4>
@@ -871,11 +340,11 @@
 				<div class="css-example loaded-effects">
 					<div class="foogallery fg-loaded-flip">
 						<div class="fg-item fg-loaded">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loaded-flip" class="fg-thumb">
-									<img class="fg-image" src="https://satyr.io/150x150/7"/>
+									<img class="fg-image" src="https://unsplash.it/150/150?image=20"/>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loaded-flip">fg-loaded-flip</h4>
@@ -907,11 +376,11 @@
 				<div class="css-example">
 					<div class="foogallery fg-light fg-loading-default">
 						<div class="fg-item fg-loading">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loading-default" class="fg-thumb">
 									<div style="width: 100px; height: 100px;"></div>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loading-default">fg-loading-default</h4>
@@ -920,11 +389,11 @@
 				<div class="css-example">
 					<div class="foogallery fg-light fg-loading-ellipsis">
 						<div class="fg-item fg-loading">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loading-ellipsis" class="fg-thumb">
 									<div style="width: 100px; height: 100px;"></div>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loading-ellipsis">fg-loading-ellipsis</h4>
@@ -933,11 +402,11 @@
 				<div class="css-example">
 					<div class="foogallery fg-light fg-loading-gears">
 						<div class="fg-item fg-loading">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loading-gears" class="fg-thumb">
 									<div style="width: 100px; height: 100px;"></div>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loading-gears">fg-loading-gears</h4>
@@ -946,11 +415,11 @@
 				<div class="css-example">
 					<div class="foogallery fg-light fg-loading-hourglass">
 						<div class="fg-item fg-loading">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loading-hourglass" class="fg-thumb">
 									<div style="width: 100px; height: 100px;"></div>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loading-hourglass">fg-loading-hourglass</h4>
@@ -959,11 +428,11 @@
 				<div class="css-example">
 					<div class="foogallery fg-light fg-loading-reload">
 						<div class="fg-item fg-loading">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loading-reload" class="fg-thumb">
 									<div style="width: 100px; height: 100px;"></div>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loading-reload">fg-loading-reload</h4>
@@ -972,11 +441,11 @@
 				<div class="css-example">
 					<div class="foogallery fg-light fg-loading-ripple">
 						<div class="fg-item fg-loading">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loading-ripple" class="fg-thumb">
 									<div style="width: 100px; height: 100px;"></div>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loading-ripple">fg-loading-ripple</h4>
@@ -985,11 +454,11 @@
 				<div class="css-example">
 					<div class="foogallery fg-light fg-loading-bars">
 						<div class="fg-item fg-loading">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loading-bars" class="fg-thumb">
 									<div style="width: 100px; height: 100px;"></div>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loading-bars">fg-loading-bars</h4>
@@ -998,11 +467,11 @@
 				<div class="css-example">
 					<div class="foogallery fg-light fg-loading-spin">
 						<div class="fg-item fg-loading">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loading-spin" class="fg-thumb">
 									<div style="width: 100px; height: 100px;"></div>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loading-spin">fg-loading-spin</h4>
@@ -1011,11 +480,11 @@
 				<div class="css-example">
 					<div class="foogallery fg-light fg-loading-squares">
 						<div class="fg-item fg-loading">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loading-squares" class="fg-thumb">
 									<div style="width: 100px; height: 100px;"></div>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loading-squares">fg-loading-squares</h4>
@@ -1024,11 +493,11 @@
 				<div class="css-example">
 					<div class="foogallery fg-light fg-loading-cube">
 						<div class="fg-item fg-loading">
-							<div class="fg-item-inner">
+							<figure class="fg-item-inner">
 								<a href="#fg-loading-cube" class="fg-thumb">
 									<div style="width: 100px; height: 100px;"></div>
 								</a>
-							</div>
+							</figure>
 						</div>
 					</div>
 					<h4 id="fg-loading-cube">fg-loading-cube</h4>
@@ -1042,6 +511,771 @@
 					All loading icons were generated using <a href="https://loading.io/">loading.io</a> so if you are creating a custom item theme and need to create your own icons with
 					a specific background color it is quite simple.
 				</p>
+			</div>
+
+		</div>
+
+		<!-- Border size -->
+		<div class="docs-option">
+			<h3 class="page-header">Border size</h3>
+			<p>
+				These CSS classes specify the <code>border-width</code> for an item and are dependent on an item theme for the actual <code>border-color</code>. In this example we are using the
+				<code>fg-dark</code> theme so the border stands out against the white background.
+			</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-dark fg-border-thin">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-border-thin" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=11"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-border-thin">fg-border-thin</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-dark fg-border-medium">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-border-medium" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=12"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-border-medium">fg-border-medium</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-dark fg-border-thick">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-border-thick" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=13"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-border-thick">fg-border-thick</h4>
+				</div>
+
+			</div>
+
+			<p>If we want to use the <code>fg-light</code> theme we could use the <code>fg-shadow-outline</code> class to give our edges some definition.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-outline fg-border-thin">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-border-thin" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=11"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-outline fg-border-medium">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-border-medium" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=12"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-outline fg-border-thick">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-border-thick" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=13"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Rounded corners -->
+		<div class="docs-option">
+			<h3 class="page-header">Rounded corners</h3>
+			<p>These CSS classes specify the <code>border-radius</code> for an item.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-round-small">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-round-small" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=11"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-round-small">fg-round-small</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-round-medium">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-round-medium" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=12"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-round-medium">fg-round-medium</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-round-large">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-round-large" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=13"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-round-large">fg-round-large</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-round-full">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-round-full" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=14"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-round-full">fg-round-full</h4>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Drop shadows -->
+		<div class="docs-option">
+			<h3 class="page-header">Drop shadows</h3>
+			<p>These CSS classes specify the <code>box-shadow</code> for an item and are dependent on a item theme being set.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-outline">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-shadow-outline" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-shadow-outline">fg-shadow-outline</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-small">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-shadow-small" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-shadow-small">fg-shadow-small</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-medium">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-shadow-medium" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-shadow-medium">fg-shadow-medium</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-large">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-shadow-large" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-shadow-large">fg-shadow-large</h4>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Inner shadows -->
+		<div class="docs-option">
+			<h3 class="page-header">Inner shadows</h3>
+			<p>These CSS classes specify the inner <code>box-shadow</code> for an items thumbnail and are dependent on a item theme being set.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-inset-small">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-shadow-inset-small" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-shadow-inset-small">fg-shadow-inset-small</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-inset-medium">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-shadow-inset-medium" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-shadow-inset-medium">fg-shadow-inset-medium</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-light fg-shadow-inset-large">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-shadow-inset-large" class="fg-thumb">
+									<div style="width: 150px; height: 150px;"></div>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-shadow-inset-large">fg-shadow-inset-large</h4>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Caption & hover style -->
+		<div class="docs-option">
+			<h3 class="page-header">Caption & hover style</h3>
+			<p>These CSS classes styles and effects for when a user hovers over an item. This effects the captions, hover effects and hover icons.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-sadie">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-sadie" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/360/240?image=11"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-sadie">fg-sadie</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-layla">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-layla" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/360/240?image=12"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-layla">fg-layla</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-oscar">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-oscar" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/360/240?image=13"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-oscar">fg-oscar</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-sarah">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-sarah" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/360/240?image=14"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-sarah">fg-sarah</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-goliath">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-goliath" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/360/240?image=15"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-goliath">fg-goliath</h4>
+				</div>
+
+			</div>
+
+			<div class="callout callout-info">
+				<h5>Note</h5>
+				<p>If you use one of these preset styles you <em>must not</em> apply any of the classes from the below Captions, Hover icons and Hover effects sections as they will conflict causing unwanted issues.</p>
+			</div>
+
+		</div>
+
+		<!-- Captions -->
+		<div class="docs-option">
+			<h3 class="page-header">Captions</h3>
+			<p>These CSS classes control if and how captions are displayed for an item. Captions are either displayed always and then hidden when hovered or they can be set to display only on hover using one of the Hover effects.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-always">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-caption-always" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=13"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-caption-always">fg-caption-always</h4>
+				</div>
+			</div>
+
+			<p>When specifying that the captions should display only on hover you must supply both the <code>fg-caption-hover</code> class <em>and</em> one of the Hover effect classes.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-slide-up">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-caption-hover_fg-hover-slide-up" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=13"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-caption-hover_fg-hover-slide-up">fg-caption-hover fg-hover-slide-up</h4>
+				</div>
+
+			</div>
+
+			<p>If you are using the <code>fg-caption-hover</code> class and a Hover icon is also selected the icon is displayed above the caption title.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-slide-up fg-hover-external">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-caption-hover_fg-hover-slide-up_fg-hover-external" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=13"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-caption-hover_fg-hover-slide-up_fg-hover-external">fg-caption-hover fg-hover-slide-up fg-hover-external</h4>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Hover icons -->
+		<div class="docs-option">
+			<h3 class="page-header">Hover icons</h3>
+			<p>These CSS classes specify the icon to display when a user hovers over the item. All icons all retina ready with multiple sizes available.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-external">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-external" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=11"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-external">fg-hover-external</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-zoom">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-zoom" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=12"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-zoom">fg-hover-zoom</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-zoom2">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-zoom2" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=13"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-zoom2">fg-hover-zoom2</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-zoom3">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-zoom3" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=14"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-zoom3">fg-hover-zoom3</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-plus">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-plus" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=15"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-plus">fg-hover-plus</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-circle-plus">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-circle-plus" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=16"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-circle-plus">fg-hover-circle-plus</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-hover-eye">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-eye" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/150/150?image=17"/>
+								</a>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-eye">fg-hover-eye</h4>
+				</div>
+
+			</div>
+
+			<div class="callout callout-info">
+				<h5>Note</h5>
+				<p>If the captions are set to display on hover and a Hover icon is selected the icon is displayed above the caption title.</p>
+			</div>
+
+		</div>
+
+		<!-- Hover effects -->
+		<div class="docs-option">
+			<h3 class="page-header">Hover effects</h3>
+			<p>These CSS classes provide simple effects to display the caption and/or icon for when a user hovers over an item.</p>
+
+			<div class="css-examples">
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-external fg-hover-fade">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-fade" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=10"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-fade">fg-hover-fade</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-external fg-hover-slide-up">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-slide-up" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=11"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-slide-up">fg-hover-slide-up</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-external fg-hover-slide-down">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-slide-down" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=12"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-slide-down">fg-hover-slide-down</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-external fg-hover-slide-left">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-slide-left" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=13"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-slide-left">fg-hover-slide-left</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-external fg-hover-slide-right">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-slide-right" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=14"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-slide-right">fg-hover-slide-right</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-external fg-hover-push">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-push" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=15"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-push">fg-hover-push</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-external fg-hover-colorize">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-colorize" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=16"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-colorize">fg-hover-colorize</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-external fg-hover-grayscale">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-grayscale" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=17"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-grayscale">fg-hover-grayscale</h4>
+				</div>
+
+				<div class="css-example">
+					<div class="foogallery fg-caption-hover fg-hover-external fg-hover-scale">
+						<div class="fg-item fg-loaded">
+							<figure class="fg-item-inner">
+								<a href="#fg-hover-scale" class="fg-thumb">
+									<img class="fg-image" src="https://unsplash.it/200/200?image=18"/>
+								</a>
+								<figcaption class="fg-caption">
+									<div class="fg-caption-inner">
+										<div class="fg-caption-title">Lorem ipsum dolor.</div>
+										<div class="fg-caption-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<h4 id="fg-hover-scale">fg-hover-scale</h4>
+				</div>
+
+			</div>
+
+			<div class="callout callout-info">
+				<h5>Notes</h5>
+				<ul>
+					<li>
+						<p><code>fg-hover-scale</code> can result in blurry text in items in some browsers, most notably Chrome.</p>
+					</li>
+					<li>
+						<p>
+							<code>fg-hover-colorize</code> and <code>fg-hover-grayscale</code> will not work in Internet Explorer 10 & 11 as Microsoft removed support for the proprietary <code>filter: gray</code>
+							CSS property and supplied no replacement.
+						</p>
+					</li>
+				</ul>
 			</div>
 
 		</div>
@@ -1299,18 +1533,18 @@
 								to the following structure. For more information on each of the <code>[values]</code> please see the options below.
 							</p>
 						</div>
-						<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot; data-id=&quot;[id]&quot;&gt;
-	&lt;div class=&quot;fg-item-inner&quot;&gt;
-		&lt;a class=&quot;fg-thumb&quot; href=&quot;[href]&quot;&gt;
-			&lt;img class=&quot;fg-image&quot; title=&quot;[title]&quot; alt=&quot;[description]&quot; width=&quot;[width]&quot; height=&quot;[height]&quot; data-src=&quot;[src]&quot; data-srcset=&quot;[srcset]&quot; /&gt;
-			&lt;div class=&quot;fg-caption&quot;&gt;
-				&lt;div class=&quot;fg-caption-inner&quot;&gt;
-					&lt;div class=&quot;fg-caption-title&quot;&gt;[title]&lt;/div&gt;
-					&lt;div class=&quot;fg-caption-desc&quot;&gt;[description]&lt;/div&gt;
-				&lt;/div&gt;
-			&lt;/div&gt;
+						<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot; href=&quot;[href]&quot; data-id=&quot;[id]&quot; data-title=&quot;[caption]&quot; data-description=&quot;[description]&quot;&gt;
+			&lt;img class=&quot;fg-image&quot; title=&quot;[title]&quot; alt=&quot;[alt]&quot; width=&quot;[width]&quot; height=&quot;[height]&quot; data-src=&quot;[src]&quot; data-srcset=&quot;[srcset]&quot; /&gt;
 		&lt;/a&gt;
-	&lt;/div&gt;
+		&lt;figcaption class=&quot;fg-caption&quot;&gt;
+			&lt;div class=&quot;fg-caption-inner&quot;&gt;
+				&lt;div class=&quot;fg-caption-title&quot;&gt;[caption]&lt;/div&gt;
+				&lt;div class=&quot;fg-caption-desc&quot;&gt;[description]&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/figcaption&gt;
+	&lt;/figure&gt;
 &lt;/div&gt;</code></pre>
 
 						<p>
@@ -1370,11 +1604,11 @@
 										<p>To supply this option through markup you must specify the <code>href</code> attribute on the <code>fg-thumb</code> element.</p>
 									</div>
 									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
-	&lt;div class=&quot;fg-item-inner&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
 		&lt;a class=&quot;fg-thumb&quot; href=&quot;https://url-to-your/item&quot;&gt;
 			...
 		&lt;/a&gt;
-	&lt;/div&gt;
+	&lt;/figure&gt;
 &lt;/div&gt;</code></pre>
 
 									<p>Otherwise you can supply it directly to the plugin method.</p>
@@ -1409,12 +1643,12 @@
 										<p>To supply this option through markup you must specify the <code>data-src</code> attribute on the <code>fg-image</code> element.</p>
 									</div>
 									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
-	&lt;div class=&quot;fg-item-inner&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
 		&lt;a class=&quot;fg-thumb&quot;&gt;
 			&lt;img class=&quot;fg-image&quot; data-src=&quot;https://url-to-your/thumb.jpg&quot; /&gt;
 			...
 		&lt;/a&gt;
-	&lt;/div&gt;
+	&lt;/figure&gt;
 &lt;/div&gt;</code></pre>
 
 									<p>Otherwise you can supply it directly to the plugin method.</p>
@@ -1449,12 +1683,12 @@
 										<p>To supply this option through markup you must specify the <code>width</code> attribute on the <code>fg-image</code> element.</p>
 									</div>
 									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
-	&lt;div class=&quot;fg-item-inner&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
 		&lt;a class=&quot;fg-thumb&quot;&gt;
 			&lt;img class=&quot;fg-image&quot; width=&quot;250&quot; /&gt;
 			...
 		&lt;/a&gt;
-	&lt;/div&gt;
+	&lt;/figure&gt;
 &lt;/div&gt;</code></pre>
 
 									<p>Otherwise you can supply it directly to the plugin method.</p>
@@ -1489,12 +1723,12 @@
 										<p>To supply this option through markup you must specify the <code>height</code> attribute on the <code>fg-image</code> element.</p>
 									</div>
 									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
-	&lt;div class=&quot;fg-item-inner&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
 		&lt;a class=&quot;fg-thumb&quot;&gt;
 			&lt;img class=&quot;fg-image&quot; height=&quot;250&quot; /&gt;
 			...
 		&lt;/a&gt;
-	&lt;/div&gt;
+	&lt;/figure&gt;
 &lt;/div&gt;</code></pre>
 
 									<p>Otherwise you can supply it directly to the plugin method.</p>
@@ -1526,10 +1760,14 @@
 
 								<div class="examples">
 									<div class="example plural">
-										<p>To supply this option through data attributes you must specify the <code>data-id</code> attribute on the outer <code>fg-item</code> element.</p>
+										<p>To supply this option through markup you must specify the <code>data-id</code> attribute on the <code>fg-thumb</code> element.</p>
 									</div>
-									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot; data-id=&quot;item-1&quot;&gt;
-	...
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot; data-id=&quot;item-1&quot;&gt;
+			...
+		&lt;/a&gt;
+	&lt;/figure&gt;
 &lt;/div&gt;</code></pre>
 
 									<p>Otherwise you can supply it directly to the plugin method.</p>
@@ -1564,12 +1802,12 @@
 										<p>To supply this option through markup you must specify the <code>data-srcset</code> attribute on the <code>fg-image</code> element. The following examples assume a <code>width</code> of <code>250</code> for the <code>src</code> image.</p>
 									</div>
 									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
-	&lt;div class=&quot;fg-item-inner&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
 		&lt;a class=&quot;fg-thumb&quot;&gt;
 			&lt;img class=&quot;fg-image&quot; data-srcset=&quot;https://url-to-your/thumb@2x.jpg 500w,https://url-to-thumb/thumb@3x.jpg 750w&quot; /&gt;
 			...
 		&lt;/a&gt;
-	&lt;/div&gt;
+	&lt;/figure&gt;
 &lt;/div&gt;</code></pre>
 
 									<p>Otherwise you can supply it directly to the plugin method.</p>
@@ -1577,6 +1815,162 @@
 	$(&#39;.foogallery&#39;).foogallery({
 		&quot;items&quot;: [{
 			&quot;srcset&quot;: &quot;https://url-to-your/thumb@2x.jpg 500w,https://url-to-thumb/thumb@3x.jpg 750w&quot;
+		}]
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- title -->
+						<a href="#item-title" class="list-group-item">
+							<h5 id="item-title" class="list-group-item-heading">title <small>string</small></h5>
+							<p class="list-group-item-text">The plain text for the thumbnail images' title attribute.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>""</code></p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>title</code> attribute on the <code>fg-image</code> element.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot;&gt;
+			&lt;img class=&quot;fg-image&quot; title=&quot;My image title&quot; /&gt;
+			...
+		&lt;/a&gt;
+	&lt;/figure&gt;
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;title&quot;: &quot;My image title&quot;
+		}]
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- alt -->
+						<a href="#item-alt" class="list-group-item">
+							<h5 id="item-alt" class="list-group-item-heading">alt <small>string</small></h5>
+							<p class="list-group-item-text">The plain text for the thumbnail images' alt attribute.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>""</code></p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>alt</code> attribute on the <code>fg-image</code> element.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot;&gt;
+			&lt;img class=&quot;fg-image&quot; alt=&quot;My image short description.&quot; /&gt;
+			...
+		&lt;/a&gt;
+	&lt;/figure&gt;
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;alt&quot;: &quot;My image short description.&quot;
+		}]
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- caption -->
+						<a href="#item-caption" class="list-group-item">
+							<h5 id="item-caption" class="list-group-item-heading">caption <small>string</small></h5>
+							<p class="list-group-item-text">The markup for the item captions' title.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>""</code></p>
+										<p>If not supplied this option will default to the value of the <code>title</code> option.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-title</code> attribute on the <code>fg-thumb</code> element.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot; data-title=&quot;My title &amp;lt;span&amp;gt;with markup&amp;lt;/span&amp;gt;&quot;&gt;
+			...
+		&lt;/a&gt;
+	&lt;/figure&gt;
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;caption&quot;: &quot;My title &lt;span&gt;with markup&lt;/span&gt;&quot;
+		}]
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- description -->
+						<a href="#item-description" class="list-group-item">
+							<h5 id="item-description" class="list-group-item-heading">description <small>string</small></h5>
+							<p class="list-group-item-text">The markup for the item captions' description.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>""</code></p>
+										<p>If not supplied this option will default to the value of the <code>alt</code> option.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-description</code> attribute on the <code>fg-thumb</code> element.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;figure class=&quot;fg-item-inner&quot;&gt;
+		&lt;a class=&quot;fg-thumb&quot; data-description=&quot;My description &amp;lt;span&amp;gt;with markup&amp;lt;/span&amp;gt;.&quot;&gt;
+			...
+		&lt;/a&gt;
+	&lt;/figure&gt;
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;items&quot;: [{
+			&quot;description&quot;: &quot;My description &lt;span&gt;with markup&lt;/span&gt;.&quot;
 		}]
 	});
 });</code></pre>

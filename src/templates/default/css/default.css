@@ -1,19 +1,19 @@
 /* Base styles */
-.fg-responsive:after {
+.fg-default:after {
 	content: '';
 	display: block;
 	clear: both;
 }
 
-.fg-responsive .fg-item,
-.fg-responsive .fg-item-inner,
-.fg-responsive .fg-thumb {
+.fg-default .fg-item,
+.fg-default .fg-item-inner,
+.fg-default .fg-thumb {
 	display: inline-block;
 	vertical-align: top;
 	max-width: 100%;
 }
 
-.fg-responsive .fg-image {
+.fg-default .fg-image {
 	border-radius: 0;
 	display: block;
 	max-width: 100%;
@@ -23,44 +23,44 @@
 }
 
 /* Horizontal alignment */
-.fg-responsive .fg-image {
+.fg-default .fg-image {
 	vertical-align: top;
 }
 
-.fg-responsive.fg-left {
+.fg-default.fg-left {
 	text-align: left;
 }
 
-.fg-responsive.fg-center {
+.fg-default.fg-center {
 	text-align: center;
 }
 
-.fg-responsive.fg-right {
+.fg-default.fg-right {
 	text-align: right;
 }
 
 /* Gutter widths */
-.fg-responsive.fg-gutter-5 .fg-item {
+.fg-default.fg-gutter-5 .fg-item {
 	margin-right: 5px;
 	margin-bottom: 5px;
 }
 
-.fg-responsive.fg-gutter-10 .fg-item {
+.fg-default.fg-gutter-10 .fg-item {
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
 
-.fg-responsive.fg-gutter-15 .fg-item {
+.fg-default.fg-gutter-15 .fg-item {
 	margin-right: 15px;
 	margin-bottom: 15px;
 }
 
-.fg-responsive.fg-gutter-20 .fg-item {
+.fg-default.fg-gutter-20 .fg-item {
 	margin-right: 20px;
 	margin-bottom: 20px;
 }
 
-.fg-responsive.fg-gutter-25 .fg-item {
+.fg-default.fg-gutter-25 .fg-item {
 	margin-right: 25px;
 	margin-bottom: 25px;
 }

@@ -12,6 +12,10 @@
 	position: relative;
 	background-color: transparent;
 	z-index: 2;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .foogallery .fg-item-inner {
 	display: block;
@@ -22,10 +26,38 @@
 	z-index: 3;
 	border: solid 0 transparent;
 }
-.foogallery .fg-item.fg-idle,
-.foogallery .fg-item.fg-loading {
+
+.foogallery .fg-item.fg-loading,
+.foogallery .fg-item.fg-error {
 	background: no-repeat center;
 }
+
+.foogallery .fg-item.fg-error {
+	background-image: url('../img/image.png');
+}
+
+/* @2x Images (Pixel Ratio of 1.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 5/4),
+only screen and (-webkit-min-device-pixel-ratio: 1.25),
+only screen and (min-device-pixel-ratio: 1.25),
+only screen and (min-resolution: 1.25dppx) {
+	.foogallery .fg-item.fg-idle,
+	.foogallery .fg-item.fg-error {
+		background-image: url('../img/image@2x.png');
+	}
+}
+
+/* @3x Images (Pixel Ratio of 2.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 9/4),
+only screen and (-webkit-min-device-pixel-ratio: 2.25),
+only screen and (min-device-pixel-ratio: 2.25),
+only screen and (min-resolution: 2.25dppx) {
+	.foogallery .fg-item.fg-idle,
+	.foogallery .fg-item.fg-error {
+		background-image: url('../img/image@3x.png');
+	}
+}
+
 .foogallery .fg-item.fg-loaded {
 	z-index: 4;
 }
@@ -33,6 +65,10 @@
 	visibility: visible;
 	opacity: 1;
 	z-index: 5;
+}
+.foogallery .fg-error .fg-item-inner {
+	pointer-events: none;
+	cursor: default;
 }
 .foogallery .fg-thumb {
 	display: block;

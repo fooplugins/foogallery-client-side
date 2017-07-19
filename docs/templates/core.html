@@ -9,7 +9,7 @@
 	<meta name="author" content="">
 	<!--<link rel="icon" href="../../favicon.ico">-->
 
-	<title>Default template - FooGallery</title>
+	<title>Core template - FooGallery</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -21,21 +21,18 @@
 	<!-- Custom styles for this template -->
 	<link href="../css/docs.css" rel="stylesheet">
 
-	<!-- FooGallery CSS -->
-	<link href="../../dist/full/css/foogallery.css" rel="stylesheet">
-
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 	<style>
-		.css-examples.alignment {
-			text-align: left;
+		#css_example_1 {
+			text-align: center;
 		}
-		.css-examples.alignment .css-example {
-			display: block;
-			margin-bottom: 15px;
+		#css_example_1 .fg-item {
+			display: inline-block;
+			margin: 3px;
 		}
 	</style>
 </head>
@@ -58,8 +55,8 @@
 				<li class="dropdown active">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Templates <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="core.html">Core</a></li>
-						<li class="active"><a>Default</a></li>
+						<li class="active"><a>Core</a></li>
+						<li><a href="default.html">Default</a></li>
 						<li><a href="masonry.html">Masonry</a></li>
 						<li><a href="portfolio.html">Portfolio</a></li>
 						<li><a href="justified.html">Justified</a></li>
@@ -78,293 +75,42 @@
 <!-- Header -->
 <div class="jumbotron">
 	<div class="container">
-		<h1>Default template</h1>
-		<h2>An overview of the default template which performs basic layout using just CSS.</h2>
+		<h1>Core template</h1>
+		<h2>An overview of the core template which all other templates are built on.</h2>
 	</div>
 </div>
 
 <div class="container">
 	<p class="lead">
-		This is the simplest of the built-in templates and uses just some CSS to layout its' items. Due to its' simplicity it is recommended that the thumbnail images have the same height.
+		All templates in FooGallery offer some core functionality, the core template is what implements it. This template does not implement any layout logic but instead provides item, paging and state managers that can be hooked into by child templates.
 	</p>
-
-	<!-- CSS -->
+	<!-- Basic template -->
 	<div class="docs-section">
-		<h2 class="page-header first">CSS</h2>
+		<h1 class="page-header anchored"><span id="markup" class="anchor">&nbsp;</span>Basic markup</h1>
 		<p class="lead">
-			The below lists the various CSS classes that are included in FooGallery's core files providing some out of the box functionality to templates.
+			The following shows the basic markup required to get the core template to initialize. This markup can and is changed by the other templates so please check the documentation for the template you want to use.
 		</p>
 
 		<div class="examples">
 			<div class="example">
-				<p>To use any of these classes all you need to do is apply it to the FooGallery container element.</p>
-				<pre class="language-markup" data-lang="markup"><code>&lt;div id=&quot;[id]&quot; class=&quot;foogallery fg-default fg-center&quot;&gt;
-	&lt;!-- repeatable items --&gt;
-&lt;/div&gt;</code></pre>
-			</div>
-		</div>
-
-
-		<!-- Alignment -->
-		<div class="docs-option">
-			<h3 class="page-header">Alignment</h3>
-			<p>
-				These CSS classes determine the alignment of the items within the gallery.
-			</p>
-
-			<div class="css-examples alignment">
-
-				<div class="css-example">
-					<div class="foogallery fg-default fg-left">
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-left">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=11"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-left">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=12"/>
-								</a>
-							</figure>
-						</div>
-					</div>
-					<h4 id="fg-left">fg-left</h4>
-				</div>
-
-				<hr/>
-
-				<div class="css-example">
-					<div class="foogallery fg-default fg-center">
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-center">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=11"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-center">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=12"/>
-								</a>
-							</figure>
-						</div>
-					</div>
-					<h4 id="fg-center">fg-center</h4>
-				</div>
-
-				<hr/>
-
-				<div class="css-example">
-					<div class="foogallery fg-default fg-right">
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-right">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=11"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-right">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=12"/>
-								</a>
-							</figure>
-						</div>
-					</div>
-					<h4 id="fg-right">fg-right</h4>
-				</div>
-
-			</div>
-
-		</div>
-
-		<!-- Gutter -->
-		<div class="docs-option">
-			<h3 class="page-header">Gutter</h3>
-			<p>
-				These CSS classes determine the spacing between items within the gallery.
-			</p>
-
-			<div class="css-examples gutter">
-
-				<div class="css-example">
-					<div class="foogallery fg-default fg-gutter-5">
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-5">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=11"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-5">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=12"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-5">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=13"/>
-								</a>
-							</figure>
-						</div>
-					</div>
-					<h4 id="fg-gutter-5">fg-gutter-5</h4>
-				</div>
-
-				<hr/>
-
-				<div class="css-example">
-					<div class="foogallery fg-default fg-gutter-10">
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-10">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=11"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-10">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=12"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-10">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=13"/>
-								</a>
-							</figure>
-						</div>
-					</div>
-					<h4 id="fg-gutter-10">fg-gutter-10</h4>
-				</div>
-
-				<hr/>
-
-				<div class="css-example">
-					<div class="foogallery fg-default fg-gutter-15">
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-15">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=11"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-15">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=12"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-15">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=13"/>
-								</a>
-							</figure>
-						</div>
-					</div>
-					<h4 id="fg-gutter-15">fg-gutter-15</h4>
-				</div>
-
-				<hr/>
-
-				<div class="css-example">
-					<div class="foogallery fg-default fg-gutter-20">
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-20">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=11"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-20">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=12"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-20">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=13"/>
-								</a>
-							</figure>
-						</div>
-					</div>
-					<h4 id="fg-gutter-20">fg-gutter-20</h4>
-				</div>
-
-				<hr/>
-
-				<div class="css-example">
-					<div class="foogallery fg-default fg-gutter-25">
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-25">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=11"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-25">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=12"/>
-								</a>
-							</figure>
-						</div>
-						<div class="fg-item fg-loaded">
-							<figure class="fg-item-inner">
-								<a class="fg-thumb" href="#fg-gutter-25">
-									<img class="fg-image" src="https://unsplash.it/200/200?image=13"/>
-								</a>
-							</figure>
-						</div>
-					</div>
-					<h4 id="fg-gutter-25">fg-gutter-25</h4>
-				</div>
-
-			</div>
-
-		</div>
-
-
-	</div>
-
-
-		<!-- Markup -->
-	<div class="docs-section">
-		<h2 class="page-header">Markup</h2>
-		<p class="lead">
-			The following shows the basic markup required to get the default template to initialize. This markup can and is changed by the other templates so please check the documentation for the template you want to use.
-		</p>
-
-		<div class="examples">
-			<div class="example">
-
-				<p>Copy the HTML below to begin working with a default template.</p>
+				<p>Copy the HTML below to begin working with the core template.</p>
 
 				<pre class="language-markup" data-lang="markup"><code>&lt;!-- The container element for template --&gt;
-&lt;div id=&quot;[id]&quot; class=&quot;foogallery fg-default&quot;&gt;
+&lt;div id=&quot;[id]&quot; class=&quot;foogallery&quot;&gt;
 	&lt;!-- repeatable items --&gt;
 &lt;/div&gt;</code></pre>
 
-				<p>When supplying items through markup the following template can be used. For more information on the actual <code>[values]</code> see the <a href="../options.html#items">items</a> option.</p>
-				<pre class="language-markup" data-lang="markup"><code>&lt;div class=&quot;fg-item&quot;&gt;
+				<p>When supplying items through markup the following template can be used. For more information on the actual <code>[values]</code> see the <a href="../getting-started.html#items">items</a> option.</p>
+				<pre class="language-markup" data-lang="markup"><code>&lt;!-- Item container, used for position, layout and state purposes, no styling should be applied to this element --&gt;
+&lt;div class=&quot;fg-item&quot;&gt;
+	&lt;!-- The inner container for an item, this element is the primary styled element --&gt;
 	&lt;figure class=&quot;fg-item-inner&quot;&gt;
+		&lt;!-- The clickable thumb for an item --&gt;
 		&lt;a class=&quot;fg-thumb&quot; href=&quot;[href]&quot; data-id=&quot;[id]&quot; data-title=&quot;[caption]&quot; data-description=&quot;[description]&quot;&gt;
+			&lt;!-- The thumb image for an item, it uses data-src and data-srcset to let FooGallery control loading --&gt;
 			&lt;img class=&quot;fg-image&quot; title=&quot;[title]&quot; alt=&quot;[alt]&quot; width=&quot;[width]&quot; height=&quot;[height]&quot; data-src=&quot;[src]&quot; data-srcset=&quot;[srcset]&quot; /&gt;
 		&lt;/a&gt;
+		&lt;!-- The optional caption for an item --&gt;
 		&lt;figcaption class=&quot;fg-caption&quot;&gt;
 			&lt;div class=&quot;fg-caption-inner&quot;&gt;
 				&lt;div class=&quot;fg-caption-title&quot;&gt;[caption]&lt;/div&gt;
@@ -376,16 +122,26 @@
 
 			</div>
 		</div>
-
 	</div>
 
 	<!-- Usage -->
 	<div class="docs-section">
-		<h2 class="page-header">Usage</h2>
+		<h1 class="page-header anchored"><span id="usage" class="anchor">&nbsp;</span>Usage</h1>
+		<p class="lead">
+			If you do not want to use one of the default templates to perform item layout you can use the core template to still get all the core functionality of
+			FooGallery but without any of the layout being performed. This means you have to implement the layout yourself using CSS and / or JavaScript.
+		</p>
 		<div class="examples">
 			<div class="example">
-				<p>The following shows a simple example of the default template being used to perform layout of items.</p>
-				<pre class="language-markup" data-lang="markup"><code>&lt;div id=&quot;css_example_1&quot; class=&quot;foogallery fg-default&quot;&gt;
+				<p>The following shows a very simple example using just CSS to layout the items using the <code>fg-item</code> CSS class.</p>
+				<pre class="language-css" data-lang="css"><code>#css_example_1 {
+	text-align: center;
+}
+#css_example_1 .fg-item {
+	display: inline-block;
+	margin: 3px;
+}</code></pre>
+				<pre class="language-markup" data-lang="markup"><code>&lt;div id=&quot;css_example_1&quot; class=&quot;foogallery&quot;&gt;
 	&lt;div class=&quot;fg-item&quot;&gt;
 		&lt;figure class=&quot;fg-item-inner&quot;&gt;
 			&lt;a class=&quot;fg-thumb&quot; href=&quot;https://unsplash.it/1920/1200?image=1&quot; data-id=&quot;item_1&quot;&gt;
@@ -463,76 +219,76 @@
 					<p>Check the <a href="../options.html">options</a> page to see all core options and events available for use with this template.</p>
 				</div>
 
-				<div id="css_example_1" class="foogallery fg-default">
-					<div class="fg-item">
-						<figure class="fg-item-inner">
-							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=1" data-id="item_1">
+				<div id="css_example_1" class="foogallery">
+					<div class="fg-item" data-id="item_1">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=1">
 								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
 										 width="250" height="250"
 										 data-src="https://unsplash.it/250/250?image=1"
 										 data-srcset="https://unsplash.it/500/500?image=1 500w,https://unsplash.it/750/750?image=1 750w" />
 							</a>
-						</figure>
+						</div>
 					</div>
-					<div class="fg-item">
-						<figure class="fg-item-inner">
-							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=2" data-id="item_2">
+					<div class="fg-item" data-id="item_2">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=2">
 								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
 										 width="250" height="250"
 										 data-src="https://unsplash.it/250/250?image=2"
 										 data-srcset="https://unsplash.it/500/500?image=2 500w,https://unsplash.it/750/750?image=2 750w" />
 							</a>
-						</figure>
+						</div>
 					</div>
-					<div class="fg-item">
-						<figure class="fg-item-inner">
-							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=3" data-id="item_3">
+					<div class="fg-item" data-id="item_3">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=3">
 								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
 										 width="250" height="250"
 										 data-src="https://unsplash.it/250/250?image=3"
 										 data-srcset="https://unsplash.it/500/500?image=3 500w,https://unsplash.it/750/750?image=3 750w" />
 							</a>
-						</figure>
+						</div>
 					</div>
-					<div class="fg-item">
-						<figure class="fg-item-inner">
-							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=4" data-id="item_4">
+					<div class="fg-item" data-id="item_4">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=4">
 								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
 										 width="250" height="250"
 										 data-src="https://unsplash.it/250/250?image=4"
 										 data-srcset="https://unsplash.it/500/500?image=4 500w,https://unsplash.it/750/750?image=4 750w" />
 							</a>
-						</figure>
+						</div>
 					</div>
-					<div class="fg-item">
-						<figure class="fg-item-inner">
-							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=5" data-id="item_5">
+					<div class="fg-item" data-id="item_5">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=5">
 								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
 										 width="250" height="250"
 										 data-src="https://unsplash.it/250/250?image=5"
 										 data-srcset="https://unsplash.it/500/500?image=5 500w,https://unsplash.it/750/750?image=5 750w" />
 							</a>
-						</figure>
+						</div>
 					</div>
-					<div class="fg-item">
-						<figure class="fg-item-inner">
-							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=6" data-id="item_6">
+					<div class="fg-item" data-id="item_6">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=6">
 								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
 										 width="250" height="250"
 										 data-src="https://unsplash.it/250/250?image=6"
 										 data-srcset="https://unsplash.it/500/500?image=6 500w,https://unsplash.it/750/750?image=6 750w" />
 							</a>
-						</figure>
+						</div>
 					</div>
-					<div class="fg-item">
-						<figure class="fg-item-inner">
-							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=7" data-id="item_7">
+					<div class="fg-item" data-id="item_7">
+						<div class="fg-item-inner">
+							<a class="fg-thumb" href="https://unsplash.it/1920/1200?image=7">
 								<img class="fg-image" title="Lorem ipsum dolor." alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis."
 										 width="250" height="250"
 										 data-src="https://unsplash.it/250/250?image=7"
 										 data-srcset="https://unsplash.it/500/500?image=7 500w,https://unsplash.it/750/750?image=7 750w" />
 							</a>
-						</figure>
+						</div>
 					</div>
 				</div>
 			</div>

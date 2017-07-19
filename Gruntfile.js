@@ -63,13 +63,13 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
-			"responsive": {
+			"default": {
 				"files": {
-					"./dist/templates/responsive/js/foogallery.responsive.js": [
-						"./src/templates/responsive/js/ready.js"
+					"./dist/templates/default/js/foogallery.default.js": [
+						"./src/templates/default/js/ready.js"
 					],
-					"./dist/templates/responsive/css/foogallery.responsive.css": [
-						"./src/templates/responsive/css/responsive.css"
+					"./dist/templates/default/css/foogallery.default.css": [
+						"./src/templates/default/css/default.css"
 					]
 				}
 			},
@@ -130,14 +130,14 @@ module.exports = function ( grunt ) {
 				"files": {
 					"./dist/full/js/foogallery.js": [
 						"./dist/core/js/foogallery.js",
-						"./dist/templates/responsive/js/foogallery.responsive.js",
+						"./dist/templates/default/js/foogallery.default.js",
 						"./dist/templates/masonry/js/foogallery.masonry.js",
 						"./dist/templates/justified/js/foogallery.justified.js",
 						"./dist/templates/portfolio/js/foogallery.portfolio.js"
 					],
 					"./dist/full/css/foogallery.css": [
 						"./dist/core/css/foogallery.css",
-						"./dist/templates/responsive/css/foogallery.responsive.css",
+						"./dist/templates/default/css/foogallery.default.css",
 						"./dist/templates/masonry/css/foogallery.masonry.css",
 						"./dist/templates/justified/css/foogallery.justified.css",
 						"./dist/templates/portfolio/css/foogallery.portfolio.css"
@@ -171,9 +171,9 @@ module.exports = function ( grunt ) {
 					"./dist/admin/js/foogallery.admin.min.js": "./dist/admin/js/foogallery.admin.js"
 				}
 			},
-			"responsive": {
+			"default": {
 				"files": {
-					"./dist/templates/responsive/js/foogallery.responsive.min.js": "./dist/templates/responsive/js/foogallery.responsive.js"
+					"./dist/templates/default/js/foogallery.default.min.js": "./dist/templates/default/js/foogallery.default.js"
 				}
 			},
 			"masonry": {
@@ -228,9 +228,9 @@ module.exports = function ( grunt ) {
 					"./dist/admin/css/foogallery.admin.min.css": "./dist/admin/css/foogallery.admin.css"
 				}
 			},
-			"responsive": {
+			"default": {
 				"files": {
-					"./dist/templates/responsive/css/foogallery.responsive.min.css": "./dist/templates/responsive/css/foogallery.responsive.css"
+					"./dist/templates/default/css/foogallery.default.min.css": "./dist/templates/default/css/foogallery.default.css"
 				}
 			},
 			"masonry": {
@@ -277,7 +277,7 @@ module.exports = function ( grunt ) {
 			"all": {
 				"src": [
 					"./readme.md","./dist/core/js/foogallery.js",
-					"./dist/templates/responsive/js/foogallery.responsive.js",
+					"./dist/templates/default/js/foogallery.default.js",
 					"./dist/templates/masonry/js/foogallery.masonry.js",
 					"./dist/templates/image-viewer/js/foogallery.image-viewer.js",
 					"./dist/templates/justified/js/foogallery.justified.js",
@@ -317,9 +317,9 @@ module.exports = function ( grunt ) {
 		"concat:admin",
 		"uglify:admin",
 		"cssmin:admin",
-		"concat:responsive",
-		"uglify:responsive",
-		"cssmin:responsive",
+		"concat:default",
+		"uglify:default",
+		"cssmin:default",
 		"concat:masonry",
 		"uglify:masonry",
 		"cssmin:masonry",

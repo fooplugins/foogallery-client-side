@@ -462,9 +462,9 @@
 		}
 	});
 
-	_.template.register("default", _.Template, {
+	_.template.register("core", _.Template, {
 		id: null,
-		type: "default",
+		type: "core",
 		classes: "",
 		on: {},
 		lazy: true,
@@ -475,8 +475,6 @@
 		timeout: 60000,
 		srcset: "data-srcset",
 		src: "data-src",
-		placeholder: _.emptyImage,
-		error: _.emptyImage,
 		template: {}
 	}, {
 		container: "foogallery"
@@ -485,10 +483,10 @@
 	}, -100);
 
 	/**
-	 * @summary An object containing all default template options.
+	 * @summary An object containing all the core template options.
 	 * @typedef {object} FooGallery.Template~Options
 	 * @property {?string} [id=null] - The id for the template. This is only required if creating a template without a pre-existing container element that has an `id` attribute.
-	 * @property {string} [type="default"] - The type of template to load. If no container element exists to parse the type from this must be supplied so the correct type of template is loaded.
+	 * @property {string} [type="core"] - The type of template to load. If no container element exists to parse the type from this must be supplied so the correct type of template is loaded.
 	 * @property {string} [classes=""] - A space delimited string of any additional CSS classes to append to the container element of the template.
 	 * @property {object} [on={}] - An object containing any template events to bind to.
 	 * @property {boolean} [lazy=true] - Whether or not to enable lazy loading of images.
@@ -499,8 +497,6 @@
 	 * @property {number} [timeout=60000] - The number of milliseconds to wait before forcing a timeout when loading items.
 	 * @property {string} [src="data-src"] - The name of the attribute to retrieve an images src url from.
 	 * @property {string} [srcset="data-srcset"] - The name of the attribute to retrieve an images srcset url from.
-	 * @property {string} [placeholder] - The url to an image to use as a placeholder prior to an image being loaded.
-	 * @property {string} [error] - The url to an image to use in case an item fails to load.
 	 * @property {object} [template={}] - An object containing any additional custom options for the template.
 	 * @property {FooGallery.Template~CSSClasses} [cls] - An object containing all CSS classes for the template.
 	 * @property {FooGallery.Template~CSSSelectors} [sel] - An object containing all CSS selectors for the template.
@@ -511,19 +507,19 @@
 	 */
 
 	/**
-	 * @summary An object containing all CSS classes for the default template.
+	 * @summary An object containing all CSS classes for the core template.
 	 * @typedef {object} FooGallery.Template~CSSClasses
 	 * @property {string} [container="foogallery"] - The base CSS class names to apply to the container element.
 	 * @property {FooGallery.Item~CSSClasses} [item] - A simple object containing the CSS classes used by an item.
 	 */
 
 	/**
-	 * @summary An object containing all il8n strings for the default template.
+	 * @summary An object containing all il8n strings for the core template.
 	 * @typedef {object} FooGallery.Template~il8n
 	 */
 
 	/**
-	 * @summary An object containing all CSS selectors for the default template.
+	 * @summary An object containing all CSS selectors for the core template.
 	 * @typedef {object} FooGallery.Template~CSSSelectors
 	 * @property {string} [container=".foogallery"] - The selector for the base CSS class names for the container element.
 	 * @property {FooGallery.Item~CSSSelectors} [item] - An object containing the CSS selectors for an item.

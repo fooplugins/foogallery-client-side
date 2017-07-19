@@ -1,5 +1,8 @@
 .foogallery.fg-loaded-fade-in .fg-item,
 .foogallery.fg-loaded-slide-up .fg-item,
+.foogallery.fg-loaded-slide-down .fg-item,
+.foogallery.fg-loaded-slide-left .fg-item,
+.foogallery.fg-loaded-slide-right .fg-item,
 .foogallery.fg-loaded-scale-up .fg-item,
 .foogallery.fg-loaded-swing-down .fg-item,
 .foogallery.fg-loaded-drop .fg-item,
@@ -11,6 +14,9 @@
 }
 .foogallery.fg-loaded-fade-in .fg-item-inner,
 .foogallery.fg-loaded-slide-up .fg-item-inner,
+.foogallery.fg-loaded-slide-down .fg-item-inner,
+.foogallery.fg-loaded-slide-left .fg-item-inner,
+.foogallery.fg-loaded-slide-right .fg-item-inner,
 .foogallery.fg-loaded-scale-up .fg-item-inner,
 .foogallery.fg-loaded-swing-down .fg-item-inner,
 .foogallery.fg-loaded-drop .fg-item-inner,
@@ -26,10 +32,34 @@
 /* Slide Up */
 .foogallery.fg-loaded-slide-up .fg-item-inner {
 	transition-property: visibility, opacity, transform;
-	transform: translateY(200px);
+	transform: translateY(50%);
 }
 .foogallery.fg-loaded-slide-up .fg-loaded .fg-item-inner {
-	transform: translateY(0px);
+	transform: translateY(0);
+}
+/* Slide Down */
+.foogallery.fg-loaded-slide-down .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	transform: translateY(-50%);
+}
+.foogallery.fg-loaded-slide-down .fg-loaded .fg-item-inner {
+	transform: translateY(0);
+}
+/* Slide Left */
+.foogallery.fg-loaded-slide-left .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	transform: translateX(50%);
+}
+.foogallery.fg-loaded-slide-left .fg-loaded .fg-item-inner {
+	transform: translateX(0);
+}
+/* Slide Right */
+.foogallery.fg-loaded-slide-right .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	transform: translateX(-50%);
+}
+.foogallery.fg-loaded-slide-right .fg-loaded .fg-item-inner {
+	transform: translateX(0);
 }
 /* Scale Up */
 .foogallery.fg-loaded-scale-up .fg-item-inner {
@@ -60,7 +90,7 @@
 .foogallery.fg-loaded-drop .fg-item-inner {
 	transition-property: visibility, opacity, transform;
 	transform-style: preserve-3d;
-	transform: translateZ(400px) translateY(300px) rotateX(-90deg);
+	transform: translateZ(400px) translateY(100%) rotateX(-90deg);
 }
 .foogallery.fg-loaded-drop .fg-loaded .fg-item-inner {
 	transform: translateZ(0px) translateY(0px) rotateX(0deg);

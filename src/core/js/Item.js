@@ -139,10 +139,22 @@
 			self.title = options.title;
 			/**
 			 * @memberof FooGallery.Item#
+			 * @name alt
+			 * @type {string}
+			 */
+			self.alt = options.alt;
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name caption
+			 * @type {string}
+			 */
+			self.caption = _is.empty(options.caption) ? self.title : options.caption;
+			/**
+			 * @memberof FooGallery.Item#
 			 * @name description
 			 * @type {string}
 			 */
-			self.description = options.description;
+			self.description = _is.empty(options.description) ? self.alt : options.description;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name attrItem
@@ -298,18 +310,23 @@
 				self.isLoading = self.$el.is(sel.loading);
 				self.isLoaded = self.$el.is(sel.loaded);
 				self.isError = self.$el.is(sel.error);
-				self.id = self.$el.data("id");
-				self.tags = self.$el.data("tags");
+				self.id = self.$anchor.data("id");
+				self.tags = self.$anchor.data("tags");
 				self.href = self.$anchor.attr("href");
 				self.src = self.$image.attr(o.src);
 				self.srcset = self.$image.attr(o.srcset);
 				self.width = parseInt(self.$image.attr("width"));
 				self.height = parseInt(self.$image.attr("height"));
 				self.title = self.$image.attr("title");
-				self.description = self.$image.attr("alt");
+				self.alt = self.$image.attr("alt");
+				self.caption = self.$anchor.data("title");
+				self.description = self.$anchor.data("description");
+				// if the caption or description are not provided set there values to the title and alt respectively
+				if (_is.empty(self.caption)) self.caption = self.title;
+				if (_is.empty(self.description)) self.description = self.alt;
 				// if the image has no src url then set the placeholder
 				if (_is.empty(self.$image.prop("src"))){
-					self.$image.prop("src", o.placeholder);
+					self.$image.prop("src", self.tmpl.items.placeholder(self.width, self.height));
 				}
 				if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError){
 					self.$el.addClass(cls.idle);
@@ -396,31 +413,33 @@
 				if (!e.isDefaultPrevented()){
 					var o = self.tmpl.opt, cls = self.cls, attr = self.attr;
 					attr.elem["class"] = cls.elem + " " + cls.idle;
-					attr.elem["data-id"] = self.id;
-					if (!_is.empty(self.tags)){
-						attr.elem["data-tags"] = JSON.stringify(self.tags);
-					}
 
 					attr.inner["class"] = cls.inner;
 
 					attr.anchor["class"] = cls.anchor;
 					attr.anchor["href"] = self.href;
+					attr.anchor["data-id"] = self.id;
+					attr.anchor["data-title"] = self.caption;
+					attr.anchor["data-description"] = self.description;
+					if (!_is.empty(self.tags)){
+						attr.anchor["data-tags"] = JSON.stringify(self.tags);
+					}
 
 					attr.image["class"] = cls.image;
-					attr.image["src"] = o.placeholder;
+					attr.image["src"] = self.tmpl.items.placeholder(self.width, self.height);
 					attr.image[o.src] = self.src;
 					attr.image[o.srcset] = self.srcset;
 					attr.image["width"] = self.width;
 					attr.image["height"] = self.height;
 					attr.image["title"] = self.title;
-					attr.image["alt"] = self.description;
+					attr.image["alt"] = self.alt;
 
 					self.$el = $("<div/>").attr(attr.elem).data(_.dataItem, self);
 					self.$inner = $("<figure/>").attr(attr.inner).appendTo(self.$el);
 					self.$anchor = $("<a/>").attr(attr.anchor).appendTo(self.$inner).on("click.foogallery", {self: self}, self.onAnchorClick);
 					self.$image = $("<img/>").attr(attr.image).appendTo(self.$anchor);
 
-					var hasTitle = !_is.empty(self.title), hasDesc = !_is.empty(self.description);
+					var hasTitle = !_is.empty(self.caption), hasDesc = !_is.empty(self.description);
 					if (hasTitle || hasDesc){
 						cls = self.cls.caption;
 						attr = self.attr.caption;
@@ -431,7 +450,7 @@
 						self.$caption = $("<figcaption/>").attr(attr.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
 						var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
 						if (hasTitle){
-							$inner.append($("<div/>").attr(attr.title).html(self.title));
+							$inner.append($("<div/>").attr(attr.title).html(self.caption));
 						}
 						if (hasDesc){
 							$inner.append($("<div/>").attr(attr.description).html(self.description));
@@ -633,7 +652,7 @@
 			var e = self.tmpl.raise("load-item", [self]);
 			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
 			return self._load = $.Deferred(function (def) {
-				var cls = self.cls, img = self.$image.get(0);
+				var cls = self.cls, img = self.$image.get(0), placeholder = img.src;
 				self.isLoading = true;
 				self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
 				// if Firefox reset to empty src or else the onload and onerror callbacks are executed immediately
@@ -652,8 +671,8 @@
 					self.isLoading = false;
 					self.isError = true;
 					self.$el.removeClass(cls.loading).addClass(cls.error);
-					if (_is.string(self.tmpl.opt.error)) {
-						self.$image.prop("src", self.tmpl.opt.error);
+					if (_is.string(placeholder)) {
+						self.$image.prop("src", placeholder);
 					}
 					self.tmpl.raise("error-item", [self]);
 					def.reject(self);
@@ -798,13 +817,15 @@
 	 * @property {?string} [srcset=null] - The `srcset` attribute for the image element.
 	 * @property {number} [width=0] - The width of the image.
 	 * @property {number} [height=0] - The height of the image.
-	 * @property {?string} [title=null] - The title for the image.
-	 * @property {?string} [description=null] - The description for the image.
+	 * @property {?string} [title=null] - The title for the image. This should be plain text.
+	 * @property {?string} [alt=null] - The alt for the image. This should be plain text.
+	 * @property {?string} [caption=null] - The caption for the image. This can contain HTML content.
+	 * @property {?string} [description=null] - The description for the image. This can contain HTML content.
 	 * @property {string[]} [tags=[]] - The `data-tags` attribute for the outer element.
 	 * @property {?FooGallery.Item~maxWidthCallback} [maxWidth=null] - Called when setting an items' image size. If not supplied the images outer width is used.
 	 * @property {FooGallery.Item~Attributes} [attr] - Additional attributes to apply to the items' elements.
 	 */
-	_.template.configure("default", {
+	_.template.configure("core", {
 		item: {
 			id: "",
 			href: "",
@@ -813,6 +834,8 @@
 			width: 0,
 			height: 0,
 			title: "",
+			alt: "",
+			caption: "",
 			description: "",
 			tags: [],
 			maxWidth: null,

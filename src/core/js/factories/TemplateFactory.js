@@ -66,26 +66,6 @@
 		 * @param {(jQuery|HTMLElement|string)} [element] - The jQuery object, HTMLElement or selector of the template element to create. If not supplied the {@link FooGallery~Options#type|type} options' value is used.
 		 * @returns {FooGallery.Template}
 		 */
-		// make: function(options, element){
-		// 	options = _.options(options, element.data("foogallery"));
-		// 	element = _is.jq(element) ? element : $(element);
-		// 	var self = this, names = self.names(true);
-		// 	if (_is.empty(names)) return null;
-		// 	var reg = self.registered;
-		// 	if (element.length > 0){
-		// 		for (var i = 0, l = names.length; i < l; i++) {
-		// 			if (!reg.hasOwnProperty(names[i]) || !_is.fn(reg[names[i]].test)) continue;
-		// 			if (reg[names[i]].test(element, options)) {
-		// 				options.type = names[i];
-		// 				break;
-		// 			}
-		// 		}
-		// 	}
-		// 	if (_is.hash(options[options.type])){
-		// 		options.custom = _obj.extend({}, options[options.type], options.custom);
-		// 	}
-		// 	return self._super(options.type, options, element);
-		// },
 		make: function(options, element){
 			element = _is.jq(element) ? element : $(element);
 			var self = this, type = self.type(options, element);
@@ -95,8 +75,8 @@
 		},
 		type: function(options, element){
 			element = _is.jq(element) ? element : $(element);
-			var self = this, type = _is.hash(options) && _is.hash(options) && _is.string(options.type) && self.contains(options.type) ? options.type : "default";
-			if (type === "default" && element.length > 0){
+			var self = this, type = _is.hash(options) && _is.hash(options) && _is.string(options.type) && self.contains(options.type) ? options.type : "core";
+			if (type === "core" && element.length > 0){
 				var reg = self.registered, names = self.names(true);
 				for (var i = 0, l = names.length; i < l; i++) {
 					if (!reg.hasOwnProperty(names[i])) continue;
@@ -123,12 +103,12 @@
 		options: function(name, options){
 			options = _is.hash(options) ? options : {};
 			var self = this, reg = self.registered,
-				def = reg["default"].opt,
-				cls = reg["default"].cls,
-				il8n = reg["default"].il8n;
+				def = reg["core"].opt,
+				cls = reg["core"].cls,
+				il8n = reg["core"].il8n;
 
 			options = _.paging.merge(options);
-			if (name !== "default" && self.contains(name)){
+			if (name !== "core" && self.contains(name)){
 				options = _obj.extend({}, def, reg[name].opt, options);
 				options.cls = _obj.extend({}, cls, reg[name].cls, options.cls);
 				options.il8n = _obj.extend({}, il8n, reg[name].il8n, options.il8n);

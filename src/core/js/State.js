@@ -274,7 +274,7 @@
 		},
 	});
 
-	_.template.configure("default", {
+	_.template.configure("core", {
 		state: {
 			enabled: false,
 			pushOrReplace: "replace",
