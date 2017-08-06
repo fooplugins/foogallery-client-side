@@ -40,7 +40,7 @@ module.exports = function ( grunt ) {
 					"./dist/core/css/foogallery.css": [
 						"./src/core/css/_foogallery.css",
 						"./src/core/css/item-styles.css",
-						"./src/core/css/item-themes.css",
+						"./src/core/css/preset/*.css",
 						"./src/core/css/hover-icons.css",
 						"./src/core/css/hover-effects.css",
 						"./src/core/css/captions.css",

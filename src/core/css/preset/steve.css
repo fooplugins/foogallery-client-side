@@ -1,0 +1,124 @@
+/* Steve */
+.foogallery.fg-steve .fg-item-inner {
+	overflow: visible;
+}
+
+.foogallery.fg-steve .fg-thumb {
+	background: #fff;
+}
+.foogallery.fg-steve .fg-thumb:before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+	content: '';
+	box-shadow: 0 1px 30px rgba(0,0,0,0.5);
+	-webkit-transition: opacity 0.35s;
+	transition: opacity 0.35s;
+	opacity: 0;
+}
+.foogallery.fg-steve .fg-item-inner:hover .fg-thumb:before {
+	opacity: 1;
+}
+
+.foogallery.fg-steve .fg-image {
+	opacity: 1;
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: perspective(1000px) translate3d(0,0,0);
+	transform: perspective(1000px) translate3d(0,0,0);
+}
+.foogallery.fg-steve .fg-item-inner:hover .fg-image {
+	-webkit-transform: perspective(1000px) translate3d(0,0,21px);
+	transform: perspective(1000px) translate3d(0,0,21px);
+}
+
+.foogallery.fg-steve .fg-caption {
+	text-align: center;
+	visibility: visible;
+	opacity: 1;
+	color: #2d434e;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	border: none;
+	text-transform: uppercase;
+	font-size: 1.25em;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.foogallery.fg-steve .fg-caption-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	border: solid 30px transparent;
+	border-top-width: 108px;
+	overflow: visible;
+}
+
+.foogallery.fg-steve .fg-caption-title {
+	word-spacing: -0.15em;
+	font-weight: 300;
+	font-size: 30px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	overflow: visible;
+	margin: 0;
+	padding: 0.2em;
+	background-color: #FFF;
+	-webkit-transform: translateY(-100%) translateY(-10px);
+	transform: translateY(-100%) translateY(-10px);
+}
+.foogallery.fg-steve .fg-caption-title:before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+	content: '';
+	box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+	-webkit-transition: opacity 0.35s;
+	transition: opacity 0.35s;
+	opacity: 1;
+}
+.foogallery.fg-steve .fg-item-inner:hover .fg-caption-title:before {
+	opacity: 0;
+}
+
+.foogallery.fg-steve .fg-caption-desc {
+	letter-spacing: 1px;
+	font-size: 14px;
+	max-height: 100%;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	padding: 0.2em;
+	opacity: 0;
+	background-color: #FFF;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: scale(0.9);
+	transform: scale(0.9);
+	transform-origin: 50% 50%;
+}
+.foogallery.fg-steve .fg-item-inner:hover .fg-caption-desc {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+.foogallery.fg-steve .fg-caption-title+.fg-caption-desc {
+	margin: 0;
+}
