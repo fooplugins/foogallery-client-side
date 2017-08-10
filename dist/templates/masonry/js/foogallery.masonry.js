@@ -142,7 +142,7 @@
 		onPreInit: function(event, self){
 			var sel = self.sel, cls = self.cls;
 			// first update the templates classes to include one property containing all layouts
-			cls.layouts = $.map(cls.layout, function(name, value){
+			cls.layouts = $.map(cls.layout, function(value){
 				return value;
 			}).join(" ");
 			// check if the supplied layout is supported

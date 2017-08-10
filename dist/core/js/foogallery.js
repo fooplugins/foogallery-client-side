@@ -3112,7 +3112,7 @@
 
 	// this automatically initializes all templates on page load
 	$(function () {
-		$(".foogallery[data-foogallery]").foogallery();
+		$('[id^="foogallery-"]').foogallery();
 	});
 
 })(
@@ -3192,6 +3192,7 @@
 		 */
 		make: function(options, element){
 			element = _is.jq(element) ? element : $(element);
+			options = _obj.merge(options, element.data("foogallery"));
 			var self = this, type = self.type(options, element);
 			if (!self.contains(type)) return null;
 			options = self.options(type, options);

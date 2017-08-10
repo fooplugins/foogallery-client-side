@@ -25,9 +25,6 @@
 	<script src="../node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
 	<script src="../dist/full/js/foogallery.js"></script>
 	<script src="../dist/admin/js/foogallery.admin.js"></script>
-	<script>
-		FooGallery.template.configure("core", {debug: true});
-	</script>
 	<script src="core-test-page.js"></script>
 	<style>
 		body {
@@ -979,7 +976,8 @@
 			},
 			"masonry": {
 				"title": "Masonry",
-				"selector": "#masonry-template"
+				"selector": "#masonry-template",
+				"items": "items-250x250.json"
 			},
 			"justified": {
 				"title": "Justified",
@@ -1002,10 +1000,8 @@
 
 </script>
 <script id="masonry-template" type="text/plain">
-	<div id="foogallery-gallery-1" class="foogallery fg-center fg-masonry fg-masonry-4col"
-			 data-foogallery='{"template":{ "layout": "col4" }}'>
-		<div class="fg-column-width"></div>
-		<div class="fg-gutter-width"></div>
+	<div id="foogallery-gallery-1" class="foogallery fg-center fg-masonry"
+			 data-foogallery='{"template":{ "layout": "fixed", "columnWidth": 200, "gutter": 20 }}'>
 	</div>
 </script>
 <script id="justified-template" type="text/plain">
@@ -1023,7 +1019,7 @@
 	</div>
 </script>
 <script id="image-viewer-template" type="text/plain">
-	<div id="foogallery-gallery-1" class="foogallery fg-image-viewer">
+	<div id="foogallery-gallery-1" class="foogallery fg-image-viewer fg-center">
 		<div class="fiv-inner">
 			<div class="fiv-inner-container"></div>
 			<div class="fiv-ctrls">

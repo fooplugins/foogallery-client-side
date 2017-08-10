@@ -200,7 +200,7 @@
 
 	// this automatically initializes all templates on page load
 	$(function () {
-		$(".foogallery[data-foogallery]").foogallery();
+		$('[id^="foogallery-"]').foogallery();
 	});
 
 })(
