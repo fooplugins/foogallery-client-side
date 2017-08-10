@@ -1,8 +1,8 @@
 /* Sarah */
-.foogallery.fg-sarah .fg-thumb {
+.foogallery.fg-preset.fg-sarah .fg-thumb {
 	background: #42b078;
 }
-.foogallery.fg-sarah .fg-image {
+.foogallery.fg-preset.fg-sarah .fg-image {
 	opacity: 0.8;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
@@ -10,47 +10,26 @@
 	transform: scale(1.12) translateX(-10%);
 	transform-origin: 0 50%;
 }
-.foogallery.fg-sarah .fg-item-inner:hover .fg-image {
+.foogallery.fg-preset.fg-sarah .fg-item-inner:hover .fg-image {
 	opacity: 0.4;
 	-webkit-transform: scale(1.12) translateX(0);
 	transform: scale(1.12) translateX(0);
 }
 
-.foogallery.fg-sarah .fg-caption {
+.foogallery.fg-preset.fg-sarah .fg-caption {
 	text-align: left;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	visibility: visible;
-	opacity: 1;
-	background-color: transparent;
-	border: none;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 1.25em;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
 }
 
-.foogallery.fg-sarah .fg-caption-inner {
+.foogallery.fg-preset.fg-sarah .fg-caption-inner {
 	border: solid 20px transparent;
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
 }
 
-.foogallery.fg-sarah .fg-caption-title {
-	word-spacing: -0.15em;
-	font-weight: 300;
-	font-size: 30px;
+.foogallery.fg-preset.fg-sarah .fg-caption-title {
 	position: relative;
 	overflow: hidden;
 	padding: 0.5em 0;
 }
-.foogallery.fg-sarah .fg-caption-title:after {
+.foogallery.fg-preset.fg-sarah .fg-caption-title:after {
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -63,16 +42,12 @@
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
 }
-.foogallery.fg-sarah .fg-item-inner:hover .fg-caption-title:after {
+.foogallery.fg-preset.fg-sarah .fg-item-inner:hover .fg-caption-title:after {
 	-webkit-transform: translateX(0);
 	transform: translateX(0);
 }
 
-.foogallery.fg-sarah .fg-caption-desc {
-	letter-spacing: 1px;
-	font-size: 14px;
-	max-height: 100%;
-	overflow: hidden;
+.foogallery.fg-preset.fg-sarah .fg-caption-desc {
 	padding: 1em 0;
 	opacity: 0;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
@@ -80,12 +55,8 @@
 	-webkit-transform: translateX(100%);
 	transform: translateX(100%);
 }
-.foogallery.fg-sarah .fg-item-inner:hover .fg-caption-desc {
+.foogallery.fg-preset.fg-sarah .fg-item-inner:hover .fg-caption-desc {
 	opacity: 1;
 	-webkit-transform: translateX(0);
 	transform: translateX(0);
-}
-
-.foogallery.fg-sarah .fg-caption-title+.fg-caption-desc {
-	margin: 0;
 }

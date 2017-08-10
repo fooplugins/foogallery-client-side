@@ -1,28 +1,12 @@
 /* Sadie */
-.foogallery.fg-sadie .fg-thumb {
+.foogallery.fg-preset.fg-sadie .fg-thumb {
 	background: #3085a3;
 }
-.foogallery.fg-sadie .fg-image {
+.foogallery.fg-preset.fg-sadie .fg-image {
 	opacity: 0.8;
 }
 
-.foogallery.fg-sadie .fg-caption {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	visibility: visible;
-	opacity: 1;
-	background-color: transparent;
-	border: none;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 1.25em;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-}
-.foogallery.fg-sadie .fg-caption:before {
+.foogallery.fg-preset.fg-sadie .fg-caption:before {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -37,23 +21,13 @@
 	-webkit-transform: translateY(50%);
 	transform: translateY(50%);
 }
-.foogallery.fg-sadie .fg-item-inner:hover .fg-caption:before {
+.foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption:before {
 	opacity: 1;
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
 }
 
-.foogallery.fg-sadie .fg-caption-inner {
-	position: relative;
-	border: solid 10px transparent;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
-.foogallery.fg-sadie .fg-caption-title {
-	word-spacing: -0.15em;
-	font-weight: 300;
-	font-size: 30px;
+.foogallery.fg-preset.fg-sadie .fg-caption-title {
 	position: absolute;
 	top: 50%;
 	left: 0;
@@ -64,16 +38,13 @@
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
-.foogallery.fg-sadie .fg-item-inner:hover .fg-caption-title {
+.foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-title {
 	color: #fff;
 	-webkit-transform: translateY(-50%) translateY(-40px);
 	transform: translateY(-50%) translateY(-40px);
 }
 
-.foogallery.fg-sadie .fg-caption-desc {
-	letter-spacing: 1px;
-	font-size: 14px;
-	overflow: hidden;
+.foogallery.fg-preset.fg-sadie .fg-caption-desc {
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -86,13 +57,8 @@
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 }
-.foogallery.fg-sadie .fg-item-inner:hover .fg-caption-desc {
+.foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-desc {
 	opacity: 1;
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
 }
-
-.foogallery.fg-sadie .fg-caption-title+.fg-caption-desc {
-	margin: 0;
-}
-

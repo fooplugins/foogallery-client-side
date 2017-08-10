@@ -1,8 +1,8 @@
 /* Goliath */
-.foogallery.fg-goliath .fg-thumb {
-	background: #df4e4e;
+.foogallery.fg-preset.fg-goliath .fg-thumb {
+	background: #333;
 }
-.foogallery.fg-goliath .fg-image {
+.foogallery.fg-preset.fg-goliath .fg-image {
 	opacity: 0.8;
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
@@ -11,30 +11,15 @@
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
-.foogallery.fg-goliath .fg-item-inner:hover .fg-image {
+.foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-image {
 	-webkit-transform: translateY(-80px);
 	transform: translateY(-80px);
 }
 
-.foogallery.fg-goliath .fg-caption {
+.foogallery.fg-preset.fg-goliath .fg-caption {
 	text-align: left;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	visibility: visible;
-	opacity: 1;
-	background-color: transparent;
-	border: none;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 1.25em;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
 }
-
-.foogallery.fg-goliath .fg-caption-inner {
+.foogallery.fg-preset.fg-goliath .fg-caption-inner {
 	border: solid 30px transparent;
 	border-top-width: 8px;
 	border-bottom-width: 8px;
@@ -43,7 +28,6 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	width: 100%;
 	height: 80px;
 	overflow: visible;
 	-webkit-transform: translateY(100%);
@@ -51,24 +35,17 @@
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 }
-.foogallery.fg-goliath .fg-item-inner:hover .fg-caption-inner {
+.foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-caption-inner {
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
 }
 
-.foogallery.fg-goliath .fg-caption-title {
-	word-spacing: -0.15em;
-	font-weight: 300;
-	font-size: 30px;
+.foogallery.fg-preset.fg-goliath .fg-caption-title {
 	-webkit-transform: translateY(-100%) translateY(-38px);
 	transform: translateY(-100%) translateY(-38px);
 }
 
-.foogallery.fg-goliath .fg-caption-desc {
-	letter-spacing: 1px;
-	font-size: 14px;
-	max-height: 100%;
-	overflow: hidden;
+.foogallery.fg-preset.fg-goliath .fg-caption-desc {
 	text-transform: none;
 	top: 50%;
 	transform: translateY(-50%) translateY(-4px);
@@ -76,10 +53,6 @@
 	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 }
-.foogallery.fg-goliath .fg-item-inner:hover .fg-caption-desc {
+.foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-caption-desc {
 	opacity: 1;
-}
-
-.foogallery.fg-goliath .fg-caption-title+.fg-caption-desc {
-	margin: 0;
 }

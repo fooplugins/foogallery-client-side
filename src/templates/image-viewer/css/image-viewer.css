@@ -44,11 +44,11 @@
 	box-shadow: none;
 	max-width: 100%;
 }
-.fg-image-viewer > .fiv-inner > .fiv-inner-container > .fg-item {
-	position: absolute;
-	visibility: hidden;
-	opacity: 0;
-}
+/*.fg-image-viewer > .fiv-inner > .fiv-inner-container > .fg-item {*/
+	/*position: absolute;*/
+	/*visibility: hidden;*/
+	/*opacity: 0;*/
+/*}*/
 .fg-image-viewer > .fiv-inner > .fiv-inner-container > .fg-item.fiv-active {
 	position: relative;
 	visibility: visible;

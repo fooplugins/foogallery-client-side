@@ -1,0 +1,4 @@
+/* Fade In */
+.foogallery.fg-loaded-fade-in .fg-item-inner {
+	transition-property: visibility, opacity;
+}

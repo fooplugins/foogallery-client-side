@@ -1,0 +1,38 @@
+/* Preset Reset & Common */
+.foogallery.fg-preset .fg-caption {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	visibility: visible;
+	opacity: 1;
+	background-color: transparent;
+	border: none;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 1.25em;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.foogallery.fg-preset .fg-caption-inner {
+	position: relative;
+	border: solid 10px transparent;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.foogallery.fg-preset .fg-caption-title {
+	word-spacing: -0.15em;
+	font-weight: 300;
+	font-size: 30px;
+}
+.foogallery.fg-preset .fg-caption-desc {
+	letter-spacing: 1px;
+	font-size: 14px;
+	max-height: 100%;
+	overflow: hidden;
+}
+.foogallery.fg-preset .fg-caption-title+.fg-caption-desc {
+	margin: 0;
+}

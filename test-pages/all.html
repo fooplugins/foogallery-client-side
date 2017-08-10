@@ -17,25 +17,17 @@
 	<![endif]-->
 
 	<link href="admin/css/dashicons.css" rel="stylesheet"/>
-	<link href="../dist/core/css/foogallery.css" rel="stylesheet"/>
+	<link href="../dist/full/css/foogallery.css" rel="stylesheet"/>
 	<link href="../dist/admin/css/foogallery.admin.css" rel="stylesheet"/>
-	<link href="../dist/templates/masonry/css/foogallery.masonry.css" rel="stylesheet"/>
-	<link href="../dist/templates/justified/css/foogallery.justified.css" rel="stylesheet"/>
-	<link href="../dist/templates/default/css/foogallery.default.css" rel="stylesheet"/>
-	<link href="../dist/templates/portfolio/css/foogallery.portfolio.css" rel="stylesheet"/>
 
 	<script src="../node_modules/jquery/dist/jquery.js"></script>
 	<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="../node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
-	<script src="../dist/core/js/foogallery.js"></script>
+	<script src="../dist/full/js/foogallery.js"></script>
 	<script src="../dist/admin/js/foogallery.admin.js"></script>
 	<script>
 		FooGallery.template.configure("core", {debug: true});
 	</script>
-	<script src="../dist/templates/default/js/foogallery.default.js"></script>
-	<script src="../dist/templates/masonry/js/foogallery.masonry.js"></script>
-	<script src="../dist/templates/justified/js/foogallery.justified.js"></script>
-	<script src="../dist/templates/portfolio/js/foogallery.portfolio.js"></script>
 	<script src="core-test-page.js"></script>
 	<style>
 		body {
@@ -513,31 +505,31 @@
 													</div>
 													<div class="radio-inline">
 														<label>
-															<input type="radio" name="hover-style" id="hover-style1" value="fg-sadie">
+															<input type="radio" name="hover-style" id="hover-style1" value="fg-preset fg-sadie">
 															Sadie
 														</label>
 													</div>
 													<div class="radio-inline">
 														<label>
-															<input type="radio" name="hover-style" id="hover-style2" value="fg-layla">
+															<input type="radio" name="hover-style" id="hover-style2" value="fg-preset fg-layla">
 															Layla
 														</label>
 													</div>
 													<div class="radio-inline">
 														<label>
-															<input type="radio" name="hover-style" id="hover-style3" value="fg-oscar">
+															<input type="radio" name="hover-style" id="hover-style3" value="fg-preset fg-oscar">
 															Oscar
 														</label>
 													</div>
 													<div class="radio-inline">
 														<label>
-															<input type="radio" name="hover-style" id="hover-style4" value="fg-sarah">
+															<input type="radio" name="hover-style" id="hover-style4" value="fg-preset fg-sarah">
 															Sarah
 														</label>
 													</div>
 													<div class="radio-inline">
 														<label>
-															<input type="radio" name="hover-style" id="hover-style5" value="fg-goliath">
+															<input type="radio" name="hover-style" id="hover-style5" value="fg-preset fg-goliath">
 															Goliath
 														</label>
 													</div>
@@ -997,6 +989,11 @@
 				"title": "Portfolio",
 				"selector": "#portfolio-template",
 				"items": "items-250x250.json"
+			},
+			"image-viewer": {
+				"title": "Image Viewer",
+				"selector": "#image-viewer-template",
+				"items": "items-360x240.json"
 			}
 		});
 		window.ctp.init();
@@ -1023,6 +1020,18 @@
 <script id="portfolio-template" type="text/plain">
 	<div id="foogallery-gallery-1" class="foogallery fg-portfolio"
 			 data-foogallery='{"template": {"gutter": 40}}'>
+	</div>
+</script>
+<script id="image-viewer-template" type="text/plain">
+	<div id="foogallery-gallery-1" class="foogallery fg-image-viewer">
+		<div class="fiv-inner">
+			<div class="fiv-inner-container"></div>
+			<div class="fiv-ctrls">
+				<div class="fiv-prev"><span>Prev</span></div>
+				<label class="fiv-count"><span class="fiv-count-current">0</span>of<span>300</span></label>
+				<div class="fiv-next"><span>Next</span></div>
+			</div>
+		</div>
 	</div>
 </script>
 </body>

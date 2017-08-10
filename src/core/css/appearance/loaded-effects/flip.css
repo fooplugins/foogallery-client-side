@@ -1,0 +1,10 @@
+/* Flip */
+.foogallery.fg-loaded-flip .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+	transform: rotateY(-180deg);
+}
+.foogallery.fg-loaded-flip .fg-loaded .fg-item-inner {
+	transform: rotateY(0deg);
+}

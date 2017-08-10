@@ -1,0 +1,68 @@
+/* Slide */
+.foogallery.fg-hover-slide-up .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-up .fg-caption,
+.foogallery.fg-hover-slide-down .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-down .fg-caption,
+.foogallery.fg-hover-slide-left .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-left .fg-caption,
+.foogallery.fg-hover-slide-right .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-right .fg-caption {
+	display: block;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	transition-property: transform;
+	visibility: visible;
+	opacity: 1;
+}
+.foogallery.fg-hover-slide-up .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-up .fg-item-inner:hover .fg-caption,
+.foogallery.fg-hover-slide-down .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-down .fg-item-inner:hover .fg-caption,
+.foogallery.fg-hover-slide-left .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-left .fg-item-inner:hover .fg-caption,
+.foogallery.fg-hover-slide-right .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-right .fg-item-inner:hover .fg-caption {
+	transform: translateY(0) translateX(0);
+}
+.foogallery.fg-caption-hover.fg-hover-slide-up .fg-caption-inner,
+.foogallery.fg-caption-hover.fg-hover-slide-down .fg-caption-inner,
+.foogallery.fg-caption-hover.fg-hover-slide-left .fg-caption-inner,
+.foogallery.fg-caption-hover.fg-hover-slide-right .fg-caption-inner {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+.foogallery.fg-caption-hover.fg-hover-slide-up .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-down .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-left .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-right .fg-thumb:before {
+	display: none;
+}
+
+
+/* Slide Up */
+.foogallery.fg-hover-slide-up .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-up .fg-caption {
+	transform: translateY(100%);
+}
+
+/* Slide Down */
+.foogallery.fg-hover-slide-down .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-down .fg-caption {
+	transform: translateY(-100%);
+}
+
+/* Slide Left */
+.foogallery.fg-hover-slide-left .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-left .fg-caption {
+	transform: translateX(100%);
+}
+
+/* Slide Right */
+.foogallery.fg-hover-slide-right .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-slide-right .fg-caption {
+	transform: translateX(-100%);
+}

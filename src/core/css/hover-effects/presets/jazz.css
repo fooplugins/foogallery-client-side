@@ -1,37 +1,21 @@
 /* Jazz */
-.foogallery.fg-jazz .fg-thumb {
+.foogallery.fg-preset.fg-jazz .fg-thumb {
 	background: -webkit-linear-gradient(-45deg, #f3cf3f 0%,#f33f58 100%);
 	background: linear-gradient(-45deg, #f3cf3f 0%,#f33f58 100%);
 }
 
-.foogallery.fg-jazz .fg-image {
+.foogallery.fg-preset.fg-jazz .fg-image {
 	opacity: 0.9;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 }
-.foogallery.fg-jazz .fg-item-inner:hover .fg-image {
+.foogallery.fg-preset.fg-jazz .fg-item-inner:hover .fg-image {
 	opacity: 0.7;
 	-webkit-transform: scale3d(1.05,1.05,1);
 	transform: scale3d(1.05,1.05,1);
 }
 
-.foogallery.fg-jazz .fg-caption {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	visibility: visible;
-	opacity: 1;
-	background-color: transparent;
-	border: none;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 1.25em;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-}
-.foogallery.fg-jazz .fg-caption:after {
+.foogallery.fg-preset.fg-jazz .fg-caption:after {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -48,24 +32,17 @@
 	-webkit-transform-origin: 50% 50%;
 	transform-origin: 50% 50%;
 }
-.foogallery.fg-jazz .fg-item-inner:hover .fg-caption:after {
+.foogallery.fg-preset.fg-jazz .fg-item-inner:hover .fg-caption:after {
 	opacity: 1;
 	-webkit-transform: rotate3d(0,0,1,45deg) scale3d(1,1,1);
 	transform: rotate3d(0,0,1,45deg) scale3d(1,1,1);
 }
 
-.foogallery.fg-jazz .fg-caption-inner {
+.foogallery.fg-preset.fg-jazz .fg-caption-inner {
 	border: solid 35px transparent;
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
 }
 
-.foogallery.fg-jazz .fg-caption-title {
-	word-spacing: -0.15em;
-	font-weight: 300;
-	font-size: 30px;
+.foogallery.fg-preset.fg-jazz .fg-caption-title {
 	padding-top: 20%;
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
@@ -73,16 +50,12 @@
 	-webkit-transform: scale3d(0.8,0.8,1);
 	transform: scale3d(0.8,0.8,1);
 }
-.foogallery.fg-jazz .fg-item-inner:hover .fg-caption-title {
+.foogallery.fg-preset.fg-jazz .fg-item-inner:hover .fg-caption-title {
 	-webkit-transform: scale3d(1,1,1);
 	transform: scale3d(1,1,1);
 }
 
-.foogallery.fg-jazz .fg-caption-desc {
-	letter-spacing: 1px;
-	font-size: 14px;
-	max-height: 100%;
-	overflow: hidden;
+.foogallery.fg-preset.fg-jazz .fg-caption-desc {
 	padding: 0.5em 2em;
 	text-transform: none;
 	opacity: 0;
@@ -91,7 +64,7 @@
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 }
-.foogallery.fg-jazz .fg-item-inner:hover .fg-caption-desc {
+.foogallery.fg-preset.fg-jazz .fg-item-inner:hover .fg-caption-desc {
 	opacity: 1;
 	-webkit-transform: scale3d(1,1,1);
 	transform: scale3d(1,1,1);

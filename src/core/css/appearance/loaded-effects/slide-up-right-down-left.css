@@ -1,0 +1,32 @@
+/* Slide Up */
+.foogallery.fg-loaded-slide-up .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	transform: translateY(50%);
+}
+.foogallery.fg-loaded-slide-up .fg-loaded .fg-item-inner {
+	transform: translateY(0);
+}
+/* Slide Down */
+.foogallery.fg-loaded-slide-down .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	transform: translateY(-50%);
+}
+.foogallery.fg-loaded-slide-down .fg-loaded .fg-item-inner {
+	transform: translateY(0);
+}
+/* Slide Left */
+.foogallery.fg-loaded-slide-left .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	transform: translateX(50%);
+}
+.foogallery.fg-loaded-slide-left .fg-loaded .fg-item-inner {
+	transform: translateX(0);
+}
+/* Slide Right */
+.foogallery.fg-loaded-slide-right .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	transform: translateX(-50%);
+}
+.foogallery.fg-loaded-slide-right .fg-loaded .fg-item-inner {
+	transform: translateX(0);
+}

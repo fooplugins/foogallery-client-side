@@ -1,0 +1,10 @@
+/* Border Size */
+.foogallery.fg-border-thin .fg-item-inner {
+	border-width: 4px;
+}
+.foogallery.fg-border-medium .fg-item-inner {
+	border-width: 10px;
+}
+.foogallery.fg-border-thick .fg-item-inner {
+	border-width: 16px;
+}

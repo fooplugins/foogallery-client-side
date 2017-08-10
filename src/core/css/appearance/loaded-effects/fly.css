@@ -1,0 +1,10 @@
+/* Fly */
+.foogallery.fg-loaded-fly .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	transform-style: preserve-3d;
+	transform-origin: 50% 50% -300px;
+	transform: rotateX(-180deg);
+}
+.foogallery.fg-loaded-fly .fg-loaded .fg-item-inner {
+	transform: rotateX(0deg);
+}

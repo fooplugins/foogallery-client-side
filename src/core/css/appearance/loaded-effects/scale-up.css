@@ -1,0 +1,8 @@
+/* Scale Up */
+.foogallery.fg-loaded-scale-up .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	transform: scale(0.6);
+}
+.foogallery.fg-loaded-scale-up .fg-loaded .fg-item-inner {
+	transform: scale(1);
+}

@@ -1,40 +1,27 @@
 /* Oscar */
-.foogallery.fg-oscar .fg-thumb {
+.foogallery.fg-preset.fg-oscar .fg-thumb {
 	background: -webkit-linear-gradient(45deg, #22682a 0%, #9b4a1b 40%, #3a342a 100%);
 	background: linear-gradient(45deg, #22682a 0%,#9b4a1b 40%,#3a342a 100%);
 }
-.foogallery.fg-oscar .fg-image {
+.foogallery.fg-preset.fg-oscar .fg-image {
 	opacity: 0.9;
 	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 }
-.foogallery.fg-oscar .fg-item-inner:hover .fg-image {
+.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-image {
 	opacity: 0.4;
 }
 
-.foogallery.fg-oscar .fg-caption {
+.foogallery.fg-preset.fg-oscar .fg-caption {
 	background-color: rgba(58,52,42,0.7);
 	-webkit-transition: background-color 0.35s;
 	transition: background-color 0.35s;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	visibility: visible;
-	opacity: 1;
-	border: none;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 1.25em;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
 }
-.foogallery.fg-oscar .fg-item-inner:hover .fg-caption {
+.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption {
 	background-color: rgba(58,52,42,0);
 }
 
-.foogallery.fg-oscar .fg-caption:before {
+.foogallery.fg-preset.fg-oscar .fg-caption:before {
 	position: absolute;
 	top: 30px;
 	right: 30px;
@@ -48,38 +35,27 @@
 	-webkit-transform: scale(0);
 	transform: scale(0);
 }
-.foogallery.fg-oscar .fg-item-inner:hover .fg-caption:before {
+.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption:before {
 	opacity: 1;
 	-webkit-transform: scale(1);
 	transform: scale(1);
 }
 
-.foogallery.fg-oscar .fg-caption-inner {
+.foogallery.fg-preset.fg-oscar .fg-caption-inner {
 	border: solid 35px transparent;
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
 }
 
-.foogallery.fg-oscar .fg-caption-title {
-	word-spacing: -0.15em;
-	font-weight: 300;
-	font-size: 30px;
+.foogallery.fg-preset.fg-oscar .fg-caption-title {
 	position: relative;
 	top: 50%;
 	transition: transform 0.35s;
 	transform: translateY(-50%);
 }
-.foogallery.fg-oscar .fg-item-inner:hover .fg-caption-title {
+.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption-title {
 	transform: translateY(-50%) translateY(-45px);
 }
 
-.foogallery.fg-oscar .fg-caption-desc {
-	letter-spacing: 1px;
-	font-size: 14px;
-	max-height: 100%;
-	overflow: hidden;
+.foogallery.fg-preset.fg-oscar .fg-caption-desc {
 	position: relative;
 	top: 50%;
 	padding: 0.5em;
@@ -89,12 +65,8 @@
 	opacity: 0;
 	transform: scale(0) translateY(-60px);
 }
-.foogallery.fg-oscar .fg-item-inner:hover .fg-caption-desc {
+.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption-desc {
 	opacity: 1;
 	-webkit-transform: scale(1) translateY(-60px);
 	transform: scale(1) translateY(-60px);
-}
-
-.foogallery.fg-oscar .fg-caption-title+.fg-caption-desc {
-	margin: 0;
 }

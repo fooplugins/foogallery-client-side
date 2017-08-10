@@ -1,0 +1,10 @@
+/* Swing Down */
+.foogallery.fg-loaded-swing-down .fg-item-inner {
+	transition-property: visibility, opacity, transform;
+	transform-style: preserve-3d;
+	transform-origin: 0 0;
+	transform: rotateX(-80deg);
+}
+.foogallery.fg-loaded-swing-down .fg-loaded .fg-item-inner {
+	transform: rotateX(0deg);
+}

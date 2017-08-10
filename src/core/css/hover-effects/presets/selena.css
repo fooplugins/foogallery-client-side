@@ -1,0 +1,52 @@
+/* Selena */
+.foogallery.fg-preset.fg-selena .fg-thumb {
+	background: #fff;
+}
+.foogallery.fg-preset.fg-selena .fg-image {
+	opacity: 1;
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	transform-origin: 50% 50%;
+}
+.foogallery.fg-preset.fg-selena .fg-item-inner:hover .fg-image {
+	-webkit-transform: scale(0.92);
+	transform: scale(0.92);
+}
+
+.foogallery.fg-preset.fg-selena .fg-caption {
+	text-align: center;
+}
+
+.foogallery.fg-preset.fg-selena .fg-caption-inner {
+	border: solid 20px transparent;
+}
+
+.foogallery.fg-preset.fg-selena .fg-caption-title {
+	position: relative;
+	overflow: hidden;
+	padding: 0.2em 0 0 0;
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: translateY(50%);
+	transform: translateY(50%);
+}
+.foogallery.fg-preset.fg-selena .fg-item-inner:hover .fg-caption-title {
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+}
+
+.foogallery.fg-preset.fg-selena .fg-caption-desc {
+	padding: 0;
+	opacity: 0;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: translateY(-100%);
+	transform: translateY(-100%);
+}
+.foogallery.fg-preset.fg-selena .fg-item-inner:hover .fg-caption-desc {
+	opacity: 1;
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+}

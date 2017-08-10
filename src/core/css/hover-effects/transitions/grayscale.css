@@ -1,0 +1,40 @@
+/* Grayscale */
+.foogallery.fg-hover-grayscale .fg-image {
+	-webkit-filter: none;
+	filter: none;
+	-webkit-transition-property: -webkit-filter;
+	transition-property: filter;
+}
+.foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-image {
+	/* For Webkit browsers */
+	-webkit-filter: grayscale(1);
+	-webkit-filter: grayscale(100%);
+	/* Standard */
+	filter: grayscale(100%);
+	/* For IE 6 - 9 */
+	filter: gray;
+	opacity: 1;
+}
+.foogallery.fg-hover-grayscale .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-caption {
+	display: block;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	transition-property: visibility, opacity;
+}
+.foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-item-inner:hover .fg-caption {
+	visibility: visible;
+	opacity: 1;
+}
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-caption-inner {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-thumb:before {
+	display: none;
+}

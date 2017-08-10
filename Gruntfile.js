@@ -38,18 +38,52 @@ module.exports = function ( grunt ) {
 						"./src/core/js/paging/Pagination.js"
 					],
 					"./dist/core/css/foogallery.css": [
-						"./src/core/css/_foogallery.css",
-						"./src/core/css/item-styles.css",
-						"./src/core/css/preset/*.css",
-						"./src/core/css/hover-icons.css",
-						"./src/core/css/hover-effects.css",
-						"./src/core/css/captions.css",
-						"./src/core/css/loaded-effects.css",
-						"./src/core/css/loading-icons.css",
-						"./src/core/css/paging.css",
-						"./src/core/css/load-more.css",
-						"./src/core/css/dots.css",
-						"./src/core/css/pagination.css"
+						"./src/core/css/general/core.css",
+
+						"./src/core/css/appearance/theme.css",
+						"./src/core/css/appearance/border-size.css",
+						"./src/core/css/appearance/drop-shadow.css",
+						"./src/core/css/appearance/inset-shadow.css",
+						"./src/core/css/appearance/rounded-corners.css",
+						"./src/core/css/appearance/loading-icons.css",
+						"./src/core/css/appearance/loaded-effect.css",
+						"./src/core/css/appearance/loaded-effects/drop.css",
+						"./src/core/css/appearance/loaded-effects/fade-in.css",
+						"./src/core/css/appearance/loaded-effects/flip.css",
+						"./src/core/css/appearance/loaded-effects/fly.css",
+						"./src/core/css/appearance/loaded-effects/scale-up.css",
+						"./src/core/css/appearance/loaded-effects/slide-up-right-down-left.css",
+						"./src/core/css/appearance/loaded-effects/swing-down.css",
+
+						"./src/core/css/hover-effects/captions.css",
+						"./src/core/css/hover-effects/icons.css",
+
+						"./src/core/css/hover-effects/preset.css",
+						"./src/core/css/hover-effects/presets/goliath.css",
+						"./src/core/css/hover-effects/presets/jazz.css",
+						"./src/core/css/hover-effects/presets/layla.css",
+						"./src/core/css/hover-effects/presets/lily.css",
+						"./src/core/css/hover-effects/presets/ming.css",
+						"./src/core/css/hover-effects/presets/oscar.css",
+						"./src/core/css/hover-effects/presets/sadie.css",
+						"./src/core/css/hover-effects/presets/sarah.css",
+						"./src/core/css/hover-effects/presets/selena.css",
+						"./src/core/css/hover-effects/presets/steve.css",
+						"./src/core/css/hover-effects/presets/zoe.css",
+
+						"./src/core/css/hover-effects/transition.css",
+						"./src/core/css/hover-effects/transitions/colorize.css",
+						"./src/core/css/hover-effects/transitions/fade.css",
+						"./src/core/css/hover-effects/transitions/grayscale.css",
+						"./src/core/css/hover-effects/transitions/instant.css",
+						"./src/core/css/hover-effects/transitions/push.css",
+						"./src/core/css/hover-effects/transitions/scale.css",
+						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css",
+
+						"./src/core/css/paging/paging.css",
+						"./src/core/css/paging/type/load-more.css",
+						"./src/core/css/paging/type/dots.css",
+						"./src/core/css/paging/type/pagination.css"
 					]
 				}
 			},
@@ -133,14 +167,16 @@ module.exports = function ( grunt ) {
 						"./dist/templates/default/js/foogallery.default.js",
 						"./dist/templates/masonry/js/foogallery.masonry.js",
 						"./dist/templates/justified/js/foogallery.justified.js",
-						"./dist/templates/portfolio/js/foogallery.portfolio.js"
+						"./dist/templates/portfolio/js/foogallery.portfolio.js",
+						"./dist/templates/image-viewer/js/foogallery.image-viewer.js"
 					],
 					"./dist/full/css/foogallery.css": [
 						"./dist/core/css/foogallery.css",
 						"./dist/templates/default/css/foogallery.default.css",
 						"./dist/templates/masonry/css/foogallery.masonry.css",
 						"./dist/templates/justified/css/foogallery.justified.css",
-						"./dist/templates/portfolio/css/foogallery.portfolio.css"
+						"./dist/templates/portfolio/css/foogallery.portfolio.css",
+						"./dist/templates/image-viewer/css/foogallery.image-viewer.css"
 					]
 				}
 			}
@@ -262,13 +298,13 @@ module.exports = function ( grunt ) {
 		"copy": {
 			"full": {
 				"expand": true,
-				"src": "./src/core/img/*",
+				"src": "./src/core/css/img/*",
 				"dest": "./dist/full/img",
 				"flatten": true
 			},
 			"core": {
 				"expand": true,
-				"src": "./src/core/img/*",
+				"src": "./src/core/css/img/*",
 				"dest": "./dist/core/img",
 				"flatten": true
 			}
