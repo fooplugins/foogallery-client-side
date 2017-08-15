@@ -7457,10 +7457,10 @@
 		}
 	});
 
-	_.template.register("portfolio", _.PortfolioTemplate, {
+	_.template.register("simple_portfolio", _.PortfolioTemplate, {
 		captionTop: false
 	}, {
-		container: "foogallery fg-portfolio"
+		container: "foogallery fg-simple_portfolio"
 	});
 
 })(

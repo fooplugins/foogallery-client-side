@@ -17,7 +17,7 @@ The following files for the template must be included after all dependencies are
 ## Markup
 
 ```html
-<div id="foogallery-gallery-1" class="foogallery fg-portfolio">
+<div id="foogallery-gallery-1" class="foogallery fg-simple_portfolio">
 	[ITEM MARKUP]
 </div>
 ```
