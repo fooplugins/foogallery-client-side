@@ -174,26 +174,6 @@
 				sheet.insertRule(rule , 0);
 			}
 
-
-			// // if this is a fixed layout and a number value is supplied as the columnWidth option
-			// if (fixed && _is.number(self.template.columnWidth)){
-			// 	// then set the width on the columnWidth element
-			// 	self.$el.find(sel.columnWidth).width(self.template.columnWidth);
-			// }
-			// // update the columnWidth value to be the selector
-			// self.template.columnWidth = sel.columnWidth;
-			// // if this is a fixed layout and a number value is supplied as the gutter option
-			// if (fixed && _is.number(self.template.gutter)){
-			// 	// then set the width on the gutterWidth element
-			// 	self.$el.find(sel.gutterWidth).width(self.template.gutter);
-			// 	var sheet = self.createStylesheet(),
-			// 			rule = '#' + self.id + self.sel.container + ' ' + self.sel.item.elem + ' { margin-bottom: ' + self.template.gutter + 'px; }';
-			// 	sheet.insertRule(rule , 0);
-			// }
-			// // update the gutterWidth value to be the selector
-			// self.template.gutter = sel.gutterWidth;
-			// create the actual instance of Masonry
-
 			self.masonry = new Masonry( self.$el.get(0), self.template );
 		},
 		onDestroy: function(event, self){

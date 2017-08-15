@@ -391,7 +391,7 @@ only screen and (min-resolution: 2.25dppx) {
 	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 	font-size: 13px;
 	font-weight: 400;
-	line-height: 1.2;
+	line-height: 1.3;
 	border: solid 5px transparent;
 	text-align: center;
 	cursor: pointer;
@@ -409,7 +409,7 @@ only screen and (min-resolution: 2.25dppx) {
 }
 
 /* Always */
-.foogallery.fg-caption-always .fg-caption-inner:before {
+.foogallery.fg-caption-always .fg-caption .fg-caption-inner:before {
 	display: none;
 }
 .foogallery.fg-caption-always .fg-item-inner .fg-caption {
@@ -607,6 +607,9 @@ only screen and (min-resolution: 2.25dppx) {
 
 }
 /* Preset Reset & Common */
+.foogallery.fg-preset .fg-thumb {
+	transform: translateZ(0);
+}
 .foogallery.fg-preset .fg-caption {
 	position: absolute;
 	top: 0;
@@ -701,6 +704,22 @@ only screen and (min-resolution: 2.25dppx) {
 }
 .foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-caption-desc {
 	opacity: 1;
+}
+
+/* Inset Shadows */
+.foogallery.fg-preset.fg-goliath.fg-shadow-inset-small .fg-thumb:after,
+.foogallery.fg-preset.fg-goliath.fg-shadow-inset-medium .fg-thumb:after,
+.foogallery.fg-preset.fg-goliath.fg-shadow-inset-large .fg-thumb:after {
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+}
+.foogallery.fg-preset.fg-goliath.fg-shadow-inset-small .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-goliath.fg-shadow-inset-medium .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-goliath.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after {
+	-webkit-transform: translateY(-80px);
+	transform: translateY(-80px);
 }
 /* Jazz */
 .foogallery.fg-preset.fg-jazz .fg-thumb {
@@ -1345,6 +1364,23 @@ only screen and (min-resolution: 2.25dppx) {
 	-webkit-transform: scale(1);
 	transform: scale(1);
 }
+
+
+/* Inset Shadows */
+.foogallery.fg-preset.fg-steve.fg-shadow-inset-small .fg-thumb:after,
+.foogallery.fg-preset.fg-steve.fg-shadow-inset-medium .fg-thumb:after,
+.foogallery.fg-preset.fg-steve.fg-shadow-inset-large .fg-thumb:after {
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: perspective(1000px) translate3d(0,0,0);
+	transform: perspective(1000px) translate3d(0,0,0);
+}
+.foogallery.fg-preset.fg-steve.fg-shadow-inset-small .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-steve.fg-shadow-inset-medium .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-steve.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after {
+	-webkit-transform: perspective(1000px) translate3d(0,0,21px);
+	transform: perspective(1000px) translate3d(0,0,21px);
+}
 /* Zoe */
 .foogallery.fg-preset.fg-zoe .fg-thumb {
 	background: #FFF;
@@ -1400,6 +1436,22 @@ only screen and (min-resolution: 2.25dppx) {
 	opacity: 1;
 	-webkit-transform: translateY(-50%) translateY(0);
 	transform: translateY(-50%) translateY(0);
+}
+
+/* Inset Shadows */
+.foogallery.fg-preset.fg-zoe.fg-shadow-inset-small .fg-thumb:after,
+.foogallery.fg-preset.fg-zoe.fg-shadow-inset-medium .fg-thumb:after,
+.foogallery.fg-preset.fg-zoe.fg-shadow-inset-large .fg-thumb:after {
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+}
+.foogallery.fg-preset.fg-zoe.fg-shadow-inset-small .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-zoe.fg-shadow-inset-medium .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-zoe.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after {
+	-webkit-transform: translateY(-80px);
+	transform: translateY(-80px);
 }
 /* Transitions */
 .foogallery.fg-caption-hover.fg-hover-instant .fg-caption,

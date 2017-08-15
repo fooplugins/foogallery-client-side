@@ -100,13 +100,31 @@
 							anchor: {},
 							image: {}
 						}
+					},
+					"720x480": {
+						href: "https://unsplash.it/1920/1200?image={{I}}",
+						src: "https://unsplash.it/720/480?image={{I}}",
+						srcset: "https://unsplash.it/1440/960?image={{I}} 1440w",
+						width: 720,
+						height: 480,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
 					}
 				};
 			}
 
 			UnsplashGenerator.prototype.templates = function(size){
 				return $.map(this._templates, function(template, name){
-					return size === "random" || name === size ? template : null;
+					if (size === "150w" && template.width === 150) return template;
+					else if ((size === "random" && name !== "720x480") || name === size) return template;
+					return null;
 				});
 			};
 
@@ -189,32 +207,44 @@
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="size" id="size2" value="150x94">
+									<input type="radio" name="size" id="size2" value="150w">
+									150w
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size3" value="150x94">
 									150x94
 								</label>
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="size" id="size3" value="150x225">
+									<input type="radio" name="size" id="size4" value="150x225">
 									150x225
 								</label>
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="size" id="size4" value="150x150">
+									<input type="radio" name="size" id="size5" value="150x150">
 									150x150
 								</label>
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="size" id="size5" value="250x250">
+									<input type="radio" name="size" id="size6" value="250x250">
 									250x250
 								</label>
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="size" id="size6" value="360x240">
+									<input type="radio" name="size" id="size7" value="360x240">
 									360x240
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size8" value="720x480">
+									720x480
 								</label>
 							</div>
 						</div>

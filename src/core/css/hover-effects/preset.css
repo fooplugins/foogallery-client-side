@@ -1,4 +1,7 @@
 /* Preset Reset & Common */
+.foogallery.fg-preset .fg-thumb {
+	transform: translateZ(0);
+}
 .foogallery.fg-preset .fg-caption {
 	position: absolute;
 	top: 0;

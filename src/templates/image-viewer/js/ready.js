@@ -34,28 +34,55 @@
 // })(
 // 	FooGallery
 // );
-(function($, _, _utils){
+(function ($, _, _utils, _obj) {
 
 	_.ImageViewerTemplate = _.Template.extend({
-		construct: function(options, element){
-			options = options || {};
-			options.paging = options.paging || {};
-			options.paging.pushOrReplace = "replace";
-			options.paging.theme = "fg-light";
-			options.paging.type = "default";
-			options.paging.size = 1;
-			options.paging.position = "none";
-			options.paging.scrollToTop = false;
-
-			this._super(options, element);
+		construct: function (options, element) {
+			this._super(_obj.extend({}, options, {
+				paging: {
+					pushOrReplace: "replace",
+					theme: "fg-light",
+					type: "default",
+					size: 1,
+					position: "none",
+					scrollToTop: false
+				}
+			}), element);
 			/**
-			 * @summary The current Image Viewer instance for the template.
+			 * @summary The jQuery object containing the inner element that wraps all items.
 			 * @memberof FooGallery.ImageViewerTemplate#
-			 * @name masonry
-			 * @type {?FooGallery.ImageViewer}
-			 * @description This value is `null` until after the {@link FooGallery.Template~event:"pre-init.foogallery"|`pre-init.foogallery`} event has been raised.
+			 * @name $inner
+			 * @type {jQuery}
 			 */
-			this.viewer = null;
+			this.$inner = this.$el.find('.fiv-inner-container');
+			/**
+			 * @summary The jQuery object that displays the current image count.
+			 * @memberof FooGallery.ImageViewerTemplate#
+			 * @name $current
+			 * @type {jQuery}
+			 */
+			this.$current = this.$el.find('.fiv-count-current');
+			/**
+			 * @summary The jQuery object that displays the current image count.
+			 * @memberof FooGallery.ImageViewerTemplate#
+			 * @name $current
+			 * @type {jQuery}
+			 */
+			this.$total = this.$el.find('.fiv-count-total');
+			/**
+			 * @summary The jQuery object for the previous button.
+			 * @memberof FooGallery.ImageViewerTemplate#
+			 * @name $prev
+			 * @type {jQuery}
+			 */
+			this.$prev = this.$el.find('.fiv-prev');
+			/**
+			 * @summary The jQuery object for the next button.
+			 * @memberof FooGallery.ImageViewerTemplate#
+			 * @name $next
+			 * @type {jQuery}
+			 */
+			this.$next = this.$el.find('.fiv-next');
 			/**
 			 * @summary The CSS classes for the Image Viewer template.
 			 * @memberof FooGallery.ImageViewerTemplate#
@@ -69,26 +96,121 @@
 			 * @type {FooGallery.ImageViewerTemplate~CSSSelectors}
 			 */
 		},
-		onPreInit: function(event, self){
-			self.viewer = new _.ImageViewer( self.$el.get(0), self.template );
+		onInit: function (event, self) {
+			if (self.template.attachFooBox) {
+				self.$el.on('foobox.previous', {self: self}, self.onFooBoxPrev)
+						.on('foobox.next', {self: self}, self.onFooBoxNext);
+			}
+			self.$prev.on('click', {self: self}, self.onPrevClick);
+			self.$next.on('click', {self: self}, self.onNextClick);
 		},
-		onInit: function(event, self){
-			self.viewer.init();
+		onFirstLoad: function(event, self){
+			self.update();
 		},
-		onAppendItem: function(event, self, item){
+		/**
+		 * @summary Destroy the plugin cleaning up any bound events.
+		 * @memberof FooGallery.ImageViewerTemplate#
+		 * @function onDestroy
+		 */
+		onDestroy: function (event, self) {
+			if (self.template.attachFooBox) {
+				self.$el.off({
+					'foobox.previous': self.onFooBoxPrev,
+					'foobox.next': self.onFooBoxNext
+				});
+			}
+			self.$prev.off('click', self.onPrevClick);
+			self.$next.off('click', self.onNextClick);
+		},
+		onAppendItem: function (event, self, item) {
 			event.preventDefault();
-			self.$el.find(".fiv-inner-container").append(item.$el);
+			self.$inner.append(item.$el);
 			item.fix();
 			item.isAttached = true;
+		},
+		update: function(){
+			if (this.pages){
+				this.$current.text(this.pages.current);
+				this.$total.text(this.pages.total);
+			}
+		},
+		/**
+		 * @summary Navigate to the previous item in the collection.
+		 * @memberof FooGallery.ImageViewerTemplate#
+		 * @function prev
+		 * @description If there is a previous item in the collection calling this method will navigate to it displaying its' image and updating the current image count.
+		 */
+		prev: function () {
+			if (this.pages){
+				this.pages.prev();
+				this.update();
+			}
+		},
+		/**
+		 * @summary Navigate to the next item in the collection.
+		 * @memberof FooGallery.ImageViewerTemplate#
+		 * @function next
+		 * @description If there is a next item in the collection calling this method will navigate to it displaying its' image and updating the current image count.
+		 */
+		next: function () {
+			if (this.pages){
+				this.pages.next();
+				this.update();
+			}
+		},
+		/**
+		 * @summary Handles the `"foobox.previous"` event allowing the plugin to remain in sync with what is displayed in the lightbox.
+		 * @memberof FooGallery.ImageViewerTemplate#
+		 * @function onFooBoxPrev
+		 * @param {jQuery.Event} e - The jQuery.Event object for the event.
+		 */
+		onFooBoxPrev: function (e) {
+			e.data.self.prev();
+		},
+		/**
+		 * @summary Handles the `"foobox.next"` event allowing the plugin to remain in sync with what is displayed in the lightbox.
+		 * @memberof FooGallery.ImageViewerTemplate#
+		 * @function onFooBoxNext
+		 * @param {jQuery.Event} e - The jQuery.Event object for the event.
+		 */
+		onFooBoxNext: function (e) {
+			e.data.self.next();
+		},
+		/**
+		 * @summary Handles the `"click"` event of the previous button.
+		 * @memberof FooGallery.ImageViewerTemplate#
+		 * @function onPrevClick
+		 * @param {jQuery.Event} e - The jQuery.Event object for the event.
+		 */
+		onPrevClick: function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			e.data.self.prev();
+		},
+		/**
+		 * @summary Handles the `"click"` event of the next button.
+		 * @memberof FooGallery.ImageViewerTemplate#
+		 * @function onNextClick
+		 * @param {jQuery.Event} e - The jQuery.Event object for the event.
+		 */
+		onNextClick: function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			e.data.self.next();
 		}
 	});
 
-	_.template.register("image-viewer", _.ImageViewerTemplate, null, {
+	_.template.register("image-viewer", _.ImageViewerTemplate, {
+		template: {
+			attachFooBox: false
+		}
+	}, {
 		container: "foogallery fg-image-viewer"
 	});
 
 })(
 		FooGallery.$,
 		FooGallery,
-		FooGallery.utils
+		FooGallery.utils,
+		FooGallery.utils.obj
 );

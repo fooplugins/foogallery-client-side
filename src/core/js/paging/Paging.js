@@ -93,9 +93,11 @@
 		create: function(pageNumber){
 			var self = this;
 			pageNumber = self.number(pageNumber);
-			for (var i = 0, l = self._arr.length, index = pageNumber - 1; i < l; i++) {
-				if (i === index) self.tmpl.items.create(self._arr[i], true);
-				else self.tmpl.items.detach(self._arr[i]);
+			var index = pageNumber - 1;
+			self.tmpl.items.create(self._arr[index], true);
+			for (var i = 0, l = self._arr.length; i < l; i++) {
+				if (i === index) continue;
+				self.tmpl.items.detach(self._arr[i]);
 			}
 			self.current = pageNumber;
 		},

@@ -3731,6 +3731,24 @@
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
 					$(window).on("scroll.foogallery", {self: self}, self.onWindowScroll)
 						.on("popstate.foogallery", {self: self}, self.onWindowPopState);
+				}).then(function(){
+					/**
+					 * @summary Raised after the template is fully initialized but before the first load occurs.
+					 * @event FooGallery.Template~"first-load.foogallery"
+					 * @type {jQuery.Event}
+					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+					 * @param {FooGallery.Template} template - The template raising the event.
+					 * @description This event is raised after all post-initialization work such as setting the initial state is performed but before the first load of items takes place.
+					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+					 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"first-load.foogallery": function(event, template){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+					 */
+					self.raise("first-load");
 					return self.loadAvailable();
 				}).then(function(){
 					/**
@@ -3866,11 +3884,11 @@
 				event = $.Event(name + ".foogallery");
 			args.unshift(self); // add self
 			self.$el.trigger(event, args);
+			_.debug.logf("{id}|{name}:", {id: self.id, name: name}, args);
 			if (_is.fn(self[listener])){
 				args.unshift(event); // add event
 				self[listener].apply(self.$el.get(0), args);
 			}
-			_.debug.logf("{id}|{name}:", {id: self.id, name: name}, args);
 			return event;
 		},
 
@@ -5933,9 +5951,11 @@
 		create: function(pageNumber){
 			var self = this;
 			pageNumber = self.number(pageNumber);
-			for (var i = 0, l = self._arr.length, index = pageNumber - 1; i < l; i++) {
-				if (i === index) self.tmpl.items.create(self._arr[i], true);
-				else self.tmpl.items.detach(self._arr[i]);
+			var index = pageNumber - 1;
+			self.tmpl.items.create(self._arr[index], true);
+			for (var i = 0, l = self._arr.length; i < l; i++) {
+				if (i === index) continue;
+				self.tmpl.items.detach(self._arr[i]);
 			}
 			self.current = pageNumber;
 		},

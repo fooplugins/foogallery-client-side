@@ -4,7 +4,7 @@
 		if (!(this instanceof CoreTestPage)) return new CoreTestPage();
 		this.templates = templates;
 		this.types = {
-			classes: ["caption","grayscale","hover-effect","hover-icon","loaded-effect","loading-icon","theme","hover-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
+			classes: ["caption","grayscale","scale","hover-effect","hover-icon","loaded-effect","loading-icon","theme","hover-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
 			bool: [
 				"state-enabled",
 				"lazy", "background",

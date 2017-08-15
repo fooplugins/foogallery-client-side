@@ -120,7 +120,6 @@ module.exports = function ( grunt ) {
 			"image-viewer": {
 				"files": {
 					"./dist/templates/image-viewer/js/foogallery.image-viewer.js": [
-						"./src/templates/image-viewer/js/ImageViewer.js",
 						"./src/templates/image-viewer/js/ready.js"
 					],
 					"./dist/templates/image-viewer/css/foogallery.image-viewer.css": [
