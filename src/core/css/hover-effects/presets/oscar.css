@@ -4,7 +4,7 @@
 	background: linear-gradient(45deg, #22682a 0%,#9b4a1b 40%,#3a342a 100%);
 }
 .foogallery.fg-preset.fg-oscar .fg-image {
-	opacity: 0.9;
+	opacity: 1;
 	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 }
@@ -13,7 +13,7 @@
 }
 
 .foogallery.fg-preset.fg-oscar .fg-caption {
-	background-color: rgba(58,52,42,0.7);
+	background-color: transparent;
 	-webkit-transition: background-color 0.35s;
 	transition: background-color 0.35s;
 }

@@ -3,7 +3,7 @@
 	background: #42b078;
 }
 .foogallery.fg-preset.fg-sarah .fg-image {
-	opacity: 0.8;
+	opacity: 1;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: scale(1.12) translateX(-10%);

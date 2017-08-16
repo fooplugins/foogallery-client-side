@@ -8,7 +8,7 @@
 	background-color: #3A342A;
 }
 .foogallery.fg-preset.fg-ming .fg-image {
-	opacity: 0.9;
+	opacity: 1;
 	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 }

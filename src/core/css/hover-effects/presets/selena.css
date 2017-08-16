@@ -1,7 +1,4 @@
 /* Selena */
-.foogallery.fg-preset.fg-selena .fg-thumb {
-	background: #fff;
-}
 .foogallery.fg-preset.fg-selena .fg-image {
 	opacity: 1;
 	-webkit-transition: -webkit-transform 0.35s;
@@ -49,4 +46,21 @@
 	opacity: 1;
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
+}
+
+/* Inset Shadows */
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-small .fg-thumb:after,
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-medium .fg-thumb:after,
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-large .fg-thumb:after {
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	transform-origin: 50% 50%;
+}
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-small .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-medium .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after {
+	-webkit-transform: scale(0.92);
+	transform: scale(0.92);
 }

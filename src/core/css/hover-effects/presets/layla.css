@@ -3,7 +3,7 @@
 	background: #18a367;
 }
 .foogallery.fg-preset.fg-layla .fg-image {
-	opacity: 0.8;
+	opacity: 1;
 	-webkit-transform: scale(1.12) translateY(-10%);
 	transform: scale(1.12) translateY(-10%);
 	transform-origin: 50% 0;

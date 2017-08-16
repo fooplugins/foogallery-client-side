@@ -37,7 +37,6 @@
 
 .foogallery.fg-preset.fg-steve .fg-caption {
 	text-align: center;
-	color: #2d434e;
 }
 
 .foogallery.fg-preset.fg-steve .fg-caption-inner {
@@ -54,7 +53,6 @@
 	overflow: visible;
 	margin: 0;
 	padding: 0.2em;
-	background-color: #FFF;
 	-webkit-transform: translateY(-100%) translateY(-10px);
 	transform: translateY(-100%) translateY(-10px);
 }
@@ -96,19 +94,34 @@
 	transform: scale(1);
 }
 
+/* Themes */
+.foogallery.fg-preset.fg-steve .fg-caption-title,
+.foogallery.fg-preset.fg-steve .fg-caption-desc,
+.foogallery.fg-light.fg-preset.fg-steve .fg-caption-title,
+.foogallery.fg-light.fg-preset.fg-steve .fg-caption-desc {
+	background-color: #FFF;
+	color: #333;
+}
+.foogallery.fg-dark.fg-preset.fg-steve .fg-caption-title,
+.foogallery.fg-dark.fg-preset.fg-steve .fg-caption-desc {
+	background-color: #555;
+	color: #FFF;
+}
 
 /* Inset Shadows */
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-small .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-medium .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-large .fg-thumb:after {
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: perspective(1000px) translate3d(0,0,0);
 	transform: perspective(1000px) translate3d(0,0,0);
+	opacity: 1;
 }
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-small .fg-item-inner:hover .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-medium .fg-item-inner:hover .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after {
 	-webkit-transform: perspective(1000px) translate3d(0,0,21px);
 	transform: perspective(1000px) translate3d(0,0,21px);
+	opacity: 0;
 }

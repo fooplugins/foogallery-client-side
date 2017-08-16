@@ -1,7 +1,4 @@
 /* Zoe */
-.foogallery.fg-preset.fg-zoe .fg-thumb {
-	background: #FFF;
-}
 .foogallery.fg-preset.fg-zoe .fg-image {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
@@ -28,7 +25,6 @@
 	position: absolute;
 	width: 100%;
 	bottom: -76px;
-	color: #3c4a50;
 	-webkit-transform: translateY(200%);
 	transform: translateY(200%);
 	-webkit-transition: -webkit-transform 0.35s;
@@ -53,6 +49,15 @@
 	opacity: 1;
 	-webkit-transform: translateY(-50%) translateY(0);
 	transform: translateY(-50%) translateY(0);
+}
+
+/* Themes */
+.foogallery.fg-preset.fg-zoe .fg-caption-title,
+.foogallery.fg-light.fg-preset.fg-zoe .fg-caption-title {
+	color: #333;
+}
+.foogallery.fg-dark.fg-preset.fg-zoe .fg-caption-title {
+	color: #FFF;
 }
 
 /* Inset Shadows */

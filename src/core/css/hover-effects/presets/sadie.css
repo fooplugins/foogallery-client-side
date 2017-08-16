@@ -3,6 +3,9 @@
 	background: #3085a3;
 }
 .foogallery.fg-preset.fg-sadie .fg-image {
+	opacity: 1;
+}
+.foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-image {
 	opacity: 0.8;
 }
 
@@ -32,14 +35,13 @@
 	top: 50%;
 	left: 0;
 	width: 100%;
-	color: #484c61;
-	-webkit-transition: -webkit-transform 0.35s, color 0.35s;
-	transition: transform 0.35s, color 0.35s;
+	color: #fff;
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
 .foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-title {
-	color: #fff;
 	-webkit-transform: translateY(-50%) translateY(-40px);
 	transform: translateY(-50%) translateY(-40px);
 }

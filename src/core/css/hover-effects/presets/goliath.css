@@ -1,9 +1,6 @@
 /* Goliath */
-.foogallery.fg-preset.fg-goliath .fg-thumb {
-	background: #333;
-}
 .foogallery.fg-preset.fg-goliath .fg-image {
-	opacity: 0.8;
+	opacity: 1;
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	-webkit-transform: translateY(0);
@@ -55,6 +52,15 @@
 }
 .foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-caption-desc {
 	opacity: 1;
+}
+
+/* Themes */
+.foogallery.fg-preset.fg-goliath .fg-caption-desc,
+.foogallery.fg-light.fg-preset.fg-goliath .fg-caption-desc {
+	color: #333;
+}
+.foogallery.fg-dark.fg-preset.fg-goliath .fg-caption-desc {
+	color: #FFF;
 }
 
 /* Inset Shadows */
