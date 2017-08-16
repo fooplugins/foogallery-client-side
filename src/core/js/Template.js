@@ -376,14 +376,30 @@
 			 * });
 			 */
 			self.raise("destroy");
-			if (!_is.empty(self.opt.on)){
-				self.$el.off(self.opt.on);
-			}
 			$(window).off("popstate.foogallery", self.onWindowPopState)
 				.off("scroll.foogallery", self.onWindowScroll);
 			self.state.destroy();
 			if (self.pages) self.pages.destroy();
 			self.items.destroy();
+			if (!_is.empty(self.opt.on)){
+				self.$el.off(self.opt.on);
+			}
+			/**
+			 * @summary Raised after the template has been destroyed.
+			 * @event FooGallery.Template~"destroyed.foogallery"
+			 * @type {jQuery.Event}
+			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+			 * @param {FooGallery.Template} template - The template raising the event.
+			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+			 * $(".foogallery").foogallery({
+			 * 	on: {
+			 * 		"destroyed.foogallery": function(event, template){
+			 * 			// do something
+			 * 		}
+			 * 	}
+			 * });
+			 */
+			self.raise("destroyed");
 			self.$el.removeData(_.dataTemplate);
 			if (self.createdSelf){
 				self.$el.remove();
@@ -445,6 +461,28 @@
 				self[listener].apply(self.$el.get(0), args);
 			}
 			return event;
+		},
+
+		layout: function(){
+			var self = this;
+			if (self._initialize === null) return;
+			/**
+			 * @summary Raised when the templates' {@link FooGallery.Template#layout|layout} method is called.
+			 * @event FooGallery.Template~"layout.foogallery"
+			 * @type {jQuery.Event}
+			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+			 * @param {FooGallery.Template} template - The template raising the event.
+			 * @description This allows templates to perform layout if required for example when visibility changes.
+			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+			 * $(".foogallery").foogallery({
+			 * 	on: {
+			 * 		"layout.foogallery": function(event, template){
+			 * 			// do something
+			 * 		}
+			 * 	}
+			 * });
+			 */
+			self.raise("layout");
 		},
 
 		// ###############

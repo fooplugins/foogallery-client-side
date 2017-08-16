@@ -63,6 +63,14 @@
 			 */
 			self.isError = false;
 			/**
+			 * @summary Whether or not this item was parsed from an existing DOM element.
+			 * @memberof FooGallery.Item#
+			 * @name isParsed
+			 * @type {boolean}
+			 * @readonly
+			 */
+			self.isParsed = false;
+			/**
 			 * @memberof FooGallery.Item#
 			 * @name $el
 			 * @type {?jQuery}
@@ -242,6 +250,11 @@
 			 */
 			var e = self.tmpl.raise("destroy-item");
 			if (!e.isDefaultPrevented()){
+				if (self.isParsed && !self.isAttached){
+					self.append();
+				} else if (!self.isParsed && self.isAttached) {
+					self.detach();
+				}
 				self._super();
 			}
 			return self.tmpl === null;

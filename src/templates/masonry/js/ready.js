@@ -102,6 +102,7 @@
 			 * @type {HTMLStyleElement}
 			 */
 			this.style = null;
+			this.$columnWidth = null;
 			/**
 			 * @summary The CSS classes for the Masonry template.
 			 * @memberof FooGallery.MasonryTemplate#
@@ -152,25 +153,28 @@
 			// remove any layout classes and then apply only the current to the container
 			self.$el.removeClass(cls.layouts).addClass(cls.layout[self.template.layout]);
 
-			// if this is a column layout make sure we have the column and gutter size elements
 			if (!fixed){
-				// if the columnWidth element does not exist create it
-				if (self.$el.find(sel.columnWidth).length === 0){
-					self.$el.prepend($("<div/>").addClass(self.cls.columnWidth));
-				}
-				self.template.columnWidth = sel.columnWidth;
 				// if the gutterWidth element does not exist create it
 				if (self.$el.find(sel.gutterWidth).length === 0){
-					self.$el.prepend($("<div/>").addClass(self.cls.gutterWidth));
+					self.$el.prepend($("<div/>").addClass(cls.gutterWidth));
 				}
 				self.template.gutter = sel.gutterWidth;
 			}
+
+			// if the columnWidth element does not exist create it
+			if (self.$el.find(sel.columnWidth).length === 0){
+				self.$el.prepend($("<div/>").addClass(cls.columnWidth));
+			}
+			if (_is.number(self.template.columnWidth)){
+				self.$el.find(sel.columnWidth).width(self.template.columnWidth);
+			}
+			self.template.columnWidth = sel.columnWidth;
 
 			// if this is a fixed layout and a number value is supplied as the gutter option then
 			// make sure to vertically space the items using  a CSS class and the same value
 			if (fixed && _is.number(self.template.gutter)){
 				var sheet = self.createStylesheet(),
-						rule = '#' + self.id + self.sel.container + ' ' + self.sel.item.elem + ' { margin-bottom: ' + self.template.gutter + 'px; }';
+						rule = '#' + self.id + sel.container + ' ' + sel.item.elem + ' { margin-bottom: ' + self.template.gutter + 'px; }';
 				sheet.insertRule(rule , 0);
 			}
 
@@ -185,7 +189,9 @@
 			if (self.style && self.style.parentNode){
 				self.style.parentNode.removeChild(self.style);
 			}
-			self.masonry = self.style = null;
+		},
+		onLayout: function(event, self){
+			self.masonry.layout();
 		},
 		/**
 		 * @summary Listens for the {@link FooGallery.Template~event:"parsed-items.foogallery"|`parsed-items.foogallery`} event.

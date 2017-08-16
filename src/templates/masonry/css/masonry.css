@@ -13,6 +13,7 @@
 .fg-masonry.fg-masonry-fixed .fg-thumb {
 	display: inline-block;
 }
+
 .fg-masonry .fg-column-width {
 	display: inline-block;
 	visibility: hidden;

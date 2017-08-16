@@ -2,25 +2,21 @@
 
 	_.PortfolioTemplate = _.Template.extend({
 		construct: function(element, options){
-			var self = this;
-			self._super(element, options);
-			self.isCaptionTop = self.template.captionTop;
+			this._super(element, options);
+
+			this.portfolio = null;
 		},
 		onPreInit: function(event, self){
-			self.isCaptionTop = !self.template.captionTop ? self.$el.hasClass("fg-captions-top") : self.template.captionTop;
 			self.portfolio = new _.Portfolio( self.$el.get(0), self.template );
 		},
 		onInit: function(event, self){
 			self.portfolio.init();
 		},
-		onCreatedItem: function(event, self, item){
-			if (item.isCreated && item.$caption.length > 0){
-				if (self.isCaptionTop){
-					item.$caption.insertBefore(item.$anchor);
-				} else {
-					item.$caption.insertAfter(item.$anchor);
-				}
-			}
+		onDestroy: function(event, self){
+			self.portfolio.destroy();
+		},
+		onLayout: function(event, self){
+			self.portfolio.layout( true );
 		},
 		onParsedItems: function(event, self, items){
 			self.portfolio.layout();
@@ -34,7 +30,7 @@
 	});
 
 	_.template.register("simple_portfolio", _.PortfolioTemplate, {
-		captionTop: false
+		gutter: 40
 	}, {
 		container: "foogallery fg-simple_portfolio"
 	});

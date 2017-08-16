@@ -20,10 +20,14 @@
 		},
 		destroy: function(){
 			$(window).off("resize.justified");
+			$.each(this._items, function(i, item){
+				item.$item.removeAttr("style").removeClass("fg-positioned");
+			});
+			this.$el.removeAttr("style");
 		},
 		parse: function(){
 			var self = this;
-			return self._items = self.$el.find(self.options.itemSelector).map(function(i, el){
+			return self._items = self.$el.find(self.options.itemSelector).removeAttr("style").removeClass("fg-positioned").map(function(i, el){
 				var $item = $(el),
 					width = $item.outerWidth(),
 					height = $item.outerHeight(),

@@ -13,10 +13,14 @@
 		},
 		destroy: function(){
 			$(window).off("resize.portfolio");
+			$.each(this._items, function(i, item){
+				item.$item.removeAttr("style").removeClass("fg-positioned");
+			});
+			this.$el.removeAttr("style");
 		},
 		parse: function(){
 			var self = this;
-			return self._items = self.$el.find(".fg-item").map(function(i, el){
+			return self._items = self.$el.find(".fg-item").removeAttr("style").removeClass("fg-positioned").map(function(i, el){
 				var $item = $(el),
 					$thumb = $item.find(".fg-thumb"),
 					$img = $thumb.find(".fg-image");

@@ -7,6 +7,12 @@
 		onInit: function(event, self){
 			self.justified.init();
 		},
+		onDestroy: function(event, self){
+			self.justified.destroy();
+		},
+		onLayout: function(event, self){
+			self.justified.layout( true );
+		},
 		onParsedItems: function(event, self, items){
 			self.justified.layout();
 		},
