@@ -1,6 +1,6 @@
 (function($, _, _obj){
 
-	_.SingleThumbnailTemplate = _.Template.extend({
+	_.ThumbnailTemplate = _.Template.extend({
 		construct: function (options, element) {
 			this._super(_obj.extend({}, options, {
 				paging: {
@@ -10,8 +10,8 @@
 		}
 	});
 
-	_.template.register("single-thumbnail", _.SingleThumbnailTemplate, null, {
-		container: "foogallery fg-single-thumbnail"
+	_.template.register("thumbnail", _.ThumbnailTemplate, null, {
+		container: "foogallery fg-thumbnail"
 	});
 
 })(

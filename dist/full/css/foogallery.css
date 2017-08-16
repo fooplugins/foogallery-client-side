@@ -3007,22 +3007,22 @@ only screen and (min-resolution: 2.25dppx) {
 .foogallery.fg-image-viewer.fg-dark.fg-shadow-large .fiv-inner {
 	box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.5);
 }
-.foogallery.fg-single-thumbnail,
-.foogallery.fg-single-thumbnail.fg-center {
+.foogallery.fg-thumbnail,
+.foogallery.fg-thumbnail.fg-center {
 	text-align: center;
 }
-.foogallery.fg-single-thumbnail.fg-left {
-	text-align: left;
+.foogallery.fg-thumbnail.fg-left {
+	float: left;
 }
-.foogallery.fg-single-thumbnail.fg-right {
-	text-align: right;
+.foogallery.fg-thumbnail.fg-right {
+	float: right;
 }
 
-.foogallery.fg-single-thumbnail .fg-item {
+.foogallery.fg-thumbnail .fg-item {
 	display: inline-block;
 	vertical-align: top;
 	max-width: 100%;
 }
-.foogallery.fg-single-thumbnail .fg-st-hidden {
+.foogallery.fg-thumbnail .fg-st-hidden {
 	display: none;
 }
