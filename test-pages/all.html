@@ -52,8 +52,14 @@
 		fieldset[disabled] {
 			display: none;
 		}
+		#hidden-container {
+			margin-bottom: 20px;
+		}
 		#output {
 			margin-bottom: 20px;
+		}
+		#output.hidden {
+			display: none;
 		}
 		#footer {
 			height: 400px;
@@ -145,10 +151,16 @@
 								<select id="template" name="template" class="form-control"></select>
 							</div>
 							<div class="col-sm-3">
-								<div class="checkbox">
+								<div class="checkbox-inline">
 									<label>
 										<input id="dark" name="dark" type="checkbox" value="1"/>
 										Dark Background
+									</label>
+								</div>
+								<div class="checkbox-inline">
+									<label>
+										<input id="hidden" name="hidden" type="checkbox" value="1"/>
+										Start Hidden
 									</label>
 								</div>
 							</div>
@@ -1051,6 +1063,12 @@
 			</form>
 		</div>
 		<div class="row">
+			<div id="hidden-container" class="col-sm-12">
+				<button id="toggle_visibility" class="btn btn-default pull-right">Toggle Visibility</button>
+				<button id="destroy" class="btn btn-default pull-right">Destroy</button>
+			</div>
+		</div>
+		<div class="row">
 			<div id="output"></div>
 		</div>
 		<div class="row">
@@ -1076,7 +1094,7 @@
 				"title": "Justified",
 				"selector": "#justified-template"
 			},
-			"portfolio": {
+			"simple_portfolio": {
 				"title": "Portfolio",
 				"selector": "#portfolio-template",
 				"items": "items-250x250.json"
@@ -1085,6 +1103,31 @@
 				"title": "Image Viewer",
 				"selector": "#image-viewer-template",
 				"items": "items-720x480.json"
+			},
+			"single-thumbnail": {
+				"title": "Single Thumbnail",
+				"selector": "#single-thumbnail-template",
+				"items": [{
+					"href": "https://unsplash.it/1920/1200?image=10",
+					"src": "https://unsplash.it/360/240?image=10",
+					"srcset": "https://unsplash.it/720/480?image=10 720w,https://unsplash.it/1080/720?image=10 1080w",
+					"width": 360,
+					"height": 240,
+					"title": "Title for 0",
+					"alt": "This is a short description for item 0.",
+					"tags": [
+						"360x240",
+						"tag4",
+						"tag2",
+						"tag3"
+					],
+					"attr": {
+						"item": {},
+						"inner": {},
+						"anchor": {},
+						"image": {}
+					}
+				}]
 			}
 		});
 		window.ctp.init();
@@ -1099,7 +1142,7 @@
 </script>
 <script id="justified-template" type="text/plain">
 	<div id="gallery-1" class="foogallery fg-justified"
-			 data-foogallery='{"template": {"rowHeight": 150, "maxRowHeight": "200%", "margins": 1}}'>
+			 data-foogallery='{"template": {"rowHeight": 250, "maxRowHeight": "200%", "margins": 10}}'>
 	</div>
 </script>
 <script id="default-template" type="text/plain">
@@ -1121,6 +1164,10 @@
 				<div class="fiv-next"><span>Next</span></div>
 			</div>
 		</div>
+	</div>
+</script>
+<script id="single-thumbnail-template" type="text/plain">
+	<div id="gallery-1" class="foogallery fg-single-thumbnail fg-center">
 	</div>
 </script>
 </body>

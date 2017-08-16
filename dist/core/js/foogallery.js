@@ -3043,7 +3043,7 @@
 	 * @summary Expose FooGallery as a jQuery plugin.
 	 * @memberof external:"jQuery.fn"#
 	 * @function foogallery
-	 * @param {object} [options] - The options to supply to FooGallery.
+	 * @param {(object|string)} [options] - The options to supply to FooGallery or one of the supported method names.
 	 * @param {external:"jQuery.fn"~readyCallback} [ready] - A callback executed once each template initialized is ready.
 	 * @returns {jQuery}
 	 * @example {@caption The below shows using this method in its simplest form, initializing a template on pre-existing elements.}{@lang html}
@@ -3090,11 +3090,25 @@
 	 */
 	$.fn.foogallery = function(options, ready){
 		return this.filter(".foogallery").each(function(i, element){
-			_.template.make(options, element).initialize().then(function(template){
-				if (_is.fn(ready)){
-					ready(template);
+			if (_is.string(options)){
+				var template = $.data(element, _.dataTemplate);
+				if (template instanceof _.Template){
+					switch (options){
+						case "layout":
+							template.layout();
+							return;
+						case "destroy":
+							template.destroy();
+							return;
+					}
 				}
-			});
+			} else {
+				_.template.make(options, element).initialize().then(function(template){
+					if (_is.fn(ready)){
+						ready(template);
+					}
+				});
+			}
 		});
 	};
 
@@ -3821,14 +3835,30 @@
 			 * });
 			 */
 			self.raise("destroy");
-			if (!_is.empty(self.opt.on)){
-				self.$el.off(self.opt.on);
-			}
 			$(window).off("popstate.foogallery", self.onWindowPopState)
 				.off("scroll.foogallery", self.onWindowScroll);
 			self.state.destroy();
 			if (self.pages) self.pages.destroy();
 			self.items.destroy();
+			if (!_is.empty(self.opt.on)){
+				self.$el.off(self.opt.on);
+			}
+			/**
+			 * @summary Raised after the template has been destroyed.
+			 * @event FooGallery.Template~"destroyed.foogallery"
+			 * @type {jQuery.Event}
+			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+			 * @param {FooGallery.Template} template - The template raising the event.
+			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+			 * $(".foogallery").foogallery({
+			 * 	on: {
+			 * 		"destroyed.foogallery": function(event, template){
+			 * 			// do something
+			 * 		}
+			 * 	}
+			 * });
+			 */
+			self.raise("destroyed");
 			self.$el.removeData(_.dataTemplate);
 			if (self.createdSelf){
 				self.$el.remove();
@@ -3890,6 +3920,28 @@
 				self[listener].apply(self.$el.get(0), args);
 			}
 			return event;
+		},
+
+		layout: function(){
+			var self = this;
+			if (self._initialize === null) return;
+			/**
+			 * @summary Raised when the templates' {@link FooGallery.Template#layout|layout} method is called.
+			 * @event FooGallery.Template~"layout.foogallery"
+			 * @type {jQuery.Event}
+			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+			 * @param {FooGallery.Template} template - The template raising the event.
+			 * @description This allows templates to perform layout if required for example when visibility changes.
+			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+			 * $(".foogallery").foogallery({
+			 * 	on: {
+			 * 		"layout.foogallery": function(event, template){
+			 * 			// do something
+			 * 		}
+			 * 	}
+			 * });
+			 */
+			self.raise("layout");
 		},
 
 		// ###############
@@ -4419,6 +4471,14 @@
 			 */
 			self.isError = false;
 			/**
+			 * @summary Whether or not this item was parsed from an existing DOM element.
+			 * @memberof FooGallery.Item#
+			 * @name isParsed
+			 * @type {boolean}
+			 * @readonly
+			 */
+			self.isParsed = false;
+			/**
 			 * @memberof FooGallery.Item#
 			 * @name $el
 			 * @type {?jQuery}
@@ -4598,6 +4658,11 @@
 			 */
 			var e = self.tmpl.raise("destroy-item");
 			if (!e.isDefaultPrevented()){
+				if (self.isParsed && !self.isAttached){
+					self.append();
+				} else if (!self.isParsed && self.isAttached) {
+					self.detach();
+				}
 				self._super();
 			}
 			return self.tmpl === null;

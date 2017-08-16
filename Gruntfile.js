@@ -167,7 +167,8 @@ module.exports = function ( grunt ) {
 						"./dist/templates/masonry/js/foogallery.masonry.js",
 						"./dist/templates/justified/js/foogallery.justified.js",
 						"./dist/templates/portfolio/js/foogallery.portfolio.js",
-						"./dist/templates/image-viewer/js/foogallery.image-viewer.js"
+						"./dist/templates/image-viewer/js/foogallery.image-viewer.js",
+						"./dist/templates/single-thumbnail/js/foogallery.single-thumbnail.js"
 					],
 					"./dist/full/css/foogallery.css": [
 						"./dist/core/css/foogallery.css",
@@ -175,7 +176,8 @@ module.exports = function ( grunt ) {
 						"./dist/templates/masonry/css/foogallery.masonry.css",
 						"./dist/templates/justified/css/foogallery.justified.css",
 						"./dist/templates/portfolio/css/foogallery.portfolio.css",
-						"./dist/templates/image-viewer/css/foogallery.image-viewer.css"
+						"./dist/templates/image-viewer/css/foogallery.image-viewer.css",
+						"./dist/templates/single-thumbnail/css/foogallery.single-thumbnail.css"
 					]
 				}
 			}

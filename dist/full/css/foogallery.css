@@ -648,11 +648,8 @@ only screen and (min-resolution: 2.25dppx) {
 	margin: 0;
 }
 /* Goliath */
-.foogallery.fg-preset.fg-goliath .fg-thumb {
-	background: #333;
-}
 .foogallery.fg-preset.fg-goliath .fg-image {
-	opacity: 0.8;
+	opacity: 1;
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	-webkit-transform: translateY(0);
@@ -706,6 +703,15 @@ only screen and (min-resolution: 2.25dppx) {
 	opacity: 1;
 }
 
+/* Themes */
+.foogallery.fg-preset.fg-goliath .fg-caption-desc,
+.foogallery.fg-light.fg-preset.fg-goliath .fg-caption-desc {
+	color: #333;
+}
+.foogallery.fg-dark.fg-preset.fg-goliath .fg-caption-desc {
+	color: #FFF;
+}
+
 /* Inset Shadows */
 .foogallery.fg-preset.fg-goliath.fg-shadow-inset-small .fg-thumb:after,
 .foogallery.fg-preset.fg-goliath.fg-shadow-inset-medium .fg-thumb:after,
@@ -728,7 +734,7 @@ only screen and (min-resolution: 2.25dppx) {
 }
 
 .foogallery.fg-preset.fg-jazz .fg-image {
-	opacity: 0.9;
+	opacity: 1;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 }
@@ -798,7 +804,7 @@ only screen and (min-resolution: 2.25dppx) {
 	background: #18a367;
 }
 .foogallery.fg-preset.fg-layla .fg-image {
-	opacity: 0.8;
+	opacity: 1;
 	-webkit-transform: scale(1.12) translateY(-10%);
 	transform: scale(1.12) translateY(-10%);
 	transform-origin: 50% 0;
@@ -895,7 +901,7 @@ only screen and (min-resolution: 2.25dppx) {
 	background: #3085a3;
 }
 .foogallery.fg-preset.fg-lily .fg-image {
-	opacity: 0.8;
+	opacity: 1;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: scale(1.12) translateX(-10%);
@@ -903,7 +909,7 @@ only screen and (min-resolution: 2.25dppx) {
 	transform-origin: 0 50%;
 }
 .foogallery.fg-preset.fg-lily .fg-item-inner:hover .fg-image {
-	opacity: 1;
+	opacity: 0.8;
 	-webkit-transform: scale(1.12) translateX(0);
 	transform: scale(1.12) translateX(0);
 }
@@ -953,7 +959,7 @@ only screen and (min-resolution: 2.25dppx) {
 	background-color: #3A342A;
 }
 .foogallery.fg-preset.fg-ming .fg-image {
-	opacity: 0.9;
+	opacity: 1;
 	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 }
@@ -1022,7 +1028,7 @@ only screen and (min-resolution: 2.25dppx) {
 	background: linear-gradient(45deg, #22682a 0%,#9b4a1b 40%,#3a342a 100%);
 }
 .foogallery.fg-preset.fg-oscar .fg-image {
-	opacity: 0.9;
+	opacity: 1;
 	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 }
@@ -1031,7 +1037,7 @@ only screen and (min-resolution: 2.25dppx) {
 }
 
 .foogallery.fg-preset.fg-oscar .fg-caption {
-	background-color: rgba(58,52,42,0.7);
+	background-color: transparent;
 	-webkit-transition: background-color 0.35s;
 	transition: background-color 0.35s;
 }
@@ -1093,6 +1099,9 @@ only screen and (min-resolution: 2.25dppx) {
 	background: #3085a3;
 }
 .foogallery.fg-preset.fg-sadie .fg-image {
+	opacity: 1;
+}
+.foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-image {
 	opacity: 0.8;
 }
 
@@ -1122,14 +1131,13 @@ only screen and (min-resolution: 2.25dppx) {
 	top: 50%;
 	left: 0;
 	width: 100%;
-	color: #484c61;
-	-webkit-transition: -webkit-transform 0.35s, color 0.35s;
-	transition: transform 0.35s, color 0.35s;
+	color: #fff;
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
 .foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-title {
-	color: #fff;
 	-webkit-transform: translateY(-50%) translateY(-40px);
 	transform: translateY(-50%) translateY(-40px);
 }
@@ -1158,7 +1166,7 @@ only screen and (min-resolution: 2.25dppx) {
 	background: #42b078;
 }
 .foogallery.fg-preset.fg-sarah .fg-image {
-	opacity: 0.8;
+	opacity: 1;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: scale(1.12) translateX(-10%);
@@ -1216,9 +1224,6 @@ only screen and (min-resolution: 2.25dppx) {
 	transform: translateX(0);
 }
 /* Selena */
-.foogallery.fg-preset.fg-selena .fg-thumb {
-	background: #fff;
-}
 .foogallery.fg-preset.fg-selena .fg-image {
 	opacity: 1;
 	-webkit-transition: -webkit-transform 0.35s;
@@ -1267,6 +1272,23 @@ only screen and (min-resolution: 2.25dppx) {
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
 }
+
+/* Inset Shadows */
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-small .fg-thumb:after,
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-medium .fg-thumb:after,
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-large .fg-thumb:after {
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	transform-origin: 50% 50%;
+}
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-small .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-medium .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-selena.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after {
+	-webkit-transform: scale(0.92);
+	transform: scale(0.92);
+}
 /* Steve */
 .foogallery.fg-preset.fg-steve .fg-item-inner {
 	overflow: visible;
@@ -1306,7 +1328,6 @@ only screen and (min-resolution: 2.25dppx) {
 
 .foogallery.fg-preset.fg-steve .fg-caption {
 	text-align: center;
-	color: #2d434e;
 }
 
 .foogallery.fg-preset.fg-steve .fg-caption-inner {
@@ -1323,7 +1344,6 @@ only screen and (min-resolution: 2.25dppx) {
 	overflow: visible;
 	margin: 0;
 	padding: 0.2em;
-	background-color: #FFF;
 	-webkit-transform: translateY(-100%) translateY(-10px);
 	transform: translateY(-100%) translateY(-10px);
 }
@@ -1365,26 +1385,38 @@ only screen and (min-resolution: 2.25dppx) {
 	transform: scale(1);
 }
 
+/* Themes */
+.foogallery.fg-preset.fg-steve .fg-caption-title,
+.foogallery.fg-preset.fg-steve .fg-caption-desc,
+.foogallery.fg-light.fg-preset.fg-steve .fg-caption-title,
+.foogallery.fg-light.fg-preset.fg-steve .fg-caption-desc {
+	background-color: #FFF;
+	color: #333;
+}
+.foogallery.fg-dark.fg-preset.fg-steve .fg-caption-title,
+.foogallery.fg-dark.fg-preset.fg-steve .fg-caption-desc {
+	background-color: #555;
+	color: #FFF;
+}
 
 /* Inset Shadows */
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-small .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-medium .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-large .fg-thumb:after {
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: perspective(1000px) translate3d(0,0,0);
 	transform: perspective(1000px) translate3d(0,0,0);
+	opacity: 1;
 }
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-small .fg-item-inner:hover .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-medium .fg-item-inner:hover .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after {
 	-webkit-transform: perspective(1000px) translate3d(0,0,21px);
 	transform: perspective(1000px) translate3d(0,0,21px);
+	opacity: 0;
 }
 /* Zoe */
-.foogallery.fg-preset.fg-zoe .fg-thumb {
-	background: #FFF;
-}
 .foogallery.fg-preset.fg-zoe .fg-image {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
@@ -1411,7 +1443,6 @@ only screen and (min-resolution: 2.25dppx) {
 	position: absolute;
 	width: 100%;
 	bottom: -76px;
-	color: #3c4a50;
 	-webkit-transform: translateY(200%);
 	transform: translateY(200%);
 	-webkit-transition: -webkit-transform 0.35s;
@@ -1436,6 +1467,15 @@ only screen and (min-resolution: 2.25dppx) {
 	opacity: 1;
 	-webkit-transform: translateY(-50%) translateY(0);
 	transform: translateY(-50%) translateY(0);
+}
+
+/* Themes */
+.foogallery.fg-preset.fg-zoe .fg-caption-title,
+.foogallery.fg-light.fg-preset.fg-zoe .fg-caption-title {
+	color: #333;
+}
+.foogallery.fg-dark.fg-preset.fg-zoe .fg-caption-title {
+	color: #FFF;
 }
 
 /* Inset Shadows */
@@ -2184,6 +2224,7 @@ only screen and (min-resolution: 2.25dppx) {
 .fg-masonry.fg-masonry-fixed .fg-thumb {
 	display: inline-block;
 }
+
 .fg-masonry .fg-column-width {
 	display: inline-block;
 	visibility: hidden;
@@ -2965,4 +3006,23 @@ only screen and (min-resolution: 2.25dppx) {
 .foogallery.fg-image-viewer.fg-light.fg-shadow-large .fiv-inner,
 .foogallery.fg-image-viewer.fg-dark.fg-shadow-large .fiv-inner {
 	box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.5);
+}
+.foogallery.fg-single-thumbnail,
+.foogallery.fg-single-thumbnail.fg-center {
+	text-align: center;
+}
+.foogallery.fg-single-thumbnail.fg-left {
+	text-align: left;
+}
+.foogallery.fg-single-thumbnail.fg-right {
+	text-align: right;
+}
+
+.foogallery.fg-single-thumbnail .fg-item {
+	display: inline-block;
+	vertical-align: top;
+	max-width: 100%;
+}
+.foogallery.fg-single-thumbnail .fg-st-hidden {
+	display: none;
 }

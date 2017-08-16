@@ -7,7 +7,7 @@
 			classes: ["caption","grayscale","scale","hover-effect","hover-icon","loaded-effect","loading-icon","theme","hover-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
 			bool: [
 				"state-enabled",
-				"lazy", "background",
+				"lazy", "dark", "hidden",
 				"pagination-showPrevNext","pagination-showFirstLast","pagination-showPrevNextMore"
 			],
 			int: [
@@ -25,6 +25,8 @@
 		this.$templates = $("#template");
 		this.$generate = $("#generate");
 		this.$clear = $("#clear");
+		this.$toggle = $("#toggle_visibility");
+		this.$destroy = $("#destroy");
 
 		this.$theme = $("[name=theme]");
 		this.$themeFieldSet = $("#theme-options");
@@ -119,6 +121,15 @@
 			self.$templates.append($("<option/>", {"value": name, "text": options.title}));
 		});
 		self.initFormData();
+		self.$toggle.on("click", function(e){
+			e.preventDefault();
+			self.$output.toggleClass("hidden");
+			self.$current.foogallery("layout");
+		});
+		self.$destroy.on("click", function(e){
+			e.preventDefault();
+			self.$current.foogallery("destroy");
+		});
 		self.$generate.on("click", function(e){
 			e.preventDefault();
 			self.generate();
@@ -163,7 +174,7 @@
 			this.initFormInputs();
 
 			var json = this.toJSON(), template = this.templates[json.template];
-			if (_is.string(template.items)) json.options.items = template.items;
+			if (_is.array(template.items) || _is.string(template.items)) json.options.items = template.items;
 
 			console.log("generating:", json);
 
@@ -180,6 +191,8 @@
 			if (json.dark){
 				$("body").addClass("dark");
 			}
+
+			this.$output.toggleClass("hidden", json.hidden);
 
 			if (_is.fn(template.ready)){
 				template.ready.call(this, options);
@@ -260,7 +273,8 @@
 				loadMore: {}
 			},
 			template: "",
-			dark: false
+			dark: false,
+			hidden: false
 		};
 		// turn the array into a flat object and parse predefined basic values
 		$.each(optionsArray, function(i, option){
@@ -274,6 +288,7 @@
 
 		obj.template = self.getTemplate(obj.options);
 		obj.dark = self.getDark(obj.options);
+		obj.hidden = self.getHidden(obj.options);
 
 		obj.classes.push.apply(obj.classes, this.getCSSClassesFromOptions(obj.options));
 
@@ -332,6 +347,12 @@
 		var dark = options.dark;
 		delete options.dark;
 		return dark;
+	};
+
+	CoreTestPage.prototype.getHidden = function(options){
+		var hidden = options.hidden;
+		delete options.hidden;
+		return hidden;
 	};
 
 	CoreTestPage.prototype.getCSSClasses = function(options, name){
