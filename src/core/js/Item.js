@@ -708,6 +708,7 @@
 				if (!isNaN(w) && !isNaN(h)){
 					// figure out the max image width and calculate the height the image should be displayed as
 					var width = _is.fn(self.maxWidth) ? self.maxWidth(self) : self.$image.width();
+					if (width <= 0) width = w;
 					var ratio = width / w, height = h * ratio;
 					// actually set the inline css on the image
 					self.$image.css({width: width,height: height});
