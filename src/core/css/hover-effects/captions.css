@@ -26,8 +26,10 @@
 	font-weight: 400;
 	padding: 5px;
 }
-.foogallery .fg-caption-title+.fg-caption-desc {
+.foogallery .fg-caption-desc {
 	padding: 5px;
+}
+.foogallery .fg-caption-title+.fg-caption-desc {
 	padding-top: 0;
 }
 
