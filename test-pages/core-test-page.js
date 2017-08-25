@@ -179,7 +179,12 @@
 			console.log("generating:", json);
 
 			this.$current = $($.parseHTML($.trim($(template.selector).text())));
-			var options = $.extend(true, {}, this.$current.data("foogallery"), json.options);
+			var options = $.extend(true, {
+				item: {
+					maxCaptionLength: 50,
+					maxDescriptionLength: 140
+				}
+			}, this.$current.data("foogallery"), json.options);
 
 			this.$current.addClass(json.classes.join(' '));
 			this.$output.empty().append(this.$current);
