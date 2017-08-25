@@ -43,9 +43,10 @@
 }
 
 .foogallery.fg-preset.fg-goliath .fg-caption-desc {
+	position: absolute;
 	text-transform: none;
 	top: 50%;
-	transform: translateY(-50%) translateY(-4px);
+	transform: translateY(-50%);
 	opacity: 0;
 	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;

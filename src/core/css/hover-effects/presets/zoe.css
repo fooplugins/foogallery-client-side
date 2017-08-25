@@ -24,15 +24,15 @@
 .foogallery.fg-preset.fg-zoe .fg-caption-title {
 	position: absolute;
 	width: 100%;
-	bottom: -76px;
-	-webkit-transform: translateY(200%);
-	transform: translateY(200%);
+	bottom: -20px;
+	-webkit-transform: translateY(100%) translateY(120px) translateY(-50%);
+	transform: translateY(100%) translateY(120px) translateY(-50%);
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 }
 .foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-caption-title {
-	-webkit-transform: translateY(0);
-	transform: translateY(0);
+	-webkit-transform: translateY(100%) translateY(40px) translateY(-50%);
+	transform: translateY(100%) translateY(40px) translateY(-50%);
 }
 
 .foogallery.fg-preset.fg-zoe .fg-caption-desc {
