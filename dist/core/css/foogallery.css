@@ -407,8 +407,10 @@ only screen and (min-resolution: 2.25dppx) {
 	font-weight: 400;
 	padding: 5px;
 }
-.foogallery .fg-caption-title+.fg-caption-desc {
+.foogallery .fg-caption-desc {
 	padding: 5px;
+}
+.foogallery .fg-caption-title+.fg-caption-desc {
 	padding-top: 0;
 }
 
@@ -649,7 +651,7 @@ only screen and (min-resolution: 2.25dppx) {
 	overflow: hidden;
 }
 .foogallery.fg-preset .fg-caption-title+.fg-caption-desc {
-	margin: 0;
+	padding: 0;
 }
 /* Goliath */
 .foogallery.fg-preset.fg-goliath .fg-image {
@@ -696,9 +698,10 @@ only screen and (min-resolution: 2.25dppx) {
 }
 
 .foogallery.fg-preset.fg-goliath .fg-caption-desc {
+	position: absolute;
 	text-transform: none;
 	top: 50%;
-	transform: translateY(-50%) translateY(-4px);
+	transform: translateY(-50%);
 	opacity: 0;
 	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
@@ -1446,15 +1449,15 @@ only screen and (min-resolution: 2.25dppx) {
 .foogallery.fg-preset.fg-zoe .fg-caption-title {
 	position: absolute;
 	width: 100%;
-	bottom: -76px;
-	-webkit-transform: translateY(200%);
-	transform: translateY(200%);
+	bottom: -20px;
+	-webkit-transform: translateY(100%) translateY(120px) translateY(-50%);
+	transform: translateY(100%) translateY(120px) translateY(-50%);
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 }
 .foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-caption-title {
-	-webkit-transform: translateY(0);
-	transform: translateY(0);
+	-webkit-transform: translateY(100%) translateY(40px) translateY(-50%);
+	transform: translateY(100%) translateY(40px) translateY(-50%);
 }
 
 .foogallery.fg-preset.fg-zoe .fg-caption-desc {
