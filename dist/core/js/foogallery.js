@@ -4603,6 +4603,18 @@
 			 */
 			self.maxDescriptionLength = options.maxDescriptionLength;
 			/**
+			 * @memberof FooGallery.Item#
+			 * @name showCaptionTitle
+			 * @type {boolean}
+			 */
+			self.showCaptionTitle = options.showCaptionTitle;
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name showCaptionDescription
+			 * @type {boolean}
+			 */
+			self.showCaptionDescription = options.showCaptionDescription;
+			/**
 			 * @summary The cached result of the last call to the {@link FooGallery.Item#getThumbUrl|getThumbUrl} method.
 			 * @memberof FooGallery.Item#
 			 * @name _thumbUrl
@@ -4765,7 +4777,10 @@
 				if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength  > 0 && !_is.empty(self.description) && _is.string(self.description) && self.description.length > self.maxDescriptionLength){
 					self.$caption.find(sel.caption.description).html(self.description.substr(0, self.maxDescriptionLength) + "&hellip;");
 				}
-
+				// check if the item has a loader
+				if (self.$el.find(sel.loader).length === 0){
+					self.$el.append($("<div/>", {"class": cls.loader}));
+				}
 				// if the image has no src url then set the placeholder
 				if (_is.empty(self.$image.prop("src"))){
 					self.$image.prop("src", self.tmpl.items.placeholder(self.width, self.height));
@@ -4913,6 +4928,10 @@
 						}
 					}
 					self.$caption.appendTo(self.$inner);
+					// check if the item has a loader
+					if (self.$el.find(self.sel.loader).length === 0){
+						self.$el.append($("<div/>", {"class": self.cls.loader}));
+					}
 					self.isCreated = true;
 				}
 				if (self.isCreated){
@@ -5107,10 +5126,10 @@
 			if (!self.isCreated || !self.isAttached) return _fn.rejectWith("not created or attached");
 			var e = self.tmpl.raise("load-item", [self]);
 			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			var cls = self.cls, img = self.$image.get(0), placeholder = img.src;
+			self.isLoading = true;
+			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
 			return self._load = $.Deferred(function (def) {
-				var cls = self.cls, img = self.$image.get(0), placeholder = img.src;
-				self.isLoading = true;
-				self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
 				// if Firefox reset to empty src or else the onload and onerror callbacks are executed immediately
 				if (!_is.undef(window.InstallTrigger)) img.src = "";
 				img.onload = function () {
@@ -5282,6 +5301,8 @@
 	 * @property {?FooGallery.Item~maxWidthCallback} [maxWidth=null] - Called when setting an items' image size. If not supplied the images outer width is used.
 	 * @property {number} [maxCaptionLength=0] - The max length of the title for the caption.
 	 * @property {number} [maxDescriptionLength=0] - The max length of the description for the caption.
+	 * @property {boolean} [showCaptionTitle=true] - Whether or not the caption title should be displayed.
+	 * @property {boolean} [showCaptionDescription=true] - Whether or not the caption description should be displayed.
 	 * @property {FooGallery.Item~Attributes} [attr] - Additional attributes to apply to the items' elements.
 	 */
 	_.template.configure("core", {
@@ -5300,6 +5321,8 @@
 			maxWidth: null,
 			maxCaptionLength: 0,
 			maxDescriptionLength: 0,
+			showCaptionTitle: true,
+			showCaptionDescription: true,
 			attr: {
 				elem: {},
 				inner: {},
@@ -5319,6 +5342,7 @@
 			inner: "fg-item-inner",
 			anchor: "fg-thumb",
 			image: "fg-image",
+			loader: "fg-loader",
 			idle: "fg-idle",
 			loading: "fg-loading",
 			loaded: "fg-loaded",
