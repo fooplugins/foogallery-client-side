@@ -1,0 +1,54 @@
+.foogallery.fg-loading-bars .fg-loader,
+.foogallery.fg-loading-bars .fg-loader:before,
+.foogallery.fg-loading-bars .fg-loader:after {
+	background: rgba(130, 130, 130, 1);
+	-webkit-animation: loading-bars 1s infinite ease-in-out;
+	animation: loading-bars 1s infinite ease-in-out;
+	width: 1em;
+	height: 4em;
+}
+.foogallery.fg-loading-bars .fg-loader {
+	color: rgba(130, 130, 130, 1);
+	text-indent: -9999em;
+	font-size: 4px;
+	-webkit-animation-delay: -0.16s;
+	animation-delay: -0.16s;
+}
+.foogallery.fg-loading-bars .fg-loader:before,
+.foogallery.fg-loading-bars .fg-loader:after {
+	position: absolute;
+	top: 0;
+	content: '';
+}
+.foogallery.fg-loading-bars .fg-loader:before {
+	left: -1.5em;
+	-webkit-animation-delay: -0.32s;
+	animation-delay: -0.32s;
+}
+.foogallery.fg-loading-bars .fg-loader:after {
+	left: 1.5em;
+}
+@-webkit-keyframes loading-bars {
+	0%,
+	80%,
+	100% {
+		box-shadow: 0 0;
+		height: 4em;
+	}
+	40% {
+		box-shadow: 0 -2em;
+		height: 5em;
+	}
+}
+@keyframes loading-bars {
+	0%,
+	80%,
+	100% {
+		box-shadow: 0 0;
+		height: 4em;
+	}
+	40% {
+		box-shadow: 0 -2em;
+		height: 5em;
+	}
+}
