@@ -1,6 +1,6 @@
-.foogallery.fg-loading-pulse .fg-loader,
-.foogallery.fg-loading-pulse .fg-loader:before,
-.foogallery.fg-loading-pulse .fg-loader:after {
+.fg-loading-pulse .fg-loader,
+.fg-loading-pulse .fg-loader:before,
+.fg-loading-pulse .fg-loader:after {
 	border-radius: 50%;
 	width: 2.5em;
 	height: 2.5em;
@@ -9,7 +9,7 @@
 	-webkit-animation: loading-pulse 1.8s infinite ease-in-out;
 	animation: loading-pulse 1.8s infinite ease-in-out;
 }
-.foogallery.fg-loading-pulse .fg-loader {
+.fg-loading-pulse .fg-loader {
 	color: #828282;
 	font-size: 4px;
 	text-indent: -9999em;
@@ -17,18 +17,18 @@
 	-webkit-animation-delay: -0.16s;
 	animation-delay: -0.16s;
 }
-.foogallery.fg-loading-pulse .fg-loader:before,
-.foogallery.fg-loading-pulse .fg-loader:after {
+.fg-loading-pulse .fg-loader:before,
+.fg-loading-pulse .fg-loader:after {
 	content: '';
 	position: absolute;
 	top: 0;
 }
-.foogallery.fg-loading-pulse .fg-loader:before {
+.fg-loading-pulse .fg-loader:before {
 	left: -3.5em;
 	-webkit-animation-delay: -0.32s;
 	animation-delay: -0.32s;
 }
-.foogallery.fg-loading-pulse .fg-loader:after {
+.fg-loading-pulse .fg-loader:after {
 	left: 3.5em;
 }
 @-webkit-keyframes loading-pulse {
