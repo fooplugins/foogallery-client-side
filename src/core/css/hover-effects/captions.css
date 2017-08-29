@@ -37,7 +37,7 @@
 .foogallery.fg-caption-always .fg-caption .fg-caption-inner:before {
 	display: none;
 }
-.foogallery.fg-caption-always .fg-item-inner .fg-caption {
+.foogallery.fg-caption-always .fg-item.fg-loaded .fg-caption {
 	left: 0;
 	bottom: 0;
 	transition-timing-function: ease;
