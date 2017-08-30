@@ -1,23 +1,33 @@
 /* Selena */
-.foogallery.fg-preset.fg-selena .fg-image {
+.foogallery.fg-preset.fg-selena .fg-thumb {
 	opacity: 1;
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	-webkit-transform: scale(1);
 	transform: scale(1);
 	transform-origin: 50% 50%;
+	background-color: #333;
 }
-.foogallery.fg-preset.fg-selena .fg-item-inner:hover .fg-image {
+.foogallery.fg-preset.fg-selena .fg-item-inner:hover .fg-thumb {
 	-webkit-transform: scale(0.92);
 	transform: scale(0.92);
 }
+.foogallery.fg-preset.fg-selena .fg-image {
+	opacity: 1;
+	-webkit-transition: opacity 0.35s;
+	transition: opacity 0.35s;
+}
+.foogallery.fg-preset.fg-selena .fg-item-inner:hover .fg-image {
+	opacity: 0.6;
+}
+
 
 .foogallery.fg-preset.fg-selena .fg-caption {
 	text-align: center;
 }
 
 .foogallery.fg-preset.fg-selena .fg-caption-inner {
-	border: solid 20px transparent;
+	border: solid 15px transparent;
 }
 
 .foogallery.fg-preset.fg-selena .fg-caption-title {
@@ -48,19 +58,13 @@
 	transform: translateY(0);
 }
 
-/* Inset Shadows */
-.foogallery.fg-preset.fg-selena.fg-shadow-inset-small .fg-thumb:after,
-.foogallery.fg-preset.fg-selena.fg-shadow-inset-medium .fg-thumb:after,
-.foogallery.fg-preset.fg-selena.fg-shadow-inset-large .fg-thumb:after {
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
-	-webkit-transform: scale(1);
-	transform: scale(1);
-	transform-origin: 50% 50%;
+/* Preset Sizes */
+.foogallery.fg-preset.fg-preset-small.fg-selena .fg-caption-inner {
+	border: solid 10px transparent;
 }
-.foogallery.fg-preset.fg-selena.fg-shadow-inset-small .fg-item-inner:hover .fg-thumb:after,
-.foogallery.fg-preset.fg-selena.fg-shadow-inset-medium .fg-item-inner:hover .fg-thumb:after,
-.foogallery.fg-preset.fg-selena.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after {
-	-webkit-transform: scale(0.92);
-	transform: scale(0.92);
+.foogallery.fg-preset.fg-preset-medium.fg-selena .fg-caption-inner {
+	border: solid 15px transparent;
+}
+.foogallery.fg-preset.fg-preset-large.fg-selena .fg-caption-inner {
+	border: solid 20px transparent;
 }

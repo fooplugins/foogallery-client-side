@@ -18,10 +18,10 @@
 
 .foogallery.fg-preset.fg-ming .fg-caption:before {
 	position: absolute;
-	top: 30px;
-	right: 30px;
-	bottom: 30px;
-	left: 30px;
+	top: 20px;
+	right: 20px;
+	bottom: 20px;
+	left: 20px;
 	border: 2px solid #fff;
 	box-shadow: 0 0 0 30px rgba(255,255,255,0.2);
 	content: '';
@@ -38,12 +38,11 @@
 }
 
 .foogallery.fg-preset.fg-ming .fg-caption-inner {
-	border: solid 30px transparent;
-	border-bottom-width: 40px;
+	border: solid 20px transparent;
 }
 
 .foogallery.fg-preset.fg-ming .fg-caption-title {
-	margin: 20% 0 10px 0;
+	margin: 20px 0 0 0;
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	-webkit-transform: scale(1);
@@ -55,7 +54,7 @@
 }
 
 .foogallery.fg-preset.fg-ming .fg-caption-desc {
-	padding: 1em;
+	padding: 4px;
 	opacity: 0;
 	-webkit-transform: scale(1.5);
 	transform: scale(1.5);
@@ -70,4 +69,35 @@
 
 .foogallery.fg-preset.fg-ming .fg-caption-title+.fg-caption-desc {
 	margin: 0;
+}
+
+/* Preset Sizes */
+.foogallery.fg-preset.fg-preset-small.fg-ming .fg-caption-inner {
+	border: solid 10px transparent;
+}
+.foogallery.fg-preset.fg-preset-small.fg-ming .fg-caption:before {
+	top: 10px;
+	right: 10px;
+	bottom: 10px;
+	left: 10px;
+}
+
+.foogallery.fg-preset.fg-preset-medium.fg-ming .fg-caption-inner {
+	border: solid 20px transparent;
+}
+.foogallery.fg-preset.fg-preset-medium.fg-ming .fg-caption:before {
+	top: 20px;
+	right: 20px;
+	bottom: 20px;
+	left: 20px;
+}
+
+.foogallery.fg-preset.fg-preset-large.fg-ming .fg-caption-inner {
+	border: solid 30px transparent;
+}
+.foogallery.fg-preset.fg-preset-large.fg-ming .fg-caption:before {
+	top: 30px;
+	right: 30px;
+	bottom: 30px;
+	left: 30px;
 }

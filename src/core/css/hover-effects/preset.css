@@ -28,14 +28,36 @@
 .foogallery.fg-preset .fg-caption-title {
 	word-spacing: -0.15em;
 	font-weight: 300;
-	font-size: 30px;
+	font-size: 18px;
 }
 .foogallery.fg-preset .fg-caption-desc {
 	letter-spacing: 1px;
-	font-size: 14px;
+	font-size: 10px;
 	max-height: 100%;
 	overflow: hidden;
 }
 .foogallery.fg-preset .fg-caption-title+.fg-caption-desc {
 	padding: 0;
+}
+
+/* Preset Sizes */
+.fg-preset.fg-preset-small .fg-caption-title {
+	font-size: 18px;
+}
+.fg-preset.fg-preset-small .fg-caption-desc {
+	font-size: 10px;
+}
+
+.fg-preset.fg-preset-medium .fg-caption-title {
+	font-size: 24px;
+}
+.fg-preset.fg-preset-medium .fg-caption-desc {
+	font-size: 12px;
+}
+
+.fg-preset.fg-preset-large .fg-caption-title {
+	font-size: 30px;
+}
+.fg-preset.fg-preset-large .fg-caption-desc {
+	font-size: 14px;
 }

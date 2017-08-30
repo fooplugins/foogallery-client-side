@@ -21,7 +21,7 @@
 }
 
 .foogallery.fg-preset.fg-sarah .fg-caption-inner {
-	border: solid 20px transparent;
+	border: solid 15px transparent;
 }
 
 .foogallery.fg-preset.fg-sarah .fg-caption-title {
@@ -59,4 +59,15 @@
 	opacity: 1;
 	-webkit-transform: translateX(0);
 	transform: translateX(0);
+}
+
+/* Preset Sizes */
+.foogallery.fg-preset.fg-preset-small.fg-sarah .fg-caption-inner {
+	border: solid 10px transparent;
+}
+.foogallery.fg-preset.fg-preset-medium.fg-sarah .fg-caption-inner {
+	border: solid 15px transparent;
+}
+.foogallery.fg-preset.fg-preset-large.fg-sarah .fg-caption-inner {
+	border: solid 20px transparent;
 }

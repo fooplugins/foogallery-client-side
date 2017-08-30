@@ -39,11 +39,16 @@
 }
 
 .foogallery.fg-preset.fg-jazz .fg-caption-inner {
-	border: solid 35px transparent;
+	border: solid 25px transparent;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	height: auto;
+	transform: translateY(-50%);
 }
 
 .foogallery.fg-preset.fg-jazz .fg-caption-title {
-	padding-top: 20%;
+	padding-top: 20px;
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	opacity: 1;
@@ -56,7 +61,7 @@
 }
 
 .foogallery.fg-preset.fg-jazz .fg-caption-desc {
-	padding: 0.5em 2em;
+	padding: 4px;
 	text-transform: none;
 	opacity: 0;
 	-webkit-transform: scale3d(0.8,0.8,1);
@@ -68,4 +73,15 @@
 	opacity: 1;
 	-webkit-transform: scale3d(1,1,1);
 	transform: scale3d(1,1,1);
+}
+
+/* Preset Sizes */
+.foogallery.fg-preset.fg-preset-small.fg-jazz .fg-caption-inner {
+	border: solid 15px transparent;
+}
+.foogallery.fg-preset.fg-preset-medium.fg-jazz .fg-caption-inner {
+	border: solid 25px transparent;
+}
+.foogallery.fg-preset.fg-preset-large.fg-jazz .fg-caption-inner {
+	border: solid 35px transparent;
 }

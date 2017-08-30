@@ -1,5 +1,5 @@
 /* Goliath */
-.foogallery.fg-preset.fg-goliath .fg-image {
+.foogallery.fg-preset.fg-goliath .fg-thumb {
 	opacity: 1;
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
@@ -7,25 +7,34 @@
 	transform: translateY(0);
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
+	background-color: #333;
+}
+.foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-thumb {
+	-webkit-transform: translateY(-60px);
+	transform: translateY(-60px);
+}
+.foogallery.fg-preset.fg-goliath .fg-image {
+	opacity: 1;
+	-webkit-transition: opacity 0.35s;
+	transition: opacity 0.35s;
 }
 .foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-image {
-	-webkit-transform: translateY(-80px);
-	transform: translateY(-80px);
+	opacity: 0.6;
 }
 
 .foogallery.fg-preset.fg-goliath .fg-caption {
 	text-align: left;
 }
 .foogallery.fg-preset.fg-goliath .fg-caption-inner {
-	border: solid 30px transparent;
-	border-top-width: 8px;
-	border-bottom-width: 8px;
+	border: solid 20px transparent;
+	border-top-width: 6px;
+	border-bottom-width: 6px;
+	height: 60px;
 	position: absolute;
 	top: auto;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	height: 80px;
 	overflow: visible;
 	-webkit-transform: translateY(100%);
 	transform: translateY(100%);
@@ -38,8 +47,8 @@
 }
 
 .foogallery.fg-preset.fg-goliath .fg-caption-title {
-	-webkit-transform: translateY(-100%) translateY(-38px);
-	transform: translateY(-100%) translateY(-38px);
+	-webkit-transform: translateY(-100%) translateY(-18px);
+	transform: translateY(-100%) translateY(-18px);
 }
 
 .foogallery.fg-preset.fg-goliath .fg-caption-desc {
@@ -50,6 +59,7 @@
 	opacity: 0;
 	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
+	line-height: 1.3;
 }
 .foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-caption-desc {
 	opacity: 1;
@@ -64,18 +74,57 @@
 	color: #FFF;
 }
 
-/* Inset Shadows */
-.foogallery.fg-preset.fg-goliath.fg-shadow-inset-small .fg-thumb:after,
-.foogallery.fg-preset.fg-goliath.fg-shadow-inset-medium .fg-thumb:after,
-.foogallery.fg-preset.fg-goliath.fg-shadow-inset-large .fg-thumb:after {
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
-	-webkit-transform: translateY(0);
-	transform: translateY(0);
+/* Preset Sizes */
+.foogallery.fg-preset.fg-preset-small.fg-goliath .fg-caption-inner {
+	border: solid 10px transparent;
+	border-top-width: 2px;
+	border-bottom-width: 2px;
+	height: 40px;
 }
-.foogallery.fg-preset.fg-goliath.fg-shadow-inset-small .fg-item-inner:hover .fg-thumb:after,
-.foogallery.fg-preset.fg-goliath.fg-shadow-inset-medium .fg-item-inner:hover .fg-thumb:after,
-.foogallery.fg-preset.fg-goliath.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after {
+.foogallery.fg-preset.fg-preset-small.fg-goliath .fg-item-inner:hover .fg-thumb {
+	-webkit-transform: translateY(-40px);
+	transform: translateY(-40px);
+}
+.foogallery.fg-preset.fg-preset-small.fg-goliath .fg-caption-title {
+	-webkit-transform: translateY(-100%) translateY(-10px);
+	transform: translateY(-100%) translateY(-10px);
+}
+.foogallery.fg-preset.fg-preset-small.fg-goliath .fg-caption-desc {
+	line-height: 1.2;
+}
+
+.foogallery.fg-preset.fg-preset-medium.fg-goliath .fg-caption-inner {
+	border: solid 20px transparent;
+	border-top-width: 6px;
+	border-bottom-width: 6px;
+	height: 60px;
+}
+.foogallery.fg-preset.fg-preset-medium.fg-goliath .fg-item-inner:hover .fg-thumb {
+	-webkit-transform: translateY(-60px);
+	transform: translateY(-60px);
+}
+.foogallery.fg-preset.fg-preset-medium.fg-goliath .fg-caption-title {
+	-webkit-transform: translateY(-100%) translateY(-18px);
+	transform: translateY(-100%) translateY(-18px);
+}
+.foogallery.fg-preset.fg-preset-medium.fg-goliath .fg-caption-desc {
+	line-height: 1.3;
+}
+
+.foogallery.fg-preset.fg-preset-large.fg-goliath .fg-caption-inner {
+	border: solid 30px transparent;
+	border-top-width: 10px;
+	border-bottom-width: 10px;
+	height: 80px;
+}
+.foogallery.fg-preset.fg-preset-large.fg-goliath .fg-item-inner:hover .fg-thumb {
 	-webkit-transform: translateY(-80px);
 	transform: translateY(-80px);
+}
+.foogallery.fg-preset.fg-preset-large.fg-goliath .fg-caption-title {
+	-webkit-transform: translateY(-100%) translateY(-32px);
+	transform: translateY(-100%) translateY(-32px);
+}
+.foogallery.fg-preset.fg-preset-large.fg-goliath .fg-caption-desc {
+	line-height: 1.4;
 }
