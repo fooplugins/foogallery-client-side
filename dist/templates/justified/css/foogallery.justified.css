@@ -23,6 +23,7 @@
 }
 .fg-justified .fg-thumb {
 	position: relative;
+	overflow: hidden;
 }
 .fg-justified .fg-image {
 	z-index: 1;
@@ -35,12 +36,4 @@
 	width: 100%;
 	height: auto;
 	min-height: 100%;
-}
-
-/* Hover Effects */
-.foogallery.fg-justified.hover-effect-caption.hover-caption-push .fg-thumb:hover .fg-image {
-	-webkit-transform: translateX(-150%) translateY(-50%);
-	-moz-transform: translateX(-150%) translateY(-50%);
-	-o-transform: translateX(-150%) translateY(-50%);
-	transform: translateX(-150%) translateY(-50%);
 }

@@ -4,7 +4,7 @@
 		if (!(this instanceof CoreTestPage)) return new CoreTestPage();
 		this.templates = templates;
 		this.types = {
-			classes: ["caption","grayscale","scale","hover-effect","hover-icon","loaded-effect","loading-icon","theme","hover-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
+			classes: ["caption","grayscale","scale","hover-effect","preset-size","hover-icon","loaded-effect","loading-icon","theme","hover-style","border-size","drop-shadow","inset-shadow","rounded-corners"],
 			bool: [
 				"state-enabled",
 				"lazy", "dark", "hidden",
@@ -33,6 +33,7 @@
 
 		this.$hoverStyle = $("[name=hover-style]");
 		this.$customHoverStyleFieldSet = $("#custom-hover-style-options");
+		this.$presetOptionsFieldSet = $("#preset-options");
 
 		this.$pagingType = $("[name=paging-type]");
 		this.$pagingOptionsFieldSet = $("#paging-options");
@@ -315,6 +316,7 @@
 	CoreTestPage.prototype.updateHoverStyleFieldSets = function(){
 		var value = this.$hoverStyle.filter(":checked").val();
 		this.$customHoverStyleFieldSet.prop("disabled", value !== "fg-custom");
+		this.$presetOptionsFieldSet.prop("disabled", value === "fg-custom" || value === "");
 	};
 
 	CoreTestPage.prototype.updateLazyFieldSets = function(){
