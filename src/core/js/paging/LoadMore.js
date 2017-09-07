@@ -11,27 +11,32 @@
 			this._count = this.amount;
 		},
 		available: function(){
-			var self = this, items = [], page = self.get(self.current);
-			if (!_is.empty(page)){
-				var vb = _utils.getViewportBounds(), ib = page[page.length - 1].bounds();
-				if (ib.top - vb.bottom < self.distance){
+			var self = this, items = [], page = self.get(self.current), viewport = _utils.getViewportBounds(), last, first;
+			if (!_is.empty(page) && self._created.length !== self.total){
+				last = page[page.length - 1].bounds();
+				if (last.top - viewport.bottom < self.distance){
 					var pageNumber = self.current + 1;
 					if (self.isValid(pageNumber) && self._count < self.amount){
 						self._count++;
 						self.set(pageNumber, false);
-					}
-					if (self.current === self.total){
-						if (!_is.empty(self.ctrls)){
-							$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
-								control.destroy();
-							});
-						}
+						return self.available();
 					}
 				}
 			}
-			for (var pg = self.current - 3; pg <= self.current; pg++){
-				if (self.isValid(pg)){
-					items.push.apply(items, self.get(pg));
+			if (self._created.length === self.total){
+				if (!_is.empty(self.ctrls)){
+					$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
+						control.destroy();
+					});
+				}
+			}
+			for (var i = 0, l = self._created.length, num; i < l; i++){
+				num = i + 1;
+				page = self.get(num);
+				first = page[0].bounds();
+				last = page[page.length - 1].bounds();
+				if (last.top - viewport.bottom < self.distance || first.bottom - viewport.top < self.distance){
+					items.push.apply(items, page);
 				}
 			}
 			return items;

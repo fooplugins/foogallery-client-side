@@ -235,7 +235,6 @@
 					var e = self.raise("init");
 					if (e.preventDefault()) return _fn.rejectWith("init default prevented");
 					return self.items.fetch().then(function(){
-						if (self.pages) self.pages.build();
 
 						/**
 						 * @summary Raised after the template is initialized but before any post-initialization work is complete.

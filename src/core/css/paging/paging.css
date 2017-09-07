@@ -1,3 +1,8 @@
+.fg-paging-container, .fg-paging-container * {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
 .fg-paging-container {
 	display: block;
 	padding: 15px;

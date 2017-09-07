@@ -40,6 +40,7 @@
 			} else {
 				for (var i = 0; i < self.total; i++){
 					self._arr.push(items.splice(0, self.size));
+					self.tmpl.items.detach(self._arr[i]);
 				}
 			}
 			if (_.paging.hasCtrl(self.type)){
