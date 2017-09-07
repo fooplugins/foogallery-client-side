@@ -305,6 +305,12 @@
 				_obj.prop(obj.options, name.replace(/-/g, "."), value);
 			}
 		});
+
+		// merge paging
+		if (obj.options.hasOwnProperty(obj.options.paging.type)){
+			$.extend(true, obj.options.paging, obj.options[obj.options.paging.type]);
+		}
+
 		return obj;
 	};
 
