@@ -37,13 +37,14 @@
 			self.total = self.size > 0 && items.length > 0 ? Math.ceil(items.length / self.size) : 1;
 			if (self.total <= 1){
 				self._arr.push(items);
+				self.tmpl.items.detach(self._arr[0]);
 			} else {
 				for (var i = 0; i < self.total; i++){
 					self._arr.push(items.splice(0, self.size));
 					self.tmpl.items.detach(self._arr[i]);
 				}
 			}
-			if (_.paging.hasCtrl(self.type)){
+			if (self.total > 1 && _.paging.hasCtrl(self.type)){
 				var pos = self.position, top, bottom;
 				if (pos === "both" || pos === "top"){
 					top = _.paging.makeCtrl(self.type, self.tmpl, self, "top");
