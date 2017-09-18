@@ -151,7 +151,8 @@ module.exports = function ( grunt ) {
 						"./src/templates/portfolio/js/ready.js"
 					],
 					"./dist/templates/portfolio/css/foogallery.portfolio.css": [
-						"./src/templates/portfolio/css/portfolio.css"
+						"./src/templates/portfolio/css/portfolio.css",
+						"./src/templates/portfolio/css/polaroid.css"
 					]
 				}
 			},
