@@ -26,10 +26,10 @@
 	box-sizing: border-box;
 }
 .foogallery.fg-preset.fg-layla .fg-caption:before {
-	top: 25px;
-	right: 10px;
-	bottom: 25px;
-	left: 10px;
+	top: 15px;
+	right: 5px;
+	bottom: 15px;
+	left: 5px;
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #fff;
 	-webkit-transform: scale(0,1);
@@ -40,10 +40,10 @@
 	transform-origin: 0 0;
 }
 .foogallery.fg-preset.fg-layla .fg-caption:after {
-	top: 10px;
-	right: 25px;
-	bottom: 10px;
-	left: 25px;
+	top: 5px;
+	right: 15px;
+	bottom: 5px;
+	left: 15px;
 	border-right: 1px solid #fff;
 	border-left: 1px solid #fff;
 	-webkit-transform: scale(1,0);
@@ -63,7 +63,7 @@
 }
 
 .foogallery.fg-preset.fg-layla .fg-caption-inner {
-	border: solid 25px transparent;
+	border: solid 15px transparent;
 }
 .foogallery.fg-preset.fg-layla .fg-caption-title {
 	position: relative;

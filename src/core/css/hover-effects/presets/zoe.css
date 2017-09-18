@@ -8,31 +8,31 @@
 	transform: translateY(0);
 }
 .foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-thumb {
-	-webkit-transform: translateY(-60px);
-	transform: translateY(-60px);
+	-webkit-transform: translateY(-40px);
+	transform: translateY(-40px);
 }
 
 .foogallery.fg-preset.fg-zoe .fg-caption-inner {
 	position: absolute;
 	top: 0;
 	left: 0;
-	border: solid 15px transparent;
-	border-bottom-width: 75px;
+	border: solid 10px transparent;
+	border-bottom-width: 50px;
 	overflow: visible;
 }
 
 .foogallery.fg-preset.fg-zoe .fg-caption-title {
 	position: absolute;
 	width: 100%;
-	bottom: -15px;
-	-webkit-transform: translateY(100%) translateY(75px) translateY(-50%);
-	transform: translateY(100%) translateY(75px) translateY(-50%);
+	bottom: -10px;
+	-webkit-transform: translateY(100%) translateY(50px) translateY(-50%);
+	transform: translateY(100%) translateY(50px) translateY(-50%);
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 }
 .foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-caption-title {
-	-webkit-transform: translateY(100%) translateY(30px) translateY(-50%);
-	transform: translateY(100%) translateY(30px) translateY(-50%);
+	-webkit-transform: translateY(100%) translateY(20px) translateY(-50%);
+	transform: translateY(100%) translateY(20px) translateY(-50%);
 }
 
 .foogallery.fg-preset.fg-zoe .fg-caption-desc {

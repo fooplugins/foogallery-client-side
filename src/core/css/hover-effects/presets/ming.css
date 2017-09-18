@@ -18,10 +18,10 @@
 
 .foogallery.fg-preset.fg-ming .fg-caption:before {
 	position: absolute;
-	top: 20px;
-	right: 20px;
-	bottom: 20px;
-	left: 20px;
+	top: 10px;
+	right: 10px;
+	bottom: 10px;
+	left: 10px;
 	border: 2px solid #fff;
 	box-shadow: 0 0 0 30px rgba(255,255,255,0.2);
 	content: '';
@@ -38,7 +38,7 @@
 }
 
 .foogallery.fg-preset.fg-ming .fg-caption-inner {
-	border: solid 20px transparent;
+	border: solid 10px transparent;
 }
 
 .foogallery.fg-preset.fg-ming .fg-caption-title {

@@ -17,7 +17,7 @@
 }
 
 .foogallery.fg-preset.fg-lily .fg-caption-inner {
-	border: solid 15px transparent;
+	border: solid 10px transparent;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -25,7 +25,7 @@
 	max-height: 100%;
 	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
-	transform: translateY(100%) translateY(-15px) translateY(-40px);
+	transform: translateY(100%) translateY(-10px) translateY(-30px);
 }
 .foogallery.fg-preset.fg-lily .fg-item-inner:hover .fg-caption-inner {
 	-webkit-transform: translateY(0);
