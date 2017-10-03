@@ -362,10 +362,10 @@
 				if (_is.empty(self.caption)) self.caption = self.title;
 				if (_is.empty(self.description)) self.description = self.alt;
 				// enforce the max lengths for the caption and description
-				if (_is.number(self.maxCaptionLength) && self.maxCaptionLength  > 0 && !_is.empty(self.caption) && _is.string(self.caption) && self.caption.length > self.maxCaptionLength){
+				if (_is.number(self.maxCaptionLength) && self.maxCaptionLength > 0 && !_is.empty(self.caption) && _is.string(self.caption) && self.caption.length > self.maxCaptionLength){
 					self.$caption.find(sel.caption.title).html(self.caption.substr(0, self.maxCaptionLength) + "&hellip;");
 				}
-				if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength  > 0 && !_is.empty(self.description) && _is.string(self.description) && self.description.length > self.maxDescriptionLength){
+				if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength > 0 && !_is.empty(self.description) && _is.string(self.description) && self.description.length > self.maxDescriptionLength){
 					self.$caption.find(sel.caption.description).html(self.description.substr(0, self.maxDescriptionLength) + "&hellip;");
 				}
 				// check if the item has a loader
