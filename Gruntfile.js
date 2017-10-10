@@ -120,6 +120,11 @@ module.exports = function ( grunt ) {
 
 						"./src/core/css/appearance/loading-icon.css",
 						"./src/core/css/appearance/loading-icons/default.css",
+						"./src/core/css/appearance/loading-icons/bars.css",
+						"./src/core/css/appearance/loading-icons/trail.css",
+						"./src/core/css/appearance/loading-icons/pulse.css",
+						"./src/core/css/appearance/loading-icons/dots.css",
+						"./src/core/css/appearance/loading-icons/partial.css",
 
 						"./src/core/css/appearance/loaded-effect.css",
 						"./src/core/css/appearance/loaded-effects/fade-in.css",
@@ -488,6 +493,7 @@ module.exports = function ( grunt ) {
 		"concat:full", // create the full version
 		"uglify:full",
 		"cssmin:full",
+		"copy:full",
 		"concat:lite", // create the lite version
 		"uglify:lite",
 		"cssmin:lite",
