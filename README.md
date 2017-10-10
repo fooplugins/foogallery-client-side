@@ -8,14 +8,6 @@ There are two versions available in the dist folder, Full and Lite. The differen
 
 The below lists the various options *not* included in the Lite version.
 
-### Loading Icons
-
-* `fg-loading-bars`
-* `fg-loading-trail`
-* `fg-loading-pulse`
-* `fg-loading-dots`
-* `fg-loading-partial`
-
 ### Loaded Effects
 
 * `fg-loaded-drop`
