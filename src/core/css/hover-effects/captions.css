@@ -47,3 +47,16 @@
 	opacity: 1;
 	text-align: left;
 }
+
+/* On Hover */
+.foogallery.fg-caption-hover .fg-caption .fg-caption-inner {
+	width: 100%;
+	max-height: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+}
+.foogallery.fg-caption-hover .fg-item .fg-thumb:before {
+	display: none;
+}

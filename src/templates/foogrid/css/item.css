@@ -1,0 +1,52 @@
+.foogrid .fg-item {
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	z-index: 1;
+	font-size: 16px;
+}
+.foogrid .fg-thumb,
+.foogrid .fg-thumb:hover,
+.foogrid .fg-thumb:active,
+.foogrid .fg-thumb:visited {
+	position: relative;
+	display: block;
+	border: none;
+	outline: none;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	box-shadow: none;
+	text-align: center;
+}
+.foogrid .fg-image {
+	display: inline-block;
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	border: none;
+	outline: none;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+.foogrid .fg-item > span {
+	display: block;
+	border-bottom: 45px solid transparent;
+	border-left: 35px solid transparent;
+	border-right: 35px solid transparent;
+	height: 0;
+	width: 0;
+	position: absolute;
+	bottom: -45px;
+	left: 50%;
+	margin-left: -35px;
+	visibility: hidden;
+	opacity: 0;
+}
+.foogrid .fg-item.foogrid-visible > span {
+	visibility: visible;
+	opacity: 1;
+}

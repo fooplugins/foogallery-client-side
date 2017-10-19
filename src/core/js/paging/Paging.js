@@ -117,22 +117,28 @@
 				self.controls(pageNumber);
 				var num = self.number(pageNumber), state;
 				if (num !== self.current) {
-					updateState = _is.boolean(updateState) ? updateState : true;
-					if (updateState && self.current === 1 && !self.tmpl.state.exists()){
-						state = self.tmpl.state.get();
-						self.tmpl.state.update(state, self.pushOrReplace);
-					}
-					self.create(num);
-					if (updateState){
-						state = self.tmpl.state.get();
-						self.tmpl.state.update(state, self.pushOrReplace);
-					}
-					if (self.scrollToTop && _is.boolean(scroll) ? scroll : false) {
-						var page = self.get(self.current);
-						if (page.length > 0){
-							page[0].scrollTo("top");
+					var prev = self.current, setPage = function(){
+						updateState = _is.boolean(updateState) ? updateState : true;
+						if (updateState && self.current === 1 && !self.tmpl.state.exists()){
+							state = self.tmpl.state.get();
+							self.tmpl.state.update(state, self.pushOrReplace);
 						}
-					}
+						self.create(num);
+						if (updateState){
+							state = self.tmpl.state.get();
+							self.tmpl.state.update(state, self.pushOrReplace);
+						}
+						if (self.scrollToTop && _is.boolean(scroll) ? scroll : false) {
+							var page = self.get(self.current);
+							if (page.length > 0){
+								page[0].scrollTo("top");
+							}
+						}
+						self.tmpl.raise("after-page-change", [self.current, prev]);
+					};
+					var e = self.tmpl.raise("before-page-change", [self.current, num, setPage]);
+					if (e.isDefaultPrevented()) return false;
+					setPage();
 					return true;
 				}
 			}
