@@ -219,6 +219,31 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
+			"foogrid": {
+				"files": {
+					"./dist/components/templates/foogrid/js/foogallery.foogrid.js": [
+						"./src/templates/foogrid/js/FooGrid.js",
+						"./src/templates/foogrid/js/FooGrid.Parser.js",
+						"./src/templates/foogrid/js/FooGrid.Content.js",
+						"./src/templates/foogrid/js/FooGrid.Item.js",
+						"./src/templates/foogrid/js/FooGrid.Video.js",
+						"./src/templates/foogrid/js/FooGrid.Player.js",
+						"./src/templates/foogrid/js/FooGrid.Deeplinking.js",
+						"./src/templates/foogrid/js/_template.js"
+					],
+					"./dist/components/templates/foogrid/css/foogallery.foogrid.css": [
+						"./src/templates/foogrid/css/_foogrid.css",
+						"./src/templates/foogrid/css/nav.css",
+						"./src/templates/foogrid/css/item.css",
+						"./src/templates/foogrid/css/content.css",
+						"./src/templates/foogrid/css/caption.css",
+						"./src/templates/foogrid/css/columns.css",
+						"./src/templates/foogrid/css/transitions.css",
+						"./src/templates/foogrid/css/theme/default.css",
+						"./src/templates/foogrid/css/theme/light.css"
+					]
+				}
+			},
 			"full": {
 				"files": {
 					"./dist/full/js/foogallery.js": [
@@ -228,7 +253,8 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/justified/js/foogallery.justified.js",
 						"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
 						"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
-						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js"
+						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
+						"./dist/components/templates/foogrid/js/foogallery.foogrid.js"
 					],
 					"./dist/full/css/foogallery.css": [
 						"./dist/components/core/css/foogallery.css",
@@ -237,7 +263,8 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/justified/css/foogallery.justified.css",
 						"./dist/components/templates/portfolio/css/foogallery.portfolio.css",
 						"./dist/components/templates/image-viewer/css/foogallery.image-viewer.css",
-						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css"
+						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css",
+						"./dist/components/templates/foogrid/css/foogallery.foogrid.css"
 					]
 				}
 			},
@@ -329,6 +356,11 @@ module.exports = function ( grunt ) {
 				"files": {
 					"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.min.js": "./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js"
 				}
+			},
+			"foogrid": {
+				"files": {
+					"./dist/components/templates/foogrid/js/foogallery.foogrid.min.js": "./dist/components/templates/foogrid/js/foogallery.foogrid.js"
+				}
 			}
 		},
 		"cssmin": {
@@ -396,6 +428,11 @@ module.exports = function ( grunt ) {
 				"files": {
 					"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.min.css": "./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css"
 				}
+			},
+			"foogrid": {
+				"files": {
+					"./dist/components/templates/foogrid/css/foogallery.foogrid.min.css": "./dist/components/templates/foogrid/css/foogallery.foogrid.css"
+				}
 			}
 		},
 		"copy": {
@@ -433,7 +470,8 @@ module.exports = function ( grunt ) {
 					"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
 					"./dist/components/templates/justified/js/foogallery.justified.js",
 					"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
-					"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js"
+					"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
+					"./dist/components/templates/foogrid/js/foogallery.foogrid.js"
 				],
 				"jsdoc": "./node_modules/jsdoc/jsdoc.js",
 				"options": {
@@ -490,6 +528,9 @@ module.exports = function ( grunt ) {
 		"concat:single-thumbnail",
 		"uglify:single-thumbnail",
 		"cssmin:single-thumbnail",
+		"concat:foogrid",
+		"uglify:foogrid",
+		"cssmin:foogrid",
 		"concat:full", // create the full version
 		"uglify:full",
 		"cssmin:full",

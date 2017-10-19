@@ -180,7 +180,7 @@
 					 * });
 					 */
 					var e = self.raise("pre-init");
-					if (e.preventDefault()) return _fn.rejectWith("pre-init default prevented");
+					if (e.isDefaultPrevented()) return _fn.rejectWith("pre-init default prevented");
 				}).then(function(){
 					// checks the delay option and if it is greater than 0 waits for that amount of time before continuing
 					if (self.opt.delay <= 0) return _fn.resolved;
@@ -233,7 +233,7 @@
 					 * });
 					 */
 					var e = self.raise("init");
-					if (e.preventDefault()) return _fn.rejectWith("init default prevented");
+					if (e.isDefaultPrevented()) return _fn.rejectWith("init default prevented");
 					return self.items.fetch().then(function(){
 
 						/**
@@ -278,7 +278,7 @@
 						 * });
 						 */
 						var e = self.raise("post-init");
-						if (e.preventDefault()) return _fn.rejectWith("post-init default prevented");
+						if (e.isDefaultPrevented()) return _fn.rejectWith("post-init default prevented");
 						self.$el.data(_.dataTemplate, self);
 						var state = self.state.parse();
 						self.state.set(_is.empty(state) ? self.state.initial() : state);

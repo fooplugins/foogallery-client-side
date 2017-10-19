@@ -28,13 +28,3 @@
 	visibility: visible;
 	opacity: 1;
 }
-.foogallery.fg-caption-hover.fg-hover-grayscale .fg-caption-inner {
-	width: 100%;
-	position: absolute;
-	top: 50%;
-	left: 0;
-	transform: translateY(-50%);
-}
-.foogallery.fg-caption-hover.fg-hover-grayscale .fg-thumb:before {
-	display: none;
-}

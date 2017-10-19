@@ -25,22 +25,6 @@
 .foogallery.fg-caption-hover.fg-hover-slide-right .fg-item-inner:hover .fg-caption {
 	transform: translateY(0) translateX(0);
 }
-.foogallery.fg-caption-hover.fg-hover-slide-up .fg-caption-inner,
-.foogallery.fg-caption-hover.fg-hover-slide-down .fg-caption-inner,
-.foogallery.fg-caption-hover.fg-hover-slide-left .fg-caption-inner,
-.foogallery.fg-caption-hover.fg-hover-slide-right .fg-caption-inner {
-	width: 100%;
-	position: absolute;
-	top: 50%;
-	left: 0;
-	transform: translateY(-50%);
-}
-.foogallery.fg-caption-hover.fg-hover-slide-up .fg-thumb:before,
-.foogallery.fg-caption-hover.fg-hover-slide-down .fg-thumb:before,
-.foogallery.fg-caption-hover.fg-hover-slide-left .fg-thumb:before,
-.foogallery.fg-caption-hover.fg-hover-slide-right .fg-thumb:before {
-	display: none;
-}
 
 
 /* Slide Up */
