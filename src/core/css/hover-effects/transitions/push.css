@@ -1,6 +1,6 @@
 /* Push */
-.foogallery.fg-hover-push .fg-thumb:before,
-.foogallery.fg-caption-hover.fg-hover-push .fg-caption {
+.foogallery.fg-hover-push .fg-loaded .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-push .fg-loaded .fg-caption {
 	display: block;
 	left: 0;
 	top: 0;
@@ -9,14 +9,14 @@
 	visibility: visible;
 	opacity: 1;
 }
-.foogallery.fg-hover-push .fg-thumb,
-.foogallery.fg-caption-hover.fg-hover-push .fg-caption {
+.foogallery.fg-hover-push .fg-loaded .fg-thumb,
+.foogallery.fg-caption-hover.fg-hover-push .fg-loaded .fg-caption {
 	transition-property: transform;
 }
-.foogallery.fg-caption-hover.fg-hover-push .fg-item-inner:hover .fg-caption {
+.foogallery.fg-caption-hover.fg-hover-push .fg-loaded .fg-item-inner:hover .fg-caption {
 	transform: translateY(0);
 }
-.foogallery.fg-hover-push .fg-item-inner:hover .fg-thumb,
-.foogallery.fg-caption-hover.fg-hover-push .fg-item-inner:hover .fg-thumb {
+.foogallery.fg-hover-push .fg-loaded .fg-item-inner:hover .fg-thumb,
+.foogallery.fg-caption-hover.fg-hover-push .fg-loaded .fg-item-inner:hover .fg-thumb {
 	transform: translateX(-100%);
 }
