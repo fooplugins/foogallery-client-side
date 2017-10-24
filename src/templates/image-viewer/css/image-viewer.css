@@ -174,15 +174,21 @@
 /* Captions */
 
 .foogallery.fg-image-viewer.fg-caption-always .fg-item-inner .fg-caption {
-	padding: 10px 30px 10px 10px;
+	padding: 0;
 	border: none;
 	background: #000; /* Old browsers */
 	background: -moz-linear-gradient(left,  rgba(0,0,0,0.8) 0%,  rgba(0,0,0,0.8) 60%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(left,  rgba(0,0,0,0.8) 0%,  rgba(0,0,0,0.8) 60%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(to right,  rgba(0,0,0,0.8) 0%,  rgba(0,0,0,0.8) 60%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
+.foogallery.fg-image-viewer.fg-caption-always .fg-caption-title {
+	padding: 10px 10px 10px 10px;
+}
+.foogallery.fg-image-viewer.fg-caption-always .fg-caption-desc {
+	padding: 10px 10px 10px 10px;
+}
 .foogallery.fg-image-viewer.fg-caption-always .fg-caption-title+.fg-caption-desc {
-	margin-top: 3px;
+	padding: 0 10px 10px 10px;
 }
 
 /* Theme - Default (Light) */
