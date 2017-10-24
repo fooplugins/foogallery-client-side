@@ -1,14 +1,14 @@
 /* Instant */
-.foogallery.fg-hover-instant .fg-thumb:before,
-.foogallery.fg-caption-hover.fg-hover-instant .fg-caption {
+.foogallery.fg-hover-instant .fg-loaded .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-instant .fg-loaded .fg-caption {
 	display: block;
 	left: 0;
 	top: 0;
 	bottom: 0;
 	transition-property: none;
 }
-.foogallery.fg-hover-instant .fg-item-inner:hover .fg-thumb:before,
-.foogallery.fg-caption-hover.fg-hover-instant .fg-item-inner:hover .fg-caption {
+.foogallery.fg-hover-instant .fg-loaded .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-caption-hover.fg-hover-instant .fg-loaded .fg-item-inner:hover .fg-caption {
 	visibility: visible;
 	opacity: 1;
 }
