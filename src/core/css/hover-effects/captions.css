@@ -17,6 +17,14 @@
 	text-align: center;
 	cursor: pointer;
 }
+.foogallery .fg-caption a {
+	text-decoration: none;
+	color: #fff;
+	border-bottom: 1px solid #FFF;
+}
+.foogallery .fg-caption a:hover {
+	border-bottom: none;
+}
 
 .foogallery .fg-caption-title {
 	white-space: nowrap;
