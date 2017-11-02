@@ -62,6 +62,7 @@
 	transform: none;
 	transition: none;
 	background-color: transparent;
+	border: solid transparent;
 }
 .foogallery.fg-simple_portfolio .fg-item-inner:hover .fg-caption {
 	transform: none;
@@ -100,11 +101,28 @@
 .fg-simple_portfolio.fg-dark .fg-caption {
 	color: #828282;
 }
-.fg-simple_portfolio.fg-light .fg-caption-title {
+.fg-simple_portfolio.fg-light .fg-caption a,
+.fg-simple_portfolio.fg-dark .fg-caption a {
+	color: #828282;
+	border-bottom: 1px solid #828282;
+}
+.fg-simple_portfolio.fg-light .fg-caption a:hover,
+.fg-simple_portfolio.fg-dark .fg-caption a:hover {
+	border-bottom: none;
+}
+.fg-simple_portfolio.fg-light .fg-caption-title,
+.fg-simple_portfolio.fg-light .fg-caption-title a {
 	color: #222;
 }
-.fg-simple_portfolio.fg-dark .fg-caption-title {
+.fg-simple_portfolio.fg-dark .fg-caption-title,
+.fg-simple_portfolio.fg-dark .fg-caption-title a {
 	color: #FFF;
+}
+.fg-simple_portfolio.fg-light .fg-caption-title a {
+	border-bottom: 1px solid #222;
+}
+.fg-simple_portfolio.fg-dark .fg-caption-title a {
+	border-bottom: 1px solid #FFF;
 }
 
 .fg-simple_portfolio.fg-captions-top .fg-item.fg-positioned .fg-thumb {
