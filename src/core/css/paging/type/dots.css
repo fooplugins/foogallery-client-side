@@ -1,11 +1,9 @@
-.fg-paging-container .fg-dots {
+.fg-paging-container .fg-dots,
+.fg-paging-container .fg-dot-item {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
-	list-style: none;
-}
-.fg-paging-container .fg-dot-item {
-	display: inline-block;
+	outline: none;
 	list-style: none;
 }
 .fg-paging-container .fg-dot-item .fg-dot-link {
@@ -25,6 +23,8 @@
 	border-radius: 50%;
 	padding: 0;
 	font-size: 0;
+	outline: none;
+	color: transparent;
 }
 .fg-paging-container .fg-dot-item .fg-dot-link:before {
 	content: "";
@@ -37,9 +37,12 @@
 	padding: 0;
 	margin: 2px;
 }
+.fg-paging-container .fg-dot-item .fg-dot-link:active,
 .fg-paging-container .fg-dot-item .fg-dot-link:hover,
 .fg-paging-container .fg-dot-item .fg-dot-link:focus {
 	text-decoration: none;
+	box-shadow: none;
+	outline: none;
 }
 .fg-paging-container .fg-dot-item.fg-disabled .fg-dot-link,
 .fg-paging-container .fg-dot-item.fg-selected .fg-dot-link {

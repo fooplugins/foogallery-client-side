@@ -792,6 +792,14 @@ only screen and (min-resolution: 2.25dppx) {
 	text-align: center;
 	cursor: pointer;
 }
+.foogallery .fg-caption a {
+	text-decoration: none;
+	color: #fff;
+	border-bottom: 1px solid #FFF;
+}
+.foogallery .fg-caption a:hover {
+	border-bottom: none;
+}
 
 .foogallery .fg-caption-title {
 	white-space: nowrap;
@@ -2394,7 +2402,7 @@ only screen and (min-resolution: 2.25dppx) {
 .foogallery.fg-caption-hover.fg-hover-slide-right .fg-loaded .fg-caption {
 	transform: translateX(-100%);
 }
-.fg-paging-container, .fg-paging-container * {
+.fg-paging-container, .fg-paging-container *, .fg-paging-container *:before, .fg-paging-container *:after {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -2468,14 +2476,12 @@ only screen and (min-resolution: 2.25dppx) {
 	background-color: #444;
 	border-color: #333;
 }
-.fg-paging-container .fg-dots {
+.fg-paging-container .fg-dots,
+.fg-paging-container .fg-dot-item {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
-	list-style: none;
-}
-.fg-paging-container .fg-dot-item {
-	display: inline-block;
+	outline: none;
 	list-style: none;
 }
 .fg-paging-container .fg-dot-item .fg-dot-link {
@@ -2495,6 +2501,8 @@ only screen and (min-resolution: 2.25dppx) {
 	border-radius: 50%;
 	padding: 0;
 	font-size: 0;
+	outline: none;
+	color: transparent;
 }
 .fg-paging-container .fg-dot-item .fg-dot-link:before {
 	content: "";
@@ -2507,9 +2515,12 @@ only screen and (min-resolution: 2.25dppx) {
 	padding: 0;
 	margin: 2px;
 }
+.fg-paging-container .fg-dot-item .fg-dot-link:active,
 .fg-paging-container .fg-dot-item .fg-dot-link:hover,
 .fg-paging-container .fg-dot-item .fg-dot-link:focus {
 	text-decoration: none;
+	box-shadow: none;
+	outline: none;
 }
 .fg-paging-container .fg-dot-item.fg-disabled .fg-dot-link,
 .fg-paging-container .fg-dot-item.fg-selected .fg-dot-link {

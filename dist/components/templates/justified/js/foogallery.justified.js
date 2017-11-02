@@ -232,7 +232,7 @@
 		rowHeight: 150,
 		maxRowHeight: "200%",
 		margins: 0,
-		lastRow: "nojustify",
+		lastRow: "center",
 		justifyThreshold: 0.5
 	};
 
