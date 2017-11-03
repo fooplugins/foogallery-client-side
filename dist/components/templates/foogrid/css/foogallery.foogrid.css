@@ -1030,7 +1030,6 @@
 .foogrid.foogrid-transition-vertical .foogrid-caption {
 	transition-property: width, padding, top, left;
 }
-/* Main background color */
 .foogrid-content {
 	background-color: #333;
 	border: 1px solid #292929;
@@ -1132,7 +1131,6 @@
 .foogrid-nav-external:hover {
 	background-color: rgba(51,51,51,1);
 }
-/* Main background color */
 .foogrid.fg-light .foogrid-content {
 	background-color: #f1f1f1;
 	border: 1px solid #e5e5e5;
