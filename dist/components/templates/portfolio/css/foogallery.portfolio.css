@@ -62,7 +62,8 @@
 	transform: none;
 	transition: none;
 	background-color: transparent;
-	border: solid transparent;
+	border-style: solid;
+	border-color: transparent;
 }
 .foogallery.fg-simple_portfolio .fg-item-inner:hover .fg-caption {
 	transform: none;
