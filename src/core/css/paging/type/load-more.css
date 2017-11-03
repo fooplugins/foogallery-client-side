@@ -13,6 +13,8 @@
 	background-image: none;
 	border: 1px solid transparent;
 	border-radius: 4px;
+	box-shadow: none;
+	outline: none;
 }
 
 /* Light - Default */
