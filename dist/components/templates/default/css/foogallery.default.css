@@ -1,3 +1,4 @@
+/* Base styles */
 .fg-default:after {
 	content: '';
 	display: block;
