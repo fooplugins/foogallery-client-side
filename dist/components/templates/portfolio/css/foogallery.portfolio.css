@@ -1,3 +1,4 @@
+/* Base Styles */
 .fg-simple_portfolio {
 	box-sizing: border-box;
 	position: relative;
@@ -159,6 +160,7 @@
 .fg-simple_portfolio.fg-border-thick .fg-caption-title+.fg-caption-desc {
 	margin-top: 10px;
 }
+/* Polaroid */
 .foogallery.fg-preset.fg-polaroid .fg-item {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
