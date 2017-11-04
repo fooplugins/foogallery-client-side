@@ -25,6 +25,7 @@
 	font-size: 0;
 	outline: none;
 	color: transparent;
+	box-shadow: none;
 }
 .fg-paging-container .fg-dot-item .fg-dot-link:before {
 	content: "";
