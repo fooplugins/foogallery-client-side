@@ -8,8 +8,14 @@
 		onPreInit: function(event, self){
 			self.foogrid = new _.FooGrid( self.$el.get(0), self.template, self );
 		},
-		onFirstLoad: function(event, self){
+		onInit: function(event, self){
 			self.foogrid.init();
+		},
+		onPostInit: function(event, self){
+			self.foogrid.layout();
+		},
+		onReady: function(event, self){
+			self.foogrid.layout();
 		},
 		onDestroy: function(event, self){
 			self.foogrid.destroy();

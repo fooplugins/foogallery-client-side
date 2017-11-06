@@ -180,6 +180,12 @@
 
 			self.masonry = new Masonry( self.$el.get(0), self.template );
 		},
+		onInit: function(event, self){
+			self.masonry.layout();
+		},
+		onPostInit: function(event, self){
+			self.masonry.layout();
+		},
 		onReady: function(event, self){
 			self.masonry.layout();
 		},
