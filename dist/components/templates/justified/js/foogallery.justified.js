@@ -251,8 +251,11 @@
 		onInit: function(event, self){
 			self.justified.init();
 		},
+		onPostInit: function(event, self){
+			self.justified.layout();
+		},
 		onReady: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		},
 		onDestroy: function(event, self){
 			self.justified.destroy();
