@@ -54,7 +54,7 @@
 
 			for (var i = 0, l = rows.length, row; i < l; i++){
 				row = rows[i];
-				offsetTop = self.position(row, containerWidth, offsetTop, "center");
+				offsetTop = self.position(row, containerWidth, offsetTop, self.options.align);
 				self.render(row);
 			}
 			self.$el.height(offsetTop);
