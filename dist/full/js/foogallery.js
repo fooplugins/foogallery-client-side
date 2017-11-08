@@ -7124,6 +7124,9 @@
 		 */
 		onDetachedItems: function(event, self, items){
 			self.masonry.layout();
+		},
+		onLoadedItems: function(event, self, items){
+			self.masonry.layout();
 		}
 	});
 
@@ -7462,10 +7465,10 @@
 			self.justified.init();
 		},
 		onPostInit: function(event, self){
-			self.justified.layout();
+			self.justified.layout( true );
 		},
 		onReady: function(event, self){
-			self.justified.layout();
+			self.justified.layout( true );
 		},
 		onDestroy: function(event, self){
 			self.justified.destroy();
@@ -7474,7 +7477,7 @@
 			self.justified.layout( true );
 		},
 		onParsedItems: function(event, self, items){
-			self.justified.layout();
+			self.justified.layout( true );
 		},
 		onAppendedItems: function(event, self, items){
 			self.justified.layout( true );
