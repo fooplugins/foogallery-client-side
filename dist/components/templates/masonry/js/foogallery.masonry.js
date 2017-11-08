@@ -265,6 +265,9 @@
 		 */
 		onDetachedItems: function(event, self, items){
 			self.masonry.layout();
+		},
+		onLoadedItems: function(event, self, items){
+			self.masonry.layout();
 		}
 	});
 
