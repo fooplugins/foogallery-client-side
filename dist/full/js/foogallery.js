@@ -7287,11 +7287,7 @@
 		getContainerWidth: function(){
 			var self = this, visible = self.$el.is(':visible');
 			if (!visible){
-				var $test = self.$el.parent();
-				while ($test.length == 1 && $test.width() == 0){
-					$test = $test.parent();
-				}
-				return $test.width();
+				return self.$el.parents(':visible:first').width();
 			}
 			return self.$el.width();
 		},
@@ -7595,11 +7591,7 @@
 		getContainerWidth: function(){
 			var self = this, visible = self.$el.is(':visible');
 			if (!visible){
-				var $test = self.$el.parent();
-				while ($test.length == 1 && $test.width() == 0){
-					$test = $test.parent();
-				}
-				return $test.width();
+				return self.$el.parents(':visible:first').width();
 			}
 			return self.$el.width();
 		},
