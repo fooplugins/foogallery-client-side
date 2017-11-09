@@ -26,12 +26,25 @@
 			this.$el.removeAttr("style");
 		},
 		parse: function(){
-			var self = this;
-			return self._items = self.$el.find(self.options.itemSelector).removeAttr("style").removeClass("fg-positioned").map(function(i, el){
-				var $item = $(el),
-					width = $item.outerWidth(),
-					height = $item.outerHeight(),
-					ratio = self.options.rowHeight / height;
+			var self = this, visible = self.$el.is(':visible'),
+					$test = $('<div/>', {'class': self.$el.attr('class')}).css({
+						position: 'absolute',
+						top: 0,
+						left: -9999,
+						visibility: 'hidden'
+					}).appendTo('body');
+			self._items = self.$el.find(self.options.itemSelector).removeAttr("style").removeClass("fg-positioned").map(function(i, el){
+				var $item = $(el), width = 0, height = 0, ratio;
+				if (!visible){
+					var $clone = $item.clone();
+					$clone.appendTo($test);
+					width = $clone.outerWidth();
+					height = $clone.outerHeight();
+				} else {
+					width = $item.outerWidth();
+					height = $item.outerHeight();
+				}
+				ratio = self.options.rowHeight / height;
 
 				return {
 					index: i,
@@ -42,10 +55,23 @@
 					$item: $item
 				};
 			}).get();
+			$test.remove();
+			return self._items;
 		},
 		round: function(value){
 			return Math.round(value);
 			//return Math.round(value*2) / 2;
+		},
+		getContainerWidth: function(){
+			var self = this, visible = self.$el.is(':visible');
+			if (!visible){
+				var $test = self.$el.parent();
+				while ($test.length == 1 && $test.width() == 0){
+					$test = $test.parent();
+				}
+				return $test.width();
+			}
+			return self.$el.width();
 		},
 		layout: function(refresh, autoCorrect){
 			refresh = _is.boolean(refresh) ? refresh : false;
@@ -56,7 +82,7 @@
 			}
 
 			var self = this,
-				containerWidth = self.$el.width(),
+				containerWidth = self.getContainerWidth(),
 				rows = self.rows(containerWidth),
 				offsetTop = 0;
 
@@ -72,7 +98,7 @@
 			self.$el.height(offsetTop);
 			// if our layout caused the container width to get smaller
 			// i.e. makes a scrollbar appear then layout again to account for it
-			if (autoCorrect && self.$el.width() < containerWidth){
+			if (autoCorrect && self.getContainerWidth() < containerWidth){
 				self.layout(false, false);
 			}
 		},
