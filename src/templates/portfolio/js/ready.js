@@ -12,6 +12,12 @@
 		onInit: function(event, self){
 			self.portfolio.init();
 		},
+		onPostInit: function(event, self){
+			self.portfolio.layout( true );
+		},
+		onReady: function(event, self){
+			self.portfolio.layout( true );
+		},
 		onDestroy: function(event, self){
 			self.portfolio.destroy();
 		},
@@ -19,7 +25,7 @@
 			self.portfolio.layout( true );
 		},
 		onParsedItems: function(event, self, items){
-			self.portfolio.layout();
+			self.portfolio.layout( true );
 		},
 		onAppendedItems: function(event, self, items){
 			self.portfolio.layout( true );
