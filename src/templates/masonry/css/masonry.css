@@ -13,7 +13,7 @@
 .fg-masonry.fg-masonry-fixed .fg-thumb {
 	display: inline-block;
 }
-.fg-masonry.fg-masonry-fixed .fg-loaded .fg-image {
+.fg-masonry.fg-masonry-fixed .fg-image {
 	max-width: 100%;
 }
 
