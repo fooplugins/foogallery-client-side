@@ -254,7 +254,8 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
 						"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
 						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
-						"./dist/components/templates/foogrid/js/foogallery.foogrid.js"
+						"./dist/components/templates/foogrid/js/foogallery.foogrid.js",
+						"./src/core/js/ready.js"
 					],
 					"./dist/full/css/foogallery.css": [
 						"./dist/components/core/css/foogallery.css",
@@ -277,7 +278,8 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/justified/js/foogallery.justified.js",
 						"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
 						"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
-						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js"
+						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
+						"./src/core/js/ready.js"
 					],
 					"./dist/lite/css/foogallery.css": [
 						"./dist/components/core_lite/css/foogallery.css",
