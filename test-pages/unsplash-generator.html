@@ -13,6 +13,7 @@
 				if (!(this instanceof UnsplashGenerator)) return new UnsplashGenerator();
 				this.$options = $("#options");
 				this.$output = $("#output");
+				this.$outputHTML = $("#output-html");
 				this.$generate = $("#generate").on("click", {self: this}, this.onGenerateClick);
 				this._alt = [
 					"This is a short description for item {{I}}.",
@@ -170,9 +171,40 @@
 				this.$output.text(JSON.stringify(items, null, 2));
 			};
 
+
+
+
+			UnsplashGenerator.prototype.outputHTML = function(items){
+				var html = '';
+				for (var i = 0, l = items.length; i < l; i++){
+					var item = items[i];
+
+					html += '<div class="fg-item">\n';
+					html += '\t<figure class="fg-item-inner">\n';
+					html += '\t\t<a class="fg-thumb" href="'+item.href+'" data-title="'+item.title+'" data-description="'+item.alt+'">\n';
+					html += '\t\t\t<img class="fg-image" data-src="'+item.src+'" data-srcset="'+item.srcset+'" width="'+item.width+'" height="'+item.height+'" title="'+item.title+'" alt="'+item.alt+'">\n';
+					html += '\t\t</a>\n';
+					html += '\t\t<figcaption class="fg-caption">\n';
+					html += '\t\t\t<div class="fg-caption-inner">\n';
+					html += '\t\t\t\t<div class="fg-caption-title">'+item.title+'</div>\n';
+					html += '\t\t\t\t<div class="fg-caption-desc">'+item.alt+'</div>\n';
+					html += '\t\t\t</div>\n';
+					html += '\t\t</figcaption>\n';
+					html += '\t</figure>\n';
+					html += '</div>\n';
+
+				}
+
+
+				this.$outputHTML.text(html);
+			};
+
 			UnsplashGenerator.prototype.onGenerateClick = function(e){
-				var self = e.data.self, o = self.options();
-				self.output(self.generate(o.amount, o.size));
+				var self = e.data.self, o = self.options(), items = self.generate(o.amount, o.size);
+				self.output(items);
+				if (self.$options.find("#generate-html").is(":checked")){
+					self.outputHTML(items);
+				}
 			};
 
 			$(function(){
@@ -249,6 +281,12 @@
 							</div>
 						</div>
 					</div>
+					<div class="form-check">
+						<label class="form-check-label col-sm-offset-2">
+							<input type="checkbox" class="form-check-input" id="generate-html" name="generate-html">
+							Whether or not to also generate the HTML output for the items.
+						</label>
+					</div>
 					<button type="button" id="generate" class="btn btn-default pull-right">Generate</button>
 				</form>
 			</div>
@@ -259,6 +297,14 @@
 			</div>
 			<div class="panel-body">
 				<textarea id="output" name="output" class="form-control" title="Once generated the JSON output will be displayed in this textarea" rows="30" readonly></textarea>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Output HTML
+			</div>
+			<div class="panel-body">
+				<textarea id="output-html" name="output" class="form-control" title="Once generated the HTML output will be displayed in this textarea" rows="30" readonly></textarea>
 			</div>
 		</div>
 	</div>
