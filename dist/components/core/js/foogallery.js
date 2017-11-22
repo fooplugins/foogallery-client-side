@@ -6315,7 +6315,7 @@
 				page = self.get(num);
 				first = page[0].bounds();
 				last = page[page.length - 1].bounds();
-				if (last.top - viewport.bottom < self.distance || first.bottom - viewport.top < self.distance){
+				if (first.top - viewport.bottom < self.distance || last.bottom - viewport.top < self.distance){
 					items.push.apply(items, page);
 				}
 			}
@@ -6384,7 +6384,7 @@
 				page = self.get(num);
 				first = page[0].bounds();
 				last = page[page.length - 1].bounds();
-				if (last.top - viewport.bottom < self.distance || first.bottom - viewport.top < self.distance){
+				if (first.top - viewport.bottom < self.distance || last.bottom - viewport.top < self.distance){
 					items.push.apply(items, page);
 				}
 			}
