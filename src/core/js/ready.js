@@ -1,7 +1,7 @@
-(function($, _utils){
+(function($, _utils, _is){
 
-	function foobox_integration(e, tmpl){
-		if (tmpl.$el.is(".foogallery-lightbox-foobox, .foogallery-lightbox-foobox-free")){
+	function wp_integration(e, tmpl, current, prev){
+		if ((e.type === "after-page-change" && prev !== 0) || e.type === "ready"){
 			$("body").trigger("post-load");
 		}
 	}
@@ -10,7 +10,7 @@
 	$(function () {
 		$('[id^="foogallery-"]:not(.fg-ready)').foogallery({
 			on: {
-				"after-page-change.foogallery": foobox_integration
+				"ready.foogallery after-page-change.foogallery": wp_integration
 			}
 		});
 	});
@@ -18,12 +18,13 @@
 	_utils.ready(function(){
 		$('[id^="foogallery-"].fg-ready').foogallery({
 			on: {
-				"after-page-change.foogallery": foobox_integration
+				"ready.foogallery after-page-change.foogallery": wp_integration
 			}
 		});
 	});
 
 })(
 		FooGallery.$,
-		FooGallery.utils
+		FooGallery.utils,
+		FooGallery.utils.is
 );
