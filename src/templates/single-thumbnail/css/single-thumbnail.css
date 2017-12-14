@@ -3,10 +3,19 @@
 	text-align: center;
 }
 .foogallery.fg-thumbnail.fg-left {
-	float: left;
+	text-align: left;
 }
 .foogallery.fg-thumbnail.fg-right {
+	text-align: right;
+}
+
+.foogallery.fg-thumbnail.fg-float-left {
+	float: left;
+	width: auto;
+}
+.foogallery.fg-thumbnail.fg-float-right {
 	float: right;
+	width: auto;
 }
 
 .foogallery.fg-thumbnail .fg-item {
