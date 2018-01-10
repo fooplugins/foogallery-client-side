@@ -68,7 +68,7 @@
 		 */
 		make: function(options, element){
 			element = _is.jq(element) ? element : $(element);
-			options = _obj.merge(options, element.data("foogallery"));
+			options = _obj.extend({}, options, element.data("foogallery"));
 			var self = this, type = self.type(options, element);
 			if (!self.contains(type)) return null;
 			options = self.options(type, options);
@@ -102,21 +102,23 @@
 			}
 		},
 		options: function(name, options){
-			options = _is.hash(options) ? options : {};
+			options = _obj.extend({}, options);
 			var self = this, reg = self.registered,
-				def = reg["core"].opt,
-				cls = reg["core"].cls,
-				il8n = reg["core"].il8n;
+					def = reg["core"].opt,
+					cls = reg["core"].cls,
+					il8n = reg["core"].il8n;
 
+			if (!_is.hash(options.cls)) options.cls = {};
+			if (!_is.hash(options.il8n)) options.il8n = {};
 			options = _.paging.merge(options);
 			if (name !== "core" && self.contains(name)){
 				options = _obj.extend({}, def, reg[name].opt, options);
-				options.cls = _obj.extend({}, cls, reg[name].cls, options.cls);
-				options.il8n = _obj.extend({}, il8n, reg[name].il8n, options.il8n);
+				options.cls = _obj.extend(options.cls, cls, reg[name].cls, options.cls);
+				options.il8n = _obj.extend(options.il8n, il8n, reg[name].il8n, options.il8n);
 			} else {
 				options = _obj.extend({}, def, options);
-				options.cls = _obj.extend({}, cls, options.cls);
-				options.il8n = _obj.extend({}, il8n, options.il8n);
+				options.cls = _obj.extend(options.cls, cls, options.cls);
+				options.il8n = _obj.extend(options.il8n, il8n, options.il8n);
 			}
 			return options;
 		}
@@ -131,10 +133,10 @@
 	_.template = new _.TemplateFactory();
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is,
-	FooGallery.utils.fn,
-	FooGallery.utils.obj
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.obj
 );
