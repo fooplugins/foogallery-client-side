@@ -217,6 +217,7 @@
 		 */
 		initial: function(){
 			var self = this, tmpl = self.tmpl, state = {};
+			if (tmpl.filter && !_is.empty(tmpl.filter.current)) state.f = tmpl.filter.current;
 			if (tmpl.pages && tmpl.pages.current > 1) state.p = tmpl.pages.current;
 			return state;
 		},
@@ -231,6 +232,9 @@
 		get: function(item){
 			var self = this, tmpl = self.tmpl, state = {};
 			if (item instanceof _.Item) state.i = item.id;
+			if (tmpl.filter){
+				state.f = tmpl.filter.current;
+			}
 			if (tmpl.pages && tmpl.pages.isValid(tmpl.pages.current)){
 				state.p = tmpl.pages.current;
 			}
@@ -248,6 +252,11 @@
 			if (_is.hash(state)){
 				tmpl.items.reset();
 				var item = tmpl.items.get(state.i);
+				if (tmpl.filter){
+					tmpl.filter.rebuild();
+					var tags = _is.array(state.f) && !_is.empty(state.f) ? state.f : [];
+					tmpl.filter.set(tags, false);
+				}
 				if (tmpl.pages){
 					tmpl.pages.rebuild();
 					var page = tmpl.pages.number(state.p);
@@ -301,6 +310,7 @@
 	 * @summary An object used to store the state of a template.
 	 * @typedef {object} FooGallery~State
 	 * @property {number} [p] - The current page number.
+	 * @property {string[]} [f] - The current filter array.
 	 * @property {?string} [i] - The currently selected item.
 	 */
 
