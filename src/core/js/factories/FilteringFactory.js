@@ -65,7 +65,7 @@
 			return _is.hash(options) && _is.hash(opt = options.filtering) && _is.string(opt.type) && self.contains(opt.type) ? opt.type : null;
 		},
 		merge: function(options){
-			options = _is.hash(options) ? options : {};
+			options = _obj.extend({}, options);
 			var self = this, type = self.type(options),
 				reg = self.registered,
 				def = reg["default"].opt,
@@ -75,14 +75,16 @@
 				cls = _is.hash(options.cls) && _is.hash(options.cls.filtering) ? options.cls.filtering : {},
 				il8n = _is.hash(options.il8n) && _is.hash(options.il8n.filtering) ? options.il8n.filtering : {};
 
+			if (!_is.hash(options.cls)) options.cls = {};
+			if (!_is.hash(options.il8n)) options.il8n = {};
 			if (type !== "default" && self.contains(type)){
 				options.filtering = _obj.extend({}, def, reg[type].opt, opt, {type: type});
-				options.cls = _obj.extend({}, {filtering: def_cls}, {filtering: reg[type].cls}, {filtering: cls});
-				options.il8n = _obj.extend({}, {filtering: def_il8n}, {filtering: reg[type].il8n}, {filtering: il8n});
+				options.cls = _obj.extend(options.cls, {filtering: def_cls}, {filtering: reg[type].cls}, {filtering: cls});
+				options.il8n = _obj.extend(options.il8n, {filtering: def_il8n}, {filtering: reg[type].il8n}, {filtering: il8n});
 			} else {
 				options.filtering = _obj.extend({}, def, opt, {type: type});
-				options.cls = _obj.extend({}, {filtering: def_cls}, {filtering: cls});
-				options.il8n = _obj.extend({}, {filtering: def_il8n}, {filtering: il8n});
+				options.cls = _obj.extend(options.cls, {filtering: def_cls}, {filtering: cls});
+				options.il8n = _obj.extend(options.il8n, {filtering: def_il8n}, {filtering: il8n});
 			}
 			return options;
 		},
@@ -94,30 +96,6 @@
 				_obj.extend(reg[name].cls, classes);
 				_obj.extend(reg[name].il8n, il8n);
 			}
-		},
-		options: function(name, options){
-			options = _obj.extend({}, options);
-			var self = this,
-				reg = self.registered,
-				def = reg["default"].opt,
-				def_cls = reg["default"].cls,
-				def_il8n = reg["default"].il8n,
-				opt = _is.hash(options.filtering) ? options.filtering : {},
-				cls = _is.hash(options.cls) && _is.hash(options.cls.filtering) ? options.cls.filtering : {},
-				il8n = _is.hash(options.il8n) && _is.hash(options.il8n.filtering) ? options.il8n.filtering : {};
-
-			if (!_is.hash(options.cls)) options.cls = {};
-			if (!_is.hash(options.il8n)) options.il8n = {};
-			if (name !== "default" && self.contains(name)){
-				options.filtering = _obj.extend({}, def, reg[name].opt, opt, {type: name});
-				options.cls = _obj.extend(options.cls, {filtering: def_cls}, {filtering: reg[name].cls}, {filtering: cls});
-				options.il8n = _obj.extend(options.il8n, {filtering: def_il8n}, {filtering: reg[name].il8n}, {filtering: il8n});
-			} else {
-				options.filtering = _obj.extend({}, def, opt, {type: name});
-				options.cls = _obj.extend(options.cls, {filtering: def_cls}, {filtering: cls});
-				options.il8n = _obj.extend(options.il8n, {filtering: def_il8n}, {filtering: il8n});
-			}
-			return options;
 		},
 		/**
 		 * @summary Checks if the factory contains a control registered using the supplied `name`.
