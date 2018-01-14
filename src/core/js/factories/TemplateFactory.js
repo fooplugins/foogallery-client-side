@@ -110,7 +110,9 @@
 
 			if (!_is.hash(options.cls)) options.cls = {};
 			if (!_is.hash(options.il8n)) options.il8n = {};
-			options = _.paging.merge(options);
+			if (!_is.undef(_.filtering)) options = _.filtering.merge(options);
+			if (!_is.undef(_.paging)) options = _.paging.merge(options);
+
 			if (name !== "core" && self.contains(name)){
 				options = _obj.extend({}, def, reg[name].opt, options);
 				options.cls = _obj.extend(options.cls, cls, reg[name].cls, options.cls);

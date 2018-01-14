@@ -82,14 +82,14 @@
 			 * @name pages
 			 * @type {?FooGallery.Paging}
 			 */
-			self.pages = _.paging.make(options.paging.type, self);
+			self.pages = !_is.undef(_.paging) ? _.paging.make(options.paging.type, self) : null;
 			/**
 			 * @summary The page manager for the template.
 			 * @memberof FooGallery.Template#
 			 * @name filter
 			 * @type {?FooGallery.Filtering}
 			 */
-			self.filter = _.filtering.make(options.filtering.type, self);
+			self.filter = !_is.undef(_.filtering) ? _.filtering.make(options.filtering.type, self) : null;
 			/**
 			 * @summary The state manager for the template.
 			 * @memberof FooGallery.Template#
