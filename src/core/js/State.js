@@ -254,7 +254,7 @@
 				var item = tmpl.items.get(state.i);
 				if (tmpl.filter){
 					tmpl.filter.rebuild();
-					var tags = _is.array(state.f) && !_is.empty(state.f) ? state.f : [];
+					var tags = !_is.empty(state.f) ? state.f : [];
 					tmpl.filter.set(tags, false);
 				}
 				if (tmpl.pages){
