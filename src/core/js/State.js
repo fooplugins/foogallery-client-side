@@ -232,7 +232,7 @@
 		get: function(item){
 			var self = this, tmpl = self.tmpl, state = {};
 			if (item instanceof _.Item) state.i = item.id;
-			if (tmpl.filter){
+			if (tmpl.filter && !_is.empty(tmpl.filter.current)){
 				state.f = tmpl.filter.current;
 			}
 			if (tmpl.pages && tmpl.pages.isValid(tmpl.pages.current)){
