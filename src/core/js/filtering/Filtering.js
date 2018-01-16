@@ -18,7 +18,6 @@
 			self.theme = self.opt.theme;
 
 			self.position = self.opt.position;
-			self.scrollToTop = self.opt.scrollToTop;
 			self.mode = self.opt.mode;
 
 			self.min = self.opt.min;
@@ -255,11 +254,10 @@
 		theme: "fg-light",
 		pushOrReplace: "push",
 		position: "none",
-		scrollToTop: true,
 		mode: "single",
 		tags: [],
 		min: 0,
-		limit: 6,
+		limit: 0,
 		showCount: false,
 		adjustSize: false,
 		adjustOpacity: false,
