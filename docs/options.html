@@ -69,7 +69,7 @@
 						<li><a href="templates/masonry.html">Masonry</a></li>
 						<li><a href="templates/portfolio.html">Portfolio</a></li>
 						<li><a href="templates/justified.html">Justified</a></li>
-						<li><a href="templates/responsive.html">Responsive</a></li>
+						<li><a href="templates/default.html">Responsive</a></li>
 					</ul>
 				</li>
 				<li class="dropdown">
@@ -81,6 +81,7 @@
 						<li><a href="paging/loadMore.html">Load More</a></li>
 					</ul>
 				</li>
+				<li><a href="filtering/tags.html">Filtering</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="jsdocs/index.html" target="_blank">JSDocs</a></li>
@@ -2065,6 +2066,648 @@
 							</div>
 						</div>
 
+					</div>
+
+				</div>
+			</div>
+
+			<!-- filtering -->
+			<a href="#filtering" class="list-group-item">
+				<h4 id="filtering" class="list-group-item-heading">filtering <small>object</small></h4>
+				<p class="list-group-item-text">An object containing the filtering specific options for the gallery.</p>
+			</a>
+			<div class="list-group-detail">
+				<div class="list-group-detail-inner">
+
+					<div class="examples">
+						<div class="example default">
+							<p>
+								The below shows the default filtering options available to all types.
+							</p>
+							<pre class="language-javascript" data-lang="javascript"><code>{
+	&quot;type&quot;: &quot;none&quot;,
+	&quot;theme&quot;: &quot;fg-light&quot;,
+	&quot;position&quot;: &quot;none&quot;,
+	&quot;pushOrReplace&quot;: &quot;push&quot;,
+	&quot;tags&quot;: [],
+	&quot;mode&quot;: &quot;single&quot;,
+	&quot;min&quot;: 0,
+	&quot;limit&quot;: 0,
+	&quot;showCount&quot;: false,
+	&quot;adjustSize&quot;: false,
+	&quot;smallest&quot;: 12,
+	&quot;largest&quot;: 16,
+	&quot;adjustOpacity&quot;: false,
+	&quot;lightest&quot;: 0.5,
+	&quot;darkest&quot;: 1
+}</code></pre>
+						</div>
+					</div>
+
+					<!-- filtering options -->
+					<div class="list-group list-group-detailed">
+
+						<!-- filtering-type -->
+						<a href="#filtering-type" class="list-group-item">
+							<h5 id="filtering-type" class="list-group-item-heading">type <small>string</small></h5>
+							<p class="list-group-item-text">A string specifying the type of filtering for the gallery.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>"none"</code></p>
+										<p>By default filtering is disabled and all items are displayed.</p>
+									</div>
+								</div>
+
+								<div class="example supports">
+									<div class="doc-list-item">
+										<h5 class="doc-list-title first"><a href="examples/custom-paging.html">"default"</a></h5>
+										<p class="doc-list-summary">Allows for basic implementation of custom filtering controls.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><a href="filtering/tags.html">"tags"</a></h5>
+										<p class="doc-list-summary">Displays tag buttons allowing a user to filter displayed items.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;type&quot;:&quot;tags&quot;}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;type&quot;: &quot;tags&quot;
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+
+						</div>
+
+						<!-- filtering-theme -->
+						<a href="#filtering-theme" class="list-group-item">
+							<h5 id="filtering-theme" class="list-group-item-heading">theme <small>string</small></h5>
+							<p class="list-group-item-text">A space delimited string of CSS class names to apply to any filtering controls for the gallery.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>"fg-light"</code></p>
+										<p>By default filtering uses the light theme and currently only has one alternate dark theme. If this value is not one of the supported types the color scheme is left completely up to the class that is supplied.</p>
+									</div>
+								</div>
+
+								<div class="example supports">
+									<div class="doc-list-item">
+										<h5 class="doc-list-title first"><span>"fg-light"</span></h5>
+										<p class="doc-list-summary">This theme compliments the <a href="#fg-light">light item theme</a>.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"fg-dark"</span></h5>
+										<p class="doc-list-summary">This theme compliments the <a href="#fg-dark">dark item theme</a>.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;theme&quot;:&quot;fg-dark&quot;}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;theme&quot;: &quot;fg-dark&quot;
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+
+						</div>
+
+						<!-- filtering-tags -->
+						<a href="#filtering-tags" class="list-group-item">
+							<h5 id="filtering-tags" class="list-group-item-heading">tags <small>array</small></h5>
+							<p class="list-group-item-text">An array of strings used to build the tags buttons for the gallery.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>[]</code></p>
+										<p>
+											By default the filtering component will scan all items and build up a list of all available tags and use that to generate the tags buttons. If supplied only the strings specified will be used to generate the tags buttons.
+										</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;tags&quot;:[&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;]}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;tags&quot;: [&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;]
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- filtering-position -->
+						<a href="#filtering-position" class="list-group-item">
+							<h5 id="filtering-position" class="list-group-item-heading">position <small>string</small></h5>
+							<p class="list-group-item-text">Where to display the filtering controls for the gallery.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>"none"</code></p>
+										<p>
+											By default there are no controls as the <code>type</code> is set to <code>"tags"</code>
+											type defines its' own default value for this option.
+										</p>
+									</div>
+								</div>
+
+								<div class="example supports">
+									<div class="doc-list-item">
+										<h5 class="doc-list-title first"><span>"none"</span></h5>
+										<p class="doc-list-summary">No controls are displayed even if the type has a registered control.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"top"</span></h5>
+										<p class="doc-list-summary">Displays the controls above the gallery container.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"bottom"</span></h5>
+										<p class="doc-list-summary">Displays the controls below the gallery container.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"both"</span></h5>
+										<p class="doc-list-summary">Displays the controls both above and below the gallery container.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;position&quot;:&quot;top&quot;}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;position&quot;: &quot;top&quot;
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- filtering-pushOrReplace -->
+						<a href="#filtering-pushOrReplace" class="list-group-item">
+							<h5 id="filtering-pushOrReplace" class="list-group-item-heading">pushOrReplace <small>string</small></h5>
+							<p class="list-group-item-text">The default method to use when updating the state on filter change.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>"push"</code></p>
+									</div>
+								</div>
+
+								<div class="example supports">
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"push"</span></h5>
+										<p class="doc-list-summary">
+											A new history entry is created whenever the filter changes. This allows a user to navigate previously applied filters using their browsers <i>Back</i> and <i>Forward</i> buttons.
+										</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title first"><span>"replace"</span></h5>
+										<p class="doc-list-summary">The current history entry is updated to reflect any filter changes.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;pushOrReplace&quot;:&quot;replace&quot;}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;pushOrReplace&quot;: &quot;replace&quot;
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- filtering-mode -->
+						<a href="#filtering-mode" class="list-group-item">
+							<h5 id="filtering-mode" class="list-group-item-heading">mode <small>string</small></h5>
+							<p class="list-group-item-text">The type of mode used when filtering.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>"single"</code></p>
+										<p>
+											By default only a single tag can be active at a time.
+										</p>
+									</div>
+								</div>
+
+								<div class="example supports">
+									<div class="doc-list-item">
+										<h5 class="doc-list-title first"><span>"single"</span></h5>
+										<p class="doc-list-summary">Only a single tag at a time is used for filtering.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"union"</span></h5>
+										<p class="doc-list-summary">Multiple tags can be used at a time and they are joined using an <b>OR</b> statement.</p>
+									</div>
+									<div class="doc-list-item">
+										<h5 class="doc-list-title"><span>"intersect"</span></h5>
+										<p class="doc-list-summary">Multiple tags can be used at a time and they are joined using an <b>AND</b> statement.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;mode&quot;:&quot;union&quot;}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;mode&quot;: &quot;union&quot;
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- filtering-showCount -->
+						<a href="#filtering-showCount" class="list-group-item">
+							<h5 id="filtering-showCount" class="list-group-item-heading">showCount <small>boolean</small></h5>
+							<p class="list-group-item-text">Whether or not to show the count in each of the tags buttons.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>false</code></p>
+										<p>By default no counts are displayed.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;showCount&quot;:false}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;showCount&quot;: false
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- filtering-min -->
+						<a href="#filtering-min" class="list-group-item">
+							<h5 id="filtering-min" class="list-group-item-heading">min <small>number</small></h5>
+							<p class="list-group-item-text">The minimum tag count required for a button to be generated and displayed.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>0</code></p>
+										<p>By default there is no minimum count and all tags will have buttons generated.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;min&quot;:0}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;min&quot;: 0
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- filtering-limit -->
+						<a href="#filtering-limit" class="list-group-item">
+							<h5 id="filtering-limit" class="list-group-item-heading">limit <small>number</small></h5>
+							<p class="list-group-item-text">The maximum number of tag buttons to display, this does not include the <i>All</i> button.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>0</code></p>
+										<p>By default all tag buttons are displayed. If supplied the component will order the tags by count and then only display the top specified number of tag buttons.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;limit&quot;:6}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;limit&quot;: 6
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="list-group list-group-detailed">
+
+						<!-- filtering-adjustSize -->
+						<a href="#filtering-adjustSize" class="list-group-item">
+							<h5 id="filtering-adjustSize" class="list-group-item-heading">adjustSize <small>boolean</small></h5>
+							<p class="list-group-item-text">Whether or not to adjust the size of the tag buttons according to there specific counts.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>false</code></p>
+										<p>By default no font sizes are altered. When the <code>adjustSize</code> option is enabled the <code>smallest</code> and <code>largest</code> values are used to calculate a font size applied to each of the tag buttons.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;adjustSize&quot;:false}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;adjustSize&quot;: false
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- filtering-smallest -->
+						<a href="#filtering-smallest" class="list-group-item">
+							<h5 id="filtering-smallest" class="list-group-item-heading">smallest <small>number</small></h5>
+							<p class="list-group-item-text">The smallest font size to be used for the tag button with the lowest count.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>12</code></p>
+										<p>By default the tag button with the lowest count is displayed with a font size of twelve (12) pixels.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;smallest&quot;:12}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;smallest&quot;: 12
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- filtering-largest -->
+						<a href="#filtering-largest" class="list-group-item">
+							<h5 id="filtering-largest" class="list-group-item-heading">largest <small>number</small></h5>
+							<p class="list-group-item-text">The largest font size to be used for the tag button with the highest count.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>16</code></p>
+										<p>By default the tag button with the highest count is displayed with a font size of sixteen (16) pixels.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;largest&quot;:16}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;largest&quot;: 16
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="list-group list-group-detailed">
+
+						<!-- filtering-adjustOpacity -->
+						<a href="#filtering-adjustOpacity" class="list-group-item">
+							<h5 id="filtering-adjustOpacity" class="list-group-item-heading">adjustOpacity <small>boolean</small></h5>
+							<p class="list-group-item-text">Whether or not to adjust the opacity of the tag buttons according to there specific counts.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>false</code></p>
+										<p>By default no opacities are altered. When the <code>adjustOpacity</code> option is enabled the <code>lightest</code> and <code>darkest</code> option values are used to calculate an opacity applied to each of the tag buttons.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;adjustOpacity&quot;:true}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;adjustOpacity&quot;: true
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- filtering-lightest -->
+						<a href="#filtering-lightest" class="list-group-item">
+							<h5 id="filtering-lightest" class="list-group-item-heading">lightest <small>number</small></h5>
+							<p class="list-group-item-text">The opacity to be used for the tag button with the lowest count.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>0.5</code></p>
+										<p>By default the tag button with the lowest count is displayed with an opacity of zero point five (0.5) meaning it is transparent.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;lightest&quot;:0.5}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;lightest&quot;: 0.5
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- filtering-darkest -->
+						<a href="#filtering-darkest" class="list-group-item">
+							<h5 id="filtering-darkest" class="list-group-item-heading">darkest <small>number</small></h5>
+							<p class="list-group-item-text">The opacity to be used for the tag button with the highest count.</p>
+						</a>
+						<div class="list-group-detail">
+							<div class="list-group-detail-inner">
+								<div class="examples">
+									<div class="example default">
+										<p><code>1</code></p>
+										<p>By default the tag button with the highest count is displayed with an opacity of one (1) meaning it is opaque.</p>
+									</div>
+								</div>
+
+								<div class="examples">
+									<div class="example plural">
+										<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
+									</div>
+									<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;filtering&quot;:{&quot;darkest&quot;:1}}&#39;&gt;
+	...
+&lt;/div&gt;</code></pre>
+									<p>Otherwise you can supply it directly to the plugin method.</p>
+									<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
+	$(&#39;.foogallery&#39;).foogallery({
+		&quot;filtering&quot;: {
+			&quot;darkest&quot;: 1
+		}
+	});
+});</code></pre>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+					<div class="callout callout-info">
+						<h5>Note</h5>
+						<p>Please see the individual documentation for each filtering type for more information on any custom options they may support.</p>
 					</div>
 
 				</div>
