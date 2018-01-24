@@ -36,9 +36,12 @@
 			return true;
 		},
 		destroy: function(){
-			var self = this;
+			var self = this, sel = self.filter.sel;
+			self.$list.find(sel.link).off("click.foogallery", self.onLinkClick);
 			self.$container.remove();
-			self.$container = null;
+			self.$container = $();
+			self.$list = $();
+			self.$items = $();
 		},
 		append: function(){
 			var self = this;

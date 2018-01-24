@@ -428,6 +428,7 @@
 			$(window).off("popstate.foogallery", self.onWindowPopState)
 					.off("scroll.foogallery");
 			self.state.destroy();
+			if (self.filter) self.filter.destroy();
 			if (self.pages) self.pages.destroy();
 			self.items.destroy();
 			if (!_is.empty(self.opt.on)){
