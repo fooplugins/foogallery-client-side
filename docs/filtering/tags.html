@@ -9,7 +9,7 @@
 	<meta name="author" content="">
 	<!--<link rel="icon" href="../../favicon.ico">-->
 
-	<title>Infinite paging - FooGallery</title>
+	<title>Tags filtering - FooGallery</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -59,16 +59,16 @@
 						<li><a href="../templates/default.html">Responsive</a></li>
 					</ul>
 				</li>
-				<li class="dropdown active">
+				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paging <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="dots.html">Dots</a></li>
-						<li><a href="pagination.html">Pagination</a></li>
-						<li class="active"><a>Infinite</a></li>
-						<li><a href="loadMore.html">Load More</a></li>
+						<li class="active"><a>Dots</a></li>
+						<li><a href="../paging/pagination.html">Pagination</a></li>
+						<li><a href="../paging/infinite.html">Infinite</a></li>
+						<li><a href="../paging/loadMore.html">Load More</a></li>
 					</ul>
 				</li>
-				<li><a href="../filtering/tags.html">Filtering</a></li>
+				<li class="active"><a>Filtering</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="../jsdocs/index.html" target="_blank">JSDocs</a></li>
@@ -81,8 +81,8 @@
 <!-- Header -->
 <div class="jumbotron">
 	<div class="container">
-		<h1>Infinite paging</h1>
-		<h2>Creates pages as a user scrolls down the document.</h2>
+		<h1>Tag filtering</h1>
+		<h2>Displays tag buttons allowing a user to filter displayed items.</h2>
 	</div>
 </div>
 
@@ -91,33 +91,37 @@
 	<!-- Main -->
 	<div class="main-content col-md-9">
 
-		<!-- Options -->
+		<!-- JavaScript -->
 		<div class="docs-section">
 			<h2 id="javascript" class="page-header first">JavaScript</h2>
 			<p class="lead">
-				All of the <a href="../options.html#paging">core paging options</a> can be used with this type however it does override the default value of the
-				<a href="#pushOrReplace">pushOrReplace</a> option and as it has no controls it ignores the <a href="../options.html#paging-theme">theme</a> and
-				<a href="../options.html#paging-position">position</a> options.
+				All of the <a href="../options.html#filtering">core filtering options</a> can be used with this type however it does override the default value of the
+				<a href="#position">position</a> option and implements its' own take of the light and dark themes.
 			</p>
 
 			<div class="examples">
 				<div class="example default">
 					<p>
-						The below shows the infinite default options object.
+						The below shows the dots default options object.
 					</p>
 					<pre class="language-javascript" data-lang="javascript"><code>{
 	// required
-	&quot;type&quot;: &quot;pagination&quot;,
-	// overrides
-	&quot;pushOrReplace&quot;: &quot;replace&quot;,
-	// ignored
-	&quot;position&quot;: &quot;none&quot;,
-	&quot;theme&quot;: &quot;fg-light&quot;,
+	&quot;type&quot;: &quot;tags&quot;,
+	// overridden
+	&quot;position&quot;: &quot;top&quot;,
 	// inherited
-	&quot;size&quot;: 30,
-	&quot;scrollToTop&quot;: true,
-	// custom
-	&quot;distance&quot;: 200
+	&quot;pushOrReplace&quot;: &quot;push&quot;,
+	&quot;tags&quot;: [],
+	&quot;mode&quot;: &quot;single&quot;,
+	&quot;min&quot;: 0,
+	&quot;limit&quot;: 0,
+	&quot;showCount&quot;: false,
+	&quot;adjustSize&quot;: false,
+	&quot;smallest&quot;: 12,
+	&quot;largest&quot;: 16,
+	&quot;adjustOpacity&quot;: false,
+	&quot;lightest&quot;: 0.5,
+	&quot;darkest&quot;: 1
 }</code></pre>
 				</div>
 			</div>
@@ -125,45 +129,53 @@
 			<div class="list-group list-group-detailed">
 				<h3 id="options" class="list-group-header">Options</h3>
 
-				<!-- pushOrReplace -->
-				<a href="#pushOrReplace" class="list-group-item">
-					<h5 id="pushOrReplace" class="list-group-item-heading">pushOrReplace <small>string</small></h5>
-					<p class="list-group-item-text">The default method to use when updating the state on page change. <i>Overrides the default value.</i></p>
+				<!-- position -->
+				<a href="#position" class="list-group-item">
+					<h4 id="position" class="list-group-item-heading">position <small>string</small></h4>
+					<p class="list-group-item-text">Where to display the tag controls for the gallery. <i>Overrides the default value.</i></p>
 				</a>
 				<div class="list-group-detail">
 					<div class="list-group-detail-inner">
 						<div class="examples">
 							<div class="example default">
-								<p><code>"replace"</code></p>
-								<p>By default this type updates the current history entry to reflect page changes.</p>
+								<p><code>"top"</code></p>
+								<p>
+									By default the controls for the tags type are displayed only above the gallery.
+								</p>
 							</div>
 						</div>
 
 						<div class="example supports">
 							<div class="doc-list-item">
-								<h5 class="doc-list-title"><span>"push"</span></h5>
-								<p class="doc-list-summary">
-									A new history entry is created whenever a page changes. This allows a user to navigate previously viewed pages using their browsers <i>Back</i> and <i>Forward</i> buttons.
-								</p>
+								<h5 class="doc-list-title first"><span>"none"</span></h5>
+								<p class="doc-list-summary">No controls are displayed even if the type has a registered control.</p>
 							</div>
 							<div class="doc-list-item">
-								<h5 class="doc-list-title first"><span>"replace"</span></h5>
-								<p class="doc-list-summary">The current history entry is updated to reflect any page changes.</p>
+								<h5 class="doc-list-title"><span>"top"</span></h5>
+								<p class="doc-list-summary">Displays the controls above the gallery container.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>"bottom"</span></h5>
+								<p class="doc-list-summary">Displays the controls below the gallery container.</p>
+							</div>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>"both"</span></h5>
+								<p class="doc-list-summary">Displays the controls both above and below the gallery container.</p>
 							</div>
 						</div>
 
 						<div class="examples">
-							<div class="example plural">
+							<div class="example static">
 								<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
 							</div>
-							<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;pushOrReplace&quot;:&quot;replace&quot;}&#39;&gt;
+							<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;position&quot;:&quot;top&quot;}}&#39;&gt;
 	...
 &lt;/div&gt;</code></pre>
 							<p>Otherwise you can supply it directly to the plugin method.</p>
 							<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
 	$(&#39;.foogallery&#39;).foogallery({
-		&quot;paging&quot;: {
-			&quot;pushOrReplace&quot;: &quot;replace&quot;
+		&quot;filtering&quot;: {
+			&quot;position&quot;: &quot;top&quot;
 		}
 	});
 });</code></pre>
@@ -172,17 +184,52 @@
 					</div>
 				</div>
 
-				<!-- distance -->
-				<a href="#distance" class="list-group-item">
-					<h4 id="distance" class="list-group-item-heading">distance <small>number</small></h4>
-					<p class="list-group-item-text">The maximum distance between the top of the last item and the bottom of the viewport before the next page is created.</p>
+				<!-- theme -->
+				<a href="#theme" class="list-group-item">
+					<h4 id="theme" class="list-group-item-heading">theme <small>string</small></h4>
+					<p class="list-group-item-text">A space delimited string of CSS class names to apply to the tags controls container.</p>
 				</a>
 				<div class="list-group-detail">
 					<div class="list-group-detail-inner">
 						<div class="examples">
 							<div class="example default">
-								<p><code>200</code></p>
-								<p>Setting this option to a negative value would result in the next page being created only after the top of the last item is already visible.</p>
+								<p><code>"fg-light"</code></p>
+								<p>
+									By default this type uses the light theme and currently only supports one alternate dark theme. If this value is not one of the supported types the controls will still be created
+									and positioned however the color scheme is left completely up to the class(es) that are supplied.
+								</p>
+							</div>
+						</div>
+
+						<div class="example supports">
+							<div class="doc-list-item">
+								<h5 class="doc-list-title first"><span>"fg-light"</span></h5>
+								<p class="doc-list-summary">This theme compliments the <a href="../options.html#fg-light">light item theme</a>.</p>
+								<nav class="fg-filtering-container fg-light">
+									<ul class="fg-tag-list">
+										<li class="fg-tag-item fg-selected" data-tag=""><a href="#tag-" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">All</span></a></li>
+										<li class="fg-tag-item" data-tag="tag1"><a href="#tag-tag1" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">tag1</span></a></li>
+										<li class="fg-tag-item" data-tag="tag2"><a href="#tag-tag2" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">tag2</span></a></li>
+										<li class="fg-tag-item" data-tag="tag3"><a href="#tag-tag3" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">tag3</span></a></li>
+										<li class="fg-tag-item" data-tag="tag4"><a href="#tag-tag4" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">tag4</span></a></li>
+										<li class="fg-tag-item" data-tag="tag5"><a href="#tag-tag5" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">tag5</span></a></li>
+									</ul>
+								</nav>
+							</div>
+							<hr/>
+							<div class="doc-list-item">
+								<h5 class="doc-list-title"><span>"fg-dark"</span></h5>
+								<p class="doc-list-summary">This theme compliments the <a href="../options.html#fg-dark">dark item theme</a>.</p>
+								<nav class="fg-filtering-container fg-dark">
+									<ul class="fg-tag-list">
+										<li class="fg-tag-item fg-selected" data-tag=""><a href="#tag-" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">All</span></a></li>
+										<li class="fg-tag-item" data-tag="tag1"><a href="#tag-tag1" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">tag1</span></a></li>
+										<li class="fg-tag-item" data-tag="tag2"><a href="#tag-tag2" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">tag2</span></a></li>
+										<li class="fg-tag-item" data-tag="tag3"><a href="#tag-tag3" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">tag3</span></a></li>
+										<li class="fg-tag-item" data-tag="tag4"><a href="#tag-tag4" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">tag4</span></a></li>
+										<li class="fg-tag-item" data-tag="tag5"><a href="#tag-tag5" class="fg-tag-link" style="font-size: 16px; opacity: 1;"><span class="fg-tag-text">tag5</span></a></li>
+									</ul>
+								</nav>
 							</div>
 						</div>
 
@@ -190,14 +237,14 @@
 							<div class="example plural">
 								<p>To supply this option through markup you must specify the <code>data-foogallery</code> attribute on the container element and supply it as a property of the options object using valid JSON syntax <i>including quoted property names</i>.</p>
 							</div>
-							<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;distance&quot;:200}&#39;&gt;
+							<pre class="language-markup" data-lang="markup"><code>&lt;div data-foogallery=&#39;{&quot;paging&quot;:{&quot;theme&quot;:&quot;fg-dark&quot;}}&#39;&gt;
 	...
 &lt;/div&gt;</code></pre>
 							<p>Otherwise you can supply it directly to the plugin method.</p>
 							<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
 	$(&#39;.foogallery&#39;).foogallery({
-		&quot;paging&quot;: {
-			&quot;distance&quot;: 200
+		&quot;filtering&quot;: {
+			&quot;theme&quot;: &quot;fg-dark&quot;
 		}
 	});
 });</code></pre>
@@ -215,24 +262,19 @@
 		<div class="docs-section">
 
 			<h2 id="usage" class="page-header">Usage</h2>
-			<p class="lead">
-				As the user scrolls down the document the infinite type will automatically create pages of items until it has no more items available. The one drawback to using this type is that
-				it makes it difficult for users to reach your site footer. If this is an issue take a look at the <a href="loadMore.html">loadMore</a> type which gives control over when items
-				are created back to the user.
-			</p>
 
 			<div class="examples">
 				<div class="example">
-					<p>The below shows infinite being used with its' default options by just setting the type.</p>
+					<p>The below shows tags being used with its' default options by just setting the type.</p>
 					<pre class="language-markup" data-lang="markup"><code>&lt;!-- The container element --&gt;
-&lt;div id=&quot;example_1&quot; class=&quot;foogallery fg-responsive fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center fg-gutter-15&quot;&gt;
-	&lt;!-- items-150x150.json --&gt;
+&lt;div id=&quot;example_1&quot; class=&quot;foogallery fg-masonry fg-masonry-4col fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center&quot;&gt;
+	&lt;!-- items.json --&gt;
 &lt;/div&gt;</code></pre>
 					<pre class="language-javascript" data-lang="javascript"><code>jQuery(function($){
 	$(&quot;#example_1&quot;).foogallery({
-		&quot;items&quot;: &quot;../content/items-150x150.json&quot;,
-		&quot;paging&quot;: {
-			&quot;type&quot;: &quot;infinite&quot;
+		&quot;items&quot;: &quot;../content/items.json&quot;,
+		&quot;filtering&quot;: {
+			&quot;type&quot;: &quot;tags&quot;
 		}
 	});
 });</code></pre>
@@ -242,7 +284,7 @@
 							<li>
 								<p>
 									The items in the example are created from the
-									<a href="../content/items-150x150.json">items-150x150.json</a> file and then displayed using the <a href="../templates/responsive.html">responsive template</a>,
+									<a href="../content/items.json">items.json</a> file and then displayed using the <a href="../templates/masonry.html">masonry template</a>,
 									<a href="../options.html#fg-light">light item style</a>, <a href="../options.html#fg-hover-external">external hover icon</a>,
 									<a href="../options.html#fg-loading-default">default loading icon</a> and the <a href="../options.html#fg-loaded-fade-in">fade in loaded effect</a>. All these options
 									are available in the Lite version.
@@ -254,16 +296,10 @@
 						</ul>
 					</div>
 
-					<div id="example_1" class="foogallery fg-responsive fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center fg-gutter-15">
+					<div id="example_1" class="foogallery fg-masonry fg-masonry-4col fg-light fg-hover-external fg-loading-default fg-loaded-fade-in fg-center">
 					</div>
 				</div>
 			</div>
-
-		</div>
-
-		<div class="callout callout-warning">
-			<h5>Warning</h5>
-			<p>This would be difficult to reach for the user.</p>
 		</div>
 
 	</div>
@@ -283,15 +319,17 @@
 <script src="../js/ie10-viewport-bug-workaround.js"></script>
 <script src="../js/docs.js"></script>
 <script src="../js/table-of-contents.js"></script>
+
 <!-- Add in FooGallery JS -->
+<script src="../js/masonry.pkgd.min.js"></script>
 <script src="../../dist/full/js/foogallery.js"></script>
 <!-- Initialize FooGallery -->
 <script>
 	jQuery(function($){
 		$('#example_1').foogallery({
-			"items": "../content/items-150x150.json",
-			"paging": {
-				"type": "infinite"
+			"items": "../content/items.json",
+			"filtering": {
+				"type": "tags"
 			}
 		});
 	});

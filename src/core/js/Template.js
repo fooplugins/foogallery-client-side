@@ -82,7 +82,14 @@
 			 * @name pages
 			 * @type {?FooGallery.Paging}
 			 */
-			self.pages = _.paging.make(options.paging.type, self);
+			self.pages = !_is.undef(_.paging) ? _.paging.make(options.paging.type, self) : null;
+			/**
+			 * @summary The page manager for the template.
+			 * @memberof FooGallery.Template#
+			 * @name filter
+			 * @type {?FooGallery.Filtering}
+			 */
+			self.filter = !_is.undef(_.filtering) ? _.filtering.make(options.filtering.type, self) : null;
 			/**
 			 * @summary The state manager for the template.
 			 * @memberof FooGallery.Template#
@@ -421,6 +428,7 @@
 			$(window).off("popstate.foogallery", self.onWindowPopState)
 					.off("scroll.foogallery");
 			self.state.destroy();
+			if (self.filter) self.filter.destroy();
 			if (self.pages) self.pages.destroy();
 			self.items.destroy();
 			if (!_is.empty(self.opt.on)){
@@ -457,19 +465,24 @@
 		// ################
 
 		/**
+		 * @summary Gets all available items.
+		 * @description This takes into account if paging is enabled and will return only the current pages' items.
+		 * @memberof FooGallery.Template#
+		 * @function getAvailable
+		 * @returns {FooGallery.Item[]} An array of {@link FooGallery.Item|items}.
+		 */
+		getAvailable: function(){
+			return this.pages ? this.pages.available() : this.items.available();
+		},
+
+		/**
 		 * @summary Check if any available items need to be loaded and loads them.
 		 * @memberof FooGallery.Template#
 		 * @function loadAvailable
 		 * @returns {Promise<FooGallery.Item[]>} Resolves with an array of {@link FooGallery.Item|items} as the first argument. If no items are loaded this array is empty.
 		 */
 		loadAvailable: function(){
-			var self = this, items;
-			if (self.pages){
-				items = self.pages.available();
-			} else {
-				items = self.items.available();
-			}
-			return self.items.load(items);
+			return this.items.load(this.getAvailable());
 		},
 
 		/**
