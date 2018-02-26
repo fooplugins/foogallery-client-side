@@ -1,4 +1,4 @@
-(function($, _, _utils, _is, _fn){
+(function($, _, _utils, _is, _fn, _obj){
 
 	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
 		/**
@@ -112,6 +112,9 @@
 		},
 		all: function(){
 			return this._arr.slice();
+		},
+		count: function(all){
+			return all ? this.all().length : this.available().length;
 		},
 		available: function(){
 			return this._available.slice();
@@ -243,7 +246,9 @@
 				var e = self.tmpl.raise("make-items", [arr]);
 				if (!e.isDefaultPrevented()){
 					made = $.map(arr, function(obj){
-						var item = _.components.make("item", self.tmpl, _is.hash(obj) ? obj : {});
+						var type = self.type(obj),
+								opt = _obj.extend(_is.hash(obj) ? obj : {}, {type: type});
+						var item = _.components.make(type, self.tmpl, opt);
 						if (_is.element(obj)){
 							if (item.parse(obj)){
 								parsed.push(item);
@@ -292,6 +297,15 @@
 				if (parsed.length > 0) self.tmpl.raise("parsed-items", [parsed]);
 			}
 			return made;
+		},
+		type: function(objOrElement){
+			var type;
+			if (_is.hash(objOrElement)){
+				type = objOrElement.type;
+			} else if (_is.element(objOrElement)){
+				type = $(objOrElement).find(this.tmpl.sel.item.anchor).data("type");
+			}
+			return _is.string(type) && _.components.contains(type) ? type : "item";
 		},
 		/**
 		 * @summary Create each of the supplied {@link FooGallery.Item|`items`} elements.
@@ -580,5 +594,5 @@
 	FooGallery.utils,
 	FooGallery.utils.is,
 	FooGallery.utils.fn,
-	FooGallery.utils.str
+	FooGallery.utils.obj
 );
