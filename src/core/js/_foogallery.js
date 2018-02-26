@@ -177,7 +177,7 @@
 	 * </script>
 	 */
 	$.fn.foogallery = function(options, ready){
-		return this.filter(".foogallery").each(function(i, element){
+		return this.each(function(i, element){
 			if (_is.string(options)){
 				var template = $.data(element, _.dataTemplate);
 				if (template instanceof _.Template){
