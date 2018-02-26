@@ -115,12 +115,12 @@
 
 			if (name !== "core" && self.contains(name)){
 				options = _obj.extend({}, def, reg[name].opt, options);
-				options.cls = _obj.extend(options.cls, cls, reg[name].cls, options.cls);
-				options.il8n = _obj.extend(options.il8n, il8n, reg[name].il8n, options.il8n);
+				options.cls = _obj.extend({}, cls, reg[name].cls, options.cls);
+				options.il8n = _obj.extend({}, il8n, reg[name].il8n, options.il8n);
 			} else {
 				options = _obj.extend({}, def, options);
-				options.cls = _obj.extend(options.cls, cls, options.cls);
-				options.il8n = _obj.extend(options.il8n, il8n, options.il8n);
+				options.cls = _obj.extend({}, cls, options.cls);
+				options.il8n = _obj.extend({}, il8n, options.il8n);
 			}
 			return options;
 		}
