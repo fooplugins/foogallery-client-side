@@ -114,7 +114,6 @@
 		set: function(pageNumber, scroll, updateState){
 			var self = this;
 			if (self.isValid(pageNumber)){
-				self.controls(pageNumber);
 				var num = self.number(pageNumber), state;
 				if (num !== self.current) {
 					var prev = self.current, setPage = function(){
@@ -123,6 +122,7 @@
 							state = self.tmpl.state.get();
 							self.tmpl.state.update(state, self.pushOrReplace);
 						}
+						self.controls(pageNumber);
 						self.create(num);
 						if (updateState){
 							state = self.tmpl.state.get();

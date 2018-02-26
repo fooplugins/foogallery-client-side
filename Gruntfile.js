@@ -26,6 +26,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/_foogallery.js",
 						"./src/core/js/factories/TemplateFactory.js",
 						"./src/core/js/factories/PagingFactory.js",
+						"./src/core/js/factories/FilteringFactory.js",
 						"./src/core/js/Template.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
@@ -35,7 +36,9 @@ module.exports = function ( grunt ) {
 						"./src/core/js/paging/Infinite.js",
 						"./src/core/js/paging/LoadMore.js",
 						"./src/core/js/paging/Dots.js",
-						"./src/core/js/paging/Pagination.js"
+						"./src/core/js/paging/Pagination.js",
+						"./src/core/js/filtering/Filtering.js",
+						"./src/core/js/filtering/Tags.js"
 					],
 					"./dist/components/core/css/foogallery.css": [
 						"./src/core/css/general/core.css",
@@ -89,7 +92,10 @@ module.exports = function ( grunt ) {
 						"./src/core/css/paging/paging.css",
 						"./src/core/css/paging/type/load-more.css",
 						"./src/core/css/paging/type/dots.css",
-						"./src/core/css/paging/type/pagination.css"
+						"./src/core/css/paging/type/pagination.css",
+
+						"./src/core/css/filtering/filtering.css",
+						"./src/core/css/filtering/type/tags.css"
 					]
 				}
 			},

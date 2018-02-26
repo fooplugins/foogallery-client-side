@@ -49,7 +49,9 @@
 			.css({width: '100%',height: '100%',maxWidth: this.options.width,maxHeight: this.options.height});
 
 		if (this.direct){
-			return $wrap.append(this.$video = this.$createVideo(this.urls));
+			this.$video = this.$createVideo(this.urls);
+			this.video = this.$video.get(0);
+			return $wrap.append(this.$video);
 		} else if (this.urls.length > 0 && !this.urls[0].direct) {
 			return $wrap.append(this.$video = this.$createEmbed(this.urls[0]));
 		}
@@ -67,6 +69,14 @@
 		if (this.video && this.video instanceof HTMLVideoElement){
 			this.video.pause();
 		}
+	};
+
+	F.Player.prototype.destroy = function(){
+		if (this.direct && this.$video){
+			this.$video.off('error loadeddata');
+		}
+		this.$el.remove();
+		this.$el = null;
 	};
 
 	F.Player.prototype.$createVideo = function(urls){
