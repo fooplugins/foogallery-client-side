@@ -16,7 +16,7 @@
   "license": "GPL",
   "devDependencies": {
     "bootstrap": "^3.3.7",
-    "foo-utils": "0.0.6",
+    "foo-utils": "0.0.8",
     "foodoc": "0.0.8",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.0.0",
