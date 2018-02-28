@@ -194,15 +194,19 @@
 	display: block;
 }
 .fg-slider .fg-image {
-	width: auto;
-	height: auto;
-	min-height: 0;
-	min-width: 0;
-	max-height: none;
-	max-width: none;
 	position: absolute;
 	top: 50%;
 	left: 50%;
+
+	width: auto;
+	height: auto;
+
+	max-height: none;
+	max-width: none;
+
+	min-height: 100%;
+	min-width: 100%;
+
 	transform: translateX(-50%) translateY(-50%);
 }
 .fg-slider .fg-idle .fg-image,

@@ -13,6 +13,7 @@
 			self.selected = null;
 			self.helper = new _.VideoHelper(self.template.player);
 			self.horizontal = self.template.horizontal;
+			self.noCaptions = self.template.noCaptions;
 			self.useViewport = self.template.useViewport;
 			self.breakpoints = self.template.breakpoints;
 			self.allBreakpointClasses = $.map(self.breakpoints, function(breakpoint){ return breakpoint.classes; }).join(' ');
@@ -52,7 +53,11 @@
 			self.$itemStage = self.$el.find(self.sel.itemStage);
 			self.$itemPrev = self.$el.find(self.sel.itemPrev);
 			self.$itemNext = self.$el.find(self.sel.itemNext);
-			self.horizontal = self.$el.hasClass(self.cls.horizontal);
+			self.horizontal = self.$el.hasClass(self.cls.horizontal) || self.horizontal;
+			if (self.horizontal) self.$el.addClass(self.cls.horizontal);
+			self.noCaptions = self.$el.hasClass(self.cls.noCaptions) || self.noCaptions;
+			if (self.noCaptions) self.$el.addClass(self.cls.noCaptions);
+
 		},
 		onInit: function (event, self) {
 			$(window).on("resize.fg-slider", {self: self}, self.throttle(self.onWindowResize, self.template.throttle));
@@ -86,12 +91,7 @@
 		},
 		onParsedOrCreatedItem: function(item){
 			if (!item.isError){
-				// correct the thumb image to fill the available space overflowing where required
-				var self = this, w = item.width, h = item.height;
-				if (!isNaN(w) && !isNaN(h)){
-					var css = w >= h ? {height: "100%",maxHeight: "100%",width: "auto"} : {width: "100%",maxWidth: "100%",height: "auto"};
-					item.$image.css(css);
-				}
+				var self = this;
 				item.$anchor.add(item.$image).attr("draggable", false);
 				item.$anchor.add(item.$caption).off("click.foogallery");
 				item.$inner.on("click.foogallery", {self: self, item: item}, self.onItemClick);
@@ -143,6 +143,19 @@
 			var self = e.data.self;
 			self.layout();
 		},
+		getBreakpoint: function(){
+			var self = this, width = self.useViewport ? $(window).width() : self.$el.outerWidth();
+			// sort breakpoints so we iterate smallest to largest
+			self.breakpoints.sort(function(a, b){ return a.width - b.width; });
+			for (var i = 0, il = self.breakpoints.length; i < il; i++){
+				if (self.breakpoints[i].width >= width) return self.breakpoints[i];
+			}
+			return self.breakpoints[self.breakpoints.length - 1];
+		},
+		getMaxVisibleItems: function(){
+			var self = this, h = self.noCaptions ? self._breakpoint.items.h.noCaptions : self._breakpoint.items.h.captions;
+			return self.horizontal ? h : self._breakpoint.items.v;
+		},
 		layout: function(){
 			var self = this,
 					index = self.selected instanceof _.Item ? self.selected.index : 0,
@@ -153,7 +166,7 @@
 			self._breakpoint = self.getBreakpoint();
 			self.$el.removeClass(self.allBreakpointClasses).addClass(self._breakpoint.classes);
 
-			var max = (self.horizontal ? self._breakpoint.items.h : self._breakpoint.items.v) - 1;
+			var max = self.getMaxVisibleItems() - 1;
 			if (self._firstVisible == -1 || self._lastVisible == -1){
 				self._firstVisible = 0;
 				self._lastVisible = max;
@@ -171,7 +184,7 @@
 			self._contentHeight = self.$contentContainer.height();
 			if (count > 0){
 				self.$contentStage.width(self._contentWidth * count);
-				var hItemWidth = Math.max((self._contentWidth + 1) / self._breakpoint.items.h);
+				var hItemWidth = Math.max((self._contentWidth + 1) / self.getMaxVisibleItems());
 				$.each(items, function(i, item){
 					item.index = i;
 					item.$content.width(self._contentWidth).css("left", i * self._contentWidth);
@@ -186,15 +199,6 @@
 				self._itemWidth = items[0].$el.outerWidth();
 				self._itemHeight = items[0].$el.outerHeight();
 			}
-		},
-		getBreakpoint: function(){
-			var self = this, width = self.useViewport ? $(window).width() : self.$el.outerWidth();
-			// sort breakpoints so we iterate smallest to largest
-			self.breakpoints.sort(function(a, b){ return a.width - b.width; });
-			for (var i = 0, il = self.breakpoints.length; i < il; i++){
-				if (self.breakpoints[i].width >= width) return self.breakpoints[i];
-			}
-			return self.breakpoints[self.breakpoints.length - 1];
 		},
 		setSelected: function(itemOrIndex){
 			var self = this, prev = self.selected, next = itemOrIndex;
@@ -226,7 +230,7 @@
 			}
 		},
 		setVisible: function(index, last){
-			var self = this, count = self.items.count(), max = (self.horizontal ? self._breakpoint.items.h : self._breakpoint.items.v) - 1;
+			var self = this, count = self.items.count(), max = self.getMaxVisibleItems() - 1;
 			index = index < 0 ? 0 : (index >= count ? count - 1 : index);
 
 			if (last) index = index - max < 0 ? 0 : index - max;
@@ -325,41 +329,57 @@
 		template: {
 			horizontal: false,
 			useViewport: false,
+			noCaptions: false,
 			autoPlay: false,
 			breakpoints: [{
 				width: 480,
 				classes: "fgs-xs",
 				items: {
-					h: 2,
+					h: {
+						captions: 2,
+						noCaptions: 5
+					},
 					v: 6
 				}
 			},{
 				width: 768,
 				classes: "fgs-sm",
 				items: {
-					h: 3,
-					v: 6
+					h: {
+						captions: 3,
+						noCaptions: 7
+					},
+					v: 7
 				}
 			},{
 				width: 1024,
 				classes: "fgs-md",
 				items: {
-					h: 4,
+					h: {
+						captions: 4,
+						noCaptions: 9
+					},
 					v: 6
 				}
 			},{
 				width: 1280,
 				classes: "fgs-lg",
 				items: {
-					h: 5,
+					h: {
+						captions: 5,
+						noCaptions: 11
+					},
 					v: 7
 				}
 			},{
 				width: 1600,
 				classes: "fgs-xl",
 				items: {
-					h: 6,
-					v: 7
+					h: {
+						captions: 6,
+						noCaptions: 13
+					},
+					v: 8
 				}
 			}],
 			player: {
@@ -383,7 +403,8 @@
 		itemNext: "fgs-item-next",
 		horizontal: "fgs-horizontal",
 		selected: "fgs-selected",
-		playing: "fgs-playing"
+		playing: "fgs-playing",
+		noCaptions: "fgs-no-captions"
 	});
 
 })(
