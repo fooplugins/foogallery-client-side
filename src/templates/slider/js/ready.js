@@ -66,6 +66,11 @@
 			self.layout();
 			self.setSelected(0);
 		},
+		onAfterFilterChange: function(event, self){
+			self.selected = null;
+			self.layout();
+			self.setSelected(0);
+		},
 		/**
 		 * @summary Destroy the plugin cleaning up any bound events.
 		 * @memberof FooGallery.SliderTemplate#
@@ -119,6 +124,17 @@
 			self.$itemStage.append(item.$el);
 			self.$contentStage.append(item.$content);
 			item.isAttached = true;
+		},
+		onDetachItem: function(event, self, item){
+			event.preventDefault();
+			if (item.type === "video" && item.player instanceof _.VideoPlayer){
+				item.player.$el.detach();
+				item.$el.add(item.$content)
+						.removeClass(self.cls.playing);
+			}
+			item.$el.add(item.$content)
+					.removeClass(self.cls.selected).detach();
+			item.isAttached = false;
 		},
 		onLayout: function(event, self){
 			self.layout();
@@ -189,16 +205,20 @@
 			}
 			if (prev != next && next instanceof _.Item){
 				if (prev instanceof _.Item){
-					prev.player.$el.detach();
-					prev.$el.add(prev.$content.removeClass(self.cls.playing)).removeClass(self.cls.selected);
+					if (prev.type === "video" && prev.player instanceof _.VideoPlayer){
+						prev.player.$el.detach();
+						prev.$el.add(prev.$content).removeClass(self.cls.playing);
+					}
+					prev.$el.add(prev.$content).removeClass(self.cls.selected);
 				}
 				self.$contentStage.css("transform", "translateX(-" + (next.index * self._contentWidth) + "px)");
 				next.$el.add(next.$content).addClass(self.cls.selected);
-				if (self.template.autoPlay){
-					next.player.appendTo(next.$content.addClass(self.cls.playing)).load();
+				if (self.template.autoPlay && next.type === "video" && next.player instanceof _.VideoPlayer){
+					next.$el.add(next.$content).addClass(self.cls.playing);
+					next.player.appendTo(next.$content).load();
 				}
 				self.selected = next;
-				if (next.index == self._firstVisible || next.index == self._lastVisible){
+				if (next.index <= self._firstVisible || next.index >= self._lastVisible){
 					var last = prev instanceof _.Item ? next.index > prev.index : false,
 							index = last ? (next.index == self._lastVisible ? next.index + 1 : next.index) : (next.index == self._firstVisible ? next.index - 1 : next.index);
 					self.setVisible(index, last);
@@ -243,12 +263,13 @@
 		},
 		onPlayVideo: function(e){
 			var self = e.data.self, item = e.data.item;
-			item.player.appendTo(item.$content.addClass(self.cls.playing)).load();
+			item.$el.add(item.$content).addClass(self.cls.playing);
+			item.player.appendTo(item.$content).load();
 		},
 		onCloseVideo: function(e){
 			var self = e.data.self, item = e.data.item;
 			item.player.$el.detach();
-			item.$content.removeClass(self.cls.playing);
+			item.$el.add(item.$content).removeClass(self.cls.playing);
 		},
 		onItemMouseWheel: function(e){
 			var self = e.data.self,
