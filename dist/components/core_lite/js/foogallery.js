@@ -3114,7 +3114,7 @@
 	 * </script>
 	 */
 	$.fn.foogallery = function(options, ready){
-		return this.filter(".foogallery").each(function(i, element){
+		return this.each(function(i, element){
 			if (_is.string(options)){
 				var template = $.data(element, _.dataTemplate);
 				if (template instanceof _.Template){
@@ -3155,6 +3155,317 @@
 	FooGallery.utils,
 	FooGallery.utils.is,
 	FooGallery.utils.fn
+);
+(function($, _, _utils, _is, _obj) {
+
+	var DATA_NAME = "__FooGallerySwipe__",
+			TOUCH = "ontouchstart" in window,
+			POINTER_IE10 = window.navigator.msPointerEnabled && !window.navigator.pointerEnabled && !TOUCH,
+			POINTER = (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) && !TOUCH,
+			USE_TOUCH = TOUCH || POINTER;
+
+	_.Swipe = _utils.Class.extend(/** @lend FooGallery.Swipe */{
+		/**
+		 * @summary A utility class for handling swipe gestures on touch devices.
+		 * @memberof FooGallery
+		 * @constructs Swipe
+		 * @param {Element} element - The element being bound to.
+		 * @param {Object} options - Any options for the current instance of the class.
+		 * @augments FooGallery.utils.Class
+		 * @borrows FooGallery.utils.Class.extend as extend
+		 * @borrows FooGallery.utils.Class.override as override
+		 */
+		construct: function(element, options){
+			var self = this, ns = ".fgswipe";
+			/**
+			 * @summary The jQuery element this instance of the class is bound to.
+			 * @memberof FooGallery.Swipe
+			 * @name $el
+			 * @type {jQuery}
+			 */
+			self.$el = $(element);
+			/**
+			 * @summary The options for this instance of the class.
+			 * @memberof FooGallery.Swipe
+			 * @name opt
+			 * @type {FooGallery.Swipe~Options}
+			 */
+			self.opt = _obj.extend({
+				threshold: 20,
+				allowPageScroll: false,
+				swipe: $.noop,
+				data: {}
+			}, options);
+			/**
+			 * @summary Whether or not a swipe is in progress.
+			 * @memberof FooGallery.Swipe
+			 * @name active
+			 * @type {boolean}
+			 */
+			self.active = false;
+			/**
+			 * @summary The start point for the last swipe.
+			 * @memberof FooGallery.Swipe
+			 * @name startPoint
+			 * @type {?FooGallery.Swipe~Point}
+			 */
+			self.startPoint = null;
+			/**
+			 * @summary The end point for the last swipe.
+			 * @memberof FooGallery.Swipe
+			 * @name startPoint
+			 * @type {?FooGallery.Swipe~Point}
+			 */
+			self.endPoint = null;
+			/**
+			 * @summary The event names used by this instance of the plugin.
+			 * @memberof FooGallery.Swipe
+			 * @name events
+			 * @type {{start: string, move: string, end: string, leave: string}}
+			 */
+			self.events = {
+				start: (USE_TOUCH ? (POINTER ? (POINTER_IE10 ? 'MSPointerDown' : 'pointerdown') : 'touchstart') : 'mousedown') + ns,
+				move: (USE_TOUCH ? (POINTER ? (POINTER_IE10 ? 'MSPointerMove' : 'pointermove') : 'touchmove') : 'mousemove') + ns,
+				end: (USE_TOUCH ? (POINTER ? (POINTER_IE10 ? 'MSPointerUp' : 'pointerup') : 'touchend') : 'mouseup') + ns,
+				leave: (USE_TOUCH ? (POINTER ? 'mouseleave' : null) : 'mouseleave') + ns
+			};
+		},
+		/**
+		 * @summary Initializes this instance of the class.
+		 * @memberof FooGallery.Swipe
+		 * @function init
+		 */
+		init: function(){
+			var self = this;
+			self.$el.on(self.events.start, {self: self}, self.onStart);
+			self.$el.on(self.events.move, {self: self}, self.onMove);
+			self.$el.on(self.events.end, {self: self}, self.onEnd);
+			if (_is.string(self.events.leave)) self.$el.on(self.events.leave, {self: self}, self.onEnd);
+			self.$el.data(DATA_NAME, self);
+		},
+		/**
+		 * @summary Destroys this instance of the class.
+		 * @memberof FooGallery.Swipe
+		 * @function destroy
+		 */
+		destroy: function(){
+			var self = this;
+			self.$el.off(self.events.start, self.onStart);
+			self.$el.off(self.events.move, self.onMove);
+			self.$el.off(self.events.end, self.onEnd);
+			if (_is.string(self.events.leave)) self.$el.off(self.events.leave, self.onEnd);
+			self.$el.removeData(DATA_NAME);
+		},
+		/**
+		 * @summary Gets the angle between two points.
+		 * @memberof FooGallery.Swipe
+		 * @function getAngle
+		 * @param {FooGallery.Swipe~Point} pt1 - The first point.
+		 * @param {FooGallery.Swipe~Point} pt2 - The second point.
+		 * @returns {number}
+		 */
+		getAngle: function(pt1, pt2){
+			var radians = Math.atan2(pt1.x - pt2.x, pt1.y - pt2.y),
+					degrees = Math.round(radians * 180 / Math.PI);
+			return 360 - (degrees < 0 ? 360 - Math.abs(degrees) : degrees);
+		},
+		/**
+		 * @summary Gets the distance between two points.
+		 * @memberof FooGallery.Swipe
+		 * @function getDistance
+		 * @param {FooGallery.Swipe~Point} pt1 - The first point.
+		 * @param {FooGallery.Swipe~Point} pt2 - The second point.
+		 * @returns {number}
+		 */
+		getDistance: function(pt1, pt2){
+			var xs = pt2.x - pt1.x,
+					ys = pt2.y - pt1.y;
+
+			xs *= xs;
+			ys *= ys;
+
+			return Math.sqrt( xs + ys );
+		},
+		/**
+		 * @summary Gets the general direction between two points and returns the result as a compass heading: N, NE, E, SE, S, SW, W, NW or NONE if the points are the same.
+		 * @memberof FooGallery.Swipe
+		 * @function getDirection
+		 * @param {FooGallery.Swipe~Point} pt1 - The first point.
+		 * @param {FooGallery.Swipe~Point} pt2 - The second point.
+		 * @returns {string}
+		 */
+		getDirection: function(pt1, pt2){
+			var self = this, angle = self.getAngle(pt1, pt2);
+			if (angle > 337.5 || angle <= 22.5) return "N";
+			else if (angle > 22.5 && angle <= 67.5) return "NE";
+			else if (angle > 67.5 && angle <= 112.5) return "E";
+			else if (angle > 112.5 && angle <= 157.5) return "SE";
+			else if (angle > 157.5 && angle <= 202.5) return "S";
+			else if (angle > 202.5 && angle <= 247.5) return "SW";
+			else if (angle > 247.5 && angle <= 292.5) return "W";
+			else if (angle > 292.5 && angle <= 337.5) return "NW";
+			return "NONE";
+		},
+		/**
+		 * @summary Gets the pageX and pageY point from the supplied event whether it is for a touch or mouse event.
+		 * @memberof FooGallery.Swipe
+		 * @function getPoint
+		 * @param {jQuery.Event} event - The event to parse the point from.
+		 * @returns {FooGallery.Swipe~Point}
+		 */
+		getPoint: function(event){
+			var touches;
+			if (USE_TOUCH && !_is.empty(touches = event.originalEvent.touches || event.touches)){
+				return {x: touches[0].pageX, y: touches[0].pageY};
+			}
+			if (_is.number(event.pageX) && _is.number(event.pageY)){
+				return {x: event.pageX, y: event.pageY};
+			}
+			return null;
+		},
+		/**
+		 * @summary Gets the offset from the supplied point.
+		 * @memberof FooGallery.Swipe
+		 * @function getOffset
+		 * @param {FooGallery.Swipe~Point} pt - The point to use to calculate the offset.
+		 * @returns {FooGallery.Swipe~Offset}
+		 */
+		getOffset: function(pt){
+			var self = this, offset = self.$el.offset();
+			return {
+				left: pt.x - offset.left,
+				top: pt.y - offset.top
+			};
+		},
+		/**
+		 * @summary Handles the {@link FooGallery.Swipe#events.start|start} event.
+		 * @memberof FooGallery.Swipe
+		 * @function onStart
+		 * @param {jQuery.Event} event - The event object for the current event.
+		 */
+		onStart: function(event){
+			var self = event.data.self, pt = self.getPoint(event);
+			if (!_is.empty(pt)){
+				self.active = true;
+				self.startPoint = self.endPoint = pt;
+			}
+		},
+		/**
+		 * @summary Handles the {@link FooGallery.Swipe#events.move|move} event.
+		 * @memberof FooGallery.Swipe
+		 * @function onMove
+		 * @param {jQuery.Event} event - The event object for the current event.
+		 */
+		onMove: function(event){
+			var self = event.data.self, pt = self.getPoint(event);
+			if (self.active && !_is.empty(pt)){
+				self.endPoint = pt;
+				if (!self.opt.allowPageScroll){
+					event.preventDefault();
+				}
+			}
+		},
+		/**
+		 * @summary Handles the {@link FooGallery.Swipe#events.end|end} and {@link FooGallery.Swipe#events.leave|leave} events.
+		 * @memberof FooGallery.Swipe
+		 * @function onEnd
+		 * @param {jQuery.Event} event - The event object for the current event.
+		 */
+		onEnd: function(event){
+			var self = event.data.self;
+			if (self.active){
+				self.active = false;
+				var info = {
+					startPoint: self.startPoint,
+					endPoint: self.endPoint,
+					startOffset: self.getOffset(self.startPoint),
+					endOffset: self.getOffset(self.endPoint),
+					angle: self.getAngle(self.startPoint, self.endPoint),
+					distance: self.getDistance(self.startPoint, self.endPoint),
+					direction: self.getDirection(self.startPoint, self.endPoint)
+				};
+
+				if (self.opt.threshold > 0 && info.distance < self.opt.threshold) return;
+
+				self.opt.swipe.apply(this, [info, self.opt.data]);
+				self.startPoint = null;
+				self.endPoint = null;
+			}
+		}
+	});
+
+	/**
+	 * @summary Expose FooGallery.Swipe as a jQuery plugin.
+	 * @memberof external:"jQuery.fn"#
+	 * @function fgswipe
+	 * @param {(FooGallery.Swipe~Options|string)} [options] - The options to supply to FooGallery.Swipe or one of the supported method names.
+	 * @returns {jQuery}
+	 */
+	$.fn.fgswipe = function(options){
+		return this.each(function(){
+			var $this = $(this), swipe = $this.data(DATA_NAME), exists = swipe instanceof _.Swipe;
+			if (exists){
+				if (_is.string(options) && _is.fn(swipe[options])){
+					swipe[options]();
+					return;
+				} else {
+					swipe.destroy();
+				}
+			}
+			if (_is.hash(options)){
+				swipe = new _.Swipe(this, options);
+				swipe.init();
+			}
+		});
+	};
+
+	/**
+	 * @summary A simple point object containing X and Y coordinates.
+	 * @typedef {Object} FooGallery.Swipe~Point
+	 * @property {number} x - The X coordinate.
+	 * @property {number} y - The Y coordinate.
+	 */
+
+	/**
+	 * @summary A simple offset object containing top and left values.
+	 * @typedef {Object} FooGallery.Swipe~Offset
+	 * @property {number} left - The left value.
+	 * @property {number} top - The top value.
+	 */
+
+	/**
+	 * @summary The information object supplied as the first parameter to the {@link FooGallery.Swipe~swipeCallback} function.
+	 * @typedef {Object} FooGallery.Swipe~Info
+	 * @property {FooGallery.Swipe~Point} startPoint - The page X and Y coordinates where the swipe began.
+	 * @property {FooGallery.Swipe~Point} endPoint - The page X and Y coordinates where the swipe ended.
+	 * @property {FooGallery.Swipe~Offset} startOffset - The top and left values where the swipe began.
+	 * @property {FooGallery.Swipe~Offset} endOffset - The top and left values where the swipe ended.
+	 * @property {number} angle - The angle traveled from the start to the end of the swipe.
+	 * @property {number} distance - The distance traveled from the start to the end of the swipe.
+	 * @property {string} direction - The general direction traveled from the start to the end of the swipe: N, NE, E, SE, S, SW, W, NW or NONE if the points are the same.
+	 */
+
+	/**
+	 * @summary The callback function to execute whenever a swipe occurs.
+	 * @callback FooGallery.Swipe~swipeCallback
+	 * @param {FooGallery.Swipe~Info} info - The swipe info.
+	 * @param {Object} data - Any additional data supplied when the swipe was bound.
+	 */
+
+	/**
+	 * @summary The options available for the swipe utility class.
+	 * @typedef {Object} FooGallery.Swipe~Options
+	 * @property {number} [threshold=20] - The minimum distance to travel before being registered as a swipe.
+	 * @property {FooGallery.Swipe~swipeCallback} swipe - The callback function to execute whenever a swipe occurs.
+	 * @property {Object} [data={}] - Any additional data to supply to the swipe callback.
+	 */
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.obj
 );
 (function($, _, _utils, _is, _fn, _obj){
 
@@ -4518,6 +4829,8 @@
 			self.cls = template.cls.item;
 			self.il8n = template.il8n.item;
 			self.sel = template.sel.item;
+			self.opt = _obj.extend({}, template.opt.item, options);
+
 			/**
 			 * @summary Whether or not the items' elements are appended to the template.
 			 * @memberof FooGallery.Item#
@@ -4597,110 +4910,114 @@
 			 */
 			self.$caption = null;
 
-			options = _obj.extend({}, template.opt.item, options);
-
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name type
+			 * @type {string}
+			 */
+			self.type = self.opt.type;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name id
 			 * @type {string}
 			 */
-			self.id = options.id;
+			self.id = self.opt.id;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name href
 			 * @type {string}
 			 */
-			self.href = options.href;
+			self.href = self.opt.href;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name src
 			 * @type {string}
 			 */
-			self.src = options.src;
+			self.src = self.opt.src;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name srcset
 			 * @type {string}
 			 */
-			self.srcset = options.srcset;
+			self.srcset = self.opt.srcset;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name width
 			 * @type {number}
 			 */
-			self.width = options.width;
+			self.width = self.opt.width;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name height
 			 * @type {number}
 			 */
-			self.height = options.height;
+			self.height = self.opt.height;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name title
 			 * @type {string}
 			 */
-			self.title = options.title;
+			self.title = self.opt.title;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name alt
 			 * @type {string}
 			 */
-			self.alt = options.alt;
+			self.alt = self.opt.alt;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name caption
 			 * @type {string}
 			 */
-			self.caption = _is.empty(options.caption) ? self.title : options.caption;
+			self.caption = _is.empty(self.opt.caption) ? self.title : self.opt.caption;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name description
 			 * @type {string}
 			 */
-			self.description = _is.empty(options.description) ? self.alt : options.description;
+			self.description = _is.empty(self.opt.description) ? self.alt : self.opt.description;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name attrItem
 			 * @type {FooGallery.Item~Attributes}
 			 */
-			self.attr = options.attr;
+			self.attr = self.opt.attr;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name tags
 			 * @type {string[]}
 			 */
-			self.tags = options.tags;
+			self.tags = self.opt.tags;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name maxWidth
 			 * @type {?FooGallery.Item~maxWidthCallback}
 			 */
-			self.maxWidth = options.maxWidth;
+			self.maxWidth = self.opt.maxWidth;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name maxCaptionLength
 			 * @type {number}
 			 */
-			self.maxCaptionLength = options.maxCaptionLength;
+			self.maxCaptionLength = self.opt.maxCaptionLength;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name maxDescriptionLength
 			 * @type {number}
 			 */
-			self.maxDescriptionLength = options.maxDescriptionLength;
+			self.maxDescriptionLength = self.opt.maxDescriptionLength;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name showCaptionTitle
 			 * @type {boolean}
 			 */
-			self.showCaptionTitle = options.showCaptionTitle;
+			self.showCaptionTitle = self.opt.showCaptionTitle;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name showCaptionDescription
 			 * @type {boolean}
 			 */
-			self.showCaptionDescription = options.showCaptionDescription;
+			self.showCaptionDescription = self.opt.showCaptionDescription;
 			/**
 			 * @summary The cached result of the last call to the {@link FooGallery.Item#getThumbUrl|getThumbUrl} method.
 			 * @memberof FooGallery.Item#
@@ -4770,14 +5087,23 @@
 			 */
 			var e = self.tmpl.raise("destroy-item");
 			if (!e.isDefaultPrevented()){
-				if (self.isParsed && !self.isAttached){
-					self.append();
-				} else if (!self.isParsed && self.isAttached) {
-					self.detach();
-				}
+				self.doDestroyItem();
 				self._super();
 			}
 			return self.tmpl === null;
+		},
+		/**
+		 * @summary Performs the actual destroy logic for the item.
+		 * @memberof FooGallery.Item#
+		 * @function doDestroyItem
+		 */
+		doDestroyItem: function(){
+			var self = this;
+			if (self.isParsed && !self.isAttached){
+				self.append();
+			} else if (!self.isParsed && self.isAttached) {
+				self.detach();
+			}
 		},
 		/**
 		 * @summary Parse the supplied element updating the current items' properties.
@@ -4789,7 +5115,7 @@
 		 * @fires FooGallery.Template~"parsed-item.foogallery"
 		 */
 		parse: function(element){
-			var self = this, o = self.tmpl.opt, cls = self.cls, sel = self.sel, $el = $(element);
+			var self = this, $el = $(element);
 			/**
 			 * @summary Raised when an item needs to parse properties from an element.
 			 * @event FooGallery.Template~"parse-item.foogallery"
@@ -4833,50 +5159,9 @@
 			 * });
 			 */
 			var e = self.tmpl.raise("parse-item", [self, $el]);
-			if (!e.isDefaultPrevented() && (self.isCreated = $el.is(sel.elem))){
-				self.$el = $el.data(_.dataItem, self);
-				self.$inner = self.$el.find(sel.inner);
-				self.$anchor = self.$el.find(sel.anchor).on("click.foogallery", {self: self}, self.onAnchorClick);
-				self.$image = self.$anchor.find(sel.image);
-				self.$caption = self.$el.find(sel.caption.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
-				self.isAttached = self.$el.parent().length > 0;
-				self.isLoading = self.$el.is(sel.loading);
-				self.isLoaded = self.$el.is(sel.loaded);
-				self.isError = self.$el.is(sel.error);
-				self.id = self.$anchor.data("id");
-				self.tags = self.$anchor.data("tags");
-				self.href = self.$anchor.attr("href");
-				self.src = self.$image.attr(o.src);
-				self.srcset = self.$image.attr(o.srcset);
-				self.width = parseInt(self.$image.attr("width"));
-				self.height = parseInt(self.$image.attr("height"));
-				self.title = self.$image.attr("title");
-				self.alt = self.$image.attr("alt");
-				self.caption = self.$anchor.data("title") || self.$anchor.data("captionTitle");
-				self.description = self.$anchor.data("description") || self.$anchor.data("captionDesc");
-				// if the caption or description are not provided set there values to the title and alt respectively
-				if (_is.empty(self.caption)) self.caption = self.title;
-				if (_is.empty(self.description)) self.description = self.alt;
-				// enforce the max lengths for the caption and description
-				if (_is.number(self.maxCaptionLength) && self.maxCaptionLength > 0 && !_is.empty(self.caption) && _is.string(self.caption) && self.caption.length > self.maxCaptionLength){
-					self.$caption.find(sel.caption.title).html(self.caption.substr(0, self.maxCaptionLength) + "&hellip;");
-				}
-				if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength > 0 && !_is.empty(self.description) && _is.string(self.description) && self.description.length > self.maxDescriptionLength){
-					self.$caption.find(sel.caption.description).html(self.description.substr(0, self.maxDescriptionLength) + "&hellip;");
-				}
-				// check if the item has a loader
-				if (self.$el.find(sel.loader).length === 0){
-					self.$el.append($("<div/>", {"class": cls.loader}));
-				}
-				// if the image has no src url then set the placeholder
-				if (_is.empty(self.$image.prop("src"))){
-					self.$image.prop("src", self.tmpl.items.placeholder(self.width, self.height));
-				}
-				if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError){
-					self.$el.addClass(cls.idle);
-				}
+			if (!e.isDefaultPrevented() && (self.isCreated = $el.is(self.sel.elem))){
+				self.isParsed = self.doParseItem($el);
 				self.fix();
-				self.isParsed = true;
 				// We don't load the attributes when parsing as they are only ever used to create an item and if you're parsing it's already created.
 			}
 			if (self.isParsed){
@@ -4900,6 +5185,59 @@
 				self.tmpl.raise("parsed-item", [self]);
 			}
 			return self.isParsed;
+		},
+		/**
+		 * @summary Performs the actual parse logic for the item.
+		 * @memberof FooGallery.Item#
+		 * @function doParseItem
+		 * @param {jQuery} $el - The jQuery element to parse.
+		 * @returns {boolean}
+		 */
+		doParseItem: function($el){
+			var self = this, o = self.tmpl.opt, cls = self.cls, sel = self.sel;
+
+			self.$el = $el.data(_.dataItem, self);
+			self.$inner = self.$el.find(sel.inner);
+			self.$anchor = self.$el.find(sel.anchor).on("click.foogallery", {self: self}, self.onAnchorClick);
+			self.$image = self.$anchor.find(sel.image);
+			self.$caption = self.$el.find(sel.caption.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
+			self.isAttached = self.$el.parent().length > 0;
+			self.isLoading = self.$el.is(sel.loading);
+			self.isLoaded = self.$el.is(sel.loaded);
+			self.isError = self.$el.is(sel.error);
+			self.id = self.$anchor.data("id") || self.id;
+			self.tags = self.$anchor.data("tags") || self.tags;
+			self.href = self.$anchor.attr("href") || self.href;
+			self.src = self.$image.attr(o.src) || self.src;
+			self.srcset = self.$image.attr(o.srcset) || self.srcset;
+			self.width = parseInt(self.$image.attr("width")) || self.width;
+			self.height = parseInt(self.$image.attr("height")) || self.height;
+			self.title = self.$image.attr("title") || self.title;
+			self.alt = self.$image.attr("alt") || self.alt;
+			self.caption = self.$anchor.data("title") || self.$anchor.data("captionTitle") || self.caption || self.title;
+			self.description = self.$anchor.data("description") || self.$anchor.data("captionDesc") || self.description || self.alt;
+			// if the caption or description are not set yet try fetching it from the html
+			if (_is.empty(self.caption)) self.caption = $.trim(self.$caption.find(sel.caption.title).html());
+			if (_is.empty(self.description)) self.description = $.trim(self.$caption.find(sel.caption.description).html());
+			// enforce the max lengths for the caption and description
+			if (_is.number(self.maxCaptionLength) && self.maxCaptionLength > 0 && !_is.empty(self.caption) && _is.string(self.caption) && self.caption.length > self.maxCaptionLength){
+				self.$caption.find(sel.caption.title).html(self.caption.substr(0, self.maxCaptionLength) + "&hellip;");
+			}
+			if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength > 0 && !_is.empty(self.description) && _is.string(self.description) && self.description.length > self.maxDescriptionLength){
+				self.$caption.find(sel.caption.description).html(self.description.substr(0, self.maxDescriptionLength) + "&hellip;");
+			}
+			// check if the item has a loader
+			if (self.$el.find(sel.loader).length === 0){
+				self.$el.append($("<div/>", {"class": cls.loader}));
+			}
+			// if the image has no src url then set the placeholder
+			if (_is.empty(self.$image.prop("src"))){
+				self.$image.prop("src", self.tmpl.items.placeholder(self.width, self.height));
+			}
+			if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError){
+				self.$el.addClass(cls.idle);
+			}
+			return true;
 		},
 		/**
 		 * @summary Create the items' DOM elements and populate the corresponding properties.
@@ -4955,71 +5293,7 @@
 				 */
 				var e = self.tmpl.raise("create-item", [self]);
 				if (!e.isDefaultPrevented()){
-					var o = self.tmpl.opt, cls = self.cls, attr = self.attr;
-					attr.elem["class"] = cls.elem + " " + cls.idle;
-
-					attr.inner["class"] = cls.inner;
-
-					attr.anchor["class"] = cls.anchor;
-					attr.anchor["href"] = self.href;
-					attr.anchor["data-id"] = self.id;
-					attr.anchor["data-title"] = self.caption;
-					attr.anchor["data-description"] = self.description;
-					if (!_is.empty(self.tags)){
-						attr.anchor["data-tags"] = JSON.stringify(self.tags);
-					}
-
-					attr.image["class"] = cls.image;
-					attr.image["src"] = self.tmpl.items.placeholder(self.width, self.height);
-					attr.image[o.src] = self.src;
-					attr.image[o.srcset] = self.srcset;
-					attr.image["width"] = self.width;
-					attr.image["height"] = self.height;
-					attr.image["title"] = self.title;
-					attr.image["alt"] = self.alt;
-
-					self.$el = $("<div/>").attr(attr.elem).data(_.dataItem, self);
-					self.$inner = $("<figure/>").attr(attr.inner).appendTo(self.$el);
-					self.$anchor = $("<a/>").attr(attr.anchor).appendTo(self.$inner).on("click.foogallery", {self: self}, self.onAnchorClick);
-					self.$image = $("<img/>").attr(attr.image).appendTo(self.$anchor);
-
-					cls = self.cls.caption;
-					attr = self.attr.caption;
-					attr.elem["class"] = cls.elem;
-					self.$caption = $("<figcaption/>").attr(attr.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
-					var hasTitle = !_is.empty(self.caption), hasDesc = !_is.empty(self.description);
-					if (hasTitle || hasDesc){
-						attr.inner["class"] = cls.inner;
-						attr.title["class"] = cls.title;
-						attr.description["class"] = cls.description;
-						var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
-						if (hasTitle){
-							var $title;
-							// enforce the max length for the caption
-							if (_is.number(self.maxCaptionLength) && self.maxCaptionLength  > 0 && _is.string(self.caption) && self.caption.length > self.maxCaptionLength){
-								$title = $("<div/>").attr(attr.title).html(self.caption.substr(0, self.maxCaptionLength) + "&hellip;");
-							} else {
-								$title = $("<div/>").attr(attr.title).html(self.caption);
-							}
-							$inner.append($title);
-						}
-						if (hasDesc){
-							var $desc;
-							// enforce the max length for the description
-							if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength  > 0 && _is.string(self.description) && self.description.length > self.maxDescriptionLength){
-								$desc = $("<div/>").attr(attr.description).html(self.description.substr(0, self.maxDescriptionLength) + "&hellip;");
-							} else {
-								$desc = $("<div/>").attr(attr.description).html(self.description);
-							}
-							$inner.append($desc);
-						}
-					}
-					self.$caption.appendTo(self.$inner);
-					// check if the item has a loader
-					if (self.$el.find(self.sel.loader).length === 0){
-						self.$el.append($("<div/>", {"class": self.cls.loader}));
-					}
-					self.isCreated = true;
+					self.isCreated = self.doCreateItem();
 				}
 				if (self.isCreated){
 					/**
@@ -5042,6 +5316,79 @@
 				}
 			}
 			return self.isCreated;
+		},
+		/**
+		 * @summary Performs the actual create logic for the item.
+		 * @memberof FooGallery.Item#
+		 * @function doCreateItem
+		 * @returns {boolean}
+		 */
+		doCreateItem: function(){
+			var self = this, o = self.tmpl.opt, cls = self.cls, attr = self.attr;
+			attr.elem["class"] = cls.elem + " " + cls.idle;
+
+			attr.inner["class"] = cls.inner;
+
+			attr.anchor["class"] = cls.anchor;
+			attr.anchor["href"] = self.href;
+			attr.anchor["data-id"] = self.id;
+			attr.anchor["data-title"] = self.caption;
+			attr.anchor["data-description"] = self.description;
+			if (!_is.empty(self.tags)){
+				attr.anchor["data-tags"] = JSON.stringify(self.tags);
+			}
+
+			attr.image["class"] = cls.image;
+			attr.image["src"] = self.tmpl.items.placeholder(self.width, self.height);
+			attr.image[o.src] = self.src;
+			attr.image[o.srcset] = self.srcset;
+			attr.image["width"] = self.width;
+			attr.image["height"] = self.height;
+			attr.image["title"] = self.title;
+			attr.image["alt"] = self.alt;
+
+			self.$el = $("<div/>").attr(attr.elem).data(_.dataItem, self);
+			self.$inner = $("<figure/>").attr(attr.inner).appendTo(self.$el);
+			self.$anchor = $("<a/>").attr(attr.anchor).appendTo(self.$inner).on("click.foogallery", {self: self}, self.onAnchorClick);
+			self.$image = $("<img/>").attr(attr.image).appendTo(self.$anchor);
+
+			cls = self.cls.caption;
+			attr = self.attr.caption;
+			attr.elem["class"] = cls.elem;
+			self.$caption = $("<figcaption/>").attr(attr.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
+			var hasTitle = !_is.empty(self.caption), hasDesc = !_is.empty(self.description);
+			if (hasTitle || hasDesc){
+				attr.inner["class"] = cls.inner;
+				attr.title["class"] = cls.title;
+				attr.description["class"] = cls.description;
+				var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
+				if (hasTitle){
+					var $title;
+					// enforce the max length for the caption
+					if (_is.number(self.maxCaptionLength) && self.maxCaptionLength  > 0 && _is.string(self.caption) && self.caption.length > self.maxCaptionLength){
+						$title = $("<div/>").attr(attr.title).html(self.caption.substr(0, self.maxCaptionLength) + "&hellip;");
+					} else {
+						$title = $("<div/>").attr(attr.title).html(self.caption);
+					}
+					$inner.append($title);
+				}
+				if (hasDesc){
+					var $desc;
+					// enforce the max length for the description
+					if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength  > 0 && _is.string(self.description) && self.description.length > self.maxDescriptionLength){
+						$desc = $("<div/>").attr(attr.description).html(self.description.substr(0, self.maxDescriptionLength) + "&hellip;");
+					} else {
+						$desc = $("<div/>").attr(attr.description).html(self.description);
+					}
+					$inner.append($desc);
+				}
+			}
+			self.$caption.appendTo(self.$inner);
+			// check if the item has a loader
+			if (self.$el.find(self.sel.loader).length === 0){
+				self.$el.append($("<div/>", {"class": self.cls.loader}));
+			}
+			return true;
 		},
 		/**
 		 * @summary Append the item to the current template.
@@ -5250,8 +5597,8 @@
 		 * @returns {FooGallery.Item}
 		 */
 		fix: function(){
-			var self = this;
-			if (self.isCreated && !self.isLoading && !self.isLoaded && !self.isError){
+			var self = this, e = self.tmpl.raise("fix-item", [self]);
+			if (!e.isDefaultPrevented() && self.isCreated && !self.isLoading && !self.isLoaded && !self.isError){
 				var w = self.width, h = self.height;
 				// if we have a base width and height to work with
 				if (!isNaN(w) && !isNaN(h)){
@@ -5272,8 +5619,8 @@
 		 * @returns {FooGallery.Item}
 		 */
 		unfix: function(){
-			var self = this;
-			if (self.isCreated) self.$image.css({width: '',height: ''});
+			var self = this, e = self.tmpl.raise("unfix-item", [self]);
+			if (!e.isDefaultPrevented() && self.isCreated) self.$image.css({width: '',height: ''});
 			return self;
 		},
 		/**
@@ -5374,6 +5721,7 @@
 	/**
 	 * @summary A simple object containing an items' default values.
 	 * @typedef {object} FooGallery.Item~Options
+	 * @property {?string} [type="item"] - The `data-type` attribute for the anchor element.
 	 * @property {?string} [id=null] - The `data-id` attribute for the outer element.
 	 * @property {?string} [href=null] - The `href` attribute for the anchor element.
 	 * @property {?string} [src=null] - The `src` attribute for the image element.
@@ -5394,6 +5742,7 @@
 	 */
 	_.template.configure("core", {
 		item: {
+			type: "item",
 			id: "",
 			href: "",
 			src: "",
@@ -5441,6 +5790,8 @@
 				description: "fg-caption-desc"
 			}
 		}
+	}, {
+		item: {}
 	});
 
 	_.components.register("item", _.Item);
@@ -5488,7 +5839,7 @@
 	FooGallery.utils.fn,
 	FooGallery.utils.obj
 );
-(function($, _, _utils, _is, _fn){
+(function($, _, _utils, _is, _fn, _obj){
 
 	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
 		/**
@@ -5602,6 +5953,9 @@
 		},
 		all: function(){
 			return this._arr.slice();
+		},
+		count: function(all){
+			return all ? this.all().length : this.available().length;
 		},
 		available: function(){
 			return this._available.slice();
@@ -5733,7 +6087,9 @@
 				var e = self.tmpl.raise("make-items", [arr]);
 				if (!e.isDefaultPrevented()){
 					made = $.map(arr, function(obj){
-						var item = _.components.make("item", self.tmpl, _is.hash(obj) ? obj : {});
+						var type = self.type(obj),
+								opt = _obj.extend(_is.hash(obj) ? obj : {}, {type: type});
+						var item = _.components.make(type, self.tmpl, opt);
 						if (_is.element(obj)){
 							if (item.parse(obj)){
 								parsed.push(item);
@@ -5782,6 +6138,15 @@
 				if (parsed.length > 0) self.tmpl.raise("parsed-items", [parsed]);
 			}
 			return made;
+		},
+		type: function(objOrElement){
+			var type;
+			if (_is.hash(objOrElement)){
+				type = objOrElement.type;
+			} else if (_is.element(objOrElement)){
+				type = $(objOrElement).find(this.tmpl.sel.item.anchor).data("type");
+			}
+			return _is.string(type) && _.components.contains(type) ? type : "item";
 		},
 		/**
 		 * @summary Create each of the supplied {@link FooGallery.Item|`items`} elements.
@@ -6070,7 +6435,7 @@
 	FooGallery.utils,
 	FooGallery.utils.is,
 	FooGallery.utils.fn,
-	FooGallery.utils.str
+	FooGallery.utils.obj
 );
 (function($, _, _utils, _is){
 
