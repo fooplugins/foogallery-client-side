@@ -72,8 +72,8 @@
 					def_cls = reg["default"].cls,
 					def_il8n = reg["default"].il8n,
 					opt = _is.hash(options.paging) ? options.paging : {},
-					cls = _is.hash(options.cls) && _is.hash(options.cls.paging) ? options.cls.paging : {},
-					il8n = _is.hash(options.il8n) && _is.hash(options.il8n.paging) ? options.il8n.paging : {};
+					cls = _is.hash(options.cls) && _is.hash(options.cls.paging) ? _obj.extend({}, options.cls.paging) : {},
+					il8n = _is.hash(options.il8n) && _is.hash(options.il8n.paging) ? _obj.extend({}, options.il8n.paging) : {};
 
 			if (!_is.hash(options.cls)) options.cls = {};
 			if (!_is.hash(options.il8n)) options.il8n = {};

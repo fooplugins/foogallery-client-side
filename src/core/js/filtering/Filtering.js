@@ -74,7 +74,7 @@
 				for (var prop in counts){
 					if (counts.hasOwnProperty(prop)){
 						var count = counts[prop];
-						if (self.min <= 0 || (self.min > 0 && count > self.min)){
+						if (self.min <= 0 || count >= self.min){
 							self.tags.push({value: prop, count: count, percent: 1, size: self.largest, opacity: self.darkest});
 							if (count < min) min = count;
 							if (count > max) max = count;

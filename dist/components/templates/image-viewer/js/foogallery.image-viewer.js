@@ -142,7 +142,11 @@
 		 */
 		prev: function () {
 			if (this.pages){
-				this.pages.prev();
+				if (this.template.loop && this.pages.current === 1){
+					this.pages.last();
+				} else {
+					this.pages.prev();
+				}
 				this.update();
 			}
 		},
@@ -154,7 +158,11 @@
 		 */
 		next: function () {
 			if (this.pages){
-				this.pages.next();
+				if (this.template.loop && this.pages.current === this.pages.total){
+					this.pages.first();
+				} else {
+					this.pages.next();
+				}
 				this.update();
 			}
 		},
@@ -202,7 +210,8 @@
 
 	_.template.register("image-viewer", _.ImageViewerTemplate, {
 		template: {
-			attachFooBox: false
+			attachFooBox: false,
+			loop: false
 		}
 	}, {
 		container: "foogallery fg-image-viewer"

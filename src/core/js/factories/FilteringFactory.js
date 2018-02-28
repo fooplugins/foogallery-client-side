@@ -72,8 +72,8 @@
 				def_cls = reg["default"].cls,
 				def_il8n = reg["default"].il8n,
 				opt = _is.hash(options.filtering) ? options.filtering : {},
-				cls = _is.hash(options.cls) && _is.hash(options.cls.filtering) ? options.cls.filtering : {},
-				il8n = _is.hash(options.il8n) && _is.hash(options.il8n.filtering) ? options.il8n.filtering : {};
+				cls = _is.hash(options.cls) && _is.hash(options.cls.filtering) ? _obj.extend({}, options.cls.filtering) : {},
+				il8n = _is.hash(options.il8n) && _is.hash(options.il8n.filtering) ? _obj.extend({}, options.il8n.filtering) : {};
 
 			if (!_is.hash(options.cls)) options.cls = {};
 			if (!_is.hash(options.il8n)) options.il8n = {};
