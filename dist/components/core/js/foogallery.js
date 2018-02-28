@@ -7184,6 +7184,13 @@
 					}
 					self.current = tags.slice();
 
+					if (self.tmpl.pages){
+						self.tmpl.pages.rebuild();
+						self.tmpl.pages.set(1);
+					} else {
+						self.tmpl.items.create(self.tmpl.getAvailable(), true);
+					}
+
 					if (updateState){
 						state = self.tmpl.state.get();
 						self.tmpl.state.update(state, self.pushOrReplace);
@@ -7210,14 +7217,8 @@
 			return true;
 		},
 		apply: function(tags){
-			var self = this, paged = !!self.tmpl.pages;
-			if (self.set(tags, !paged)){
-				if (paged){
-					self.tmpl.pages.rebuild();
-					self.tmpl.pages.set(1);
-				} else {
-					self.tmpl.items.create(self.tmpl.items.available(), true);
-				}
+			var self = this;
+			if (self.set(tags, !self.tmpl.pages)){
 				self.tmpl.loadAvailable();
 			}
 		}
