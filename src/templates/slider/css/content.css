@@ -116,18 +116,21 @@
 	-webkit-transform: translateX(-50%) translateY(-50%);
 	transform: translateX(-50%) translateY(-50%);
 }
-.fg-slider .fgs-playing .fgs-content-play,
-.fg-slider.fgs-content-hover .fgs-selected .fgs-content-play {
-	opacity: 0;
-	visibility: hidden;
+.fg-slider .fgs-content-play:before {
+	content: '\25ba';
 }
+
 .fg-slider .fgs-selected .fgs-content-play,
 .fg-slider.fgs-content-hover .fgs-selected:hover .fgs-content-play {
 	opacity: 1;
 	visibility: visible;
 }
-.fg-slider .fgs-content-play:before {
-	content: '\25ba';
+
+.fg-slider .fgs-playing .fgs-content-play,
+.fg-slider.fgs-content-hover .fgs-selected .fgs-content-play,
+.fg-slider.fgs-content-hover .fgs-playing:hover .fgs-content-play {
+	opacity: 0;
+	visibility: hidden;
 }
 
 .fg-slider .fgs-content-close:before,
