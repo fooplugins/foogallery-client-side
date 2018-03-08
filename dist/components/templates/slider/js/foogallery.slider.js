@@ -1,9 +1,13 @@
-(function ($, _, _utils, _is, _transition) {
+(function ($, _, _utils, _is, _obj, _transition) {
 
 	_.SliderTemplate = _.Template.extend({
 		construct: function (options, element) {
 			var self = this;
-			self._super(options, element);
+			self._super(_obj.extend({}, options, {
+				paging: {
+					type: "none"
+				}
+			}), element);
 			self.$contentContainer = $();
 			self.$contentStage = $();
 			self.$itemContainer = $();
@@ -23,12 +27,6 @@
 			self._lastVisible = -1;
 			self._breakpoint = null;
 		},
-		create: function() {
-			var self = this;
-			return $("<div/>", {"id": self.id, "class": self.cls.container})
-					.addClass(self.opt.classes)
-					.append(self.createChildren());
-		},
 		createChildren: function(){
 			var self = this;
 			return [
@@ -43,10 +41,6 @@
 			];
 		},
 		onPreInit: function(event, self){
-			self.$el.addClass(self.cls.container).addClass(self.opt.classes);
-			if (self.$el.children().length == 0){
-				self.$el.append(self.createChildren());
-			}
 			self.$contentContainer = self.$el.find(self.sel.contentContainer);
 			self.$contentStage = self.$el.find(self.sel.contentStage);
 			self.$itemContainer = self.$el.find(self.sel.itemContainer);
@@ -412,5 +406,6 @@
 		FooGallery,
 		FooGallery.utils,
 		FooGallery.utils.is,
+		FooGallery.utils.obj,
 		FooGallery.utils.transition
 );

@@ -1030,6 +1030,177 @@ only screen and (min-resolution: 2.25dppx) {
 	}
 
 }
+/* Icon & Overlay */
+.foogallery.fg-video-default 	.fg-video .fg-thumb:before,
+.foogallery.fg-video-1 				.fg-video .fg-thumb:before,
+.foogallery.fg-video-2 				.fg-video .fg-thumb:before,
+.foogallery.fg-video-3 				.fg-video .fg-thumb:before,
+.foogallery.fg-video-4 				.fg-video .fg-thumb:before {
+	content: "";
+	display: block;
+	position: absolute;
+	visibility: hidden;
+	opacity: 0;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 8;
+	background: rgba(0,0,0,0.5) no-repeat center center;
+	background-size: 48px 48px;
+}
+.foogallery.fg-video-sticky.fg-video-default 	.fg-video .fg-thumb:before,
+.foogallery.fg-video-sticky.fg-video-1 				.fg-video .fg-thumb:before,
+.foogallery.fg-video-sticky.fg-video-2 				.fg-video .fg-thumb:before,
+.foogallery.fg-video-sticky.fg-video-3 				.fg-video .fg-thumb:before,
+.foogallery.fg-video-sticky.fg-video-4 				.fg-video .fg-thumb:before {
+	background-color: transparent;
+	visibility: visible;
+	opacity: 0.8;
+	transform: none;
+}
+
+.foogallery.fg-video-default 	.fg-video .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-video-1 				.fg-video .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-video-2 				.fg-video .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-video-3 				.fg-video .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-video-4 				.fg-video .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-video-default 	.fg-video .fg-thumb:focus:before,
+.foogallery.fg-video-1 				.fg-video .fg-thumb:focus:before,
+.foogallery.fg-video-2 				.fg-video .fg-thumb:focus:before,
+.foogallery.fg-video-3 				.fg-video .fg-thumb:focus:before,
+.foogallery.fg-video-4 				.fg-video .fg-thumb:focus:before,
+.foogallery.fg-video-sticky.fg-video-default 	.fg-video .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-video-sticky.fg-video-1 				.fg-video .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-video-sticky.fg-video-2 				.fg-video .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-video-sticky.fg-video-3 				.fg-video .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-video-sticky.fg-video-4 				.fg-video .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-video-sticky.fg-video-default 	.fg-video .fg-thumb:focus:before,
+.foogallery.fg-video-sticky.fg-video-1 				.fg-video .fg-thumb:focus:before,
+.foogallery.fg-video-sticky.fg-video-2 				.fg-video .fg-thumb:focus:before,
+.foogallery.fg-video-sticky.fg-video-3 				.fg-video .fg-thumb:focus:before,
+.foogallery.fg-video-sticky.fg-video-4 				.fg-video .fg-thumb:focus:before {
+	background-color: rgba(0,0,0,0.5);
+	visibility: visible;
+	opacity: 1;
+}
+
+/* Support captions showing the icon */
+.foogallery.fg-video-default 	.fg-video .fg-caption-inner:before,
+.foogallery.fg-video-1 				.fg-video .fg-caption-inner:before,
+.foogallery.fg-video-2 				.fg-video .fg-caption-inner:before,
+.foogallery.fg-video-3 				.fg-video .fg-caption-inner:before,
+.foogallery.fg-video-4 				.fg-video .fg-caption-inner:before {
+	content: "";
+	display: inline-block;
+	position: relative;
+	width: 48px;
+	height: 48px;
+	margin: 10px 0 5px 0;
+	background: transparent no-repeat center center;
+	background-size: 48px 48px;
+	vertical-align: middle;
+}
+.foogallery.fg-video-sticky.fg-caption-hover .fg-video.fg-loaded .fg-thumb:before {
+	display: block;
+}
+.foogallery.fg-video-sticky.fg-caption-hover .fg-video .fg-caption-inner:before,
+.foogallery.fg-caption-always .fg-video .fg-caption-inner:before {
+	display: none;
+}
+
+
+
+.foogallery.fg-video-default .fg-video .fg-thumb:before,
+.foogallery.fg-video-default .fg-video .fg-caption-inner:before {
+	background-image: url('../img/video-default.png');
+}
+
+.foogallery.fg-video-1 .fg-video .fg-thumb:before,
+.foogallery.fg-video-1 .fg-video .fg-caption-inner:before {
+	background-image: url('../img/video-1.png');
+}
+
+.foogallery.fg-video-2 .fg-video .fg-thumb:before,
+.foogallery.fg-video-2 .fg-video .fg-caption-inner:before {
+	background-image: url('../img/video-2.png');
+}
+
+.foogallery.fg-video-3 .fg-video .fg-thumb:before,
+.foogallery.fg-video-3 .fg-video .fg-caption-inner:before {
+	background-image: url('../img/video-3.png');
+}
+
+.foogallery.fg-video-4 .fg-video .fg-thumb:before,
+.foogallery.fg-video-4 .fg-video .fg-caption-inner:before {
+	background-image: url('../img/video-4.png');
+}
+
+/* @2x Images (Pixel Ratio of 1.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 5/4),
+only screen and (-webkit-min-device-pixel-ratio: 1.25),
+only screen and (min-device-pixel-ratio: 1.25),
+only screen and (min-resolution: 1.25dppx) {
+
+	.foogallery.fg-video-default .fg-video .fg-thumb:before,
+	.foogallery.fg-video-default .fg-video .fg-caption-inner:before {
+		background-image: url('../img/video-default@2x.png');
+	}
+
+	.foogallery.fg-video-1 .fg-video .fg-thumb:before,
+	.foogallery.fg-video-1 .fg-video .fg-caption-inner:before {
+		background-image: url('../img/video-1@2x.png');
+	}
+
+	.foogallery.fg-video-2 .fg-video .fg-thumb:before,
+	.foogallery.fg-video-2 .fg-video .fg-caption-inner:before {
+		background-image: url('../img/video-2@2x.png');
+	}
+
+	.foogallery.fg-video-3 .fg-video .fg-thumb:before,
+	.foogallery.fg-video-3 .fg-video .fg-caption-inner:before {
+		background-image: url('../img/video-3@2x.png');
+	}
+
+	.foogallery.fg-video-4 .fg-video .fg-thumb:before,
+	.foogallery.fg-video-4 .fg-video .fg-caption-inner:before {
+		background-image: url('../img/video-4@2x.png');
+	}
+
+}
+
+/* @3x Images (Pixel Ratio of 2.25+) */
+@media only screen and (-o-min-device-pixel-ratio: 9/4),
+only screen and (-webkit-min-device-pixel-ratio: 2.25),
+only screen and (min-device-pixel-ratio: 2.25),
+only screen and (min-resolution: 2.25dppx) {
+
+	.foogallery.fg-video-default .fg-video .fg-thumb:before,
+	.foogallery.fg-video-default .fg-video .fg-caption-inner:before {
+		background-image: url('../img/video-default@3x.png');
+	}
+
+	.foogallery.fg-video-1 .fg-video .fg-thumb:before,
+	.foogallery.fg-video-1 .fg-video .fg-caption-inner:before {
+		background-image: url('../img/video-1@3x.png');
+	}
+
+	.foogallery.fg-video-2 .fg-video .fg-thumb:before,
+	.foogallery.fg-video-2 .fg-video .fg-caption-inner:before {
+		background-image: url('../img/video-2@3x.png');
+	}
+
+	.foogallery.fg-video-3 .fg-video .fg-thumb:before,
+	.foogallery.fg-video-3 .fg-video .fg-caption-inner:before {
+		background-image: url('../img/video-3@3x.png');
+	}
+
+	.foogallery.fg-video-4 .fg-video .fg-thumb:before,
+	.foogallery.fg-video-4 .fg-video .fg-caption-inner:before {
+		background-image: url('../img/video-4@3x.png');
+	}
+
+}
 /* Preset Reset & Common */
 .foogallery.fg-preset .fg-thumb {
 	transform: translateZ(0);
@@ -2243,7 +2414,7 @@ only screen and (min-resolution: 2.25dppx) {
 	left: 0;
 	top: 0;
 	bottom: 0;
-	transition-property: visibility, opacity;
+	transition-property: visibility, opacity, background-color;
 }
 .foogallery.fg-hover-colorize .fg-item-inner:hover .fg-thumb:before,
 .foogallery.fg-caption-hover.fg-hover-colorize .fg-item-inner:hover .fg-caption {
@@ -2257,7 +2428,7 @@ only screen and (min-resolution: 2.25dppx) {
 	left: 0;
 	top: 0;
 	bottom: 0;
-	transition-property: visibility, opacity;
+	transition-property: visibility, opacity, background-color;
 }
 .foogallery.fg-hover-fade .fg-loaded .fg-item-inner:hover .fg-thumb:before,
 .foogallery.fg-caption-hover.fg-hover-fade .fg-loaded .fg-item-inner:hover .fg-caption {
@@ -2287,7 +2458,7 @@ only screen and (min-resolution: 2.25dppx) {
 	left: 0;
 	top: 0;
 	bottom: 0;
-	transition-property: visibility, opacity;
+	transition-property: visibility, opacity, background-color;
 }
 .foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-thumb:before,
 .foogallery.fg-caption-hover.fg-hover-grayscale .fg-item-inner:hover .fg-caption {
@@ -2346,7 +2517,7 @@ only screen and (min-resolution: 2.25dppx) {
 	left: 0;
 	top: 0;
 	bottom: 0;
-	transition-property: visibility, opacity;
+	transition-property: visibility, opacity, background-color;
 }
 .foogallery.fg-hover-scale .fg-item-inner:hover .fg-thumb:before,
 .foogallery.fg-caption-hover.fg-hover-scale .fg-item-inner:hover .fg-caption {
@@ -2366,7 +2537,7 @@ only screen and (min-resolution: 2.25dppx) {
 	left: 0;
 	top: 0;
 	bottom: 0;
-	transition-property: transform;
+	transition-property: transform, background-color, opacity, visibility;
 	visibility: visible;
 	opacity: 1;
 }
@@ -5226,7 +5397,6 @@ only screen and (min-resolution: 2.25dppx) {
 .fg-slider {
 	display: block;
 	width: auto;
-	/*height: 335px;*/
 	height: 336px;
 	max-width: 1920px;
 	margin: 0 auto;
@@ -5494,6 +5664,10 @@ only screen and (min-resolution: 2.25dppx) {
 	-moz-user-drag: none;
 	user-drag: none;
 }
+.foogallery.fg-slider .fg-item .fg-thumb:before {
+	background-size: 24px 24px;
+}
+
 .fg-slider .fg-caption {
 	display: block;
 	position: relative;
@@ -5509,6 +5683,9 @@ only screen and (min-resolution: 2.25dppx) {
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
+}
+.foogallery.fg-slider .fg-item .fg-caption-inner:before {
+	display: none;
 }
 .fg-slider .fg-caption-title {
 	padding: 0;
@@ -5538,6 +5715,21 @@ only screen and (min-resolution: 2.25dppx) {
 .fg-slider.fgs-lg .fg-loader,
 .fg-slider.fgs-xl .fg-loader {
 	display: block;
+}
+
+/* Disable the push transition for this template as it is not supported */
+.fg-slider.fg-hover-push .fg-loaded .fg-thumb,
+.fg-slider.fg-hover-push .fg-loaded .fg-thumb:before,
+.fg-slider.fg-hover-push .fg-loaded .fg-item-inner:hover .fg-thumb {
+	transform: none;
+}
+.fg-slider.fg-hover-push .fg-item-inner .fg-thumb:before {
+	visibility: hidden;
+	opacity: 0;
+}
+.fg-slider.fg-hover-push .fg-item-inner:hover .fg-thumb:before {
+	visibility: visible;
+	opacity: 1;
 }
 /* Content */
 .fg-slider .fgs-content-container {
