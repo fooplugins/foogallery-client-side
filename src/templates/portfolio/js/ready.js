@@ -12,11 +12,11 @@
 		onInit: function(event, self){
 			self.portfolio.init();
 		},
-		onPostInit: function(event, self){
+		onFirstLoad: function(event, self){
 			self.portfolio.layout( true );
 		},
 		onReady: function(event, self){
-			self.portfolio.layout( true );
+			self.portfolio.layout();
 		},
 		onDestroy: function(event, self){
 			self.portfolio.destroy();
@@ -42,7 +42,7 @@
 	});
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils
 );
