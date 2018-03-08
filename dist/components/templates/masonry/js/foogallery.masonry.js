@@ -147,6 +147,16 @@
 			cls.layouts = $.map(cls.layout, function(value){
 				return value;
 			}).join(" ");
+			// check if the layout is supplied as a CSS class
+			var layouts = $.map(cls.layout, function(value, key){
+				return {key: key, value: value};
+			});
+			for (var i =0, l = layouts.length; i < l; i++){
+				if (self.$el.hasClass(layouts[i].value)){
+					self.template.layout = layouts[i].key;
+					break;
+				}
+			}
 			// check if the supplied layout is supported
 			if (!_is.string(cls.layout[self.template.layout])){
 				// if not set the default
@@ -188,13 +198,12 @@
 				rule = '#' + self.id + sel.container + ' ' + sel.item.elem + ' { margin-bottom: ' + self.template.gutter + 'px; }';
 				sheet.insertRule(rule , 0);
 			}
-
 			self.masonry = new Masonry( self.$el.get(0), self.template );
 		},
-		onInit: function(event, self){
+		onPostInit: function(event, self){
 			self.masonry.layout();
 		},
-		onPostInit: function(event, self){
+		onFirstLoad: function(event, self){
 			self.masonry.layout();
 		},
 		onReady: function(event, self){
@@ -203,11 +212,13 @@
 		onDestroy: function(event, self){
 			self.$el.find(self.sel.columnWidth).remove();
 			self.$el.find(self.sel.gutterWidth).remove();
-			if (self.masonry instanceof Masonry){
-				self.masonry.destroy();
-			}
 			if (self.style && self.style.parentNode){
 				self.style.parentNode.removeChild(self.style);
+			}
+		},
+		onDestroyed: function(event, self){
+			if (self.masonry instanceof Masonry){
+				self.masonry.destroy();
 			}
 		},
 		onLayout: function(event, self){
@@ -284,6 +295,8 @@
 
 	_.template.register("masonry", _.MasonryTemplate, {
 		template: {
+			initLayout: false,
+			isInitLayout: false,
 			layout: "col4"
 		}
 	}, {
@@ -358,8 +371,8 @@
 	 */
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
 );
