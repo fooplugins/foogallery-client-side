@@ -6,8 +6,8 @@
 			this.amount = this.opt.amount;
 			this._count = this.opt.amount;
 		},
-		build: function(items){
-			this._super(items);
+		build: function(){
+			this._super();
 			this._count = this.amount;
 		},
 		available: function(){

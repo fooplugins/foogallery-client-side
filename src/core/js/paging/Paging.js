@@ -86,7 +86,7 @@
 		number: function (value) {
 			return this.isValid(value) ? value : (this.current === 0 ? 1 : this.current);
 		},
-		create: function (pageNumber) {
+		create: function (pageNumber, isFilter) {
 			var self = this;
 			pageNumber = self.number(pageNumber);
 			var index = pageNumber - 1;
@@ -115,7 +115,7 @@
 							self.tmpl.state.update(state, self.pushOrReplace);
 						}
 						self.controls(pageNumber);
-						self.create(num);
+						self.create(num, isFilter);
 						if (updateState) {
 							state = self.tmpl.state.get();
 							self.tmpl.state.update(state, self.pushOrReplace);
