@@ -1,4 +1,4 @@
-(function($, _, _utils, _is, _fn, _obj){
+(function ($, _, _utils, _is, _fn, _obj) {
 
 	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
 		/**
@@ -10,7 +10,7 @@
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */
-		construct: function(template){
+		construct: function (template) {
 			var self = this;
 			/**
 			 * @ignore
@@ -27,7 +27,7 @@
 			var cls = self.tmpl.cls.item.caption;
 			self.tmpl.sel.item.caption.all = _utils.selectify([cls.elem, cls.inner, cls.title, cls.description]);
 		},
-		destroy: function(){
+		destroy: function () {
 			var self = this, items = self.all(), destroyed = [];
 			if (items.length > 0) {
 				/**
@@ -47,7 +47,7 @@
 				 * });
 				 */
 				self.tmpl.raise("destroy-items", [items]);
-				destroyed = $.map(items, function(item){
+				destroyed = $.map(items, function (item) {
 					return item.destroy() ? item : null;
 				});
 				/**
@@ -75,24 +75,24 @@
 			self._available = [];
 			self._super();
 		},
-		fetch: function(refresh){
+		fetch: function (refresh) {
 			var self = this;
 			if (!refresh && _is.promise(self._fetched)) return self._fetched;
 			var fg = self.tmpl, selectors = fg.sel,
-				option = fg.opt.items,
-				def = $.Deferred();
+					option = fg.opt.items,
+					def = $.Deferred();
 
 			var items = self.make(fg.$el.find(selectors.item.elem));
 
-			if (!_is.empty(option)){
-				if (_is.array(option)){
+			if (!_is.empty(option)) {
+				if (_is.array(option)) {
 					items.push.apply(items, self.make(option));
 					def.resolve(items);
-				} else if (_is.string(option)){
-					$.get(option).then(function(response){
+				} else if (_is.string(option)) {
+					$.get(option).then(function (response) {
 						items.push.apply(items, self.make(response));
 						def.resolve(items);
-					}, function( jqXHR, textStatus, errorThrown ){
+					}, function (jqXHR, textStatus, errorThrown) {
 						console.log("FooGallery: GET items error.", option, jqXHR, textStatus, errorThrown);
 						def.resolve(items);
 					});
@@ -103,33 +103,36 @@
 				items.push.apply(items, self.make(window[fg.id + "-items"]));
 				def.resolve(items);
 			}
-			def.then(function(items){
-				self._arr = items;
-				self.idMap = self.createIdMap(items);
-				self.setAvailable(self.all());
+			def.then(function (items) {
+				self.setAll(items);
 			});
 			return self._fetched = def.promise();
 		},
-		all: function(){
+		all: function () {
 			return this._arr.slice();
 		},
-		count: function(all){
+		count: function (all) {
 			return all ? this.all().length : this.available().length;
 		},
-		available: function(){
+		available: function () {
 			return this._available.slice();
 		},
-		get: function(id){
+		get: function (id) {
 			return !_is.empty(id) && !!this.idMap[id] ? this.idMap[id] : null;
 		},
-		setAvailable: function(items){
+		setAll: function (items) {
+			this._arr = _is.array(items) ? items : [];
+			this.idMap = this.createIdMap(items);
+			this._available = this.all();
+		},
+		setAvailable: function (items) {
 			this._available = _is.array(items) ? items : [];
 		},
-		reset: function(){
+		reset: function () {
 			this.setAvailable(this.all());
 		},
-		placeholder: function(width, height){
-			if (this._canvas && this._canvas.toDataURL && _is.number(width) && _is.number(height)){
+		placeholder: function (width, height) {
+			if (this._canvas && this._canvas.toDataURL && _is.number(width) && _is.number(height)) {
 				this._canvas.width = width;
 				this._canvas.height = height;
 				return this._canvas.toDataURL();
@@ -143,14 +146,14 @@
 		 * @param {FooGallery.Item[]} items - The items to filter.
 		 * @returns {FooGallery.Item[]}
 		 */
-		loadable: function(items){
+		loadable: function (items) {
 			var self = this, opt = self.tmpl.opt, viewport;
-			if (opt.lazy){
+			if (opt.lazy) {
 				viewport = _utils.getViewportBounds(opt.viewport);
 			}
-			return _is.array(items) ? $.map(items, function(item){
-				return item.isCreated && item.isAttached && !item.isLoading && !item.isLoaded && !item.isError && (!opt.lazy || (opt.lazy && item.intersects(viewport))) ? item : null;
-			}) : [];
+			return _is.array(items) ? $.map(items, function (item) {
+						return item.isCreated && item.isAttached && !item.isLoading && !item.isLoaded && !item.isError && (!opt.lazy || (opt.lazy && item.intersects(viewport))) ? item : null;
+					}) : [];
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be created.
@@ -159,10 +162,10 @@
 		 * @param {FooGallery.Item[]} items - The items to filter.
 		 * @returns {FooGallery.Item[]}
 		 */
-		creatable: function(items){
-			return _is.array(items) ? $.map(items, function(item){
-				return item instanceof _.Item && !item.isCreated ? item : null;
-			}) : [];
+		creatable: function (items) {
+			return _is.array(items) ? $.map(items, function (item) {
+						return item instanceof _.Item && !item.isCreated ? item : null;
+					}) : [];
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be appended.
@@ -171,10 +174,10 @@
 		 * @param {FooGallery.Item[]} items - The items to filter.
 		 * @returns {FooGallery.Item[]}
 		 */
-		appendable: function(items){
-			return _is.array(items) ? $.map(items, function(item){
-					return item instanceof _.Item && item.isCreated && !item.isAttached ? item : null;
-				}) : [];
+		appendable: function (items) {
+			return _is.array(items) ? $.map(items, function (item) {
+						return item instanceof _.Item && item.isCreated && !item.isAttached ? item : null;
+					}) : [];
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be detached.
@@ -183,10 +186,10 @@
 		 * @param {FooGallery.Item[]} items - The items to filter.
 		 * @returns {FooGallery.Item[]}
 		 */
-		detachable: function(items){
-			return _is.array(items) ? $.map(items, function(item){
-				return item instanceof _.Item && item.isCreated && item.isAttached ? item : null;
-			}) : [];
+		detachable: function (items) {
+			return _is.array(items) ? $.map(items, function (item) {
+						return item instanceof _.Item && item.isCreated && item.isAttached ? item : null;
+					}) : [];
 		},
 		/**
 		 * @summary Get a single jQuery object containing all the supplied items' elements.
@@ -195,7 +198,7 @@
 		 * @param {FooGallery.Item[]} items - The items to get a jQuery object for.
 		 * @returns {jQuery}
 		 */
-		jquerify: function(items){
+		jquerify: function (items) {
 			return $($.map(items, function (item) {
 				return item.$el.get();
 			}));
@@ -210,9 +213,9 @@
 		 * @fires FooGallery.Template~"made-items.foogallery"
 		 * @fires FooGallery.Template~"parsed-items.foogallery"
 		 */
-		make: function(items){
+		make: function (items) {
 			var self = this, made = [];
-			if (_is.jq(items) || _is.array(items)){
+			if (_is.jq(items) || _is.array(items)) {
 				var parsed = [], arr = $.makeArray(items);
 				if (arr.length === 0) return made;
 				/**
@@ -244,13 +247,13 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("make-items", [arr]);
-				if (!e.isDefaultPrevented()){
-					made = $.map(arr, function(obj){
+				if (!e.isDefaultPrevented()) {
+					made = $.map(arr, function (obj) {
 						var type = self.type(obj),
 								opt = _obj.extend(_is.hash(obj) ? obj : {}, {type: type});
 						var item = _.components.make(type, self.tmpl, opt);
-						if (_is.element(obj)){
-							if (item.parse(obj)){
+						if (_is.element(obj)) {
+							if (item.parse(obj)) {
 								parsed.push(item);
 								return item;
 							}
@@ -298,11 +301,11 @@
 			}
 			return made;
 		},
-		type: function(objOrElement){
+		type: function (objOrElement) {
 			var type;
-			if (_is.hash(objOrElement)){
+			if (_is.hash(objOrElement)) {
 				type = objOrElement.type;
-			} else if (_is.element(objOrElement)){
+			} else if (_is.element(objOrElement)) {
 				type = $(objOrElement).find(this.tmpl.sel.item.anchor).data("type");
 			}
 			return _is.string(type) && _.components.contains(type) ? type : "item";
@@ -320,7 +323,7 @@
 		 * @fires FooGallery.Template~"append-items.foogallery"
 		 * @fires FooGallery.Template~"appended-items.foogallery"
 		 */
-		create: function(items, append){
+		create: function (items, append) {
 			var self = this, created = [], creatable = self.creatable(items);
 			if (creatable.length > 0) {
 				/**
@@ -352,8 +355,8 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("create-items", [creatable]);
-				if (!e.isDefaultPrevented()){
-					created = $.map(creatable, function(item){
+				if (!e.isDefaultPrevented()) {
+					created = $.map(creatable, function (item) {
 						return item.create() ? item : null;
 					});
 				}
@@ -387,7 +390,7 @@
 		 * @fires FooGallery.Template~"append-items.foogallery"
 		 * @fires FooGallery.Template~"appended-items.foogallery"
 		 */
-		append: function(items){
+		append: function (items) {
 			var self = this, appended = [], appendable = self.appendable(items);
 			if (appendable.length > 0) {
 				/**
@@ -418,8 +421,8 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("append-items", [appendable]);
-				if (!e.isDefaultPrevented()){
-					appended = $.map(appendable, function(item){
+				if (!e.isDefaultPrevented()) {
+					appended = $.map(appendable, function (item) {
 						return item.append() ? item : null;
 					});
 				}
@@ -452,7 +455,7 @@
 		 * @fires FooGallery.Template~"detach-items.foogallery"
 		 * @fires FooGallery.Template~"detached-items.foogallery"
 		 */
-		detach: function(items){
+		detach: function (items) {
 			var self = this, detached = [], detachable = self.detachable(items);
 			if (detachable.length > 0) {
 				/**
@@ -483,8 +486,8 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("detach-items", [detachable]);
-				if (!e.isDefaultPrevented()){
-					detached = $.map(detachable, function(item){
+				if (!e.isDefaultPrevented()) {
+					detached = $.map(detachable, function (item) {
 						return item.detach() ? item : null;
 					});
 				}
@@ -517,10 +520,10 @@
 		 * @fires FooGallery.Template~"load-items.foogallery"
 		 * @fires FooGallery.Template~"loaded-items.foogallery"
 		 */
-		load: function(items){
+		load: function (items) {
 			var self = this;
 			items = self.loadable(items);
-			if (items.length > 0){
+			if (items.length > 0) {
 				/**
 				 * @summary Raised before the template loads any items.
 				 * @event FooGallery.Template~"load-items.foogallery"
@@ -549,11 +552,11 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("load-items", [items]);
-				if (!e.isDefaultPrevented()){
-					var loading = $.map(items, function(item){
+				if (!e.isDefaultPrevented()) {
+					var loading = $.map(items, function (item) {
 						return item.load();
 					});
-					return _fn.when(loading).done(function(loaded) {
+					return _fn.when(loading).done(function (loaded) {
 						/**
 						 * @summary Raised after the template has loaded items.
 						 * @event FooGallery.Template~"loaded-items.foogallery"
@@ -576,9 +579,9 @@
 			}
 			return _fn.resolveWith([]);
 		},
-		createIdMap: function(items){
+		createIdMap: function (items) {
 			var map = {};
-			$.each(items, function(i, item){
+			$.each(items, function (i, item) {
 				if (_is.empty(item.id)) item.id = "" + (i + 1);
 				map[item.id] = item;
 			});
@@ -589,10 +592,10 @@
 	_.components.register("items", _.Items);
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is,
-	FooGallery.utils.fn,
-	FooGallery.utils.obj
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.obj
 );

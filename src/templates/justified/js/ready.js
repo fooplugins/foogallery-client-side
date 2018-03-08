@@ -7,11 +7,11 @@
 		onInit: function(event, self){
 			self.justified.init();
 		},
-		onPostInit: function(event, self){
+		onFirstLoad: function(event, self){
 			self.justified.layout( true );
 		},
 		onReady: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		},
 		onDestroy: function(event, self){
 			self.justified.destroy();
@@ -35,7 +35,7 @@
 	});
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils
 );

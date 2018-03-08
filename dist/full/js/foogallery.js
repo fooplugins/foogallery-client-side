@@ -2935,7 +2935,7 @@
 	FooGallery.utils,
 	FooGallery.utils.is
 );
-(function($, _, _utils, _is, _fn){
+(function ($, _, _utils, _is, _fn) {
 
 	_.debug = new _utils.Debugger("__FooGallery__");
 
@@ -2946,20 +2946,21 @@
 	 * @param {(string|string[]|object)} classes - A single space delimited string of CSS class names to convert or an array of them with each item being included in the selector using the OR (`,`) syntax as a separator. If an object is supplied the result will be an object with the same property names but the values converted to selectors.
 	 * @returns {(object|string)}
 	 */
-	_utils.selectify = function(classes){
-		if (_is.hash(classes)){
+	_utils.selectify = function (classes) {
+		if (_is.empty(classes)) return null;
+		if (_is.hash(classes)) {
 			var result = {}, selector;
-			for (var name in classes){
+			for (var name in classes) {
 				if (!classes.hasOwnProperty(name)) continue;
-				if (selector = _utils.selectify(classes[name])){
+				if (selector = _utils.selectify(classes[name])) {
 					result[name] = selector;
 				}
 			}
 			return result;
 		}
-		if (_is.string(classes) || _is.array(classes)){
+		if (_is.string(classes) || _is.array(classes)) {
 			if (_is.string(classes)) classes = [classes];
-			return $.map(classes, function(str){
+			return $.map(classes, function (str) {
 				return _is.string(str) ? "." + str.split(/\s/g).join(".") : null;
 			}).join(",");
 		}
@@ -2993,17 +2994,17 @@
 	 */
 	_.dataItem = "__FooGalleryItem__";
 
-	_.init = function(options, element){
+	_.init = function (options, element) {
 		return _.template.make(options, element).initialize();
 	};
 
-	_.initAll = function(options){
-		return _fn.when($(".foogallery").map(function(i, element){
+	_.initAll = function (options) {
+		return _fn.when($(".foogallery").map(function (i, element) {
 			return _.init(options, element);
 		}).get());
 	};
 
-	_.parseSrc = function(src, srcWidth, srcHeight, srcset, renderWidth, renderHeight){
+	_.parseSrc = function (src, srcWidth, srcHeight, srcset, renderWidth, renderHeight) {
 		if (!_is.string(src)) return null;
 		// if there is no srcset just return the src
 		if (!_is.string(srcset)) return src;
@@ -3031,8 +3032,8 @@
 
 		// get the current viewport info and use it to determine the correct src to load
 		var dpr = window.devicePixelRatio || 1,
-			area = {w: renderWidth * dpr, h: renderHeight * dpr, x: dpr},
-			property;
+				area = {w: renderWidth * dpr, h: renderHeight * dpr, x: dpr},
+				property;
 
 		// first check each of the viewport properties against the max values of the same properties in our src array
 		// only src's with a property greater than the viewport or equal to the max are kept
@@ -3079,15 +3080,15 @@
 	 *     <div class="fg-item-inner">
 	 *       <a class="fg-thumb" href="[item.href]">
 	 *         <img class="fg-image" width="[item.width]" height="[item.height]"
-	 *         	title="[item.title]" alt="[item.description]"
-	 *         	data-src="[item.src]"
-	 *         	data-srcset="[item.srcset]" />
+	 *          title="[item.title]" alt="[item.description]"
+	 *          data-src="[item.src]"
+	 *          data-srcset="[item.srcset]" />
 	 *         <!-- Optional caption markup -->
 	 *         <div class="fg-caption">
-	 *         	<div class="fg-caption-inner">
-	 *         	 <div class="fg-caption-title">[item.title]</div>
-	 *         	 <div class="fg-caption-desc">[item.description]</div>
-	 *         	</div>
+	 *          <div class="fg-caption-inner">
+	 *           <div class="fg-caption-title">[item.title]</div>
+	 *           <div class="fg-caption-desc">[item.description]</div>
+	 *          </div>
 	 *         </div>
 	 *       </a>
 	 *     </div>
@@ -3095,17 +3096,17 @@
 	 *   <!-- Any number of additional items -->
 	 * </div>
 	 * <script>
-	 * 	jQuery(function($){
+	 *  jQuery(function($){
 	 * 		$("#gallery-1").foogallery();
 	 * 	});
 	 * </script>
 	 * @example {@caption Options can be supplied directly to the `.foogallery()` method or by supplying them using the `data-foogallery` attribute. If supplied using the attribute the value must follow [valid JSON syntax](http://en.wikipedia.org/wiki/JSON#Data_types.2C_syntax_and_example) including quoted property names. If the same option is supplied in both locations as it is below, the value from the attribute overrides the value supplied to the method, in this case `lazy` would be `true`.}{@lang html}
 	 * <!-- Supplying the options using the attribute -->
 	 * <div id="gallery-1" class="foogallery fg-responsive" data-foogallery='{"lazy": true}'>
-	 * 	<!-- Items -->
+	 *  <!-- Items -->
 	 * </div>
 	 * <script>
-	 * 	jQuery(function($){
+	 *  jQuery(function($){
 	 * 		// Supply the options directly to the method
 	 * 		$("#gallery-1").foogallery({
 	 * 			lazy: false
@@ -3113,12 +3114,12 @@
 	 * 	});
 	 * </script>
 	 */
-	$.fn.foogallery = function(options, ready){
-		return this.each(function(i, element){
-			if (_is.string(options)){
+	$.fn.foogallery = function (options, ready) {
+		return this.each(function (i, element) {
+			if (_is.string(options)) {
 				var template = $.data(element, _.dataTemplate);
-				if (template instanceof _.Template){
-					switch (options){
+				if (template instanceof _.Template) {
+					switch (options) {
 						case "layout":
 							template.layout();
 							return;
@@ -3128,8 +3129,8 @@
 					}
 				}
 			} else {
-				_.template.make(options, element).initialize().then(function(template){
-					if (_is.fn(ready)){
+				_.template.make(options, element).initialize().then(function (template) {
+					if (_is.fn(ready)) {
 						ready(template);
 					}
 				});
@@ -3150,324 +3151,13 @@
 	 */
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is,
-	FooGallery.utils.fn
-);
-(function($, _, _utils, _is, _obj) {
-
-	var DATA_NAME = "__FooGallerySwipe__",
-			TOUCH = "ontouchstart" in window,
-			POINTER_IE10 = window.navigator.msPointerEnabled && !window.navigator.pointerEnabled && !TOUCH,
-			POINTER = (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) && !TOUCH,
-			USE_TOUCH = TOUCH || POINTER;
-
-	_.Swipe = _utils.Class.extend(/** @lend FooGallery.Swipe */{
-		/**
-		 * @summary A utility class for handling swipe gestures on touch devices.
-		 * @memberof FooGallery
-		 * @constructs Swipe
-		 * @param {Element} element - The element being bound to.
-		 * @param {Object} options - Any options for the current instance of the class.
-		 * @augments FooGallery.utils.Class
-		 * @borrows FooGallery.utils.Class.extend as extend
-		 * @borrows FooGallery.utils.Class.override as override
-		 */
-		construct: function(element, options){
-			var self = this, ns = ".fgswipe";
-			/**
-			 * @summary The jQuery element this instance of the class is bound to.
-			 * @memberof FooGallery.Swipe
-			 * @name $el
-			 * @type {jQuery}
-			 */
-			self.$el = $(element);
-			/**
-			 * @summary The options for this instance of the class.
-			 * @memberof FooGallery.Swipe
-			 * @name opt
-			 * @type {FooGallery.Swipe~Options}
-			 */
-			self.opt = _obj.extend({
-				threshold: 20,
-				allowPageScroll: false,
-				swipe: $.noop,
-				data: {}
-			}, options);
-			/**
-			 * @summary Whether or not a swipe is in progress.
-			 * @memberof FooGallery.Swipe
-			 * @name active
-			 * @type {boolean}
-			 */
-			self.active = false;
-			/**
-			 * @summary The start point for the last swipe.
-			 * @memberof FooGallery.Swipe
-			 * @name startPoint
-			 * @type {?FooGallery.Swipe~Point}
-			 */
-			self.startPoint = null;
-			/**
-			 * @summary The end point for the last swipe.
-			 * @memberof FooGallery.Swipe
-			 * @name startPoint
-			 * @type {?FooGallery.Swipe~Point}
-			 */
-			self.endPoint = null;
-			/**
-			 * @summary The event names used by this instance of the plugin.
-			 * @memberof FooGallery.Swipe
-			 * @name events
-			 * @type {{start: string, move: string, end: string, leave: string}}
-			 */
-			self.events = {
-				start: (USE_TOUCH ? (POINTER ? (POINTER_IE10 ? 'MSPointerDown' : 'pointerdown') : 'touchstart') : 'mousedown') + ns,
-				move: (USE_TOUCH ? (POINTER ? (POINTER_IE10 ? 'MSPointerMove' : 'pointermove') : 'touchmove') : 'mousemove') + ns,
-				end: (USE_TOUCH ? (POINTER ? (POINTER_IE10 ? 'MSPointerUp' : 'pointerup') : 'touchend') : 'mouseup') + ns,
-				leave: (USE_TOUCH ? (POINTER ? 'mouseleave' : null) : 'mouseleave') + ns
-			};
-		},
-		/**
-		 * @summary Initializes this instance of the class.
-		 * @memberof FooGallery.Swipe
-		 * @function init
-		 */
-		init: function(){
-			var self = this;
-			self.$el.on(self.events.start, {self: self}, self.onStart);
-			self.$el.on(self.events.move, {self: self}, self.onMove);
-			self.$el.on(self.events.end, {self: self}, self.onEnd);
-			if (_is.string(self.events.leave)) self.$el.on(self.events.leave, {self: self}, self.onEnd);
-			self.$el.data(DATA_NAME, self);
-		},
-		/**
-		 * @summary Destroys this instance of the class.
-		 * @memberof FooGallery.Swipe
-		 * @function destroy
-		 */
-		destroy: function(){
-			var self = this;
-			self.$el.off(self.events.start, self.onStart);
-			self.$el.off(self.events.move, self.onMove);
-			self.$el.off(self.events.end, self.onEnd);
-			if (_is.string(self.events.leave)) self.$el.off(self.events.leave, self.onEnd);
-			self.$el.removeData(DATA_NAME);
-		},
-		/**
-		 * @summary Gets the angle between two points.
-		 * @memberof FooGallery.Swipe
-		 * @function getAngle
-		 * @param {FooGallery.Swipe~Point} pt1 - The first point.
-		 * @param {FooGallery.Swipe~Point} pt2 - The second point.
-		 * @returns {number}
-		 */
-		getAngle: function(pt1, pt2){
-			var radians = Math.atan2(pt1.x - pt2.x, pt1.y - pt2.y),
-					degrees = Math.round(radians * 180 / Math.PI);
-			return 360 - (degrees < 0 ? 360 - Math.abs(degrees) : degrees);
-		},
-		/**
-		 * @summary Gets the distance between two points.
-		 * @memberof FooGallery.Swipe
-		 * @function getDistance
-		 * @param {FooGallery.Swipe~Point} pt1 - The first point.
-		 * @param {FooGallery.Swipe~Point} pt2 - The second point.
-		 * @returns {number}
-		 */
-		getDistance: function(pt1, pt2){
-			var xs = pt2.x - pt1.x,
-					ys = pt2.y - pt1.y;
-
-			xs *= xs;
-			ys *= ys;
-
-			return Math.sqrt( xs + ys );
-		},
-		/**
-		 * @summary Gets the general direction between two points and returns the result as a compass heading: N, NE, E, SE, S, SW, W, NW or NONE if the points are the same.
-		 * @memberof FooGallery.Swipe
-		 * @function getDirection
-		 * @param {FooGallery.Swipe~Point} pt1 - The first point.
-		 * @param {FooGallery.Swipe~Point} pt2 - The second point.
-		 * @returns {string}
-		 */
-		getDirection: function(pt1, pt2){
-			var self = this, angle = self.getAngle(pt1, pt2);
-			if (angle > 337.5 || angle <= 22.5) return "N";
-			else if (angle > 22.5 && angle <= 67.5) return "NE";
-			else if (angle > 67.5 && angle <= 112.5) return "E";
-			else if (angle > 112.5 && angle <= 157.5) return "SE";
-			else if (angle > 157.5 && angle <= 202.5) return "S";
-			else if (angle > 202.5 && angle <= 247.5) return "SW";
-			else if (angle > 247.5 && angle <= 292.5) return "W";
-			else if (angle > 292.5 && angle <= 337.5) return "NW";
-			return "NONE";
-		},
-		/**
-		 * @summary Gets the pageX and pageY point from the supplied event whether it is for a touch or mouse event.
-		 * @memberof FooGallery.Swipe
-		 * @function getPoint
-		 * @param {jQuery.Event} event - The event to parse the point from.
-		 * @returns {FooGallery.Swipe~Point}
-		 */
-		getPoint: function(event){
-			var touches;
-			if (USE_TOUCH && !_is.empty(touches = event.originalEvent.touches || event.touches)){
-				return {x: touches[0].pageX, y: touches[0].pageY};
-			}
-			if (_is.number(event.pageX) && _is.number(event.pageY)){
-				return {x: event.pageX, y: event.pageY};
-			}
-			return null;
-		},
-		/**
-		 * @summary Gets the offset from the supplied point.
-		 * @memberof FooGallery.Swipe
-		 * @function getOffset
-		 * @param {FooGallery.Swipe~Point} pt - The point to use to calculate the offset.
-		 * @returns {FooGallery.Swipe~Offset}
-		 */
-		getOffset: function(pt){
-			var self = this, offset = self.$el.offset();
-			return {
-				left: pt.x - offset.left,
-				top: pt.y - offset.top
-			};
-		},
-		/**
-		 * @summary Handles the {@link FooGallery.Swipe#events.start|start} event.
-		 * @memberof FooGallery.Swipe
-		 * @function onStart
-		 * @param {jQuery.Event} event - The event object for the current event.
-		 */
-		onStart: function(event){
-			var self = event.data.self, pt = self.getPoint(event);
-			if (!_is.empty(pt)){
-				self.active = true;
-				self.startPoint = self.endPoint = pt;
-			}
-		},
-		/**
-		 * @summary Handles the {@link FooGallery.Swipe#events.move|move} event.
-		 * @memberof FooGallery.Swipe
-		 * @function onMove
-		 * @param {jQuery.Event} event - The event object for the current event.
-		 */
-		onMove: function(event){
-			var self = event.data.self, pt = self.getPoint(event);
-			if (self.active && !_is.empty(pt)){
-				self.endPoint = pt;
-				if (!self.opt.allowPageScroll){
-					event.preventDefault();
-				}
-			}
-		},
-		/**
-		 * @summary Handles the {@link FooGallery.Swipe#events.end|end} and {@link FooGallery.Swipe#events.leave|leave} events.
-		 * @memberof FooGallery.Swipe
-		 * @function onEnd
-		 * @param {jQuery.Event} event - The event object for the current event.
-		 */
-		onEnd: function(event){
-			var self = event.data.self;
-			if (self.active){
-				self.active = false;
-				var info = {
-					startPoint: self.startPoint,
-					endPoint: self.endPoint,
-					startOffset: self.getOffset(self.startPoint),
-					endOffset: self.getOffset(self.endPoint),
-					angle: self.getAngle(self.startPoint, self.endPoint),
-					distance: self.getDistance(self.startPoint, self.endPoint),
-					direction: self.getDirection(self.startPoint, self.endPoint)
-				};
-
-				if (self.opt.threshold > 0 && info.distance < self.opt.threshold) return;
-
-				self.opt.swipe.apply(this, [info, self.opt.data]);
-				self.startPoint = null;
-				self.endPoint = null;
-			}
-		}
-	});
-
-	/**
-	 * @summary Expose FooGallery.Swipe as a jQuery plugin.
-	 * @memberof external:"jQuery.fn"#
-	 * @function fgswipe
-	 * @param {(FooGallery.Swipe~Options|string)} [options] - The options to supply to FooGallery.Swipe or one of the supported method names.
-	 * @returns {jQuery}
-	 */
-	$.fn.fgswipe = function(options){
-		return this.each(function(){
-			var $this = $(this), swipe = $this.data(DATA_NAME), exists = swipe instanceof _.Swipe;
-			if (exists){
-				if (_is.string(options) && _is.fn(swipe[options])){
-					swipe[options]();
-					return;
-				} else {
-					swipe.destroy();
-				}
-			}
-			if (_is.hash(options)){
-				swipe = new _.Swipe(this, options);
-				swipe.init();
-			}
-		});
-	};
-
-	/**
-	 * @summary A simple point object containing X and Y coordinates.
-	 * @typedef {Object} FooGallery.Swipe~Point
-	 * @property {number} x - The X coordinate.
-	 * @property {number} y - The Y coordinate.
-	 */
-
-	/**
-	 * @summary A simple offset object containing top and left values.
-	 * @typedef {Object} FooGallery.Swipe~Offset
-	 * @property {number} left - The left value.
-	 * @property {number} top - The top value.
-	 */
-
-	/**
-	 * @summary The information object supplied as the first parameter to the {@link FooGallery.Swipe~swipeCallback} function.
-	 * @typedef {Object} FooGallery.Swipe~Info
-	 * @property {FooGallery.Swipe~Point} startPoint - The page X and Y coordinates where the swipe began.
-	 * @property {FooGallery.Swipe~Point} endPoint - The page X and Y coordinates where the swipe ended.
-	 * @property {FooGallery.Swipe~Offset} startOffset - The top and left values where the swipe began.
-	 * @property {FooGallery.Swipe~Offset} endOffset - The top and left values where the swipe ended.
-	 * @property {number} angle - The angle traveled from the start to the end of the swipe.
-	 * @property {number} distance - The distance traveled from the start to the end of the swipe.
-	 * @property {string} direction - The general direction traveled from the start to the end of the swipe: N, NE, E, SE, S, SW, W, NW or NONE if the points are the same.
-	 */
-
-	/**
-	 * @summary The callback function to execute whenever a swipe occurs.
-	 * @callback FooGallery.Swipe~swipeCallback
-	 * @param {FooGallery.Swipe~Info} info - The swipe info.
-	 * @param {Object} data - Any additional data supplied when the swipe was bound.
-	 */
-
-	/**
-	 * @summary The options available for the swipe utility class.
-	 * @typedef {Object} FooGallery.Swipe~Options
-	 * @property {number} [threshold=20] - The minimum distance to travel before being registered as a swipe.
-	 * @property {FooGallery.Swipe~swipeCallback} swipe - The callback function to execute whenever a swipe occurs.
-	 * @property {Object} [data={}] - Any additional data to supply to the swipe callback.
-	 */
-
-})(
 		FooGallery.$,
 		FooGallery,
 		FooGallery.utils,
 		FooGallery.utils.is,
-		FooGallery.utils.obj
+		FooGallery.utils.fn
 );
-(function($, _, _utils, _is, _fn, _obj){
+(function ($, _, _utils, _is, _fn, _obj) {
 
 	_.TemplateFactory = _utils.Factory.extend(/** @lends FooGallery.TemplateFactory */{
 		/**
@@ -3479,7 +3169,7 @@
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */
-		construct: function(){
+		construct: function () {
 			/**
 			 * @summary An object containing all registered galleries.
 			 * @memberof FooGallery.TemplateFactory#
@@ -3517,9 +3207,9 @@
 		 * @param {number} [priority=0] - This determines the index for the class when using either the {@link FooGallery.TemplateFactory#load|load} or {@link FooGallery.TemplateFactory#names|names} methods, a higher value equals a lower index.
 		 * @returns {boolean} `true` if the `klass` was successfully registered.
 		 */
-		register: function(name, template, options, classes, il8n, priority){
+		register: function (name, template, options, classes, il8n, priority) {
 			var self = this, result = self._super(name, template, priority);
-			if (result){
+			if (result) {
 				var reg = self.registered;
 				reg[name].opt = _is.hash(options) ? options : {};
 				reg[name].cls = _is.hash(classes) ? classes : {};
@@ -3535,7 +3225,7 @@
 		 * @param {(jQuery|HTMLElement|string)} [element] - The jQuery object, HTMLElement or selector of the template element to create. If not supplied the {@link FooGallery~Options#type|type} options' value is used.
 		 * @returns {FooGallery.Template}
 		 */
-		make: function(options, element){
+		make: function (options, element) {
 			element = _is.jq(element) ? element : $(element);
 			options = _obj.extend({}, options, element.data("foogallery"));
 			var self = this, type = self.type(options, element);
@@ -3543,10 +3233,10 @@
 			options = self.options(type, options);
 			return self._super(type, options, element);
 		},
-		type: function(options, element){
+		type: function (options, element) {
 			element = _is.jq(element) ? element : $(element);
 			var self = this, type = _is.hash(options) && _is.hash(options) && _is.string(options.type) && self.contains(options.type) ? options.type : "core";
-			if (type === "core" && element.length > 0){
+			if (type === "core" && element.length > 0) {
 				var reg = self.registered, names = self.names(true);
 				for (var i = 0, l = names.length; i < l; i++) {
 					if (!reg.hasOwnProperty(names[i])) continue;
@@ -3561,17 +3251,17 @@
 			}
 			return type;
 		},
-		configure: function(name, options, classes, il8n){
+		configure: function (name, options, classes, il8n) {
 			var self = this;
-			if (self.contains(name)){
+			if (self.contains(name)) {
 				var reg = self.registered;
 				_obj.extend(reg[name].opt, options);
 				_obj.extend(reg[name].cls, classes);
 				_obj.extend(reg[name].il8n, il8n);
 			}
 		},
-		options: function(name, options){
-			options = _obj.extend({}, options);
+		options: function (name, options) {
+			options = _obj.extend({type: name}, options);
 			var self = this, reg = self.registered,
 					def = reg["core"].opt,
 					cls = reg["core"].cls,
@@ -3582,7 +3272,7 @@
 			if (!_is.undef(_.filtering)) options = _.filtering.merge(options);
 			if (!_is.undef(_.paging)) options = _.paging.merge(options);
 
-			if (name !== "core" && self.contains(name)){
+			if (name !== "core" && self.contains(name)) {
 				options = _obj.extend({}, def, reg[name].opt, options);
 				options.cls = _obj.extend({}, cls, reg[name].cls, options.cls);
 				options.il8n = _obj.extend({}, il8n, reg[name].il8n, options.il8n);
@@ -3899,7 +3589,9 @@
 	FooGallery.utils.fn,
 	FooGallery.utils.obj
 );
-(function($, _, _utils, _is, _fn, _str){
+(function ($, _, _utils, _is, _fn, _str) {
+
+	var instance = 0;
 
 	_.Template = _utils.Class.extend(/** @lends FooGallery.Template */{
 		/**
@@ -3912,8 +3604,15 @@
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */
-		construct: function(options, element){
+		construct: function (options, element) {
 			var self = this;
+			/**
+			 * @summary An instance specific namespace to use when binding events to global objects that could be shared across multiple galleries.
+			 * @memberof FooGallery.Template#
+			 * @name namespace
+			 * @type {string}
+			 */
+			self.namespace = ".foogallery-" + (++instance);
 			/**
 			 * @summary The jQuery object for the template container.
 			 * @memberof FooGallery.Template#
@@ -3942,13 +3641,6 @@
 			 * @type {string}
 			 */
 			self.id = self.$el.prop("id") || options.id;
-			/**
-			 * @summary Whether or not the template created its' own container element.
-			 * @memberof FooGallery.Template#
-			 * @name createdSelf
-			 * @type {boolean}
-			 */
-			self.createdSelf = false;
 			/**
 			 * @summary The CSS classes for the template.
 			 * @memberof FooGallery.Template#
@@ -4010,6 +3702,12 @@
 			self.initialized = false;
 			self.destroying = false;
 			self.destroyed = false;
+			self._undo = {
+				classes: "",
+				style: "",
+				create: false,
+				children: false
+			};
 		},
 
 		// ################
@@ -4028,38 +3726,55 @@
 		 * @fires FooGallery.Template~"post-init.foogallery"
 		 * @fires FooGallery.Template~"ready.foogallery"
 		 */
-		initialize: function(parent){
+		initialize: function (parent) {
 			var self = this;
 			if (_is.promise(self._initialize)) return self._initialize;
 			parent = _is.jq(parent) ? parent : $(parent);
-			return self._initialize = $.Deferred(function(def){
+			return self._initialize = $.Deferred(function (def) {
 				self.initializing = true;
-				if (parent.length === 0 && self.$el.parent().length === 0){
+				if (parent.length === 0 && self.$el.parent().length === 0) {
 					def.reject("A parent element is required.");
 					return;
 				}
-				if (self.$el.length === 0){
+				if (self.$el.length === 0) {
 					self.$el = self.create();
-					self.createdSelf = true;
+					self._undo.create = true;
 				}
-				if (parent.length > 0){
+				if (parent.length > 0) {
 					self.$el.appendTo(parent);
 				}
 				var queue = $.Deferred(), promise = queue.promise(), existing;
-				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template){
-					promise = promise.then(function(){
-						return existing.destroy().then(function(){
+				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template) {
+					promise = promise.then(function () {
+						return existing.destroy().then(function () {
 							self.$el.data(_.dataTemplate, self);
 						});
 					});
 				} else {
 					self.$el.data(_.dataTemplate, self);
 				}
-				promise.then(function(){
+				promise.then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					// at this point we have our container element free of pre-existing instances so let's bind any event listeners supplied by the .on option
-					if (!_is.empty(self.opt.on)){
+					if (!_is.empty(self.opt.on)) {
 						self.$el.on(self.opt.on);
+					}
+					self._undo.classes = self.$el.attr("class");
+					self._undo.style = self.$el.attr("style");
+
+					// ensure the container has it's required CSS classes
+					if (!self.$el.is(self.sel.container)) {
+						self.$el.addClass(self.cls.container);
+					}
+					var selector = _utils.selectify(self.opt.classes);
+					if (selector != null && !self.$el.is(selector)) {
+						self.$el.addClass(self.opt.classes);
+					}
+
+					// if the container currently has no children make them
+					if (self.$el.children().length == 0) {
+						self.$el.append(self.createChildren());
+						self._undo.children = true;
 					}
 
 					/**
@@ -4092,17 +3807,17 @@
 					 */
 					var e = self.raise("pre-init");
 					if (e.isDefaultPrevented()) return _fn.rejectWith("pre-init default prevented");
-				}).then(function(){
+				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					// checks the delay option and if it is greater than 0 waits for that amount of time before continuing
 					if (self.opt.delay <= 0) return _fn.resolved;
-					return $.Deferred(function(wait){
+					return $.Deferred(function (wait) {
 						self._delay = setTimeout(function () {
 							self._delay = null;
 							wait.resolve();
 						}, self.opt.delay);
 					}).promise();
-				}).then(function(){
+				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					/**
 					 * @summary Raised before the template is initialized but after any pre-initialization work is complete.
@@ -4148,7 +3863,7 @@
 					var e = self.raise("init");
 					if (e.isDefaultPrevented()) return _fn.rejectWith("init default prevented");
 					return self.items.fetch();
-				}).then(function(){
+				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					/**
 					 * @summary Raised after the template is initialized but before any post-initialization work is complete.
@@ -4195,9 +3910,9 @@
 					if (e.isDefaultPrevented()) return _fn.rejectWith("post-init default prevented");
 					var state = self.state.parse();
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
-					$(window).on("scroll.foogallery", {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle))
-							.on("popstate.foogallery", {self: self}, self.onWindowPopState);
-				}).then(function(){
+					$(window).on("scroll" + self.namespace, {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle))
+							.on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
+				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					/**
 					 * @summary Raised after the template is fully initialized but before the first load occurs.
@@ -4217,7 +3932,7 @@
 					 */
 					self.raise("first-load");
 					return self.loadAvailable();
-				}).then(function(){
+				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					self.initializing = false;
 					self.initialized = true;
@@ -4247,11 +3962,11 @@
 					 */
 					self.raise("ready");
 					def.resolve(self);
-				}).fail(function(err){
+				}).fail(function (err) {
 					def.reject(err);
 				});
 				queue.resolve();
-			}).promise().fail(function(err){
+			}).promise().fail(function (err) {
 				console.log("initialize failed", self, err);
 				self.destroy();
 			});
@@ -4266,9 +3981,19 @@
 		 * <div id="{options.id}" class="{options.cls.container} {options.classes}">
 		 * </div>
 		 */
-		create: function(){
+		create: function () {
 			var self = this;
 			return $("<div/>", {"id": self.id, "class": self.cls.container}).addClass(self.opt.classes);
+		},
+		/**
+		 * @summary Create any container child elements for the template returning the jQuery object.
+		 * @memberof FooGallery.Template#
+		 * @function createChildren
+		 * @returns {(jQuery|jQuery[]|HTMLElement|HTMLElement[])} A jQuery object to use as the container for the template.
+		 * @description This method is called just prior to the {@link FooGallery.Template~"preinit.foogallery"|preinit} event if the container element has no children to allow templates to add any markup required.
+		 */
+		createChildren: function () {
+			return $();
 		},
 
 		// #############
@@ -4283,13 +4008,13 @@
 		 * @description Once this method is called it can not be stopped and the template will be destroyed.
 		 * @fires FooGallery.Template~"destroy.foogallery"
 		 */
-		destroy: function(){
+		destroy: function () {
 			var self = this;
 			if (self.destroyed) return _fn.resolved;
 			self.destroying = true;
-			return $.Deferred(function(def){
-				if (self.initializing && _is.promise(self._initialize)){
-					self._initialize.always(function(){
+			return $.Deferred(function (def) {
+				if (self.initializing && _is.promise(self._initialize)) {
+					self._initialize.always(function () {
 						self.destroying = false;
 						self._destroy();
 						def.resolve();
@@ -4307,7 +4032,7 @@
 		 * @function _destroy
 		 * @private
 		 */
-		_destroy: function(){
+		_destroy: function () {
 			var self = this;
 			if (self.destroyed) return;
 			/**
@@ -4326,13 +4051,12 @@
 			 * });
 			 */
 			self.raise("destroy");
-			$(window).off("popstate.foogallery", self.onWindowPopState)
-					.off("scroll.foogallery");
+			$(window).off(self.namespace);
 			self.state.destroy();
 			if (self.filter) self.filter.destroy();
 			if (self.pages) self.pages.destroy();
 			self.items.destroy();
-			if (!_is.empty(self.opt.on)){
+			if (!_is.empty(self.opt.on)) {
 				self.$el.off(self.opt.on);
 			}
 			/**
@@ -4352,7 +4076,17 @@
 			 */
 			self.raise("destroyed");
 			self.$el.removeData(_.dataTemplate);
-			if (self.createdSelf){
+
+			if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
+			else self.$el.attr("class", self._undo.classes);
+
+			if (_is.empty(self._undo.style)) self.$el.removeAttr("style");
+			else self.$el.attr("style", self._undo.style);
+
+			if (self._undo.children) {
+				self.$el.empty();
+			}
+			if (self._undo.create) {
 				self.$el.remove();
 			}
 			self.$el = self.state = self.items = self.pages = null;
@@ -4372,7 +4106,7 @@
 		 * @function getAvailable
 		 * @returns {FooGallery.Item[]} An array of {@link FooGallery.Item|items}.
 		 */
-		getAvailable: function(){
+		getAvailable: function () {
 			return this.pages ? this.pages.available() : this.items.available();
 		},
 
@@ -4382,7 +4116,7 @@
 		 * @function loadAvailable
 		 * @returns {Promise<FooGallery.Item[]>} Resolves with an array of {@link FooGallery.Item|items} as the first argument. If no items are loaded this array is empty.
 		 */
-		loadAvailable: function(){
+		loadAvailable: function () {
 			return this.items.load(this.getAvailable());
 		},
 
@@ -4392,11 +4126,11 @@
 		 * @function _check
 		 * @private
 		 */
-		_check: function(delay){
+		_check: function (delay) {
 			delay = _is.number(delay) ? delay : 0;
 			var self = this;
-			setTimeout(function(){
-				if (self.initialized && (!self.destroying || !self.destroyed)){
+			setTimeout(function () {
+				if (self.initialized && (!self.destroying || !self.destroyed)) {
 					self.loadAvailable();
 				}
 			}, delay);
@@ -4425,20 +4159,20 @@
 			if (!_is.string(eventName) || _is.empty(eventName)) return null;
 			args = _is.array(args) ? args : [];
 			var self = this,
-				name = eventName.split(".")[0],
-				listener = _str.camel("on-" + name),
-				event = $.Event(name + ".foogallery");
+					name = eventName.split(".")[0],
+					listener = _str.camel("on-" + name),
+					event = $.Event(name + ".foogallery");
 			args.unshift(self); // add self
 			self.$el.trigger(event, args);
 			_.debug.logf("{id}|{name}:", {id: self.id, name: name}, args);
-			if (_is.fn(self[listener])){
+			if (_is.fn(self[listener])) {
 				args.unshift(event); // add event
 				self[listener].apply(self.$el.get(0), args);
 			}
 			return event;
 		},
 
-		layout: function(){
+		layout: function () {
 			var self = this;
 			if (self._initialize === null) return;
 			/**
@@ -4468,9 +4202,9 @@
 		 * @param {number} wait - The number of milliseconds to wait before allowing execution.
 		 * @returns {Function}
 		 */
-		throttle: function(fn, wait){
+		throttle: function (fn, wait) {
 			var time = Date.now();
-			return function() {
+			return function () {
 				if ((time + wait - Date.now()) < 0) {
 					var args = _fn.arg2arr(arguments);
 					fn.apply(this, args);
@@ -4490,9 +4224,9 @@
 		 * @param {jQuery.Event} e - The jQuery.Event object for the event.
 		 * @private
 		 */
-		onWindowPopState: function(e){
+		onWindowPopState: function (e) {
 			var self = e.data.self, state = e.originalEvent.state;
-			if (!_is.empty(state) && state.id === self.id){
+			if (!_is.empty(state) && state.id === self.id) {
 				self.state.set(state);
 				self.loadAvailable();
 			}
@@ -4504,7 +4238,7 @@
 		 * @param {jQuery.Event} e - The jQuery.Event object for the event.
 		 * @private
 		 */
-		onWindowScroll: function(e){
+		onWindowScroll: function (e) {
 			var self = e.data.self;
 			self.loadAvailable();
 		}
@@ -4526,9 +4260,7 @@
 		template: {}
 	}, {
 		container: "foogallery"
-	}, {
-
-	}, -100);
+	}, {}, -100);
 
 	/**
 	 * @summary An object containing all the core template options.
@@ -4575,15 +4307,13 @@
 	 */
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is,
-	FooGallery.utils.fn,
-	FooGallery.utils.str
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.str
 );
-
-
 (function(_, _utils){
 
 	_.Component = _utils.Class.extend(/** @lend FooGallery.Component */{
@@ -4949,7 +4679,7 @@
 	FooGallery.utils.is,
 	FooGallery.utils.str
 );
-(function($, _, _utils, _is, _fn, _obj){
+(function ($, _, _utils, _is, _fn, _obj) {
 
 	_.Item = _.Component.extend(/** @lends FooGallery.Item */{
 		/**
@@ -4962,7 +4692,7 @@
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */
-		construct: function(template, options){
+		construct: function (template, options) {
 			var self = this;
 			/**
 			 * @ignore
@@ -5171,6 +4901,14 @@
 			 */
 			self._thumbUrl = null;
 			/**
+			 * @summary The placeholder url for this item generated by calling the {@link FooGallery.Items#placeholder|placeholder} method.
+			 * @memberof FooGallery.Item#
+			 * @name _placeholder
+			 * @type {string}
+			 * @private
+			 */
+			self._placeholder = null;
+			/**
 			 * @summary This property is used to store the promise created when loading an item for the first time.
 			 * @memberof FooGallery.Item#
 			 * @name _load
@@ -5178,13 +4916,26 @@
 			 * @private
 			 */
 			self._load = null;
+			/**
+			 * @summary This property is used to store the init state of an item the first time it is parsed and is used to reset state during destroy.
+			 * @memberof FooGallery.Item#
+			 * @name _undo
+			 * @type {object}
+			 * @private
+			 */
+			self._undo = {
+				classes: "",
+				style: "",
+				loader: false,
+				placeholder: false
+			};
 		},
 		/**
 		 * @summary Destroy the item preparing it for garbage collection.
 		 * @memberof FooGallery.Item#
 		 * @function destroy
 		 */
-		destroy: function(){
+		destroy: function () {
 			var self = this;
 			/**
 			 * @summary Raised when a template destroys an item.
@@ -5230,7 +4981,7 @@
 			 * });
 			 */
 			var e = self.tmpl.raise("destroy-item");
-			if (!e.isDefaultPrevented()){
+			if (!e.isDefaultPrevented()) {
 				self.doDestroyItem();
 				self._super();
 			}
@@ -5241,12 +4992,25 @@
 		 * @memberof FooGallery.Item#
 		 * @function doDestroyItem
 		 */
-		doDestroyItem: function(){
+		doDestroyItem: function () {
 			var self = this;
-			if (self.isParsed && !self.isAttached){
+			if (self.isParsed) {
 				self.append();
-			} else if (!self.isParsed && self.isAttached) {
+				if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
+				else self.$el.attr("class", self._undo.classes);
+
+				if (_is.empty(self._undo.style)) self.$el.removeAttr("style");
+				else self.$el.attr("style", self._undo.style);
+
+				if (self._undo.loader) {
+					self.$el.find(self.sel.loader).remove();
+				}
+				if (self._undo.placeholder && self.$image.prop("src") == self._placeholder) {
+					self.$image.removeAttr("src");
+				}
+			} else if (self.isCreated) {
 				self.detach();
+				self.$el.remove();
 			}
 		},
 		/**
@@ -5258,7 +5022,7 @@
 		 * @fires FooGallery.Template~"parse-item.foogallery"
 		 * @fires FooGallery.Template~"parsed-item.foogallery"
 		 */
-		parse: function(element){
+		parse: function (element) {
 			var self = this, $el = $(element);
 			/**
 			 * @summary Raised when an item needs to parse properties from an element.
@@ -5303,12 +5067,12 @@
 			 * });
 			 */
 			var e = self.tmpl.raise("parse-item", [self, $el]);
-			if (!e.isDefaultPrevented() && (self.isCreated = $el.is(self.sel.elem))){
+			if (!e.isDefaultPrevented() && (self.isCreated = $el.is(self.sel.elem))) {
 				self.isParsed = self.doParseItem($el);
 				self.fix();
 				// We don't load the attributes when parsing as they are only ever used to create an item and if you're parsing it's already created.
 			}
-			if (self.isParsed){
+			if (self.isParsed) {
 				/**
 				 * @summary Raised after an item has been parsed from an element.
 				 * @event FooGallery.Template~"parsed-item.foogallery"
@@ -5337,8 +5101,11 @@
 		 * @param {jQuery} $el - The jQuery element to parse.
 		 * @returns {boolean}
 		 */
-		doParseItem: function($el){
+		doParseItem: function ($el) {
 			var self = this, o = self.tmpl.opt, cls = self.cls, sel = self.sel;
+
+			self._undo.classes = $el.attr("class") || "";
+			self._undo.style = $el.attr("style") || "";
 
 			self.$el = $el.data(_.dataItem, self);
 			self.$inner = self.$el.find(sel.inner);
@@ -5364,21 +5131,24 @@
 			if (_is.empty(self.caption)) self.caption = $.trim(self.$caption.find(sel.caption.title).html());
 			if (_is.empty(self.description)) self.description = $.trim(self.$caption.find(sel.caption.description).html());
 			// enforce the max lengths for the caption and description
-			if (_is.number(self.maxCaptionLength) && self.maxCaptionLength > 0 && !_is.empty(self.caption) && _is.string(self.caption) && self.caption.length > self.maxCaptionLength){
+			if (_is.number(self.maxCaptionLength) && self.maxCaptionLength > 0 && !_is.empty(self.caption) && _is.string(self.caption) && self.caption.length > self.maxCaptionLength) {
 				self.$caption.find(sel.caption.title).html(self.caption.substr(0, self.maxCaptionLength) + "&hellip;");
 			}
-			if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength > 0 && !_is.empty(self.description) && _is.string(self.description) && self.description.length > self.maxDescriptionLength){
+			if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength > 0 && !_is.empty(self.description) && _is.string(self.description) && self.description.length > self.maxDescriptionLength) {
 				self.$caption.find(sel.caption.description).html(self.description.substr(0, self.maxDescriptionLength) + "&hellip;");
 			}
 			// check if the item has a loader
-			if (self.$el.find(sel.loader).length === 0){
+			if (self.$el.find(sel.loader).length === 0) {
 				self.$el.append($("<div/>", {"class": cls.loader}));
+				self._undo.loader = true;
 			}
 			// if the image has no src url then set the placeholder
-			if (_is.empty(self.$image.prop("src"))){
-				self.$image.prop("src", self.tmpl.items.placeholder(self.width, self.height));
+			if (_is.empty(self.$image.prop("src"))) {
+				self._placeholder = self.tmpl.items.placeholder(self.width, self.height);
+				self.$image.prop("src", self._placeholder);
+				self._undo.placeholder = true;
 			}
-			if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError){
+			if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError) {
 				self.$el.addClass(cls.idle);
 			}
 			return true;
@@ -5391,9 +5161,9 @@
 		 * @fires FooGallery.Template~"create-item.foogallery"
 		 * @fires FooGallery.Template~"created-item.foogallery"
 		 */
-		create: function(){
+		create: function () {
 			var self = this;
-			if (!self.isCreated && _is.string(self.href) && _is.string(self.src) && _is.number(self.width) && _is.number(self.height)){
+			if (!self.isCreated && _is.string(self.href) && _is.string(self.src) && _is.number(self.width) && _is.number(self.height)) {
 				/**
 				 * @summary Raised when an item needs to create its' elements.
 				 * @event FooGallery.Template~"create-item.foogallery"
@@ -5436,10 +5206,10 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("create-item", [self]);
-				if (!e.isDefaultPrevented()){
+				if (!e.isDefaultPrevented()) {
 					self.isCreated = self.doCreateItem();
 				}
-				if (self.isCreated){
+				if (self.isCreated) {
 					/**
 					 * @summary Raised after an items' elements have been created.
 					 * @event FooGallery.Template~"created-item.foogallery"
@@ -5467,7 +5237,7 @@
 		 * @function doCreateItem
 		 * @returns {boolean}
 		 */
-		doCreateItem: function(){
+		doCreateItem: function () {
 			var self = this, o = self.tmpl.opt, cls = self.cls, attr = self.attr;
 			attr.elem["class"] = cls.elem + " " + cls.idle;
 
@@ -5478,7 +5248,7 @@
 			attr.anchor["data-id"] = self.id;
 			attr.anchor["data-title"] = self.caption;
 			attr.anchor["data-description"] = self.description;
-			if (!_is.empty(self.tags)){
+			if (!_is.empty(self.tags)) {
 				attr.anchor["data-tags"] = JSON.stringify(self.tags);
 			}
 
@@ -5501,25 +5271,25 @@
 			attr.elem["class"] = cls.elem;
 			self.$caption = $("<figcaption/>").attr(attr.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
 			var hasTitle = !_is.empty(self.caption), hasDesc = !_is.empty(self.description);
-			if (hasTitle || hasDesc){
+			if (hasTitle || hasDesc) {
 				attr.inner["class"] = cls.inner;
 				attr.title["class"] = cls.title;
 				attr.description["class"] = cls.description;
 				var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
-				if (hasTitle){
+				if (hasTitle) {
 					var $title;
 					// enforce the max length for the caption
-					if (_is.number(self.maxCaptionLength) && self.maxCaptionLength  > 0 && _is.string(self.caption) && self.caption.length > self.maxCaptionLength){
+					if (_is.number(self.maxCaptionLength) && self.maxCaptionLength > 0 && _is.string(self.caption) && self.caption.length > self.maxCaptionLength) {
 						$title = $("<div/>").attr(attr.title).html(self.caption.substr(0, self.maxCaptionLength) + "&hellip;");
 					} else {
 						$title = $("<div/>").attr(attr.title).html(self.caption);
 					}
 					$inner.append($title);
 				}
-				if (hasDesc){
+				if (hasDesc) {
 					var $desc;
 					// enforce the max length for the description
-					if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength  > 0 && _is.string(self.description) && self.description.length > self.maxDescriptionLength){
+					if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength > 0 && _is.string(self.description) && self.description.length > self.maxDescriptionLength) {
 						$desc = $("<div/>").attr(attr.description).html(self.description.substr(0, self.maxDescriptionLength) + "&hellip;");
 					} else {
 						$desc = $("<div/>").attr(attr.description).html(self.description);
@@ -5529,7 +5299,7 @@
 			}
 			self.$caption.appendTo(self.$inner);
 			// check if the item has a loader
-			if (self.$el.find(self.sel.loader).length === 0){
+			if (self.$el.find(self.sel.loader).length === 0) {
 				self.$el.append($("<div/>", {"class": self.cls.loader}));
 			}
 			return true;
@@ -5542,9 +5312,9 @@
 		 * @fires FooGallery.Template~"append-item.foogallery"
 		 * @fires FooGallery.Template~"appended-item.foogallery"
 		 */
-		append: function(){
+		append: function () {
 			var self = this;
-			if (self.isCreated && !self.isAttached){
+			if (self.isCreated && !self.isAttached) {
 				/**
 				 * @summary Raised when an item needs to append its elements to the template.
 				 * @event FooGallery.Template~"append-item.foogallery"
@@ -5587,12 +5357,12 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("append-item", [self]);
-				if (!e.isDefaultPrevented()){
+				if (!e.isDefaultPrevented()) {
 					self.tmpl.$el.append(self.$el);
 					self.fix();
 					self.isAttached = true;
 				}
-				if (self.isAttached){
+				if (self.isAttached) {
 					/**
 					 * @summary Raised after an item has appended its' elements to the template.
 					 * @event FooGallery.Template~"appended-item.foogallery"
@@ -5620,9 +5390,9 @@
 		 * @function detach
 		 * @returns {boolean}
 		 */
-		detach: function(){
+		detach: function () {
 			var self = this;
-			if (self.isCreated && self.isAttached){
+			if (self.isCreated && self.isAttached) {
 				/**
 				 * @summary Raised when an item needs to detach its' elements from the template.
 				 * @event FooGallery.Template~"detach-item.foogallery"
@@ -5665,12 +5435,12 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("detach-item", [self]);
-				if (!e.isDefaultPrevented()){
+				if (!e.isDefaultPrevented()) {
 					self.$el.detach();
 					self.unfix();
 					self.isAttached = false;
 				}
-				if (!self.isAttached){
+				if (!self.isAttached) {
 					/**
 					 * @summary Raised after an item has detached its' elements from the template.
 					 * @event FooGallery.Template~"detached-item.foogallery"
@@ -5698,7 +5468,7 @@
 		 * @function load
 		 * @returns {Promise.<FooGallery.Item>}
 		 */
-		load: function(){
+		load: function () {
 			var self = this;
 			if (_is.promise(self._load)) return self._load;
 			if (!self.isCreated || !self.isAttached) return _fn.rejectWith("not created or attached");
@@ -5740,18 +5510,18 @@
 		 * @function fix
 		 * @returns {FooGallery.Item}
 		 */
-		fix: function(){
+		fix: function () {
 			var self = this, e = self.tmpl.raise("fix-item", [self]);
-			if (!e.isDefaultPrevented() && self.isCreated && !self.isLoading && !self.isLoaded && !self.isError){
+			if (!e.isDefaultPrevented() && self.isCreated && !self.isLoading && !self.isLoaded && !self.isError) {
 				var w = self.width, h = self.height;
 				// if we have a base width and height to work with
-				if (!isNaN(w) && !isNaN(h)){
+				if (!isNaN(w) && !isNaN(h)) {
 					// figure out the max image width and calculate the height the image should be displayed as
 					var width = _is.fn(self.maxWidth) ? self.maxWidth(self) : self.$image.width();
 					if (width <= 0) width = w;
 					var ratio = width / w, height = h * ratio;
 					// actually set the inline css on the image
-					self.$image.css({width: width,height: height});
+					self.$image.css({width: width, height: height});
 				}
 			}
 			return self;
@@ -5762,9 +5532,9 @@
 		 * @function unfix
 		 * @returns {FooGallery.Item}
 		 */
-		unfix: function(){
+		unfix: function () {
 			var self = this, e = self.tmpl.raise("unfix-item", [self]);
-			if (!e.isDefaultPrevented() && self.isCreated) self.$image.css({width: '',height: ''});
+			if (!e.isDefaultPrevented() && self.isCreated) self.$image.css({width: '', height: ''});
 			return self;
 		},
 		/**
@@ -5774,7 +5544,7 @@
 		 * @param {boolean} [refresh=false] - Whether or not to force refreshing of the cached value.
 		 * @returns {string}
 		 */
-		getThumbUrl: function(refresh){
+		getThumbUrl: function (refresh) {
 			refresh = _is.boolean(refresh) ? refresh : false;
 			var self = this;
 			if (!refresh && _is.string(self._thumbUrl)) return self._thumbUrl;
@@ -5785,11 +5555,11 @@
 		 * @memberof FooGallery.Item#
 		 * @function scrollTo
 		 */
-		scrollTo: function(align){
+		scrollTo: function (align) {
 			var self = this;
-			if (self.isAttached){
+			if (self.isAttached) {
 				var ib = self.bounds(), vb = _utils.getViewportBounds();
-				switch(align){
+				switch (align) {
 					case "top": // attempts to center the item horizontally but aligns the top with the middle of the viewport
 						ib.left += (ib.width / 2) - (vb.width / 2);
 						ib.top -= (vb.height / 5);
@@ -5809,7 +5579,7 @@
 		 * @function bounds
 		 * @returns {?FooGallery.utils.Bounds}
 		 */
-		bounds: function(){
+		bounds: function () {
 			return this.isAttached ? _utils.getElementBounds(this.$el) : null;
 		},
 		/**
@@ -5819,7 +5589,7 @@
 		 * @param {FooGallery.utils.Bounds} bounds - The bounds to check.
 		 * @returns {boolean}
 		 */
-		intersects: function(bounds){
+		intersects: function (bounds) {
 			return this.isAttached ? this.bounds().intersects(bounds) : false;
 		},
 		/**
@@ -5829,9 +5599,9 @@
 		 * @param {jQuery.Event} e - The jQuery.Event object for the click event.
 		 * @private
 		 */
-		onAnchorClick: function(e){
+		onAnchorClick: function (e) {
 			var self = e.data.self,
-				state = self.tmpl.state.get(self);
+					state = self.tmpl.state.get(self);
 			self.tmpl.state.update(state);
 		},
 		/**
@@ -5841,9 +5611,9 @@
 		 * @param {jQuery.Event} e - The jQuery.Event object for the click event.
 		 * @private
 		 */
-		onCaptionClick: function(e){
+		onCaptionClick: function (e) {
 			var self = e.data.self;
-			if ($(e.target).is(self.sel.caption.all) && self.$anchor.length > 0){
+			if ($(e.target).is(self.sel.caption.all) && self.$anchor.length > 0) {
 				self.$anchor.get(0).click();
 			}
 		}
@@ -5976,14 +5746,14 @@
 	 */
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is,
-	FooGallery.utils.fn,
-	FooGallery.utils.obj
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.obj
 );
-(function($, _, _utils, _is, _fn, _obj){
+(function ($, _, _utils, _is, _fn, _obj) {
 
 	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
 		/**
@@ -5995,7 +5765,7 @@
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */
-		construct: function(template){
+		construct: function (template) {
 			var self = this;
 			/**
 			 * @ignore
@@ -6012,7 +5782,7 @@
 			var cls = self.tmpl.cls.item.caption;
 			self.tmpl.sel.item.caption.all = _utils.selectify([cls.elem, cls.inner, cls.title, cls.description]);
 		},
-		destroy: function(){
+		destroy: function () {
 			var self = this, items = self.all(), destroyed = [];
 			if (items.length > 0) {
 				/**
@@ -6032,7 +5802,7 @@
 				 * });
 				 */
 				self.tmpl.raise("destroy-items", [items]);
-				destroyed = $.map(items, function(item){
+				destroyed = $.map(items, function (item) {
 					return item.destroy() ? item : null;
 				});
 				/**
@@ -6060,24 +5830,24 @@
 			self._available = [];
 			self._super();
 		},
-		fetch: function(refresh){
+		fetch: function (refresh) {
 			var self = this;
 			if (!refresh && _is.promise(self._fetched)) return self._fetched;
 			var fg = self.tmpl, selectors = fg.sel,
-				option = fg.opt.items,
-				def = $.Deferred();
+					option = fg.opt.items,
+					def = $.Deferred();
 
 			var items = self.make(fg.$el.find(selectors.item.elem));
 
-			if (!_is.empty(option)){
-				if (_is.array(option)){
+			if (!_is.empty(option)) {
+				if (_is.array(option)) {
 					items.push.apply(items, self.make(option));
 					def.resolve(items);
-				} else if (_is.string(option)){
-					$.get(option).then(function(response){
+				} else if (_is.string(option)) {
+					$.get(option).then(function (response) {
 						items.push.apply(items, self.make(response));
 						def.resolve(items);
-					}, function( jqXHR, textStatus, errorThrown ){
+					}, function (jqXHR, textStatus, errorThrown) {
 						console.log("FooGallery: GET items error.", option, jqXHR, textStatus, errorThrown);
 						def.resolve(items);
 					});
@@ -6088,33 +5858,36 @@
 				items.push.apply(items, self.make(window[fg.id + "-items"]));
 				def.resolve(items);
 			}
-			def.then(function(items){
-				self._arr = items;
-				self.idMap = self.createIdMap(items);
-				self.setAvailable(self.all());
+			def.then(function (items) {
+				self.setAll(items);
 			});
 			return self._fetched = def.promise();
 		},
-		all: function(){
+		all: function () {
 			return this._arr.slice();
 		},
-		count: function(all){
+		count: function (all) {
 			return all ? this.all().length : this.available().length;
 		},
-		available: function(){
+		available: function () {
 			return this._available.slice();
 		},
-		get: function(id){
+		get: function (id) {
 			return !_is.empty(id) && !!this.idMap[id] ? this.idMap[id] : null;
 		},
-		setAvailable: function(items){
+		setAll: function (items) {
+			this._arr = _is.array(items) ? items : [];
+			this.idMap = this.createIdMap(items);
+			this._available = this.all();
+		},
+		setAvailable: function (items) {
 			this._available = _is.array(items) ? items : [];
 		},
-		reset: function(){
+		reset: function () {
 			this.setAvailable(this.all());
 		},
-		placeholder: function(width, height){
-			if (this._canvas && this._canvas.toDataURL && _is.number(width) && _is.number(height)){
+		placeholder: function (width, height) {
+			if (this._canvas && this._canvas.toDataURL && _is.number(width) && _is.number(height)) {
 				this._canvas.width = width;
 				this._canvas.height = height;
 				return this._canvas.toDataURL();
@@ -6128,14 +5901,14 @@
 		 * @param {FooGallery.Item[]} items - The items to filter.
 		 * @returns {FooGallery.Item[]}
 		 */
-		loadable: function(items){
+		loadable: function (items) {
 			var self = this, opt = self.tmpl.opt, viewport;
-			if (opt.lazy){
+			if (opt.lazy) {
 				viewport = _utils.getViewportBounds(opt.viewport);
 			}
-			return _is.array(items) ? $.map(items, function(item){
-				return item.isCreated && item.isAttached && !item.isLoading && !item.isLoaded && !item.isError && (!opt.lazy || (opt.lazy && item.intersects(viewport))) ? item : null;
-			}) : [];
+			return _is.array(items) ? $.map(items, function (item) {
+						return item.isCreated && item.isAttached && !item.isLoading && !item.isLoaded && !item.isError && (!opt.lazy || (opt.lazy && item.intersects(viewport))) ? item : null;
+					}) : [];
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be created.
@@ -6144,10 +5917,10 @@
 		 * @param {FooGallery.Item[]} items - The items to filter.
 		 * @returns {FooGallery.Item[]}
 		 */
-		creatable: function(items){
-			return _is.array(items) ? $.map(items, function(item){
-				return item instanceof _.Item && !item.isCreated ? item : null;
-			}) : [];
+		creatable: function (items) {
+			return _is.array(items) ? $.map(items, function (item) {
+						return item instanceof _.Item && !item.isCreated ? item : null;
+					}) : [];
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be appended.
@@ -6156,10 +5929,10 @@
 		 * @param {FooGallery.Item[]} items - The items to filter.
 		 * @returns {FooGallery.Item[]}
 		 */
-		appendable: function(items){
-			return _is.array(items) ? $.map(items, function(item){
-					return item instanceof _.Item && item.isCreated && !item.isAttached ? item : null;
-				}) : [];
+		appendable: function (items) {
+			return _is.array(items) ? $.map(items, function (item) {
+						return item instanceof _.Item && item.isCreated && !item.isAttached ? item : null;
+					}) : [];
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be detached.
@@ -6168,10 +5941,10 @@
 		 * @param {FooGallery.Item[]} items - The items to filter.
 		 * @returns {FooGallery.Item[]}
 		 */
-		detachable: function(items){
-			return _is.array(items) ? $.map(items, function(item){
-				return item instanceof _.Item && item.isCreated && item.isAttached ? item : null;
-			}) : [];
+		detachable: function (items) {
+			return _is.array(items) ? $.map(items, function (item) {
+						return item instanceof _.Item && item.isCreated && item.isAttached ? item : null;
+					}) : [];
 		},
 		/**
 		 * @summary Get a single jQuery object containing all the supplied items' elements.
@@ -6180,7 +5953,7 @@
 		 * @param {FooGallery.Item[]} items - The items to get a jQuery object for.
 		 * @returns {jQuery}
 		 */
-		jquerify: function(items){
+		jquerify: function (items) {
 			return $($.map(items, function (item) {
 				return item.$el.get();
 			}));
@@ -6195,9 +5968,9 @@
 		 * @fires FooGallery.Template~"made-items.foogallery"
 		 * @fires FooGallery.Template~"parsed-items.foogallery"
 		 */
-		make: function(items){
+		make: function (items) {
 			var self = this, made = [];
-			if (_is.jq(items) || _is.array(items)){
+			if (_is.jq(items) || _is.array(items)) {
 				var parsed = [], arr = $.makeArray(items);
 				if (arr.length === 0) return made;
 				/**
@@ -6229,13 +6002,13 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("make-items", [arr]);
-				if (!e.isDefaultPrevented()){
-					made = $.map(arr, function(obj){
+				if (!e.isDefaultPrevented()) {
+					made = $.map(arr, function (obj) {
 						var type = self.type(obj),
 								opt = _obj.extend(_is.hash(obj) ? obj : {}, {type: type});
 						var item = _.components.make(type, self.tmpl, opt);
-						if (_is.element(obj)){
-							if (item.parse(obj)){
+						if (_is.element(obj)) {
+							if (item.parse(obj)) {
 								parsed.push(item);
 								return item;
 							}
@@ -6283,11 +6056,11 @@
 			}
 			return made;
 		},
-		type: function(objOrElement){
+		type: function (objOrElement) {
 			var type;
-			if (_is.hash(objOrElement)){
+			if (_is.hash(objOrElement)) {
 				type = objOrElement.type;
-			} else if (_is.element(objOrElement)){
+			} else if (_is.element(objOrElement)) {
 				type = $(objOrElement).find(this.tmpl.sel.item.anchor).data("type");
 			}
 			return _is.string(type) && _.components.contains(type) ? type : "item";
@@ -6305,7 +6078,7 @@
 		 * @fires FooGallery.Template~"append-items.foogallery"
 		 * @fires FooGallery.Template~"appended-items.foogallery"
 		 */
-		create: function(items, append){
+		create: function (items, append) {
 			var self = this, created = [], creatable = self.creatable(items);
 			if (creatable.length > 0) {
 				/**
@@ -6337,8 +6110,8 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("create-items", [creatable]);
-				if (!e.isDefaultPrevented()){
-					created = $.map(creatable, function(item){
+				if (!e.isDefaultPrevented()) {
+					created = $.map(creatable, function (item) {
 						return item.create() ? item : null;
 					});
 				}
@@ -6372,7 +6145,7 @@
 		 * @fires FooGallery.Template~"append-items.foogallery"
 		 * @fires FooGallery.Template~"appended-items.foogallery"
 		 */
-		append: function(items){
+		append: function (items) {
 			var self = this, appended = [], appendable = self.appendable(items);
 			if (appendable.length > 0) {
 				/**
@@ -6403,8 +6176,8 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("append-items", [appendable]);
-				if (!e.isDefaultPrevented()){
-					appended = $.map(appendable, function(item){
+				if (!e.isDefaultPrevented()) {
+					appended = $.map(appendable, function (item) {
 						return item.append() ? item : null;
 					});
 				}
@@ -6437,7 +6210,7 @@
 		 * @fires FooGallery.Template~"detach-items.foogallery"
 		 * @fires FooGallery.Template~"detached-items.foogallery"
 		 */
-		detach: function(items){
+		detach: function (items) {
 			var self = this, detached = [], detachable = self.detachable(items);
 			if (detachable.length > 0) {
 				/**
@@ -6468,8 +6241,8 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("detach-items", [detachable]);
-				if (!e.isDefaultPrevented()){
-					detached = $.map(detachable, function(item){
+				if (!e.isDefaultPrevented()) {
+					detached = $.map(detachable, function (item) {
 						return item.detach() ? item : null;
 					});
 				}
@@ -6502,10 +6275,10 @@
 		 * @fires FooGallery.Template~"load-items.foogallery"
 		 * @fires FooGallery.Template~"loaded-items.foogallery"
 		 */
-		load: function(items){
+		load: function (items) {
 			var self = this;
 			items = self.loadable(items);
-			if (items.length > 0){
+			if (items.length > 0) {
 				/**
 				 * @summary Raised before the template loads any items.
 				 * @event FooGallery.Template~"load-items.foogallery"
@@ -6534,11 +6307,11 @@
 				 * });
 				 */
 				var e = self.tmpl.raise("load-items", [items]);
-				if (!e.isDefaultPrevented()){
-					var loading = $.map(items, function(item){
+				if (!e.isDefaultPrevented()) {
+					var loading = $.map(items, function (item) {
 						return item.load();
 					});
-					return _fn.when(loading).done(function(loaded) {
+					return _fn.when(loading).done(function (loaded) {
 						/**
 						 * @summary Raised after the template has loaded items.
 						 * @event FooGallery.Template~"loaded-items.foogallery"
@@ -6561,9 +6334,9 @@
 			}
 			return _fn.resolveWith([]);
 		},
-		createIdMap: function(items){
+		createIdMap: function (items) {
 			var map = {};
-			$.each(items, function(i, item){
+			$.each(items, function (i, item) {
 				if (_is.empty(item.id)) item.id = "" + (i + 1);
 				map[item.id] = item;
 			});
@@ -6574,17 +6347,17 @@
 	_.components.register("items", _.Items);
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is,
-	FooGallery.utils.fn,
-	FooGallery.utils.obj
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.obj
 );
-(function($, _, _utils, _is){
+(function ($, _, _utils, _is) {
 
 	_.Paging = _.Component.extend({
-		construct: function(template){
+		construct: function (template) {
 			var self = this;
 			/**
 			 * @ignore
@@ -6607,119 +6380,111 @@
 			self.ctrls = [];
 			self._arr = [];
 		},
-		destroy: function(){
+		destroy: function () {
 			var self = this;
 			self._arr.splice(0, self._arr.length);
-			$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
+			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
 			self._super();
 		},
-		build: function(){
+		build: function () {
 			var self = this, items = self.tmpl.items.available();
 			self.total = self.size > 0 && items.length > 0 ? Math.ceil(items.length / self.size) : 1;
-			if (self.total <= 1){
-				self._arr.push(items);
-				self.tmpl.items.detach(self._arr[0]);
-			} else {
-				for (var i = 0; i < self.total; i++){
-					self._arr.push(items.splice(0, self.size));
-					self.tmpl.items.detach(self._arr[i]);
-				}
+			for (var i = 0; i < self.total; i++) {
+				self._arr.push(items.splice(0, self.size));
 			}
-			if (self.total > 1 && _.paging.hasCtrl(self.type)){
+			if (self.total > 1 && _.paging.hasCtrl(self.type)) {
 				var pos = self.position, top, bottom;
-				if (pos === "both" || pos === "top"){
+				if (pos === "both" || pos === "top") {
 					top = _.paging.makeCtrl(self.type, self.tmpl, self, "top");
-					if (top.create()){
+					if (top.create()) {
 						top.append();
 						self.ctrls.push(top);
 					}
 				}
-				if (pos === "both" || pos === "bottom"){
+				if (pos === "both" || pos === "bottom") {
 					bottom = _.paging.makeCtrl(self.type, self.tmpl, self, "bottom");
-					if (bottom.create()){
+					if (bottom.create()) {
 						bottom.append();
 						self.ctrls.push(bottom);
 					}
 				}
 			}
 		},
-		rebuild: function(){
+		rebuild: function () {
 			var self = this;
 			self.current = 0;
 			self.total = 0;
 			self._arr.splice(0, self._arr.length);
-			$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
+			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
 			self.build();
 		},
-		all: function(){
+		all: function () {
 			return this._arr.slice();
 		},
-		available: function(){
+		available: function () {
 			return this.get(this.current);
 		},
-		controls: function(pageNumber){
+		controls: function (pageNumber) {
 			var self = this;
-			if (self.isValid(pageNumber)){
-				$.each(self.ctrls, function(i, control){
+			if (self.isValid(pageNumber)) {
+				$.each(self.ctrls, function (i, control) {
 					control.update(pageNumber);
 				});
 			}
 		},
-		isValid: function(pageNumber){
+		isValid: function (pageNumber) {
 			return _is.number(pageNumber) && pageNumber > 0 && pageNumber <= this.total;
 		},
-		number: function(value){
+		number: function (value) {
 			return this.isValid(value) ? value : (this.current === 0 ? 1 : this.current);
 		},
-		create: function(pageNumber){
+		create: function (pageNumber, isFilter) {
 			var self = this;
 			pageNumber = self.number(pageNumber);
 			var index = pageNumber - 1;
+			self.tmpl.items.detach(self.tmpl.items.all());
 			self.tmpl.items.create(self._arr[index], true);
-			for (var i = 0, l = self._arr.length; i < l; i++) {
-				if (i === index) continue;
-				self.tmpl.items.detach(self._arr[i]);
-			}
 			self.current = pageNumber;
 		},
-		get: function(pageNumber){
+		get: function (pageNumber) {
 			var self = this;
-			if (self.isValid(pageNumber)){
+			if (self.isValid(pageNumber)) {
 				pageNumber = self.number(pageNumber);
 				return self._arr[pageNumber - 1];
 			}
 			return [];
 		},
-		set: function(pageNumber, scroll, updateState){
+		set: function (pageNumber, scroll, updateState, isFilter) {
 			var self = this;
-			if (self.isValid(pageNumber)){
+			if (self.isValid(pageNumber)) {
 				var num = self.number(pageNumber), state;
 				if (num !== self.current) {
-					var prev = self.current, setPage = function(){
+					var prev = self.current, setPage = function () {
 						updateState = _is.boolean(updateState) ? updateState : true;
-						if (updateState && self.current === 1 && !self.tmpl.state.exists()){
+						isFilter = _is.boolean(isFilter) ? isFilter : false;
+						if (updateState && self.current === 1 && !self.tmpl.state.exists()) {
 							state = self.tmpl.state.get();
 							self.tmpl.state.update(state, self.pushOrReplace);
 						}
 						self.controls(pageNumber);
-						self.create(num);
-						if (updateState){
+						self.create(num, isFilter);
+						if (updateState) {
 							state = self.tmpl.state.get();
 							self.tmpl.state.update(state, self.pushOrReplace);
 						}
 						if (self.scrollToTop && _is.boolean(scroll) ? scroll : false) {
 							var page = self.get(self.current);
-							if (page.length > 0){
+							if (page.length > 0) {
 								page[0].scrollTo("top");
 							}
 						}
-						self.tmpl.raise("after-page-change", [self.current, prev]);
+						self.tmpl.raise("after-page-change", [self.current, prev, isFilter]);
 					};
-					var e = self.tmpl.raise("before-page-change", [self.current, num, setPage]);
+					var e = self.tmpl.raise("before-page-change", [self.current, num, setPage, isFilter]);
 					if (e.isDefaultPrevented()) return false;
 					setPage();
 					return true;
@@ -6727,7 +6492,7 @@
 			}
 			return false;
 		},
-		find: function(item){
+		find: function (item) {
 			var self = this;
 			for (var i = 0, l = self._arr.length; i < l; i++) {
 				if ($.inArray(item, self._arr[i]) !== -1) {
@@ -6736,57 +6501,58 @@
 			}
 			return 0;
 		},
-		contains: function(pageNumber, item){
+		contains: function (pageNumber, item) {
 			var items = this.get(pageNumber);
 			return $.inArray(item, items) !== -1;
 		},
-		first: function(){
+		first: function () {
 			this.goto(1);
 		},
-		last: function(){
+		last: function () {
 			this.goto(this._arr.length);
 		},
-		prev: function(){
+		prev: function () {
 			this.goto(this.current - 1);
 		},
-		next: function(){
+		next: function () {
 			this.goto(this.current + 1);
 		},
-		goto: function(pageNumber){
+		goto: function (pageNumber) {
 			var self = this;
-			if (self.set(pageNumber, true)){
+			if (self.set(pageNumber, true)) {
 				self.tmpl.loadAvailable();
 			}
 		}
 	});
 
 	_.PagingControl = _.Component.extend({
-		construct: function(template, parent, position){
+		construct: function (template, parent, position) {
 			var self = this;
 			self._super(template);
 			self.pages = parent;
 			self.position = position;
 			self.$container = null;
 		},
-		create: function(){
+		create: function () {
 			var self = this;
 			self.$container = $("<nav/>", {"class": self.pages.cls.container}).addClass(self.pages.theme);
 			return true;
 		},
-		destroy: function(){
+		destroy: function () {
 			var self = this;
 			self.$container.remove();
 			self.$container = null;
 		},
-		append: function(){
+		append: function () {
 			var self = this;
-			if (self.position === "top"){
+			if (self.position === "top") {
 				self.$container.insertBefore(self.tmpl.$el);
 			} else {
 				self.$container.insertAfter(self.tmpl.$el);
 			}
 		},
-		update: function(pageNumber){}
+		update: function (pageNumber) {
+		}
 	});
 
 	_.paging.register("default", _.Paging, null, {
@@ -6801,10 +6567,10 @@
 	}, null, -100);
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
 );
 (function($, _, _utils, _is){
 
@@ -6815,8 +6581,8 @@
 			self.distance = self.opt.distance;
 			self._created = [];
 		},
-		build: function(items){
-			this._super(items);
+		build: function(){
+			this._super();
 			this._created = [];
 		},
 		available: function(){
@@ -6839,9 +6605,10 @@
 			}
 			return items;
 		},
-		create: function(pageNumber){
+		create: function(pageNumber, isFilter){
 			var self = this;
 			pageNumber = self.number(pageNumber);
+			if (isFilter) self.tmpl.items.detach(self.tmpl.items.all());
 			for (var i = 0; i < pageNumber; i++){
 				if ($.inArray(i, self._created) === -1){
 					self.tmpl.items.create(self._arr[i], true);
@@ -6873,8 +6640,8 @@
 			this.amount = this.opt.amount;
 			this._count = this.opt.amount;
 		},
-		build: function(items){
-			this._super(items);
+		build: function(){
+			this._super();
 			this._count = this.amount;
 		},
 		available: function(){
@@ -7126,8 +6893,8 @@
 				selected: false
 			};
 		},
-		build: function(items){
-			this._super(items);
+		build: function(){
+			this._super();
 			this.range = {
 				index: -1,
 				start: -1,
@@ -7366,10 +7133,10 @@
 	FooGallery.utils,
 	FooGallery.utils.is
 );
-(function($, _, _utils, _is){
+(function ($, _, _utils, _is) {
 
 	_.Filtering = _.Component.extend({
-		construct: function(template){
+		construct: function (template) {
 			var self = this;
 			/**
 			 * @ignore
@@ -7404,23 +7171,23 @@
 			self.current = [];
 			self.ctrls = [];
 		},
-		destroy: function(){
+		destroy: function () {
 			var self = this;
 			self.tags.splice(0, self.tags.length);
-			$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
+			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
 			self._super();
 		},
-		count: function(items, tags){
+		count: function (items, tags) {
 			items = _is.array(items) ? items : [];
 			tags = _is.array(tags) ? tags : [];
 			var result = {}, generate = tags.length === 0;
-			for (var i = 0, l = items.length, t; i < l; i++){
-				if (!_is.empty(t = items[i].tags)){
-					for (var j = 0, jl = t.length, tag; j < jl; j++){
-						if (!_is.empty(tag = t[j]) && (generate || (!generate && $.inArray(tag, tags) != -1))){
-							if (_is.number(result[tag])){
+			for (var i = 0, l = items.length, t; i < l; i++) {
+				if (!_is.empty(t = items[i].tags)) {
+					for (var j = 0, jl = t.length, tag; j < jl; j++) {
+						if (!_is.empty(tag = t[j]) && (generate || (!generate && $.inArray(tag, tags) != -1))) {
+							if (_is.number(result[tag])) {
 								result[tag]++;
 							} else {
 								result[tag] = 1;
@@ -7429,20 +7196,20 @@
 					}
 				}
 			}
-			for (var k = 0, kl = tags.length; k < kl; k++){
+			for (var k = 0, kl = tags.length; k < kl; k++) {
 				if (!result.hasOwnProperty(tags[k])) result[tags[k]] = 0;
 			}
 			return result;
 		},
-		build: function(){
+		build: function () {
 			var self = this, items = self.tmpl.items.all();
-			if (items.length > 0){
+			if (items.length > 0) {
 				// first get a count of every tag available from all items
 				var counts = self.count(items, self.opt.tags), min = Infinity, max = 0;
-				for (var prop in counts){
-					if (counts.hasOwnProperty(prop)){
+				for (var prop in counts) {
+					if (counts.hasOwnProperty(prop)) {
 						var count = counts[prop];
-						if (self.min <= 0 || count >= self.min){
+						if (self.min <= 0 || count >= self.min) {
 							self.tags.push({value: prop, count: count, percent: 1, size: self.largest, opacity: self.darkest});
 							if (count < min) min = count;
 							if (count > max) max = count;
@@ -7451,18 +7218,18 @@
 				}
 
 				// if there's a limit set, remove other tags
-				if (self.limit > 0 && self.tags.length > self.limit){
-					self.tags.sort(function(a, b){
+				if (self.limit > 0 && self.tags.length > self.limit) {
+					self.tags.sort(function (a, b) {
 						return b.count - a.count;
 					});
 					self.tags = self.tags.slice(0, self.limit);
 				}
 
 				// if adjustSize or adjustOpacity is enabled, calculate a percentage value used to calculate the appropriate font size and opacity
-				if (self.adjustSize === true || self.adjustOpacity === true){
+				if (self.adjustSize === true || self.adjustOpacity === true) {
 					var fontRange = self.largest - self.smallest;
 					var opacityRange = self.darkest - self.lightest;
-					for (var i = 0, l = self.tags.length, tag; i < l; i++){
+					for (var i = 0, l = self.tags.length, tag; i < l; i++) {
 						tag = self.tags[i];
 						tag.percent = (tag.count - min) / (max - min);
 						tag.size = self.adjustSize ? Math.round((fontRange * tag.percent) + self.smallest) : self.largest;
@@ -7471,7 +7238,7 @@
 				}
 
 				// finally sort the tags by name
-				self.tags.sort(function(a, b){
+				self.tags.sort(function (a, b) {
 					var aTag = a.value.toUpperCase(), bTag = b.value.toUpperCase();
 					if (aTag < bTag) return -1;
 					if (aTag > bTag) return 1;
@@ -7480,67 +7247,65 @@
 
 			}
 
-			if (self.tags.length > 0 && _.filtering.hasCtrl(self.type)){
+			if (self.tags.length > 0 && _.filtering.hasCtrl(self.type)) {
 				var pos = self.position, top, bottom;
-				if (pos === "both" || pos === "top"){
+				if (pos === "both" || pos === "top") {
 					top = _.filtering.makeCtrl(self.type, self.tmpl, self, "top");
-					if (top.create()){
+					if (top.create()) {
 						top.append();
 						self.ctrls.push(top);
 					}
 				}
-				if (pos === "both" || pos === "bottom"){
+				if (pos === "both" || pos === "bottom") {
 					bottom = _.filtering.makeCtrl(self.type, self.tmpl, self, "bottom");
-					if (bottom.create()){
+					if (bottom.create()) {
 						bottom.append();
 						self.ctrls.push(bottom);
 					}
 				}
 			}
 		},
-		rebuild: function(){
+		rebuild: function () {
 			var self = this;
 			self.tags.splice(0, self.tags.length);
-			$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
+			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
 			self.build();
 		},
-		controls: function(tags){
+		controls: function (tags) {
 			var self = this;
-			$.each(self.ctrls, function(i, control){
+			$.each(self.ctrls, function (i, control) {
 				control.update(tags);
 			});
 		},
-		set: function(tags, updateState){
+		set: function (tags, updateState) {
 			if (_is.string(tags)) tags = tags.split(' ');
 			if (!_is.array(tags)) tags = [];
 			var self = this, state;
-			if (!self.arraysEqual(self.current, tags)){
-				var prev = self.current.slice(), setFilter = function(){
+			if (!self.arraysEqual(self.current, tags)) {
+				var prev = self.current.slice(), setFilter = function () {
 					updateState = _is.boolean(updateState) ? updateState : true;
-					if (updateState && !self.tmpl.state.exists()){
+					if (updateState && !self.tmpl.state.exists()) {
 						state = self.tmpl.state.get();
 						self.tmpl.state.update(state, self.pushOrReplace);
 					}
-					self.tmpl.items.detach(self.tmpl.getAvailable());
-					//self.tmpl.items.filter(tags, self.intersect);
 
 					self.controls(tags);
 
-					if (_is.empty(tags)){
+					if (_is.empty(tags)) {
 						self.tmpl.items.reset();
 					} else {
 						var items = self.tmpl.items.all();
-						if (self.mode === 'intersect'){
-							items = $.map(items, function(item) {
-								return _is.array(item.tags) && tags.every(function(tag){
+						if (self.mode === 'intersect') {
+							items = $.map(items, function (item) {
+								return _is.array(item.tags) && tags.every(function (tag) {
 									return item.tags.indexOf(tag) >= 0;
 								}) ? item : null;
 							});
 						} else {
-							items = $.map(items, function(item) {
-								return _is.array(item.tags) && item.tags.some(function(tag){
+							items = $.map(items, function (item) {
+								return _is.array(item.tags) && item.tags.some(function (tag) {
 									return tags.indexOf(tag) >= 0;
 								}) ? item : null;
 							});
@@ -7548,15 +7313,15 @@
 						self.tmpl.items.setAvailable(items);
 					}
 					self.current = tags.slice();
-
-					if (self.tmpl.pages){
+					if (self.tmpl.pages) {
 						self.tmpl.pages.rebuild();
-						self.tmpl.pages.set(1);
+						self.tmpl.pages.set(1, null, null, true);
 					} else {
+						self.tmpl.items.detach(self.tmpl.items.all());
 						self.tmpl.items.create(self.tmpl.getAvailable(), true);
 					}
 
-					if (updateState){
+					if (updateState) {
 						state = self.tmpl.state.get();
 						self.tmpl.state.update(state, self.pushOrReplace);
 					}
@@ -7570,52 +7335,53 @@
 			}
 			return false;
 		},
-		arraysEqual: function(arr1, arr2){
-			if(arr1.length !== arr2.length)
+		arraysEqual: function (arr1, arr2) {
+			if (arr1.length !== arr2.length)
 				return false;
 			arr1.sort();
 			arr2.sort();
-			for(var i = arr1.length; i--;) {
-				if(arr1[i] !== arr2[i])
+			for (var i = arr1.length; i--;) {
+				if (arr1[i] !== arr2[i])
 					return false;
 			}
 			return true;
 		},
-		apply: function(tags){
+		apply: function (tags) {
 			var self = this;
-			if (self.set(tags, !self.tmpl.pages)){
+			if (self.set(tags, !self.tmpl.pages)) {
 				self.tmpl.loadAvailable();
 			}
 		}
 	});
 
 	_.FilteringControl = _.Component.extend({
-		construct: function(template, parent, position){
+		construct: function (template, parent, position) {
 			var self = this;
 			self._super(template);
 			self.filter = parent;
 			self.position = position;
 			self.$container = null;
 		},
-		create: function(){
+		create: function () {
 			var self = this;
 			self.$container = $("<nav/>", {"class": self.filter.cls.container}).addClass(self.filter.theme);
 			return true;
 		},
-		destroy: function(){
+		destroy: function () {
 			var self = this;
 			self.$container.remove();
 			self.$container = null;
 		},
-		append: function(){
+		append: function () {
 			var self = this;
-			if (self.position === "top"){
+			if (self.position === "top") {
 				self.$container.insertBefore(self.tmpl.$el);
 			} else {
 				self.$container.insertAfter(self.tmpl.$el);
 			}
 		},
-		update: function(tags){}
+		update: function (tags) {
+		}
 	});
 
 	_.filtering.register("default", _.Filtering, null, {
@@ -7767,442 +7533,6 @@
 		FooGallery,
 		FooGallery.utils,
 		FooGallery.utils.is
-);
-(function($, _, _utils, _is){
-
-	_.Video = _.Item.extend({
-		construct: function(template, options){
-			var self = this;
-			self._super(template, options);
-			self.cover = self.opt.cover;
-		},
-		doParseItem: function($element){
-			var self = this;
-			if (self._super($element)){
-				self.cover = self.$anchor.data("cover") || self.cover;
-				return true;
-			}
-			return false;
-		},
-		doCreateItem: function(){
-			var self = this;
-			if (self._super()){
-				self.$anchor.attr("data-cover", self.cover);
-				return true;
-			}
-			return false;
-		}
-	});
-
-	_.template.configure("core", {
-		item: {
-			cover: ""
-		}
-	});
-
-	_.components.register("video", _.Video);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function(_, _utils, _is, _obj, _url){
-
-
-	_.VideoHelper = _utils.Class.extend({
-		construct: function(playerDefaults){
-			this.playerDefaults = _obj.extend({
-				autoPlay: false,
-				width: null,
-				height: null,
-				minWidth: null,
-				minHeight: null,
-				maxWidth: null,
-				maxHeight: null,
-				attrs: {
-					iframe: {
-						frameborder: 'no',
-						webkitallowfullscreen: true,
-						mozallowfullscreen: true,
-						allowfullscreen: true
-					},
-					video: {
-						controls: true,
-						preload: false,
-						controlsList: "nodownload"
-					}
-				}
-			}, playerDefaults);
-			this.sources = _.videoSources.load();
-		},
-		parseHref: function(href, autoPlay){
-			var self = this, urls = href.split(','), result = [];
-			for (var i = 0, il = urls.length, url, source; i < il; i++){
-				if (_is.empty(urls[i])) continue;
-				url = _url.parts(urls[i]);
-				source = null;
-				for (var j = 0, jl = self.sources.length; j < jl; j++){
-					if (self.sources[j].canPlay(url)){
-						source = self.sources[j];
-						result.push({
-							parts: url,
-							source: source,
-							embed: source.getEmbedUrl(url, autoPlay)
-						});
-						break;
-					}
-				}
-			}
-			return result;
-		},
-		canPlay: function(href){
-			return this.parseHref(href).length > 0;
-		},
-		getPlayer: function(href, options){
-			options = _obj.extend({}, this.playerDefaults, options);
-			var urls = this.parseHref(href, options.autoPlay);
-			return new _.VideoPlayer(urls, options);
-		}
-	});
-
-
-})(
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.obj,
-		FooGallery.utils.url
-);
-(function($, _, _utils, _fn){
-
-
-	_.VideoPlayer = _utils.Class.extend({
-		construct: function(urls, options){
-			this.urls = urls;
-			this.options = options;
-			this.selfHosted = $.map(this.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
-			this.$el = this.$create();
-		},
-		$create: function(){
-			var self = this, o = self.options,
-					$result = self.selfHosted ? $('<video/>', o.attrs.video) : $('<iframe/>', o.attrs.iframe);
-			$result.css({
-				width: o.width, height: o.height,
-				maxWidth: o.maxWidth, maxHeight: o.maxHeight,
-				minWidth: o.minWidth, minHeight: o.minHeight
-			});
-			return $result;
-		},
-		appendTo: function(parent){
-			var self = this, $parent = $(parent);
-			if ($parent.length > 0){
-				if (self.$el.length === 0){
-					self.$el = self.$create();
-				}
-				$parent.append(self.$el);
-			}
-			return self;
-		},
-		load: function(){
-			var self = this;
-			if (self.urls.length === 0){
-				return _fn.rejectWith(Error("No supported urls available."));
-			}
-			if (self.selfHosted){
-				return self.loadSelfHosted();
-			} else {
-				return self.loadEmbed();
-			}
-		},
-		loadSelfHosted: function(){
-			var self = this;
-			self.$el.off("loadeddata error");
-			return $.Deferred(function(def){
-				self.$el.find("source").remove();
-				self.$el.on({
-					'loadeddata': function(){
-						self.$el.off("loadeddata error");
-						this.volume = 0.2;
-						if (self.options.autoPlay){
-							this.play();
-						}
-						def.resolve();
-					},
-					'error': function(){
-						self.$el.off("loadeddata error");
-						def.reject(Error('Error loading video: ' + $.map(self.urls, function(url){ return url.embed; }).join(",")));
-					}
-				});
-				var sources = $.map(self.urls, function(url){
-					return $("<source/>", {src: url.embed, mimeType: url.source.mimeType});
-				});
-				self.$el.append(sources);
-				if (self.$el.prop("readyState") > 0){
-					self.$el.get(0).load();
-				}
-			}).promise();
-		},
-		loadEmbed: function(){
-			var self = this;
-			self.$el.off("load error");
-			return $.Deferred(function(def){
-				var src = self.urls[0].embed;
-				self.$el.on({
-					'load': function(){
-						self.$el.off("load error");
-						def.resolve();
-					},
-					'error': function(){
-						self.$el.off("load error");
-						def.reject(Error('Error loading video: ' + src));
-					}
-				});
-				self.$el.attr("src", src);
-			}).promise();
-		},
-		remove: function(){
-			this.$el.off("load loadeddata error").remove();
-		}
-	});
-
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.fn
-);
-(function($, _, _utils, _is, _url, _str){
-
-
-	var _testVideo = document.createElement("video");
-
-	_.VideoSource = _utils.Class.extend({
-		construct: function(mimeType, regex, selfHosted, embedParams, autoPlayParam){
-			this.mimeType = mimeType;
-			this.regex = regex;
-			this.selfHosted = _is.boolean(selfHosted) ? selfHosted : false;
-			this.embedParams = _is.array(embedParams) ? embedParams : [];
-			this.autoPlayParam = _is.hash(autoPlayParam) ? autoPlayParam : {};
-			this.canPlayType = this.selfHosted && _is.fn(_testVideo.canPlayType) ? $.inArray(_testVideo.canPlayType(this.mimeType), ['probably','maybe']) !== -1 : true;
-		},
-		canPlay: function(urlParts){
-			return this.canPlayType && this.regex.test(urlParts.href);
-		},
-		mergeParams: function(urlParts, autoPlay){
-			var self = this;
-			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
-				ip = self.embedParams[i];
-				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
-			}
-			if (!_is.empty(self.autoPlayParam)){
-				urlParts.search = _url.param(urlParts.search, self.autoPlayParam.key, autoPlay ? self.autoPlayParam.value : '');
-			}
-			return urlParts.search;
-		},
-		getId: function(urlParts){
-			var match = urlParts.href.match(/.*\/(.*?)($|\?|#)/);
-			return match && match.length >= 2 ? match[1] : null;
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return _str.join('/', location.protocol, '//', urlParts.hostname, urlParts.pathname) + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources = new _utils.Factory();
-
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.url,
-		FooGallery.utils.str
-);
-(function(_){
-
-
-	_.VideoSource.Mp4 = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/mp4', /\.mp4/i, true);
-		}
-	});
-	_.videoSources.register('video/mp4', _.VideoSource.Mp4);
-
-	_.VideoSource.Webm = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/webm', /\.webm/i, true);
-		}
-	});
-	_.videoSources.register('video/webm', _.VideoSource.Webm);
-
-	_.VideoSource.Wmv = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/wmv', /\.wmv/i, true);
-		}
-	});
-	_.videoSources.register('video/wmv', _.VideoSource.Wmv);
-
-	_.VideoSource.Ogv = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/ogg', /\.ogv/i, true);
-		}
-	});
-	_.videoSources.register('video/ogg', _.VideoSource.Ogv);
-
-
-})(
-		FooGallery
-);
-(function(_){
-
-
-	_.VideoSource.YouTube = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/youtube',
-					/(www.)?youtube|youtu\.be/i,
-					false,
-					[
-						{key: 'modestbranding', value: '1'},
-						{key: 'rel', value: '0'},
-						{key: 'wmode', value: 'transparent'},
-						{key: 'showinfo', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getId: function(urlParts){
-			return /embed\//i.test(urlParts.href)
-					? urlParts.href.split(/embed\//i)[1].split(/[?&]/)[0]
-					: urlParts.href.split(/v\/|v=|youtu\.be\//i)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//www.youtube.com/embed/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/youtube', _.VideoSource.YouTube);
-
-
-})(
-		FooGallery
-);
-(function(_){
-
-	_.VideoSource.Vimeo = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/vimeo',
-					/(player.)?vimeo\.com/i,
-					false,
-					[
-						{key: 'badge', value: '0'},
-						{key: 'portrait', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//player.vimeo.com/video/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/vimeo', _.VideoSource.Vimeo);
-
-})(
-		FooGallery
-);
-(function(_){
-
-	_.VideoSource.Dailymotion = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/daily',
-					/(www.)?dailymotion\.com|dai\.ly/i,
-					false,
-					[
-						{key: 'wmode', value: 'opaque'},
-						{key: 'info', value: '0'},
-						{key: 'logo', value: '0'},
-						{key: 'related', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getId: function(urlParts){
-			return /\/video\//i.test(urlParts.href)
-					? urlParts.href.split(/\/video\//i)[1].split(/[?&]/)[0].split(/[_]/)[0]
-					: urlParts.href.split(/dai\.ly/i)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//www.dailymotion.com/embed/video/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/daily', _.VideoSource.Dailymotion);
-
-})(
-		FooGallery
-);
-(function(_, _is, _url){
-
-	_.VideoSource.Wistia = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/wistia',
-					/(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
-					false,
-					[],
-					{
-						iframe: {key: 'autoPlay', value: '1'},
-						playlists: {key: 'media_0_0[autoPlay]', value: '1'}
-					}
-			);
-		},
-		getType: function(href){
-			return /playlists\//i.test(href) ? 'playlists' : 'iframe';
-		},
-		mergeParams: function(urlParts, autoPlay){
-			var self = this;
-			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
-				ip = self.embedParams[i];
-				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
-			}
-			if (!_is.empty(self.autoPlayParam)){
-				var param = self.autoPlayParam[self.getType(urlParts.href)];
-				urlParts.search = _url.param(urlParts.search, param.key, autoPlay ? param.value : '');
-			}
-			return urlParts.search;
-		},
-		getId: function(urlParts){
-			return /embed\//i.test(urlParts.href)
-					? urlParts.href.split(/embed\/.*?\//i)[1].split(/[?&]/)[0]
-					: urlParts.href.split(/medias\//)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//fast.wistia.net/embed/'+this.getType(urlParts.href)+'/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/wistia', _.VideoSource.Wistia);
-
-})(
-		FooGallery,
-		FooGallery.utils.is,
-		FooGallery.utils.url
 );
 (function($, _, _utils){
 
@@ -8366,6 +7696,16 @@
 			cls.layouts = $.map(cls.layout, function(value){
 				return value;
 			}).join(" ");
+			// check if the layout is supplied as a CSS class
+			var layouts = $.map(cls.layout, function(value, key){
+				return {key: key, value: value};
+			});
+			for (var i =0, l = layouts.length; i < l; i++){
+				if (self.$el.hasClass(layouts[i].value)){
+					self.template.layout = layouts[i].key;
+					break;
+				}
+			}
 			// check if the supplied layout is supported
 			if (!_is.string(cls.layout[self.template.layout])){
 				// if not set the default
@@ -8407,13 +7747,12 @@
 				rule = '#' + self.id + sel.container + ' ' + sel.item.elem + ' { margin-bottom: ' + self.template.gutter + 'px; }';
 				sheet.insertRule(rule , 0);
 			}
-
 			self.masonry = new Masonry( self.$el.get(0), self.template );
 		},
-		onInit: function(event, self){
+		onPostInit: function(event, self){
 			self.masonry.layout();
 		},
-		onPostInit: function(event, self){
+		onFirstLoad: function(event, self){
 			self.masonry.layout();
 		},
 		onReady: function(event, self){
@@ -8422,11 +7761,13 @@
 		onDestroy: function(event, self){
 			self.$el.find(self.sel.columnWidth).remove();
 			self.$el.find(self.sel.gutterWidth).remove();
-			if (self.masonry instanceof Masonry){
-				self.masonry.destroy();
-			}
 			if (self.style && self.style.parentNode){
 				self.style.parentNode.removeChild(self.style);
+			}
+		},
+		onDestroyed: function(event, self){
+			if (self.masonry instanceof Masonry){
+				self.masonry.destroy();
 			}
 		},
 		onLayout: function(event, self){
@@ -8503,6 +7844,8 @@
 
 	_.template.register("masonry", _.MasonryTemplate, {
 		template: {
+			initLayout: false,
+			isInitLayout: false,
 			layout: "col4"
 		}
 	}, {
@@ -8577,10 +7920,10 @@
 	 */
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
 );
 (function($, _, _utils, _is){
 
@@ -8599,14 +7942,10 @@
 					self.options.maxRowHeight = parseInt(self.options.maxRowHeight);
 				}
 			}
-			self.layout(true);
 			$(window).on("resize.justified", {self: self}, self.onWindowResize);
 		},
 		destroy: function(){
 			$(window).off("resize.justified");
-			$.each(this._items, function(i, item){
-				item.$item.removeAttr("style").removeClass("fg-positioned");
-			});
 			this.$el.removeAttr("style");
 		},
 		parse: function(){
@@ -8662,9 +8001,9 @@
 			}
 
 			var self = this,
-				containerWidth = self.getContainerWidth(),
-				rows = self.rows(containerWidth),
-				offsetTop = 0;
+					containerWidth = self.getContainerWidth(),
+					rows = self.rows(containerWidth),
+					offsetTop = 0;
 
 			for (var i = 0, l = rows.length, row; i < l; i++){
 				row = rows[i];
@@ -8728,9 +8067,9 @@
 		},
 		justify: function(row, containerWidth, offsetTop){
 			var self = this,
-				left = 0,
-				margins = self.options.margins * (row.items.length - 1),
-				ratio = (containerWidth - margins) / row.width;
+					left = 0,
+					margins = self.options.margins * (row.items.length - 1),
+					ratio = (containerWidth - margins) / row.width;
 
 			if (row.index > 0) offsetTop += self.options.margins;
 			row.top = offsetTop;
@@ -8777,10 +8116,10 @@
 		},
 		rows: function(containerWidth){
 			var self = this,
-				items = self.items(),
-				rows = [],
-				process = items.length > 0,
-				index = -1, offsetTop = 0;
+					items = self.items(),
+					rows = [],
+					process = items.length > 0,
+					index = -1, offsetTop = 0;
 
 			while (process){
 				index += 1;
@@ -8843,10 +8182,10 @@
 	};
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
 );
 (function($, _, _utils){
 
@@ -8857,11 +8196,11 @@
 		onInit: function(event, self){
 			self.justified.init();
 		},
-		onPostInit: function(event, self){
+		onFirstLoad: function(event, self){
 			self.justified.layout( true );
 		},
 		onReady: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		},
 		onDestroy: function(event, self){
 			self.justified.destroy();
@@ -8885,9 +8224,9 @@
 	});
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils
 );
 (function($, _, _utils, _is){
 
@@ -8900,13 +8239,9 @@
 		init: function(){
 			var self = this;
 			$(window).on("resize.portfolio", {self: self}, self.onWindowResize);
-			self.layout(true);
 		},
 		destroy: function(){
 			$(window).off("resize.portfolio");
-			$.each(this._items, function(i, item){
-				item.$item.removeAttr("style").removeClass("fg-positioned");
-			});
 			this.$el.removeAttr("style");
 		},
 		parse: function(){
@@ -8966,9 +8301,9 @@
 			}
 
 			var self = this,
-				containerWidth = self.getContainerWidth(),
-				rows = self.rows(containerWidth),
-				offsetTop = 0;
+					containerWidth = self.getContainerWidth(),
+					rows = self.rows(containerWidth),
+					offsetTop = 0;
 
 			for (var i = 0, l = rows.length, row; i < l; i++){
 				row = rows[i];
@@ -9028,10 +8363,10 @@
 		},
 		rows: function(containerWidth){
 			var self = this,
-				items = self.items(),
-				rows = [],
-				process = items.length > 0,
-				index = -1, offsetTop = 0;
+					items = self.items(),
+					rows = [],
+					process = items.length > 0,
+					index = -1, offsetTop = 0;
 
 			while (process){
 				index += 1;
@@ -9096,10 +8431,10 @@
 	};
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
 );
 (function($, _, _utils){
 
@@ -9115,11 +8450,11 @@
 		onInit: function(event, self){
 			self.portfolio.init();
 		},
-		onPostInit: function(event, self){
+		onFirstLoad: function(event, self){
 			self.portfolio.layout( true );
 		},
 		onReady: function(event, self){
-			self.portfolio.layout( true );
+			self.portfolio.layout();
 		},
 		onDestroy: function(event, self){
 			self.portfolio.destroy();
@@ -9145,9 +8480,9 @@
 	});
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils
 );
 // (function(_){
 //
@@ -9205,35 +8540,35 @@
 			 * @name $inner
 			 * @type {jQuery}
 			 */
-			this.$inner = this.$el.find('.fiv-inner-container');
+			this.$inner = $();
 			/**
 			 * @summary The jQuery object that displays the current image count.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $current
 			 * @type {jQuery}
 			 */
-			this.$current = this.$el.find('.fiv-count-current');
+			this.$current = $();
 			/**
 			 * @summary The jQuery object that displays the current image count.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $current
 			 * @type {jQuery}
 			 */
-			this.$total = this.$el.find('.fiv-count-total');
+			this.$total = $();
 			/**
 			 * @summary The jQuery object for the previous button.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $prev
 			 * @type {jQuery}
 			 */
-			this.$prev = this.$el.find('.fiv-prev');
+			this.$prev = $();
 			/**
 			 * @summary The jQuery object for the next button.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $next
 			 * @type {jQuery}
 			 */
-			this.$next = this.$el.find('.fiv-next');
+			this.$next = $();
 			/**
 			 * @summary The CSS classes for the Image Viewer template.
 			 * @memberof FooGallery.ImageViewerTemplate#
@@ -9246,6 +8581,28 @@
 			 * @name sel
 			 * @type {FooGallery.ImageViewerTemplate~CSSSelectors}
 			 */
+		},
+		createChildren: function(){
+			var self = this;
+			return $("<div/>", {"class": self.cls.inner}).append(
+					$("<div/>", {"class": self.cls.innerContainer}),
+					$("<div/>", {"class": self.cls.controls}).append(
+							$("<div/>", {"class": self.cls.prev})
+									.append($("<span/>", {text: self.il8n.prev})),
+							$("<label/>", {"class": self.cls.count, text: self.il8n.count})
+									.prepend($("<span/>", {"class": self.cls.countCurrent, text: "0"}))
+									.append($("<span/>", {"class": self.cls.countTotal, text: "0"})),
+							$("<div/>", {"class": self.cls.next})
+									.append($("<span/>", {text: self.il8n.next}))
+					)
+			);
+		},
+		onPreInit: function(event, self){
+			self.$inner = self.$el.find(self.sel.innerContainer);
+			self.$current = self.$el.find(self.sel.countCurrent);
+			self.$total = self.$el.find(self.sel.countTotal);
+			self.$prev = self.$el.find(self.sel.prev);
+			self.$next = self.$el.find(self.sel.next);
 		},
 		onInit: function (event, self) {
 			if (self.template.attachFooBox) {
@@ -9278,6 +8635,14 @@
 			self.$inner.append(item.$el);
 			item.fix();
 			item.isAttached = true;
+		},
+		onAfterPageChange: function(event, self, current, prev, isFilter){
+			if (!isFilter){
+				self.update();
+			}
+		},
+		onAfterFilterChange: function(event, self){
+			self.update();
 		},
 		update: function(){
 			if (this.pages){
@@ -9365,7 +8730,19 @@
 			loop: false
 		}
 	}, {
-		container: "foogallery fg-image-viewer"
+		container: "foogallery fg-image-viewer",
+		inner: "fiv-inner",
+		innerContainer: "fiv-inner-container",
+		controls: "fiv-ctrls",
+		prev: "fiv-prev",
+		next: "fiv-next",
+		count: "fiv-count",
+		countCurrent: "fiv-count-current",
+		countTotal: "fiv-count-total"
+	}, {
+		prev: "Prev",
+		next: "Next",
+		count: "of"
 	});
 
 })(
@@ -9379,15 +8756,40 @@
 	_.ThumbnailTemplate = _.Template.extend({
 		construct: function (options, element) {
 			this._super(_obj.extend({}, options, {
+				filtering: {
+					type: "none"
+				},
 				paging: {
 					type: "none"
 				}
 			}), element);
+			this.$hidden = $();
+		},
+		createChildren: function(){
+			var self = this;
+			return self.$hidden = $("<div/>", {"class": self.cls.hidden});
+		},
+		onPreInit: function(event, self){
+			self.$hidden = self.$el.find(self.sel.hidden);
+		},
+		onPostInit: function(event, self){
+			var hidden = self.items.all().slice(1);
+			for (var i = 0, l = hidden.length, item; i < l; i++){
+				item = hidden[i];
+				self.$hidden.append(
+						$("<a/>", {
+							href: item.href,
+							rel: "foobox[" + self.id + "]"
+						}).attr(item.attr.anchor)
+				);
+			}
+			self.items.setAll(self.items.all().slice(0,1));
 		}
 	});
 
 	_.template.register("thumbnail", _.ThumbnailTemplate, null, {
-		container: "foogallery fg-thumbnail"
+		container: "foogallery fg-thumbnail",
+		hidden: "fg-st-hidden"
 	});
 
 })(
@@ -10507,8 +9909,8 @@
 		onInit: function(event, self){
 			self.foogrid.init();
 		},
-		onPostInit: function(event, self){
-			self.foogrid.layout();
+		onFirstLoad: function(event, self){
+			self.foogrid.layout(true);
 		},
 		onReady: function(event, self){
 			self.foogrid.layout();
@@ -10516,17 +9918,36 @@
 		onDestroy: function(event, self){
 			self.foogrid.destroy();
 		},
-		onBeforePageChange: function(event, self, current, next, setPage){
+		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
+			if (!isFilter){
+				event.preventDefault();
+				self.wasActive = self.foogrid.isActive();
+				self.foogrid.close().then(function(){
+					setPage();
+					self.loadAvailable();
+				});
+			}
+		},
+		onAfterPageChange: function(event, self, current, prev, isFilter){
+			if (!isFilter){
+				self.foogrid.layout(true);
+				if (self.wasActive){
+					self.wasActive = false;
+					self.foogrid.open(0);
+				}
+			}
+		},
+		onBeforeFilterChange: function(event, self, current, next, setFilter){
 			event.preventDefault();
 			self.wasActive = self.foogrid.isActive();
 			self.foogrid.close().then(function(){
-				setPage();
+				setFilter();
 				self.loadAvailable();
 			});
 		},
-		onAfterPageChange: function(event, self){
+		onAfterFilterChange: function(event, self){
 			self.foogrid.layout(true);
-			if (self.wasActive){
+			if (self.wasActive) {
 				self.wasActive = false;
 				self.foogrid.open(0);
 			}
@@ -10542,447 +9963,36 @@
 		FooGallery,
 		FooGallery.utils
 );
-(function ($, _, _utils, _is, _transition) {
+(function ($, _, _utils, _obj) {
 
-	_.SliderTemplate = _.Template.extend({
-		construct: function (options, element) {
-			var self = this;
-			self._super(options, element);
-			self.$contentContainer = $();
-			self.$contentStage = $();
-			self.$itemContainer = $();
-			self.$itemStage = $();
-			self.$itemPrev = $();
-			self.$itemNext = $();
-			self.selected = null;
-			self.helper = new _.VideoHelper(self.template.player);
-			self.horizontal = self.template.horizontal;
-			self.noCaptions = self.template.noCaptions;
-			self.useViewport = self.template.useViewport;
-			self.breakpoints = self.template.breakpoints;
-			self.allBreakpointClasses = $.map(self.breakpoints, function(breakpoint){ return breakpoint.classes; }).join(' ');
-			self._contentWidth = 0;
-			self._contentHeight = 0;
-			self._firstVisible = -1;
-			self._lastVisible = -1;
-			self._breakpoint = null;
-		},
-		create: function() {
-			var self = this;
-			return $("<div/>", {"id": self.id, "class": self.cls.container})
-					.addClass(self.opt.classes)
-					.append(self.createChildren());
-		},
-		createChildren: function(){
-			var self = this;
-			return [
-				$("<div/>", {"class": self.cls.contentContainer})
-						.append($("<div/>", {"class": self.cls.contentStage})),
-				$("<div/>", {"class": self.cls.itemContainer})
-						.append(
-								$("<div/>", {"class": self.cls.itemPrev}),
-								$("<div/>", {"class": self.cls.itemStage}),
-								$("<div/>", {"class": self.cls.itemNext})
-						)
-			];
-		},
-		onPreInit: function(event, self){
-			self.$el.addClass(self.cls.container).addClass(self.opt.classes);
-			if (self.$el.children().length == 0){
-				self.$el.append(self.createChildren());
-			}
-			self.$contentContainer = self.$el.find(self.sel.contentContainer);
-			self.$contentStage = self.$el.find(self.sel.contentStage);
-			self.$itemContainer = self.$el.find(self.sel.itemContainer);
-			self.$itemStage = self.$el.find(self.sel.itemStage);
-			self.$itemPrev = self.$el.find(self.sel.itemPrev);
-			self.$itemNext = self.$el.find(self.sel.itemNext);
-			self.horizontal = self.$el.hasClass(self.cls.horizontal) || self.horizontal;
-			if (self.horizontal) self.$el.addClass(self.cls.horizontal);
-			self.noCaptions = self.$el.hasClass(self.cls.noCaptions) || self.noCaptions;
-			if (self.noCaptions) self.$el.addClass(self.cls.noCaptions);
-
-		},
-		onInit: function (event, self) {
-			$(window).on("resize.fg-slider", {self: self}, self.throttle(self.onWindowResize, self.template.throttle));
-			self.$itemPrev.on("click.fg-slider", {self: self}, self.onPrevClick);
-			self.$itemNext.on("click.fg-slider", {self: self}, self.onNextClick);
-			self.$contentContainer.fgswipe({data: {self: self}, swipe: self.onContentSwipe});
-			self.$itemContainer.fgswipe({data: {self: self}, swipe: self.onItemSwipe})
-					.on("DOMMouseScroll.fg-slider mousewheel.fg-slider", {self: self}, self.onItemMouseWheel);
-		},
-		onFirstLoad: function(event, self){
-			self.layout();
-			self.setSelected(0);
-		},
-		onAfterFilterChange: function(event, self){
-			self.selected = null;
-			self.layout();
-			self.setSelected(0);
-		},
-		/**
-		 * @summary Destroy the plugin cleaning up any bound events.
-		 * @memberof FooGallery.SliderTemplate#
-		 * @function onDestroy
-		 */
-		onDestroy: function (event, self) {
-			$(window).off("resize.fg-slider");
-			self.$itemPrev.off("click.fg-slider");
-			self.$itemNext.off("click.fg-slider");
-			self.$contentContainer.fgswipe("destroy");
-			self.$itemContainer.fgswipe("destroy")
-					.off("DOMMouseScroll.fg-slider mousewheel.fg-slider");
-		},
-		onParsedOrCreatedItem: function(item){
-			if (!item.isError){
-				var self = this;
-				item.$anchor.add(item.$image).attr("draggable", false);
-				item.$anchor.add(item.$caption).off("click.foogallery");
-				item.$inner.on("click.foogallery", {self: self, item: item}, self.onItemClick);
-
-				item.$content = $("<div/>", {"class": self.cls.content})
-						.append($("<p/>", {"class": self.cls.contentText}).html(item.caption).append($("<small/>").html(item.description)));
-				if (item.type === "video"){
-					item.index = -1;
-					item.player = self.helper.getPlayer(item.href, {});
-					item.$content.css("background-image", "url("+item.cover+")")
-							.append(
-									$("<div/>", {"class": self.cls.contentClose})
-											.on("click.foogallery", {self: self, item: item}, self.onCloseVideo),
-									$("<div/>", {"class": self.cls.contentPlay})
-											.on("click.foogallery", {self: self, item: item}, self.onPlayVideo)
-							);
-				} else {
-					item.$content.css("background-image", "url("+item.href+")");
-				}
-			}
-		},
-		onParsedItem: function(event, self, item){
-			self.onParsedOrCreatedItem(item);
-		},
-		onCreatedItem: function(event, self, item){
-			self.onParsedOrCreatedItem(item);
-		},
-		onAppendItem: function (event, self, item) {
-			event.preventDefault();
-			self.$itemStage.append(item.$el);
-			self.$contentStage.append(item.$content);
-			item.isAttached = true;
-		},
-		onDetachItem: function(event, self, item){
-			event.preventDefault();
-			if (item.type === "video" && item.player instanceof _.VideoPlayer){
-				item.player.$el.detach();
-				item.$el.add(item.$content)
-						.removeClass(self.cls.playing);
-			}
-			item.$el.add(item.$content)
-					.removeClass(self.cls.selected).detach();
-			item.isAttached = false;
-		},
-		onLayout: function(event, self){
-			self.layout();
-		},
-		onWindowResize: function(e){
-			var self = e.data.self;
-			self.layout();
-		},
-		getBreakpoint: function(){
-			var self = this, width = self.useViewport ? $(window).width() : self.$el.outerWidth();
-			// sort breakpoints so we iterate smallest to largest
-			self.breakpoints.sort(function(a, b){ return a.width - b.width; });
-			for (var i = 0, il = self.breakpoints.length; i < il; i++){
-				if (self.breakpoints[i].width >= width) return self.breakpoints[i];
-			}
-			return self.breakpoints[self.breakpoints.length - 1];
-		},
-		getMaxVisibleItems: function(){
-			var self = this, h = self.noCaptions ? self._breakpoint.items.h.noCaptions : self._breakpoint.items.h.captions;
-			return self.horizontal ? h : self._breakpoint.items.v;
-		},
-		layout: function(){
-			var self = this,
-					index = self.selected instanceof _.Item ? self.selected.index : 0,
-					items = self.items.available(),
-					count = items.length,
-					prev = self._breakpoint;
-
-			self._breakpoint = self.getBreakpoint();
-			self.$el.removeClass(self.allBreakpointClasses).addClass(self._breakpoint.classes);
-
-			var max = self.getMaxVisibleItems() - 1;
-			if (self._firstVisible == -1 || self._lastVisible == -1){
-				self._firstVisible = 0;
-				self._lastVisible = max;
-			} else if (self._breakpoint != prev){
-				if (index > self._firstVisible + max){
-					self._firstVisible += index - (self._firstVisible + max);
-				}
-				self._firstVisible = index;
-				self._lastVisible = index + max;
-			}
-			self.$itemPrev.toggle(self._firstVisible > 0);
-			self.$itemNext.toggle(self._lastVisible < count - 1);
-
-			self._contentWidth = self.$contentContainer.width();
-			self._contentHeight = self.$contentContainer.height();
-			if (count > 0){
-				self.$contentStage.width(self._contentWidth * count);
-				var hItemWidth = Math.max((self._contentWidth + 1) / self.getMaxVisibleItems());
-				$.each(items, function(i, item){
-					item.index = i;
-					item.$content.width(self._contentWidth).css("left", i * self._contentWidth);
-					if (self.horizontal){
-						item.$el.css({
-							width: hItemWidth,
-							left: i * hItemWidth
-						});
-					}
-				});
-				self.$contentStage.css("transform", "translateX(-" + (index * self._contentWidth) + "px)");
-				self._itemWidth = items[0].$el.outerWidth();
-				self._itemHeight = items[0].$el.outerHeight();
-			}
-		},
-		setSelected: function(itemOrIndex){
-			var self = this, prev = self.selected, next = itemOrIndex;
-			if (_is.number(itemOrIndex)){
-				var items = self.items.available();
-				itemOrIndex = itemOrIndex < 0 ? 0 : (itemOrIndex >= items.length ? items.length - 1 : itemOrIndex);
-				next = items[itemOrIndex];
-			}
-			if (prev != next && next instanceof _.Item){
-				if (prev instanceof _.Item){
-					if (prev.type === "video" && prev.player instanceof _.VideoPlayer){
-						prev.player.$el.detach();
-						prev.$el.add(prev.$content).removeClass(self.cls.playing);
-					}
-					prev.$el.add(prev.$content).removeClass(self.cls.selected);
-				}
-				self.$contentStage.css("transform", "translateX(-" + (next.index * self._contentWidth) + "px)");
-				next.$el.add(next.$content).addClass(self.cls.selected);
-				if (self.template.autoPlay && next.type === "video" && next.player instanceof _.VideoPlayer){
-					next.$el.add(next.$content).addClass(self.cls.playing);
-					next.player.appendTo(next.$content).load();
-				}
-				self.selected = next;
-				if (next.index <= self._firstVisible || next.index >= self._lastVisible){
-					var last = prev instanceof _.Item ? next.index > prev.index : false,
-							index = last ? (next.index == self._lastVisible ? next.index + 1 : next.index) : (next.index == self._firstVisible ? next.index - 1 : next.index);
-					self.setVisible(index, last);
-				}
-			}
-		},
-		setVisible: function(index, last){
-			var self = this, count = self.items.count(), max = self.getMaxVisibleItems() - 1;
-			index = index < 0 ? 0 : (index >= count ? count - 1 : index);
-
-			if (last) index = index - max < 0 ? 0 : index - max;
-			if (index >= 0 && index < count){
-				self._firstVisible = index;
-				self._lastVisible = index + max;
-				var translate = self.horizontal
-						? 'translateX(-'+((index * self._itemWidth) + 1)+'px) translateY(0px)'
-						: 'translateX(0px) translateY(-'+((index * self._itemHeight) + 1)+'px)';
-
-				_transition.start(self.$itemStage, function($el){
-					$el.css("transform", translate);
-				}).then(function(){
-					self.loadAvailable();
-				});
-			} else {
-				self.loadAvailable();
-			}
-			self.$itemPrev.toggle(self._firstVisible > 0);
-			self.$itemNext.toggle(self._lastVisible < count - 1);
-		},
-		onItemClick: function(e){
-			e.preventDefault();
-			e.data.self.setSelected(e.data.item);
-		},
-		onPrevClick: function(e){
-			e.preventDefault();
-			var self = e.data.self;
-			self.setVisible(self._firstVisible - 1);
-		},
-		onNextClick: function(e){
-			var self = e.data.self;
-			self.setVisible(self._lastVisible + 1, true);
-		},
-		onPlayVideo: function(e){
-			var self = e.data.self, item = e.data.item;
-			item.$el.add(item.$content).addClass(self.cls.playing);
-			item.player.appendTo(item.$content).load();
-		},
-		onCloseVideo: function(e){
-			var self = e.data.self, item = e.data.item;
-			item.player.$el.detach();
-			item.$el.add(item.$content).removeClass(self.cls.playing);
-		},
-		onItemMouseWheel: function(e){
-			var self = e.data.self,
-					max = self.items.count() - 1,
-					delta = Math.max(-1, Math.min(1, (e.originalEvent.wheelDelta || -e.originalEvent.detail)));
-
-			if (delta > 0 && self._firstVisible > 0){
-				self.setVisible(self._firstVisible - 1);
-				e.preventDefault();
-			} else if (delta < 0 && self._lastVisible < max){
-				self.setVisible(self._lastVisible + 1, true);
-				e.preventDefault();
-			}
-		},
-		onItemSwipe: function(info, data){
-			var self = data.self, amount = 1;
-			if (self.horizontal){
-				amount = Math.ceil(info.distance / self._itemWidth);
-				if ($.inArray(info.direction, ["NE", "E", "SE"]) !== -1){
-					self.setVisible(self._firstVisible - amount);
-				}
-				if ($.inArray(info.direction, ["NW", "W", "SW"]) !== -1){
-					self.setVisible(self._lastVisible + amount, true);
-				}
-			} else {
-				amount = Math.ceil(info.distance / self._itemHeight);
-				if ($.inArray(info.direction, ["SW", "S", "SE"]) !== -1){
-					self.setVisible(self._firstVisible - amount);
-				}
-				if ($.inArray(info.direction, ["NW", "N", "NE"]) !== -1){
-					self.setVisible(self._lastVisible + amount, true);
-				}
-			}
-		},
-		onContentSwipe: function (info, data) {
-			var self = data.self;
-			if ($.inArray(info.direction, ["NE", "E", "SE"]) !== -1){
-				self.setSelected(self.selected.index - 1);
-			}
-			if ($.inArray(info.direction, ["NW", "W", "SW"]) !== -1){
-				self.setSelected(self.selected.index + 1);
-			}
-		},
-		onFixItem: function(event){
-			event.preventDefault();
-		},
-		onUnfixItem: function(event){
-			event.preventDefault();
+	_.triggerPostLoad = function (e, tmpl, current, prev, isFilter) {
+		if (e.type === "first-load" || (tmpl.initialized && ((e.type === "after-page-change" && !isFilter) || e.type === "after-filter-change"))) {
+			$("body").trigger("post-load");
 		}
+	};
+
+	_.autoDefaults = {
+		on: {
+			"first-load.foogallery after-page-change.foogallery after-filter-change.foogallery": _.triggerPostLoad
+		}
+	};
+
+	_.auto = function (options) {
+		_.autoDefaults = _obj.merge(_.autoDefaults, options);
+	};
+
+	// this automatically initializes all templates on page load
+	$(function () {
+		$('[id^="foogallery-"]:not(.fg-ready)').foogallery(_.autoDefaults);
 	});
 
-	_.template.register("slider", _.SliderTemplate, {
-		template: {
-			horizontal: false,
-			useViewport: false,
-			noCaptions: false,
-			autoPlay: false,
-			breakpoints: [{
-				width: 480,
-				classes: "fgs-xs",
-				items: {
-					h: {
-						captions: 2,
-						noCaptions: 5
-					},
-					v: 6
-				}
-			},{
-				width: 768,
-				classes: "fgs-sm",
-				items: {
-					h: {
-						captions: 3,
-						noCaptions: 7
-					},
-					v: 7
-				}
-			},{
-				width: 1024,
-				classes: "fgs-md",
-				items: {
-					h: {
-						captions: 4,
-						noCaptions: 9
-					},
-					v: 6
-				}
-			},{
-				width: 1280,
-				classes: "fgs-lg",
-				items: {
-					h: {
-						captions: 5,
-						noCaptions: 11
-					},
-					v: 7
-				}
-			},{
-				width: 1600,
-				classes: "fgs-xl",
-				items: {
-					h: {
-						captions: 6,
-						noCaptions: 13
-					},
-					v: 8
-				}
-			}],
-			player: {
-				autoPlay: true,
-				width: "100%",
-				height: "100%"
-			},
-			throttle: 150
-		}
-	}, {
-		container: "foogallery fg-slider",
-		contentContainer: "fgs-content-container",
-		contentStage: "fgs-content-stage",
-		content: "fgs-content",
-		contentText: "fgs-content-text",
-		contentPlay: "fgs-content-play",
-		contentClose: "fgs-content-close",
-		itemContainer: "fgs-item-container",
-		itemStage: "fgs-item-stage",
-		itemPrev: "fgs-item-prev",
-		itemNext: "fgs-item-next",
-		horizontal: "fgs-horizontal",
-		selected: "fgs-selected",
-		playing: "fgs-playing",
-		noCaptions: "fgs-no-captions"
+	_utils.ready(function () {
+		$('[id^="foogallery-"].fg-ready').foogallery(_.autoDefaults);
 	});
 
 })(
 		FooGallery.$,
 		FooGallery,
 		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.transition
-);
-(function($, _utils, _is){
-
-	function wp_integration(e, tmpl, current, prev){
-		if (tmpl.initialized && (e.type === "after-page-change" || e.type === "ready" || (e.type === "after-filter-change" && !tmpl.pages))){
-			$("body").trigger("post-load");
-		}
-	}
-
-	var config = {
-		on: {
-			"ready.foogallery after-page-change.foogallery after-filter-change.foogallery": wp_integration
-		}
-	};
-
-	// this automatically initializes all templates on page load
-	$(function () {
-		$('[id^="foogallery-"]:not(.fg-ready)').foogallery(config);
-	});
-
-	_utils.ready(function(){
-		$('[id^="foogallery-"].fg-ready').foogallery(config);
-	});
-
-})(
-		FooGallery.$,
-		FooGallery.utils,
-		FooGallery.utils.is
+		FooGallery.utils.obj
 );

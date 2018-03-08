@@ -7,8 +7,8 @@
 			self.distance = self.opt.distance;
 			self._created = [];
 		},
-		build: function(items){
-			this._super(items);
+		build: function(){
+			this._super();
 			this._created = [];
 		},
 		available: function(){
@@ -31,9 +31,10 @@
 			}
 			return items;
 		},
-		create: function(pageNumber){
+		create: function(pageNumber, isFilter){
 			var self = this;
 			pageNumber = self.number(pageNumber);
+			if (isFilter) self.tmpl.items.detach(self.tmpl.items.all());
 			for (var i = 0; i < pageNumber; i++){
 				if ($.inArray(i, self._created) === -1){
 					self.tmpl.items.create(self._arr[i], true);

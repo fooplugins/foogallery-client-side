@@ -9,13 +9,9 @@
 		init: function(){
 			var self = this;
 			$(window).on("resize.portfolio", {self: self}, self.onWindowResize);
-			self.layout(true);
 		},
 		destroy: function(){
 			$(window).off("resize.portfolio");
-			$.each(this._items, function(i, item){
-				item.$item.removeAttr("style").removeClass("fg-positioned");
-			});
 			this.$el.removeAttr("style");
 		},
 		parse: function(){
@@ -75,9 +71,9 @@
 			}
 
 			var self = this,
-				containerWidth = self.getContainerWidth(),
-				rows = self.rows(containerWidth),
-				offsetTop = 0;
+					containerWidth = self.getContainerWidth(),
+					rows = self.rows(containerWidth),
+					offsetTop = 0;
 
 			for (var i = 0, l = rows.length, row; i < l; i++){
 				row = rows[i];
@@ -137,10 +133,10 @@
 		},
 		rows: function(containerWidth){
 			var self = this,
-				items = self.items(),
-				rows = [],
-				process = items.length > 0,
-				index = -1, offsetTop = 0;
+					items = self.items(),
+					rows = [],
+					process = items.length > 0,
+					index = -1, offsetTop = 0;
 
 			while (process){
 				index += 1;
@@ -205,8 +201,8 @@
 	};
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
 );
