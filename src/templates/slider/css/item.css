@@ -220,6 +220,10 @@
 	-moz-user-drag: none;
 	user-drag: none;
 }
+.foogallery.fg-slider .fg-item .fg-thumb:before {
+	background-size: 24px 24px;
+}
+
 .fg-slider .fg-caption {
 	display: block;
 	position: relative;
@@ -235,6 +239,9 @@
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
+}
+.foogallery.fg-slider .fg-item .fg-caption-inner:before {
+	display: none;
 }
 .fg-slider .fg-caption-title {
 	padding: 0;
@@ -264,4 +271,19 @@
 .fg-slider.fgs-lg .fg-loader,
 .fg-slider.fgs-xl .fg-loader {
 	display: block;
+}
+
+/* Disable the push transition for this template as it is not supported */
+.fg-slider.fg-hover-push .fg-loaded .fg-thumb,
+.fg-slider.fg-hover-push .fg-loaded .fg-thumb:before,
+.fg-slider.fg-hover-push .fg-loaded .fg-item-inner:hover .fg-thumb {
+	transform: none;
+}
+.fg-slider.fg-hover-push .fg-item-inner .fg-thumb:before {
+	visibility: hidden;
+	opacity: 0;
+}
+.fg-slider.fg-hover-push .fg-item-inner:hover .fg-thumb:before {
+	visibility: visible;
+	opacity: 1;
 }
