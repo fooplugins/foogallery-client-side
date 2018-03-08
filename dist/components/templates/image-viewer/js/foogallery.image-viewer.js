@@ -54,35 +54,35 @@
 			 * @name $inner
 			 * @type {jQuery}
 			 */
-			this.$inner = this.$el.find('.fiv-inner-container');
+			this.$inner = $();
 			/**
 			 * @summary The jQuery object that displays the current image count.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $current
 			 * @type {jQuery}
 			 */
-			this.$current = this.$el.find('.fiv-count-current');
+			this.$current = $();
 			/**
 			 * @summary The jQuery object that displays the current image count.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $current
 			 * @type {jQuery}
 			 */
-			this.$total = this.$el.find('.fiv-count-total');
+			this.$total = $();
 			/**
 			 * @summary The jQuery object for the previous button.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $prev
 			 * @type {jQuery}
 			 */
-			this.$prev = this.$el.find('.fiv-prev');
+			this.$prev = $();
 			/**
 			 * @summary The jQuery object for the next button.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $next
 			 * @type {jQuery}
 			 */
-			this.$next = this.$el.find('.fiv-next');
+			this.$next = $();
 			/**
 			 * @summary The CSS classes for the Image Viewer template.
 			 * @memberof FooGallery.ImageViewerTemplate#
@@ -95,6 +95,28 @@
 			 * @name sel
 			 * @type {FooGallery.ImageViewerTemplate~CSSSelectors}
 			 */
+		},
+		createChildren: function(){
+			var self = this;
+			return $("<div/>", {"class": self.cls.inner}).append(
+					$("<div/>", {"class": self.cls.innerContainer}),
+					$("<div/>", {"class": self.cls.controls}).append(
+							$("<div/>", {"class": self.cls.prev})
+									.append($("<span/>", {text: self.il8n.prev})),
+							$("<label/>", {"class": self.cls.count, text: self.il8n.count})
+									.prepend($("<span/>", {"class": self.cls.countCurrent, text: "0"}))
+									.append($("<span/>", {"class": self.cls.countTotal, text: "0"})),
+							$("<div/>", {"class": self.cls.next})
+									.append($("<span/>", {text: self.il8n.next}))
+					)
+			);
+		},
+		onPreInit: function(event, self){
+			self.$inner = self.$el.find(self.sel.innerContainer);
+			self.$current = self.$el.find(self.sel.countCurrent);
+			self.$total = self.$el.find(self.sel.countTotal);
+			self.$prev = self.$el.find(self.sel.prev);
+			self.$next = self.$el.find(self.sel.next);
 		},
 		onInit: function (event, self) {
 			if (self.template.attachFooBox) {
@@ -127,6 +149,14 @@
 			self.$inner.append(item.$el);
 			item.fix();
 			item.isAttached = true;
+		},
+		onAfterPageChange: function(event, self, current, prev, isFilter){
+			if (!isFilter){
+				self.update();
+			}
+		},
+		onAfterFilterChange: function(event, self){
+			self.update();
 		},
 		update: function(){
 			if (this.pages){
@@ -214,7 +244,19 @@
 			loop: false
 		}
 	}, {
-		container: "foogallery fg-image-viewer"
+		container: "foogallery fg-image-viewer",
+		inner: "fiv-inner",
+		innerContainer: "fiv-inner-container",
+		controls: "fiv-ctrls",
+		prev: "fiv-prev",
+		next: "fiv-next",
+		count: "fiv-count",
+		countCurrent: "fiv-count-current",
+		countTotal: "fiv-count-total"
+	}, {
+		prev: "Prev",
+		next: "Next",
+		count: "of"
 	});
 
 })(
