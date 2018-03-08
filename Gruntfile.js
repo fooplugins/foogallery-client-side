@@ -76,6 +76,7 @@ module.exports = function ( grunt ) {
 
 						"./src/core/css/hover-effects/captions.css",
 						"./src/core/css/hover-effects/icons.css",
+						"./src/core/css/hover-effects/video-icons.css",
 
 						"./src/core/css/hover-effects/preset.css",
 						"./src/core/css/hover-effects/presets/goliath.css",
@@ -485,25 +486,25 @@ module.exports = function ( grunt ) {
 		"copy": {
 			"full": {
 				"expand": true,
-				"src": "./src/core/css/img/*",
+				"src": "./src/core/css/img/*.png",
 				"dest": "./dist/full/img",
 				"flatten": true
 			},
 			"lite": {
 				"expand": true,
-				"src": "./src/core/css/img/*",
+				"src": "./src/core/css/img/*.png",
 				"dest": "./dist/lite/img",
 				"flatten": true
 			},
 			"core": {
 				"expand": true,
-				"src": "./src/core/css/img/*",
+				"src": "./src/core/css/img/*.png",
 				"dest": "./dist/components/core/img",
 				"flatten": true
 			},
 			"core_lite": {
 				"expand": true,
-				"src": "./src/core/css/img/*",
+				"src": "./src/core/css/img/*.png",
 				"dest": "./dist/components/core_lite/img",
 				"flatten": true
 			}
