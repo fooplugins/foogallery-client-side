@@ -11,8 +11,8 @@
 		onInit: function(event, self){
 			self.foogrid.init();
 		},
-		onPostInit: function(event, self){
-			self.foogrid.layout();
+		onFirstLoad: function(event, self){
+			self.foogrid.layout(true);
 		},
 		onReady: function(event, self){
 			self.foogrid.layout();
@@ -20,17 +20,36 @@
 		onDestroy: function(event, self){
 			self.foogrid.destroy();
 		},
-		onBeforePageChange: function(event, self, current, next, setPage){
+		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
+			if (!isFilter){
+				event.preventDefault();
+				self.wasActive = self.foogrid.isActive();
+				self.foogrid.close().then(function(){
+					setPage();
+					self.loadAvailable();
+				});
+			}
+		},
+		onAfterPageChange: function(event, self, current, prev, isFilter){
+			if (!isFilter){
+				self.foogrid.layout(true);
+				if (self.wasActive){
+					self.wasActive = false;
+					self.foogrid.open(0);
+				}
+			}
+		},
+		onBeforeFilterChange: function(event, self, current, next, setFilter){
 			event.preventDefault();
 			self.wasActive = self.foogrid.isActive();
 			self.foogrid.close().then(function(){
-				setPage();
+				setFilter();
 				self.loadAvailable();
 			});
 		},
-		onAfterPageChange: function(event, self){
+		onAfterFilterChange: function(event, self){
 			self.foogrid.layout(true);
-			if (self.wasActive){
+			if (self.wasActive) {
 				self.wasActive = false;
 				self.foogrid.open(0);
 			}
