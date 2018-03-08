@@ -1,4 +1,6 @@
-(function($, _, _utils, _is, _fn, _str){
+(function ($, _, _utils, _is, _fn, _str) {
+
+	var instance = 0;
 
 	_.Template = _utils.Class.extend(/** @lends FooGallery.Template */{
 		/**
@@ -11,8 +13,15 @@
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */
-		construct: function(options, element){
+		construct: function (options, element) {
 			var self = this;
+			/**
+			 * @summary An instance specific namespace to use when binding events to global objects that could be shared across multiple galleries.
+			 * @memberof FooGallery.Template#
+			 * @name namespace
+			 * @type {string}
+			 */
+			self.namespace = ".foogallery-" + (++instance);
 			/**
 			 * @summary The jQuery object for the template container.
 			 * @memberof FooGallery.Template#
@@ -41,13 +50,6 @@
 			 * @type {string}
 			 */
 			self.id = self.$el.prop("id") || options.id;
-			/**
-			 * @summary Whether or not the template created its' own container element.
-			 * @memberof FooGallery.Template#
-			 * @name createdSelf
-			 * @type {boolean}
-			 */
-			self.createdSelf = false;
 			/**
 			 * @summary The CSS classes for the template.
 			 * @memberof FooGallery.Template#
@@ -109,6 +111,12 @@
 			self.initialized = false;
 			self.destroying = false;
 			self.destroyed = false;
+			self._undo = {
+				classes: "",
+				style: "",
+				create: false,
+				children: false
+			};
 		},
 
 		// ################
@@ -127,38 +135,55 @@
 		 * @fires FooGallery.Template~"post-init.foogallery"
 		 * @fires FooGallery.Template~"ready.foogallery"
 		 */
-		initialize: function(parent){
+		initialize: function (parent) {
 			var self = this;
 			if (_is.promise(self._initialize)) return self._initialize;
 			parent = _is.jq(parent) ? parent : $(parent);
-			return self._initialize = $.Deferred(function(def){
+			return self._initialize = $.Deferred(function (def) {
 				self.initializing = true;
-				if (parent.length === 0 && self.$el.parent().length === 0){
+				if (parent.length === 0 && self.$el.parent().length === 0) {
 					def.reject("A parent element is required.");
 					return;
 				}
-				if (self.$el.length === 0){
+				if (self.$el.length === 0) {
 					self.$el = self.create();
-					self.createdSelf = true;
+					self._undo.create = true;
 				}
-				if (parent.length > 0){
+				if (parent.length > 0) {
 					self.$el.appendTo(parent);
 				}
 				var queue = $.Deferred(), promise = queue.promise(), existing;
-				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template){
-					promise = promise.then(function(){
-						return existing.destroy().then(function(){
+				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template) {
+					promise = promise.then(function () {
+						return existing.destroy().then(function () {
 							self.$el.data(_.dataTemplate, self);
 						});
 					});
 				} else {
 					self.$el.data(_.dataTemplate, self);
 				}
-				promise.then(function(){
+				promise.then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					// at this point we have our container element free of pre-existing instances so let's bind any event listeners supplied by the .on option
-					if (!_is.empty(self.opt.on)){
+					if (!_is.empty(self.opt.on)) {
 						self.$el.on(self.opt.on);
+					}
+					self._undo.classes = self.$el.attr("class");
+					self._undo.style = self.$el.attr("style");
+
+					// ensure the container has it's required CSS classes
+					if (!self.$el.is(self.sel.container)) {
+						self.$el.addClass(self.cls.container);
+					}
+					var selector = _utils.selectify(self.opt.classes);
+					if (selector != null && !self.$el.is(selector)) {
+						self.$el.addClass(self.opt.classes);
+					}
+
+					// if the container currently has no children make them
+					if (self.$el.children().length == 0) {
+						self.$el.append(self.createChildren());
+						self._undo.children = true;
 					}
 
 					/**
@@ -191,17 +216,17 @@
 					 */
 					var e = self.raise("pre-init");
 					if (e.isDefaultPrevented()) return _fn.rejectWith("pre-init default prevented");
-				}).then(function(){
+				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					// checks the delay option and if it is greater than 0 waits for that amount of time before continuing
 					if (self.opt.delay <= 0) return _fn.resolved;
-					return $.Deferred(function(wait){
+					return $.Deferred(function (wait) {
 						self._delay = setTimeout(function () {
 							self._delay = null;
 							wait.resolve();
 						}, self.opt.delay);
 					}).promise();
-				}).then(function(){
+				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					/**
 					 * @summary Raised before the template is initialized but after any pre-initialization work is complete.
@@ -247,7 +272,7 @@
 					var e = self.raise("init");
 					if (e.isDefaultPrevented()) return _fn.rejectWith("init default prevented");
 					return self.items.fetch();
-				}).then(function(){
+				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					/**
 					 * @summary Raised after the template is initialized but before any post-initialization work is complete.
@@ -294,9 +319,9 @@
 					if (e.isDefaultPrevented()) return _fn.rejectWith("post-init default prevented");
 					var state = self.state.parse();
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
-					$(window).on("scroll.foogallery", {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle))
-							.on("popstate.foogallery", {self: self}, self.onWindowPopState);
-				}).then(function(){
+					$(window).on("scroll" + self.namespace, {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle))
+							.on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
+				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					/**
 					 * @summary Raised after the template is fully initialized but before the first load occurs.
@@ -316,7 +341,7 @@
 					 */
 					self.raise("first-load");
 					return self.loadAvailable();
-				}).then(function(){
+				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					self.initializing = false;
 					self.initialized = true;
@@ -346,11 +371,11 @@
 					 */
 					self.raise("ready");
 					def.resolve(self);
-				}).fail(function(err){
+				}).fail(function (err) {
 					def.reject(err);
 				});
 				queue.resolve();
-			}).promise().fail(function(err){
+			}).promise().fail(function (err) {
 				console.log("initialize failed", self, err);
 				self.destroy();
 			});
@@ -365,9 +390,19 @@
 		 * <div id="{options.id}" class="{options.cls.container} {options.classes}">
 		 * </div>
 		 */
-		create: function(){
+		create: function () {
 			var self = this;
 			return $("<div/>", {"id": self.id, "class": self.cls.container}).addClass(self.opt.classes);
+		},
+		/**
+		 * @summary Create any container child elements for the template returning the jQuery object.
+		 * @memberof FooGallery.Template#
+		 * @function createChildren
+		 * @returns {(jQuery|jQuery[]|HTMLElement|HTMLElement[])} A jQuery object to use as the container for the template.
+		 * @description This method is called just prior to the {@link FooGallery.Template~"preinit.foogallery"|preinit} event if the container element has no children to allow templates to add any markup required.
+		 */
+		createChildren: function () {
+			return $();
 		},
 
 		// #############
@@ -382,13 +417,13 @@
 		 * @description Once this method is called it can not be stopped and the template will be destroyed.
 		 * @fires FooGallery.Template~"destroy.foogallery"
 		 */
-		destroy: function(){
+		destroy: function () {
 			var self = this;
 			if (self.destroyed) return _fn.resolved;
 			self.destroying = true;
-			return $.Deferred(function(def){
-				if (self.initializing && _is.promise(self._initialize)){
-					self._initialize.always(function(){
+			return $.Deferred(function (def) {
+				if (self.initializing && _is.promise(self._initialize)) {
+					self._initialize.always(function () {
 						self.destroying = false;
 						self._destroy();
 						def.resolve();
@@ -406,7 +441,7 @@
 		 * @function _destroy
 		 * @private
 		 */
-		_destroy: function(){
+		_destroy: function () {
 			var self = this;
 			if (self.destroyed) return;
 			/**
@@ -425,13 +460,12 @@
 			 * });
 			 */
 			self.raise("destroy");
-			$(window).off("popstate.foogallery", self.onWindowPopState)
-					.off("scroll.foogallery");
+			$(window).off(self.namespace);
 			self.state.destroy();
 			if (self.filter) self.filter.destroy();
 			if (self.pages) self.pages.destroy();
 			self.items.destroy();
-			if (!_is.empty(self.opt.on)){
+			if (!_is.empty(self.opt.on)) {
 				self.$el.off(self.opt.on);
 			}
 			/**
@@ -451,7 +485,17 @@
 			 */
 			self.raise("destroyed");
 			self.$el.removeData(_.dataTemplate);
-			if (self.createdSelf){
+
+			if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
+			else self.$el.attr("class", self._undo.classes);
+
+			if (_is.empty(self._undo.style)) self.$el.removeAttr("style");
+			else self.$el.attr("style", self._undo.style);
+
+			if (self._undo.children) {
+				self.$el.empty();
+			}
+			if (self._undo.create) {
 				self.$el.remove();
 			}
 			self.$el = self.state = self.items = self.pages = null;
@@ -471,7 +515,7 @@
 		 * @function getAvailable
 		 * @returns {FooGallery.Item[]} An array of {@link FooGallery.Item|items}.
 		 */
-		getAvailable: function(){
+		getAvailable: function () {
 			return this.pages ? this.pages.available() : this.items.available();
 		},
 
@@ -481,7 +525,7 @@
 		 * @function loadAvailable
 		 * @returns {Promise<FooGallery.Item[]>} Resolves with an array of {@link FooGallery.Item|items} as the first argument. If no items are loaded this array is empty.
 		 */
-		loadAvailable: function(){
+		loadAvailable: function () {
 			return this.items.load(this.getAvailable());
 		},
 
@@ -491,11 +535,11 @@
 		 * @function _check
 		 * @private
 		 */
-		_check: function(delay){
+		_check: function (delay) {
 			delay = _is.number(delay) ? delay : 0;
 			var self = this;
-			setTimeout(function(){
-				if (self.initialized && (!self.destroying || !self.destroyed)){
+			setTimeout(function () {
+				if (self.initialized && (!self.destroying || !self.destroyed)) {
 					self.loadAvailable();
 				}
 			}, delay);
@@ -524,20 +568,20 @@
 			if (!_is.string(eventName) || _is.empty(eventName)) return null;
 			args = _is.array(args) ? args : [];
 			var self = this,
-				name = eventName.split(".")[0],
-				listener = _str.camel("on-" + name),
-				event = $.Event(name + ".foogallery");
+					name = eventName.split(".")[0],
+					listener = _str.camel("on-" + name),
+					event = $.Event(name + ".foogallery");
 			args.unshift(self); // add self
 			self.$el.trigger(event, args);
 			_.debug.logf("{id}|{name}:", {id: self.id, name: name}, args);
-			if (_is.fn(self[listener])){
+			if (_is.fn(self[listener])) {
 				args.unshift(event); // add event
 				self[listener].apply(self.$el.get(0), args);
 			}
 			return event;
 		},
 
-		layout: function(){
+		layout: function () {
 			var self = this;
 			if (self._initialize === null) return;
 			/**
@@ -567,9 +611,9 @@
 		 * @param {number} wait - The number of milliseconds to wait before allowing execution.
 		 * @returns {Function}
 		 */
-		throttle: function(fn, wait){
+		throttle: function (fn, wait) {
 			var time = Date.now();
-			return function() {
+			return function () {
 				if ((time + wait - Date.now()) < 0) {
 					var args = _fn.arg2arr(arguments);
 					fn.apply(this, args);
@@ -589,9 +633,9 @@
 		 * @param {jQuery.Event} e - The jQuery.Event object for the event.
 		 * @private
 		 */
-		onWindowPopState: function(e){
+		onWindowPopState: function (e) {
 			var self = e.data.self, state = e.originalEvent.state;
-			if (!_is.empty(state) && state.id === self.id){
+			if (!_is.empty(state) && state.id === self.id) {
 				self.state.set(state);
 				self.loadAvailable();
 			}
@@ -603,7 +647,7 @@
 		 * @param {jQuery.Event} e - The jQuery.Event object for the event.
 		 * @private
 		 */
-		onWindowScroll: function(e){
+		onWindowScroll: function (e) {
 			var self = e.data.self;
 			self.loadAvailable();
 		}
@@ -625,9 +669,7 @@
 		template: {}
 	}, {
 		container: "foogallery"
-	}, {
-
-	}, -100);
+	}, {}, -100);
 
 	/**
 	 * @summary An object containing all the core template options.
@@ -674,11 +716,10 @@
 	 */
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is,
-	FooGallery.utils.fn,
-	FooGallery.utils.str
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.str
 );
-

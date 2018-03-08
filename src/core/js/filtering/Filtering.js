@@ -1,7 +1,7 @@
-(function($, _, _utils, _is){
+(function ($, _, _utils, _is) {
 
 	_.Filtering = _.Component.extend({
-		construct: function(template){
+		construct: function (template) {
 			var self = this;
 			/**
 			 * @ignore
@@ -36,23 +36,23 @@
 			self.current = [];
 			self.ctrls = [];
 		},
-		destroy: function(){
+		destroy: function () {
 			var self = this;
 			self.tags.splice(0, self.tags.length);
-			$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
+			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
 			self._super();
 		},
-		count: function(items, tags){
+		count: function (items, tags) {
 			items = _is.array(items) ? items : [];
 			tags = _is.array(tags) ? tags : [];
 			var result = {}, generate = tags.length === 0;
-			for (var i = 0, l = items.length, t; i < l; i++){
-				if (!_is.empty(t = items[i].tags)){
-					for (var j = 0, jl = t.length, tag; j < jl; j++){
-						if (!_is.empty(tag = t[j]) && (generate || (!generate && $.inArray(tag, tags) != -1))){
-							if (_is.number(result[tag])){
+			for (var i = 0, l = items.length, t; i < l; i++) {
+				if (!_is.empty(t = items[i].tags)) {
+					for (var j = 0, jl = t.length, tag; j < jl; j++) {
+						if (!_is.empty(tag = t[j]) && (generate || (!generate && $.inArray(tag, tags) != -1))) {
+							if (_is.number(result[tag])) {
 								result[tag]++;
 							} else {
 								result[tag] = 1;
@@ -61,20 +61,20 @@
 					}
 				}
 			}
-			for (var k = 0, kl = tags.length; k < kl; k++){
+			for (var k = 0, kl = tags.length; k < kl; k++) {
 				if (!result.hasOwnProperty(tags[k])) result[tags[k]] = 0;
 			}
 			return result;
 		},
-		build: function(){
+		build: function () {
 			var self = this, items = self.tmpl.items.all();
-			if (items.length > 0){
+			if (items.length > 0) {
 				// first get a count of every tag available from all items
 				var counts = self.count(items, self.opt.tags), min = Infinity, max = 0;
-				for (var prop in counts){
-					if (counts.hasOwnProperty(prop)){
+				for (var prop in counts) {
+					if (counts.hasOwnProperty(prop)) {
 						var count = counts[prop];
-						if (self.min <= 0 || count >= self.min){
+						if (self.min <= 0 || count >= self.min) {
 							self.tags.push({value: prop, count: count, percent: 1, size: self.largest, opacity: self.darkest});
 							if (count < min) min = count;
 							if (count > max) max = count;
@@ -83,18 +83,18 @@
 				}
 
 				// if there's a limit set, remove other tags
-				if (self.limit > 0 && self.tags.length > self.limit){
-					self.tags.sort(function(a, b){
+				if (self.limit > 0 && self.tags.length > self.limit) {
+					self.tags.sort(function (a, b) {
 						return b.count - a.count;
 					});
 					self.tags = self.tags.slice(0, self.limit);
 				}
 
 				// if adjustSize or adjustOpacity is enabled, calculate a percentage value used to calculate the appropriate font size and opacity
-				if (self.adjustSize === true || self.adjustOpacity === true){
+				if (self.adjustSize === true || self.adjustOpacity === true) {
 					var fontRange = self.largest - self.smallest;
 					var opacityRange = self.darkest - self.lightest;
-					for (var i = 0, l = self.tags.length, tag; i < l; i++){
+					for (var i = 0, l = self.tags.length, tag; i < l; i++) {
 						tag = self.tags[i];
 						tag.percent = (tag.count - min) / (max - min);
 						tag.size = self.adjustSize ? Math.round((fontRange * tag.percent) + self.smallest) : self.largest;
@@ -103,7 +103,7 @@
 				}
 
 				// finally sort the tags by name
-				self.tags.sort(function(a, b){
+				self.tags.sort(function (a, b) {
 					var aTag = a.value.toUpperCase(), bTag = b.value.toUpperCase();
 					if (aTag < bTag) return -1;
 					if (aTag > bTag) return 1;
@@ -112,67 +112,65 @@
 
 			}
 
-			if (self.tags.length > 0 && _.filtering.hasCtrl(self.type)){
+			if (self.tags.length > 0 && _.filtering.hasCtrl(self.type)) {
 				var pos = self.position, top, bottom;
-				if (pos === "both" || pos === "top"){
+				if (pos === "both" || pos === "top") {
 					top = _.filtering.makeCtrl(self.type, self.tmpl, self, "top");
-					if (top.create()){
+					if (top.create()) {
 						top.append();
 						self.ctrls.push(top);
 					}
 				}
-				if (pos === "both" || pos === "bottom"){
+				if (pos === "both" || pos === "bottom") {
 					bottom = _.filtering.makeCtrl(self.type, self.tmpl, self, "bottom");
-					if (bottom.create()){
+					if (bottom.create()) {
 						bottom.append();
 						self.ctrls.push(bottom);
 					}
 				}
 			}
 		},
-		rebuild: function(){
+		rebuild: function () {
 			var self = this;
 			self.tags.splice(0, self.tags.length);
-			$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
+			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
 			self.build();
 		},
-		controls: function(tags){
+		controls: function (tags) {
 			var self = this;
-			$.each(self.ctrls, function(i, control){
+			$.each(self.ctrls, function (i, control) {
 				control.update(tags);
 			});
 		},
-		set: function(tags, updateState){
+		set: function (tags, updateState) {
 			if (_is.string(tags)) tags = tags.split(' ');
 			if (!_is.array(tags)) tags = [];
 			var self = this, state;
-			if (!self.arraysEqual(self.current, tags)){
-				var prev = self.current.slice(), setFilter = function(){
+			if (!self.arraysEqual(self.current, tags)) {
+				var prev = self.current.slice(), setFilter = function () {
 					updateState = _is.boolean(updateState) ? updateState : true;
-					if (updateState && !self.tmpl.state.exists()){
+					if (updateState && !self.tmpl.state.exists()) {
 						state = self.tmpl.state.get();
 						self.tmpl.state.update(state, self.pushOrReplace);
 					}
-					self.tmpl.items.detach(self.tmpl.getAvailable());
-					//self.tmpl.items.filter(tags, self.intersect);
 
 					self.controls(tags);
 
-					if (_is.empty(tags)){
+					if (_is.empty(tags)) {
 						self.tmpl.items.reset();
 					} else {
 						var items = self.tmpl.items.all();
-						if (self.mode === 'intersect'){
-							items = $.map(items, function(item) {
-								return _is.array(item.tags) && tags.every(function(tag){
+						if (self.mode === 'intersect') {
+							items = $.map(items, function (item) {
+								return _is.array(item.tags) && tags.every(function (tag) {
 									return item.tags.indexOf(tag) >= 0;
 								}) ? item : null;
 							});
 						} else {
-							items = $.map(items, function(item) {
-								return _is.array(item.tags) && item.tags.some(function(tag){
+							items = $.map(items, function (item) {
+								return _is.array(item.tags) && item.tags.some(function (tag) {
 									return tags.indexOf(tag) >= 0;
 								}) ? item : null;
 							});
@@ -180,15 +178,15 @@
 						self.tmpl.items.setAvailable(items);
 					}
 					self.current = tags.slice();
-
-					if (self.tmpl.pages){
+					if (self.tmpl.pages) {
 						self.tmpl.pages.rebuild();
-						self.tmpl.pages.set(1);
+						self.tmpl.pages.set(1, null, null, true);
 					} else {
+						self.tmpl.items.detach(self.tmpl.items.all());
 						self.tmpl.items.create(self.tmpl.getAvailable(), true);
 					}
 
-					if (updateState){
+					if (updateState) {
 						state = self.tmpl.state.get();
 						self.tmpl.state.update(state, self.pushOrReplace);
 					}
@@ -202,52 +200,53 @@
 			}
 			return false;
 		},
-		arraysEqual: function(arr1, arr2){
-			if(arr1.length !== arr2.length)
+		arraysEqual: function (arr1, arr2) {
+			if (arr1.length !== arr2.length)
 				return false;
 			arr1.sort();
 			arr2.sort();
-			for(var i = arr1.length; i--;) {
-				if(arr1[i] !== arr2[i])
+			for (var i = arr1.length; i--;) {
+				if (arr1[i] !== arr2[i])
 					return false;
 			}
 			return true;
 		},
-		apply: function(tags){
+		apply: function (tags) {
 			var self = this;
-			if (self.set(tags, !self.tmpl.pages)){
+			if (self.set(tags, !self.tmpl.pages)) {
 				self.tmpl.loadAvailable();
 			}
 		}
 	});
 
 	_.FilteringControl = _.Component.extend({
-		construct: function(template, parent, position){
+		construct: function (template, parent, position) {
 			var self = this;
 			self._super(template);
 			self.filter = parent;
 			self.position = position;
 			self.$container = null;
 		},
-		create: function(){
+		create: function () {
 			var self = this;
 			self.$container = $("<nav/>", {"class": self.filter.cls.container}).addClass(self.filter.theme);
 			return true;
 		},
-		destroy: function(){
+		destroy: function () {
 			var self = this;
 			self.$container.remove();
 			self.$container = null;
 		},
-		append: function(){
+		append: function () {
 			var self = this;
-			if (self.position === "top"){
+			if (self.position === "top") {
 				self.$container.insertBefore(self.tmpl.$el);
 			} else {
 				self.$container.insertAfter(self.tmpl.$el);
 			}
 		},
-		update: function(tags){}
+		update: function (tags) {
+		}
 	});
 
 	_.filtering.register("default", _.Filtering, null, {

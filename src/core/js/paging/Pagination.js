@@ -18,8 +18,8 @@
 				selected: false
 			};
 		},
-		build: function(items){
-			this._super(items);
+		build: function(){
+			this._super();
 			this.range = {
 				index: -1,
 				start: -1,

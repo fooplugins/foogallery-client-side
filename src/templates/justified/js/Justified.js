@@ -15,14 +15,10 @@
 					self.options.maxRowHeight = parseInt(self.options.maxRowHeight);
 				}
 			}
-			self.layout(true);
 			$(window).on("resize.justified", {self: self}, self.onWindowResize);
 		},
 		destroy: function(){
 			$(window).off("resize.justified");
-			$.each(this._items, function(i, item){
-				item.$item.removeAttr("style").removeClass("fg-positioned");
-			});
 			this.$el.removeAttr("style");
 		},
 		parse: function(){
@@ -78,9 +74,9 @@
 			}
 
 			var self = this,
-				containerWidth = self.getContainerWidth(),
-				rows = self.rows(containerWidth),
-				offsetTop = 0;
+					containerWidth = self.getContainerWidth(),
+					rows = self.rows(containerWidth),
+					offsetTop = 0;
 
 			for (var i = 0, l = rows.length, row; i < l; i++){
 				row = rows[i];
@@ -144,9 +140,9 @@
 		},
 		justify: function(row, containerWidth, offsetTop){
 			var self = this,
-				left = 0,
-				margins = self.options.margins * (row.items.length - 1),
-				ratio = (containerWidth - margins) / row.width;
+					left = 0,
+					margins = self.options.margins * (row.items.length - 1),
+					ratio = (containerWidth - margins) / row.width;
 
 			if (row.index > 0) offsetTop += self.options.margins;
 			row.top = offsetTop;
@@ -193,10 +189,10 @@
 		},
 		rows: function(containerWidth){
 			var self = this,
-				items = self.items(),
-				rows = [],
-				process = items.length > 0,
-				index = -1, offsetTop = 0;
+					items = self.items(),
+					rows = [],
+					process = items.length > 0,
+					index = -1, offsetTop = 0;
 
 			while (process){
 				index += 1;
@@ -259,8 +255,8 @@
 	};
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
 );
