@@ -1,4 +1,4 @@
-(function($, _, _utils, _is, _fn, _obj){
+(function ($, _, _utils, _is, _fn, _obj) {
 
 	_.TemplateFactory = _utils.Factory.extend(/** @lends FooGallery.TemplateFactory */{
 		/**
@@ -10,7 +10,7 @@
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */
-		construct: function(){
+		construct: function () {
 			/**
 			 * @summary An object containing all registered galleries.
 			 * @memberof FooGallery.TemplateFactory#
@@ -48,9 +48,9 @@
 		 * @param {number} [priority=0] - This determines the index for the class when using either the {@link FooGallery.TemplateFactory#load|load} or {@link FooGallery.TemplateFactory#names|names} methods, a higher value equals a lower index.
 		 * @returns {boolean} `true` if the `klass` was successfully registered.
 		 */
-		register: function(name, template, options, classes, il8n, priority){
+		register: function (name, template, options, classes, il8n, priority) {
 			var self = this, result = self._super(name, template, priority);
-			if (result){
+			if (result) {
 				var reg = self.registered;
 				reg[name].opt = _is.hash(options) ? options : {};
 				reg[name].cls = _is.hash(classes) ? classes : {};
@@ -66,7 +66,7 @@
 		 * @param {(jQuery|HTMLElement|string)} [element] - The jQuery object, HTMLElement or selector of the template element to create. If not supplied the {@link FooGallery~Options#type|type} options' value is used.
 		 * @returns {FooGallery.Template}
 		 */
-		make: function(options, element){
+		make: function (options, element) {
 			element = _is.jq(element) ? element : $(element);
 			options = _obj.extend({}, options, element.data("foogallery"));
 			var self = this, type = self.type(options, element);
@@ -74,10 +74,10 @@
 			options = self.options(type, options);
 			return self._super(type, options, element);
 		},
-		type: function(options, element){
+		type: function (options, element) {
 			element = _is.jq(element) ? element : $(element);
 			var self = this, type = _is.hash(options) && _is.hash(options) && _is.string(options.type) && self.contains(options.type) ? options.type : "core";
-			if (type === "core" && element.length > 0){
+			if (type === "core" && element.length > 0) {
 				var reg = self.registered, names = self.names(true);
 				for (var i = 0, l = names.length; i < l; i++) {
 					if (!reg.hasOwnProperty(names[i])) continue;
@@ -92,17 +92,17 @@
 			}
 			return type;
 		},
-		configure: function(name, options, classes, il8n){
+		configure: function (name, options, classes, il8n) {
 			var self = this;
-			if (self.contains(name)){
+			if (self.contains(name)) {
 				var reg = self.registered;
 				_obj.extend(reg[name].opt, options);
 				_obj.extend(reg[name].cls, classes);
 				_obj.extend(reg[name].il8n, il8n);
 			}
 		},
-		options: function(name, options){
-			options = _obj.extend({}, options);
+		options: function (name, options) {
+			options = _obj.extend({type: name}, options);
 			var self = this, reg = self.registered,
 					def = reg["core"].opt,
 					cls = reg["core"].cls,
@@ -113,7 +113,7 @@
 			if (!_is.undef(_.filtering)) options = _.filtering.merge(options);
 			if (!_is.undef(_.paging)) options = _.paging.merge(options);
 
-			if (name !== "core" && self.contains(name)){
+			if (name !== "core" && self.contains(name)) {
 				options = _obj.extend({}, def, reg[name].opt, options);
 				options.cls = _obj.extend({}, cls, reg[name].cls, options.cls);
 				options.il8n = _obj.extend({}, il8n, reg[name].il8n, options.il8n);
