@@ -11,7 +11,7 @@
 			self.justified.layout( true );
 		},
 		onReady: function(event, self){
-			self.justified.layout();
+			self.justified.layout( true );
 		},
 		onDestroy: function(event, self){
 			self.justified.destroy();
