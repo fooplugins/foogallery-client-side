@@ -18,11 +18,11 @@
 
 	// this automatically initializes all templates on page load
 	$(function () {
-		$('[id^="foogallery-"]:not(.fg-ready)').foogallery(_.autoDefaults);
+		$('[id^="foogallery-gallery-"]:not(.fg-ready)').foogallery(_.autoDefaults);
 	});
 
 	_utils.ready(function () {
-		$('[id^="foogallery-"].fg-ready').foogallery(_.autoDefaults);
+		$('[id^="foogallery-gallery-"].fg-ready').foogallery(_.autoDefaults);
 	});
 
 })(
