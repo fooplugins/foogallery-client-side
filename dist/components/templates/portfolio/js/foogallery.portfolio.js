@@ -20,7 +20,8 @@
 						position: 'absolute',
 						top: 0,
 						left: -9999,
-						visibility: 'hidden'
+						visibility: 'hidden',
+						maxWidth: self.getContainerWidth()
 					}).appendTo('body');
 			self._items = self.$el.find(".fg-item").removeAttr("style").removeClass("fg-positioned").map(function(i, el){
 				var $item = $(el),
@@ -58,7 +59,7 @@
 		getContainerWidth: function(){
 			var self = this, visible = self.$el.is(':visible');
 			if (!visible){
-				return self.$el.parents(':visible:first').width();
+				return self.$el.parents(':visible:first').innerWidth();
 			}
 			return self.$el.width();
 		},
@@ -224,7 +225,7 @@
 			self.portfolio.layout( true );
 		},
 		onReady: function(event, self){
-			self.portfolio.layout();
+			self.portfolio.layout( true );
 		},
 		onDestroy: function(event, self){
 			self.portfolio.destroy();

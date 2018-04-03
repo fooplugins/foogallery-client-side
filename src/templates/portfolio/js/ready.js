@@ -16,7 +16,7 @@
 			self.portfolio.layout( true );
 		},
 		onReady: function(event, self){
-			self.portfolio.layout();
+			self.portfolio.layout( true );
 		},
 		onDestroy: function(event, self){
 			self.portfolio.destroy();
