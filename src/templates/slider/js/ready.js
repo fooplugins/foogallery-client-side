@@ -40,6 +40,11 @@
 						)
 			];
 		},
+		destroyChildren: function(){
+			var self = this;
+			self.$el.find(self.sel.contentContainer).remove();
+			self.$el.find(self.sel.itemContainer).remove();
+		},
 		onPreInit: function(event, self){
 			self.$contentContainer = self.$el.find(self.sel.contentContainer);
 			self.$contentStage = self.$el.find(self.sel.contentStage);

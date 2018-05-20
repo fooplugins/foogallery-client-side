@@ -16,6 +16,10 @@
 			var self = this;
 			return self.$hidden = $("<div/>", {"class": self.cls.hidden});
 		},
+		destroyChildren: function(){
+			var self = this;
+			self.$el.find(self.sel.hidden).remove();
+		},
 		onPreInit: function(event, self){
 			self.$hidden = self.$el.find(self.sel.hidden);
 		},
