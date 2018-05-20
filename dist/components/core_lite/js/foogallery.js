@@ -3939,7 +3939,7 @@
 					}
 
 					// if the container currently has no children make them
-					if (self.$el.children().length == 0) {
+					if (self.$el.children().not(self.sel.item.elem).length == 0) {
 						self.$el.append(self.createChildren());
 						self._undo.children = true;
 					}
@@ -4251,7 +4251,7 @@
 			else self.$el.attr("style", self._undo.style);
 
 			if (self._undo.children) {
-				self.$el.empty();
+				self.destroyChildren();
 			}
 			if (self._undo.create) {
 				self.$el.remove();
@@ -4260,6 +4260,15 @@
 			self.destroyed = true;
 			self.initializing = false;
 			self.initialized = false;
+		},
+		/**
+		 * @summary If the {@link FooGallery.Template#createChildren|createChildren} method is used to generate custom elements for a template this method should also be overridden and used to destroy them.
+		 * @memberof FooGallery.Template#
+		 * @function destroyChildren
+		 * @description This method is called just after the {@link FooGallery.Template~"destroyed.foogallery"|destroyed} event to allow templates to remove any markup created in the {@link FooGallery.Template#createChildren|createChildren} method.
+		 */
+		destroyChildren: function(){
+			// does nothing for the base template
 		},
 
 		// ################
