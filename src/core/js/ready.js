@@ -2,7 +2,11 @@
 
 	_.triggerPostLoad = function (e, tmpl, current, prev, isFilter) {
 		if (e.type === "first-load" || (tmpl.initialized && ((e.type === "after-page-change" && !isFilter) || e.type === "after-filter-change"))) {
-			$("body").trigger("post-load");
+			try {
+				$("body").trigger("post-load");
+			} catch(err) {
+				console.error(err);
+			}
 		}
 	};
 
