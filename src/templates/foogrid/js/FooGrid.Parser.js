@@ -18,7 +18,9 @@
 		},
 		thumbnail: ['attr:src','data:thumbnail'],
 		title: ['attr:title','data:title','data:captionTitle'],
-		description: ['data:description','data:captionDesc','attr:alt']
+		description: ['data:description','data:captionDesc','attr:alt'],
+		width: ['data:width'],
+		height: ['data:height']
 	};
 
 	F.Parser.prototype._init = function(options){
@@ -31,14 +33,19 @@
 	};
 
 	F.Parser.prototype.parse = function($anchor){
+		var type = this._type($anchor),
+				width = parseInt(this._width($anchor)),
+				height = parseInt(this._height($anchor));
 		var content = {
-			url: this._url($anchor),
+			url: this._url($anchor, type),
 			external: this._external($anchor),
-			type: this._type($anchor),
+			type: type,
 			title: this._title($anchor),
-			description: this._description($anchor)
+			description: this._description($anchor),
+			width: isNaN(width) ? 0 : width,
+			height: isNaN(height) ? 0 : height
 		};
-		if (content.type === 'video'){
+		if (type === 'video' || type === 'embed'){
 			content.thumbnail = this._thumbnail($anchor);
 		}
 		return _is.string(content.url) ? content : null;
@@ -67,9 +74,9 @@
 		return value;
 	};
 
-	F.Parser.prototype._url = function($anchor){
+	F.Parser.prototype._url = function($anchor, type){
 		var url = this._parse($anchor, this.options.url);
-		return this._full_url(url);
+		return type === 'embed' ? url : this._full_url(url);
 	};
 
 	F.Parser.prototype._external = function($anchor){
@@ -79,7 +86,7 @@
 
 	F.Parser.prototype._type = function($anchor){
 		var tmp; // first check if the type is supplied and valid
-		if (_is.string(tmp = $anchor.data('type')) && tmp in this.options.type){
+		if (_is.string(tmp = $anchor.data('type')) && (tmp in this.options.type || tmp === 'embed')){
 			return tmp;
 		}
 		// otherwise perform a best guess using the href and any parser.type values
@@ -120,6 +127,14 @@
 			}
 		}
 		return null;
+	};
+
+	F.Parser.prototype._width = function($anchor){
+		return this._parse($anchor, this.options.width);
+	};
+
+	F.Parser.prototype._height = function($anchor){
+		return this._parse($anchor, this.options.height);
 	};
 
 })(
