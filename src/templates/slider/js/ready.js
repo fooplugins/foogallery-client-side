@@ -108,7 +108,9 @@
 											.on("click.foogallery", {self: self, item: item}, self.onPlayVideo)
 							);
 				} else if (item.type === "embed") {
-					item.$content.css("background-image", "url("+item.cover+")");
+					item.$embed = $("<div/>", {'class': self.cls.embed});
+					item.$content.addClass(self.cls.embedable).append(item.$embed);
+					item.$target = $(item.href).contents();
 				} else {
 					item.$content.css("background-image", "url("+item.href+")");
 				}
@@ -132,6 +134,10 @@
 				item.player.$el.detach();
 				item.$el.add(item.$content)
 						.removeClass(self.cls.playing);
+			}
+			if (item.type === "embed" && item.$target){
+				item.$target.detach();
+				$(item.href).append(item.$target);
 			}
 			item.$el.add(item.$content)
 					.removeClass(self.cls.selected).detach();
@@ -201,6 +207,24 @@
 				self._itemHeight = items[0].$el.outerHeight();
 			}
 		},
+		setEmbedSize: function(item){
+			var self = this,
+					ah = self._contentHeight, ch = item.$anchor.data("height"),
+					aw = self._contentWidth, cw = item.$anchor.data("width"),
+					rh = ah / ch, rw = aw / cw, ratio = 0;
+
+			if (rh < rw){
+				ratio = rh;
+			} else {
+				ratio = rw;
+			}
+
+			if (ratio > 0 && ratio < 1){
+				item.$embed.css({height: ch * ratio, width: cw * ratio});
+			} else {
+				item.$embed.css({height: '', width: ''});
+			}
+		},
 		setSelected: function(itemOrIndex){
 			var self = this, prev = self.selected, next = itemOrIndex;
 			if (_is.number(itemOrIndex)){
@@ -214,6 +238,10 @@
 						prev.player.$el.detach();
 						prev.$el.add(prev.$content).removeClass(self.cls.playing);
 					}
+					if (prev.type === "embed" && prev.$target){
+						prev.$target.detach();
+						$(prev.href).append(prev.$target);
+					}
 					prev.$el.add(prev.$content).removeClass(self.cls.selected);
 				}
 				self.$contentStage.css("transform", "translateX(-" + (next.index * self._contentWidth) + "px)");
@@ -221,6 +249,10 @@
 				if (self.template.autoPlay && next.type === "video" && next.player instanceof _.VideoPlayer){
 					next.$el.add(next.$content).addClass(self.cls.playing);
 					next.player.appendTo(next.$content).load();
+				}
+				if (next.type === "embed" && next.$target){
+					next.$target.appendTo(next.$embed);
+					self.setEmbedSize(next);
 				}
 				self.selected = next;
 				if (next.index <= self._firstVisible || next.index >= self._lastVisible){
@@ -405,7 +437,9 @@
 		horizontal: "fgs-horizontal",
 		selected: "fgs-selected",
 		playing: "fgs-playing",
-		noCaptions: "fgs-no-captions"
+		noCaptions: "fgs-no-captions",
+		embed: "fgs-embed",
+		embedable: "fgs-embedable"
 	});
 
 })(
