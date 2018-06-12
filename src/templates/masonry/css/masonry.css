@@ -37,6 +37,10 @@
 	line-height: 0;
 	font-size: 0;
 }
+.fg-masonry.fg-masonry-fixed .fg-item,
+.fg-masonry.fg-masonry-fixed .fg-column-width {
+	max-width: 100%;
+}
 
 /* 2 column layouts */
 /* 2 column layout - normal gutter */
