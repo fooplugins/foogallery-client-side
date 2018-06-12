@@ -6381,12 +6381,12 @@
 			if (_is.hash(objOrElement)) {
 				type = objOrElement.type;
 			} else if (_is.element(objOrElement)) {
-				var $el = $(objOrElement), vid = this.tmpl.sel.item.video;
-				if (_is.string(vid) && $el.is(vid)){
-					type = "video";
-				} else {
-					type = $(objOrElement).find(this.tmpl.sel.item.anchor).data("type");
-				}
+				var $el = $(objOrElement), item = this.tmpl.sel.item;
+				// if (_is.string(item.video) && $el.is(item.video)){
+				// 	type = "video";
+				// } else {
+				// }
+				type = $el.find(item.anchor).data("type");
 			}
 			return _is.string(type) && _.components.contains(type) ? type : "item";
 		},
@@ -8303,4 +8303,53 @@
 		FooGallery,
 		FooGallery.utils.is,
 		FooGallery.utils.url
+);
+(function($, _, _utils, _is){
+
+	_.Embed = _.Item.extend({
+		construct: function(template, options){
+			var self = this;
+			self._super(template, options);
+			self.cover = self.opt.cover;
+		},
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.cover = self.$anchor.data("cover") || self.cover;
+				self.$el.addClass(self.cls.embed);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({
+					"data-type": self.type,
+					"data-cover": self.cover
+				});
+				self.$el.addClass(self.cls.embed);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", {
+		item: {
+			cover: ""
+		}
+	},{
+		item: {
+			embed: "fg-video"
+		}
+	});
+
+	_.components.register("embed", _.Embed);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
 );
