@@ -107,6 +107,8 @@
 									$("<div/>", {"class": self.cls.contentPlay})
 											.on("click.foogallery", {self: self, item: item}, self.onPlayVideo)
 							);
+				} else if (item.type === "embed") {
+					item.$content.css("background-image", "url("+item.cover+")");
 				} else {
 					item.$content.css("background-image", "url("+item.href+")");
 				}
