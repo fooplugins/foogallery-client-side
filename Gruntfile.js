@@ -48,7 +48,8 @@ module.exports = function ( grunt ) {
 						"./src/core/js/video/sources/YouTube.js",
 						"./src/core/js/video/sources/Vimeo.js",
 						"./src/core/js/video/sources/DailyMotion.js",
-						"./src/core/js/video/sources/Wistia.js"
+						"./src/core/js/video/sources/Wistia.js",
+						"./src/core/js/Embed.js"
 					],
 					"./dist/components/core/css/foogallery.css": [
 						"./src/core/css/general/core.css",
