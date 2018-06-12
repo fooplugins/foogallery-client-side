@@ -5446,12 +5446,12 @@
 			attr = self.attr.caption;
 			attr.elem["class"] = cls.elem;
 			self.$caption = $("<figcaption/>").attr(attr.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
+			attr.inner["class"] = cls.inner;
+			var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
 			var hasTitle = !_is.empty(self.caption), hasDesc = !_is.empty(self.description);
 			if (hasTitle || hasDesc) {
-				attr.inner["class"] = cls.inner;
 				attr.title["class"] = cls.title;
 				attr.description["class"] = cls.description;
-				var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
 				if (hasTitle) {
 					var $title;
 					// enforce the max length for the caption
