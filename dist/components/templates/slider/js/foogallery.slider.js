@@ -122,6 +122,19 @@
 		onCreatedItem: function(event, self, item){
 			self.onParsedOrCreatedItem(item);
 		},
+		onDestroyedItem: function(event, self, item){
+			if (item.type === "video" && item.player instanceof _.VideoPlayer){
+				item.player.$el.detach();
+				item.$el.add(item.$content)
+						.removeClass(self.cls.playing);
+			}
+			if (item.type === "embed" && item.$target){
+				item.$target.detach();
+				$(item.href).append(item.$target);
+			}
+			item.$el.add(item.$content)
+					.removeClass(self.cls.selected).detach();
+		},
 		onAppendItem: function (event, self, item) {
 			event.preventDefault();
 			self.$itemStage.append(item.$el);
