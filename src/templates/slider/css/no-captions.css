@@ -54,7 +54,7 @@
 
 /* Next hide the caption itself */
 .fg-slider.fgs-no-captions .fg-caption {
-	display: none;
+	display: none !important;
 }
 
 /* Now make adjustments to the layout of the item itself to display the thumb more predominantly */
