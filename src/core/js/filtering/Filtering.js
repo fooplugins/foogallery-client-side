@@ -19,6 +19,8 @@
 
 			self.position = self.opt.position;
 			self.mode = self.opt.mode;
+			self.sortBy = self.opt.sortBy;
+			self.sortInvert = self.opt.sortInvert;
 
 			self.min = self.opt.min;
 			self.limit = self.opt.limit;
@@ -73,12 +75,17 @@
 			self.items.push.apply(self.items, items);
 			if (items.length > 0) {
 				// first get a count of every tag available from all items
-				var counts = self.count(items, self.opt.tags), min = Infinity, max = 0;
+				var counts = self.count(items, self.opt.tags), supplied = self.opt.tags.length > 0, min = Infinity, max = 0, index = -1;
 				for (var prop in counts) {
 					if (counts.hasOwnProperty(prop)) {
 						var count = counts[prop];
 						if (self.min <= 0 || count >= self.min) {
-							self.tags.push({value: prop, count: count, percent: 1, size: self.largest, opacity: self.darkest});
+							if (supplied){
+								index = $.inArray(prop, self.opt.tags);
+							} else {
+								index++;
+							}
+							self.tags.push({index: index, value: prop, count: count, percent: 1, size: self.largest, opacity: self.darkest});
 							if (count < min) min = count;
 							if (count > max) max = count;
 						}
@@ -105,13 +112,15 @@
 					}
 				}
 
-				// finally sort the tags by name
-				self.tags.sort(function (a, b) {
-					var aTag = a.value.toUpperCase(), bTag = b.value.toUpperCase();
-					if (aTag < bTag) return -1;
-					if (aTag > bTag) return 1;
-					return 0;
-				});
+				// finally sort the tags using the sort options
+				switch (self.sortBy){
+					case "none":
+						self.sortTags("index", false);
+						break;
+					default:
+						self.sortTags(self.sortBy, self.sortInvert);
+						break;
+				}
 
 			}
 
@@ -149,7 +158,7 @@
 			});
 		},
 		set: function (tags, updateState) {
-			if (_is.string(tags)) tags = tags.split(' ');
+			if (_is.string(tags)) tags = [tags];
 			if (!_is.array(tags)) tags = [];
 			var self = this, state;
 			if (!self.arraysEqual(self.current, tags)) {
@@ -211,6 +220,10 @@
 		arraysEqual: function (arr1, arr2) {
 			if (arr1.length !== arr2.length)
 				return false;
+
+			arr1 = arr1.slice();
+			arr2 = arr2.slice();
+
 			arr1.sort();
 			arr2.sort();
 			for (var i = arr1.length; i--;) {
@@ -218,6 +231,30 @@
 					return false;
 			}
 			return true;
+		},
+		sortTags: function(prop, invert){
+			this.tags.sort(function(a, b){
+
+				if (a.hasOwnProperty(prop) && b.hasOwnProperty(prop)){
+					if (_is.string(a[prop]) && _is.string(b[prop])){
+						var s1 = a[prop].toUpperCase(), s2 = b[prop].toUpperCase();
+						if (invert){
+							if (s2 < s1) return -1;
+							if (s2 > s1) return 1;
+						} else {
+							if (s1 < s2) return -1;
+							if (s1 > s2) return 1;
+						}
+					} else {
+						if (invert){
+							return b[prop] - a[prop];
+						}
+						return a[prop] - b[prop];
+					}
+				}
+				return 0;
+
+			});
 		},
 		apply: function (tags) {
 			var self = this;
@@ -263,6 +300,8 @@
 		pushOrReplace: "push",
 		position: "none",
 		mode: "single",
+		sortBy: "value", // "value", "count", "index", "none"
+		sortInvert: false, // the direction of the sorting
 		tags: [],
 		min: 0,
 		limit: 0,
