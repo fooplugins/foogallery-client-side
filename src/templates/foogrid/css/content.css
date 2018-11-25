@@ -135,3 +135,26 @@
 	transform: translateY(-50%) translateX(-50%);
 	z-index: 1;
 }
+
+.foogrid-embed {
+	display: inline-block;
+	margin: 0;
+	border: 0;
+	-webkit-box-shadow: 0 5px 35px rgba(0,0,0,.65);
+	box-shadow: 0 5px 35px rgba(0,0,0,.65);
+	background-color: #000;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	z-index: 1;
+	max-width: 100%;
+	max-height: 100%;
+}
+.foogrid-embed .fb-video > span,
+.foogrid-embed > iframe,
+.foogrid-embed > video,
+.foogrid-embed > object {
+	max-width: 100%;
+	max-height: 100%;
+}

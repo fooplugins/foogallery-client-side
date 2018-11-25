@@ -15,8 +15,9 @@
 		this.visible = false;
 		this.content = this.grid.parser.parse(this.$link);
 		this.hasCaption = false;
+		this.isCreated = false;
 		this.player = null;
-		this.$content = this.$create();
+		this.$content = null;
 	};
 
 	F.Item.prototype.destroy = function(){
@@ -26,9 +27,13 @@
 		this.player = null;
 		this.$li.removeClass('foogrid-visible').children('span').remove();
 		this.$link.off('click.gg', this.onClick);
-		this.$content.remove();
+		if (this.isCreated){
+			this.$content.remove();
+		}
 		this.$content = null;
 		this.visible = false;
+		this.hasCaption = false;
+		this.isCreated = false;
 		this.index = null;
 		this.content = {};
 	};
@@ -43,6 +48,9 @@
 				break;
 			case 'html':
 				$content = $(this.content.url).contents();
+				break;
+			case 'embed':
+				$content = $('<div/>', {'class': 'foogrid-embed'}).append($(this.content.url).contents());
 				break;
 			case 'video':
 				this.player = new F.Player(this.grid, this.content.url);
@@ -62,6 +70,7 @@
 			$inner.addClass('foogrid-has-caption').append($caption);
 		}
 
+		this.isCreated = true;
 		return $inner;
 	};
 
@@ -80,9 +89,30 @@
 		return null;
 	};
 
+	F.Item.prototype.setEmbedSize = function(){
+		var ah = this.$content.height(), ch = this.content.height,
+				aw = this.$content.width(), cw = this.content.width,
+				rh = ah / ch, rw = aw / cw, ratio = 0;
+
+		if (rh < rw){
+			ratio = rh;
+		} else {
+			ratio = rw;
+		}
+
+		if (ratio > 0 && ratio < 1){
+			this.$content.children('.foogrid-embed').css({height: this.content.height * ratio, width: this.content.width * ratio});
+		} else {
+			this.$content.children('.foogrid-embed').css({height: '', width: ''});
+		}
+	};
+
 	F.Item.prototype.open = function(reverse){
 		var self = this;
 		return $.Deferred(function(d){
+			if (!self.isCreated){
+				self.$content = self.$create();
+			}
 			self.visible = true;
 			if (reverse){
 				self.$content.addClass('foogrid-reverse');
@@ -94,6 +124,13 @@
 			self.$li.addClass('foogrid-visible');
 			if (self.grid.transitions()){
 				_transition.start(self.$content, 'foogrid-visible', true, 1000).then(function(){
+					if (self.content.type === 'embed'){
+						$(window).on('resize.foogrid', function(){
+							self.setEmbedSize();
+						});
+						self.setEmbedSize();
+					}
+
 					self.$content.removeClass('foogrid-reverse');
 					if (self.player && self.player.options.autoplay){
 						self.player.play();
@@ -123,6 +160,7 @@
 			} else {
 				self.$content.addClass('foogrid-reverse');
 			}
+			$(window).off('resize.foogrid');
 			if (self.grid.transitions()){
 				_transition.start(self.$content, 'foogrid-visible', false, 350).then(function(){
 					self.$content.removeClass('foogrid-reverse').detach();

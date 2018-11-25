@@ -11,7 +11,7 @@
 	left: 0;
 	top: 0;
 	bottom: 0;
-	transition-property: transform;
+	transition-property: transform, background-color, opacity, visibility;
 	visibility: visible;
 	opacity: 1;
 }

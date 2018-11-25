@@ -1,0 +1,84 @@
+/* Highlight - Purple */
+.fg-slider.fgs-purple .fgs-content-close:hover,
+.fg-slider.fgs-purple .fgs-content-play:hover,
+.fg-slider.fgs-purple .fg-item.fgs-selected .fg-item-inner,
+.fg-slider.fgs-purple .fg-item.fgs-selected .fg-item-inner:hover {
+	background-color: #7816D6;
+}
+.fg-slider.fgs-purple .fgs-content-play:hover,
+.fg-slider.fgs-purple .fg-item.fgs-selected,
+.fg-slider.fgs-purple .fg-item.fgs-selected:hover {
+	border-color: #7816D6;
+}
+.fg-slider.fgs-purple .fg-item.fgs-selected .fg-caption-title,
+.fg-slider.fgs-purple .fg-item.fgs-selected .fg-caption-desc {
+	color: #FFF;
+}
+
+/* Highlight - Blue */
+.fg-slider.fgs-blue .fgs-content-close:hover,
+.fg-slider.fgs-blue .fgs-content-play:hover,
+.fg-slider.fgs-blue .fg-item.fgs-selected .fg-item-inner,
+.fg-slider.fgs-blue .fg-item.fgs-selected .fg-item-inner:hover {
+	background-color: #0087be;
+}
+.fg-slider.fgs-blue .fgs-content-play:hover,
+.fg-slider.fgs-blue .fg-item.fgs-selected,
+.fg-slider.fgs-blue .fg-item.fgs-selected:hover {
+	border-color: #0087be;
+}
+.fg-slider.fgs-blue .fg-item.fgs-selected .fg-caption-title,
+.fg-slider.fgs-blue .fg-item.fgs-selected .fg-caption-desc {
+	color: #FFF;
+}
+
+/* Highlight - Green */
+.fg-slider.fgs-green .fgs-content-close:hover,
+.fg-slider.fgs-green .fgs-content-play:hover,
+.fg-slider.fgs-green .fg-item.fgs-selected .fg-item-inner,
+.fg-slider.fgs-green .fg-item.fgs-selected .fg-item-inner:hover {
+	background-color: #02874A;
+}
+.fg-slider.fgs-green .fgs-content-play:hover,
+.fg-slider.fgs-green .fg-item.fgs-selected,
+.fg-slider.fgs-green .fg-item.fgs-selected:hover {
+	border-color: #02874A;
+}
+.fg-slider.fgs-green .fg-item.fgs-selected .fg-caption-title,
+.fg-slider.fgs-green .fg-item.fgs-selected .fg-caption-desc {
+	color: #FFF;
+}
+
+/* Highlight - Orange */
+.fg-slider.fgs-orange .fgs-content-close:hover,
+.fg-slider.fgs-orange .fgs-content-play:hover,
+.fg-slider.fgs-orange .fg-item.fgs-selected .fg-item-inner,
+.fg-slider.fgs-orange .fg-item.fgs-selected .fg-item-inner:hover {
+	background-color: #FF8E31;
+}
+.fg-slider.fgs-orange .fgs-content-play:hover,
+.fg-slider.fgs-orange .fg-item.fgs-selected,
+.fg-slider.fgs-orange .fg-item.fgs-selected:hover {
+	border-color: #FF8E31;
+}
+.fg-slider.fgs-orange .fg-item.fgs-selected .fg-caption-title,
+.fg-slider.fgs-orange .fg-item.fgs-selected .fg-caption-desc {
+	color: #FFF;
+}
+
+/* Highlight - Red */
+.fg-slider.fgs-red .fgs-content-close:hover,
+.fg-slider.fgs-red .fgs-content-play:hover,
+.fg-slider.fgs-red .fg-item.fgs-selected .fg-item-inner,
+.fg-slider.fgs-red .fg-item.fgs-selected .fg-item-inner:hover {
+	background-color: #F12B24;
+}
+.fg-slider.fgs-red .fgs-content-play:hover,
+.fg-slider.fgs-red .fg-item.fgs-selected,
+.fg-slider.fgs-red .fg-item.fgs-selected:hover {
+	border-color: #F12B24;
+}
+.fg-slider.fgs-red .fg-item.fgs-selected .fg-caption-title,
+.fg-slider.fgs-red .fg-item.fgs-selected .fg-caption-desc {
+	color: #FFF;
+}

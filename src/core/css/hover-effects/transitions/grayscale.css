@@ -21,7 +21,7 @@
 	left: 0;
 	top: 0;
 	bottom: 0;
-	transition-property: visibility, opacity;
+	transition-property: visibility, opacity, background-color;
 }
 .foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-thumb:before,
 .foogallery.fg-caption-hover.fg-hover-grayscale .fg-item-inner:hover .fg-caption {

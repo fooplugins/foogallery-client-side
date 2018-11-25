@@ -306,7 +306,12 @@
 			if (_is.hash(objOrElement)) {
 				type = objOrElement.type;
 			} else if (_is.element(objOrElement)) {
-				type = $(objOrElement).find(this.tmpl.sel.item.anchor).data("type");
+				var $el = $(objOrElement), item = this.tmpl.sel.item;
+				// if (_is.string(item.video) && $el.is(item.video)){
+				// 	type = "video";
+				// } else {
+				// }
+				type = $el.find(item.anchor).data("type");
 			}
 			return _is.string(type) && _.components.contains(type) ? type : "item";
 		},
