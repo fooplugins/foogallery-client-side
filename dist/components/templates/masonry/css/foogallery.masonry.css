@@ -217,13 +217,13 @@
 
 /* Border Styles - We must apply width changing border styles to the fg-column-width element so that the plugin can correctly determine the item widths. */
 .foogallery.fg-border-thin .fg-column-width {
-	border-width: 5px;
+	border-width: 4px;
 }
 .foogallery.fg-border-medium .fg-column-width {
 	border-width: 10px;
 }
 .foogallery.fg-border-thick .fg-column-width {
-	border-width: 15px;
+	border-width: 16px;
 }
 
 /* Captions Bottom */
@@ -312,16 +312,16 @@
 	border-width: 10px;
 }
 .fg-masonry.fg-captions-bottom .fg-caption-title+.fg-caption-desc {
-	margin-top: 5px;
+	margin-top: 4px;
 }
 .fg-masonry.fg-captions-bottom.fg-border-thin .fg-caption {
-	border-width: 10px 5px 5px 5px;
+	border-width: 10px 4px 4px 4px;
 }
 .fg-masonry.fg-captions-bottom.fg-border-medium .fg-caption {
 	border-width: 10px 0 0 0;
 }
 .fg-masonry.fg-captions-bottom.fg-border-thick .fg-caption {
-	border-width: 15px 0 0 0;
+	border-width: 16px 0 0 0;
 }
 .fg-masonry.fg-captions-bottom.fg-border-thick .fg-caption-title+.fg-caption-desc {
 	margin-top: 10px;

@@ -20,10 +20,10 @@
 			self.justified.layout( true );
 		},
 		onParsedItems: function(event, self, items){
-			if (self.initialized) self.justified.layout( true );
+			if (self.initialized || self.initializing) self.justified.layout( true );
 		},
 		onAppendedItems: function(event, self, items){
-			if (self.initialized) self.justified.layout( true );
+			if (self.initialized || self.initializing) self.justified.layout( true );
 		},
 		onDetachedItems: function(event, self, items){
 			if (self.initialized) self.justified.layout( true );
