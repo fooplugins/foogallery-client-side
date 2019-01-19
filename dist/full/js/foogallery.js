@@ -9723,12 +9723,16 @@
 			var hidden = self.items.all().slice(1);
 			for (var i = 0, l = hidden.length, item; i < l; i++){
 				item = hidden[i];
-				self.$hidden.append(
-						$("<a/>", {
-							href: item.href,
-							rel: "lightbox[" + self.id + "]"
-						}).attr(item.attr.anchor)
-				);
+				if (item.isCreated){
+					self.$hidden.append(item.$el);
+				} else {
+					self.$hidden.append(
+							$("<a/>", {
+								href: item.href,
+								rel: "lightbox[" + self.id + "]"
+							}).attr(item.attr.anchor)
+					);
+				}
 			}
 			self.items.setAll(self.items.all().slice(0,1));
 		}
