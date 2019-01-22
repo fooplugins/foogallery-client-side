@@ -22,7 +22,7 @@
 		_.autoDefaults = _obj.merge(_.autoDefaults, options);
 	};
 
-	_.autoInit = _.reload = function(){
+	_.load = _.reload = function(){
 		// this automatically initializes all templates on page load
 		$(function () {
 			$('[id^="foogallery-gallery-"]:not(.fg-ready)').foogallery(_.autoDefaults);
@@ -33,7 +33,7 @@
 		});
 	};
 
-	_.autoInit();
+	_.load();
 
 })(
 		FooGallery.$,
