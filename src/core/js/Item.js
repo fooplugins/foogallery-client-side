@@ -868,7 +868,9 @@
 		 * @returns {FooGallery.Item}
 		 */
 		fix: function () {
-			var self = this, e = self.tmpl.raise("fix-item", [self]);
+			var self = this;
+			if (self.tmpl == null) return self;
+			var e = self.tmpl.raise("fix-item", [self]);
 			if (!e.isDefaultPrevented() && self.isCreated && !self.isLoading && !self.isLoaded && !self.isError) {
 				var w = self.width, h = self.height;
 				// if we have a base width and height to work with
@@ -890,7 +892,9 @@
 		 * @returns {FooGallery.Item}
 		 */
 		unfix: function () {
-			var self = this, e = self.tmpl.raise("unfix-item", [self]);
+			var self = this;
+			if (self.tmpl == null) return self;
+			var e = self.tmpl.raise("unfix-item", [self]);
 			if (!e.isDefaultPrevented() && self.isCreated) self.$image.css({width: '', height: ''});
 			return self;
 		},
