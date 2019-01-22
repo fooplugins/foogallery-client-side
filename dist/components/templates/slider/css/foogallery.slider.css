@@ -1,3 +1,6 @@
+.foogallery.fg-slider, .foogallery.fg-slider * {
+	box-sizing: border-box;
+}
 .fg-slider {
 	display: block;
 	width: auto;
