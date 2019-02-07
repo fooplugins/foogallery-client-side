@@ -1,0 +1,8 @@
+.foogallery.fg-filter-1977 .fg-image-wrap {
+	-webkit-filter: contrast(110%) brightness(110%) saturate(130%);
+	filter: contrast(110%) brightness(110%) saturate(130%);
+}
+.foogallery.fg-filter-1977 .fg-image-wrap:before {
+	mix-blend-mode: screen;
+	background: rgba(243, 106, 188, 0.3);
+}

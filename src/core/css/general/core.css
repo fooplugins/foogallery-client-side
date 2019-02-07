@@ -91,6 +91,10 @@ only screen and (min-resolution: 2.25dppx) {
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
+.foogallery .fg-image-wrap {
+	display: block;
+	position: relative;
+}
 .foogallery .fg-image {
 	display: block;
 	position: relative;
