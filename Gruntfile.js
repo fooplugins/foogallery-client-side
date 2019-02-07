@@ -59,6 +59,8 @@ module.exports = function ( grunt ) {
 						"./src/core/css/appearance/drop-shadow.css",
 						"./src/core/css/appearance/inset-shadow.css",
 						"./src/core/css/appearance/rounded-corners.css",
+						"./src/core/css/appearance/filters.css",
+						"./src/core/css/appearance/filters/*.css",
 						"./src/core/css/appearance/loading-icon.css",
 						"./src/core/css/appearance/loading-icons/default.css",
 						"./src/core/css/appearance/loading-icons/bars.css",
