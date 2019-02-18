@@ -1,0 +1,4 @@
+.foogallery.fg-filter-amaro .fg-image-wrap {
+  -webkit-filter: contrast(90%) brightness(110%) saturate(150%) hue-rotate(-10deg);
+  filter: contrast(90%) brightness(110%) saturate(150%) hue-rotate(-10deg);
+}

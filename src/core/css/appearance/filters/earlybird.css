@@ -1,0 +1,9 @@
+.foogallery.fg-filter-earlybird .fg-image-wrap {
+  -webkit-filter: contrast(90%) sepia(20%);
+  filter: contrast(90%) sepia(20%);
+}
+.foogallery.fg-filter-earlybird .fg-image-wrap:before {
+  mix-blend-mode: overlay;
+  background: -webkit-radial-gradient(50% 50%, circle closest-corner, rgba(208, 186, 142, 1) 20%, rgba(29, 2, 16, 0.2));
+  background: radial-gradient(50% 50%, circle closest-corner, rgba(208, 186, 142, 1) 20%, rgba(29, 2, 16, 0.2));
+}
