@@ -1,0 +1,8 @@
+.foogallery.fg-filter-brannan .fg-image-wrap {
+	-webkit-filter: contrast(140%) sepia(50%);
+  filter: contrast(140%) sepia(50%);
+}
+.foogallery.fg-filter-brannan .fg-image-wrap:before {
+  mix-blend-mode: lighten;
+  background: rgba(161, 44, 199, 0.31);
+}

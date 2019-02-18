@@ -1,0 +1,9 @@
+.foogallery.fg-filter-walden .fg-image-wrap {
+  -webkit-filter: brightness(110%) saturate(160%) sepia(30%) hue-rotate(350deg);
+  filter: brightness(110%) saturate(160%) sepia(30%) hue-rotate(350deg);
+}
+.foogallery.fg-filter-walden .fg-image-wrap:before {
+  mix-blend-mode: screen;
+  opacity: 0.3;
+  background: rgba(204, 68, 0, 1);
+}

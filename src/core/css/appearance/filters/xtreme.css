@@ -1,0 +1,10 @@
+.foogallery.fg-filter-xtreme .fg-image-wrap {
+  -webkit-filter: contrast(200%) brightness(127%) saturate(200%) sepia(45%);
+  filter: contrast(200%) brightness(127%) saturate(200%) sepia(45%);
+}
+.foogallery.fg-filter-xtreme .fg-image-wrap:before {
+  mix-blend-mode: hard-light;
+  opacity: 0.7;
+  background: -webkit-radial-gradient(50% 50%, circle closest-corner, rgba(62, 253, 220, 0.33) 10%, rgba(70, 70, 70, 0.04));
+  background: radial-gradient(50% 50%, circle closest-corner, rgba(62, 253, 220, 0.33) 10%, rgba(70, 70, 70, 0.04));
+}
