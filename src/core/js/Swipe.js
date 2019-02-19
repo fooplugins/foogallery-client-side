@@ -204,6 +204,14 @@
 				self.endPoint = pt;
 				if (!self.opt.allowPageScroll){
 					event.preventDefault();
+				} else if (_is.hash(self.opt.allowPageScroll)){
+					var dir = self.getDirection(self.startPoint, self.endPoint);
+					if (!self.opt.allowPageScroll.x && $.inArray(dir, ['NE','E','SE','NW','W','SW']) !== -1){
+						event.preventDefault();
+					}
+					if (!self.opt.allowPageScroll.y && $.inArray(dir, ['NW','N','NE','SW','S','SE']) !== -1){
+						event.preventDefault();
+					}
 				}
 			}
 		},
