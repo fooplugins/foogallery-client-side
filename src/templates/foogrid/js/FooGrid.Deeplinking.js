@@ -65,30 +65,6 @@
 		}
 	};
 
-	/* Override various methods of other components to hook into the open/close/change of content. */
-
-	var original_content_open = F.Content.prototype._open;
-	F.Content.prototype._open = function(item, diff_row, reverse){
-		var self = this;
-		return original_content_open.call(self, item, diff_row, reverse).then(function(){
-			self.grid.deeplinking.set(item);
-		});
-	};
-
-	var original_content_close = F.Content.prototype.close;
-	F.Content.prototype.close = function(reverse, diff_row){
-		var self = this;
-		return original_content_close.call(self, reverse, diff_row).then(function(){
-			self.grid.deeplinking.clear();
-		});
-	};
-
-	var original_item_init = F.Item.prototype._init;
-	F.Item.prototype._init = function(grid, li, index){
-		original_item_init.call(this, grid, li, index);
-		this.hash = this.grid.deeplinking.hash(this.content.external);
-	};
-
 })(
 		FooGallery.$,
 		FooGallery.FooGrid,
