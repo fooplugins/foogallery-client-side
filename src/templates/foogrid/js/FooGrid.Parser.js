@@ -17,8 +17,8 @@
 			html: /^#.+?$/i
 		},
 		thumbnail: ['attr:src','data:thumbnail'],
-		title: ['attr:title','data:title','data:captionTitle'],
-		description: ['data:description','data:captionDesc','attr:alt'],
+		title: ['data:captionTitle','data:title','attr:title'],
+		description: ['data:captionDesc','data:description','attr:alt'],
 		width: ['data:width'],
 		height: ['data:height']
 	};
@@ -91,9 +91,9 @@
 		}
 		// otherwise perform a best guess using the href and any parser.type values
 		tmp = $anchor.attr('href');
-		var type = null;
-		$.each(this.options.type, function(name, regex){
-			if (regex.test(tmp)){
+		var regex = this.options.type, type = null;
+		$.each(['image','video','html','iframe'], function(i, name){
+			if (regex[name] && regex[name].test(tmp)){
 				type = name;
 				return false;
 			}
