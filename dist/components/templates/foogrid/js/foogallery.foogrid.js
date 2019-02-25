@@ -160,8 +160,8 @@
 			html: /^#.+?$/i
 		},
 		thumbnail: ['attr:src','data:thumbnail'],
-		title: ['attr:title','data:title','data:captionTitle'],
-		description: ['data:description','data:captionDesc','attr:alt'],
+		title: ['data:captionTitle','data:title','attr:title'],
+		description: ['data:captionDesc','data:description','attr:alt'],
 		width: ['data:width'],
 		height: ['data:height']
 	};
@@ -234,9 +234,9 @@
 		}
 		// otherwise perform a best guess using the href and any parser.type values
 		tmp = $anchor.attr('href');
-		var type = null;
-		$.each(this.options.type, function(name, regex){
-			if (regex.test(tmp)){
+		var regex = this.options.type, type = null;
+		$.each(['image','video','html','iframe'], function(i, name){
+			if (regex[name] && regex[name].test(tmp)){
 				type = name;
 				return false;
 			}
@@ -441,6 +441,7 @@
 			self._loop();
 			self.$li.addClass('foogrid-visible').focus();
 			self.active = item;
+			if (self.grid && self.grid.deeplinking) self.grid.deeplinking.set(item);
 			self.busy = false;
 			return item.open(reverse);
 		});
@@ -504,6 +505,7 @@
 			self.$prev.add(self.$next).removeClass('foogrid-disabled');
 			self.fullscreen = false;
 			self.active = null;
+			if (self.grid && self.grid.deeplinking) self.grid.deeplinking.clear();
 			self.busy = false;
 			if (!diff_row) self.first = true;
 		});
@@ -623,6 +625,7 @@
 		this.$link = this.$li.find('.fg-thumb').first().on('click.gg', {self: this}, this.onClick);
 		this.visible = false;
 		this.content = this.grid.parser.parse(this.$link);
+		this.hash = this.grid.deeplinking.hash(this.content.external);
 		this.hasCaption = false;
 		this.isCreated = false;
 		this.player = null;
@@ -653,20 +656,25 @@
 
 		switch (this.content.type){
 			case 'image':
+				$inner.addClass('foogrid-content-image');
 				$content = $('<img/>', {src: this.content.url, 'class': 'foogrid-image'});
 				break;
 			case 'html':
+				$inner.addClass('foogrid-content-html');
 				$content = $(this.content.url).contents();
 				break;
 			case 'embed':
+				$inner.addClass('foogrid-content-embed');
 				$content = $('<div/>', {'class': 'foogrid-embed'}).append($(this.content.url).contents());
 				break;
 			case 'video':
+				$inner.addClass('foogrid-content-video');
 				this.player = new F.Player(this.grid, this.content.url);
 				$content = this.player.$el;
 				break;
 			case 'iframe':
 			default:
+				$inner.addClass('foogrid-content-iframe');
 				$content = $('<iframe/>', {
 					src: this.content.url, 'class': 'foogrid-iframe', frameborder: 'no',
 					webkitallowfullscreen: true, mozallowfullscreen: true, allowfullscreen: true
@@ -1119,30 +1127,6 @@
 		}
 	};
 
-	/* Override various methods of other components to hook into the open/close/change of content. */
-
-	var original_content_open = F.Content.prototype._open;
-	F.Content.prototype._open = function(item, diff_row, reverse){
-		var self = this;
-		return original_content_open.call(self, item, diff_row, reverse).then(function(){
-			self.grid.deeplinking.set(item);
-		});
-	};
-
-	var original_content_close = F.Content.prototype.close;
-	F.Content.prototype.close = function(reverse, diff_row){
-		var self = this;
-		return original_content_close.call(self, reverse, diff_row).then(function(){
-			self.grid.deeplinking.clear();
-		});
-	};
-
-	var original_item_init = F.Item.prototype._init;
-	F.Item.prototype._init = function(grid, li, index){
-		original_item_init.call(this, grid, li, index);
-		this.hash = this.grid.deeplinking.hash(this.content.external);
-	};
-
 })(
 		FooGallery.$,
 		FooGallery.FooGrid,
@@ -1174,37 +1158,19 @@
 		},
 		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
 			if (!isFilter){
-				event.preventDefault();
-				self.wasActive = self.foogrid.isActive();
-				self.foogrid.close().then(function(){
-					setPage();
-					self.loadAvailable();
-				});
+				self.foogrid.close(true);
 			}
 		},
 		onAfterPageChange: function(event, self, current, prev, isFilter){
 			if (!isFilter){
 				self.foogrid.layout(true);
-				if (self.wasActive){
-					self.wasActive = false;
-					self.foogrid.open(0);
-				}
 			}
 		},
 		onBeforeFilterChange: function(event, self, current, next, setFilter){
-			event.preventDefault();
-			self.wasActive = self.foogrid.isActive();
-			self.foogrid.close().then(function(){
-				setFilter();
-				self.loadAvailable();
-			});
+			self.foogrid.close(true);
 		},
 		onAfterFilterChange: function(event, self){
 			self.foogrid.layout(true);
-			if (self.wasActive) {
-				self.wasActive = false;
-				self.foogrid.open(0);
-			}
 		}
 	});
 

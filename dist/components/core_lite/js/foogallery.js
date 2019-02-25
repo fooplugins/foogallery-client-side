@@ -3150,6 +3150,20 @@
 	 * });
 	 */
 
+	/**
+	 * @summary Checks if the supplied image src is cached by the browser.
+	 * @param {string} src - The image src to check.
+	 * @returns {boolean}
+	 */
+	_.isCached = function(src){
+		var img = new Image();
+		img.src = src;
+		var complete = img.complete;
+		img.src = "";
+		img = null;
+		return complete;
+	};
+
 })(
 		FooGallery.$,
 		FooGallery,
@@ -3363,6 +3377,14 @@
 				self.endPoint = pt;
 				if (!self.opt.allowPageScroll){
 					event.preventDefault();
+				} else if (_is.hash(self.opt.allowPageScroll)){
+					var dir = self.getDirection(self.startPoint, self.endPoint);
+					if (!self.opt.allowPageScroll.x && $.inArray(dir, ['NE','E','SE','NW','W','SW']) !== -1){
+						event.preventDefault();
+					}
+					if (!self.opt.allowPageScroll.y && $.inArray(dir, ['NW','N','NE','SW','S','SE']) !== -1){
+						event.preventDefault();
+					}
 				}
 			}
 		},
@@ -5699,14 +5721,6 @@
 			var cls = self.cls, img = self.$image.get(0), placeholder = img.src;
 			self.isLoading = true;
 			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
-			if (self.isParsed && img.src != self._placeholder && img.complete){
-				self.isLoading = false;
-				self.isLoaded = true;
-				self.$el.removeClass(cls.loading).addClass(cls.loaded);
-				self.unfix();
-				self.tmpl.raise("loaded-item", [self]);
-				return self._load = _fn.resolveWith(self);
-			}
 			return self._load = $.Deferred(function (def) {
 				img.onload = function () {
 					img.onload = img.onerror = null;
@@ -5729,9 +5743,10 @@
 					def.reject(self);
 				};
 				// set everything in motion by setting the src
-				setTimeout(function(){
-					img.src = self.getThumbUrl();
-				});
+				img.src = self.getThumbUrl();
+				if (img.complete){
+					img.onload();
+				}
 			}).promise();
 		},
 		/**

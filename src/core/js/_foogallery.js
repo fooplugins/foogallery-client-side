@@ -213,6 +213,20 @@
 	 * });
 	 */
 
+	/**
+	 * @summary Checks if the supplied image src is cached by the browser.
+	 * @param {string} src - The image src to check.
+	 * @returns {boolean}
+	 */
+	_.isCached = function(src){
+		var img = new Image();
+		img.src = src;
+		var complete = img.complete;
+		img.src = "";
+		img = null;
+		return complete;
+	};
+
 })(
 		FooGallery.$,
 		FooGallery,

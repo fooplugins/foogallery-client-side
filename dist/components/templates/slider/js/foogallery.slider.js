@@ -20,6 +20,7 @@
 			self.noCaptions = self.template.noCaptions;
 			self.useViewport = self.template.useViewport;
 			self.breakpoints = self.template.breakpoints;
+			self.allowPageScroll = self.template.allowPageScroll;
 			self.allBreakpointClasses = $.map(self.breakpoints, function(breakpoint){ return breakpoint.classes; }).join(' ');
 			self._contentWidth = 0;
 			self._contentHeight = 0;
@@ -70,7 +71,7 @@
 			$(window).on("resize.fg-slider", {self: self}, self.throttle(self.onWindowResize, self.template.throttle));
 			self.$itemPrev.on("click.fg-slider", {self: self}, self.onPrevClick);
 			self.$itemNext.on("click.fg-slider", {self: self}, self.onNextClick);
-			self.$contentContainer.fgswipe({data: {self: self}, swipe: self.onContentSwipe});
+			self.$contentContainer.fgswipe({data: {self: self}, allowPageScroll: self.allowPageScroll, swipe: self.onContentSwipe});
 			self.$itemContainer.fgswipe({data: {self: self}, swipe: self.onItemSwipe})
 					.on("DOMMouseScroll.fg-slider mousewheel.fg-slider", {self: self}, self.onItemMouseWheel);
 		},
@@ -394,6 +395,10 @@
 			useViewport: false,
 			noCaptions: false,
 			autoPlay: false,
+			allowPageScroll: {
+				x: false,
+				y: true
+			},
 			breakpoints: [{
 				width: 480,
 				classes: "fgs-xs",

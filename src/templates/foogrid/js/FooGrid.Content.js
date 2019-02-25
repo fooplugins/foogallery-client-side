@@ -153,6 +153,7 @@
 			self._loop();
 			self.$li.addClass('foogrid-visible').focus();
 			self.active = item;
+			if (self.grid && self.grid.deeplinking) self.grid.deeplinking.set(item);
 			self.busy = false;
 			return item.open(reverse);
 		});
@@ -216,6 +217,7 @@
 			self.$prev.add(self.$next).removeClass('foogrid-disabled');
 			self.fullscreen = false;
 			self.active = null;
+			if (self.grid && self.grid.deeplinking) self.grid.deeplinking.clear();
 			self.busy = false;
 			if (!diff_row) self.first = true;
 		});

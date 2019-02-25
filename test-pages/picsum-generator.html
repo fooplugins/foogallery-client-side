@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Picsum Generator</title>
+	<link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="../node_modules/jquery/dist/jquery.js"></script>
+	<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script>
+		(function($){
+
+			function PicsumGenerator(){
+				if (!(this instanceof PicsumGenerator)) return new PicsumGenerator();
+				this.$options = $("#options");
+				this.$output = $("#output");
+				this.$outputHTML = $("#output-html");
+				this.$generate = $("#generate").on("click", {self: this}, this.onGenerateClick);
+				this._alt = [
+					"This is a short description for item {{I}}.",
+					"This is a medium description for item {{I}} to see how templates handle various lengths.",
+					"This is a long description for item {{I}} to see how templates handle various lengths even if they start to get very, very long. Ideally if your descriptions are this long you should only display the title."
+				];
+				this._tags = ["tag1","tag2","tag3","tag4","tag5"];
+				this._templates = {
+					"150x94": {
+						href: "https://picsum.photos/1920/1200?image={{I}}",
+						src: "https://picsum.photos/150/94?image={{I}}",
+						srcset: "https://picsum.photos/300/188?image={{I}} 300w,https://picsum.photos/450/282?image={{I}} 450w",
+						width: 150,
+						height: 94,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"150x225": {
+						href: "https://picsum.photos/1920/1200?image={{I}}",
+						src: "https://picsum.photos/150/225?image={{I}}",
+						srcset: "https://picsum.photos/300/450?image={{I}} 300w,https://picsum.photos/450/675?image={{I}} 450w",
+						width: 150,
+						height: 225,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"150x150": {
+						href: "https://picsum.photos/1920/1200?image={{I}}",
+						src: "https://picsum.photos/150/150?image={{I}}",
+						srcset: "https://picsum.photos/300/300?image={{I}} 300w,https://picsum.photos/450/450?image={{I}} 450w",
+						width: 150,
+						height: 150,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"250x250": {
+						href: "https://picsum.photos/1920/1200?image={{I}}",
+						src: "https://picsum.photos/250/250?image={{I}}",
+						srcset: "https://picsum.photos/500/500?image={{I}} 500w,https://picsum.photos/750/750?image={{I}} 750w",
+						width: 250,
+						height: 250,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"360x240": {
+						href: "https://picsum.photos/1920/1200?image={{I}}",
+						src: "https://picsum.photos/360/240?image={{I}}",
+						srcset: "https://picsum.photos/720/480?image={{I}} 720w,https://picsum.photos/1080/720?image={{I}} 1080w",
+						width: 360,
+						height: 240,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"720x480": {
+						href: "https://picsum.photos/1920/1200?image={{I}}",
+						src: "https://picsum.photos/720/480?image={{I}}",
+						srcset: "https://picsum.photos/1440/960?image={{I}} 1440w",
+						width: 720,
+						height: 480,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					}
+				};
+			}
+
+			PicsumGenerator.prototype.templates = function(size){
+				return $.map(this._templates, function(template, name){
+					if (size === "150w" && template.width === 150) return template;
+					else if ((size === "random" && name !== "720x480") || name === size) return template;
+					return null;
+				});
+			};
+
+			PicsumGenerator.prototype.options = function(){
+				return {
+					amount: parseInt(this.$options.find("#amount").val()),
+					size: this.$options.find("[name=size]:checked").val()
+				};
+			};
+
+			PicsumGenerator.prototype.generate = function(amount, size){
+				var templates = this.templates(size), items = [];
+				for (var i = 0, min = 0, max = templates.length - 1, ti; i < amount; i++){
+					ti = max > 0 ? Math.floor(Math.random() * (max - min + 1)) + min : 0;
+					items.push(this.item(templates[ti], i));
+				}
+				return items;
+			};
+
+			PicsumGenerator.prototype.item = function(template, index){
+				var item = $.extend(true, {}, template);
+				item.href = item.href.replace(/\{\{I}}/g, 10 + index);
+				item.src = item.src.replace(/\{\{I}}/g, 10 + index);
+				item.srcset = item.srcset.replace(/\{\{I}}/g, 10 + index);
+				item.title = item.title.replace(/\{\{I}}/g, index);
+				var min = 0, max = this._alt.length - 1, i = max > 0 ? Math.floor(Math.random() * (max - min + 1)) + min : 0;
+				item.alt = this._alt[i].replace(/\{\{I}}/g, index);
+
+				item.tags.push(item.width + "x" + item.height);
+				max = this._tags.length - 1;
+				var num = Math.floor(Math.random() * (max - 1)) + 2;
+				for (var j = 0; j < num; j++){
+					i = max > 0 ? Math.floor(Math.random() * (max + 1)) : 0;
+					if ($.inArray(this._tags[i], item.tags) === -1){
+						item.tags.push(this._tags[i]);
+					}
+				}
+
+				return item;
+			};
+
+			PicsumGenerator.prototype.output = function(items){
+				this.$output.text(JSON.stringify(items, null, 2));
+			};
+
+
+
+
+			PicsumGenerator.prototype.outputHTML = function(items){
+				var html = '',
+						lazy = this.$options.find("#lazy-load").is(":checked"),
+						src = lazy ? 'data-src' : 'src',
+						srcset = lazy ? 'data-srcset' : 'srcset';
+				for (var i = 0, l = items.length; i < l; i++){
+					var item = items[i];
+
+					html += '<div class="fg-item">\n';
+					html += '\t<figure class="fg-item-inner">\n';
+					html += '\t\t<a class="fg-thumb" href="'+item.href+'" data-title="'+item.title+'" data-description="'+item.alt+'">\n';
+					html += '\t\t\t<img class="fg-image" '+src+'="'+item.src+'" '+srcset+'="'+item.srcset+'" width="'+item.width+'" height="'+item.height+'" title="'+item.title+'" alt="'+item.alt+'">\n';
+					html += '\t\t</a>\n';
+					html += '\t\t<figcaption class="fg-caption">\n';
+					html += '\t\t\t<div class="fg-caption-inner">\n';
+					html += '\t\t\t\t<div class="fg-caption-title">'+item.title+'</div>\n';
+					html += '\t\t\t\t<div class="fg-caption-desc">'+item.alt+'</div>\n';
+					html += '\t\t\t</div>\n';
+					html += '\t\t</figcaption>\n';
+					html += '\t</figure>\n';
+					html += '</div>\n';
+
+				}
+
+
+				this.$outputHTML.text(html);
+			};
+
+			PicsumGenerator.prototype.onGenerateClick = function(e){
+				var self = e.data.self, o = self.options(), items = self.generate(o.amount, o.size);
+				self.output(items);
+				if (self.$options.find("#generate-html").is(":checked")){
+					self.outputHTML(items);
+				}
+			};
+
+			$(function(){
+				PicsumGenerator();
+			});
+
+		})(jQuery);
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				Options
+			</div>
+			<div class="panel-body">
+				<form id="options" class="form-horizontal">
+					<div class="form-group">
+						<label for="amount" class="col-sm-2 control-label">Amount</label>
+						<div class="col-sm-1">
+							<input id="amount" name="amount" class="form-control" title="The total number of items to generate." type="number" value="300"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="size1" class="col-sm-2 control-label">Size</label>
+						<div class="col-sm-10">
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size1" value="random" checked>
+									Random
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size2" value="150w">
+									150w
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size3" value="150x94">
+									150x94
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size4" value="150x225">
+									150x225
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size5" value="150x150">
+									150x150
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size6" value="250x250">
+									250x250
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size7" value="360x240">
+									360x240
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size8" value="720x480">
+									720x480
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-check">
+						<label class="form-check-label col-sm-offset-2">
+							<input type="checkbox" class="form-check-input" id="generate-html" name="generate-html">
+							Whether or not to also generate the HTML output for the items.
+						</label>
+					</div>
+					<div class="form-check">
+						<label class="form-check-label col-sm-offset-2">
+							<input type="checkbox" class="form-check-input" id="lazy-load" name="lazy-load">
+							Whether or not lazy load is enabled as it affects the item output.
+						</label>
+					</div>
+					<button type="button" id="generate" class="btn btn-default pull-right">Generate</button>
+				</form>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Output
+			</div>
+			<div class="panel-body">
+				<textarea id="output" name="output" class="form-control" title="Once generated the JSON output will be displayed in this textarea" rows="30" readonly></textarea>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Output HTML
+			</div>
+			<div class="panel-body">
+				<textarea id="output-html" name="output" class="form-control" title="Once generated the HTML output will be displayed in this textarea" rows="30" readonly></textarea>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

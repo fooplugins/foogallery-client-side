@@ -14,6 +14,7 @@
 		this.$link = this.$li.find('.fg-thumb').first().on('click.gg', {self: this}, this.onClick);
 		this.visible = false;
 		this.content = this.grid.parser.parse(this.$link);
+		this.hash = this.grid.deeplinking.hash(this.content.external);
 		this.hasCaption = false;
 		this.isCreated = false;
 		this.player = null;
@@ -44,20 +45,25 @@
 
 		switch (this.content.type){
 			case 'image':
+				$inner.addClass('foogrid-content-image');
 				$content = $('<img/>', {src: this.content.url, 'class': 'foogrid-image'});
 				break;
 			case 'html':
+				$inner.addClass('foogrid-content-html');
 				$content = $(this.content.url).contents();
 				break;
 			case 'embed':
+				$inner.addClass('foogrid-content-embed');
 				$content = $('<div/>', {'class': 'foogrid-embed'}).append($(this.content.url).contents());
 				break;
 			case 'video':
+				$inner.addClass('foogrid-content-video');
 				this.player = new F.Player(this.grid, this.content.url);
 				$content = this.player.$el;
 				break;
 			case 'iframe':
 			default:
+				$inner.addClass('foogrid-content-iframe');
 				$content = $('<iframe/>', {
 					src: this.content.url, 'class': 'foogrid-iframe', frameborder: 'no',
 					webkitallowfullscreen: true, mozallowfullscreen: true, allowfullscreen: true

@@ -22,37 +22,19 @@
 		},
 		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
 			if (!isFilter){
-				event.preventDefault();
-				self.wasActive = self.foogrid.isActive();
-				self.foogrid.close().then(function(){
-					setPage();
-					self.loadAvailable();
-				});
+				self.foogrid.close(true);
 			}
 		},
 		onAfterPageChange: function(event, self, current, prev, isFilter){
 			if (!isFilter){
 				self.foogrid.layout(true);
-				if (self.wasActive){
-					self.wasActive = false;
-					self.foogrid.open(0);
-				}
 			}
 		},
 		onBeforeFilterChange: function(event, self, current, next, setFilter){
-			event.preventDefault();
-			self.wasActive = self.foogrid.isActive();
-			self.foogrid.close().then(function(){
-				setFilter();
-				self.loadAvailable();
-			});
+			self.foogrid.close(true);
 		},
 		onAfterFilterChange: function(event, self){
 			self.foogrid.layout(true);
-			if (self.wasActive) {
-				self.wasActive = false;
-				self.foogrid.open(0);
-			}
 		}
 	});
 

@@ -7,44 +7,19 @@
 					type: "none"
 				},
 				paging: {
-					type: "none"
+					pushOrReplace: "replace",
+					theme: "fg-light",
+					type: "default",
+					size: 1,
+					position: "none",
+					scrollToTop: false
 				}
 			}), element);
-			this.$hidden = $();
-		},
-		createChildren: function(){
-			var self = this;
-			return self.$hidden = $("<div/>", {"class": self.cls.hidden});
-		},
-		destroyChildren: function(){
-			var self = this;
-			self.$el.find(self.sel.hidden).remove();
-		},
-		onPreInit: function(event, self){
-			self.$hidden = self.$el.find(self.sel.hidden);
-		},
-		onPostInit: function(event, self){
-			var hidden = self.items.all().slice(1);
-			for (var i = 0, l = hidden.length, item; i < l; i++){
-				item = hidden[i];
-				if (item.isCreated){
-					self.$hidden.append(item.$el);
-				} else {
-					self.$hidden.append(
-							$("<a/>", {
-								href: item.href,
-								rel: "lightbox[" + self.id + "]"
-							}).attr(item.attr.anchor)
-					);
-				}
-			}
-			self.items.setAll(self.items.all().slice(0,1));
 		}
 	});
 
 	_.template.register("thumbnail", _.ThumbnailTemplate, null, {
-		container: "foogallery fg-thumbnail",
-		hidden: "fg-st-hidden"
+		container: "foogallery fg-thumbnail"
 	});
 
 })(
