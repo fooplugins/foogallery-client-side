@@ -44,7 +44,7 @@
 }
 
 .fg-image-viewer .fiv-inner .fiv-inner-container .fg-item {
-	position: relative;
+	position: absolute;
 	visibility: visible;
 	opacity: 1;
 	border: none;
@@ -52,6 +52,9 @@
 	text-decoration: none;
 	box-shadow: none;
 	max-width: 100%;
+}
+.fg-image-viewer .fiv-inner .fiv-inner-container .fg-item:first-of-type {
+	position: relative;
 }
 .fg-image-viewer .fiv-inner .fiv-inner-container .fg-item .fg-thumb img {
 	display: block;
