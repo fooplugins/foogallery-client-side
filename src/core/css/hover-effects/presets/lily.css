@@ -4,7 +4,6 @@
 }
 .foogallery.fg-preset.fg-lily .fg-image {
 	opacity: 1;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: scale(1.12) translateX(-10%);
 	transform: scale(1.12) translateX(-10%);
@@ -23,7 +22,6 @@
 	left: 0;
 	height: auto;
 	max-height: 100%;
-	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	transform: translateY(100%) translateY(-10px) translateY(-30px);
 }
@@ -41,7 +39,6 @@
 .foogallery.fg-preset.fg-lily .fg-caption-desc {
 	padding: 0;
 	opacity: 0;
-	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 }
 .foogallery.fg-preset.fg-lily .fg-item-inner:hover .fg-caption-desc {

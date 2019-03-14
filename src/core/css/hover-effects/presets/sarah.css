@@ -4,7 +4,6 @@
 }
 .foogallery.fg-preset.fg-sarah .fg-image {
 	opacity: 1;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: scale(1.12) translateX(-10%);
 	transform: scale(1.12) translateX(-10%);
@@ -37,7 +36,6 @@
 	height: 3px;
 	background: #fff;
 	content: '';
-	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
@@ -50,7 +48,6 @@
 .foogallery.fg-preset.fg-sarah .fg-caption-desc {
 	padding: 1em 0;
 	opacity: 0;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: translateX(100%);
 	transform: translateX(100%);

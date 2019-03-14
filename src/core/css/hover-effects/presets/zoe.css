@@ -2,7 +2,6 @@
 .foogallery.fg-preset.fg-zoe .fg-thumb {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
@@ -27,7 +26,6 @@
 	bottom: -10px;
 	-webkit-transform: translateY(100%) translateY(50px) translateY(-50%);
 	transform: translateY(100%) translateY(50px) translateY(-50%);
-	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 }
 .foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-caption-title {
@@ -43,7 +41,6 @@
 	width: 100%;
 	-webkit-transform: translateY(-50%) translateY(100%);
 	transform: translateY(-50%) translateY(100%);
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	line-height: 1.2;
 }

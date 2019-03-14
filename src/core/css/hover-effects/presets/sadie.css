@@ -19,7 +19,6 @@
 	background: linear-gradient(to bottom, rgba(72,76,97,0) 0%, rgba(72,76,97,0.8) 75%);
 	content: '';
 	opacity: 0;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: translateY(50%);
 	transform: translateY(50%);
@@ -36,7 +35,6 @@
 	left: 0;
 	width: 100%;
 	color: #fff;
-	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
@@ -56,7 +54,6 @@
 	opacity: 0;
 	-webkit-transform: translateY(-10px);
 	transform: translateY(-10px);
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 }
 .foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-desc {

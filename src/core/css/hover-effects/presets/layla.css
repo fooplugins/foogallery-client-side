@@ -7,9 +7,7 @@
 	-webkit-transform: scale(1.12) translateY(-10%);
 	transform: scale(1.12) translateY(-10%);
 	transform-origin: 50% 0;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transition-delay: 0.15s;
 	transition-delay: 0.15s;
 }
 .foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-image {
@@ -34,7 +32,6 @@
 	border-bottom: 1px solid #fff;
 	-webkit-transform: scale(0,1);
 	transform: scale(0,1);
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform-origin: 0 0;
 	transform-origin: 0 0;
@@ -48,11 +45,9 @@
 	border-left: 1px solid #fff;
 	-webkit-transform: scale(1,0);
 	transform: scale(1,0);
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform-origin: 100% 0;
 	transform-origin: 100% 0;
-	-webkit-transition-delay: 0.15s;
 	transition-delay: 0.15s;
 }
 .foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-caption:before,
@@ -69,9 +64,7 @@
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%) translateY(-45px);
-	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
-	-webkit-transition-delay: 0.15s;
 	transition-delay: 0.15s;
 }
 .foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-caption-title {
@@ -86,9 +79,7 @@
 	text-transform: none;
 	opacity: 0;
 	transform: translateY(-50%) translateY(-10px);
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transition-delay: 0.15s;
 	transition-delay: 0.15s;
 }
 .foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-caption-desc {
