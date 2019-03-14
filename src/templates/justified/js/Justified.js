@@ -1,8 +1,9 @@
 (function($, _, _utils, _is){
 
 	_.Justified = _utils.Class.extend({
-		construct: function(element, options){
-			this.$el = $(element);
+		construct: function(template, options){
+			this.tmpl = template;
+			this.$el = template.$el;
 			this.options = $.extend(true, {}, _.Justified.defaults, options);
 			this._items = [];
 			this._lastRefresh = 0;
@@ -35,37 +36,17 @@
 			}
 		},
 		parse: function(){
-			var self = this, visible = self.$el.is(':visible'),
-					$test = $('<div/>', {'class': self.$el.attr('class')}).css({
-						position: 'absolute',
-						top: 0,
-						left: -9999,
-						visibility: 'hidden',
-						maxWidth: self.getContainerWidth()
-					}).appendTo('body');
-			self._items = self.$el.find(self.options.itemSelector).removeAttr("style").removeClass("fg-positioned").map(function(i, el){
-				var $item = $(el), width = 0, height = 0;
-				if (!visible){
-					var $clone = $item.clone();
-					$clone.appendTo($test);
-					width = $clone.outerWidth();
-					height = $clone.outerHeight();
-				} else {
-					width = $item.outerWidth();
-					height = $item.outerHeight();
-				}
-
+			var self = this;
+			return self._items = $.map(self.tmpl.items.available(), function(item, i){
 				return {
 					index: i,
-					width: width,
-					height: height,
+					width: item.width,
+					height: item.height,
 					top: 0,
 					left: 0,
-					$item: $item
+					$item: item.$el
 				};
-			}).get();
-			$test.remove();
-			return self._items;
+			});
 		},
 		getMaxRowHeight: function() {
 			var self = this;

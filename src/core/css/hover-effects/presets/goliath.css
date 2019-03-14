@@ -1,7 +1,6 @@
 /* Goliath */
 .foogallery.fg-preset.fg-goliath .fg-thumb {
 	opacity: 1;
-	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
@@ -15,7 +14,6 @@
 }
 .foogallery.fg-preset.fg-goliath .fg-image {
 	opacity: 1;
-	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 }
 .foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-image {
@@ -38,7 +36,6 @@
 	overflow: visible;
 	-webkit-transform: translateY(100%);
 	transform: translateY(100%);
-	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 }
 .foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-caption-inner {
@@ -57,7 +54,6 @@
 	top: 50%;
 	transform: translateY(-50%);
 	opacity: 0;
-	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 	line-height: 1.2;
 }

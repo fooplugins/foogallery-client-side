@@ -1,8 +1,9 @@
 (function($, _, _utils, _is){
 
 	_.Portfolio = _utils.Class.extend({
-		construct: function(element, options){
-			this.$el = $(element);
+		construct: function(tmpl, options){
+			this.tmpl = tmpl;
+			this.$el = tmpl.$el;
 			this.options = $.extend(true, {}, _.Portfolio.defaults, options);
 			this._items = [];
 			this._lastWidth = 0;
@@ -24,37 +25,29 @@
 						visibility: 'hidden',
 						maxWidth: maxWidth
 					}).appendTo('body');
-			self._items = self.$el.find(".fg-item").removeAttr("style").removeClass("fg-positioned").map(function(i, el){
-				var $item = $(el),
-						$thumb = $item.find(".fg-thumb"),
-						$img = $item.find(".fg-image"),
-						width = parseFloat($img.attr("width")),
-						height = parseFloat($img.attr("height")),
-						iWidth = maxWidth < width ? maxWidth : width,
-						iHeight = maxWidth < width ? 'auto' : height;
 
-				$item.find(".fg-caption").css("max-width", iWidth);
-				$img.css({ width: iWidth, height: iHeight });
+			self._items = $.map(self.tmpl.items.available(), function(item, i){
+				var width = item.width, height = item.height;
+				item.$caption.css("max-width", width);
 				if (!visible){
-					var $clone = $item.clone();
+					var $clone = item.$el.clone();
 					$clone.appendTo($test);
 					width = $clone.outerWidth();
 					height = $clone.outerHeight();
 				} else {
-					width = $item.outerWidth();
-					height = $item.outerHeight();
+					width = item.$el.outerWidth();
+					height = item.$el.outerHeight();
 				}
-				$img.css({ width: '', height: '' });
 				return {
 					index: i,
 					width: width,
 					height: height,
 					top: 0,
 					left: 0,
-					$item: $item,
-					$thumb: $thumb
+					$item: item.$el,
+					$thumb: item.$thumb
 				};
-			}).get();
+			});
 			$test.remove();
 			return self._items;
 		},

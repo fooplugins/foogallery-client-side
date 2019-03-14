@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Single Thumbnail Template</title>
+	<link href="test.css" rel="stylesheet"/>
+	<link href="../../dist/full/css/foogallery.css" rel="stylesheet"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="../../dist/full/js/foogallery.js"></script>
+	<script src="items/360x240.js"></script>
+	<script>
+		(function(_){
+
+			_.auto({
+				"lazy": true,
+				"src": "data-src",
+				"srcset": "data-srcset",
+				"fixLayout": true,
+				"items": ITEMS
+			});
+
+		})(FooGallery);
+	</script>
+</head>
+<body>
+<div id="wrapper">
+
+	<h3>JSON Items - Lazy</h3>
+
+	<div id="foogallery-gallery-3" class="foogallery fg-light fg-hover-fade fg-hover-zoom fg-video-default fg-video-sticky fg-thumbnail fg-loading-default">
+
+		<div class="fg-st-hidden">
+
+		</div>
+
+	</div>
+
+</div>
+</body>
+</html>

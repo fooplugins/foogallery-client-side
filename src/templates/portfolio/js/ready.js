@@ -7,7 +7,7 @@
 			this.portfolio = null;
 		},
 		onPreInit: function(event, self){
-			self.portfolio = new _.Portfolio( self.$el.get(0), self.template );
+			self.portfolio = new _.Portfolio( self, self.template );
 		},
 		onInit: function(event, self){
 			self.portfolio.init();
@@ -36,7 +36,10 @@
 	});
 
 	_.template.register("simple_portfolio", _.PortfolioTemplate, {
-		gutter: 40
+		fixLayout: false,
+		template: {
+			gutter: 40
+		}
 	}, {
 		container: "foogallery fg-simple_portfolio"
 	});

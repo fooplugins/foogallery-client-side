@@ -1,7 +1,6 @@
 /* Ming */
 .foogallery.fg-preset.fg-ming .fg-thumb {
 	background-color: #030c17;
-	-webkit-transition: background-color 0.35s;
 	transition: background-color 0.35s;
 }
 .foogallery.fg-preset.fg-ming .fg-item-inner:hover .fg-thumb {
@@ -9,7 +8,6 @@
 }
 .foogallery.fg-preset.fg-ming .fg-image {
 	opacity: 1;
-	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 }
 .foogallery.fg-preset.fg-ming .fg-item-inner:hover .fg-image {
@@ -28,7 +26,6 @@
 	opacity: 0;
 	-webkit-transform: scale3d(1.4,1.4,1);
 	transform: scale3d(1.4,1.4,1);
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 }
 .foogallery.fg-preset.fg-ming .fg-item-inner:hover .fg-caption:before {
@@ -43,7 +40,6 @@
 
 .foogallery.fg-preset.fg-ming .fg-caption-title {
 	margin: 20px 0 0 0;
-	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	-webkit-transform: scale(1);
 	transform: scale(1);
@@ -58,7 +54,6 @@
 	opacity: 0;
 	-webkit-transform: scale(1.5);
 	transform: scale(1.5);
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 }
 .foogallery.fg-preset.fg-ming .fg-item-inner:hover .fg-caption-desc {

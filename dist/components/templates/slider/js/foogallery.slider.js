@@ -380,16 +380,11 @@
 			if ($.inArray(info.direction, ["NW", "W", "SW"]) !== -1){
 				self.setSelected(self.selected.index + 1);
 			}
-		},
-		onFixItem: function(event){
-			event.preventDefault();
-		},
-		onUnfixItem: function(event){
-			event.preventDefault();
 		}
 	});
 
 	_.template.register("slider", _.SliderTemplate, {
+		fixLayout: false,
 		template: {
 			horizontal: false,
 			useViewport: false,

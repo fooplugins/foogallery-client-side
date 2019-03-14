@@ -15,7 +15,6 @@
 	display: block;
 	content: '';
 	box-shadow: 0 1px 30px rgba(0,0,0,0.5);
-	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 	opacity: 0;
 }
@@ -25,7 +24,6 @@
 
 .foogallery.fg-preset.fg-steve .fg-image {
 	opacity: 1;
-	-webkit-transition: -webkit-transform 0.35s;
 	transition: transform 0.35s;
 	-webkit-transform: perspective(1000px) translate3d(0,0,0);
 	transform: perspective(1000px) translate3d(0,0,0);
@@ -52,7 +50,6 @@
 	width: 100%;
 	margin: 0;
 	padding: 0.2em;
-	-webkit-transition: box-shadow 0.35s;
 	transition: box-shadow 0.35s;
 	-webkit-transform: translateY(-100%) translateY(-10px);
 	transform: translateY(-100%) translateY(-10px);
@@ -71,7 +68,6 @@
 	padding: 0.2em;
 	opacity: 0;
 	background-color: #FFF;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: scale(0.9);
 	transform: scale(0.9);
@@ -115,7 +111,6 @@
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-small .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-medium .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-large .fg-thumb:after {
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: perspective(1000px) translate3d(0,0,0);
 	transform: perspective(1000px) translate3d(0,0,0);

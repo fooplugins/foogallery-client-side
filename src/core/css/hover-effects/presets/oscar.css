@@ -5,7 +5,6 @@
 }
 .foogallery.fg-preset.fg-oscar .fg-image {
 	opacity: 1;
-	-webkit-transition: opacity 0.35s;
 	transition: opacity 0.35s;
 }
 .foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-image {
@@ -14,7 +13,6 @@
 
 .foogallery.fg-preset.fg-oscar .fg-caption {
 	background-color: transparent;
-	-webkit-transition: background-color 0.35s;
 	transition: background-color 0.35s;
 }
 .foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption {
@@ -30,7 +28,6 @@
 	border: 1px solid #fff;
 	content: '';
 	opacity: 0;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: scale(0);
 	transform: scale(0);
@@ -60,7 +57,6 @@
 	top: 50%;
 	padding: 0.5em;
 	text-transform: none;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
 	opacity: 0;
 	transform: scale(0) translateY(-60px);
