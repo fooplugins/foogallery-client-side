@@ -2,7 +2,6 @@
 .foogallery.fg-preset.fg-polaroid .fg-item {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-	-webkit-transition: -webkit-transform 0.35s, background-color 0.65s;
 	transition: transform 0.35s, background-color 0.65s;
 }
 .foogallery.fg-preset.fg-polaroid .fg-item:nth-child(2n+1) {

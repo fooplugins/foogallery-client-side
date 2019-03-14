@@ -1,6 +1,4 @@
 .fg-filtering-container, .fg-filtering-container *, .fg-filtering-container *:before, .fg-filtering-container *:after {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 .fg-filtering-container {
