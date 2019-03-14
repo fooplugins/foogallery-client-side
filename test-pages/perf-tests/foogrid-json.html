@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>FooGrid Template</title>
+	<link href="test.css" rel="stylesheet"/>
+	<link href="../../dist/full/css/foogallery.css" rel="stylesheet"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="../../dist/full/js/foogallery.js"></script>
+	<script src="items/250x250.js"></script>
+	<script>
+		(function(_){
+
+			_.auto({
+				"lazy": false,
+				"src": "data-src",
+				"srcset": "data-srcset",
+				"fixLayout": false,
+				"template": {
+					"parser": {
+						"type": {
+							"image": /\.(jpg|jpeg|png|gif|bmp)|dummyimage\.com/i
+						}
+					}
+				},
+				"items": ITEMS
+			});
+
+		})(FooGallery);
+	</script>
+</head>
+<body>
+<div id="wrapper">
+
+	<h3>JSON Items</h3>
+
+	<div id="foogallery-gallery-2" class="foogallery fg-light fg-hover-fade fg-hover-zoom fg-video-default fg-video-sticky foogrid foogrid-cols-5 foogrid-transition-horizontal fg-loading-default">
+
+	</div>
+
+</div>
+</body>
+</html>

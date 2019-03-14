@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DummyImage Generator</title>
+	<link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="../node_modules/jquery/dist/jquery.js"></script>
+	<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script>
+		(function($){
+
+			function DummyImageGenerator(){
+				if (!(this instanceof DummyImageGenerator)) return new DummyImageGenerator();
+				this.$options = $("#options");
+				this.$output = $("#output");
+				this.$outputHTML = $("#output-html");
+				this.$generate = $("#generate").on("click", {self: this}, this.onGenerateClick);
+				this._alt = [
+					"This is a short description for item {{I}}.",
+					"This is a medium description for item {{I}} to see how templates handle various lengths.",
+					"This is a long description for item {{I}} to see how templates handle various lengths even if they start to get very, very long. Ideally if your descriptions are this long you should only display the title."
+				];
+				this._tags = ["tag1","tag2","tag3","tag4","tag5"];
+				this._templates = {
+					"150x94": {
+						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
+						src: "https://dummyimage.com/150x94/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(150×94)",
+						srcset: "https://dummyimage.com/300x188/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(300×188) 300w,https://dummyimage.com/450x282/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(450×282) 450w",
+						width: 150,
+						height: 94,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"150x225": {
+						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
+						src: "https://dummyimage.com/150x225/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(150×225)",
+						srcset: "https://dummyimage.com/300x450/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(300×450) 300w,https://dummyimage.com/450x675/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(450×675) 450w",
+						width: 150,
+						height: 225,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"150x150": {
+						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
+						src: "https://dummyimage.com/150x150/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(150×150)",
+						srcset: "https://dummyimage.com/300x300/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(300×300) 300w,https://dummyimage.com/450x450/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(450×450) 450w",
+						width: 150,
+						height: 150,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"250x250": {
+						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
+						src: "https://dummyimage.com/250x250/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(250×250)",
+						srcset: "https://dummyimage.com/500x500/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(500×500) 500w,https://dummyimage.com/750x750/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(750×750) 750w",
+						width: 250,
+						height: 250,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"360x240": {
+						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
+						src: "https://dummyimage.com/360x240/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(360×240)",
+						srcset: "https://dummyimage.com/720x480/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(720×480) 720w,https://dummyimage.com/1080x720/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1080×720) 1080w",
+						width: 360,
+						height: 240,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					},
+					"720x480": {
+						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
+						src: "https://dummyimage.com/720x480/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(720×480)",
+						srcset: "https://dummyimage.com/1440x960/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1440×960) 1440w",
+						width: 720,
+						height: 480,
+						title: "Title for {{I}}",
+						alt: "",
+						tags: [],
+						attr: {
+							item: {},
+							inner: {},
+							anchor: {},
+							image: {}
+						}
+					}
+				};
+				this._colors = [
+					{background: '000000', text: 'ffffff'},
+					{background: '001eff', text: 'ffffff'},
+					{background: '5400ff', text: 'ffffff'},
+					{background: '4c1616', text: 'ffffff'},
+					{background: '663e00', text: 'ffffff'},
+					{background: '376600', text: 'ffffff'},
+					{background: '00663e', text: 'ffffff'},
+					{background: '006566', text: 'ffffff'},
+					{background: '003c66', text: 'ffffff'},
+					{background: '290066', text: 'ffffff'},
+					{background: '660062', text: 'ffffff'},
+					{background: '66000e', text: 'ffffff'},
+					{background: 'cccccc', text: '000000'},
+					{background: 'ff0000', text: '000000'},
+					{background: 'ff6c00', text: '000000'},
+					{background: 'ffe400', text: '000000'},
+					{background: '66ff00', text: '000000'},
+					{background: '00fcff', text: '000000'},
+					{background: 'f000ff', text: '000000'},
+					{background: 'dc7f8c', text: '000000'},
+					{background: 'db7fdc', text: '000000'},
+					{background: '7f81dc', text: '000000'},
+					{background: '7fdbdc', text: '000000'},
+					{background: '7fdca6', text: '000000'},
+					{background: 'b8dc7f', text: '000000'},
+					{background: 'dcd07f', text: '000000'},
+					{background: 'dc8a7f', text: '000000'}
+				];
+			}
+
+			DummyImageGenerator.prototype.randomColor = function () {
+				var min = 0, max = this._colors.length - 1;
+				var index = Math.floor(Math.random() * (max - min + 1)) + min;
+				return this._colors[index];
+			};
+
+			DummyImageGenerator.prototype.templates = function(size){
+				return $.map(this._templates, function(template, name){
+					if (size === "150w" && template.width === 150) return template;
+					else if ((size === "random" && name !== "720x480") || name === size) return template;
+					return null;
+				});
+			};
+
+			DummyImageGenerator.prototype.options = function(){
+				return {
+					amount: parseInt(this.$options.find("#amount").val()),
+					size: this.$options.find("[name=size]:checked").val()
+				};
+			};
+
+			DummyImageGenerator.prototype.generate = function(amount, size){
+				var templates = this.templates(size), items = [];
+				for (var i = 0, min = 0, max = templates.length - 1, ti; i < amount; i++){
+					ti = max > 0 ? Math.floor(Math.random() * (max - min + 1)) + min : 0;
+					items.push(this.item(templates[ti], i));
+				}
+				return items;
+			};
+
+			DummyImageGenerator.prototype.item = function(template, index){
+				var item = $.extend(true, {}, template), color = this.randomColor();
+				item.href = item.href.replace(/\{\{BACKGROUND}}/g, color.background).replace(/\{\{TEXT}}/g, color.text).replace(/\{\{I}}/g, index);
+				item.src = item.src.replace(/\{\{BACKGROUND}}/g, color.background).replace(/\{\{TEXT}}/g, color.text).replace(/\{\{I}}/g, index);
+				item.srcset = item.srcset.replace(/\{\{BACKGROUND}}/g, color.background).replace(/\{\{TEXT}}/g, color.text).replace(/\{\{I}}/g, index);
+				item.title = item.title.replace(/\{\{I}}/g, index);
+				var min = 0, max = this._alt.length - 1, i = max > 0 ? Math.floor(Math.random() * (max - min + 1)) + min : 0;
+				item.alt = this._alt[i].replace(/\{\{I}}/g, index);
+
+				item.tags.push(item.width + "x" + item.height);
+				max = this._tags.length - 1;
+				var num = Math.floor(Math.random() * (max - 1)) + 2;
+				for (var j = 0; j < num; j++){
+					i = max > 0 ? Math.floor(Math.random() * (max + 1)) : 0;
+					if ($.inArray(this._tags[i], item.tags) === -1){
+						item.tags.push(this._tags[i]);
+					}
+				}
+
+				return item;
+			};
+
+			DummyImageGenerator.prototype.output = function(items){
+				this.$output.text(JSON.stringify(items, null, 2));
+			};
+
+
+
+
+			DummyImageGenerator.prototype.outputHTML = function(items){
+				var html = '';
+				for (var i = 0, l = items.length; i < l; i++){
+					var item = items[i];
+
+					html += '<div class="fg-item">\n';
+					html += '\t<figure class="fg-item-inner">\n';
+					html += '\t\t<a class="fg-thumb" href="'+item.href+'" data-title="'+item.title+'" data-description="'+item.alt+'">\n';
+					html += '\t\t\t<span class="fg-image-wrap">\n';
+					html += '\t\t\t\t<img class="fg-image" src="1x1.gif" data-src="'+item.src+'" data-srcset="'+item.srcset+'" width="'+item.width+'" height="'+item.height+'" title="'+item.title+'" alt="'+item.alt+'">\n';
+					html += '\t\t\t</span>\n';
+					html += '\t\t</a>\n';
+					html += '\t\t<figcaption class="fg-caption">\n';
+					html += '\t\t\t<div class="fg-caption-inner">\n';
+					html += '\t\t\t\t<div class="fg-caption-title">'+item.title+'</div>\n';
+					html += '\t\t\t\t<div class="fg-caption-desc">'+item.alt+'</div>\n';
+					html += '\t\t\t</div>\n';
+					html += '\t\t</figcaption>\n';
+					html += '\t</figure>\n';
+					html += '\t<div class="fg-loader"></div>\n';
+					html += '</div>\n';
+
+				}
+
+
+				this.$outputHTML.text(html);
+			};
+
+			DummyImageGenerator.prototype.onGenerateClick = function(e){
+				var self = e.data.self, o = self.options(), items = self.generate(o.amount, o.size);
+				self.output(items);
+				if (self.$options.find("#generate-html").is(":checked")){
+					self.outputHTML(items);
+				}
+			};
+
+			$(function(){
+				window.generator = DummyImageGenerator();
+			});
+
+		})(jQuery);
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				Options
+			</div>
+			<div class="panel-body">
+				<form id="options" class="form-horizontal">
+					<div class="form-group">
+						<label for="amount" class="col-sm-2 control-label">Amount</label>
+						<div class="col-sm-1">
+							<input id="amount" name="amount" class="form-control" title="The total number of items to generate." type="number" value="100"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="size1" class="col-sm-2 control-label">Size</label>
+						<div class="col-sm-10">
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size1" value="random" checked>
+									Random
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size2" value="150w">
+									150w
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size3" value="150x94">
+									150x94
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size4" value="150x225">
+									150x225
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size5" value="150x150">
+									150x150
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size6" value="250x250">
+									250x250
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size7" value="360x240">
+									360x240
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="size" id="size8" value="720x480">
+									720x480
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-check">
+						<label class="form-check-label col-sm-offset-2">
+							<input type="checkbox" class="form-check-input" id="generate-html" name="generate-html">
+							Whether or not to also generate the HTML output for the items.
+						</label>
+					</div>
+					<button type="button" id="generate" class="btn btn-default pull-right">Generate</button>
+				</form>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Output
+			</div>
+			<div class="panel-body">
+				<textarea id="output" name="output" class="form-control" title="Once generated the JSON output will be displayed in this textarea" rows="30" readonly></textarea>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Output HTML
+			</div>
+			<div class="panel-body">
+				<textarea id="output-html" name="output" class="form-control" title="Once generated the HTML output will be displayed in this textarea" rows="30" readonly></textarea>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
