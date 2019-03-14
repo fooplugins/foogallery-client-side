@@ -131,14 +131,6 @@
 		reset: function () {
 			this.setAvailable(this.all());
 		},
-		placeholder: function (width, height) {
-			if (this._canvas && this._canvas.toDataURL && _is.number(width) && _is.number(height)) {
-				this._canvas.width = width;
-				this._canvas.height = height;
-				return this._canvas.toDataURL();
-			}
-			return _.emptyImage;
-		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be loaded.
 		 * @memberof FooGallery.Items#

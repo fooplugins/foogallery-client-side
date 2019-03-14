@@ -38,7 +38,9 @@
 		}
 	});
 
-	_.template.register("foogrid", _.FooGridTemplate, null, {
+	_.template.register("foogrid", _.FooGridTemplate, {
+		fixLayout: false
+	}, {
 		container: "foogallery foogrid"
 	});
 

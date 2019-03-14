@@ -36,7 +36,10 @@
 	});
 
 	_.template.register("simple_portfolio", _.PortfolioTemplate, {
-		gutter: 40
+		fixLayout: false,
+		template: {
+			gutter: 40
+		}
 	}, {
 		container: "foogallery fg-simple_portfolio"
 	});

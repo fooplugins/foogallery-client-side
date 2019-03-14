@@ -347,11 +347,8 @@
 					self.initialized = true;
 
 					// performed purely to re-check if any items need to be loaded after content has possibly shifted
-					self._check(200);
-					self._check(500);
 					self._check(1000);
-					self._check(2000);
-					self._check(5000);
+					self._check(3000);
 
 					/**
 					 * @summary Raised after the template is fully initialized and is ready to be interacted with.
@@ -670,11 +667,12 @@
 		lazy: true,
 		viewport: 200,
 		items: [],
-		delay: 100,
+		fixLayout: true,
+		delay: 0,
 		throttle: 50,
 		timeout: 60000,
-		srcset: "data-srcset",
-		src: "data-src",
+		srcset: "data-srcset-fg",
+		src: "data-src-fg",
 		template: {}
 	}, {
 		container: "foogallery"
@@ -690,11 +688,12 @@
 	 * @property {boolean} [lazy=true] - Whether or not to enable lazy loading of images.
 	 * @property {number} [viewport=200] - The number of pixels to inflate the viewport by when checking to lazy load items.
 	 * @property {(FooGallery.Item~Options[]|FooGallery.Item[]| string)} [items=[]] - An array of items to load when required. A url can be provided and the items will be fetched using an ajax call, the response should be a properly formatted JSON array of {@link FooGallery.Item~Options|item} object.
-	 * @property {number} [delay=100] - The number of milliseconds to delay the initialization of a template.
+	 * @property {boolean} [fixLayout=true] - Whether or not the items' size should be set with CSS until the image is loaded.
+	 * @property {number} [delay=0] - The number of milliseconds to delay the initialization of a template.
 	 * @property {number} [throttle=50] - The number of milliseconds to wait once scrolling has stopped before performing any work.
 	 * @property {number} [timeout=60000] - The number of milliseconds to wait before forcing a timeout when loading items.
-	 * @property {string} [src="data-src"] - The name of the attribute to retrieve an images src url from.
-	 * @property {string} [srcset="data-srcset"] - The name of the attribute to retrieve an images srcset url from.
+	 * @property {string} [src="data-src-fg"] - The name of the attribute to retrieve an images src url from.
+	 * @property {string} [srcset="data-srcset-fg"] - The name of the attribute to retrieve an images srcset url from.
 	 * @property {object} [template={}] - An object containing any additional custom options for the template.
 	 * @property {FooGallery.Template~CSSClasses} [cls] - An object containing all CSS classes for the template.
 	 * @property {FooGallery.Template~CSSSelectors} [sel] - An object containing all CSS selectors for the template.
