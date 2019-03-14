@@ -1,8 +1,8 @@
-(function($, _, _utils){
+(function($, _, _is){
 
 	_.JustifiedTemplate = _.Template.extend({
 		onPreInit: function(event, self){
-			self.justified = new _.Justified( self.$el.get(0), self.template );
+			self.justified = new _.Justified( self, self.template );
 		},
 		onInit: function(event, self){
 			self.justified.init();
@@ -37,5 +37,5 @@
 })(
 		FooGallery.$,
 		FooGallery,
-		FooGallery.utils
+		FooGallery.utils.is
 );
