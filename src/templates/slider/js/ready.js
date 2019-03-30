@@ -109,7 +109,7 @@
 				if (item.type === "video"){
 					item.index = -1;
 					item.player = self.helper.getPlayer(item.href, {});
-					item.$content.css("background-image", "url("+item.cover+")")
+					item.$content.css("background-image", "url('"+item.cover+"')")
 							.append(
 									$("<div/>", {"class": self.cls.contentClose})
 											.on("click.foogallery", {self: self, item: item}, self.onCloseVideo),
@@ -121,7 +121,7 @@
 					item.$content.addClass(self.cls.embedable).append(item.$embed);
 					item.$target = $(item.href).contents();
 				} else {
-					item.$content.css("background-image", "url("+item.href+")");
+					item.$content.css("background-image", "url('"+item.href+"')");
 				}
 			}
 		},
