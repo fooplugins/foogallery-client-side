@@ -814,3 +814,8 @@
 .fg-slider .fgs-content-close {
 	transition-delay: 0s;
 }
+
+.fg-slider.fgs-transitions-disabled .fgs-item-stage,
+.fg-slider.fgs-transitions-disabled .fgs-content-stage {
+	transition-property: none;
+}
