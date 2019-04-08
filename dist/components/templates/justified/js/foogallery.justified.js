@@ -325,9 +325,7 @@
 		}
 	});
 
-	_.template.register("justified", _.JustifiedTemplate, {
-		fixLayout: false
-	}, {
+	_.template.register("justified", _.JustifiedTemplate, null, {
 		container: "foogallery fg-justified"
 	});
 
