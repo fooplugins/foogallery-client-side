@@ -393,7 +393,6 @@
 	});
 
 	_.template.register("slider", _.SliderTemplate, {
-		fixLayout: false,
 		template: {
 			horizontal: false,
 			useViewport: false,

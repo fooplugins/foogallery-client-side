@@ -252,7 +252,6 @@
 	});
 
 	_.template.register("simple_portfolio", _.PortfolioTemplate, {
-		fixLayout: false,
 		template: {
 			gutter: 40
 		}
