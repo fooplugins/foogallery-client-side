@@ -2,9 +2,7 @@
 
 	_.DefaultTemplate = _.Template.extend({});
 
-	_.template.register("default", _.DefaultTemplate, {
-		fixLayout: false
-	}, {
+	_.template.register("default", _.DefaultTemplate, null, {
 		container: "foogallery fg-default"
 	});
 
