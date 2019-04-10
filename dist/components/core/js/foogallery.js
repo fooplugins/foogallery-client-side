@@ -4301,7 +4301,7 @@
 
 					// performed purely to re-check if any items need to be loaded after content has possibly shifted
 					self._check(1000);
-					self._check(3000);
+					// self._check(3000);
 
 					/**
 					 * @summary Raised after the template is fully initialized and is ready to be interacted with.
@@ -4486,6 +4486,10 @@
 		 */
 		loadAvailable: function () {
 			return this.items.load(this.getAvailable());
+		},
+
+		getItems: function(){
+			return this.pages ? this.pages.items() : this.items.available();
 		},
 
 		/**
@@ -6845,6 +6849,9 @@
 		available: function () {
 			return this.get(this.current);
 		},
+		items: function(){
+			return this.get(this.current);
+		},
 		controls: function (pageNumber) {
 			var self = this;
 			if (self.isValid(pageNumber)) {
@@ -6864,8 +6871,8 @@
 			pageNumber = self.number(pageNumber);
 			var index = pageNumber - 1;
 			self.tmpl.items.detach(self.tmpl.items.all());
-			self.tmpl.items.create(self._arr[index], true);
 			self.current = pageNumber;
+			self.tmpl.items.create(self._arr[index], true);
 		},
 		get: function (pageNumber) {
 			var self = this;
@@ -7004,7 +7011,7 @@
 		},
 		available: function(){
 			var self = this, items = [], page = self.get(self.current), viewport = _utils.getViewportBounds(), last, first;
-			if (!_is.empty(page) && self._created.length !== self.total){
+			if (!self.tmpl.initializing && !_is.empty(page) && self._created.length < self.total){
 				last = page[page.length - 1].bounds();
 				if (last.top - viewport.bottom < self.distance){
 					self.set(self.current + 1, false);
@@ -7024,14 +7031,28 @@
 			}
 			return items;
 		},
+		items: function(){
+			var self = this, items = [];
+			for (var i = 0, l = self._created.length, num, page; i < l; i++){
+				num = i + 1;
+				page = self.get(num);
+				if (!_is.empty(page)){
+					items.push.apply(items, page);
+				}
+			}
+			return items;
+		},
 		create: function(pageNumber, isFilter){
 			var self = this;
 			pageNumber = self.number(pageNumber);
 			if (isFilter) self.tmpl.items.detach(self.tmpl.items.all());
 			for (var i = 0; i < pageNumber; i++){
-				if ($.inArray(i, self._created) === -1){
-					self.tmpl.items.create(self._arr[i], true);
-					self._created.push(i);
+				var exists = $.inArray(i, self._created);
+				if (exists === -1){
+					var items = self.tmpl.items.create(self._arr[i], true);
+					if (items.length){
+						self._created.push(i);
+					}
 				}
 			}
 			self.current = pageNumber;

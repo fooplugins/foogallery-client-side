@@ -26,7 +26,7 @@
 						maxWidth: maxWidth
 					}).appendTo('body');
 
-			self._items = $.map(self.tmpl.items.available(), function(item, i){
+			self._items = $.map(self.tmpl.getItems(), function(item, i){
 				var width = item.width, height = item.height;
 				item.$caption.css("max-width", width);
 				if (!visible){
@@ -240,14 +240,13 @@
 		onLayout: function(event, self){
 			self.portfolio.layout( true );
 		},
-		onParsedItems: function(event, self, items){
-			if (self.initialized || self.initializing) self.portfolio.layout( true );
+		onAfterPageChange: function(event, self, current, prev, isFilter){
+			if (!isFilter){
+				self.portfolio.layout( true );
+			}
 		},
-		onAppendedItems: function(event, self, items){
-			if (self.initialized || self.initializing) self.portfolio.layout( true );
-		},
-		onDetachedItems: function(event, self, items){
-			if (self.initialized) self.portfolio.layout( true );
+		onAfterFilterChange: function(event, self){
+			self.portfolio.layout( true );
 		}
 	});
 

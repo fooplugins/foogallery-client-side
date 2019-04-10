@@ -37,7 +37,7 @@
 		},
 		parse: function(){
 			var self = this;
-			return self._items = $.map(self.tmpl.items.available(), function(item, i){
+			return self._items = $.map(self.tmpl.getItems(), function(item, i){
 				return {
 					index: i,
 					width: item.width,
@@ -273,7 +273,7 @@
 			return rows;
 		},
 		onWindowResize: function(e){
-			e.data.self.layout();
+			e.data.self.layout( true );
 		}
 	});
 
@@ -314,14 +314,13 @@
 		onLayout: function(event, self){
 			self.justified.layout( true );
 		},
-		onParsedItems: function(event, self, items){
-			if (self.initialized || self.initializing) self.justified.layout( true );
+		onAfterPageChange: function(event, self, current, prev, isFilter){
+			if (!isFilter){
+				self.justified.layout( true );
+			}
 		},
-		onAppendedItems: function(event, self, items){
-			if (self.initialized || self.initializing) self.justified.layout( true );
-		},
-		onDetachedItems: function(event, self, items){
-			if (self.initialized) self.justified.layout( true );
+		onAfterFilterChange: function(event, self){
+			self.justified.layout( true );
 		}
 	});
 

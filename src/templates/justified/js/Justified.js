@@ -37,7 +37,7 @@
 		},
 		parse: function(){
 			var self = this;
-			return self._items = $.map(self.tmpl.items.available(), function(item, i){
+			return self._items = $.map(self.tmpl.getItems(), function(item, i){
 				return {
 					index: i,
 					width: item.width,
@@ -273,7 +273,7 @@
 			return rows;
 		},
 		onWindowResize: function(e){
-			e.data.self.layout();
+			e.data.self.layout( true );
 		}
 	});
 

@@ -72,6 +72,9 @@
 		available: function () {
 			return this.get(this.current);
 		},
+		items: function(){
+			return this.get(this.current);
+		},
 		controls: function (pageNumber) {
 			var self = this;
 			if (self.isValid(pageNumber)) {
@@ -91,8 +94,8 @@
 			pageNumber = self.number(pageNumber);
 			var index = pageNumber - 1;
 			self.tmpl.items.detach(self.tmpl.items.all());
-			self.tmpl.items.create(self._arr[index], true);
 			self.current = pageNumber;
+			self.tmpl.items.create(self._arr[index], true);
 		},
 		get: function (pageNumber) {
 			var self = this;

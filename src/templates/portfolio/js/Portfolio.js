@@ -26,7 +26,7 @@
 						maxWidth: maxWidth
 					}).appendTo('body');
 
-			self._items = $.map(self.tmpl.items.available(), function(item, i){
+			self._items = $.map(self.tmpl.getItems(), function(item, i){
 				var width = item.width, height = item.height;
 				item.$caption.css("max-width", width);
 				if (!visible){

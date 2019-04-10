@@ -4157,7 +4157,7 @@
 
 					// performed purely to re-check if any items need to be loaded after content has possibly shifted
 					self._check(1000);
-					self._check(3000);
+					// self._check(3000);
 
 					/**
 					 * @summary Raised after the template is fully initialized and is ready to be interacted with.
@@ -4342,6 +4342,10 @@
 		 */
 		loadAvailable: function () {
 			return this.items.load(this.getAvailable());
+		},
+
+		getItems: function(){
+			return this.pages ? this.pages.items() : this.items.available();
 		},
 
 		/**
@@ -6701,6 +6705,9 @@
 		available: function () {
 			return this.get(this.current);
 		},
+		items: function(){
+			return this.get(this.current);
+		},
 		controls: function (pageNumber) {
 			var self = this;
 			if (self.isValid(pageNumber)) {
@@ -6720,8 +6727,8 @@
 			pageNumber = self.number(pageNumber);
 			var index = pageNumber - 1;
 			self.tmpl.items.detach(self.tmpl.items.all());
-			self.tmpl.items.create(self._arr[index], true);
 			self.current = pageNumber;
+			self.tmpl.items.create(self._arr[index], true);
 		},
 		get: function (pageNumber) {
 			var self = this;

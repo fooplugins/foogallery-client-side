@@ -348,7 +348,7 @@
 
 					// performed purely to re-check if any items need to be loaded after content has possibly shifted
 					self._check(1000);
-					self._check(3000);
+					// self._check(3000);
 
 					/**
 					 * @summary Raised after the template is fully initialized and is ready to be interacted with.
@@ -533,6 +533,10 @@
 		 */
 		loadAvailable: function () {
 			return this.items.load(this.getAvailable());
+		},
+
+		getItems: function(){
+			return this.pages ? this.pages.items() : this.items.available();
 		},
 
 		/**

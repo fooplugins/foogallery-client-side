@@ -13,7 +13,7 @@
 		},
 		available: function(){
 			var self = this, items = [], page = self.get(self.current), viewport = _utils.getViewportBounds(), last, first;
-			if (!_is.empty(page) && self._created.length !== self.total){
+			if (!self.tmpl.initializing && !_is.empty(page) && self._created.length < self.total){
 				last = page[page.length - 1].bounds();
 				if (last.top - viewport.bottom < self.distance){
 					self.set(self.current + 1, false);
@@ -33,14 +33,28 @@
 			}
 			return items;
 		},
+		items: function(){
+			var self = this, items = [];
+			for (var i = 0, l = self._created.length, num, page; i < l; i++){
+				num = i + 1;
+				page = self.get(num);
+				if (!_is.empty(page)){
+					items.push.apply(items, page);
+				}
+			}
+			return items;
+		},
 		create: function(pageNumber, isFilter){
 			var self = this;
 			pageNumber = self.number(pageNumber);
 			if (isFilter) self.tmpl.items.detach(self.tmpl.items.all());
 			for (var i = 0; i < pageNumber; i++){
-				if ($.inArray(i, self._created) === -1){
-					self.tmpl.items.create(self._arr[i], true);
-					self._created.push(i);
+				var exists = $.inArray(i, self._created);
+				if (exists === -1){
+					var items = self.tmpl.items.create(self._arr[i], true);
+					if (items.length){
+						self._created.push(i);
+					}
 				}
 			}
 			self.current = pageNumber;

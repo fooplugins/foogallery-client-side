@@ -24,14 +24,13 @@
 		onLayout: function(event, self){
 			self.portfolio.layout( true );
 		},
-		onParsedItems: function(event, self, items){
-			if (self.initialized || self.initializing) self.portfolio.layout( true );
+		onAfterPageChange: function(event, self, current, prev, isFilter){
+			if (!isFilter){
+				self.portfolio.layout( true );
+			}
 		},
-		onAppendedItems: function(event, self, items){
-			if (self.initialized || self.initializing) self.portfolio.layout( true );
-		},
-		onDetachedItems: function(event, self, items){
-			if (self.initialized) self.portfolio.layout( true );
+		onAfterFilterChange: function(event, self){
+			self.portfolio.layout( true );
 		}
 	});
 
