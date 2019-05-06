@@ -224,18 +224,6 @@
 .fg-slider.fgs-content-nav .fgs-content-next {
 	display: block;
 }
-.fg-slider.fgs-horizontal .fgs-content-prev,
-.fg-slider.fgs-horizontal .fgs-content-next {
-	top: calc( 50% - 28px );
-}
-.fg-slider.fgs-horizontal.fgs-md .fgs-content-prev,
-.fg-slider.fgs-horizontal.fgs-md .fgs-content-next,
-.fg-slider.fgs-horizontal.fgs-lg .fgs-content-prev,
-.fg-slider.fgs-horizontal.fgs-lg .fgs-content-next,
-.fg-slider.fgs-horizontal.fgs-xl .fgs-content-prev,
-.fg-slider.fgs-horizontal.fgs-xl .fgs-content-next {
-	top: calc( 50% - 39px );
-}
 .fg-slider .fgs-content-prev {
 	left: 10px;
 }
