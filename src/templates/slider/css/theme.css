@@ -1,6 +1,8 @@
 /* Shared */
 .fg-slider .fgs-content-play,
-.fg-slider .fgs-content-close {
+.fg-slider .fgs-content-close,
+.fg-slider .fgs-content-prev,
+.fg-slider .fgs-content-next {
 	background-color: rgba(23,35,34,.75);
 }
 .fg-slider .fg-caption {
@@ -11,7 +13,9 @@
 }
 .fg-slider .fgs-content-text,
 .fg-slider .fgs-content-play,
-.fg-slider .fgs-content-close {
+.fg-slider .fgs-content-close,
+.fg-slider .fgs-content-prev,
+.fg-slider .fgs-content-next {
 	color: #FFF;
 }
 .fg-slider .fgs-content-play {
