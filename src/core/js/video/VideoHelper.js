@@ -13,9 +13,9 @@
 				maxHeight: null,
 				attrs: {
 					iframe: {
+						src: '',
 						frameborder: 'no',
-						webkitallowfullscreen: true,
-						mozallowfullscreen: true,
+						allow: "autoplay; fullscreen",
 						allowfullscreen: true
 					},
 					video: {

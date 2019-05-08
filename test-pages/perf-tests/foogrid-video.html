@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>FooGrid Template</title>
+	<link href="test.css" rel="stylesheet"/>
+	<link href="../../dist/full/css/foogallery.css" rel="stylesheet"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="../../dist/full/js/foogallery.js"></script>
+	<script>
+		(function(_){
+
+			_.auto({
+				"lazy": true,
+				"src": "data-src",
+				"srcset": "data-srcset",
+				"fixLayout": false,
+				"template": {
+					"parser": {
+						"type": {
+							"image": /\.(jpg|jpeg|png|gif|bmp)|dummyimage\.com/i
+						}
+					}
+				}
+			});
+
+		})(FooGallery);
+	</script>
+</head>
+<body>
+<div id="wrapper">
+
+	<h3>HTML Items - Lazy</h3>
+
+	<div id="foogallery-gallery-2" class="foogallery fg-light fg-hover-fade fg-hover-zoom fg-video-default fg-video-sticky foogrid foogrid-cols-5 foogrid-transition-horizontal fg-loading-default">
+
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" data-type="video" href="https://s3.amazonaws.com/fooplugins/rvs/oceans-clip.mp4,https://s3.amazonaws.com/fooplugins/rvs/oceans-clip.webm,https://s3.amazonaws.com/fooplugins/rvs/oceans-clip.ogv" data-title="Self Hosted" data-description=".mp4 | .webm | .ogv">
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/250x250/f000ff/000000&text=Self+Hosted" data-srcset="https://dummyimage.com/500x500/f000ff/000000&text=Self+Hosted 500w,https://dummyimage.com/750x750/f000ff/000000&text=Self+Hosted 750w" width="250" height="250" title="Self Hosted" alt=".mp4 | .webm | .ogv">
+			</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">Self Hosted</div>
+						<div class="fg-caption-desc">.mp4 | .webm | .ogv</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" data-type="video" href="https://vimeo.com/132038125" data-title="Vimeo 1" data-description="https://vimeo.com/132038125">
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/250x250/00fcff/000000&text=Vimeo+1" data-srcset="https://dummyimage.com/500x500/00fcff/000000&text=Vimeo+1 500w,https://dummyimage.com/750x750/00fcff/000000&text=Vimeo+1 750w" width="250" height="250" title="Vimeo 1" alt="https://vimeo.com/132038125">
+			</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">Vimeo 1</div>
+						<div class="fg-caption-desc">https://vimeo.com/132038125</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" data-type="video" href="https://vimeo.com/channels/480431/140311923" data-title="Vimeo 2" data-description="https://vimeo.com/channels/480431/140311923">
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/250x250/003c66/ffffff&text=Vimeo+2" data-srcset="https://dummyimage.com/500x500/003c66/ffffff&text=Vimeo+2 500w,https://dummyimage.com/750x750/003c66/ffffff&text=Vimeo+2 750w" width="250" height="250" title="Vimeo 2" alt="https://vimeo.com/channels/480431/140311923">
+			</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">Vimeo 2</div>
+						<div class="fg-caption-desc">https://vimeo.com/channels/480431/140311923</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" data-type="video" href="https://youtu.be/KWZGAExj-es" data-title="YouTube 1" data-description="https://youtu.be/KWZGAExj-es">
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/250x250/006566/ffffff&text=YouTube+1" data-srcset="https://dummyimage.com/500x500/006566/ffffff&text=YouTube+1 500w,https://dummyimage.com/750x750/006566/ffffff&text=YouTube+1 750w" width="250" height="250" title="YouTube 1" alt="https://youtu.be/KWZGAExj-es">
+			</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">YouTube 1</div>
+						<div class="fg-caption-desc">https://youtu.be/KWZGAExj-es</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" data-type="video" href="https://www.youtube.com/watch?v=YqeW9_5kURI" data-title="YouTube 2" data-description="https://www.youtube.com/watch?v=YqeW9_5kURI">
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/250x250/b8dc7f/000000&text=YouTube+2" data-srcset="https://dummyimage.com/500x500/b8dc7f/000000&text=YouTube+2 500w,https://dummyimage.com/750x750/b8dc7f/000000&text=YouTube+2 750w" width="250" height="250" title="YouTube 2" alt="https://www.youtube.com/watch?v=YqeW9_5kURI">
+			</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">YouTube 2</div>
+						<div class="fg-caption-desc">https://www.youtube.com/watch?v=YqeW9_5kURI</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" data-type="video" href="http://dai.ly/x2ioxg8" data-title="Dailymotion" data-description="http://dai.ly/x2ioxg8">
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/250x250/001eff/ffffff&text=Dailymotion" data-srcset="https://dummyimage.com/500x500/001eff/ffffff&text=Dailymotion 500w,https://dummyimage.com/750x750/001eff/ffffff&text=Dailymotion 750w" width="250" height="250" title="Dailymotion" alt="http://dai.ly/x2ioxg8">
+			</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">Dailymotion</div>
+						<div class="fg-caption-desc">http://dai.ly/x2ioxg8</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" data-type="video" href="https://home.wistia.com/medias/e4a27b971d" data-title="Wistia" data-description="https://home.wistia.com/medias/e4a27b971d">
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/250x250/f000ff/000000&text=Wistia" data-srcset="https://dummyimage.com/500x500/f000ff/000000&text=Wistia 500w,https://dummyimage.com/750x750/f000ff/000000&text=Wistia 750w" width="250" height="250" title="Wistia" alt="https://home.wistia.com/medias/e4a27b971d">
+			</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">Wistia</div>
+						<div class="fg-caption-desc">https://home.wistia.com/medias/e4a27b971d</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+
+	</div>
+
+</div>
+</body>
+</html>

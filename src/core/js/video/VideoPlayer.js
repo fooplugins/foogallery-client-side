@@ -49,7 +49,12 @@
 						self.$el.off("loadeddata error");
 						this.volume = 0.2;
 						if (self.options.autoPlay){
-							this.play();
+							var p = this.play();
+							if (typeof p !== 'undefined'){
+								p.catch(function(){
+									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
+								});
+							}
 						}
 						def.resolve();
 					},
