@@ -118,7 +118,7 @@
 
 	F.Player.prototype.$createEmbed = function(url){
 		return $('<iframe/>', {
-			src: url, frameborder: 'no',
+			src: url, frameborder: 'no', allow: "autoplay; fullscreen",
 			width: this.options.width, height: this.options.height,
 			webkitallowfullscreen: true, mozallowfullscreen: true, allowfullscreen: true
 		}).css({width: '100%',height: '100%'});

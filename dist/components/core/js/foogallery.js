@@ -5525,6 +5525,17 @@
 			self.$anchor = self.$inner.children(sel.anchor).on("click.foogallery", {self: self}, self.onAnchorClick);
 			self.$image = self.$anchor.find(sel.image);
 			self.$caption = self.$inner.children(sel.caption.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
+
+			if ( !self.$el.length || !self.$inner.length || !self.$anchor.length || !self.$image.length ){
+				console.error("FooGallery Error: Invalid HTML markup. Check the item markup for additional elements or malformed HTML in the title or description.", self);
+				self.isError = true;
+				self.tmpl.raise("error-item", [self]);
+				if (self.$el.length !== 0){
+					self.$el.remove();
+				}
+				return false;
+			}
+
 			self.isAttached = self.$el.parent().length > 0;
 			self.isLoading = self.$el.is(sel.loading);
 			self.isLoaded = self.$el.is(sel.loaded);
@@ -8087,9 +8098,9 @@
 				maxHeight: null,
 				attrs: {
 					iframe: {
+						src: '',
 						frameborder: 'no',
-						webkitallowfullscreen: true,
-						mozallowfullscreen: true,
+						allow: "autoplay; fullscreen",
 						allowfullscreen: true
 					},
 					video: {
@@ -8190,7 +8201,12 @@
 						self.$el.off("loadeddata error");
 						this.volume = 0.2;
 						if (self.options.autoPlay){
-							this.play();
+							var p = this.play();
+							if (typeof p !== 'undefined'){
+								p.catch(function(){
+									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
+								});
+							}
 						}
 						def.resolve();
 					},

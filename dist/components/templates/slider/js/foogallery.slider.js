@@ -21,6 +21,7 @@
 			self.useViewport = self.template.useViewport;
 			self.breakpoints = self.template.breakpoints;
 			self.allowPageScroll = self.template.allowPageScroll;
+			self.contentNav = self.template.contentNav;
 			self.allBreakpointClasses = $.map(self.breakpoints, function(breakpoint){ return breakpoint.classes; }).join(' ');
 			self._contentWidth = 0;
 			self._contentHeight = 0;
@@ -32,7 +33,11 @@
 			var self = this;
 			return [
 				$("<div/>", {"class": self.cls.contentContainer})
-						.append($("<div/>", {"class": self.cls.contentStage})),
+						.append(
+								$("<div/>", {"class": self.cls.contentPrev}),
+								$("<div/>", {"class": self.cls.contentStage}),
+								$("<div/>", {"class": self.cls.contentNext})
+						),
 				$("<div/>", {"class": self.cls.itemContainer})
 						.append(
 								$("<div/>", {"class": self.cls.itemPrev}),
@@ -61,16 +66,22 @@
 			self.$itemStage = self.$el.find(self.sel.itemStage);
 			self.$itemPrev = self.$el.find(self.sel.itemPrev);
 			self.$itemNext = self.$el.find(self.sel.itemNext);
+			self.$contentPrev = self.$el.find(self.sel.contentPrev);
+			self.$contentNext = self.$el.find(self.sel.contentNext);
 			self.horizontal = self.$el.hasClass(self.cls.horizontal) || self.horizontal;
 			if (self.horizontal) self.$el.addClass(self.cls.horizontal);
 			self.noCaptions = self.$el.hasClass(self.cls.noCaptions) || self.noCaptions;
 			if (self.noCaptions) self.$el.addClass(self.cls.noCaptions);
+			self.contentNav = self.$el.hasClass(self.cls.contentNav) || self.contentNav;
+			if (self.contentNav) self.$el.addClass(self.cls.contentNav);
 
 		},
 		onInit: function (event, self) {
 			$(window).on("resize.fg-slider", {self: self}, self.throttle(self.onWindowResize, self.template.throttle));
 			self.$itemPrev.on("click.fg-slider", {self: self}, self.onPrevClick);
 			self.$itemNext.on("click.fg-slider", {self: self}, self.onNextClick);
+			self.$contentPrev.on("click.fg-slider", {self: self}, self.onContentPrevClick);
+			self.$contentNext.on("click.fg-slider", {self: self}, self.onContentNextClick);
 			self.$contentContainer.fgswipe({data: {self: self}, allowPageScroll: self.allowPageScroll, swipe: self.onContentSwipe});
 			self.$itemContainer.fgswipe({data: {self: self}, swipe: self.onItemSwipe})
 					.on("DOMMouseScroll.fg-slider mousewheel.fg-slider", {self: self}, self.onItemMouseWheel);
@@ -93,6 +104,8 @@
 			$(window).off("resize.fg-slider");
 			self.$itemPrev.off("click.fg-slider");
 			self.$itemNext.off("click.fg-slider");
+			self.$contentPrev.off("click.fg-slider");
+			self.$contentNext.off("click.fg-slider");
 			self.$contentContainer.fgswipe("destroy");
 			self.$itemContainer.fgswipe("destroy")
 					.off("DOMMouseScroll.fg-slider mousewheel.fg-slider");
@@ -266,9 +279,8 @@
 			}
 		},
 		setSelected: function(itemOrIndex){
-			var self = this, prev = self.selected, next = itemOrIndex;
+			var self = this, prev = self.selected, next = itemOrIndex, items = self.items.available();
 			if (_is.number(itemOrIndex)){
-				var items = self.items.available();
 				itemOrIndex = itemOrIndex < 0 ? 0 : (itemOrIndex >= items.length ? items.length - 1 : itemOrIndex);
 				next = items[itemOrIndex];
 			}
@@ -300,6 +312,11 @@
 							index = last ? (next.index == self._lastVisible ? next.index + 1 : next.index) : (next.index == self._firstVisible ? next.index - 1 : next.index);
 					self.setVisible(index, last);
 				}
+				var cPrev = next.index - 1, cNext = next.index + 1;
+				cPrev = cPrev < 0 ? items.length - 1 : (cPrev >= items.length ? 0 : cPrev);
+				cNext = cNext < 0 ? items.length - 1 : (cNext >= items.length ? 0 : cNext);
+				self.$contentPrev.data("index", cPrev);
+				self.$contentNext.data("index", cNext);
 			}
 		},
 		setVisible: function(index, last){
@@ -328,6 +345,16 @@
 		onItemClick: function(e){
 			e.preventDefault();
 			e.data.self.setSelected(e.data.item);
+		},
+		onContentPrevClick: function(e){
+			e.preventDefault();
+			var self = e.data.self;
+			self.setSelected(self.$contentPrev.data("index"));
+		},
+		onContentNextClick: function(e){
+			e.preventDefault();
+			var self = e.data.self;
+			self.setSelected(self.$contentNext.data("index"));
 		},
 		onPrevClick: function(e){
 			e.preventDefault();
@@ -398,6 +425,7 @@
 			useViewport: false,
 			noCaptions: false,
 			autoPlay: false,
+			contentNav: false,
 			allowPageScroll: {
 				x: false,
 				y: true
@@ -533,6 +561,9 @@
 		contentText: "fgs-content-text",
 		contentPlay: "fgs-content-play",
 		contentClose: "fgs-content-close",
+		contentPrev: "fgs-content-prev",
+		contentNext: "fgs-content-next",
+		contentNav: "fgs-content-nav",
 		itemContainer: "fgs-item-container",
 		itemStage: "fgs-item-stage",
 		itemPrev: "fgs-item-prev",

@@ -17,27 +17,28 @@
 			this.$el.removeAttr("style");
 		},
 		parse: function(){
-			var self = this, visible = self.$el.is(':visible'), maxWidth = self.getContainerWidth(),
+			var self = this, containerWidth = self.getContainerWidth(),
 					$test = $('<div/>', {'class': self.$el.attr('class')}).css({
 						position: 'absolute',
-						top: 0,
+						top: -9999,
 						left: -9999,
 						visibility: 'hidden',
-						maxWidth: maxWidth
+						maxWidth: containerWidth
 					}).appendTo('body');
 
+			var borderSize = 0;
+			if (self.$el.hasClass("fg-border-thin")) borderSize = 4;
+			if (self.$el.hasClass("fg-border-medium")) borderSize = 10;
+			if (self.$el.hasClass("fg-border-thick")) borderSize = 16;
+			var border = borderSize * 2;
+
 			self._items = $.map(self.tmpl.getItems(), function(item, i){
-				var width = item.width, height = item.height;
-				item.$caption.css("max-width", width);
-				if (!visible){
-					var $clone = item.$el.clone();
-					$clone.appendTo($test);
-					width = $clone.outerWidth();
-					height = $clone.outerHeight();
-				} else {
-					width = item.$el.outerWidth();
-					height = item.$el.outerHeight();
-				}
+				var maxWidth = containerWidth - border, single = item.width > maxWidth;
+				var $clone = item.$el.clone().css({width: '', height: ''})
+						.find(".fg-image,.fg-caption").css("width", single ? maxWidth : item.width).end()
+						.appendTo($test);
+				var width = $clone.outerWidth(), height = $clone.outerHeight();
+				$clone.remove();
 				return {
 					index: i,
 					width: width,
