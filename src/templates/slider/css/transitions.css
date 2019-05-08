@@ -1,6 +1,9 @@
 /* Transitions */
 .fg-slider .fgs-item-prev,
-.fg-slider .fgs-item-next {
+.fg-slider .fgs-item-next,
+.fg-slider .fgs-content-prev,
+.fg-slider .fgs-content-next,
+.fg-slider .fgs-content-image {
 	transition-duration: 0.3s;
 	transition-property: opacity, visibility;
 	transition-timing-function: ease;
