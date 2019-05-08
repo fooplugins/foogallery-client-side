@@ -110,15 +110,6 @@
 			self.$itemContainer.fgswipe("destroy")
 					.off("DOMMouseScroll.fg-slider mousewheel.fg-slider");
 		},
-		onLoadItem: function(event, self, item){
-			if (!item.isError && _is.jq(item.$content)){
-				if (item.type === "video"){
-					item.$content.css("background-image", "url('"+item.cover+"')");
-				} else {
-					item.$content.css("background-image", "url('"+item.href+"')");
-				}
-			}
-		},
 		onParsedOrCreatedItem: function(item){
 			if (!item.isError){
 				var self = this;
@@ -127,6 +118,7 @@
 				item.$inner.on("click.foogallery", {self: self, item: item}, self.onItemClick);
 
 				item.$content = $("<div/>", {"class": self.cls.content})
+						.append($("<div/>", {"class": self.cls.contentImage}))
 						.append($("<p/>", {"class": self.cls.contentText}).html(item.caption).append($("<small/>").html(item.description)));
 				if (item.type === "video"){
 					item.index = -1;
@@ -161,6 +153,7 @@
 				$(item.href).append(item.$target);
 			}
 			item.$el.add(item.$content).removeClass(self.cls.selected);
+			item.$inner.off("click.foogallery");
 		},
 		onAppendItem: function (event, self, item) {
 			event.preventDefault();
@@ -296,6 +289,7 @@
 					}
 					prev.$el.add(prev.$content).removeClass(self.cls.selected);
 				}
+				self.setBackgroundImage(next);
 				self.$contentStage.css("transform", "translateX(-" + (next.index * self._contentWidth) + "px)");
 				next.$el.add(next.$content).addClass(self.cls.selected);
 				if (self.template.autoPlay && next.type === "video" && next.player instanceof _.VideoPlayer){
@@ -307,6 +301,7 @@
 					self.setEmbedSize(next);
 				}
 				self.selected = next;
+
 				if (next.index <= self._firstVisible || next.index >= self._lastVisible){
 					var last = prev instanceof _.Item ? next.index > prev.index : false,
 							index = last ? (next.index == self._lastVisible ? next.index + 1 : next.index) : (next.index == self._firstVisible ? next.index - 1 : next.index);
@@ -317,6 +312,31 @@
 				cNext = cNext < 0 ? items.length - 1 : (cNext >= items.length ? 0 : cNext);
 				self.$contentPrev.data("index", cPrev);
 				self.$contentNext.data("index", cNext);
+			}
+		},
+		setBackgroundImage: function(item){
+			if (item.type !== "embed" && !item.isError && !item.isBackgroundLoaded && _is.jq(item.$content)){
+				var self = this,
+						src = item.type === "video" ? item.cover : item.href,
+						$loader = $("<div/>", {'class': 'fg-loader'}).appendTo(item.$content.addClass(self.cls.loading)),
+						img = new Image();
+
+				img.onload = function(){
+					img.onload = img.onerror = null;
+					$loader.remove();
+					item.$content.removeClass(self.cls.loading)
+							.find(self.sel.contentImage).css("background-image", "url('"+src+"')");
+				};
+				img.onerror = function(){
+					$loader.remove();
+					item.$content.removeClass(self.cls.loading);
+				};
+				img.src = src;
+				if (img.complete){
+					img.onload();
+				}
+
+				item.isBackgroundLoaded = true;
 			}
 		},
 		setVisible: function(index, last){
@@ -558,6 +578,7 @@
 		contentContainer: "fgs-content-container",
 		contentStage: "fgs-content-stage",
 		content: "fgs-content",
+		contentImage: "fgs-content-image",
 		contentText: "fgs-content-text",
 		contentPlay: "fgs-content-play",
 		contentClose: "fgs-content-close",
@@ -570,6 +591,7 @@
 		itemNext: "fgs-item-next",
 		horizontal: "fgs-horizontal",
 		selected: "fgs-selected",
+		loading: "fgs-loading",
 		playing: "fgs-playing",
 		noCaptions: "fgs-no-captions",
 		embed: "fgs-embed",
