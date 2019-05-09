@@ -443,7 +443,9 @@
 			self.active = item;
 			if (self.grid && self.grid.deeplinking) self.grid.deeplinking.set(item);
 			self.busy = false;
-			return item.open(reverse);
+			return item.open(reverse).then(function(){
+				return self.scrollTo(item.$li.offset().top, true);
+			});
 		});
 	};
 

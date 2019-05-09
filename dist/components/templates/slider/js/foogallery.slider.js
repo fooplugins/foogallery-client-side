@@ -228,7 +228,7 @@
 			self.$itemPrev.toggle(self._firstVisible > 0);
 			self.$itemNext.toggle(self._lastVisible < count - 1);
 
-			self._contentWidth = cWidth - (self.horizontal ? 0 : self._breakpoint.size.v.items.width);
+			self._contentWidth = cWidth - (self.horizontal ? 0 : (self.noCaptions ? self._breakpoint.size.v.items.noCaptions : self._breakpoint.size.v.items.width));
 			self._contentHeight = (self.horizontal ? self._breakpoint.size.h.height : self._breakpoint.size.v.height);
 			if (count > 0){
 				self.$contentStage.width(self._contentWidth * count);
@@ -246,7 +246,7 @@
 					}
 				});
 				self.$contentStage.css("transform", "translateX(-" + (index * self._contentWidth) + "px)");
-				self._itemWidth = self.horizontal ? hItemWidth : self._breakpoint.size.v.items.width;
+				self._itemWidth = self.horizontal ? hItemWidth : (self.noCaptions ? self._breakpoint.size.v.items.noCaptions : self._breakpoint.size.v.items.width);
 				self._itemHeight = self.horizontal ? self._breakpoint.size.h.items : self._breakpoint.size.v.items.height;
 
 				self.setVisible(self._firstVisible, false);
@@ -468,6 +468,7 @@
 					v: {
 						height: 336,
 						items: {
+							noCaptions: 70,
 							width: 100,
 							height: 56
 						}
@@ -491,6 +492,7 @@
 					v: {
 						height: 392,
 						items: {
+							noCaptions: 100,
 							width: 150,
 							height: 56
 						}
@@ -514,6 +516,7 @@
 					v: {
 						height: 461,
 						items: {
+							noCaptions: 150,
 							width: 220,
 							height: 77
 						}
@@ -537,6 +540,7 @@
 					v: {
 						height: 538,
 						items: {
+							noCaptions: 150,
 							width: 280,
 							height: 77
 						}
@@ -560,6 +564,7 @@
 					v: {
 						height: 615,
 						items: {
+							noCaptions: 150,
 							width: 280,
 							height: 77
 						}
