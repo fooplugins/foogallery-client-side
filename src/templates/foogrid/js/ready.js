@@ -2,19 +2,30 @@
 
 	_.FooGridTemplate = _.Template.extend({
 		construct: function(options, element){
-			this._super(options, element);
-			this.hadState = false;
+			var self = this;
+			self._super(options, element);
+			self.foogrid = new _.Panel( self, self.template );
+			self.hadState = false;
 		},
 		onPreInit: function(event, self){
-			self.foogrid = new _.FooGrid( self.$el.get(0), self.template, self );
+			self.foogrid.preinit();
 		},
 		onInit: function(event, self){
 			self.foogrid.init();
 		},
+		onDestroy: function(event, self){
+			self.foogrid.destroy();
+		},
+		onParsedItem: function(event, self, item){
+			self.foogrid.onParsedOrCreatedItem(item);
+		},
+		onCreatedItem: function(event, self, item){
+			self.foogrid.onParsedOrCreatedItem(item);
+		},
 		onAfterState: function(event, self, state){
 			if (!!state.item){
 				self.foogrid.layout(true, state.item.index);
-				self.foogrid.content.open(state.item.index);
+				self.foogrid.open(state.item.index);
 				self.hadState = true;
 			}
 		},
@@ -23,9 +34,6 @@
 		},
 		onReady: function(event, self){
 			self.foogrid.layout();
-		},
-		onDestroy: function(event, self){
-			self.foogrid.destroy();
 		},
 		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
 			if (!isFilter){
@@ -45,7 +53,19 @@
 		}
 	});
 
-	_.template.register("foogrid", _.FooGridTemplate, null, {
+	_.template.register("foogrid", _.FooGridTemplate, {
+		template: {
+			scroll: true,
+			scrollOffset: 0,
+			scrollSmooth: true,
+			loop: true,
+			external: '_blank',
+			externalText: null,
+			keyboard: true,
+			transitionRow: true,
+			transitionOpen: true
+		}
+	}, {
 		container: "foogallery foogrid"
 	});
 

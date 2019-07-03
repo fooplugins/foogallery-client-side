@@ -25,6 +25,14 @@
 			self.opt = _obj.extend({}, template.opt.item, options);
 
 			/**
+			 * @summary The class used to generate this items content if required.
+			 * @memberof FooGallery.Item#
+			 * @name content
+			 * @type {FooGallery.ItemContent}
+			 */
+			self.content = _.components.make(self.opt.type + "-content", template, self);
+
+			/**
 			 * @summary Whether or not the items' elements are appended to the template.
 			 * @memberof FooGallery.Item#
 			 * @name isAttached
@@ -124,6 +132,13 @@
 			 */
 			self.fixLayout = self.tmpl.opt.fixLayout;
 
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name index
+			 * @type {number}
+			 * @default -1
+			 */
+			self.index = -1;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name type
@@ -307,8 +322,8 @@
 			 * 			item.$el.off(".foogallery").remove();
 			 * 			item.$el = null;
 			 * 			...
-			 * 			// once all destroy work is complete you must set tmpl to null
-			 * 			item.tmpl = null;
+			 * 			// once all destroy work is complete you must set isDestroyed to true
+			 * 			item.isDestroyed = true;
 			 * 		}
 			 * 	}
 			 * });
@@ -348,7 +363,11 @@
 		 */
 		doDestroyItem: function () {
 			var self = this;
+			if (self.content instanceof _.ItemContent){
+				self.content.destroy();
+			}
 			if (self.isParsed) {
+				self.$anchor.add(self.$caption).off("click.foogallery");
 				self.append();
 				if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
 				else self.$el.attr("class", self._undo.classes);

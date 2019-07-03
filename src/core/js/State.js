@@ -50,8 +50,8 @@
 			self.pushOrReplace = self.isPushOrReplace(self.opt.pushOrReplace) ? self.opt.pushOrReplace : "replace";
 
 			var id = _str.escapeRegExp(self.tmpl.id),
-				values = _str.escapeRegExp(self.opt.values),
-				pair = _str.escapeRegExp(self.opt.pair);
+					values = _str.escapeRegExp(self.opt.values),
+					pair = _str.escapeRegExp(self.opt.pair);
 			/**
 			 * @summary An object containing regular expressions used to test and parse a hash value into a state object.
 			 * @memberof FooGallery.State#
@@ -112,13 +112,16 @@
 						var parts = pair.split(self.opt.pair);
 						if (parts.length === 2){
 							state[parts[0]] = parts[1].indexOf(self.opt.array) === -1
-								? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
-								: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
+									? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
+									: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
 							if (_is.string(state[parts[0]]) && !isNaN(state[parts[0]])){
 								state[parts[0]] = parseInt(state[parts[0]]);
 							}
 						}
 					});
+					if (_is.number(state.i)){
+						state.i = state.i + "";
+					}
 				} else {
 					// if we're here it means there is a hash on the url but the option is disabled so remove it
 					if (self.apiEnabled){
@@ -251,34 +254,70 @@
 			var self = this, tmpl = self.tmpl;
 			if (_is.hash(state)){
 				tmpl.items.reset();
-				var item = tmpl.items.get(state.i);
-				if (tmpl.filter){
-					tmpl.filter.rebuild();
-					var tags = !_is.empty(state.f) ? state.f : [];
-					tmpl.filter.set(tags, false);
-				}
-				if (tmpl.pages){
-					tmpl.pages.rebuild();
-					var page = tmpl.pages.number(state.p);
-					if (item && !tmpl.pages.contains(page, item)){
-						page = tmpl.pages.find(item);
-						page = page !== 0 ? page : 1;
+
+				var obj = {
+					tags: !!tmpl.filter && !_is.empty(state.f) ? state.f : [],
+					page: !!tmpl.pages ? tmpl.pages.number(state.p) : 0,
+					item: tmpl.items.get(state.i)
+				};
+
+				var e = tmpl.raise("before-state", [obj]);
+				if (!e.isDefaultPrevented()){
+					if (!!tmpl.filter){
+						tmpl.filter.rebuild();
+						tmpl.filter.set(obj.tags, false);
 					}
-					tmpl.pages.set(page, !_is.empty(state), false, true);
-					if (item && tmpl.pages.contains(page, item)){
-						item.scrollTo();
+					if (!!tmpl.pages){
+						tmpl.pages.rebuild();
+						if (!!obj.item && !tmpl.pages.contains(obj.page, obj.item)){
+							obj.page = tmpl.pages.find(obj.item);
+							obj.page = obj.page !== 0 ? obj.page : 1;
+						}
+						tmpl.pages.set(obj.page, !_is.empty(state), false, true);
+						if (obj.item && tmpl.pages.contains(obj.page, obj.item)){
+							obj.item.scrollTo();
+						}
+					} else {
+						tmpl.items.detach(tmpl.items.all());
+						tmpl.items.create(tmpl.items.available(), true);
+						if (obj.item){
+							obj.item.scrollTo();
+						}
 					}
-				} else {
-					tmpl.items.detach(tmpl.items.all());
-					tmpl.items.create(tmpl.items.available(), true);
-					if (item){
-						item.scrollTo();
+					if (!_is.empty(state.i)){
+						state.i = null;
+						self.replace(state);
 					}
+					tmpl.raise("after-state", [obj]);
 				}
-				if (!_is.empty(state.i)){
-					state.i = null;
-					self.replace(state);
-				}
+				// var item = tmpl.items.get(state.i);
+				// if (tmpl.filter){
+				// 	tmpl.filter.rebuild();
+				// 	var tags = !_is.empty(state.f) ? state.f : [];
+				// 	tmpl.filter.set(tags, false);
+				// }
+				// if (tmpl.pages){
+				// 	tmpl.pages.rebuild();
+				// 	var page = tmpl.pages.number(state.p);
+				// 	if (item && !tmpl.pages.contains(page, item)){
+				// 		page = tmpl.pages.find(item);
+				// 		page = page !== 0 ? page : 1;
+				// 	}
+				// 	tmpl.pages.set(page, !_is.empty(state), false, true);
+				// 	if (item && tmpl.pages.contains(page, item)){
+				// 		item.scrollTo();
+				// 	}
+				// } else {
+				// 	tmpl.items.detach(tmpl.items.all());
+				// 	tmpl.items.create(tmpl.items.available(), true);
+				// 	if (item){
+				// 		item.scrollTo();
+				// 	}
+				// }
+				// if (!_is.empty(state.i)){
+				// 	state.i = null;
+				// 	self.replace(state);
+				// }
 			}
 		},
 	});
@@ -315,8 +354,8 @@
 	 */
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils.is,
-	FooGallery.utils.str
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils.is,
+		FooGallery.utils.str
 );

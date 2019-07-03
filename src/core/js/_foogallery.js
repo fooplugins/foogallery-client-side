@@ -227,6 +227,16 @@
 		return complete;
 	};
 
+	/**
+	 * @summary Get the instance of the {@link FooGallery.Template|template} associated with the supplied container.
+	 * @memberof FooGallery
+	 * @param {(string|Element|jQuery)} container - The selector, element or jQuery object of the FooGallery container element.
+	 * @returns {FooGallery.Template}
+	 */
+	_.get = function(container){
+		return $(container).data(_.dataTemplate);
+	};
+
 })(
 		FooGallery.$,
 		FooGallery,

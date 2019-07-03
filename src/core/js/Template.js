@@ -93,6 +93,13 @@
 			 */
 			self.filter = !_is.undef(_.filtering) ? _.filtering.make(options.filtering.type, self) : null;
 			/**
+			 * @summary An array of video sources supported by the template.
+			 * @memberof FooGallery.Template#
+			 * @name videoSources
+			 * @type {FooGallery.VideoSource[]}
+			 */
+			self.videoSources = !_is.undef(_.videoSources) ? _.videoSources.load() : [];
+			/**
 			 * @summary The state manager for the template.
 			 * @memberof FooGallery.Template#
 			 * @name state

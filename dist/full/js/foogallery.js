@@ -3164,6 +3164,16 @@
 		return complete;
 	};
 
+	/**
+	 * @summary Get the instance of the {@link FooGallery.Template|template} associated with the supplied container.
+	 * @memberof FooGallery
+	 * @param {(string|Element|jQuery)} container - The selector, element or jQuery object of the FooGallery container element.
+	 * @returns {FooGallery.Template}
+	 */
+	_.get = function(container){
+		return $(container).data(_.dataTemplate);
+	};
+
 })(
 		FooGallery.$,
 		FooGallery,
@@ -4017,6 +4027,13 @@
 			 */
 			self.filter = !_is.undef(_.filtering) ? _.filtering.make(options.filtering.type, self) : null;
 			/**
+			 * @summary An array of video sources supported by the template.
+			 * @memberof FooGallery.Template#
+			 * @name videoSources
+			 * @type {FooGallery.VideoSource[]}
+			 */
+			self.videoSources = !_is.undef(_.videoSources) ? _.videoSources.load() : [];
+			/**
 			 * @summary The state manager for the template.
 			 * @memberof FooGallery.Template#
 			 * @name state
@@ -4754,8 +4771,8 @@
 			self.pushOrReplace = self.isPushOrReplace(self.opt.pushOrReplace) ? self.opt.pushOrReplace : "replace";
 
 			var id = _str.escapeRegExp(self.tmpl.id),
-				values = _str.escapeRegExp(self.opt.values),
-				pair = _str.escapeRegExp(self.opt.pair);
+					values = _str.escapeRegExp(self.opt.values),
+					pair = _str.escapeRegExp(self.opt.pair);
 			/**
 			 * @summary An object containing regular expressions used to test and parse a hash value into a state object.
 			 * @memberof FooGallery.State#
@@ -4816,13 +4833,16 @@
 						var parts = pair.split(self.opt.pair);
 						if (parts.length === 2){
 							state[parts[0]] = parts[1].indexOf(self.opt.array) === -1
-								? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
-								: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
+									? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
+									: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
 							if (_is.string(state[parts[0]]) && !isNaN(state[parts[0]])){
 								state[parts[0]] = parseInt(state[parts[0]]);
 							}
 						}
 					});
+					if (_is.number(state.i)){
+						state.i = state.i + "";
+					}
 				} else {
 					// if we're here it means there is a hash on the url but the option is disabled so remove it
 					if (self.apiEnabled){
@@ -4955,34 +4975,70 @@
 			var self = this, tmpl = self.tmpl;
 			if (_is.hash(state)){
 				tmpl.items.reset();
-				var item = tmpl.items.get(state.i);
-				if (tmpl.filter){
-					tmpl.filter.rebuild();
-					var tags = !_is.empty(state.f) ? state.f : [];
-					tmpl.filter.set(tags, false);
-				}
-				if (tmpl.pages){
-					tmpl.pages.rebuild();
-					var page = tmpl.pages.number(state.p);
-					if (item && !tmpl.pages.contains(page, item)){
-						page = tmpl.pages.find(item);
-						page = page !== 0 ? page : 1;
+
+				var obj = {
+					tags: !!tmpl.filter && !_is.empty(state.f) ? state.f : [],
+					page: !!tmpl.pages ? tmpl.pages.number(state.p) : 0,
+					item: tmpl.items.get(state.i)
+				};
+
+				var e = tmpl.raise("before-state", [obj]);
+				if (!e.isDefaultPrevented()){
+					if (!!tmpl.filter){
+						tmpl.filter.rebuild();
+						tmpl.filter.set(obj.tags, false);
 					}
-					tmpl.pages.set(page, !_is.empty(state), false, true);
-					if (item && tmpl.pages.contains(page, item)){
-						item.scrollTo();
+					if (!!tmpl.pages){
+						tmpl.pages.rebuild();
+						if (!!obj.item && !tmpl.pages.contains(obj.page, obj.item)){
+							obj.page = tmpl.pages.find(obj.item);
+							obj.page = obj.page !== 0 ? obj.page : 1;
+						}
+						tmpl.pages.set(obj.page, !_is.empty(state), false, true);
+						if (obj.item && tmpl.pages.contains(obj.page, obj.item)){
+							obj.item.scrollTo();
+						}
+					} else {
+						tmpl.items.detach(tmpl.items.all());
+						tmpl.items.create(tmpl.items.available(), true);
+						if (obj.item){
+							obj.item.scrollTo();
+						}
 					}
-				} else {
-					tmpl.items.detach(tmpl.items.all());
-					tmpl.items.create(tmpl.items.available(), true);
-					if (item){
-						item.scrollTo();
+					if (!_is.empty(state.i)){
+						state.i = null;
+						self.replace(state);
 					}
+					tmpl.raise("after-state", [obj]);
 				}
-				if (!_is.empty(state.i)){
-					state.i = null;
-					self.replace(state);
-				}
+				// var item = tmpl.items.get(state.i);
+				// if (tmpl.filter){
+				// 	tmpl.filter.rebuild();
+				// 	var tags = !_is.empty(state.f) ? state.f : [];
+				// 	tmpl.filter.set(tags, false);
+				// }
+				// if (tmpl.pages){
+				// 	tmpl.pages.rebuild();
+				// 	var page = tmpl.pages.number(state.p);
+				// 	if (item && !tmpl.pages.contains(page, item)){
+				// 		page = tmpl.pages.find(item);
+				// 		page = page !== 0 ? page : 1;
+				// 	}
+				// 	tmpl.pages.set(page, !_is.empty(state), false, true);
+				// 	if (item && tmpl.pages.contains(page, item)){
+				// 		item.scrollTo();
+				// 	}
+				// } else {
+				// 	tmpl.items.detach(tmpl.items.all());
+				// 	tmpl.items.create(tmpl.items.available(), true);
+				// 	if (item){
+				// 		item.scrollTo();
+				// 	}
+				// }
+				// if (!_is.empty(state.i)){
+				// 	state.i = null;
+				// 	self.replace(state);
+				// }
 			}
 		},
 	});
@@ -5019,10 +5075,10 @@
 	 */
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils.is,
-	FooGallery.utils.str
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils.is,
+		FooGallery.utils.str
 );
 (function ($, _, _utils, _is, _fn, _obj) {
 
@@ -5049,6 +5105,14 @@
 			self.il8n = template.il8n.item;
 			self.sel = template.sel.item;
 			self.opt = _obj.extend({}, template.opt.item, options);
+
+			/**
+			 * @summary The class used to generate this items content if required.
+			 * @memberof FooGallery.Item#
+			 * @name content
+			 * @type {FooGallery.ItemContent}
+			 */
+			self.content = _.components.make(self.opt.type + "-content", template, self);
 
 			/**
 			 * @summary Whether or not the items' elements are appended to the template.
@@ -5150,6 +5214,13 @@
 			 */
 			self.fixLayout = self.tmpl.opt.fixLayout;
 
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name index
+			 * @type {number}
+			 * @default -1
+			 */
+			self.index = -1;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name type
@@ -5333,8 +5404,8 @@
 			 * 			item.$el.off(".foogallery").remove();
 			 * 			item.$el = null;
 			 * 			...
-			 * 			// once all destroy work is complete you must set tmpl to null
-			 * 			item.tmpl = null;
+			 * 			// once all destroy work is complete you must set isDestroyed to true
+			 * 			item.isDestroyed = true;
 			 * 		}
 			 * 	}
 			 * });
@@ -5374,7 +5445,11 @@
 		 */
 		doDestroyItem: function () {
 			var self = this;
+			if (self.content instanceof _.ItemContent){
+				self.content.destroy();
+			}
 			if (self.isParsed) {
+				self.$anchor.add(self.$caption).off("click.foogallery");
 				self.append();
 				if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
 				else self.$el.attr("class", self._undo.classes);
@@ -6159,6 +6234,460 @@
 		FooGallery.utils.fn,
 		FooGallery.utils.obj
 );
+(function($, _, _utils, _is, _fn, _obj, _str){
+
+	_.ItemContent = _.Component.extend({
+		construct: function(template, item){
+			var self = this;
+			self._super(template);
+
+			self.item = item;
+
+			self.opt = _obj.extend({}, self.tmpl.opt.content);
+
+			self.cls = _obj.extend({}, self.tmpl.cls.content);
+
+			self.$el = null;
+
+			self.$loader = null;
+
+			self.$content = null;
+
+			self.isCreated = false;
+
+			self.isDestroyed = false;
+
+			self.isAttached = false;
+
+			self.isLoading = false;
+
+			self.isLoaded = false;
+
+			self.isError = false;
+		},
+		getLoaderClass: function(){
+			var self = this;
+			var classes = self.tmpl.$el.prop("className").split(' ');
+			for (var i = 0, l = classes.length; i < l; i++){
+				if (_str.startsWith(classes[i], "fg-loading-")) return classes[i];
+			}
+			return null;
+		},
+		getSize: function(attrWidth, attrHeight, defWidth, defHeight){
+			var self = this, size = {};
+			if (!_is.string(attrWidth) || !_is.string(attrHeight)) return size;
+
+			size[attrWidth] = _is.size(defWidth) ? defWidth : null;
+			size[attrHeight] = _is.size(defHeight) ? defHeight : null;
+
+			if (!self.item.isCreated) return size;
+
+			size[attrWidth] = self.item.$anchor.data(attrWidth) || size[attrWidth];
+			size[attrHeight] = self.item.$anchor.data(attrHeight) || size[attrHeight];
+			return size;
+		},
+		getSizes: function(){
+			var self = this,
+					size = self.getSize("width", "height", self.opt.width, self.opt.height),
+					max = self.getSize("maxWidth", "maxHeight", self.opt.maxWidth, self.opt.maxHeight),
+					min = self.getSize("minWidth", "minHeight", self.opt.minWidth, self.opt.minHeight);
+			return _obj.extend(size, max, min);
+		},
+		destroy: function(){
+			var self = this;
+			/**
+			 * @summary Raised when a template destroys an items' content.
+			 * @event FooGallery.Template~"destroy-content.foogallery"
+			 * @type {jQuery.Event}
+			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+			 * @param {FooGallery.Template} template - The template raising the event.
+			 * @param {FooGallery.Item} content - The content to destroy.
+			 * @returns {boolean} `true` if the {@link FooGallery.Content|`content`} has been successfully destroyed.
+			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+			 * $(".foogallery").foogallery({
+			 * 	on: {
+			 * 		"destroy-content.foogallery": function(event, template, content){
+			 * 			// do something
+			 * 		}
+			 * 	}
+			 * });
+			 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `item` being destroyed.}
+			 * $(".foogallery").foogallery({
+			 * 	on: {
+			 * 		"destroy-content.foogallery": function(event, template, content){
+			 * 			if ("some condition"){
+			 * 				// stop the item being destroyed
+			 * 				event.preventDefault();
+			 * 			}
+			 * 		}
+			 * 	}
+			 * });
+			 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
+			 * $(".foogallery").foogallery({
+			 * 	on: {
+			 * 		"destroy-content.foogallery": function(event, template, content){
+			 * 			// stop the default logic
+			 * 			event.preventDefault();
+			 * 			// replacing it with your own destroying the item yourself
+			 * 			content.$el.off(".foogallery").remove();
+			 * 			content.$el = null;
+			 * 			...
+			 * 			// once all destroy work is complete you must set isDestroyed to true
+			 * 			content.isDestroyed = true;
+			 * 		}
+			 * 	}
+			 * });
+			 */
+			var e = self.tmpl.raise("destroy-content", [self]);
+			if (!e.isDefaultPrevented()) {
+				self.isDestroyed = self.doDestroyContent();
+			}
+			if (self.isDestroyed) {
+				/**
+				 * @summary Raised after an items' content has been destroyed.
+				 * @event FooGallery.Template~"destroyed-content.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Content} content - The content that was destroyed.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"destroyed-content.foogallery": function(event, template, content){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+				 */
+				self.tmpl.raise("destroyed-content", [self]);
+				// call the original method that simply nulls the tmpl property
+				self._super();
+			}
+			return self.isDestroyed;
+		},
+		doDestroyContent: function(){
+			var self = this;
+			if (self.isCreated){
+				self.detach();
+				self.$el.remove();
+			}
+			return true;
+		},
+		create: function(){
+			var self = this;
+			if (!self.isCreated && _is.string(self.item.href)) {
+				/**
+				 * @summary Raised when an items' content needs to create its' elements.
+				 * @event FooGallery.Template~"create-content.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Content} content - The content to create the markup for.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"create-content.foogallery": function(event, template, content){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being created.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"create-content.foogallery": function(event, template, content){
+				 * 			if ("some condition"){
+				 * 				// stop the content being created
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"create-content.foogallery": function(event, template, content){
+				 * 			// stop the default logic
+				 * 			event.preventDefault();
+				 * 			// replacing it with your own creating each element property of the content yourself
+				 * 			content.$el = $("<div/>");
+				 * 			...
+				 * 			// once all elements are created you must set isCreated to true
+				 * 			content.isCreated = true;
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("create-content", [self]);
+				if (!e.isDefaultPrevented()) {
+					self.isCreated = self.doCreateContent();
+				}
+				if (self.isCreated) {
+					/**
+					 * @summary Raised after an items' content elements have been created.
+					 * @event FooGallery.Template~"created-content.foogallery"
+					 * @type {jQuery.Event}
+					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+					 * @param {FooGallery.Template} template - The template raising the event.
+					 * @param {FooGallery.Content} content - The content that was created.
+					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+					 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"created-content.foogallery": function(event, template, content){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+					 */
+					self.tmpl.raise("created-content", [self]);
+				}
+			}
+			return self.isCreated;
+		},
+		doCreateContent: function(){
+			var self = this, sizes = self.getSizes();
+			self.$el = self.createElem();
+			self.$content = $('<img/>').addClass(self.cls.content).css(sizes).appendTo(self.$el);
+			self.$loader = self.createLoader(self.$el);
+			return true;
+		},
+		createElem: function(){
+			return $('<div/>').addClass(this.cls.elem).addClass(this.getLoaderClass());
+		},
+		createLoader: function( parent ){
+			return $('<div/>').addClass(this.cls.loader).appendTo(parent);
+		},
+		appendTo: function( parent ){
+			var self = this;
+			if (!self.isCreated){
+				self.create();
+			}
+			if (self.isCreated && !self.isAttached){
+				/**
+				 * @summary Raised before an items' content is appended to the supplied parent.
+				 * @event FooGallery.Template~"append-content.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Content} content - The content to append to the parent.
+				 * @param {(string|Element|jQuery)} parent - The parent to append the content to.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"append-content.foogallery": function(event, template, content, parent){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being appended.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"append-content.foogallery": function(event, template, content, parent){
+				 * 			if ("some condition"){
+				 * 				// stop the content being appended
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"append-content.foogallery": function(event, template, content, parent){
+				 * 			// stop the default logic
+				 * 			event.preventDefault();
+				 * 			// replacing it with your own appending the content to the parent
+				 * 			content.$el.appendTo(parent);
+				 * 			...
+				 * 			// once the content is appended you must set isAttached to true
+				 * 			content.isAttached = true;
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("append-content", [self, parent]);
+				if (!e.isDefaultPrevented()) {
+					self.isAttached = self.doAppendToContent( parent );
+				}
+				if (self.isAttached) {
+					/**
+					 * @summary Raised after an items' content has been appended to the parent.
+					 * @event FooGallery.Template~"appended-content.foogallery"
+					 * @type {jQuery.Event}
+					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+					 * @param {FooGallery.Template} template - The template raising the event.
+					 * @param {FooGallery.Content} content - The content that was appended.
+					 * @param {(string|Element|jQuery)} parent - The parent the content was appended to.
+					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+					 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"appended-content.foogallery": function(event, template, content, parent){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+					 */
+					self.tmpl.raise("appended-content", [self, parent]);
+				}
+			}
+			return self.isAttached;
+		},
+		doAppendToContent: function( parent ){
+			this.$el.appendTo( parent );
+			return this.$el.parent().length > 0;
+		},
+		detach: function(){
+			var self = this;
+			if (self.isCreated && self.isAttached) {
+				/**
+				 * @summary Raised when an items' content needs to be detached from its' parent.
+				 * @event FooGallery.Template~"detach-item.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Content} content - The content to detach.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"detach-content.foogallery": function(event, template, content){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being detached.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"detach-content.foogallery": function(event, template, content){
+				 * 			if ("some condition"){
+				 * 				// stop the content being detached
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"detach-content.foogallery": function(event, template, content){
+				 * 			// stop the default logic
+				 * 			event.preventDefault();
+				 * 			// replacing it with your own detaching the content from its' parent
+				 * 			content.$el.detach();
+				 * 			...
+				 * 			// once the content is detached you must set isAttached to false
+				 * 			content.isAttached = false;
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("detach-content", [self]);
+				if (!e.isDefaultPrevented()) {
+					self.isAttached = !self.doDetachContent();
+				}
+				if (!self.isAttached) {
+					/**
+					 * @summary Raised after an items' content has been detached from its' parent.
+					 * @event FooGallery.Template~"detached-content.foogallery"
+					 * @type {jQuery.Event}
+					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+					 * @param {FooGallery.Template} template - The template raising the event.
+					 * @param {FooGallery.Content} content - The content that was detached.
+					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+					 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"detached-content.foogallery": function(event, template, content){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+					 */
+					self.tmpl.raise("detached-content", [self]);
+				}
+			}
+			return !self.isAttached;
+		},
+		doDetachContent: function(){
+			this.$el.detach();
+			return true;
+		},
+		load: function(){
+			var self = this, cls = self.item.cls;
+			self.isLoading = true;
+			self.isLoaded = false;
+			self.isError = false;
+			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
+			return $.Deferred(function(def){
+				if (!self.isCreated || !self.isAttached){
+					def.rejectWith("not created or attached");
+					return;
+				}
+				var e = self.tmpl.raise("load-content", [self]);
+				if (e.isDefaultPrevented()){
+					def.rejectWith("default prevented");
+					return;
+				}
+				self.doLoadContent().then(def.resolve).fail(def.reject);
+			}).then(function(){
+				self.isLoading = false;
+				self.isLoaded = true;
+				self.$el.removeClass(cls.loading).addClass(cls.loaded);
+				self.tmpl.raise("loaded-content", [self]);
+			}).fail(function(){
+				self.isLoading = false;
+				self.isError = true;
+				self.$el.removeClass(cls.loading).addClass(cls.error);
+				self.tmpl.raise("error-content", [self]);
+			}).promise();
+		},
+		doLoadContent: function(){
+			var self = this;
+			return $.Deferred(function(def){
+				var img = self.$content.get(0);
+				img.onload = function () {
+					img.onload = img.onerror = null;
+					def.resolve(self);
+				};
+				img.onerror = function () {
+					img.onload = img.onerror = null;
+					def.rejectWith("error loading image");
+				};
+				// set everything in motion by setting the src
+				img.src = self.item.href;
+				if (img.complete){
+					img.onload();
+				}
+			}).promise();
+		}
+	});
+
+	_.template.configure("core", {
+		content: {
+			width: null,
+			height: null,
+			minWidth: null,
+			minHeight: null,
+			maxWidth: null,
+			maxHeight: null,
+			attrs: {}
+		}
+	},{
+		content: {
+			elem: "fg-content-container fg-content-image",
+			content: "fg-content",
+			loader: "fg-loader"
+		}
+	});
+
+	_.components.register("item-content", _.ItemContent)
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.obj,
+		FooGallery.utils.str
+);
 (function ($, _, _utils, _is, _fn, _obj) {
 
 	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
@@ -6179,7 +6708,7 @@
 			 * @function _super
 			 */
 			self._super(template);
-			self.idMap = {};
+			self.maps = {};
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -6230,7 +6759,7 @@
 				if (destroyed.length > 0) self.tmpl.raise("destroyed-items", [destroyed]);
 				// should we handle a case where the destroyed.length != items.length??
 			}
-			self.idMap = {};
+			self.maps = {};
 			self._canvas = self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -6278,12 +6807,13 @@
 		available: function () {
 			return this._available.slice();
 		},
-		get: function (id) {
-			return !_is.empty(id) && !!this.idMap[id] ? this.idMap[id] : null;
+		get: function (idOrIndex) {
+			var map = _is.number(idOrIndex) ? 'index' : 'id';
+			return !!this.maps[map][idOrIndex] ? this.maps[map][idOrIndex] : null;
 		},
 		setAll: function (items) {
 			this._arr = _is.array(items) ? items : [];
-			this.idMap = this.createIdMap(items);
+			this.maps = this.createMaps(items);
 			this._available = this.all();
 		},
 		setAvailable: function (items) {
@@ -6737,13 +7267,18 @@
 			}
 			return _fn.resolveWith([]);
 		},
-		createIdMap: function (items) {
-			var map = {};
+		createMaps: function(items){
+			var maps = {
+				id: {},
+				index: {}
+			};
 			$.each(items, function (i, item) {
 				if (_is.empty(item.id)) item.id = "" + (i + 1);
-				map[item.id] = item;
+				item.index = i;
+				maps.id[item.id] = item;
+				maps.index[item.index] = item;
 			});
-			return map;
+			return maps;
 		}
 	});
 
@@ -6755,6 +7290,891 @@
 		FooGallery.utils,
 		FooGallery.utils.is,
 		FooGallery.utils.fn,
+		FooGallery.utils.obj
+);
+(function($, _, _utils, _is){
+
+	_.Video = _.Item.extend({
+		construct: function(template, options){
+			var self = this;
+			self._super(template, options);
+			self.cover = self.opt.cover;
+		},
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.cover = self.$anchor.data("cover") || self.cover;
+				self.$el.addClass(self.cls.video);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({
+					"data-type": self.type,
+					"data-cover": self.cover
+				});
+				self.$el.addClass(self.cls.video);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", {
+		item: {
+			cover: ""
+		}
+	},{
+		item: {
+			video: "fg-video"
+		}
+	});
+
+	_.components.register("video", _.Video);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, _, _utils, _is, _fn, _obj, _url){
+
+	_.VideoContent = _.ItemContent.extend({
+		construct: function(template, item){
+			var self = this;
+			self._super(template, item);
+			_obj.extend(self.opt, self.tmpl.opt.video);
+			_obj.extend(self.cls, self.tmpl.cls.video);
+
+			self.urls = [];
+
+			self.isSelfHosted = false;
+
+			self._autoPlay = self.opt.autoPlay;
+		},
+		parseHref: function(){
+			var self = this, urls = self.item.href.split(','), result = [];
+			for (var i = 0, il = urls.length, url, source; i < il; i++){
+				if (_is.empty(urls[i])) continue;
+				url = _url.parts(urls[i]);
+				source = null;
+				for (var j = 0, jl = self.tmpl.videoSources.length; j < jl; j++){
+					if (self.tmpl.videoSources[j].canPlay(url)){
+						source = self.tmpl.videoSources[j];
+						result.push({
+							parts: url,
+							source: source,
+							embed: source.getEmbedUrl(url, self._autoPlay)
+						});
+						break;
+					}
+				}
+			}
+			return result;
+		},
+		doCreateContent: function(){
+			var self = this, sizes = self.getSizes();
+
+			self.urls = self.parseHref();
+			self.isSelfHosted = $.map(self.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
+
+			self.$el = self.createElem();
+
+			self.$content = self.isSelfHosted ? $('<video/>', self.opt.attrs.video) : $('<iframe/>', self.opt.attrs.iframe);
+			self.$content.addClass(self.cls.content).css(sizes).appendTo(self.$el);
+
+			self.$loader = self.createLoader(self.$el);
+			return true;
+		},
+		load: function( autoPlay ){
+			var self = this;
+			self._autoPlay = _is.boolean(autoPlay) ? autoPlay : self.opt.autoPlay;
+			return self._super().always(function(){
+				self._autoPlay = self.opt.autoPlay;
+			});
+		},
+		doLoadContent: function(){
+			var self = this;
+			return $.Deferred(function(def){
+				if (self.urls.length === 0){
+					def.rejectWith("no urls available");
+					return;
+				}
+				var promise = self.isSelfHosted ? self.loadSelfHosted() : self.loadIframe();
+				promise.then(def.resolve).fail(def.reject);
+			}).promise();
+		},
+		loadSelfHosted: function(){
+			var self = this;
+			return $.Deferred(function(def){
+				self.$content.off("loadeddata error");
+				self.$content.find("source").remove();
+				if (!_is.empty(self.item.cover)){
+					self.$content.attr("poster", self.item.cover);
+				}
+				self.$content.on({
+					'loadeddata': function(){
+						self.$content.off("loadeddata error");
+						this.volume = self.opt.volume;
+						if (self._autoPlay){
+							var p = this.play();
+							if (typeof p !== 'undefined'){
+								p.catch(function(){
+									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
+								});
+							}
+						}
+						def.resolve(self);
+					},
+					'error': function(){
+						self.$content.off("loadeddata error");
+						def.reject(self);
+					}
+				});
+				var sources = $.map(self.urls, function(url){
+					var src = url.source.getEmbedUrl(url.parts, self._autoPlay);
+					return $("<source/>", {src: src, mimeType: url.source.mimeType});
+				});
+				self.$content.append(sources);
+				if (self.$content.prop("readyState") > 0){
+					self.$content.get(0).load();
+				}
+			}).promise();
+		},
+		loadIframe: function(){
+			var self = this;
+			return $.Deferred(function(def){
+				if (!_is.empty(self.item.cover)){
+					self.$content.css("background-image", "url('" + self.item.cover + "')");
+				}
+				self.$content.off("load error").on({
+					'load': function(){
+						self.$content.off("load error");
+						def.resolve(self);
+					},
+					'error': function(){
+						self.$content.off("load error");
+						def.reject(self);
+					}
+				});
+				var url = self.urls[0],
+						src = url.source.getEmbedUrl(url.parts, self._autoPlay);
+				self.$content.attr("src", src);
+			}).promise();
+		}
+	});
+
+	_.template.configure("core", {
+		video: {
+			autoPlay: false,
+			volume: 0.2,
+			attrs: {
+				iframe: {
+					src: '',
+					frameborder: 'no',
+					allow: "autoplay; fullscreen",
+					allowfullscreen: true
+				},
+				video: {
+					controls: true,
+					preload: false,
+					controlsList: "nodownload"
+				}
+			}
+		}
+	}, {
+		video: {
+			elem: "fg-content-container fg-content-video",
+			cover: "fg-content-cover"
+		}
+	});
+
+	_.components.register("video-content", _.VideoContent);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.obj,
+		FooGallery.utils.url
+);
+(function(_, _utils, _is, _obj, _url){
+
+
+	_.VideoHelper = _utils.Class.extend({
+		construct: function(playerDefaults){
+			this.playerDefaults = _obj.extend({
+				autoPlay: false,
+				width: null,
+				height: null,
+				minWidth: null,
+				minHeight: null,
+				maxWidth: null,
+				maxHeight: null,
+				attrs: {
+					iframe: {
+						src: '',
+						frameborder: 'no',
+						allow: "autoplay; fullscreen",
+						allowfullscreen: true
+					},
+					video: {
+						controls: true,
+						preload: false,
+						controlsList: "nodownload"
+					}
+				}
+			}, playerDefaults);
+			this.sources = _.videoSources.load();
+		},
+		parseHref: function(href, autoPlay){
+			var self = this, urls = href.split(','), result = [];
+			for (var i = 0, il = urls.length, url, source; i < il; i++){
+				if (_is.empty(urls[i])) continue;
+				url = _url.parts(urls[i]);
+				source = null;
+				for (var j = 0, jl = self.sources.length; j < jl; j++){
+					if (self.sources[j].canPlay(url)){
+						source = self.sources[j];
+						result.push({
+							parts: url,
+							source: source,
+							embed: source.getEmbedUrl(url, autoPlay)
+						});
+						break;
+					}
+				}
+			}
+			return result;
+		},
+		canPlay: function(href){
+			return this.parseHref(href).length > 0;
+		},
+		getPlayer: function(href, options){
+			options = _obj.extend({}, this.playerDefaults, options);
+			var urls = this.parseHref(href, options.autoPlay);
+			return new _.VideoPlayer(urls, options);
+		}
+	});
+
+
+})(
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.obj,
+		FooGallery.utils.url
+);
+(function($, _, _utils, _fn){
+
+
+	_.VideoPlayer = _utils.Class.extend({
+		construct: function(urls, options){
+			this.urls = urls;
+			this.options = options;
+			this.selfHosted = $.map(this.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
+			this.$el = this.$create();
+		},
+		$create: function(){
+			var self = this, o = self.options,
+					$result = self.selfHosted ? $('<video/>', o.attrs.video) : $('<iframe/>', o.attrs.iframe);
+			$result.css({
+				width: o.width, height: o.height,
+				maxWidth: o.maxWidth, maxHeight: o.maxHeight,
+				minWidth: o.minWidth, minHeight: o.minHeight
+			});
+			return $result;
+		},
+		appendTo: function(parent){
+			var self = this, $parent = $(parent);
+			if ($parent.length > 0){
+				if (self.$el.length === 0){
+					self.$el = self.$create();
+				}
+				$parent.append(self.$el);
+			}
+			return self;
+		},
+		load: function(){
+			var self = this;
+			if (self.urls.length === 0){
+				return _fn.rejectWith(Error("No supported urls available."));
+			}
+			if (self.selfHosted){
+				return self.loadSelfHosted();
+			} else {
+				return self.loadEmbed();
+			}
+		},
+		loadSelfHosted: function(){
+			var self = this;
+			self.$el.off("loadeddata error");
+			return $.Deferred(function(def){
+				self.$el.find("source").remove();
+				self.$el.on({
+					'loadeddata': function(){
+						self.$el.off("loadeddata error");
+						this.volume = 0.2;
+						if (self.options.autoPlay){
+							var p = this.play();
+							if (typeof p !== 'undefined'){
+								p.catch(function(){
+									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
+								});
+							}
+						}
+						def.resolve();
+					},
+					'error': function(){
+						self.$el.off("loadeddata error");
+						def.reject(Error('Error loading video: ' + $.map(self.urls, function(url){ return url.embed; }).join(",")));
+					}
+				});
+				var sources = $.map(self.urls, function(url){
+					return $("<source/>", {src: url.embed, mimeType: url.source.mimeType});
+				});
+				self.$el.append(sources);
+				if (self.$el.prop("readyState") > 0){
+					self.$el.get(0).load();
+				}
+			}).promise();
+		},
+		loadEmbed: function(){
+			var self = this;
+			self.$el.off("load error");
+			return $.Deferred(function(def){
+				var src = self.urls[0].embed;
+				self.$el.on({
+					'load': function(){
+						self.$el.off("load error");
+						def.resolve();
+					},
+					'error': function(){
+						self.$el.off("load error");
+						def.reject(Error('Error loading video: ' + src));
+					}
+				});
+				self.$el.attr("src", src);
+			}).promise();
+		},
+		remove: function(){
+			this.$el.off("load loadeddata error").remove();
+		}
+	});
+
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.fn
+);
+(function($, _, _utils, _is, _url, _str){
+
+
+	var _testVideo = document.createElement("video");
+
+	_.VideoSource = _utils.Class.extend({
+		construct: function(mimeType, regex, selfHosted, embedParams, autoPlayParam){
+			this.mimeType = mimeType;
+			this.regex = regex;
+			this.selfHosted = _is.boolean(selfHosted) ? selfHosted : false;
+			this.embedParams = _is.array(embedParams) ? embedParams : [];
+			this.autoPlayParam = _is.hash(autoPlayParam) ? autoPlayParam : {};
+			this.canPlayType = this.selfHosted && _is.fn(_testVideo.canPlayType) ? $.inArray(_testVideo.canPlayType(this.mimeType), ['probably','maybe']) !== -1 : true;
+		},
+		canPlay: function(urlParts){
+			return this.canPlayType && this.regex.test(urlParts.href);
+		},
+		mergeParams: function(urlParts, autoPlay){
+			var self = this;
+			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
+				ip = self.embedParams[i];
+				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
+			}
+			if (!_is.empty(self.autoPlayParam)){
+				urlParts.search = _url.param(urlParts.search, self.autoPlayParam.key, autoPlay ? self.autoPlayParam.value : '');
+			}
+			return urlParts.search;
+		},
+		getId: function(urlParts){
+			var match = urlParts.href.match(/.*\/(.*?)($|\?|#)/);
+			return match && match.length >= 2 ? match[1] : null;
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return _str.join('/', location.protocol, '//', urlParts.hostname, urlParts.pathname) + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources = new _utils.Factory();
+
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.url,
+		FooGallery.utils.str
+);
+(function(_){
+
+
+	_.VideoSource.Mp4 = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/mp4', /\.mp4/i, true);
+		}
+	});
+	_.videoSources.register('video/mp4', _.VideoSource.Mp4);
+
+	_.VideoSource.Webm = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/webm', /\.webm/i, true);
+		}
+	});
+	_.videoSources.register('video/webm', _.VideoSource.Webm);
+
+	_.VideoSource.Wmv = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/wmv', /\.wmv/i, true);
+		}
+	});
+	_.videoSources.register('video/wmv', _.VideoSource.Wmv);
+
+	_.VideoSource.Ogv = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/ogg', /\.ogv|\.ogg/i, true);
+		}
+	});
+	_.videoSources.register('video/ogg', _.VideoSource.Ogv);
+
+
+})(
+		FooGallery
+);
+(function(_){
+
+
+	_.VideoSource.YouTube = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/youtube',
+					/(www.)?youtube|youtu\.be/i,
+					false,
+					[
+						{key: 'modestbranding', value: '1'},
+						{key: 'rel', value: '0'},
+						{key: 'wmode', value: 'transparent'},
+						{key: 'showinfo', value: '0'}
+					],
+					{key: 'autoplay', value: '1'}
+			);
+		},
+		getId: function(urlParts){
+			return /embed\//i.test(urlParts.href)
+					? urlParts.href.split(/embed\//i)[1].split(/[?&]/)[0]
+					: urlParts.href.split(/v\/|v=|youtu\.be\//i)[1].split(/[?&]/)[0];
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return 'https://www.youtube-nocookie.com/embed/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/youtube', _.VideoSource.YouTube);
+
+
+})(
+		FooGallery
+);
+(function(_){
+
+	_.VideoSource.Vimeo = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/vimeo',
+					/(player.)?vimeo\.com/i,
+					false,
+					[
+						{key: 'badge', value: '0'},
+						{key: 'portrait', value: '0'}
+					],
+					{key: 'autoplay', value: '1'}
+			);
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return location.protocol + '//player.vimeo.com/video/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/vimeo', _.VideoSource.Vimeo);
+
+})(
+		FooGallery
+);
+(function(_){
+
+	_.VideoSource.Dailymotion = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/daily',
+					/(www.)?dailymotion\.com|dai\.ly/i,
+					false,
+					[
+						{key: 'wmode', value: 'opaque'},
+						{key: 'info', value: '0'},
+						{key: 'logo', value: '0'},
+						{key: 'related', value: '0'}
+					],
+					{key: 'autoplay', value: '1'}
+			);
+		},
+		getId: function(urlParts){
+			return /\/video\//i.test(urlParts.href)
+					? urlParts.href.split(/\/video\//i)[1].split(/[?&]/)[0].split(/[_]/)[0]
+					: urlParts.href.split(/dai\.ly/i)[1].split(/[?&]/)[0];
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return location.protocol + '//www.dailymotion.com/embed/video/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/daily', _.VideoSource.Dailymotion);
+
+})(
+		FooGallery
+);
+(function(_, _is, _url){
+
+	_.VideoSource.Wistia = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/wistia',
+					/(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
+					false,
+					[],
+					{
+						iframe: {key: 'autoPlay', value: '1'},
+						playlists: {key: 'media_0_0[autoPlay]', value: '1'}
+					}
+			);
+		},
+		getType: function(href){
+			return /playlists\//i.test(href) ? 'playlists' : 'iframe';
+		},
+		mergeParams: function(urlParts, autoPlay){
+			var self = this;
+			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
+				ip = self.embedParams[i];
+				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
+			}
+			if (!_is.empty(self.autoPlayParam)){
+				var param = self.autoPlayParam[self.getType(urlParts.href)];
+				urlParts.search = _url.param(urlParts.search, param.key, autoPlay ? param.value : '');
+			}
+			return urlParts.search;
+		},
+		getId: function(urlParts){
+			return /embed\//i.test(urlParts.href)
+					? urlParts.href.split(/embed\/.*?\//i)[1].split(/[?&]/)[0]
+					: urlParts.href.split(/medias\//)[1].split(/[?&]/)[0];
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return location.protocol + '//fast.wistia.net/embed/'+this.getType(urlParts.href)+'/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/wistia', _.VideoSource.Wistia);
+
+})(
+		FooGallery,
+		FooGallery.utils.is,
+		FooGallery.utils.url
+);
+(function($, _, _utils, _is){
+
+	_.Iframe = _.Item.extend({
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.$el.addClass(self.cls.iframe);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({ "data-type": self.type });
+				self.$el.addClass(self.cls.iframe);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", null,{
+		item: {
+			iframe: "fg-iframe"
+		}
+	});
+
+	_.components.register("iframe", _.Iframe);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, _, _utils, _is, _fn, _obj, _url){
+
+	_.IframeContent = _.ItemContent.extend({
+		construct: function(template, item){
+			var self = this;
+			self._super(template, item);
+			_obj.extend(self.opt, self.tmpl.opt.iframe);
+			_obj.extend(self.cls, self.tmpl.cls.iframe);
+		},
+		doCreateContent: function(){
+			var self = this, sizes = self.getSizes();
+			self.$el = self.createElem();
+			self.$content = $('<iframe/>', self.opt.attrs).addClass(self.cls.content).css(sizes).appendTo(self.$el);
+			self.$loader = self.createLoader(self.$el);
+			return true;
+		},
+		doLoadContent: function(){
+			var self = this;
+			return $.Deferred(function(def){
+				self.$content.off("load error").on({
+					'load': function(){
+						self.$content.off("load error");
+						def.resolve(self);
+					},
+					'error': function(){
+						self.$content.off("load error");
+						def.reject(self);
+					}
+				});
+				self.$content.attr("src", self.item.href);
+			}).promise();
+		}
+	});
+
+	_.template.configure("core", {
+		iframe: {
+			attrs: {
+				src: '',
+				frameborder: 'no',
+				allow: "autoplay; fullscreen",
+				allowfullscreen: true
+			}
+		}
+	}, {
+		iframe: {
+			elem: "fg-content-container fg-content-iframe"
+		}
+	});
+
+	_.components.register("iframe-content", _.IframeContent);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.obj,
+		FooGallery.utils.url
+);
+(function($, _, _utils, _is){
+
+	_.Html = _.Item.extend({
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.$el.addClass(self.cls.html);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({ "data-type": self.type });
+				self.$el.addClass(self.cls.html);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", null,{
+		item: {
+			html: "fg-html"
+		}
+	});
+
+	_.components.register("html", _.Html);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, _, _utils, _is, _fn, _str, _obj){
+
+	_.HtmlContent = _.ItemContent.extend({
+		construct: function(template, item){
+			var self = this;
+			self._super(template, item);
+			_obj.extend(self.opt, self.tmpl.opt.html);
+			_obj.extend(self.cls, self.tmpl.cls.html);
+
+			self.$target = null;
+		},
+		doCreateContent: function(){
+			var self = this;
+
+			if (!_str.startsWith(self.item.href, '#') || (self.$target = $(self.item.href)).length == 0){
+				self.$target = null;
+				return false;
+			}
+
+			var sizes = self.getSizes();
+			self.$el = self.createElem();
+			self.$content = $('<div/>', self.opt.attrs).addClass(self.cls.content).css(sizes).appendTo(self.$el);
+			self.$loader = self.createLoader(self.$el);
+			return true;
+		},
+		doAppendToContent: function( parent ){
+			var self = this;
+			self.$el.appendTo( parent );
+			self.$content.append( self.$target.contents() );
+			return self.$el.parent().length > 0;
+		},
+		doDetachContent: function(){
+			var self = this;
+			self.$target.append( self.$content.contents() );
+			self.$el.detach();
+			return true;
+		},
+		doLoadContent: function(){
+			var self = this;
+			if (!self.isCreated || !self.isAttached) return _fn.rejectWith("not created or attached");
+			var e = self.tmpl.raise("load-content", [self]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			return _fn.resolveWith(self);
+		}
+	});
+
+	_.template.configure("core", null, {
+		html: {
+			elem: "fg-content-container fg-content-html"
+		}
+	});
+
+	_.components.register("html-content", _.HtmlContent);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.str,
+		FooGallery.utils.obj
+);
+(function($, _, _utils, _is){
+
+	_.Embed = _.Item.extend({
+		construct: function(template, options){
+			var self = this;
+			self._super(template, options);
+			self.cover = self.opt.cover;
+		},
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.cover = self.$anchor.data("cover") || self.cover;
+				self.$el.addClass(self.cls.embed);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({
+					"data-type": self.type,
+					"data-cover": self.cover
+				});
+				self.$el.addClass(self.cls.embed);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", {
+		item: {
+			cover: ""
+		}
+	},{
+		item: {
+			embed: "fg-video"
+		}
+	});
+
+	_.components.register("embed", _.Embed);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, _, _utils, _is, _fn, _str, _obj){
+
+	_.EmbedContent = _.HtmlContent.extend({
+		construct: function(template, item){
+			var self = this;
+			self._super(template, item);
+			_obj.extend(self.opt, self.tmpl.opt.embed);
+			_obj.extend(self.cls, self.tmpl.cls.embed);
+		}
+	});
+
+	_.template.configure("core", null, {
+		embed: {
+			elem: "fg-content-container fg-content-embed"
+		}
+	});
+
+	_.components.register("embed-content", _.EmbedContent);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.str,
 		FooGallery.utils.obj
 );
 (function ($, _, _utils, _is) {
@@ -7998,505 +9418,6 @@
 		all: "All",
 		none: "No items found."
 	}, -100);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function($, _, _utils, _is){
-
-	_.Video = _.Item.extend({
-		construct: function(template, options){
-			var self = this;
-			self._super(template, options);
-			self.cover = self.opt.cover;
-		},
-		doParseItem: function($element){
-			var self = this;
-			if (self._super($element)){
-				self.cover = self.$anchor.data("cover") || self.cover;
-				self.$el.addClass(self.cls.video);
-				return true;
-			}
-			return false;
-		},
-		doCreateItem: function(){
-			var self = this;
-			if (self._super()){
-				self.$anchor.attr({
-					"data-type": self.type,
-					"data-cover": self.cover
-				});
-				self.$el.addClass(self.cls.video);
-				return true;
-			}
-			return false;
-		}
-	});
-
-	_.template.configure("core", {
-		item: {
-			cover: ""
-		}
-	},{
-		item: {
-			video: "fg-video"
-		}
-	});
-
-	_.components.register("video", _.Video);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function(_, _utils, _is, _obj, _url){
-
-
-	_.VideoHelper = _utils.Class.extend({
-		construct: function(playerDefaults){
-			this.playerDefaults = _obj.extend({
-				autoPlay: false,
-				width: null,
-				height: null,
-				minWidth: null,
-				minHeight: null,
-				maxWidth: null,
-				maxHeight: null,
-				attrs: {
-					iframe: {
-						src: '',
-						frameborder: 'no',
-						allow: "autoplay; fullscreen",
-						allowfullscreen: true
-					},
-					video: {
-						controls: true,
-						preload: false,
-						controlsList: "nodownload"
-					}
-				}
-			}, playerDefaults);
-			this.sources = _.videoSources.load();
-		},
-		parseHref: function(href, autoPlay){
-			var self = this, urls = href.split(','), result = [];
-			for (var i = 0, il = urls.length, url, source; i < il; i++){
-				if (_is.empty(urls[i])) continue;
-				url = _url.parts(urls[i]);
-				source = null;
-				for (var j = 0, jl = self.sources.length; j < jl; j++){
-					if (self.sources[j].canPlay(url)){
-						source = self.sources[j];
-						result.push({
-							parts: url,
-							source: source,
-							embed: source.getEmbedUrl(url, autoPlay)
-						});
-						break;
-					}
-				}
-			}
-			return result;
-		},
-		canPlay: function(href){
-			return this.parseHref(href).length > 0;
-		},
-		getPlayer: function(href, options){
-			options = _obj.extend({}, this.playerDefaults, options);
-			var urls = this.parseHref(href, options.autoPlay);
-			return new _.VideoPlayer(urls, options);
-		}
-	});
-
-
-})(
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.obj,
-		FooGallery.utils.url
-);
-(function($, _, _utils, _fn){
-
-
-	_.VideoPlayer = _utils.Class.extend({
-		construct: function(urls, options){
-			this.urls = urls;
-			this.options = options;
-			this.selfHosted = $.map(this.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
-			this.$el = this.$create();
-		},
-		$create: function(){
-			var self = this, o = self.options,
-					$result = self.selfHosted ? $('<video/>', o.attrs.video) : $('<iframe/>', o.attrs.iframe);
-			$result.css({
-				width: o.width, height: o.height,
-				maxWidth: o.maxWidth, maxHeight: o.maxHeight,
-				minWidth: o.minWidth, minHeight: o.minHeight
-			});
-			return $result;
-		},
-		appendTo: function(parent){
-			var self = this, $parent = $(parent);
-			if ($parent.length > 0){
-				if (self.$el.length === 0){
-					self.$el = self.$create();
-				}
-				$parent.append(self.$el);
-			}
-			return self;
-		},
-		load: function(){
-			var self = this;
-			if (self.urls.length === 0){
-				return _fn.rejectWith(Error("No supported urls available."));
-			}
-			if (self.selfHosted){
-				return self.loadSelfHosted();
-			} else {
-				return self.loadEmbed();
-			}
-		},
-		loadSelfHosted: function(){
-			var self = this;
-			self.$el.off("loadeddata error");
-			return $.Deferred(function(def){
-				self.$el.find("source").remove();
-				self.$el.on({
-					'loadeddata': function(){
-						self.$el.off("loadeddata error");
-						this.volume = 0.2;
-						if (self.options.autoPlay){
-							var p = this.play();
-							if (typeof p !== 'undefined'){
-								p.catch(function(){
-									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
-								});
-							}
-						}
-						def.resolve();
-					},
-					'error': function(){
-						self.$el.off("loadeddata error");
-						def.reject(Error('Error loading video: ' + $.map(self.urls, function(url){ return url.embed; }).join(",")));
-					}
-				});
-				var sources = $.map(self.urls, function(url){
-					return $("<source/>", {src: url.embed, mimeType: url.source.mimeType});
-				});
-				self.$el.append(sources);
-				if (self.$el.prop("readyState") > 0){
-					self.$el.get(0).load();
-				}
-			}).promise();
-		},
-		loadEmbed: function(){
-			var self = this;
-			self.$el.off("load error");
-			return $.Deferred(function(def){
-				var src = self.urls[0].embed;
-				self.$el.on({
-					'load': function(){
-						self.$el.off("load error");
-						def.resolve();
-					},
-					'error': function(){
-						self.$el.off("load error");
-						def.reject(Error('Error loading video: ' + src));
-					}
-				});
-				self.$el.attr("src", src);
-			}).promise();
-		},
-		remove: function(){
-			this.$el.off("load loadeddata error").remove();
-		}
-	});
-
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.fn
-);
-(function($, _, _utils, _is, _url, _str){
-
-
-	var _testVideo = document.createElement("video");
-
-	_.VideoSource = _utils.Class.extend({
-		construct: function(mimeType, regex, selfHosted, embedParams, autoPlayParam){
-			this.mimeType = mimeType;
-			this.regex = regex;
-			this.selfHosted = _is.boolean(selfHosted) ? selfHosted : false;
-			this.embedParams = _is.array(embedParams) ? embedParams : [];
-			this.autoPlayParam = _is.hash(autoPlayParam) ? autoPlayParam : {};
-			this.canPlayType = this.selfHosted && _is.fn(_testVideo.canPlayType) ? $.inArray(_testVideo.canPlayType(this.mimeType), ['probably','maybe']) !== -1 : true;
-		},
-		canPlay: function(urlParts){
-			return this.canPlayType && this.regex.test(urlParts.href);
-		},
-		mergeParams: function(urlParts, autoPlay){
-			var self = this;
-			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
-				ip = self.embedParams[i];
-				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
-			}
-			if (!_is.empty(self.autoPlayParam)){
-				urlParts.search = _url.param(urlParts.search, self.autoPlayParam.key, autoPlay ? self.autoPlayParam.value : '');
-			}
-			return urlParts.search;
-		},
-		getId: function(urlParts){
-			var match = urlParts.href.match(/.*\/(.*?)($|\?|#)/);
-			return match && match.length >= 2 ? match[1] : null;
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return _str.join('/', location.protocol, '//', urlParts.hostname, urlParts.pathname) + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources = new _utils.Factory();
-
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.url,
-		FooGallery.utils.str
-);
-(function(_){
-
-
-	_.VideoSource.Mp4 = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/mp4', /\.mp4/i, true);
-		}
-	});
-	_.videoSources.register('video/mp4', _.VideoSource.Mp4);
-
-	_.VideoSource.Webm = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/webm', /\.webm/i, true);
-		}
-	});
-	_.videoSources.register('video/webm', _.VideoSource.Webm);
-
-	_.VideoSource.Wmv = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/wmv', /\.wmv/i, true);
-		}
-	});
-	_.videoSources.register('video/wmv', _.VideoSource.Wmv);
-
-	_.VideoSource.Ogv = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/ogg', /\.ogv|\.ogg/i, true);
-		}
-	});
-	_.videoSources.register('video/ogg', _.VideoSource.Ogv);
-
-
-})(
-		FooGallery
-);
-(function(_){
-
-
-	_.VideoSource.YouTube = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/youtube',
-					/(www.)?youtube|youtu\.be/i,
-					false,
-					[
-						{key: 'modestbranding', value: '1'},
-						{key: 'rel', value: '0'},
-						{key: 'wmode', value: 'transparent'},
-						{key: 'showinfo', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getId: function(urlParts){
-			return /embed\//i.test(urlParts.href)
-					? urlParts.href.split(/embed\//i)[1].split(/[?&]/)[0]
-					: urlParts.href.split(/v\/|v=|youtu\.be\//i)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return 'https://www.youtube-nocookie.com/embed/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/youtube', _.VideoSource.YouTube);
-
-
-})(
-		FooGallery
-);
-(function(_){
-
-	_.VideoSource.Vimeo = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/vimeo',
-					/(player.)?vimeo\.com/i,
-					false,
-					[
-						{key: 'badge', value: '0'},
-						{key: 'portrait', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//player.vimeo.com/video/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/vimeo', _.VideoSource.Vimeo);
-
-})(
-		FooGallery
-);
-(function(_){
-
-	_.VideoSource.Dailymotion = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/daily',
-					/(www.)?dailymotion\.com|dai\.ly/i,
-					false,
-					[
-						{key: 'wmode', value: 'opaque'},
-						{key: 'info', value: '0'},
-						{key: 'logo', value: '0'},
-						{key: 'related', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getId: function(urlParts){
-			return /\/video\//i.test(urlParts.href)
-					? urlParts.href.split(/\/video\//i)[1].split(/[?&]/)[0].split(/[_]/)[0]
-					: urlParts.href.split(/dai\.ly/i)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//www.dailymotion.com/embed/video/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/daily', _.VideoSource.Dailymotion);
-
-})(
-		FooGallery
-);
-(function(_, _is, _url){
-
-	_.VideoSource.Wistia = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/wistia',
-					/(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
-					false,
-					[],
-					{
-						iframe: {key: 'autoPlay', value: '1'},
-						playlists: {key: 'media_0_0[autoPlay]', value: '1'}
-					}
-			);
-		},
-		getType: function(href){
-			return /playlists\//i.test(href) ? 'playlists' : 'iframe';
-		},
-		mergeParams: function(urlParts, autoPlay){
-			var self = this;
-			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
-				ip = self.embedParams[i];
-				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
-			}
-			if (!_is.empty(self.autoPlayParam)){
-				var param = self.autoPlayParam[self.getType(urlParts.href)];
-				urlParts.search = _url.param(urlParts.search, param.key, autoPlay ? param.value : '');
-			}
-			return urlParts.search;
-		},
-		getId: function(urlParts){
-			return /embed\//i.test(urlParts.href)
-					? urlParts.href.split(/embed\/.*?\//i)[1].split(/[?&]/)[0]
-					: urlParts.href.split(/medias\//)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//fast.wistia.net/embed/'+this.getType(urlParts.href)+'/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/wistia', _.VideoSource.Wistia);
-
-})(
-		FooGallery,
-		FooGallery.utils.is,
-		FooGallery.utils.url
-);
-(function($, _, _utils, _is){
-
-	_.Embed = _.Item.extend({
-		construct: function(template, options){
-			var self = this;
-			self._super(template, options);
-			self.cover = self.opt.cover;
-		},
-		doParseItem: function($element){
-			var self = this;
-			if (self._super($element)){
-				self.cover = self.$anchor.data("cover") || self.cover;
-				self.$el.addClass(self.cls.embed);
-				return true;
-			}
-			return false;
-		},
-		doCreateItem: function(){
-			var self = this;
-			if (self._super()){
-				self.$anchor.attr({
-					"data-type": self.type,
-					"data-cover": self.cover
-				});
-				self.$el.addClass(self.cls.embed);
-				return true;
-			}
-			return false;
-		}
-	});
-
-	_.template.configure("core", {
-		item: {
-			cover: ""
-		}
-	},{
-		item: {
-			embed: "fg-video"
-		}
-	});
-
-	_.components.register("embed", _.Embed);
 
 })(
 		FooGallery.$,
@@ -9760,1165 +10681,460 @@
 		FooGallery,
 		FooGallery.utils.obj
 );
-(function($, _, _utils, _is){
-
-	var uid = -1;
-
-	/**
-	 * The FooGrid plugin imitates Google's image result viewer, thumbnails are laid out in a grid and when clicked a
-	 * details panel is shown with more information.
-	 * @param {(HTMLElement|jQuery)} element - The container element for the gallery.
-	 * @param {object} options - The options for the plugin.
-	 * @returns {FooGrid}
-	 */
-	function FooGrid(element, options){
-		if (!(this instanceof FooGrid)) return new FooGrid(element, options);
-		this.$el = $(element).addClass('foogrid');
-		this.options = this._options(options, this.$el.data());
-		this.id = this.options.id || uid--;
-		this.deeplinking = new FooGrid.Deeplinking(this);
-		this.parser = new FooGrid.Parser(this.options.parser);
-		this.content = new FooGrid.Content(this);
-		this.items = [];
-		this.disableTransitions = false;
-	}
-
-	FooGrid.defaults = {
-		id: null,
-		scroll: true,
-		scrollOffset: 0,
-		scrollSmooth: true,
-		loop: true,
-		index: null,
-		external: '_blank',
-		externalText: null,
-		keyboard: true,
-		transitionRow: true,
-		transitionOpen: true,
-		deeplinking: false,
-		deeplinkingPrefix: 'foogrid',
-		video: {}, // see the FooGridPlayer.js file for defaults
-		parser: {} // see the FooGridParser.js file for defaults
-	};
-
-	FooGrid.prototype.init = function(){
-		this.layout(true);
-	};
-
-	FooGrid.prototype.layout = function(refresh, index){
-		var self = this;
-		if (refresh){
-			$.each(self.items, function(i, item){
-				item.destroy();
-			});
-			self.items = $.map($.makeArray(self.$el.find('.fg-item')), function(li, i){
-				return new FooGrid.Item(self, li, i);
-			});
-		}
-		self.content.layout(refresh, index);
-	};
-
-	FooGrid.prototype.destroy = function(){
-		$.each(this.items, function(i, item){
-			item.destroy();
-		});
-		this.content.destroy();
-		this.parser.destroy();
-		this.deeplinking.destroy();
-	};
-
-	FooGrid.prototype._options = function(options, data){
-		var o = $.extend(true, {}, FooGrid.defaults, options);
-		if (_is.number(data.id)) o.id = data.id;
-		if (_is.boolean(data.loop)) o.loop = data.loop;
-		if (_is.boolean(data.scroll)) o.scroll = data.scroll;
-		if (_is.boolean(data.scrollSmooth)) o.scrollSmooth = data.scrollSmooth;
-		if (_is.boolean(data.scrollOffset)) o.scrollOffset = data.scrollOffset;
-		if (_is.string(data.external)) o.external = data.external;
-		if (_is.string(data.externalText)) o.externalText = data.externalText;
-		if (_is.boolean(data.keyboard)) o.keyboard = data.keyboard;
-		if (_is.boolean(data.transitionRow)) o.transitionRow = data.transitionRow;
-		if (_is.boolean(data.transitionOpen)) o.transitionOpen = data.transitionOpen;
-		if (_is.boolean(data.deeplinking)) o.deeplinking = data.deeplinking;
-		if (_is.string(data.deeplinkingPrefix)) o.deeplinkingPrefix = data.deeplinkingPrefix;
-		return o;
-	};
-
-	FooGrid.prototype.redraw = function(){
-		this.content.redraw();
-	};
-
-	FooGrid.prototype.captions = function(){
-		return this.$el.hasClass('foogrid-caption-below') || this.$el.hasClass('foogrid-caption-right');
-	};
-
-	FooGrid.prototype.transitions = function(){
-		return !this.disableTransitions && (this.$el.hasClass('foogrid-transition-fade') || this.$el.hasClass('foogrid-transition-horizontal') || this.$el.hasClass('foogrid-transition-vertical'));
-	};
-
-	FooGrid.prototype.open = function(index){
-		return this.content.open(index);
-	};
-
-	FooGrid.prototype.toggle = function(index){
-		return this.content.toggle(index);
-	};
-
-	FooGrid.prototype.prev = function(){
-		return this.content.prev();
-	};
-
-	FooGrid.prototype.next = function(){
-		return this.content.next();
-	};
-
-	FooGrid.prototype.isActive = function(){
-		return this.content.active instanceof FooGrid.Item;
-	};
-
-	FooGrid.prototype.close = function(immediate){
-		immediate = _is.boolean(immediate) ? immediate : false;
-		var self = this;
-		self.disableTransitions = immediate;
-		return self.content.close().then(function(){
-			self.disableTransitions = false;
-		});
-	};
-
-	_.FooGrid = FooGrid;
-
-	$.fn.foogrid = function(options){
-		return this.each(function(i, el){
-			var $this = $(this), grid = $this.data('__FooGrid__');
-			if (_is(grid, FooGrid)){
-				grid.destroy();
-			}
-			$this.data('__FooGrid__', new FooGrid(el, options));
-		});
-	};
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function($, F, _utils, _is){
-
-	if (!F) return;
-
-	F.Parser = function(options){
-		if (!(this instanceof F.Parser)) return new F.Parser(options);
-		this._init(options);
-	};
-
-	F.Parser.defaults = {
-		url: ['attr:href','data:url','data:image','data:video'],
-		external: ['data:external','attr:href','data:url','data:image','data:video'],
-		type: {
-			image: /\.(jpg|jpeg|png|gif|bmp)/i,
-			video: /youtube(-nocookie)?\.com\/(watch|v|embed)|youtu\.be|vimeo\.com|\.mp4|\.ogv|\.wmv|\.webm|(.+)?(wistia\.(com|net)|wi\.st)\/.*|(www.)?dailymotion\.com|dai\.ly/i,
-			iframe: /^(?!.*?(youtube(-nocookie)?\.com\/(watch|v|embed)|youtu\.be|vimeo\.com|\.mp4|\.ogv|\.wmv|\.webm|(.+)?(wistia\.(com|net)|wi\.st)\/.*|(www.)?dailymotion\.com|dai\.ly|\.(jpg|jpeg|png|gif|bmp)($|\?|#)))https?:\/\/.*?/i,
-			html: /^#.+?$/i
-		},
-		thumbnail: ['attr:src','data:thumbnail'],
-		title: ['data:captionTitle','data:title','attr:title'],
-		description: ['data:captionDesc','data:description','attr:alt'],
-		width: ['data:width'],
-		height: ['data:height']
-	};
-
-	F.Parser.prototype._init = function(options){
-		this.options = $.extend(true, {}, F.Parser.defaults, options);
-		this._a = document.createElement('a');
-	};
-
-	F.Parser.prototype.destroy = function(){
-
-	};
-
-	F.Parser.prototype.parse = function($anchor){
-		var type = this._type($anchor),
-				width = parseInt(this._width($anchor)),
-				height = parseInt(this._height($anchor));
-		var content = {
-			url: this._url($anchor, type),
-			external: this._external($anchor),
-			type: type,
-			title: this._title($anchor),
-			description: this._description($anchor),
-			width: isNaN(width) ? 0 : width,
-			height: isNaN(height) ? 0 : height
-		};
-		if (type === 'video' || type === 'embed'){
-			content.thumbnail = this._thumbnail($anchor);
-		}
-		return _is.string(content.url) ? content : null;
-	};
-
-	F.Parser.prototype._full_url = function(url){
-		this._a.href = url;
-		return this._a.href;
-	};
-
-	F.Parser.prototype._parse = function($elem, source){
-		var tmp, value = null, _val = function($e, s){
-			var parts = s.split(':');
-			return parts.length === 2 && $e instanceof $ && _is.fn($e[parts[0]]) ? $e[parts[0]](parts[1]) : null;
-		};
-		if (_is.string(source)){
-			value = _val($elem, source);
-		} else if (_is.array(source)){
-			$.each(source, function(i, src){
-				if (!_is.undef(tmp = _val($elem, src)) && tmp !== null){
-					value = tmp;
-					return false;
-				}
-			});
-		}
-		return value;
-	};
-
-	F.Parser.prototype._url = function($anchor, type){
-		var url = this._parse($anchor, this.options.url);
-		return type === 'embed' ? url : this._full_url(url);
-	};
-
-	F.Parser.prototype._external = function($anchor){
-		var url = this._parse($anchor, this.options.external);
-		return this._full_url(url);
-	};
-
-	F.Parser.prototype._type = function($anchor){
-		var tmp; // first check if the type is supplied and valid
-		if (_is.string(tmp = $anchor.data('type')) && (tmp in this.options.type || tmp === 'embed')){
-			return tmp;
-		}
-		// otherwise perform a best guess using the href and any parser.type values
-		tmp = $anchor.attr('href');
-		var regex = this.options.type, type = null;
-		$.each(['image','video','html','iframe'], function(i, name){
-			if (regex[name] && regex[name].test(tmp)){
-				type = name;
-				return false;
-			}
-		});
-		return type;
-	};
-
-	F.Parser.prototype._thumbnail = function($anchor){
-		var $img, tmp;
-		if (($img = $anchor.find('img')).length !== 0){
-			if (tmp = this._parse($img, this.options.thumbnail)){
-				return tmp;
-			}
-		}
-		return null;
-	};
-
-	F.Parser.prototype._title = function($anchor){
-		return this._parse($anchor, this.options.title);
-	};
-
-	F.Parser.prototype._description = function($anchor){
-		var tmp;
-		if (tmp = this._parse($anchor, this.options.description)){
-			return tmp;
-		}
-		var $img;
-		if (($img = $anchor.find('img')).length !== 0){
-			if (tmp = this._parse($img, this.options.description)){
-				return tmp;
-			}
-		}
-		return null;
-	};
-
-	F.Parser.prototype._width = function($anchor){
-		return this._parse($anchor, this.options.width);
-	};
-
-	F.Parser.prototype._height = function($anchor){
-		return this._parse($anchor, this.options.height);
-	};
-
-})(
-		FooGallery.$,
-		FooGallery.FooGrid,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function($, _, F, _utils, _is, _transition){
-
-	if (!F) return;
-
-	F.Content = function(grid){
-		if (!(this instanceof F.Content)) return new F.Content(grid);
-		this._init(grid);
-	};
-
-	F.Content.prototype._init = function(grid){
-		this.grid = grid;
-		this.index = this.grid.options.index;
-		this.active = null;
-		this.$prev = null;
-		this.$next = null;
-		this.$close = null;
-		this.$fullscreen = null;
-		this.$external = null;
-		this.$wrap = $('<div/>');
-		this.fullscreen = false;
-		this.busy = false;
-		this.first = true;
-		this.$li = this.$createContent();
-	};
-
-	F.Content.prototype.destroy = function(){
-		this.$prev.off('click.gg', this.onPrevClick);
-		this.$next.off('click.gg', this.onNextClick);
-		this.$close.off('click.gg', this.onCloseClick);
-		this.$fullscreen.off('click.gg', this.onFullscreenClick);
-		this.$wrap.remove();
-		this.$li.remove();
-		this.index = this.grid.options.index;
-		this.active = this.$prev = this.$next = this.$close = this.$fullscreen = this.$external = this.$wrap = null;
-		this.fullscreen = false;
-		this.busy = false;
-	};
-
-	F.Content.prototype.layout = function(refresh, index){
-		if (refresh){
-			this.index = _is.number(index) ? index : 0;
-			this.active = null;
-			this.fullscreen = false;
-			this.busy = false;
-			this.first = true;
-		}
-		this._loop();
-	};
-
-	F.Content.prototype.redraw = function(){
-		this._loop();
-	};
-
-	F.Content.prototype.$createContent = function(){
-		var $content = $('<section/>', {'class': 'foogrid-content'});
-		$content.append(this.$createNav());
-		if (this.grid.options.keyboard){
-			$content.attr('tabindex', 1).on('keydown', {self: this}, this.onKeyDown);
-		}
-		return $content;
-	};
-
-	F.Content.prototype.$createNav = function(){
-		this.$prev = $('<span/>', {'class': 'foogrid-nav-prev'}).on('click.gg', {self: this}, this.onPrevClick).append('<i/>');
-		this.$next = $('<span/>', {'class': 'foogrid-nav-next'}).on('click.gg', {self: this}, this.onNextClick).append('<i/>');
-		this.$close = $('<span/>', {'class': 'foogrid-nav-close'}).on('click.gg', {self: this}, this.onCloseClick);
-		this.$fullscreen = $('<span/>', {'class': 'foogrid-nav-fullscreen'}).on('click.gg', {self: this}, this.onFullscreenClick);
-		this.$external = $('<a/>', {'class': 'foogrid-nav-external', target: this.grid.options.external});
-		if (_is.string(this.grid.options.externalText) && this.grid.options.externalText !== ''){
-			this.$external.addClass('foogrid-external-text').html(this.grid.options.externalText);
-		}
-		return [this.$prev, this.$next, this.$close, this.$fullscreen, this.$external];
-	};
-
-	F.Content.prototype._index = function(index){
-		index = index || 0;
-		var length = this.grid.items.length;
-		if (index > -1 && index < length){
-			this.index = index;
-		} else if (length > 0 && index < 0){
-			this.index = this.grid.options.loop ? length - 1 : 0;
-		} else if (length > 0 && index >= length){
-			this.index = this.grid.options.loop ? 0 : length - 1;
-		} else {
-			this.index = null;
-		}
-	};
-
-	F.Content.prototype._loop = function(){
-		if (this.index == 0 && !this.grid.options.loop){
-			this.$prev.addClass('foogrid-disabled');
-		} else {
-			this.$prev.removeClass('foogrid-disabled');
-		}
-		if (this.index == this.grid.items.length - 1 && !this.grid.options.loop){
-			this.$next.addClass('foogrid-disabled');
-		} else {
-			this.$next.removeClass('foogrid-disabled');
-		}
-	};
-
-	F.Content.prototype.scrollTo = function(scrollTop, condition, duration){
-		var self = this, $wpadminbar;
-		scrollTop = (_is.number(scrollTop) ? scrollTop : 0) - (+self.grid.options.scrollOffset);
-		condition = _is.boolean(condition) ? condition : true;
-		duration = _is.number(duration) ? duration : 300;
-		if (($wpadminbar = $('#wpadminbar')).length === 1){
-			scrollTop -= $wpadminbar.height();
-		}
-		return $.Deferred(function(d){
-			if (!self.grid.options.scroll || !condition){
-				d.resolve();
-			} else if (self.grid.options.scrollSmooth && !self.fullscreen){
-				$('html, body').animate({ scrollTop: scrollTop }, duration, function(){
-					d.resolve();
-				});
-			} else {
-				$('html, body').scrollTop(scrollTop);
-				d.resolve();
-			}
-		});
-	};
-
-	F.Content.prototype._open = function(item, diff_row, reverse){
-		var self = this;
-		return $.Deferred(function(d){
-			if (item instanceof F.Item){
-				//var first = !jQuery.contains(document, self.$li.get(0));
-				if (item.hasCaption){
-					self.$li.addClass('foogrid-has-caption');
-				} else {
-					self.$li.removeClass('foogrid-has-caption');
-				}
-
-				self.scrollTo(item.$li.offset().top, diff_row || self.first).then(function(){
-					if ((self.first || diff_row) && !self.fullscreen){
-						item.$li.after(self.$li);
-					}
-					self.$external.attr('href', item.content.external);
-					if (self.grid.transitions() && !self.fullscreen && ((self.grid.options.transitionOpen && self.first) || (self.grid.options.transitionRow && diff_row))){
-						self.first = false;
-						_transition.start(self.$li, 'foogrid-visible', true, 350).then(function(){
-							d.resolve();
-						});
-					} else {
-						d.resolve();
-					}
-				});
-			} else {
-				d.resolve();
-			}
-		}).always(function(){
-			self._loop();
-			self.$li.addClass('foogrid-visible').focus();
-			self.active = item;
-			if (self.grid && self.grid.deeplinking) self.grid.deeplinking.set(item);
-			self.busy = false;
-			return item.open(reverse).then(function(){
-				return self.scrollTo(item.$li.offset().top, true);
-			});
-		});
-	};
-
-	F.Content.prototype.open = function(index){
-		if (this.busy) return $.when();
-		this.busy = true;
-		this._index(index);
-		if (_is.number(this.index) && this.grid.items[this.index] instanceof F.Item){
-			var self = this,
-				prev = this.active,
-				next = this.grid.items[this.index],
-				last = this.grid.items.length - 1,
-				reverse = true,
-				diff_row = false,
-				bottom, old_bottom;
-
-			// hide previously displayed content
-			if (prev instanceof F.Item){
-				bottom = next.bottom();
-				old_bottom = prev.bottom();
-				diff_row = bottom != old_bottom;
-				reverse = prev.index < next.index;
-				if (next.index === 0 && prev.index === last || next.index === last && prev.index === 0) reverse = !reverse;
-				self.$li.removeClass('foogrid-has-caption');
-				if (diff_row && !self.fullscreen){
-					self.busy = false;
-					return self.close(reverse, diff_row).then(function(){
-						self.busy = true;
-						return self._open(next, diff_row, reverse);
-					});
-				}
-				prev.close(reverse);
-			}
-			return self._open(next, diff_row, reverse);
-		}
-		return $.when();
-	};
-
-	F.Content.prototype.close = function(reverse, diff_row){
-		if (this.busy) return $.when();
-		this.busy = true;
-		var self = this;
-		return $.Deferred(function(d){
-			if (self.active instanceof F.Item){
-				self.active.close(reverse).then(function(){
-					if (self.grid.transitions() && !self.fullscreen && ((self.grid.options.transitionRow && diff_row) || (self.grid.options.transitionOpen && !diff_row))){
-						_transition.start(self.$li, 'foogrid-visible', false, 350).then(function(){
-							d.resolve();
-						});
-					} else {
-						d.resolve();
-					}
-				});
-			} else {
-				d.resolve();
-			}
-		}).always(function(){
-			self.$li.removeClass('foogrid-visible foogrid-has-caption foogrid-fullscreen').detach();
-			self.$prev.add(self.$next).removeClass('foogrid-disabled');
-			self.fullscreen = false;
-			self.active = null;
-			if (self.grid && self.grid.deeplinking) self.grid.deeplinking.clear();
-			self.busy = false;
-			if (!diff_row) self.first = true;
-		});
-	};
-
-	F.Content.prototype.toggle = function(index){
-		if (this.busy) return $.when();
-		this._index(index);
-		if (_is.number(this.index) && this.grid.items[this.index] instanceof F.Item){
-			if (this.active === this.grid.items[this.index]){
-				return this.close();
-			} else {
-				return this.open(index);
-			}
-		}
-		return $.when();
-	};
-
-	F.Content.prototype.prev = function(){
-		if (_is.number(this.index)){
-			return this.open(this.index - 1);
-		}
-		return $.when();
-	};
-
-	F.Content.prototype.next = function(){
-		if (_is.number(this.index)){
-			return this.open(this.index + 1);
-		}
-		return $.when();
-	};
-
-	F.Content.prototype.toggleFullscreen = function(){
-		if (this.$li.hasClass('foogrid-fullscreen')){
-			this.active.$li.after(this.$li.removeClass('foogrid-fullscreen'));
-			this.$wrap.remove();
-			this.$li.focus();
-			this.fullscreen = false;
-		} else {
-			this.$wrap.attr('class', this.grid.$el.attr('class')).append(this.$li.addClass('foogrid-fullscreen')).appendTo('body');
-			this.$li.focus();
-			this.fullscreen = true;
-		}
-		var ul = this.grid.$el.get(0);
-		ul.style.display = 'none';
-		ul.offsetHeight;
-		ul.style.display = '';
-	};
-
-	F.Content.prototype.onPrevClick = function(e){
-		e.preventDefault();
-		var self = e.data.self;
-		if (!self.$prev.hasClass('foogrid-disabled')){
-			self.prev();
-		}
-	};
-
-	F.Content.prototype.onNextClick = function(e){
-		e.preventDefault();
-		var self = e.data.self;
-		if (!self.$next.hasClass('foogrid-disabled')){
-			self.next();
-		}
-	};
-
-	F.Content.prototype.onCloseClick = function(e){
-		e.preventDefault();
-		e.data.self.close();
-	};
-
-	F.Content.prototype.onFullscreenClick = function(e){
-		e.preventDefault();
-		e.data.self.toggleFullscreen();
-	};
-
-	F.Content.prototype.onKeyDown = function(e){
-		var self = e.data.self;
-		switch (e.which){
-			case 39: self.next(); break;
-			case 37: self.prev(); break;
-			case 27:
-				if (self.fullscreen){
-					self.toggleFullscreen();
-				} else {
-					self.close();
-				}
-				break;
-			case 13:
-				if (e.altKey){
-					self.toggleFullscreen();
-				}
-				break;
-		}
-	};
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.FooGrid,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.transition
-);
-(function($, F, _utils, _is, _transition){
-
-	if (!F) return;
-
-	F.Item = function(grid, li, index){
-		if (!(this instanceof F.Item)) return new F.Item(grid, li, index);
-		this._init(grid, li, index);
-	};
-
-	F.Item.prototype._init = function(grid, li, index){
-		this.grid = grid;
-		this.index = index;
-		this.$li = $(li).append('<span/>');
-		this.$link = this.$li.find('.fg-thumb').first().on('click.gg', {self: this}, this.onClick);
-		this.visible = false;
-		this.content = this.grid.parser.parse(this.$link);
-		this.hash = this.grid.deeplinking.hash(this.content.external);
-		this.hasCaption = false;
-		this.isCreated = false;
-		this.player = null;
-		this.$content = null;
-	};
-
-	F.Item.prototype.destroy = function(){
-		if (this.player){
-			this.player.destroy();
-		}
-		this.player = null;
-		this.$li.removeClass('foogrid-visible').children('span').remove();
-		this.$link.off('click.gg', this.onClick);
-		if (this.isCreated){
-			this.$content.remove();
-		}
-		this.$content = null;
-		this.visible = false;
-		this.hasCaption = false;
-		this.isCreated = false;
-		this.index = null;
-		this.content = {};
-	};
-
-	F.Item.prototype.$create = function(){
-		var $inner = $('<div/>', {'class': 'foogrid-content-inner'}),
-			$caption, $content;
-
-		switch (this.content.type){
-			case 'image':
-				$inner.addClass('foogrid-content-image');
-				$content = $('<img/>', {src: this.content.url, 'class': 'foogrid-image'});
-				break;
-			case 'html':
-				$inner.addClass('foogrid-content-html');
-				$content = $(this.content.url).contents();
-				break;
-			case 'embed':
-				$inner.addClass('foogrid-content-embed');
-				$content = $('<div/>', {'class': 'foogrid-embed'}).append($(this.content.url).contents());
-				break;
-			case 'video':
-				$inner.addClass('foogrid-content-video');
-				this.player = new F.Player(this.grid, this.content.url);
-				$content = this.player.$el;
-				break;
-			case 'iframe':
-			default:
-				$inner.addClass('foogrid-content-iframe');
-				$content = $('<iframe/>', {
-					src: this.content.url, 'class': 'foogrid-iframe', frameborder: 'no',
-					webkitallowfullscreen: true, mozallowfullscreen: true, allowfullscreen: true
-				});
-				break;
-		}
-		$inner.append($content);
-		if ($caption = this.$createCaption()){
-			this.hasCaption = true;
-			$inner.addClass('foogrid-has-caption').append($caption);
-		}
-
-		this.isCreated = true;
-		return $inner;
-	};
-
-	F.Item.prototype.$createCaption = function(){
-		var has_title = _is.string(this.content.title), has_desc = _is.string(this.content.description);
-		if (has_title || has_desc){
-			var $caption = $('<div/>', {'class': 'foogrid-caption'}).append($('<div/>', {'class': 'foogrid-caption-separator'}));
-			if (has_title){
-				$caption.append($('<h4/>', {'class': 'foogrid-title'}).html(this.content.title));
-			}
-			if (has_desc){
-				$caption.append($('<p/>', {'class': 'foogrid-description'}).html(this.content.description));
-			}
-			return $caption;
-		}
-		return null;
-	};
-
-	F.Item.prototype.setEmbedSize = function(){
-		var ah = this.$content.height(), ch = this.content.height,
-				aw = this.$content.width(), cw = this.content.width,
-				rh = ah / ch, rw = aw / cw, ratio = 0;
-
-		if (rh < rw){
-			ratio = rh;
-		} else {
-			ratio = rw;
-		}
-
-		if (ratio > 0 && ratio < 1){
-			this.$content.children('.foogrid-embed').css({height: this.content.height * ratio, width: this.content.width * ratio});
-		} else {
-			this.$content.children('.foogrid-embed').css({height: '', width: ''});
-		}
-	};
-
-	F.Item.prototype.open = function(reverse){
-		var self = this;
-		return $.Deferred(function(d){
-			if (!self.isCreated){
-				self.$content = self.$create();
-			}
-			self.visible = true;
-			if (reverse){
-				self.$content.addClass('foogrid-reverse');
-			} else {
-				self.$content.removeClass('foogrid-reverse');
-			}
-			self.grid.content.$li.append(self.$content);
-
-			self.$li.addClass('foogrid-visible');
-			if (self.grid.transitions()){
-				_transition.start(self.$content, 'foogrid-visible', true, 1000).then(function(){
-					if (self.content.type === 'embed'){
-						$(window).on('resize.foogrid', function(){
-							self.setEmbedSize();
-						});
-						self.setEmbedSize();
-					}
-
-					self.$content.removeClass('foogrid-reverse');
-					if (self.player && self.player.options.autoplay){
-						self.player.play();
-					}
-					d.resolve();
-				});
-			} else {
-				self.$content.removeClass('foogrid-reverse').addClass('foogrid-visible');
-				if (self.player && self.player.options.autoplay){
-					self.player.play();
-				}
-				d.resolve();
-			}
-		});
-	};
-
-	F.Item.prototype.close = function(reverse){
-		var self = this;
-		return $.Deferred(function(d){
-			self.visible = false;
-			if (self.player instanceof F.Player){
-				self.player.pause();
-			}
-			self.$li.removeClass('foogrid-visible');
-			if (reverse){
-				self.$content.removeClass('foogrid-reverse');
-			} else {
-				self.$content.addClass('foogrid-reverse');
-			}
-			$(window).off('resize.foogrid');
-			if (self.grid.transitions()){
-				_transition.start(self.$content, 'foogrid-visible', false, 350).then(function(){
-					self.$content.removeClass('foogrid-reverse').detach();
-					d.resolve();
-				});
-			} else {
-				self.$content.removeClass('foogrid-visible foogrid-reverse').detach();
-				d.resolve();
-			}
-		});
-	};
-
-	F.Item.prototype.bottom = function(){
-		var offset = this.$li.offset().top, height = this.$li.height();
-		return offset + height;
-	};
-
-	F.Item.prototype.onClick = function(e){
-		e.preventDefault();
-		var self = e.data.self;
-		self.grid.toggle(self.index);
-	};
-
-})(
-		FooGallery.$,
-		FooGallery.FooGrid,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.transition
-);
-(function($, F, _utils, _is){
-
-	F.Video = function(url, autoplay){
-		if (!(this instanceof F.Video)) return new F.Video(url, autoplay);
-		this._init(url, autoplay);
-	};
-
-	F.Video.prototype._init = function(url, autoplay){
-		this.autoplay = !!autoplay;
-		this._parse(url);
-		this._mimeType(url);
-
-		var ua = navigator.userAgent.toLowerCase(), ie = ua.indexOf('msie ') > -1 || ua.indexOf('trident/') > -1 || ua.indexOf('edge/') > -1, ie8orless = !document.addEventListener;
-		this.direct = this.hasMimeType ? $.inArray(this.mimeType, ['video/mp4','video/wmv','video/ogg','video/webm']) !== -1 : false;
-		this.supported = this.hasMimeType ? (this.direct ? $.inArray(this.mimeType, ie ? ie8orless ? [] : ['video/mp4','video/wmv'] : ['video/mp4','video/ogg','video/webm']) !== -1 : true) : false;
-	};
-
-	F.Video.prototype._parse = function(url){
-		var parts = url.split('#');
-		this.hash = parts.length == 2 ? '#'+parts[1] : '';
-		parts = parts[0].split('?');
-		this.url = parts[0];
-		var match = this.url.match(/.*\/(.*)$/);
-		this.id = match && match.length >= 2 ? match[1] : null;
-		this.protocol = url.substring(0,5) == 'https' ? 'https:' : 'http:';
-		this.params = [];
-		var params = (parts.length == 2 ? parts[1] : '').split(/[&;]/g);
-		for (var i = 0, len = params.length, pair; i < len; i++){
-			pair = params[i].split('=');
-			if (pair.length != 2) continue;
-			this.params.push({key: decodeURIComponent(pair[0]), value: decodeURIComponent(pair[1])});
-		}
-	};
-
-	F.Video.prototype._mimeType = function(url){
-		this.mimeTypes = { // list of supported mimeTypes and the regex used to test a url
-			'video/youtube': /(www.)?youtube|youtu\.be/i,
-			'video/vimeo': /(player.)?vimeo\.com/i,
-			'video/wistia': /(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
-			'video/daily': /(www.)?dailymotion\.com|dai\.ly/i,
-			'video/mp4': /\.mp4/i,
-			'video/webm': /\.webm/i,
-			'video/wmv': /\.wmv/i,
-			'video/ogg': /\.ogv/i
-		};
-		this.mimeType = null;
-		for (var name in this.mimeTypes){
-			if (this.mimeTypes.hasOwnProperty(name) && this.mimeTypes[name].test(url))
-				this.mimeType = name;
-		}
-		this.hasMimeType = this.mimeType !== null;
-
-		if (this.mimeType == 'video/youtube'){
-			this.id = /embed\//i.test(this.url)
-				? this.url.split(/embed\//i)[1].split(/[?&]/)[0]
-				: url.split(/v\/|v=|youtu\.be\//i)[1].split(/[?&]/)[0];
-			this.url = this.protocol + '//www.youtube.com/embed/' + this.id;
-			if (this.autoplay) this.param('autoplay', '1');
-			this.param('modestbranding', '1');
-			this.param('rel', '0');
-			this.param('wmode', 'transparent');
-			this.param('showinfo', '0');
-		} else if (this.mimeType == 'video/vimeo'){
-			this.id = this.url.substr(this.url.lastIndexOf('/')+1);
-			this.url = this.protocol + '//player.vimeo.com/video/' + this.id;
-			if (this.autoplay) this.param('autoplay', '1');
-			this.param('badge', '0');
-			this.param('portrait', '0');
-		} else if (this.mimeType == 'video/wistia'){
-			this.id = /embed\//i.test(this.url)
-				? this.url.split(/embed\/.*?\//i)[1].split(/[?&]/)[0]
-				: this.url.split(/medias\//)[1].split(/[?&]/)[0];
-			var playlist = /playlists\//i.test(this.url);
-			this.url = this.protocol + '//fast.wistia.net/embed/'+(playlist ? 'playlists' : 'iframe')+'/'+this.id;
-			if (this.autoplay){
-				if (playlist) this.param('media_0_0[autoPlay]', '1');
-				else this.param('autoPlay', '1');
-			}
-			this.param('theme', '');
-		} else if (this.mimeType == 'video/daily'){
-			this.id = /\/video\//i.test(this.url)
-				? this.url.split(/\/video\//i)[1].split(/[?&]/)[0].split(/[_]/)[0]
-				: url.split(/dai\.ly/i)[1].split(/[?&]/)[0];
-			this.url = this.protocol + '//www.dailymotion.com/embed/video/' + this.id;
-			if (this.autoplay) this.param('autoplay', '1');
-			this.param('wmode', 'opaque');
-			this.param('info', '0');
-			this.param('logo', '0');
-			this.param('related', '0');
-		}
-	};
-
-	F.Video.prototype.param = function(key, value){
-		var GET = typeof value === 'undefined', DELETE = typeof value === 'string' && value === '';
-		for (var i = this.params.length; i-- > 0;) {
-			if (this.params[i].key == key) {
-				if (GET) return this.params[i].value;
-				if (DELETE) this.params.splice(i, 1);
-				else this.params[i].value = value;
-				return;
-			}
-		}
-		if (!GET && !DELETE) this.params.push({key: key, value: value});
-	};
-
-	F.Video.prototype.toString = function(){
-		var params = this.params.length > 0 ? '?' : '';
-		for (var i = 0, len = this.params.length; i < len; i++){
-			if (i != 0) params += '&';
-			params += encodeURIComponent(this.params[i].key) + '=' + encodeURIComponent(this.params[i].value);
-		}
-		return this.url + params + this.hash;
-	};
-
-})(
-		FooGallery.$,
-		FooGallery.FooGrid,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function($, F, _utils, _is){
-
-	if (!F) return;
-
-	F.Player = function(grid, url){
-		if (!(this instanceof F.Player)) return new F.Player(grid, url);
-		this._init(grid, url);
-	};
-
-	F.Player.defaults = {
-		width: 1280,
-		height: 720,
-		autoplay: true
-	};
-
-	F.Player.prototype._init = function(grid, url){
-		this.grid = grid;
-		this.options = $.extend(true, {}, F.Player.defaults, this.grid.options);
-		this.urls = this._parse(url);
-		this.direct = this._direct();
-		this.$video = null;
-		this.$el = this.$create();
-		if (this.$video instanceof $){
-			this.video = this.$video[0];
-		}
-	};
-
-	F.Player.prototype._parse = function(url){
-		if (typeof url === 'string'){
-			url = url.split(',');
-			for (var i = 0, len = url.length; i < len; i++){
-				url[i] = new F.Video($.trim(url[i]), this.options.autoplay);
-			}
-			return url;
-		}
-		return [];
-	};
-
-	F.Player.prototype._direct = function(){
-		if (!document.addEventListener) return false;
-		for (var i = 0, len = this.urls.length; i < len; i++){
-			if (this.urls[i].direct && this.urls[i].supported) return true;
-		}
-		return false;
-	};
-
-	F.Player.prototype.$create = function(){
-		var $wrap = $('<div/>', {'class': 'foogrid-video'})
-			.css({width: '100%',height: '100%',maxWidth: this.options.width,maxHeight: this.options.height});
-
-		if (this.direct){
-			this.$video = this.$createVideo(this.urls);
-			this.video = this.$video.get(0);
-			return $wrap.append(this.$video);
-		} else if (this.urls.length > 0 && !this.urls[0].direct) {
-			return $wrap.append(this.$video = this.$createEmbed(this.urls[0]));
-		}
-		return null;
-	};
-
-	F.Player.prototype.play = function(){
-		if (this.video && this.video instanceof HTMLVideoElement){
-			this.video.load();
-			this.video.play();
-		}
-	};
-
-	F.Player.prototype.pause = function(){
-		if (this.video && this.video instanceof HTMLVideoElement){
-			this.video.pause();
-		}
-	};
-
-	F.Player.prototype.destroy = function(){
-		if (this.direct && this.$video){
-			this.$video.off('error loadeddata');
-		}
-		this.$el.remove();
-		this.$el = null;
-	};
-
-	F.Player.prototype.$createVideo = function(urls){
-		var $el = $('<video/>', { controls: true, preload: false })
-			.css({width: '100%',height: '100%'});
-
-		var el = $el[0], src = [];
-		function onerror(){
-			for (var i = 0, len = src.length; i < len; i++){
-				src[0].removeEventListener('error', onerror, false);
-			}
-			el.removeEventListener('error', onerror, false);
-			el.removeEventListener('loadeddata', onloadeddata, false);
-		}
-
-		for (var i = 0, len = urls.length, $src; i < len; i++){
-			if (urls[i].direct){
-				$src = $('<source/>', { type: urls[i].mimeType, src: urls[i].toString() });
-				$src[0].addEventListener('error', onerror, false);
-				src.push($src[0]);
-				$el.append($src);
-			}
-		}
-
-		function onloadeddata(){
-			for (var i = 0, len = src.length; i < len; i++){
-				src[0].removeEventListener('error', onerror, false);
-			}
-			el.removeEventListener('loadeddata', onloadeddata, false);
-			el.removeEventListener('error', onerror, false);
-		}
-		el.addEventListener('error', onerror, false);
-		el.addEventListener('loadeddata', onloadeddata, false);
-
-		if (el.readyState < 4) el.load();
-		else onloadeddata();
-		return $el;
-	};
-
-	F.Player.prototype.$createEmbed = function(url){
-		return $('<iframe/>', {
-			src: url, frameborder: 'no', allow: "autoplay; fullscreen",
-			width: this.options.width, height: this.options.height,
-			webkitallowfullscreen: true, mozallowfullscreen: true, allowfullscreen: true
-		}).css({width: '100%',height: '100%'});
-	};
-
-})(
-		FooGallery.$,
-		FooGallery.FooGrid,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function($, F, _utils, _is, _str){
-
-	if (!F) return;
-
-	F.Deeplinking = function(grid){
-		if (!(this instanceof F.Deeplinking)) return new F.Deeplinking(grid);
-		this._init(grid);
-	};
-
-	F.Deeplinking.prototype._init = function(grid){
-		this.grid = grid;
-		if (this.grid.options.deeplinking && window.history){
-			$(window).on('popstate', {self: this}, this.onPopState);
+(function($, _, _is, _fn, _t){
+
+	_.Panel = _.Component.extend({
+		/**
+		 * Setup/Teardown Methods
+		 **/
+		construct: function( template, options ){
 			var self = this;
-			setTimeout(function(){
-				self.check();
-			}, 500);
-		}
-	};
+			self._super( template );
 
-	F.Deeplinking.prototype.destroy = function(){
-		if (this.grid.options.deeplinking && window.history){
-			$(window).off('popstate', this.onPopState);
-		}
-	};
+			self.opt = options;
 
-	F.Deeplinking.prototype.onPopState = function(e){
-		e.data.self.check();
-	};
+			self.$el = null;
+			self.$prev = null;
+			self.$next = null;
+			self.$close = null;
+			self.$external = null;
+			self.$fullscreen = null;
+			self.$fullscreenWrap = null;
 
-	F.Deeplinking.prototype.hash = function(value){
-		return ['#!'+this.grid.options.deeplinkingPrefix, this.grid.id, _str.fnv1a(value)].join('/');
-	};
+			self.isFullscreen = false;
+			self.isBusy = false;
+			self.isFirst = true;
+			self.showCaptions = false;
+			self.hasTransition = false;
+			self.currentItem = null;
+		},
+		preinit: function(){
+			var self = this;
+			self.$el = $('<section/>', {'class': 'foogrid-content'});
+			self.$prev = $('<span/>', {'class': 'foogrid-nav-prev'}).append('<i/>');
+			self.$next = $('<span/>', {'class': 'foogrid-nav-next'}).append('<i/>');
+			self.$close = $('<span/>', {'class': 'foogrid-nav-close'});
+			self.$fullscreen = $('<span/>', {'class': 'foogrid-nav-fullscreen'});
+			self.$external = $('<a/>', {'class': 'foogrid-nav-external'});
+			self.$fullscreenWrap = $('<div/>');
 
-	F.Deeplinking.prototype.check = function(){
-		var self = this,
-			current = location.hash,
-			check = '#!'+self.grid.options.deeplinkingPrefix+'/';
+			self.showCaptions = self.tmpl.$el.hasClass("foogrid-caption-below") || self.tmpl.$el.hasClass("foogrid-caption-right");
+			self.hasTransition = self.tmpl.$el.hasClass("foogrid-transition-fade") || self.tmpl.$el.hasClass("foogrid-transition-horizontal") || self.tmpl.$el.hasClass("foogrid-transition-vertical");
+			self.disableTransitions = false;
 
-		if (_is.string(current) && current.length >= check.length && current.substr(0, check.length) === check){
-			var parts = current.split('/');
-			if (parts.length === 3){
-				var id = parts[1];
-				if (self.grid.id == id){
-					$.each(self.grid.items, function(i, item){
-						if (item.hash == current){
-							self.grid.content.open(item.index);
-							return false;
+			self.$el.append( self.$prev, self.$next, self.$close, self.$fullscreen, self.$external );
+		},
+		init: function(){
+			var self = this;
+			self.$prev.on('click.gg', {self: self}, self.onPrevClick);
+			self.$next.on('click.gg', {self: self}, self.onNextClick);
+			self.$close.on('click.gg', {self: self}, self.onCloseClick);
+			self.$fullscreen.on('click.gg', {self: self}, self.onFullscreenClick);
+
+			if (self.opt.keyboard){
+				self.$el.attr('tabindex', 1).on('keydown', {self: self}, self.onKeyDown);
+			}
+			if (!_is.empty(self.opt.externalText)){
+				self.$external.attr("target", self.opt.external)
+						.addClass('foogrid-external-text')
+						.html(self.opt.externalText);
+			}
+		},
+		destroy: function(){
+			var self = this;
+			self.$prev.off('click.gg', self.onPrevClick);
+			self.$next.off('click.gg', self.onNextClick);
+			self.$close.off('click.gg', self.onCloseClick);
+			self.$fullscreen.off('click.gg', self.onFullscreenClick);
+			self.$fullscreenWrap.remove();
+			self.$el.remove();
+			self._super();
+		},
+		layout: function(refresh, index){
+			var self = this;
+			if (refresh){
+
+			}
+			self.checkForLoop();
+		},
+
+		onParsedOrCreatedItem: function(item){
+			if (!item.isError){
+				var self = this;
+				item.$anchor.on("click.gg", {self: self, item: item}, self.onAnchorClick);
+				item.$content = $("<div/>", {"class": "foogrid-content-inner"});
+				item.content.appendTo(item.$content);
+				item.$content.addClass("foogrid-content-" + item.type);
+				var hasTitle = !_is.empty(item.caption), hasDescription = !_is.empty(item.description);
+				if (hasTitle || hasDescription){
+					var $caption = $('<div/>', {'class': 'foogrid-caption'}).append($('<div/>', {'class': 'foogrid-caption-separator'}));
+					if (hasTitle){
+						$caption.append($('<h4/>', {'class': 'foogrid-title'}).html(item.caption));
+					}
+					if (hasDescription){
+						$caption.append($('<p/>', {'class': 'foogrid-description'}).html(item.description));
+					}
+					item.$content.addClass('foogrid-has-caption').append($caption);
+					item.hasCaption = true;
+				}
+			}
+		},
+
+		/**
+		 * Util Methods
+		 **/
+
+		transitionsEnabled: function(){
+			return _t.supported && !this.disableTransitions && this.hasTransition;
+		},
+
+		getValidIndex: function(items, index){
+			var self = this, length = items.length;
+			if (_is.number(index)){
+				if (length === 0){ // no items
+					index = -1;
+				} else if (index < 0){
+					index = self.opt.loop ? length - 1 : 0;
+				} else if (index >= length){
+					index = self.opt.loop ? 0 : length - 1;
+				}
+			} else {
+				index = -1;
+			}
+			return index;
+		},
+		getItemBottom: function(item){
+			var bounds = item.bounds();
+			return bounds == null ? 0 : bounds.bottom;
+		},
+		checkForLoop: function(){
+			var self = this,
+					items = self.tmpl.getAvailable(),
+					hasCurrentItem = self.currentItem instanceof _.Item,
+					lastIndex = items.length - 1;
+			self.$prev.toggleClass("foogrid-disabled", self.isFirst || (!self.opt.loop && hasCurrentItem && self.currentItem.index == 0));
+			self.$next.toggleClass("foogrid-disabled", self.isFirst || (!self.opt.loop && hasCurrentItem && self.currentItem.index == lastIndex));
+		},
+		scrollTo: function(scrollTop, when, duration){
+			var self = this;
+
+			scrollTop = (_is.number(scrollTop) ? scrollTop : 0) - (+self.opt.scrollOffset);
+			when = _is.boolean(when) ? when : true;
+			duration = _is.number(duration) ? duration : 300;
+
+			var $wp = $('#wpadminbar'), $page = $('html, body');
+			if ($wp.length === 1){
+				scrollTop -= $wp.height();
+			}
+
+			return $.Deferred(function(d){
+				if (!self.opt.scroll || !when){
+					d.resolve();
+				} else if (self.opt.scrollSmooth && !self.isFullscreen){
+					$page.animate({ scrollTop: scrollTop }, duration, function(){
+						d.resolve();
+					});
+				} else {
+					$page.scrollTop(scrollTop);
+					d.resolve();
+				}
+			});
+		},
+
+		/**
+		 * Public Methods
+		 **/
+
+		open: function(index){
+			var self = this;
+			if (self.isBusy) return $.when();
+			self.isBusy = true;
+
+			var items = self.tmpl.getAvailable(),
+					newIndex = self.getValidIndex(items, index);
+
+			if (newIndex != -1){
+				var oldItem = self.currentItem,
+						newItem = items[newIndex],
+						lastIndex = items.length - 1,
+						reverseTransition = true,
+						newRow = false;
+
+				if (oldItem instanceof _.Item){
+					var oldBottom = self.getItemBottom(oldItem),
+							newBottom = self.getItemBottom(newItem);
+
+					newRow = oldBottom != newBottom;
+					reverseTransition = oldItem.index < newIndex;
+
+					if ((newIndex === 0 && oldItem.index === lastIndex) || (newIndex === lastIndex && oldItem.index === 0)){
+						reverseTransition = !reverseTransition;
+					}
+
+					self.$el.removeClass("foogrid-has-caption");
+					if (newRow && !self.isFullscreen){
+						self.isBusy = false;
+						return self._close(reverseTransition, newRow).then(function(){
+							self.isBusy = true;
+							return self._open(newItem, newRow, reverseTransition);
+						});
+					}
+					self.closeItem(oldItem, reverseTransition);
+				}
+				return self._open(newItem, newRow, reverseTransition);
+			}
+			return $.when();
+		},
+		_open: function(item, newRow, reverseTransition){
+			var self = this;
+			return $.Deferred(function(def){
+
+				if (!(item instanceof _.Item)){
+					def.reject();
+					return;
+				}
+
+				self.scrollTo(item.$el.offset().top, newRow || self.isFirst).then(function(){
+
+					if ((newRow || self.isFirst) && !self.isFullscreen){
+						item.$el.after(self.$el);
+						self.$external.attr("href", item.content.external);
+					}
+					if (self.transitionsEnabled() && !self.isFullscreen && ((self.opt.transitionOpen && self.isFirst) || (self.opt.transitionRow && newRow))){
+						self.isFirst = false;
+						_t.start(self.$el, "foogrid-visible", true, 350).then(function(){
+							def.resolve();
+						});
+					} else {
+						self.$el.addClass('foogrid-visible');
+						def.resolve();
+					}
+
+				});
+
+
+			}).then(function(){
+
+				self.currentItem = item;
+				self.checkForLoop();
+
+				return self.openItem(item, reverseTransition).then(function(){
+
+					self.$el.focus();
+					self.isBusy = false;
+
+					return self.scrollTo(item.$el.offset().top, true);
+				});
+
+			});
+		},
+		openItem: function(item, reverseTransition){
+			var self = this;
+			return $.Deferred(function(def){
+				item.$el.removeClass("foogrid-visible");
+				item.$content.toggleClass("foogrid-reverse", reverseTransition);
+				self.$el.append(item.$content);
+				item.content.appendTo(item.$content);
+				item.content.load();
+				if (self.transitionsEnabled()){
+					_t.start(item.$content, "foogrid-visible", true, 1000).then(function(){
+						def.resolve();
+					});
+				} else {
+					item.$content.addClass("foogrid-visible");
+					def.resolve();
+				}
+			}).promise().always(function(){
+				item.$content.removeClass("foogrid-reverse");
+			});
+		},
+		close: function(immediate){
+			immediate = _is.boolean(immediate) ? immediate : false;
+			var self = this;
+			self.disableTransitions = immediate;
+			return self._close().then(function(){
+				self.disableTransitions = false;
+			});
+		},
+		_close: function(reverseTransition, newRow){
+			var self = this;
+			if (self.isBusy) return $.when();
+			self.isBusy = true;
+			return $.Deferred(function(def){
+				if (self.currentItem instanceof _.Item){
+					self.closeItem(self.currentItem, reverseTransition).then(function(){
+						if (self.transitionsEnabled() && !self.isFullscreen && ((self.opt.transitionRow && newRow) || (self.opt.transitionOpen && !newRow))){
+							_t.start(self.$el, "foogrid-visible", false, 350).then(function(){
+								def.resolve();
+							});
+						} else {
+							self.$el.removeClass("foogrid-visible");
+							def.resolve();
 						}
 					});
+				} else {
+					def.resolve();
+				}
+			}).promise().always(function(){
+				self.$el.removeClass("foogrid-has-caption foogrid-fullscreen").detach();
+				self.$prev.add(self.$next).removeClass("foogrid-disabled");
+				self.isFullscreen = false;
+				self.currentItem = null;
+				self.isBusy = false;
+				if (!newRow) self.isFirst = true;
+			});
+		},
+		closeItem: function(item, reverseTransition){
+			var self = this;
+			return $.Deferred(function(def){
+				item.$el.removeClass("foogrid-visible");
+				item.$content.toggleClass("foogrid-reverse", !reverseTransition);
+				if (self.transitionsEnabled()){
+					_t.start(item.$content, "foogrid-visible", false, 350).then(function(){
+						item.$content.removeClass("foogrid-reverse").detach();
+						def.resolve();
+					});
+				} else {
+					item.$content.removeClass("foogrid-visible foogrid-reverse").detach();
+					def.resolve();
+				}
+			}).promise().always(function(){
+				item.content.detach();
+			});
+		},
+		prev: function(){
+			var self = this;
+			if (self.currentItem instanceof _.Item){
+				return self.open(self.currentItem.index - 1);
+			}
+			return _fn.reject();
+		},
+		next: function(){
+			var self = this;
+			if (self.currentItem instanceof _.Item){
+				return self.open(self.currentItem.index + 1);
+			}
+			return _fn.reject();
+		},
+		toggle: function(item){
+			var self = this;
+			if (item instanceof _.Item){
+				if (self.currentItem == item){
+					return self._close();
+				} else {
+					return self.open(item.index);
 				}
 			}
-		}
-	};
+			return _fn.reject();
+		},
+		toggleFullscreen: function(){
+			var self = this;
+			if (self.$el.hasClass('foogrid-fullscreen') && self.currentItem instanceof _.Item){
+				self.currentItem.$el.after(self.$el.removeClass('foogrid-fullscreen'));
+				self.$fullscreenWrap.remove();
+				self.$el.focus();
+				self.isFullscreen = false;
+			} else {
+				self.$fullscreenWrap.attr('class', self.tmpl.$el.attr('class')).append(self.$el.addClass('foogrid-fullscreen')).appendTo('body');
+				self.$el.focus();
+				self.isFullscreen = true;
+			}
+		},
 
-	F.Deeplinking.prototype.clear = function(){
-		if (this.grid.options.deeplinking && window.history){
-			history.replaceState(null, '', location.href.split('#')[0]);
-		}
-	};
+		/**
+		 * Event Handlers
+		 **/
 
-	F.Deeplinking.prototype.set = function(item){
-		if (this.grid.options.deeplinking && window.history){
-			history.replaceState(null, item.content.title, item.hash);
+		onPrevClick: function(e){
+			e.preventDefault();
+			var self = e.data.self;
+			if (!self.$prev.hasClass('foogrid-disabled')){
+				self.prev();
+			}
+		},
+		onNextClick: function(e){
+			e.preventDefault();
+			var self = e.data.self;
+			if (!self.$next.hasClass('foogrid-disabled')){
+				self.next();
+			}
+		},
+		onCloseClick: function(e){
+			e.preventDefault();
+			e.data.self._close();
+		},
+		onFullscreenClick: function(e){
+			e.preventDefault();
+			e.data.self.toggleFullscreen();
+		},
+		onKeyDown: function(e){
+			var self = e.data.self;
+			switch (e.which){
+				case 39: self.next(); break;
+				case 37: self.prev(); break;
+				case 27:
+					if (self.isFullscreen){
+						self.toggleFullscreen();
+					} else {
+						self._close();
+					}
+					break;
+				case 13:
+					if (e.altKey){
+						self.toggleFullscreen();
+					}
+					break;
+			}
+		},
+		onAnchorClick: function(e){
+			e.preventDefault();
+			e.data.self.toggle(e.data.item);
 		}
-	};
+	});
 
 })(
 		FooGallery.$,
-		FooGallery.FooGrid,
-		FooGallery.utils,
+		FooGallery,
 		FooGallery.utils.is,
-		FooGallery.utils.str
+		FooGallery.utils.fn,
+		FooGallery.utils.transition
 );
 (function($, _, _utils){
 
 	_.FooGridTemplate = _.Template.extend({
 		construct: function(options, element){
-			this._super(options, element);
-			this.wasActive = false;
+			var self = this;
+			self._super(options, element);
+			self.foogrid = new _.Panel( self, self.template );
+			self.hadState = false;
 		},
 		onPreInit: function(event, self){
-			self.foogrid = new _.FooGrid( self.$el.get(0), self.template, self );
+			self.foogrid.preinit();
 		},
 		onInit: function(event, self){
 			self.foogrid.init();
 		},
+		onDestroy: function(event, self){
+			self.foogrid.destroy();
+		},
+		onParsedItem: function(event, self, item){
+			self.foogrid.onParsedOrCreatedItem(item);
+		},
+		onCreatedItem: function(event, self, item){
+			self.foogrid.onParsedOrCreatedItem(item);
+		},
+		onAfterState: function(event, self, state){
+			if (!!state.item){
+				self.foogrid.layout(true, state.item.index);
+				self.foogrid.open(state.item.index);
+				self.hadState = true;
+			}
+		},
 		onFirstLoad: function(event, self){
-			self.foogrid.layout(true);
+			self.foogrid.layout(!self.hadState);
 		},
 		onReady: function(event, self){
 			self.foogrid.layout();
-		},
-		onDestroy: function(event, self){
-			self.foogrid.destroy();
 		},
 		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
 			if (!isFilter){
@@ -10938,7 +11154,19 @@
 		}
 	});
 
-	_.template.register("foogrid", _.FooGridTemplate, null, {
+	_.template.register("foogrid", _.FooGridTemplate, {
+		template: {
+			scroll: true,
+			scrollOffset: 0,
+			scrollSmooth: true,
+			loop: true,
+			external: '_blank',
+			externalText: null,
+			keyboard: true,
+			transitionRow: true,
+			transitionOpen: true
+		}
+	}, {
 		container: "foogallery foogrid"
 	});
 
@@ -10947,31 +11175,34 @@
 		FooGallery,
 		FooGallery.utils
 );
-(function ($, _, _utils, _is, _obj, _transition) {
+(function($, _, _utils, _is, _obj, _transition){
 
-	_.SliderTemplate = _.Template.extend({
-		construct: function (options, element) {
+	_.Slider = _.Component.extend({
+		construct: function(template){
 			var self = this;
-			self._super(_obj.extend({}, options, {
-				paging: {
-					type: "none"
-				}
-			}), element);
+			self._super(template);
+
+			self.opt = self.tmpl.opt.template;
+			self.cls = self.tmpl.cls.template;
+			self.sel = self.tmpl.sel.template;
+
+			self.allBreakpointClasses = $.map(self.opt.breakpoints, function(breakpoint){ return breakpoint.classes; }).join(' ');
+
 			self.$contentContainer = $();
 			self.$contentStage = $();
 			self.$itemContainer = $();
 			self.$itemStage = $();
 			self.$itemPrev = $();
 			self.$itemNext = $();
-			self.selected = null;
-			self.helper = new _.VideoHelper(self.template.player);
-			self.horizontal = self.template.horizontal;
-			self.noCaptions = self.template.noCaptions;
-			self.useViewport = self.template.useViewport;
-			self.breakpoints = self.template.breakpoints;
-			self.allowPageScroll = self.template.allowPageScroll;
-			self.contentNav = self.template.contentNav;
-			self.allBreakpointClasses = $.map(self.breakpoints, function(breakpoint){ return breakpoint.classes; }).join(' ');
+
+			self.horizontal = self.opt.horizontal;
+			self.noCaptions = self.opt.noCaptions;
+			self.useViewport = self.opt.useViewport;
+			self.breakpoints = self.opt.breakpoints;
+			self.allowPageScroll = self.opt.allowPageScroll;
+			self.contentNav = self.opt.contentNav;
+
+			self._current = null;
 			self._contentWidth = 0;
 			self._contentHeight = 0;
 			self._firstVisible = -1;
@@ -10996,37 +11227,38 @@
 			];
 		},
 		destroyChildren: function(){
-			var self = this, $items = self.$el.find(self.sel.item.elem).detach();
-			self.$el.find(self.sel.contentContainer).remove();
-			self.$el.find(self.sel.itemContainer).remove();
-			self.$el.append($items);
+			var self = this, $tmpl = self.tmpl.$el;
+			$tmpl.append($tmpl.find(self.tmpl.sel.item.elem));
+			self.$contentContainer.remove();
+			self.$itemContainer.remove();
 		},
 		getContainerWidth: function(){
-			var self = this, visible = self.$el.is(':visible');
+			var self = this, $tmpl = self.tmpl.$el, visible = $tmpl.is(':visible');
 			if (!visible){
-				return self.$el.parents(':visible:first').innerWidth();
+				return $tmpl.parents(':visible:first').innerWidth();
 			}
-			return self.$el.outerWidth();
+			return $tmpl.outerWidth();
 		},
-		onPreInit: function(event, self){
-			self.$contentContainer = self.$el.find(self.sel.contentContainer);
-			self.$contentStage = self.$el.find(self.sel.contentStage);
-			self.$itemContainer = self.$el.find(self.sel.itemContainer);
-			self.$itemStage = self.$el.find(self.sel.itemStage);
-			self.$itemPrev = self.$el.find(self.sel.itemPrev);
-			self.$itemNext = self.$el.find(self.sel.itemNext);
-			self.$contentPrev = self.$el.find(self.sel.contentPrev);
-			self.$contentNext = self.$el.find(self.sel.contentNext);
-			self.horizontal = self.$el.hasClass(self.cls.horizontal) || self.horizontal;
-			if (self.horizontal) self.$el.addClass(self.cls.horizontal);
-			self.noCaptions = self.$el.hasClass(self.cls.noCaptions) || self.noCaptions;
-			if (self.noCaptions) self.$el.addClass(self.cls.noCaptions);
-			self.contentNav = self.$el.hasClass(self.cls.contentNav) || self.contentNav;
-			if (self.contentNav) self.$el.addClass(self.cls.contentNav);
-
+		preinit: function(){
+			var self = this, $tmpl = self.tmpl.$el;
+			self.$contentContainer = $tmpl.find(self.sel.contentContainer);
+			self.$contentStage = $tmpl.find(self.sel.contentStage);
+			self.$itemContainer = $tmpl.find(self.sel.itemContainer);
+			self.$itemStage = $tmpl.find(self.sel.itemStage);
+			self.$itemPrev = $tmpl.find(self.sel.itemPrev);
+			self.$itemNext = $tmpl.find(self.sel.itemNext);
+			self.$contentPrev = $tmpl.find(self.sel.contentPrev);
+			self.$contentNext = $tmpl.find(self.sel.contentNext);
+			self.horizontal = $tmpl.hasClass(self.cls.horizontal) || self.horizontal;
+			if (self.horizontal) $tmpl.addClass(self.cls.horizontal);
+			self.noCaptions = $tmpl.hasClass(self.cls.noCaptions) || self.noCaptions;
+			if (self.noCaptions) $tmpl.addClass(self.cls.noCaptions);
+			self.contentNav = $tmpl.hasClass(self.cls.contentNav) || self.contentNav;
+			if (self.contentNav) $tmpl.addClass(self.cls.contentNav);
 		},
-		onInit: function (event, self) {
-			$(window).on("resize.fg-slider", {self: self}, self.throttle(self.onWindowResize, self.template.throttle));
+		init: function(){
+			var self = this;
+			$(window).on("resize.fg-slider", {self: self}, self.tmpl.throttle(self.onWindowResize, self.opt.throttle));
 			self.$itemPrev.on("click.fg-slider", {self: self}, self.onPrevClick);
 			self.$itemNext.on("click.fg-slider", {self: self}, self.onNextClick);
 			self.$contentPrev.on("click.fg-slider", {self: self}, self.onContentPrevClick);
@@ -11035,21 +11267,8 @@
 			self.$itemContainer.fgswipe({data: {self: self}, swipe: self.onItemSwipe})
 					.on("DOMMouseScroll.fg-slider mousewheel.fg-slider", {self: self}, self.onItemMouseWheel);
 		},
-		onFirstLoad: function(event, self){
-			self.redraw();
-			self.setSelected(0);
-		},
-		onAfterFilterChange: function(event, self){
-			self.selected = null;
-			self.redraw();
-			self.setSelected(0);
-		},
-		/**
-		 * @summary Destroy the plugin cleaning up any bound events.
-		 * @memberof FooGallery.SliderTemplate#
-		 * @function onDestroy
-		 */
-		onDestroy: function (event, self) {
+		destroy: function(){
+			var self = this;
 			$(window).off("resize.fg-slider");
 			self.$itemPrev.off("click.fg-slider");
 			self.$itemNext.off("click.fg-slider");
@@ -11058,79 +11277,18 @@
 			self.$contentContainer.fgswipe("destroy");
 			self.$itemContainer.fgswipe("destroy")
 					.off("DOMMouseScroll.fg-slider mousewheel.fg-slider");
+			self._current = null;
+			self._contentWidth = 0;
+			self._contentHeight = 0;
+			self._firstVisible = -1;
+			self._lastVisible = -1;
+			self._breakpoint = null;
 		},
-		onParsedOrCreatedItem: function(item){
-			if (!item.isError){
-				var self = this;
-				item.$anchor.add(item.$image).attr("draggable", false);
-				item.$anchor.add(item.$caption).off("click.foogallery");
-				item.$inner.on("click.foogallery", {self: self, item: item}, self.onItemClick);
-
-				item.$content = $("<div/>", {"class": self.cls.content})
-						.append($("<div/>", {"class": self.cls.contentImage}))
-						.append($("<p/>", {"class": self.cls.contentText}).html(item.caption).append($("<small/>").html(item.description)));
-				if (item.type === "video"){
-					item.index = -1;
-					item.player = self.helper.getPlayer(item.href, {});
-					item.$content.append(
-							$("<div/>", {"class": self.cls.contentClose})
-									.on("click.foogallery", {self: self, item: item}, self.onCloseVideo),
-							$("<div/>", {"class": self.cls.contentPlay})
-									.on("click.foogallery", {self: self, item: item}, self.onPlayVideo)
-					);
-				} else if (item.type === "embed") {
-					item.$embed = $("<div/>", {'class': self.cls.embed});
-					item.$content.addClass(self.cls.embedable).append(item.$embed);
-					item.$target = $(item.href).contents();
-				}
-			}
-		},
-		onParsedItem: function(event, self, item){
-			self.onParsedOrCreatedItem(item);
-		},
-		onCreatedItem: function(event, self, item){
-			self.onParsedOrCreatedItem(item);
-		},
-		onDestroyedItem: function(event, self, item){
-			if (item.type === "video" && item.player instanceof _.VideoPlayer){
-				item.player.$el.detach();
-				item.$el.add(item.$content)
-						.removeClass(self.cls.playing);
-			}
-			if (item.type === "embed" && item.$target){
-				item.$target.detach();
-				$(item.href).append(item.$target);
-			}
-			item.$el.add(item.$content).removeClass(self.cls.selected);
-			item.$inner.off("click.foogallery");
-		},
-		onAppendItem: function (event, self, item) {
-			event.preventDefault();
-			self.$itemStage.append(item.$el);
-			self.$contentStage.append(item.$content);
-			item.isAttached = true;
-		},
-		onDetachItem: function(event, self, item){
-			event.preventDefault();
-			if (item.type === "video" && item.player instanceof _.VideoPlayer){
-				item.player.$el.detach();
-				item.$el.add(item.$content)
-						.removeClass(self.cls.playing);
-			}
-			if (item.type === "embed" && item.$target){
-				item.$target.detach();
-				$(item.href).append(item.$target);
-			}
-			item.$el.add(item.$content)
-					.removeClass(self.cls.selected).detach();
-			item.isAttached = false;
-		},
-		onLayout: function(event, self){
+		reset: function(){
+			var self = this;
+			self._current = null;
 			self.redraw();
-		},
-		onWindowResize: function(e){
-			var self = e.data.self;
-			self.redraw();
+			self.setSelected(0);
 		},
 		getBreakpoint: function(){
 			var self = this, width = self.useViewport ? $(window).width() : self.getContainerWidth();
@@ -11146,22 +11304,22 @@
 			return self.horizontal ? h : self._breakpoint.items.v;
 		},
 		redraw: function(){
-			var self = this,
-					index = self.selected instanceof _.Item ? self.selected.index : 0,
-					items = self.items.available(),
+			var self = this, $tmpl = self.tmpl.$el,
+					index = self._current instanceof _.Item ? self._current.index : 0,
+					items = self.tmpl.getAvailable(),
 					count = items.length,
 					prev = self._breakpoint;
 
-			self.$el.addClass("fgs-transitions-disabled");
+			$tmpl.addClass("fgs-transitions-disabled");
 
-			self.horizontal = self.$el.hasClass(self.cls.horizontal);
-			self.$el.toggleClass(self.cls.horizontal, self.horizontal);
+			self.horizontal = $tmpl.hasClass(self.cls.horizontal);
+			$tmpl.toggleClass(self.cls.horizontal, self.horizontal);
 
-			self.noCaptions = self.$el.hasClass(self.cls.noCaptions);
-			self.$el.toggleClass(self.cls.noCaptions, self.noCaptions);
+			self.noCaptions = $tmpl.hasClass(self.cls.noCaptions);
+			$tmpl.toggleClass(self.cls.noCaptions, self.noCaptions);
 
 			self._breakpoint = self.getBreakpoint();
-			self.$el.removeClass(self.allBreakpointClasses).addClass(self._breakpoint.classes);
+			$tmpl.removeClass(self.allBreakpointClasses).addClass(self._breakpoint.classes);
 
 			var max = self.getMaxVisibleItems() - 1, cWidth = self.getContainerWidth();
 			if (self._firstVisible == -1 || self._lastVisible == -1){
@@ -11200,56 +11358,41 @@
 
 				self.setVisible(self._firstVisible, false);
 			}
-			self.$el.removeClass("fgs-transitions-disabled");
+			$tmpl.removeClass("fgs-transitions-disabled");
 		},
-		setEmbedSize: function(item){
-			var self = this,
-					ah = self._contentHeight, ch = item.$anchor.data("height"),
-					aw = self._contentWidth, cw = item.$anchor.data("width"),
-					rh = ah / ch, rw = aw / cw, ratio = 0;
-
-			if (rh < rw){
-				ratio = rh;
+		setLoading: function(item, state){
+			var self = this;
+			if (state){
+				$("<div/>", {'class': "fg-loader"}).appendTo(item.$content.addClass(self.cls.loading));
 			} else {
-				ratio = rw;
-			}
-
-			if (ratio > 0 && ratio < 1){
-				item.$embed.css({height: ch * ratio, width: cw * ratio});
-			} else {
-				item.$embed.css({height: '', width: ''});
+				item.$content.removeClass(self.cls.loading).find(".fg-loader").remove();
 			}
 		},
 		setSelected: function(itemOrIndex){
-			var self = this, prev = self.selected, next = itemOrIndex, items = self.items.available();
+			var self = this, prev = self._current, next = itemOrIndex, items = self.tmpl.getAvailable();
 			if (_is.number(itemOrIndex)){
 				itemOrIndex = itemOrIndex < 0 ? 0 : (itemOrIndex >= items.length ? items.length - 1 : itemOrIndex);
 				next = items[itemOrIndex];
 			}
 			if (prev != next && next instanceof _.Item){
 				if (prev instanceof _.Item){
-					if (prev.type === "video" && prev.player instanceof _.VideoPlayer){
-						prev.player.$el.detach();
-						prev.$el.add(prev.$content).removeClass(self.cls.playing);
-					}
-					if (prev.type === "embed" && prev.$target){
-						prev.$target.detach();
-						$(prev.href).append(prev.$target);
-					}
 					prev.$el.add(prev.$content).removeClass(self.cls.selected);
+					if (prev.type === "video"){
+						prev.$el.add(prev.$content).removeClass(self.cls.playing);
+						prev.content.detach();
+					}
 				}
-				self.setBackgroundImage(next);
-				self.$contentStage.css("transform", "translateX(-" + (next.index * self._contentWidth) + "px)");
+
 				next.$el.add(next.$content).addClass(self.cls.selected);
-				if (self.template.autoPlay && next.type === "video" && next.player instanceof _.VideoPlayer){
+				self.$contentStage.css("transform", "translateX(-" + (next.index * self._contentWidth) + "px)");
+
+				self.setBackgroundImage(next);
+				if (next.type === "video" && (self.tmpl.opt.video.autoPlay || !self.opt.showPlayClose)){
+					next.content.appendTo(next.$content);
 					next.$el.add(next.$content).addClass(self.cls.playing);
-					next.player.appendTo(next.$content).load();
+					next.content.load();
 				}
-				if (next.type === "embed" && next.$target){
-					next.$target.appendTo(next.$embed);
-					self.setEmbedSize(next);
-				}
-				self.selected = next;
+				self._current = next;
 
 				if (next.index <= self._firstVisible || next.index >= self._lastVisible){
 					var last = prev instanceof _.Item ? next.index > prev.index : false,
@@ -11263,8 +11406,31 @@
 				self.$contentNext.data("index", cNext);
 			}
 		},
+		setVisible: function(index, last){
+			var self = this, count = self.tmpl.getAvailable().length, max = self.getMaxVisibleItems() - 1;
+			index = index < 0 ? 0 : (index >= count ? count - 1 : index);
+
+			if (last) index = index - max < 0 ? 0 : index - max;
+			if (index >= 0 && index < count){
+				self._firstVisible = index;
+				self._lastVisible = index + max;
+				var translate = self.horizontal
+						? 'translateX(-'+((index * self._itemWidth) + 1)+'px) translateY(0px)'
+						: 'translateX(0px) translateY(-'+((index * self._itemHeight) + 1)+'px)';
+
+				_transition.start(self.$itemStage, function($el){
+					$el.css("transform", translate);
+				}).then(function(){
+					self.tmpl.loadAvailable();
+				});
+			} else {
+				self.tmpl.loadAvailable();
+			}
+			self.$itemPrev.toggle(self._firstVisible > 0);
+			self.$itemNext.toggle(self._lastVisible < count - 1);
+		},
 		setBackgroundImage: function(item){
-			if (item.type !== "embed" && !item.isError && !item.isBackgroundLoaded && _is.jq(item.$content)){
+			if ((item.type === "video" || item.type === "item") && !item.isError && !item.isBackgroundLoaded && _is.jq(item.$content)){
 				var self = this,
 						src = item.type === "video" ? item.cover : item.href,
 						$loader = $("<div/>", {'class': 'fg-loader'}).appendTo(item.$content.addClass(self.cls.loading)),
@@ -11288,28 +11454,46 @@
 				item.isBackgroundLoaded = true;
 			}
 		},
-		setVisible: function(index, last){
-			var self = this, count = self.items.count(), max = self.getMaxVisibleItems() - 1;
-			index = index < 0 ? 0 : (index >= count ? count - 1 : index);
+		onParsedOrCreatedItem: function(item){
+			if (!item.isError){
+				var self = this;
+				item.$anchor.add(item.$image).attr("draggable", false);
+				item.$anchor.add(item.$caption).off("click.foogallery");
+				item.$inner.on("click.foogallery", {self: self, item: item}, self.onItemClick);
 
-			if (last) index = index - max < 0 ? 0 : index - max;
-			if (index >= 0 && index < count){
-				self._firstVisible = index;
-				self._lastVisible = index + max;
-				var translate = self.horizontal
-						? 'translateX(-'+((index * self._itemWidth) + 1)+'px) translateY(0px)'
-						: 'translateX(0px) translateY(-'+((index * self._itemHeight) + 1)+'px)';
-
-				_transition.start(self.$itemStage, function($el){
-					$el.css("transform", translate);
-				}).then(function(){
-					self.loadAvailable();
-				});
-			} else {
-				self.loadAvailable();
+				item.$content = $("<div/>", {"class": self.cls.content})
+						.append($("<div/>", {"class": self.cls.contentImage}))
+						.append($("<p/>", {"class": self.cls.contentText}).html(item.caption).append($("<small/>").html(item.description)));
+				if (item.type === "video" && self.opt.showPlayClose){
+					item.$content.append(
+							$("<div/>", {"class": self.cls.contentClose})
+									.on("click.foogallery", {self: self, item: item}, self.onCloseVideo),
+							$("<div/>", {"class": self.cls.contentPlay})
+									.on("click.foogallery", {self: self, item: item}, self.onPlayVideo)
+					);
+				}
 			}
-			self.$itemPrev.toggle(self._firstVisible > 0);
-			self.$itemNext.toggle(self._lastVisible < count - 1);
+		},
+		onDestroyItem: function(item){
+			var self = this;
+			item.content.detach();
+			item.$el.add(item.$content).removeClass(self.cls.selected).removeClass(self.cls.playing);
+			item.$inner.off("click.foogallery");
+		},
+		onAppendItem: function (item) {
+			var self = this;
+			self.$itemStage.append(item.$el);
+			self.$contentStage.append(item.$content);
+			item.isAttached = true;
+		},
+		onDetachItem: function(item){
+			var self = this;
+			item.content.detach();
+			item.$el.add(item.$content).removeClass(self.cls.selected).removeClass(self.cls.playing).detach();
+			item.isAttached = false;
+		},
+		onWindowResize: function(e){
+			e.data.self.redraw();
 		},
 		onItemClick: function(e){
 			e.preventDefault();
@@ -11336,17 +11520,18 @@
 		},
 		onPlayVideo: function(e){
 			var self = e.data.self, item = e.data.item;
+			item.content.appendTo(item.$content);
 			item.$el.add(item.$content).addClass(self.cls.playing);
-			item.player.appendTo(item.$content).load();
+			item.content.load(true);
 		},
 		onCloseVideo: function(e){
 			var self = e.data.self, item = e.data.item;
-			item.player.$el.detach();
+			item.content.detach();
 			item.$el.add(item.$content).removeClass(self.cls.playing);
 		},
 		onItemMouseWheel: function(e){
 			var self = e.data.self,
-					max = self.items.count() - 1,
+					max = self.tmpl.getAvailable().length - 1,
 					delta = Math.max(-1, Math.min(1, (e.originalEvent.wheelDelta || -e.originalEvent.detail)));
 
 			if (delta > 0 && self._firstVisible > 0){
@@ -11380,155 +11565,149 @@
 		onContentSwipe: function (info, data) {
 			var self = data.self;
 			if ($.inArray(info.direction, ["NE", "E", "SE"]) !== -1){
-				self.setSelected(self.selected.index - 1);
+				self.setSelected(self._current.index - 1);
 			}
 			if ($.inArray(info.direction, ["NW", "W", "SW"]) !== -1){
-				self.setSelected(self.selected.index + 1);
+				self.setSelected(self._current.index + 1);
 			}
 		}
 	});
 
-	_.template.register("slider", _.SliderTemplate, {
-		template: {
-			horizontal: false,
-			useViewport: false,
-			noCaptions: false,
-			autoPlay: false,
-			contentNav: false,
-			allowPageScroll: {
-				x: false,
-				y: true
+	_.Slider.options = {
+		horizontal: false,
+		useViewport: false,
+		noCaptions: false,
+		showPlayClose: true,
+		contentNav: false,
+		allowPageScroll: {
+			x: false,
+			y: true
+		},
+		breakpoints: [{
+			width: 480,
+			classes: "fgs-xs",
+			items: {
+				h: {
+					captions: 2,
+					noCaptions: 5
+				},
+				v: 6
 			},
-			breakpoints: [{
-				width: 480,
-				classes: "fgs-xs",
-				items: {
-					h: {
-						captions: 2,
-						noCaptions: 5
-					},
-					v: 6
+			size: {
+				h: {
+					height: 336,
+					items: 56
 				},
-				size: {
-					h: {
-						height: 336,
-						items: 56
-					},
-					v: {
-						height: 336,
-						items: {
-							noCaptions: 70,
-							width: 100,
-							height: 56
-						}
+				v: {
+					height: 336,
+					items: {
+						noCaptions: 70,
+						width: 100,
+						height: 56
 					}
 				}
-			},{
-				width: 768,
-				classes: "fgs-sm",
-				items: {
-					h: {
-						captions: 3,
-						noCaptions: 7
-					},
-					v: 7
+			}
+		},{
+			width: 768,
+			classes: "fgs-sm",
+			items: {
+				h: {
+					captions: 3,
+					noCaptions: 7
 				},
-				size: {
-					h: {
-						height: 420,
-						items: 56
-					},
-					v: {
-						height: 392,
-						items: {
-							noCaptions: 100,
-							width: 150,
-							height: 56
-						}
-					}
-				}
-			},{
-				width: 1024,
-				classes: "fgs-md",
-				items: {
-					h: {
-						captions: 4,
-						noCaptions: 9
-					},
-					v: 6
-				},
-				size: {
-					h: {
-						height: 520,
-						items: 77
-					},
-					v: {
-						height: 461,
-						items: {
-							noCaptions: 150,
-							width: 220,
-							height: 77
-						}
-					}
-				}
-			},{
-				width: 1280,
-				classes: "fgs-lg",
-				items: {
-					h: {
-						captions: 5,
-						noCaptions: 11
-					},
-					v: 7
-				},
-				size: {
-					h: {
-						height: 546,
-						items: 77
-					},
-					v: {
-						height: 538,
-						items: {
-							noCaptions: 150,
-							width: 280,
-							height: 77
-						}
-					}
-				}
-			},{
-				width: 1600,
-				classes: "fgs-xl",
-				items: {
-					h: {
-						captions: 6,
-						noCaptions: 13
-					},
-					v: 8
-				},
-				size: {
-					h: {
-						height: 623,
-						items: 77
-					},
-					v: {
-						height: 615,
-						items: {
-							noCaptions: 150,
-							width: 280,
-							height: 77
-						}
-					}
-				}
-			}],
-			player: {
-				autoPlay: true,
-				width: "100%",
-				height: "100%"
+				v: 7
 			},
-			throttle: 150
-		}
-	}, {
-		container: "foogallery fg-slider",
+			size: {
+				h: {
+					height: 420,
+					items: 56
+				},
+				v: {
+					height: 392,
+					items: {
+						noCaptions: 100,
+						width: 150,
+						height: 56
+					}
+				}
+			}
+		},{
+			width: 1024,
+			classes: "fgs-md",
+			items: {
+				h: {
+					captions: 4,
+					noCaptions: 9
+				},
+				v: 6
+			},
+			size: {
+				h: {
+					height: 520,
+					items: 77
+				},
+				v: {
+					height: 461,
+					items: {
+						noCaptions: 150,
+						width: 220,
+						height: 77
+					}
+				}
+			}
+		},{
+			width: 1280,
+			classes: "fgs-lg",
+			items: {
+				h: {
+					captions: 5,
+					noCaptions: 11
+				},
+				v: 7
+			},
+			size: {
+				h: {
+					height: 546,
+					items: 77
+				},
+				v: {
+					height: 538,
+					items: {
+						noCaptions: 150,
+						width: 280,
+						height: 77
+					}
+				}
+			}
+		},{
+			width: 1600,
+			classes: "fgs-xl",
+			items: {
+				h: {
+					captions: 6,
+					noCaptions: 13
+				},
+				v: 8
+			},
+			size: {
+				h: {
+					height: 623,
+					items: 77
+				},
+				v: {
+					height: 615,
+					items: {
+						noCaptions: 150,
+						width: 280,
+						height: 77
+					}
+				}
+			}
+		}],
+		throttle: 150
+	};
+
+	_.Slider.classes = {
 		contentContainer: "fgs-content-container",
 		contentStage: "fgs-content-stage",
 		content: "fgs-content",
@@ -11550,6 +11729,81 @@
 		noCaptions: "fgs-no-captions",
 		embed: "fgs-embed",
 		embedable: "fgs-embedable"
+	};
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.obj,
+		FooGallery.utils.transition
+);
+(function ($, _, _utils, _is, _obj) {
+
+	_.SliderTemplate = _.Template.extend({
+		construct: function (options, element) {
+			var self = this;
+			self._super(_obj.extend({}, options, {
+				paging: {
+					type: "none"
+				}
+			}), element);
+			self.slider = new _.Slider(self);
+		},
+		createChildren: function(){
+			return this.slider.createChildren();
+		},
+		destroyChildren: function(){
+			this.slider.destroyChildren();
+		},
+		onPreInit: function(event, self){
+			self.slider.preinit();
+		},
+		onInit: function (event, self) {
+			self.slider.init();
+		},
+		onFirstLoad: function(event, self){
+			self.slider.reset();
+		},
+		onAfterFilterChange: function(event, self){
+			self.slider.reset();
+		},
+		/**
+		 * @summary Destroy the plugin cleaning up any bound events.
+		 * @memberof FooGallery.SliderTemplate#
+		 * @function onDestroy
+		 */
+		onDestroy: function (event, self) {
+			self.slider.destroy();
+		},
+		onParsedItem: function(event, self, item){
+			self.slider.onParsedOrCreatedItem(item);
+		},
+		onCreatedItem: function(event, self, item){
+			self.slider.onParsedOrCreatedItem(item);
+		},
+		onDestroyItem: function(event, self, item){
+			self.slider.onDestroyItem(item);
+		},
+		onAppendItem: function (event, self, item) {
+			event.preventDefault();
+			self.slider.onAppendItem(item);
+		},
+		onDetachItem: function(event, self, item){
+			event.preventDefault();
+			self.slider.onDetachItem(item);
+		},
+		onLayout: function(event, self){
+			self.slider.redraw();
+		}
+	});
+
+	_.template.register("slider", _.SliderTemplate, {
+		template: _.Slider.options
+	}, {
+		container: "foogallery fg-slider",
+		template: _.Slider.classes
 	});
 
 })(

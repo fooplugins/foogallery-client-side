@@ -31,28 +31,36 @@ module.exports = function ( grunt ) {
 						"./src/core/js/Template.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
-						"./src/core/js/Item.js",
-						"./src/core/js/Items.js",
+						"./src/core/js/items/Item.js",
+						"./src/core/js/items/ItemContent.js",
+						"./src/core/js/items/Items.js",
+						"./src/core/js/items/video/Video.js",
+						"./src/core/js/items/video/VideoContent.js",
+						"./src/core/js/items/video/VideoHelper.js",
+						"./src/core/js/items/video/VideoPlayer.js",
+						"./src/core/js/items/video/VideoSource.js",
+						"./src/core/js/items/video/sources/SelfHosted.js",
+						"./src/core/js/items/video/sources/YouTube.js",
+						"./src/core/js/items/video/sources/Vimeo.js",
+						"./src/core/js/items/video/sources/DailyMotion.js",
+						"./src/core/js/items/video/sources/Wistia.js",
+						"./src/core/js/items/iframe/Iframe.js",
+						"./src/core/js/items/iframe/IframeContent.js",
+						"./src/core/js/items/html/Html.js",
+						"./src/core/js/items/html/HtmlContent.js",
+						"./src/core/js/items/embed/Embed.js",
+						"./src/core/js/items/embed/EmbedContent.js",
 						"./src/core/js/paging/Paging.js",
 						"./src/core/js/paging/Infinite.js",
 						"./src/core/js/paging/LoadMore.js",
 						"./src/core/js/paging/Dots.js",
 						"./src/core/js/paging/Pagination.js",
 						"./src/core/js/filtering/Filtering.js",
-						"./src/core/js/filtering/Tags.js",
-						"./src/core/js/video/Video.js",
-						"./src/core/js/video/VideoHelper.js",
-						"./src/core/js/video/VideoPlayer.js",
-						"./src/core/js/video/VideoSource.js",
-						"./src/core/js/video/sources/SelfHosted.js",
-						"./src/core/js/video/sources/YouTube.js",
-						"./src/core/js/video/sources/Vimeo.js",
-						"./src/core/js/video/sources/DailyMotion.js",
-						"./src/core/js/video/sources/Wistia.js",
-						"./src/core/js/Embed.js"
+						"./src/core/js/filtering/Tags.js"
 					],
 					"./dist/components/core/css/foogallery.css": [
 						"./src/core/css/general/core.css",
+						"./src/core/css/general/content.css",
 
 						"./src/core/css/appearance/theme.css",
 						"./src/core/css/appearance/border-size.css",
@@ -125,8 +133,9 @@ module.exports = function ( grunt ) {
 						"./src/core/js/Template.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
-						"./src/core/js/Item.js",
-						"./src/core/js/Items.js",
+						"./src/core/js/items/Item.js",
+						"./src/core/js/items/ItemContent.js",
+						"./src/core/js/items/Items.js",
 						"./src/core/js/paging/Paging.js",
 						"./src/core/js/paging/Dots.js"
 					],
@@ -243,14 +252,16 @@ module.exports = function ( grunt ) {
 			"foogrid": {
 				"files": {
 					"./dist/components/templates/foogrid/js/foogallery.foogrid.js": [
-						"./src/templates/foogrid/js/FooGrid.js",
-						"./src/templates/foogrid/js/FooGrid.Parser.js",
-						"./src/templates/foogrid/js/FooGrid.Content.js",
-						"./src/templates/foogrid/js/FooGrid.Item.js",
-						"./src/templates/foogrid/js/FooGrid.Video.js",
-						"./src/templates/foogrid/js/FooGrid.Player.js",
-						"./src/templates/foogrid/js/FooGrid.Deeplinking.js",
-						"./src/templates/foogrid/js/_template.js"
+						// "./src/templates/foogrid/js/FooGrid.js",
+						// "./src/templates/foogrid/js/FooGrid.Parser.js",
+						// "./src/templates/foogrid/js/FooGrid.Content.js",
+						// "./src/templates/foogrid/js/FooGrid.Item.js",
+						// "./src/templates/foogrid/js/FooGrid.Video.js",
+						// "./src/templates/foogrid/js/FooGrid.Player.js",
+						// "./src/templates/foogrid/js/FooGrid.Deeplinking.js",
+						// "./src/templates/foogrid/js/_template.js"
+						"./src/templates/foogrid/js/grid.js",
+						"./src/templates/foogrid/js/ready.js"
 					],
 					"./dist/components/templates/foogrid/css/foogallery.foogrid.css": [
 						"./src/templates/foogrid/css/_foogrid.css",
@@ -268,6 +279,7 @@ module.exports = function ( grunt ) {
 			"slider": {
 				"files": {
 					"./dist/components/templates/slider/js/foogallery.slider.js": [
+						"./src/templates/slider/js/Slider.js",
 						"./src/templates/slider/js/ready.js"
 					],
 					"./dist/components/templates/slider/css/foogallery.slider.css": [

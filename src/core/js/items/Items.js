@@ -18,7 +18,7 @@
 			 * @function _super
 			 */
 			self._super(template);
-			self.idMap = {};
+			self.maps = {};
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -69,7 +69,7 @@
 				if (destroyed.length > 0) self.tmpl.raise("destroyed-items", [destroyed]);
 				// should we handle a case where the destroyed.length != items.length??
 			}
-			self.idMap = {};
+			self.maps = {};
 			self._canvas = self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -117,19 +117,35 @@
 		available: function () {
 			return this._available.slice();
 		},
-		get: function (id) {
-			return !_is.empty(id) && !!this.idMap[id] ? this.idMap[id] : null;
+		get: function (idOrIndex) {
+			var map = _is.number(idOrIndex) ? 'index' : 'id';
+			return !!this.maps[map][idOrIndex] ? this.maps[map][idOrIndex] : null;
 		},
 		setAll: function (items) {
 			this._arr = _is.array(items) ? items : [];
-			this.idMap = this.createIdMap(items);
+			this.maps = this.createMaps(this._arr);
 			this._available = this.all();
 		},
 		setAvailable: function (items) {
+			this.maps = this.createMaps(this._arr);
 			this._available = _is.array(items) ? items : [];
 		},
 		reset: function () {
 			this.setAvailable(this.all());
+		},
+		createMaps: function(items){
+			items = _is.array(items) ? items : [];
+			var maps = {
+				id: {},
+				index: {}
+			};
+			$.each(items, function (i, item) {
+				if (_is.empty(item.id)) item.id = "" + (i + 1);
+				item.index = i;
+				maps.id[item.id] = item;
+				maps.index[item.index] = item;
+			});
+			return maps;
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be loaded.
@@ -575,14 +591,6 @@
 				}
 			}
 			return _fn.resolveWith([]);
-		},
-		createIdMap: function (items) {
-			var map = {};
-			$.each(items, function (i, item) {
-				if (_is.empty(item.id)) item.id = "" + (i + 1);
-				map[item.id] = item;
-			});
-			return map;
 		}
 	});
 

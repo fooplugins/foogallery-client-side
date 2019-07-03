@@ -3164,6 +3164,16 @@
 		return complete;
 	};
 
+	/**
+	 * @summary Get the instance of the {@link FooGallery.Template|template} associated with the supplied container.
+	 * @memberof FooGallery
+	 * @param {(string|Element|jQuery)} container - The selector, element or jQuery object of the FooGallery container element.
+	 * @returns {FooGallery.Template}
+	 */
+	_.get = function(container){
+		return $(container).data(_.dataTemplate);
+	};
+
 })(
 		FooGallery.$,
 		FooGallery,
@@ -4017,6 +4027,13 @@
 			 */
 			self.filter = !_is.undef(_.filtering) ? _.filtering.make(options.filtering.type, self) : null;
 			/**
+			 * @summary An array of video sources supported by the template.
+			 * @memberof FooGallery.Template#
+			 * @name videoSources
+			 * @type {FooGallery.VideoSource[]}
+			 */
+			self.videoSources = !_is.undef(_.videoSources) ? _.videoSources.load() : [];
+			/**
 			 * @summary The state manager for the template.
 			 * @memberof FooGallery.Template#
 			 * @name state
@@ -4754,8 +4771,8 @@
 			self.pushOrReplace = self.isPushOrReplace(self.opt.pushOrReplace) ? self.opt.pushOrReplace : "replace";
 
 			var id = _str.escapeRegExp(self.tmpl.id),
-				values = _str.escapeRegExp(self.opt.values),
-				pair = _str.escapeRegExp(self.opt.pair);
+					values = _str.escapeRegExp(self.opt.values),
+					pair = _str.escapeRegExp(self.opt.pair);
 			/**
 			 * @summary An object containing regular expressions used to test and parse a hash value into a state object.
 			 * @memberof FooGallery.State#
@@ -4816,13 +4833,16 @@
 						var parts = pair.split(self.opt.pair);
 						if (parts.length === 2){
 							state[parts[0]] = parts[1].indexOf(self.opt.array) === -1
-								? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
-								: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
+									? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
+									: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
 							if (_is.string(state[parts[0]]) && !isNaN(state[parts[0]])){
 								state[parts[0]] = parseInt(state[parts[0]]);
 							}
 						}
 					});
+					if (_is.number(state.i)){
+						state.i = state.i + "";
+					}
 				} else {
 					// if we're here it means there is a hash on the url but the option is disabled so remove it
 					if (self.apiEnabled){
@@ -4955,34 +4975,70 @@
 			var self = this, tmpl = self.tmpl;
 			if (_is.hash(state)){
 				tmpl.items.reset();
-				var item = tmpl.items.get(state.i);
-				if (tmpl.filter){
-					tmpl.filter.rebuild();
-					var tags = !_is.empty(state.f) ? state.f : [];
-					tmpl.filter.set(tags, false);
-				}
-				if (tmpl.pages){
-					tmpl.pages.rebuild();
-					var page = tmpl.pages.number(state.p);
-					if (item && !tmpl.pages.contains(page, item)){
-						page = tmpl.pages.find(item);
-						page = page !== 0 ? page : 1;
+
+				var obj = {
+					tags: !!tmpl.filter && !_is.empty(state.f) ? state.f : [],
+					page: !!tmpl.pages ? tmpl.pages.number(state.p) : 0,
+					item: tmpl.items.get(state.i)
+				};
+
+				var e = tmpl.raise("before-state", [obj]);
+				if (!e.isDefaultPrevented()){
+					if (!!tmpl.filter){
+						tmpl.filter.rebuild();
+						tmpl.filter.set(obj.tags, false);
 					}
-					tmpl.pages.set(page, !_is.empty(state), false, true);
-					if (item && tmpl.pages.contains(page, item)){
-						item.scrollTo();
+					if (!!tmpl.pages){
+						tmpl.pages.rebuild();
+						if (!!obj.item && !tmpl.pages.contains(obj.page, obj.item)){
+							obj.page = tmpl.pages.find(obj.item);
+							obj.page = obj.page !== 0 ? obj.page : 1;
+						}
+						tmpl.pages.set(obj.page, !_is.empty(state), false, true);
+						if (obj.item && tmpl.pages.contains(obj.page, obj.item)){
+							obj.item.scrollTo();
+						}
+					} else {
+						tmpl.items.detach(tmpl.items.all());
+						tmpl.items.create(tmpl.items.available(), true);
+						if (obj.item){
+							obj.item.scrollTo();
+						}
 					}
-				} else {
-					tmpl.items.detach(tmpl.items.all());
-					tmpl.items.create(tmpl.items.available(), true);
-					if (item){
-						item.scrollTo();
+					if (!_is.empty(state.i)){
+						state.i = null;
+						self.replace(state);
 					}
+					tmpl.raise("after-state", [obj]);
 				}
-				if (!_is.empty(state.i)){
-					state.i = null;
-					self.replace(state);
-				}
+				// var item = tmpl.items.get(state.i);
+				// if (tmpl.filter){
+				// 	tmpl.filter.rebuild();
+				// 	var tags = !_is.empty(state.f) ? state.f : [];
+				// 	tmpl.filter.set(tags, false);
+				// }
+				// if (tmpl.pages){
+				// 	tmpl.pages.rebuild();
+				// 	var page = tmpl.pages.number(state.p);
+				// 	if (item && !tmpl.pages.contains(page, item)){
+				// 		page = tmpl.pages.find(item);
+				// 		page = page !== 0 ? page : 1;
+				// 	}
+				// 	tmpl.pages.set(page, !_is.empty(state), false, true);
+				// 	if (item && tmpl.pages.contains(page, item)){
+				// 		item.scrollTo();
+				// 	}
+				// } else {
+				// 	tmpl.items.detach(tmpl.items.all());
+				// 	tmpl.items.create(tmpl.items.available(), true);
+				// 	if (item){
+				// 		item.scrollTo();
+				// 	}
+				// }
+				// if (!_is.empty(state.i)){
+				// 	state.i = null;
+				// 	self.replace(state);
+				// }
 			}
 		},
 	});
@@ -5019,10 +5075,10 @@
 	 */
 
 })(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils.is,
-	FooGallery.utils.str
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils.is,
+		FooGallery.utils.str
 );
 (function ($, _, _utils, _is, _fn, _obj) {
 
@@ -5049,6 +5105,14 @@
 			self.il8n = template.il8n.item;
 			self.sel = template.sel.item;
 			self.opt = _obj.extend({}, template.opt.item, options);
+
+			/**
+			 * @summary The class used to generate this items content if required.
+			 * @memberof FooGallery.Item#
+			 * @name content
+			 * @type {FooGallery.ItemContent}
+			 */
+			self.content = _.components.make(self.opt.type + "-content", template, self);
 
 			/**
 			 * @summary Whether or not the items' elements are appended to the template.
@@ -5150,6 +5214,13 @@
 			 */
 			self.fixLayout = self.tmpl.opt.fixLayout;
 
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name index
+			 * @type {number}
+			 * @default -1
+			 */
+			self.index = -1;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name type
@@ -5333,8 +5404,8 @@
 			 * 			item.$el.off(".foogallery").remove();
 			 * 			item.$el = null;
 			 * 			...
-			 * 			// once all destroy work is complete you must set tmpl to null
-			 * 			item.tmpl = null;
+			 * 			// once all destroy work is complete you must set isDestroyed to true
+			 * 			item.isDestroyed = true;
 			 * 		}
 			 * 	}
 			 * });
@@ -5374,7 +5445,11 @@
 		 */
 		doDestroyItem: function () {
 			var self = this;
+			if (self.content instanceof _.ItemContent){
+				self.content.destroy();
+			}
 			if (self.isParsed) {
+				self.$anchor.add(self.$caption).off("click.foogallery");
 				self.append();
 				if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
 				else self.$el.attr("class", self._undo.classes);
@@ -6159,6 +6234,460 @@
 		FooGallery.utils.fn,
 		FooGallery.utils.obj
 );
+(function($, _, _utils, _is, _fn, _obj, _str){
+
+	_.ItemContent = _.Component.extend({
+		construct: function(template, item){
+			var self = this;
+			self._super(template);
+
+			self.item = item;
+
+			self.opt = _obj.extend({}, self.tmpl.opt.content);
+
+			self.cls = _obj.extend({}, self.tmpl.cls.content);
+
+			self.$el = null;
+
+			self.$loader = null;
+
+			self.$content = null;
+
+			self.isCreated = false;
+
+			self.isDestroyed = false;
+
+			self.isAttached = false;
+
+			self.isLoading = false;
+
+			self.isLoaded = false;
+
+			self.isError = false;
+		},
+		getLoaderClass: function(){
+			var self = this;
+			var classes = self.tmpl.$el.prop("className").split(' ');
+			for (var i = 0, l = classes.length; i < l; i++){
+				if (_str.startsWith(classes[i], "fg-loading-")) return classes[i];
+			}
+			return null;
+		},
+		getSize: function(attrWidth, attrHeight, defWidth, defHeight){
+			var self = this, size = {};
+			if (!_is.string(attrWidth) || !_is.string(attrHeight)) return size;
+
+			size[attrWidth] = _is.size(defWidth) ? defWidth : null;
+			size[attrHeight] = _is.size(defHeight) ? defHeight : null;
+
+			if (!self.item.isCreated) return size;
+
+			size[attrWidth] = self.item.$anchor.data(attrWidth) || size[attrWidth];
+			size[attrHeight] = self.item.$anchor.data(attrHeight) || size[attrHeight];
+			return size;
+		},
+		getSizes: function(){
+			var self = this,
+					size = self.getSize("width", "height", self.opt.width, self.opt.height),
+					max = self.getSize("maxWidth", "maxHeight", self.opt.maxWidth, self.opt.maxHeight),
+					min = self.getSize("minWidth", "minHeight", self.opt.minWidth, self.opt.minHeight);
+			return _obj.extend(size, max, min);
+		},
+		destroy: function(){
+			var self = this;
+			/**
+			 * @summary Raised when a template destroys an items' content.
+			 * @event FooGallery.Template~"destroy-content.foogallery"
+			 * @type {jQuery.Event}
+			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+			 * @param {FooGallery.Template} template - The template raising the event.
+			 * @param {FooGallery.Item} content - The content to destroy.
+			 * @returns {boolean} `true` if the {@link FooGallery.Content|`content`} has been successfully destroyed.
+			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+			 * $(".foogallery").foogallery({
+			 * 	on: {
+			 * 		"destroy-content.foogallery": function(event, template, content){
+			 * 			// do something
+			 * 		}
+			 * 	}
+			 * });
+			 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `item` being destroyed.}
+			 * $(".foogallery").foogallery({
+			 * 	on: {
+			 * 		"destroy-content.foogallery": function(event, template, content){
+			 * 			if ("some condition"){
+			 * 				// stop the item being destroyed
+			 * 				event.preventDefault();
+			 * 			}
+			 * 		}
+			 * 	}
+			 * });
+			 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
+			 * $(".foogallery").foogallery({
+			 * 	on: {
+			 * 		"destroy-content.foogallery": function(event, template, content){
+			 * 			// stop the default logic
+			 * 			event.preventDefault();
+			 * 			// replacing it with your own destroying the item yourself
+			 * 			content.$el.off(".foogallery").remove();
+			 * 			content.$el = null;
+			 * 			...
+			 * 			// once all destroy work is complete you must set isDestroyed to true
+			 * 			content.isDestroyed = true;
+			 * 		}
+			 * 	}
+			 * });
+			 */
+			var e = self.tmpl.raise("destroy-content", [self]);
+			if (!e.isDefaultPrevented()) {
+				self.isDestroyed = self.doDestroyContent();
+			}
+			if (self.isDestroyed) {
+				/**
+				 * @summary Raised after an items' content has been destroyed.
+				 * @event FooGallery.Template~"destroyed-content.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Content} content - The content that was destroyed.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"destroyed-content.foogallery": function(event, template, content){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+				 */
+				self.tmpl.raise("destroyed-content", [self]);
+				// call the original method that simply nulls the tmpl property
+				self._super();
+			}
+			return self.isDestroyed;
+		},
+		doDestroyContent: function(){
+			var self = this;
+			if (self.isCreated){
+				self.detach();
+				self.$el.remove();
+			}
+			return true;
+		},
+		create: function(){
+			var self = this;
+			if (!self.isCreated && _is.string(self.item.href)) {
+				/**
+				 * @summary Raised when an items' content needs to create its' elements.
+				 * @event FooGallery.Template~"create-content.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Content} content - The content to create the markup for.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"create-content.foogallery": function(event, template, content){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being created.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"create-content.foogallery": function(event, template, content){
+				 * 			if ("some condition"){
+				 * 				// stop the content being created
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"create-content.foogallery": function(event, template, content){
+				 * 			// stop the default logic
+				 * 			event.preventDefault();
+				 * 			// replacing it with your own creating each element property of the content yourself
+				 * 			content.$el = $("<div/>");
+				 * 			...
+				 * 			// once all elements are created you must set isCreated to true
+				 * 			content.isCreated = true;
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("create-content", [self]);
+				if (!e.isDefaultPrevented()) {
+					self.isCreated = self.doCreateContent();
+				}
+				if (self.isCreated) {
+					/**
+					 * @summary Raised after an items' content elements have been created.
+					 * @event FooGallery.Template~"created-content.foogallery"
+					 * @type {jQuery.Event}
+					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+					 * @param {FooGallery.Template} template - The template raising the event.
+					 * @param {FooGallery.Content} content - The content that was created.
+					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+					 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"created-content.foogallery": function(event, template, content){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+					 */
+					self.tmpl.raise("created-content", [self]);
+				}
+			}
+			return self.isCreated;
+		},
+		doCreateContent: function(){
+			var self = this, sizes = self.getSizes();
+			self.$el = self.createElem();
+			self.$content = $('<img/>').addClass(self.cls.content).css(sizes).appendTo(self.$el);
+			self.$loader = self.createLoader(self.$el);
+			return true;
+		},
+		createElem: function(){
+			return $('<div/>').addClass(this.cls.elem).addClass(this.getLoaderClass());
+		},
+		createLoader: function( parent ){
+			return $('<div/>').addClass(this.cls.loader).appendTo(parent);
+		},
+		appendTo: function( parent ){
+			var self = this;
+			if (!self.isCreated){
+				self.create();
+			}
+			if (self.isCreated && !self.isAttached){
+				/**
+				 * @summary Raised before an items' content is appended to the supplied parent.
+				 * @event FooGallery.Template~"append-content.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Content} content - The content to append to the parent.
+				 * @param {(string|Element|jQuery)} parent - The parent to append the content to.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"append-content.foogallery": function(event, template, content, parent){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being appended.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"append-content.foogallery": function(event, template, content, parent){
+				 * 			if ("some condition"){
+				 * 				// stop the content being appended
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"append-content.foogallery": function(event, template, content, parent){
+				 * 			// stop the default logic
+				 * 			event.preventDefault();
+				 * 			// replacing it with your own appending the content to the parent
+				 * 			content.$el.appendTo(parent);
+				 * 			...
+				 * 			// once the content is appended you must set isAttached to true
+				 * 			content.isAttached = true;
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("append-content", [self, parent]);
+				if (!e.isDefaultPrevented()) {
+					self.isAttached = self.doAppendToContent( parent );
+				}
+				if (self.isAttached) {
+					/**
+					 * @summary Raised after an items' content has been appended to the parent.
+					 * @event FooGallery.Template~"appended-content.foogallery"
+					 * @type {jQuery.Event}
+					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+					 * @param {FooGallery.Template} template - The template raising the event.
+					 * @param {FooGallery.Content} content - The content that was appended.
+					 * @param {(string|Element|jQuery)} parent - The parent the content was appended to.
+					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+					 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"appended-content.foogallery": function(event, template, content, parent){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+					 */
+					self.tmpl.raise("appended-content", [self, parent]);
+				}
+			}
+			return self.isAttached;
+		},
+		doAppendToContent: function( parent ){
+			this.$el.appendTo( parent );
+			return this.$el.parent().length > 0;
+		},
+		detach: function(){
+			var self = this;
+			if (self.isCreated && self.isAttached) {
+				/**
+				 * @summary Raised when an items' content needs to be detached from its' parent.
+				 * @event FooGallery.Template~"detach-item.foogallery"
+				 * @type {jQuery.Event}
+				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+				 * @param {FooGallery.Template} template - The template raising the event.
+				 * @param {FooGallery.Content} content - The content to detach.
+				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"detach-content.foogallery": function(event, template, content){
+				 * 			// do something
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being detached.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"detach-content.foogallery": function(event, template, content){
+				 * 			if ("some condition"){
+				 * 				// stop the content being detached
+				 * 				event.preventDefault();
+				 * 			}
+				 * 		}
+				 * 	}
+				 * });
+				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
+				 * $(".foogallery").foogallery({
+				 * 	on: {
+				 * 		"detach-content.foogallery": function(event, template, content){
+				 * 			// stop the default logic
+				 * 			event.preventDefault();
+				 * 			// replacing it with your own detaching the content from its' parent
+				 * 			content.$el.detach();
+				 * 			...
+				 * 			// once the content is detached you must set isAttached to false
+				 * 			content.isAttached = false;
+				 * 		}
+				 * 	}
+				 * });
+				 */
+				var e = self.tmpl.raise("detach-content", [self]);
+				if (!e.isDefaultPrevented()) {
+					self.isAttached = !self.doDetachContent();
+				}
+				if (!self.isAttached) {
+					/**
+					 * @summary Raised after an items' content has been detached from its' parent.
+					 * @event FooGallery.Template~"detached-content.foogallery"
+					 * @type {jQuery.Event}
+					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+					 * @param {FooGallery.Template} template - The template raising the event.
+					 * @param {FooGallery.Content} content - The content that was detached.
+					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+					 * $(".foogallery").foogallery({
+					 * 	on: {
+					 * 		"detached-content.foogallery": function(event, template, content){
+					 * 			// do something
+					 * 		}
+					 * 	}
+					 * });
+					 */
+					self.tmpl.raise("detached-content", [self]);
+				}
+			}
+			return !self.isAttached;
+		},
+		doDetachContent: function(){
+			this.$el.detach();
+			return true;
+		},
+		load: function(){
+			var self = this, cls = self.item.cls;
+			self.isLoading = true;
+			self.isLoaded = false;
+			self.isError = false;
+			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
+			return $.Deferred(function(def){
+				if (!self.isCreated || !self.isAttached){
+					def.rejectWith("not created or attached");
+					return;
+				}
+				var e = self.tmpl.raise("load-content", [self]);
+				if (e.isDefaultPrevented()){
+					def.rejectWith("default prevented");
+					return;
+				}
+				self.doLoadContent().then(def.resolve).fail(def.reject);
+			}).then(function(){
+				self.isLoading = false;
+				self.isLoaded = true;
+				self.$el.removeClass(cls.loading).addClass(cls.loaded);
+				self.tmpl.raise("loaded-content", [self]);
+			}).fail(function(){
+				self.isLoading = false;
+				self.isError = true;
+				self.$el.removeClass(cls.loading).addClass(cls.error);
+				self.tmpl.raise("error-content", [self]);
+			}).promise();
+		},
+		doLoadContent: function(){
+			var self = this;
+			return $.Deferred(function(def){
+				var img = self.$content.get(0);
+				img.onload = function () {
+					img.onload = img.onerror = null;
+					def.resolve(self);
+				};
+				img.onerror = function () {
+					img.onload = img.onerror = null;
+					def.rejectWith("error loading image");
+				};
+				// set everything in motion by setting the src
+				img.src = self.item.href;
+				if (img.complete){
+					img.onload();
+				}
+			}).promise();
+		}
+	});
+
+	_.template.configure("core", {
+		content: {
+			width: null,
+			height: null,
+			minWidth: null,
+			minHeight: null,
+			maxWidth: null,
+			maxHeight: null,
+			attrs: {}
+		}
+	},{
+		content: {
+			elem: "fg-content-container fg-content-image",
+			content: "fg-content",
+			loader: "fg-loader"
+		}
+	});
+
+	_.components.register("item-content", _.ItemContent)
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.obj,
+		FooGallery.utils.str
+);
 (function ($, _, _utils, _is, _fn, _obj) {
 
 	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
@@ -6179,7 +6708,7 @@
 			 * @function _super
 			 */
 			self._super(template);
-			self.idMap = {};
+			self.maps = {};
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -6230,7 +6759,7 @@
 				if (destroyed.length > 0) self.tmpl.raise("destroyed-items", [destroyed]);
 				// should we handle a case where the destroyed.length != items.length??
 			}
-			self.idMap = {};
+			self.maps = {};
 			self._canvas = self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -6278,12 +6807,13 @@
 		available: function () {
 			return this._available.slice();
 		},
-		get: function (id) {
-			return !_is.empty(id) && !!this.idMap[id] ? this.idMap[id] : null;
+		get: function (idOrIndex) {
+			var map = _is.number(idOrIndex) ? 'index' : 'id';
+			return !!this.maps[map][idOrIndex] ? this.maps[map][idOrIndex] : null;
 		},
 		setAll: function (items) {
 			this._arr = _is.array(items) ? items : [];
-			this.idMap = this.createIdMap(items);
+			this.maps = this.createMaps(items);
 			this._available = this.all();
 		},
 		setAvailable: function (items) {
@@ -6737,13 +7267,18 @@
 			}
 			return _fn.resolveWith([]);
 		},
-		createIdMap: function (items) {
-			var map = {};
+		createMaps: function(items){
+			var maps = {
+				id: {},
+				index: {}
+			};
 			$.each(items, function (i, item) {
 				if (_is.empty(item.id)) item.id = "" + (i + 1);
-				map[item.id] = item;
+				item.index = i;
+				maps.id[item.id] = item;
+				maps.index[item.index] = item;
 			});
-			return map;
+			return maps;
 		}
 	});
 
@@ -6755,6 +7290,891 @@
 		FooGallery.utils,
 		FooGallery.utils.is,
 		FooGallery.utils.fn,
+		FooGallery.utils.obj
+);
+(function($, _, _utils, _is){
+
+	_.Video = _.Item.extend({
+		construct: function(template, options){
+			var self = this;
+			self._super(template, options);
+			self.cover = self.opt.cover;
+		},
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.cover = self.$anchor.data("cover") || self.cover;
+				self.$el.addClass(self.cls.video);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({
+					"data-type": self.type,
+					"data-cover": self.cover
+				});
+				self.$el.addClass(self.cls.video);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", {
+		item: {
+			cover: ""
+		}
+	},{
+		item: {
+			video: "fg-video"
+		}
+	});
+
+	_.components.register("video", _.Video);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, _, _utils, _is, _fn, _obj, _url){
+
+	_.VideoContent = _.ItemContent.extend({
+		construct: function(template, item){
+			var self = this;
+			self._super(template, item);
+			_obj.extend(self.opt, self.tmpl.opt.video);
+			_obj.extend(self.cls, self.tmpl.cls.video);
+
+			self.urls = [];
+
+			self.isSelfHosted = false;
+
+			self._autoPlay = self.opt.autoPlay;
+		},
+		parseHref: function(){
+			var self = this, urls = self.item.href.split(','), result = [];
+			for (var i = 0, il = urls.length, url, source; i < il; i++){
+				if (_is.empty(urls[i])) continue;
+				url = _url.parts(urls[i]);
+				source = null;
+				for (var j = 0, jl = self.tmpl.videoSources.length; j < jl; j++){
+					if (self.tmpl.videoSources[j].canPlay(url)){
+						source = self.tmpl.videoSources[j];
+						result.push({
+							parts: url,
+							source: source,
+							embed: source.getEmbedUrl(url, self._autoPlay)
+						});
+						break;
+					}
+				}
+			}
+			return result;
+		},
+		doCreateContent: function(){
+			var self = this, sizes = self.getSizes();
+
+			self.urls = self.parseHref();
+			self.isSelfHosted = $.map(self.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
+
+			self.$el = self.createElem();
+
+			self.$content = self.isSelfHosted ? $('<video/>', self.opt.attrs.video) : $('<iframe/>', self.opt.attrs.iframe);
+			self.$content.addClass(self.cls.content).css(sizes).appendTo(self.$el);
+
+			self.$loader = self.createLoader(self.$el);
+			return true;
+		},
+		load: function( autoPlay ){
+			var self = this;
+			self._autoPlay = _is.boolean(autoPlay) ? autoPlay : self.opt.autoPlay;
+			return self._super().always(function(){
+				self._autoPlay = self.opt.autoPlay;
+			});
+		},
+		doLoadContent: function(){
+			var self = this;
+			return $.Deferred(function(def){
+				if (self.urls.length === 0){
+					def.rejectWith("no urls available");
+					return;
+				}
+				var promise = self.isSelfHosted ? self.loadSelfHosted() : self.loadIframe();
+				promise.then(def.resolve).fail(def.reject);
+			}).promise();
+		},
+		loadSelfHosted: function(){
+			var self = this;
+			return $.Deferred(function(def){
+				self.$content.off("loadeddata error");
+				self.$content.find("source").remove();
+				if (!_is.empty(self.item.cover)){
+					self.$content.attr("poster", self.item.cover);
+				}
+				self.$content.on({
+					'loadeddata': function(){
+						self.$content.off("loadeddata error");
+						this.volume = self.opt.volume;
+						if (self._autoPlay){
+							var p = this.play();
+							if (typeof p !== 'undefined'){
+								p.catch(function(){
+									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
+								});
+							}
+						}
+						def.resolve(self);
+					},
+					'error': function(){
+						self.$content.off("loadeddata error");
+						def.reject(self);
+					}
+				});
+				var sources = $.map(self.urls, function(url){
+					var src = url.source.getEmbedUrl(url.parts, self._autoPlay);
+					return $("<source/>", {src: src, mimeType: url.source.mimeType});
+				});
+				self.$content.append(sources);
+				if (self.$content.prop("readyState") > 0){
+					self.$content.get(0).load();
+				}
+			}).promise();
+		},
+		loadIframe: function(){
+			var self = this;
+			return $.Deferred(function(def){
+				if (!_is.empty(self.item.cover)){
+					self.$content.css("background-image", "url('" + self.item.cover + "')");
+				}
+				self.$content.off("load error").on({
+					'load': function(){
+						self.$content.off("load error");
+						def.resolve(self);
+					},
+					'error': function(){
+						self.$content.off("load error");
+						def.reject(self);
+					}
+				});
+				var url = self.urls[0],
+						src = url.source.getEmbedUrl(url.parts, self._autoPlay);
+				self.$content.attr("src", src);
+			}).promise();
+		}
+	});
+
+	_.template.configure("core", {
+		video: {
+			autoPlay: false,
+			volume: 0.2,
+			attrs: {
+				iframe: {
+					src: '',
+					frameborder: 'no',
+					allow: "autoplay; fullscreen",
+					allowfullscreen: true
+				},
+				video: {
+					controls: true,
+					preload: false,
+					controlsList: "nodownload"
+				}
+			}
+		}
+	}, {
+		video: {
+			elem: "fg-content-container fg-content-video",
+			cover: "fg-content-cover"
+		}
+	});
+
+	_.components.register("video-content", _.VideoContent);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.obj,
+		FooGallery.utils.url
+);
+(function(_, _utils, _is, _obj, _url){
+
+
+	_.VideoHelper = _utils.Class.extend({
+		construct: function(playerDefaults){
+			this.playerDefaults = _obj.extend({
+				autoPlay: false,
+				width: null,
+				height: null,
+				minWidth: null,
+				minHeight: null,
+				maxWidth: null,
+				maxHeight: null,
+				attrs: {
+					iframe: {
+						src: '',
+						frameborder: 'no',
+						allow: "autoplay; fullscreen",
+						allowfullscreen: true
+					},
+					video: {
+						controls: true,
+						preload: false,
+						controlsList: "nodownload"
+					}
+				}
+			}, playerDefaults);
+			this.sources = _.videoSources.load();
+		},
+		parseHref: function(href, autoPlay){
+			var self = this, urls = href.split(','), result = [];
+			for (var i = 0, il = urls.length, url, source; i < il; i++){
+				if (_is.empty(urls[i])) continue;
+				url = _url.parts(urls[i]);
+				source = null;
+				for (var j = 0, jl = self.sources.length; j < jl; j++){
+					if (self.sources[j].canPlay(url)){
+						source = self.sources[j];
+						result.push({
+							parts: url,
+							source: source,
+							embed: source.getEmbedUrl(url, autoPlay)
+						});
+						break;
+					}
+				}
+			}
+			return result;
+		},
+		canPlay: function(href){
+			return this.parseHref(href).length > 0;
+		},
+		getPlayer: function(href, options){
+			options = _obj.extend({}, this.playerDefaults, options);
+			var urls = this.parseHref(href, options.autoPlay);
+			return new _.VideoPlayer(urls, options);
+		}
+	});
+
+
+})(
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.obj,
+		FooGallery.utils.url
+);
+(function($, _, _utils, _fn){
+
+
+	_.VideoPlayer = _utils.Class.extend({
+		construct: function(urls, options){
+			this.urls = urls;
+			this.options = options;
+			this.selfHosted = $.map(this.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
+			this.$el = this.$create();
+		},
+		$create: function(){
+			var self = this, o = self.options,
+					$result = self.selfHosted ? $('<video/>', o.attrs.video) : $('<iframe/>', o.attrs.iframe);
+			$result.css({
+				width: o.width, height: o.height,
+				maxWidth: o.maxWidth, maxHeight: o.maxHeight,
+				minWidth: o.minWidth, minHeight: o.minHeight
+			});
+			return $result;
+		},
+		appendTo: function(parent){
+			var self = this, $parent = $(parent);
+			if ($parent.length > 0){
+				if (self.$el.length === 0){
+					self.$el = self.$create();
+				}
+				$parent.append(self.$el);
+			}
+			return self;
+		},
+		load: function(){
+			var self = this;
+			if (self.urls.length === 0){
+				return _fn.rejectWith(Error("No supported urls available."));
+			}
+			if (self.selfHosted){
+				return self.loadSelfHosted();
+			} else {
+				return self.loadEmbed();
+			}
+		},
+		loadSelfHosted: function(){
+			var self = this;
+			self.$el.off("loadeddata error");
+			return $.Deferred(function(def){
+				self.$el.find("source").remove();
+				self.$el.on({
+					'loadeddata': function(){
+						self.$el.off("loadeddata error");
+						this.volume = 0.2;
+						if (self.options.autoPlay){
+							var p = this.play();
+							if (typeof p !== 'undefined'){
+								p.catch(function(){
+									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
+								});
+							}
+						}
+						def.resolve();
+					},
+					'error': function(){
+						self.$el.off("loadeddata error");
+						def.reject(Error('Error loading video: ' + $.map(self.urls, function(url){ return url.embed; }).join(",")));
+					}
+				});
+				var sources = $.map(self.urls, function(url){
+					return $("<source/>", {src: url.embed, mimeType: url.source.mimeType});
+				});
+				self.$el.append(sources);
+				if (self.$el.prop("readyState") > 0){
+					self.$el.get(0).load();
+				}
+			}).promise();
+		},
+		loadEmbed: function(){
+			var self = this;
+			self.$el.off("load error");
+			return $.Deferred(function(def){
+				var src = self.urls[0].embed;
+				self.$el.on({
+					'load': function(){
+						self.$el.off("load error");
+						def.resolve();
+					},
+					'error': function(){
+						self.$el.off("load error");
+						def.reject(Error('Error loading video: ' + src));
+					}
+				});
+				self.$el.attr("src", src);
+			}).promise();
+		},
+		remove: function(){
+			this.$el.off("load loadeddata error").remove();
+		}
+	});
+
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.fn
+);
+(function($, _, _utils, _is, _url, _str){
+
+
+	var _testVideo = document.createElement("video");
+
+	_.VideoSource = _utils.Class.extend({
+		construct: function(mimeType, regex, selfHosted, embedParams, autoPlayParam){
+			this.mimeType = mimeType;
+			this.regex = regex;
+			this.selfHosted = _is.boolean(selfHosted) ? selfHosted : false;
+			this.embedParams = _is.array(embedParams) ? embedParams : [];
+			this.autoPlayParam = _is.hash(autoPlayParam) ? autoPlayParam : {};
+			this.canPlayType = this.selfHosted && _is.fn(_testVideo.canPlayType) ? $.inArray(_testVideo.canPlayType(this.mimeType), ['probably','maybe']) !== -1 : true;
+		},
+		canPlay: function(urlParts){
+			return this.canPlayType && this.regex.test(urlParts.href);
+		},
+		mergeParams: function(urlParts, autoPlay){
+			var self = this;
+			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
+				ip = self.embedParams[i];
+				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
+			}
+			if (!_is.empty(self.autoPlayParam)){
+				urlParts.search = _url.param(urlParts.search, self.autoPlayParam.key, autoPlay ? self.autoPlayParam.value : '');
+			}
+			return urlParts.search;
+		},
+		getId: function(urlParts){
+			var match = urlParts.href.match(/.*\/(.*?)($|\?|#)/);
+			return match && match.length >= 2 ? match[1] : null;
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return _str.join('/', location.protocol, '//', urlParts.hostname, urlParts.pathname) + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources = new _utils.Factory();
+
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.url,
+		FooGallery.utils.str
+);
+(function(_){
+
+
+	_.VideoSource.Mp4 = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/mp4', /\.mp4/i, true);
+		}
+	});
+	_.videoSources.register('video/mp4', _.VideoSource.Mp4);
+
+	_.VideoSource.Webm = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/webm', /\.webm/i, true);
+		}
+	});
+	_.videoSources.register('video/webm', _.VideoSource.Webm);
+
+	_.VideoSource.Wmv = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/wmv', /\.wmv/i, true);
+		}
+	});
+	_.videoSources.register('video/wmv', _.VideoSource.Wmv);
+
+	_.VideoSource.Ogv = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/ogg', /\.ogv|\.ogg/i, true);
+		}
+	});
+	_.videoSources.register('video/ogg', _.VideoSource.Ogv);
+
+
+})(
+		FooGallery
+);
+(function(_){
+
+
+	_.VideoSource.YouTube = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/youtube',
+					/(www.)?youtube|youtu\.be/i,
+					false,
+					[
+						{key: 'modestbranding', value: '1'},
+						{key: 'rel', value: '0'},
+						{key: 'wmode', value: 'transparent'},
+						{key: 'showinfo', value: '0'}
+					],
+					{key: 'autoplay', value: '1'}
+			);
+		},
+		getId: function(urlParts){
+			return /embed\//i.test(urlParts.href)
+					? urlParts.href.split(/embed\//i)[1].split(/[?&]/)[0]
+					: urlParts.href.split(/v\/|v=|youtu\.be\//i)[1].split(/[?&]/)[0];
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return 'https://www.youtube-nocookie.com/embed/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/youtube', _.VideoSource.YouTube);
+
+
+})(
+		FooGallery
+);
+(function(_){
+
+	_.VideoSource.Vimeo = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/vimeo',
+					/(player.)?vimeo\.com/i,
+					false,
+					[
+						{key: 'badge', value: '0'},
+						{key: 'portrait', value: '0'}
+					],
+					{key: 'autoplay', value: '1'}
+			);
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return location.protocol + '//player.vimeo.com/video/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/vimeo', _.VideoSource.Vimeo);
+
+})(
+		FooGallery
+);
+(function(_){
+
+	_.VideoSource.Dailymotion = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/daily',
+					/(www.)?dailymotion\.com|dai\.ly/i,
+					false,
+					[
+						{key: 'wmode', value: 'opaque'},
+						{key: 'info', value: '0'},
+						{key: 'logo', value: '0'},
+						{key: 'related', value: '0'}
+					],
+					{key: 'autoplay', value: '1'}
+			);
+		},
+		getId: function(urlParts){
+			return /\/video\//i.test(urlParts.href)
+					? urlParts.href.split(/\/video\//i)[1].split(/[?&]/)[0].split(/[_]/)[0]
+					: urlParts.href.split(/dai\.ly/i)[1].split(/[?&]/)[0];
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return location.protocol + '//www.dailymotion.com/embed/video/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/daily', _.VideoSource.Dailymotion);
+
+})(
+		FooGallery
+);
+(function(_, _is, _url){
+
+	_.VideoSource.Wistia = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/wistia',
+					/(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
+					false,
+					[],
+					{
+						iframe: {key: 'autoPlay', value: '1'},
+						playlists: {key: 'media_0_0[autoPlay]', value: '1'}
+					}
+			);
+		},
+		getType: function(href){
+			return /playlists\//i.test(href) ? 'playlists' : 'iframe';
+		},
+		mergeParams: function(urlParts, autoPlay){
+			var self = this;
+			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
+				ip = self.embedParams[i];
+				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
+			}
+			if (!_is.empty(self.autoPlayParam)){
+				var param = self.autoPlayParam[self.getType(urlParts.href)];
+				urlParts.search = _url.param(urlParts.search, param.key, autoPlay ? param.value : '');
+			}
+			return urlParts.search;
+		},
+		getId: function(urlParts){
+			return /embed\//i.test(urlParts.href)
+					? urlParts.href.split(/embed\/.*?\//i)[1].split(/[?&]/)[0]
+					: urlParts.href.split(/medias\//)[1].split(/[?&]/)[0];
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return location.protocol + '//fast.wistia.net/embed/'+this.getType(urlParts.href)+'/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/wistia', _.VideoSource.Wistia);
+
+})(
+		FooGallery,
+		FooGallery.utils.is,
+		FooGallery.utils.url
+);
+(function($, _, _utils, _is){
+
+	_.Iframe = _.Item.extend({
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.$el.addClass(self.cls.iframe);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({ "data-type": self.type });
+				self.$el.addClass(self.cls.iframe);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", null,{
+		item: {
+			iframe: "fg-iframe"
+		}
+	});
+
+	_.components.register("iframe", _.Iframe);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, _, _utils, _is, _fn, _obj, _url){
+
+	_.IframeContent = _.ItemContent.extend({
+		construct: function(template, item){
+			var self = this;
+			self._super(template, item);
+			_obj.extend(self.opt, self.tmpl.opt.iframe);
+			_obj.extend(self.cls, self.tmpl.cls.iframe);
+		},
+		doCreateContent: function(){
+			var self = this, sizes = self.getSizes();
+			self.$el = self.createElem();
+			self.$content = $('<iframe/>', self.opt.attrs).addClass(self.cls.content).css(sizes).appendTo(self.$el);
+			self.$loader = self.createLoader(self.$el);
+			return true;
+		},
+		doLoadContent: function(){
+			var self = this;
+			return $.Deferred(function(def){
+				self.$content.off("load error").on({
+					'load': function(){
+						self.$content.off("load error");
+						def.resolve(self);
+					},
+					'error': function(){
+						self.$content.off("load error");
+						def.reject(self);
+					}
+				});
+				self.$content.attr("src", self.item.href);
+			}).promise();
+		}
+	});
+
+	_.template.configure("core", {
+		iframe: {
+			attrs: {
+				src: '',
+				frameborder: 'no',
+				allow: "autoplay; fullscreen",
+				allowfullscreen: true
+			}
+		}
+	}, {
+		iframe: {
+			elem: "fg-content-container fg-content-iframe"
+		}
+	});
+
+	_.components.register("iframe-content", _.IframeContent);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.obj,
+		FooGallery.utils.url
+);
+(function($, _, _utils, _is){
+
+	_.Html = _.Item.extend({
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.$el.addClass(self.cls.html);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({ "data-type": self.type });
+				self.$el.addClass(self.cls.html);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", null,{
+		item: {
+			html: "fg-html"
+		}
+	});
+
+	_.components.register("html", _.Html);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, _, _utils, _is, _fn, _str, _obj){
+
+	_.HtmlContent = _.ItemContent.extend({
+		construct: function(template, item){
+			var self = this;
+			self._super(template, item);
+			_obj.extend(self.opt, self.tmpl.opt.html);
+			_obj.extend(self.cls, self.tmpl.cls.html);
+
+			self.$target = null;
+		},
+		doCreateContent: function(){
+			var self = this;
+
+			if (!_str.startsWith(self.item.href, '#') || (self.$target = $(self.item.href)).length == 0){
+				self.$target = null;
+				return false;
+			}
+
+			var sizes = self.getSizes();
+			self.$el = self.createElem();
+			self.$content = $('<div/>', self.opt.attrs).addClass(self.cls.content).css(sizes).appendTo(self.$el);
+			self.$loader = self.createLoader(self.$el);
+			return true;
+		},
+		doAppendToContent: function( parent ){
+			var self = this;
+			self.$el.appendTo( parent );
+			self.$content.append( self.$target.contents() );
+			return self.$el.parent().length > 0;
+		},
+		doDetachContent: function(){
+			var self = this;
+			self.$target.append( self.$content.contents() );
+			self.$el.detach();
+			return true;
+		},
+		doLoadContent: function(){
+			var self = this;
+			if (!self.isCreated || !self.isAttached) return _fn.rejectWith("not created or attached");
+			var e = self.tmpl.raise("load-content", [self]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			return _fn.resolveWith(self);
+		}
+	});
+
+	_.template.configure("core", null, {
+		html: {
+			elem: "fg-content-container fg-content-html"
+		}
+	});
+
+	_.components.register("html-content", _.HtmlContent);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.str,
+		FooGallery.utils.obj
+);
+(function($, _, _utils, _is){
+
+	_.Embed = _.Item.extend({
+		construct: function(template, options){
+			var self = this;
+			self._super(template, options);
+			self.cover = self.opt.cover;
+		},
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.cover = self.$anchor.data("cover") || self.cover;
+				self.$el.addClass(self.cls.embed);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({
+					"data-type": self.type,
+					"data-cover": self.cover
+				});
+				self.$el.addClass(self.cls.embed);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", {
+		item: {
+			cover: ""
+		}
+	},{
+		item: {
+			embed: "fg-video"
+		}
+	});
+
+	_.components.register("embed", _.Embed);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, _, _utils, _is, _fn, _str, _obj){
+
+	_.EmbedContent = _.HtmlContent.extend({
+		construct: function(template, item){
+			var self = this;
+			self._super(template, item);
+			_obj.extend(self.opt, self.tmpl.opt.embed);
+			_obj.extend(self.cls, self.tmpl.cls.embed);
+		}
+	});
+
+	_.template.configure("core", null, {
+		embed: {
+			elem: "fg-content-container fg-content-embed"
+		}
+	});
+
+	_.components.register("embed-content", _.EmbedContent);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.fn,
+		FooGallery.utils.str,
 		FooGallery.utils.obj
 );
 (function ($, _, _utils, _is) {
@@ -7998,505 +9418,6 @@
 		all: "All",
 		none: "No items found."
 	}, -100);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function($, _, _utils, _is){
-
-	_.Video = _.Item.extend({
-		construct: function(template, options){
-			var self = this;
-			self._super(template, options);
-			self.cover = self.opt.cover;
-		},
-		doParseItem: function($element){
-			var self = this;
-			if (self._super($element)){
-				self.cover = self.$anchor.data("cover") || self.cover;
-				self.$el.addClass(self.cls.video);
-				return true;
-			}
-			return false;
-		},
-		doCreateItem: function(){
-			var self = this;
-			if (self._super()){
-				self.$anchor.attr({
-					"data-type": self.type,
-					"data-cover": self.cover
-				});
-				self.$el.addClass(self.cls.video);
-				return true;
-			}
-			return false;
-		}
-	});
-
-	_.template.configure("core", {
-		item: {
-			cover: ""
-		}
-	},{
-		item: {
-			video: "fg-video"
-		}
-	});
-
-	_.components.register("video", _.Video);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function(_, _utils, _is, _obj, _url){
-
-
-	_.VideoHelper = _utils.Class.extend({
-		construct: function(playerDefaults){
-			this.playerDefaults = _obj.extend({
-				autoPlay: false,
-				width: null,
-				height: null,
-				minWidth: null,
-				minHeight: null,
-				maxWidth: null,
-				maxHeight: null,
-				attrs: {
-					iframe: {
-						src: '',
-						frameborder: 'no',
-						allow: "autoplay; fullscreen",
-						allowfullscreen: true
-					},
-					video: {
-						controls: true,
-						preload: false,
-						controlsList: "nodownload"
-					}
-				}
-			}, playerDefaults);
-			this.sources = _.videoSources.load();
-		},
-		parseHref: function(href, autoPlay){
-			var self = this, urls = href.split(','), result = [];
-			for (var i = 0, il = urls.length, url, source; i < il; i++){
-				if (_is.empty(urls[i])) continue;
-				url = _url.parts(urls[i]);
-				source = null;
-				for (var j = 0, jl = self.sources.length; j < jl; j++){
-					if (self.sources[j].canPlay(url)){
-						source = self.sources[j];
-						result.push({
-							parts: url,
-							source: source,
-							embed: source.getEmbedUrl(url, autoPlay)
-						});
-						break;
-					}
-				}
-			}
-			return result;
-		},
-		canPlay: function(href){
-			return this.parseHref(href).length > 0;
-		},
-		getPlayer: function(href, options){
-			options = _obj.extend({}, this.playerDefaults, options);
-			var urls = this.parseHref(href, options.autoPlay);
-			return new _.VideoPlayer(urls, options);
-		}
-	});
-
-
-})(
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.obj,
-		FooGallery.utils.url
-);
-(function($, _, _utils, _fn){
-
-
-	_.VideoPlayer = _utils.Class.extend({
-		construct: function(urls, options){
-			this.urls = urls;
-			this.options = options;
-			this.selfHosted = $.map(this.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
-			this.$el = this.$create();
-		},
-		$create: function(){
-			var self = this, o = self.options,
-					$result = self.selfHosted ? $('<video/>', o.attrs.video) : $('<iframe/>', o.attrs.iframe);
-			$result.css({
-				width: o.width, height: o.height,
-				maxWidth: o.maxWidth, maxHeight: o.maxHeight,
-				minWidth: o.minWidth, minHeight: o.minHeight
-			});
-			return $result;
-		},
-		appendTo: function(parent){
-			var self = this, $parent = $(parent);
-			if ($parent.length > 0){
-				if (self.$el.length === 0){
-					self.$el = self.$create();
-				}
-				$parent.append(self.$el);
-			}
-			return self;
-		},
-		load: function(){
-			var self = this;
-			if (self.urls.length === 0){
-				return _fn.rejectWith(Error("No supported urls available."));
-			}
-			if (self.selfHosted){
-				return self.loadSelfHosted();
-			} else {
-				return self.loadEmbed();
-			}
-		},
-		loadSelfHosted: function(){
-			var self = this;
-			self.$el.off("loadeddata error");
-			return $.Deferred(function(def){
-				self.$el.find("source").remove();
-				self.$el.on({
-					'loadeddata': function(){
-						self.$el.off("loadeddata error");
-						this.volume = 0.2;
-						if (self.options.autoPlay){
-							var p = this.play();
-							if (typeof p !== 'undefined'){
-								p.catch(function(){
-									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
-								});
-							}
-						}
-						def.resolve();
-					},
-					'error': function(){
-						self.$el.off("loadeddata error");
-						def.reject(Error('Error loading video: ' + $.map(self.urls, function(url){ return url.embed; }).join(",")));
-					}
-				});
-				var sources = $.map(self.urls, function(url){
-					return $("<source/>", {src: url.embed, mimeType: url.source.mimeType});
-				});
-				self.$el.append(sources);
-				if (self.$el.prop("readyState") > 0){
-					self.$el.get(0).load();
-				}
-			}).promise();
-		},
-		loadEmbed: function(){
-			var self = this;
-			self.$el.off("load error");
-			return $.Deferred(function(def){
-				var src = self.urls[0].embed;
-				self.$el.on({
-					'load': function(){
-						self.$el.off("load error");
-						def.resolve();
-					},
-					'error': function(){
-						self.$el.off("load error");
-						def.reject(Error('Error loading video: ' + src));
-					}
-				});
-				self.$el.attr("src", src);
-			}).promise();
-		},
-		remove: function(){
-			this.$el.off("load loadeddata error").remove();
-		}
-	});
-
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.fn
-);
-(function($, _, _utils, _is, _url, _str){
-
-
-	var _testVideo = document.createElement("video");
-
-	_.VideoSource = _utils.Class.extend({
-		construct: function(mimeType, regex, selfHosted, embedParams, autoPlayParam){
-			this.mimeType = mimeType;
-			this.regex = regex;
-			this.selfHosted = _is.boolean(selfHosted) ? selfHosted : false;
-			this.embedParams = _is.array(embedParams) ? embedParams : [];
-			this.autoPlayParam = _is.hash(autoPlayParam) ? autoPlayParam : {};
-			this.canPlayType = this.selfHosted && _is.fn(_testVideo.canPlayType) ? $.inArray(_testVideo.canPlayType(this.mimeType), ['probably','maybe']) !== -1 : true;
-		},
-		canPlay: function(urlParts){
-			return this.canPlayType && this.regex.test(urlParts.href);
-		},
-		mergeParams: function(urlParts, autoPlay){
-			var self = this;
-			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
-				ip = self.embedParams[i];
-				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
-			}
-			if (!_is.empty(self.autoPlayParam)){
-				urlParts.search = _url.param(urlParts.search, self.autoPlayParam.key, autoPlay ? self.autoPlayParam.value : '');
-			}
-			return urlParts.search;
-		},
-		getId: function(urlParts){
-			var match = urlParts.href.match(/.*\/(.*?)($|\?|#)/);
-			return match && match.length >= 2 ? match[1] : null;
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return _str.join('/', location.protocol, '//', urlParts.hostname, urlParts.pathname) + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources = new _utils.Factory();
-
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.url,
-		FooGallery.utils.str
-);
-(function(_){
-
-
-	_.VideoSource.Mp4 = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/mp4', /\.mp4/i, true);
-		}
-	});
-	_.videoSources.register('video/mp4', _.VideoSource.Mp4);
-
-	_.VideoSource.Webm = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/webm', /\.webm/i, true);
-		}
-	});
-	_.videoSources.register('video/webm', _.VideoSource.Webm);
-
-	_.VideoSource.Wmv = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/wmv', /\.wmv/i, true);
-		}
-	});
-	_.videoSources.register('video/wmv', _.VideoSource.Wmv);
-
-	_.VideoSource.Ogv = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/ogg', /\.ogv|\.ogg/i, true);
-		}
-	});
-	_.videoSources.register('video/ogg', _.VideoSource.Ogv);
-
-
-})(
-		FooGallery
-);
-(function(_){
-
-
-	_.VideoSource.YouTube = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/youtube',
-					/(www.)?youtube|youtu\.be/i,
-					false,
-					[
-						{key: 'modestbranding', value: '1'},
-						{key: 'rel', value: '0'},
-						{key: 'wmode', value: 'transparent'},
-						{key: 'showinfo', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getId: function(urlParts){
-			return /embed\//i.test(urlParts.href)
-					? urlParts.href.split(/embed\//i)[1].split(/[?&]/)[0]
-					: urlParts.href.split(/v\/|v=|youtu\.be\//i)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return 'https://www.youtube-nocookie.com/embed/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/youtube', _.VideoSource.YouTube);
-
-
-})(
-		FooGallery
-);
-(function(_){
-
-	_.VideoSource.Vimeo = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/vimeo',
-					/(player.)?vimeo\.com/i,
-					false,
-					[
-						{key: 'badge', value: '0'},
-						{key: 'portrait', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//player.vimeo.com/video/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/vimeo', _.VideoSource.Vimeo);
-
-})(
-		FooGallery
-);
-(function(_){
-
-	_.VideoSource.Dailymotion = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/daily',
-					/(www.)?dailymotion\.com|dai\.ly/i,
-					false,
-					[
-						{key: 'wmode', value: 'opaque'},
-						{key: 'info', value: '0'},
-						{key: 'logo', value: '0'},
-						{key: 'related', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getId: function(urlParts){
-			return /\/video\//i.test(urlParts.href)
-					? urlParts.href.split(/\/video\//i)[1].split(/[?&]/)[0].split(/[_]/)[0]
-					: urlParts.href.split(/dai\.ly/i)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//www.dailymotion.com/embed/video/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/daily', _.VideoSource.Dailymotion);
-
-})(
-		FooGallery
-);
-(function(_, _is, _url){
-
-	_.VideoSource.Wistia = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/wistia',
-					/(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
-					false,
-					[],
-					{
-						iframe: {key: 'autoPlay', value: '1'},
-						playlists: {key: 'media_0_0[autoPlay]', value: '1'}
-					}
-			);
-		},
-		getType: function(href){
-			return /playlists\//i.test(href) ? 'playlists' : 'iframe';
-		},
-		mergeParams: function(urlParts, autoPlay){
-			var self = this;
-			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
-				ip = self.embedParams[i];
-				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
-			}
-			if (!_is.empty(self.autoPlayParam)){
-				var param = self.autoPlayParam[self.getType(urlParts.href)];
-				urlParts.search = _url.param(urlParts.search, param.key, autoPlay ? param.value : '');
-			}
-			return urlParts.search;
-		},
-		getId: function(urlParts){
-			return /embed\//i.test(urlParts.href)
-					? urlParts.href.split(/embed\/.*?\//i)[1].split(/[?&]/)[0]
-					: urlParts.href.split(/medias\//)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//fast.wistia.net/embed/'+this.getType(urlParts.href)+'/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/wistia', _.VideoSource.Wistia);
-
-})(
-		FooGallery,
-		FooGallery.utils.is,
-		FooGallery.utils.url
-);
-(function($, _, _utils, _is){
-
-	_.Embed = _.Item.extend({
-		construct: function(template, options){
-			var self = this;
-			self._super(template, options);
-			self.cover = self.opt.cover;
-		},
-		doParseItem: function($element){
-			var self = this;
-			if (self._super($element)){
-				self.cover = self.$anchor.data("cover") || self.cover;
-				self.$el.addClass(self.cls.embed);
-				return true;
-			}
-			return false;
-		},
-		doCreateItem: function(){
-			var self = this;
-			if (self._super()){
-				self.$anchor.attr({
-					"data-type": self.type,
-					"data-cover": self.cover
-				});
-				self.$el.addClass(self.cls.embed);
-				return true;
-			}
-			return false;
-		}
-	});
-
-	_.template.configure("core", {
-		item: {
-			cover: ""
-		}
-	},{
-		item: {
-			embed: "fg-video"
-		}
-	});
-
-	_.components.register("embed", _.Embed);
 
 })(
 		FooGallery.$,
