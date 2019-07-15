@@ -6,13 +6,11 @@
 			self._super(template, item);
 			_obj.extend(self.opt, self.tmpl.opt.iframe);
 			_obj.extend(self.cls, self.tmpl.cls.iframe);
+			_obj.extend(self.sel, self.tmpl.sel.iframe);
 		},
-		doCreateContent: function(){
+		createContent: function(){
 			var self = this, sizes = self.getSizes();
-			self.$el = self.createElem();
-			self.$content = $('<iframe/>', self.opt.attrs).addClass(self.cls.content).css(sizes).appendTo(self.$el);
-			self.$loader = self.createLoader(self.$el);
-			return true;
+			return $('<iframe/>', self.opt.attrs).addClass(self.cls.content).css(sizes);
 		},
 		doLoadContent: function(){
 			var self = this;

@@ -4336,6 +4336,14 @@
 			return this.pages ? this.pages.items() : this.items.available();
 		},
 
+		getLoaderClass: function(){
+			var classes = this.$el.prop("className").split(' ');
+			for (var i = 0, l = classes.length; i < l; i++){
+				if (_str.startsWith(classes[i], "fg-loading-")) return classes[i];
+			}
+			return null;
+		},
+
 		/**
 		 * @summary Check if any available items need to be loaded and loads them.
 		 * @memberof FooGallery.Template#
@@ -6103,11 +6111,19 @@
 
 			self.cls = _obj.extend({}, self.tmpl.cls.content);
 
+			self.sel = _obj.extend({}, self.tmpl.sel.content);
+
 			self.$el = null;
 
 			self.$loader = null;
 
+			self.$inner = null;
+
+			self.$item = null;
+
 			self.$content = null;
+
+			self.$caption = null;
 
 			self.isCreated = false;
 
@@ -6120,14 +6136,6 @@
 			self.isLoaded = false;
 
 			self.isError = false;
-		},
-		getLoaderClass: function(){
-			var self = this;
-			var classes = self.tmpl.$el.prop("className").split(' ');
-			for (var i = 0, l = classes.length; i < l; i++){
-				if (_str.startsWith(classes[i], "fg-loading-")) return classes[i];
-			}
-			return null;
 		},
 		getSize: function(attrWidth, attrHeight, defWidth, defHeight){
 			var self = this, size = {};
@@ -6157,7 +6165,7 @@
 			 * @type {jQuery.Event}
 			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
 			 * @param {FooGallery.Template} template - The template raising the event.
-			 * @param {FooGallery.Item} content - The content to destroy.
+			 * @param {FooGallery.ItemContent} content - The content to destroy.
 			 * @returns {boolean} `true` if the {@link FooGallery.Content|`content`} has been successfully destroyed.
 			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
 			 * $(".foogallery").foogallery({
@@ -6205,7 +6213,7 @@
 				 * @type {jQuery.Event}
 				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
 				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.Content} content - The content that was destroyed.
+				 * @param {FooGallery.ItemContent} content - The content that was destroyed.
 				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
 				 * $(".foogallery").foogallery({
 					 * 	on: {
@@ -6238,7 +6246,7 @@
 				 * @type {jQuery.Event}
 				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
 				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.Content} content - The content to create the markup for.
+				 * @param {FooGallery.ItemContent} content - The content to create the markup for.
 				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
 				 * $(".foogallery").foogallery({
 				 * 	on: {
@@ -6284,7 +6292,7 @@
 					 * @type {jQuery.Event}
 					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
 					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.Content} content - The content that was created.
+					 * @param {FooGallery.ItemContent} content - The content that was created.
 					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
 					 * $(".foogallery").foogallery({
 					 * 	on: {
@@ -6300,14 +6308,33 @@
 			return self.isCreated;
 		},
 		doCreateContent: function(){
-			var self = this, sizes = self.getSizes();
+			var self = this;
 			self.$el = self.createElem();
-			self.$content = $('<img/>').addClass(self.cls.content).css(sizes).appendTo(self.$el);
-			self.$loader = self.createLoader(self.$el);
+			self.$inner = self.createInner().appendTo(self.$el);
+			self.$item = self.createItem().appendTo(self.$inner);
+			self.$caption = self.createCaption().appendTo(self.$inner);
+			self.$content = self.createContent().appendTo(self.$item);
+			self.$loader = self.createLoader(self.$item);
 			return true;
 		},
+		createContent: function(){
+			var self = this, sizes = self.getSizes();
+			return $('<img/>').addClass(self.cls.content).css(sizes);
+		},
 		createElem: function(){
-			return $('<div/>').addClass(this.cls.elem).addClass(this.getLoaderClass());
+			return $('<div/>').addClass(this.cls.elem).addClass(this.tmpl.getLoaderClass());
+		},
+		createInner: function(){
+			return $('<div/>').addClass(this.cls.inner);
+		},
+		createItem: function(){
+			return $('<div/>').addClass(this.cls.item);
+		},
+		createCaption: function(){
+			return $('<div/>').addClass(this.cls.caption).append(
+					$('<div/>').addClass(this.cls.title).html(this.item.caption),
+					$('<div/>').addClass(this.cls.description).html(this.item.description)
+			);
 		},
 		createLoader: function( parent ){
 			return $('<div/>').addClass(this.cls.loader).appendTo(parent);
@@ -6324,7 +6351,7 @@
 				 * @type {jQuery.Event}
 				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
 				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.Content} content - The content to append to the parent.
+				 * @param {FooGallery.ItemContent} content - The content to append to the parent.
 				 * @param {(string|Element|jQuery)} parent - The parent to append the content to.
 				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
 				 * $(".foogallery").foogallery({
@@ -6371,7 +6398,7 @@
 					 * @type {jQuery.Event}
 					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
 					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.Content} content - The content that was appended.
+					 * @param {FooGallery.ItemContent} content - The content that was appended.
 					 * @param {(string|Element|jQuery)} parent - The parent the content was appended to.
 					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
 					 * $(".foogallery").foogallery({
@@ -6400,7 +6427,7 @@
 				 * @type {jQuery.Event}
 				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
 				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.Content} content - The content to detach.
+				 * @param {FooGallery.ItemContent} content - The content to detach.
 				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
 				 * $(".foogallery").foogallery({
 				 * 	on: {
@@ -6446,7 +6473,7 @@
 					 * @type {jQuery.Event}
 					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
 					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.Content} content - The content that was detached.
+					 * @param {FooGallery.ItemContent} content - The content that was detached.
 					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
 					 * $(".foogallery").foogallery({
 					 * 	on: {
@@ -6528,7 +6555,12 @@
 	},{
 		content: {
 			elem: "fg-content-container fg-content-image",
+			inner: "fg-content-inner",
+			item: "fg-content-item",
 			content: "fg-content",
+			caption: "fg-content-caption",
+			title: "fg-content-title",
+			description: "fg-content-description",
 			loader: "fg-loader"
 		}
 	});
@@ -6669,14 +6701,63 @@
 		},
 		setAll: function (items) {
 			this._arr = _is.array(items) ? items : [];
-			this.maps = this.createMaps(items);
+			this.maps = this.createMaps(this._arr);
 			this._available = this.all();
 		},
 		setAvailable: function (items) {
+			this.maps = this.createMaps(this._arr);
 			this._available = _is.array(items) ? items : [];
 		},
 		reset: function () {
 			this.setAvailable(this.all());
+		},
+		first: function(){
+			return this._available.length > 0 ? this._available[0] : null;
+		},
+		last: function(){
+			return this._available.length > 0 ? this._available[this._available.length - 1] : null;
+		},
+		next: function(item, loop){
+			if (!(item instanceof _.Item)) return null;
+			loop = _is.boolean(loop) ? loop : false;
+			var index = this._available.indexOf(item);
+			if (index != -1){
+				index++;
+				if (index >= this._available.length){
+					if (!loop) return null;
+					index = 0;
+				}
+				return this._available[index];
+			}
+			return null;
+		},
+		prev: function(item, loop){
+			if (!(item instanceof _.Item)) return null;
+			loop = _is.boolean(loop) ? loop : false;
+			var index = this._available.indexOf(item);
+			if (index != -1){
+				index--;
+				if (index < 0){
+					if (!loop) return null;
+					index = this._available.length - 1;
+				}
+				return this._available[index];
+			}
+			return null;
+		},
+		createMaps: function(items){
+			items = _is.array(items) ? items : [];
+			var maps = {
+				id: {},
+				index: {}
+			};
+			$.each(items, function (i, item) {
+				if (_is.empty(item.id)) item.id = "" + (i + 1);
+				item.index = i;
+				maps.id[item.id] = item;
+				maps.index[item.index] = item;
+			});
+			return maps;
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be loaded.
@@ -7122,19 +7203,6 @@
 				}
 			}
 			return _fn.resolveWith([]);
-		},
-		createMaps: function(items){
-			var maps = {
-				id: {},
-				index: {}
-			};
-			$.each(items, function (i, item) {
-				if (_is.empty(item.id)) item.id = "" + (i + 1);
-				item.index = i;
-				maps.id[item.id] = item;
-				maps.index[item.index] = item;
-			});
-			return maps;
 		}
 	});
 

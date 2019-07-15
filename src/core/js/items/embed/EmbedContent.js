@@ -6,6 +6,7 @@
 			self._super(template, item);
 			_obj.extend(self.opt, self.tmpl.opt.embed);
 			_obj.extend(self.cls, self.tmpl.cls.embed);
+			_obj.extend(self.sel, self.tmpl.sel.embed);
 		}
 	});
 

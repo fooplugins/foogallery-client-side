@@ -1,0 +1,92 @@
+.fg-panel {
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.fg-panel-inner {
+	display: block;
+	position: absolute;
+	top: 5px;
+	left: 42px;
+	bottom: 5px;
+	right: 42px;
+	overflow: hidden;
+}
+.fg-panel-inner .fg-content-container {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+.fg-panel-close {
+	display: block;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 32px;
+	height: 32px;
+}
+.fg-panel-prev,
+.fg-panel-next {
+	display: block;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 32px;
+	height: 64px;
+}
+
+.fg-panel-prev {
+	left: 5px;
+}
+.fg-panel-next {
+	right: 5px;
+}
+
+.fg-panel-fade .fg-content-container,
+.fg-panel-horizontal .fg-content-container,
+.fg-panel-vertical .fg-content-container {
+	transition-duration: .3s;
+	transition-timing-function: ease-in-out;
+}
+
+/* content fade in/out */
+.fg-panel-fade .fg-content-container {
+	transition-property: opacity, visibility, padding;
+	visibility: hidden;
+	opacity: 0;
+}
+.fg-panel-fade .fg-content-container.fg-visible,
+.fg-panel-fade .fg-content-container.fg-reverse.fg-visible {
+	visibility: visible;
+	opacity: 1;
+}
+
+/* content slide left/right */
+.fg-panel-horizontal .fg-content-container {
+	transition-property: transform, padding;
+	transform: translateX(-100%);
+}
+.fg-panel-horizontal .fg-content-container.fg-reverse {
+	transform: translateX(100%);
+}
+.fg-panel-horizontal .fg-content-container.fg-visible,
+.fg-panel-horizontal .fg-content-container.fg-reverse.fg-visible {
+	transform: translateX(0);
+}
+
+/* content slide up/down */
+.fg-panel-vertical .fg-content-container {
+	transition-property: transform, padding;
+	transform: translateY(-100%);
+}
+.fg-panel-vertical .fg-content-container.fg-reverse {
+	transform: translateY(100%);
+}
+.fg-panel-vertical .fg-content-container.fg-visible,
+.fg-panel-vertical .fg-content-container.fg-reverse.fg-visible {
+	transform: translateY(0);
+}

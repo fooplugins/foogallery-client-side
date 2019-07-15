@@ -34,6 +34,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/items/Item.js",
 						"./src/core/js/items/ItemContent.js",
 						"./src/core/js/items/Items.js",
+						"./src/core/js/items/Panel.js",
 						"./src/core/js/items/video/Video.js",
 						"./src/core/js/items/video/VideoContent.js",
 						"./src/core/js/items/video/VideoHelper.js",
@@ -61,6 +62,8 @@ module.exports = function ( grunt ) {
 					"./dist/components/core/css/foogallery.css": [
 						"./src/core/css/general/core.css",
 						"./src/core/css/general/content.css",
+
+						"./src/core/css/panel/panel.css",
 
 						"./src/core/css/appearance/theme.css",
 						"./src/core/css/appearance/border-size.css",

@@ -133,6 +133,40 @@
 		reset: function () {
 			this.setAvailable(this.all());
 		},
+		first: function(){
+			return this._available.length > 0 ? this._available[0] : null;
+		},
+		last: function(){
+			return this._available.length > 0 ? this._available[this._available.length - 1] : null;
+		},
+		next: function(item, loop){
+			if (!(item instanceof _.Item)) return null;
+			loop = _is.boolean(loop) ? loop : false;
+			var index = this._available.indexOf(item);
+			if (index != -1){
+				index++;
+				if (index >= this._available.length){
+					if (!loop) return null;
+					index = 0;
+				}
+				return this._available[index];
+			}
+			return null;
+		},
+		prev: function(item, loop){
+			if (!(item instanceof _.Item)) return null;
+			loop = _is.boolean(loop) ? loop : false;
+			var index = this._available.indexOf(item);
+			if (index != -1){
+				index--;
+				if (index < 0){
+					if (!loop) return null;
+					index = this._available.length - 1;
+				}
+				return this._available[index];
+			}
+			return null;
+		},
 		createMaps: function(items){
 			items = _is.array(items) ? items : [];
 			var maps = {

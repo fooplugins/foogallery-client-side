@@ -9,18 +9,18 @@
 .fg-content-container > * {
 	transition: opacity 300ms, visibility 300ms;
 }
-.fg-content-container.fg-idle > *,
-.fg-content-container.fg-loading > * {
+.fg-content-container.fg-idle .fg-content-item > *,
+.fg-content-container.fg-loading .fg-content-item > * {
 	visibility: hidden;
 	opacity: 0;
 }
-.fg-content-container.fg-loaded > * {
+.fg-content-container.fg-loaded .fg-content-item > * {
 	visibility: visible;
 	opacity: 1;
 }
 
 
-.fg-content-container .fg-loader {
+.fg-content-container .fg-content-item > .fg-loader {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -31,11 +31,42 @@
 	visibility: hidden;
 	opacity: 0;
 }
-.fg-content-container.fg-loading > .fg-loader {
+.fg-content-container.fg-loading .fg-content-item > .fg-loader {
 	visibility: visible;
 	opacity: 1;
 }
 
+
+.fg-content-inner {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.fg-content-item {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.fg-content-caption {
+	position: relative;
+	width: 100%;
+	height: auto;
+	padding: 10px;
+	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	font-size: 13px;
+}
+.fg-content-title {
+	font-size: larger;
+	margin-bottom: 5px;
+}
+.fg-content-description {
+
+}
 
 .fg-content {
 	display: inline-block;

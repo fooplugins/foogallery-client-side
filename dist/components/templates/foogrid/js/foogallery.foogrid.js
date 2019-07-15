@@ -1,6 +1,6 @@
 (function($, _, _is, _fn, _t){
 
-	_.Panel = _.Component.extend({
+	_.GridPro = _.Component.extend({
 		/**
 		 * Setup/Teardown Methods
 		 **/
@@ -422,7 +422,7 @@
 		construct: function(options, element){
 			var self = this;
 			self._super(options, element);
-			self.foogrid = new _.Panel( self, self.template );
+			self.foogrid = new _.GridPro( self, self.template );
 			self.hadState = false;
 		},
 		onPreInit: function(event, self){

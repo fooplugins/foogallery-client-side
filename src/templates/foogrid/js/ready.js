@@ -4,7 +4,7 @@
 		construct: function(options, element){
 			var self = this;
 			self._super(options, element);
-			self.foogrid = new _.Panel( self, self.template );
+			self.foogrid = new _.GridPro( self, self.template );
 			self.hadState = false;
 		},
 		onPreInit: function(event, self){

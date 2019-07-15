@@ -6,6 +6,7 @@
 			self._super(template, item);
 			_obj.extend(self.opt, self.tmpl.opt.video);
 			_obj.extend(self.cls, self.tmpl.cls.video);
+			_obj.extend(self.sel, self.tmpl.sel.video);
 
 			self.urls = [];
 
@@ -34,18 +35,15 @@
 			return result;
 		},
 		doCreateContent: function(){
-			var self = this, sizes = self.getSizes();
-
+			var self = this;
 			self.urls = self.parseHref();
 			self.isSelfHosted = $.map(self.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
-
-			self.$el = self.createElem();
-
-			self.$content = self.isSelfHosted ? $('<video/>', self.opt.attrs.video) : $('<iframe/>', self.opt.attrs.iframe);
-			self.$content.addClass(self.cls.content).css(sizes).appendTo(self.$el);
-
-			self.$loader = self.createLoader(self.$el);
-			return true;
+			return self._super();
+		},
+		createContent: function(){
+			var self = this, sizes = self.getSizes(),
+					$content = self.isSelfHosted ? $('<video/>', self.opt.attrs.video) : $('<iframe/>', self.opt.attrs.iframe);
+			return $content.addClass(self.cls.content).css(sizes);
 		},
 		load: function( autoPlay ){
 			var self = this;

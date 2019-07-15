@@ -1,6 +1,6 @@
 (function($, _, _is, _fn, _t){
 
-	_.Panel = _.Component.extend({
+	_.GridPro = _.Component.extend({
 		/**
 		 * Setup/Teardown Methods
 		 **/

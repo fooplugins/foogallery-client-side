@@ -546,6 +546,14 @@
 			return this.pages ? this.pages.items() : this.items.available();
 		},
 
+		getLoaderClass: function(){
+			var classes = this.$el.prop("className").split(' ');
+			for (var i = 0, l = classes.length; i < l; i++){
+				if (_str.startsWith(classes[i], "fg-loading-")) return classes[i];
+			}
+			return null;
+		},
+
 		/**
 		 * @summary Check if any available items need to be loaded and loads them.
 		 * @memberof FooGallery.Template#
