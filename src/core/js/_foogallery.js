@@ -228,13 +228,29 @@
 	};
 
 	/**
-	 * @summary Get the instance of the {@link FooGallery.Template|template} associated with the supplied container.
-	 * @memberof FooGallery
-	 * @param {(string|Element|jQuery)} container - The selector, element or jQuery object of the FooGallery container element.
-	 * @returns {FooGallery.Template}
+	 * @summary Gets the closest ancestor element that is scrollable.
+	 * @see https://github.com/jquery/jquery-ui/blob/master/ui/scroll-parent.js
+	 * @param {(string|Element|jQuery)} element - The element to find the scrollable parent for.
+	 * @param {boolean} [includeHidden=false] - Whether or not to include elements with overflow:hidden set on them.
+	 * @returns {jQuery}
 	 */
-	_.get = function(container){
-		return $(container).data(_.dataTemplate);
+	_.scrollParent = function(element, includeHidden){
+		var $elem = _is.jq(element) ? element : $(element),
+				position = $elem.css( "position" ),
+				excludeStaticParent = position === "absolute",
+				overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/,
+				scrollParent = $elem.parents().filter( function() {
+					var parent = $( this );
+					if ( excludeStaticParent && parent.css( "position" ) === "static" ) {
+						return false;
+					}
+					return overflowRegex.test( parent.css( "overflow" ) + parent.css( "overflow-y" ) +
+							parent.css( "overflow-x" ) );
+				} ).eq( 0 );
+
+		return position === "fixed" || !scrollParent.length ?
+				$( $elem[ 0 ].ownerDocument || document ) :
+				scrollParent;
 	};
 
 })(

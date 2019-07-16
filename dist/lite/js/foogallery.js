@@ -3165,13 +3165,29 @@
 	};
 
 	/**
-	 * @summary Get the instance of the {@link FooGallery.Template|template} associated with the supplied container.
-	 * @memberof FooGallery
-	 * @param {(string|Element|jQuery)} container - The selector, element or jQuery object of the FooGallery container element.
-	 * @returns {FooGallery.Template}
+	 * @summary Gets the closest ancestor element that is scrollable.
+	 * @see https://github.com/jquery/jquery-ui/blob/master/ui/scroll-parent.js
+	 * @param {(string|Element|jQuery)} element - The element to find the scrollable parent for.
+	 * @param {boolean} [includeHidden=false] - Whether or not to include elements with overflow:hidden set on them.
+	 * @returns {jQuery}
 	 */
-	_.get = function(container){
-		return $(container).data(_.dataTemplate);
+	_.scrollParent = function(element, includeHidden){
+		var $elem = _is.jq(element) ? element : $(element),
+				position = $elem.css( "position" ),
+				excludeStaticParent = position === "absolute",
+				overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/,
+				scrollParent = $elem.parents().filter( function() {
+					var parent = $( this );
+					if ( excludeStaticParent && parent.css( "position" ) === "static" ) {
+						return false;
+					}
+					return overflowRegex.test( parent.css( "overflow" ) + parent.css( "overflow-y" ) +
+							parent.css( "overflow-x" ) );
+				} ).eq( 0 );
+
+		return position === "fixed" || !scrollParent.length ?
+				$( $elem[ 0 ].ownerDocument || document ) :
+				scrollParent;
 	};
 
 })(
@@ -3820,6 +3836,13 @@
 			 */
 			self.$el = _is.jq(element) ? element : $(element);
 			/**
+			 * @summary The jQuery object for the template containers scroll parent.
+			 * @memberof FooGallery.Template#
+			 * @name $scrollParent
+			 * @type {jQuery}
+			 */
+			self.$scrollParent = $();
+			/**
 			 * @summary The options for the template.
 			 * @memberof FooGallery.Template#
 			 * @name opt
@@ -3883,13 +3906,6 @@
 			 */
 			self.filter = !_is.undef(_.filtering) ? _.filtering.make(options.filtering.type, self) : null;
 			/**
-			 * @summary An array of video sources supported by the template.
-			 * @memberof FooGallery.Template#
-			 * @name videoSources
-			 * @type {FooGallery.VideoSource[]}
-			 */
-			self.videoSources = !_is.undef(_.videoSources) ? _.videoSources.load() : [];
-			/**
 			 * @summary The state manager for the template.
 			 * @memberof FooGallery.Template#
 			 * @name state
@@ -3949,6 +3965,8 @@
 				if (parent.length > 0) {
 					self.$el.appendTo(parent);
 				}
+				self.$scrollParent = _.scrollParent(self.$el);
+
 				var queue = $.Deferred(), promise = queue.promise(), existing;
 				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template) {
 					promise = promise.then(function () {
@@ -4116,8 +4134,8 @@
 					if (e.isDefaultPrevented()) return _fn.rejectWith("post-init default prevented");
 					var state = self.state.parse();
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
-					$(window).on("scroll" + self.namespace, {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle))
-							.on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
+					self.$scrollParent.on("scroll" + self.namespace, {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle));
+					$(window).on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
 				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					/**
@@ -4254,6 +4272,7 @@
 			 * });
 			 */
 			self.raise("destroy");
+			self.$scrollParent.off(self.namespace);
 			$(window).off(self.namespace);
 			self.state.destroy();
 			if (self.filter) self.filter.destroy();
@@ -4334,14 +4353,6 @@
 
 		getItems: function(){
 			return this.pages ? this.pages.items() : this.items.available();
-		},
-
-		getLoaderClass: function(){
-			var classes = this.$el.prop("className").split(' ');
-			for (var i = 0, l = classes.length; i < l; i++){
-				if (_str.startsWith(classes[i], "fg-loading-")) return classes[i];
-			}
-			return null;
 		},
 
 		/**
@@ -4635,8 +4646,8 @@
 			self.pushOrReplace = self.isPushOrReplace(self.opt.pushOrReplace) ? self.opt.pushOrReplace : "replace";
 
 			var id = _str.escapeRegExp(self.tmpl.id),
-					values = _str.escapeRegExp(self.opt.values),
-					pair = _str.escapeRegExp(self.opt.pair);
+				values = _str.escapeRegExp(self.opt.values),
+				pair = _str.escapeRegExp(self.opt.pair);
 			/**
 			 * @summary An object containing regular expressions used to test and parse a hash value into a state object.
 			 * @memberof FooGallery.State#
@@ -4697,16 +4708,13 @@
 						var parts = pair.split(self.opt.pair);
 						if (parts.length === 2){
 							state[parts[0]] = parts[1].indexOf(self.opt.array) === -1
-									? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
-									: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
+								? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
+								: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
 							if (_is.string(state[parts[0]]) && !isNaN(state[parts[0]])){
 								state[parts[0]] = parseInt(state[parts[0]]);
 							}
 						}
 					});
-					if (_is.number(state.i)){
-						state.i = state.i + "";
-					}
 				} else {
 					// if we're here it means there is a hash on the url but the option is disabled so remove it
 					if (self.apiEnabled){
@@ -4839,70 +4847,34 @@
 			var self = this, tmpl = self.tmpl;
 			if (_is.hash(state)){
 				tmpl.items.reset();
-
-				var obj = {
-					tags: !!tmpl.filter && !_is.empty(state.f) ? state.f : [],
-					page: !!tmpl.pages ? tmpl.pages.number(state.p) : 0,
-					item: tmpl.items.get(state.i)
-				};
-
-				var e = tmpl.raise("before-state", [obj]);
-				if (!e.isDefaultPrevented()){
-					if (!!tmpl.filter){
-						tmpl.filter.rebuild();
-						tmpl.filter.set(obj.tags, false);
-					}
-					if (!!tmpl.pages){
-						tmpl.pages.rebuild();
-						if (!!obj.item && !tmpl.pages.contains(obj.page, obj.item)){
-							obj.page = tmpl.pages.find(obj.item);
-							obj.page = obj.page !== 0 ? obj.page : 1;
-						}
-						tmpl.pages.set(obj.page, !_is.empty(state), false, true);
-						if (obj.item && tmpl.pages.contains(obj.page, obj.item)){
-							obj.item.scrollTo();
-						}
-					} else {
-						tmpl.items.detach(tmpl.items.all());
-						tmpl.items.create(tmpl.items.available(), true);
-						if (obj.item){
-							obj.item.scrollTo();
-						}
-					}
-					if (!_is.empty(state.i)){
-						state.i = null;
-						self.replace(state);
-					}
-					tmpl.raise("after-state", [obj]);
+				var item = tmpl.items.get(state.i);
+				if (tmpl.filter){
+					tmpl.filter.rebuild();
+					var tags = !_is.empty(state.f) ? state.f : [];
+					tmpl.filter.set(tags, false);
 				}
-				// var item = tmpl.items.get(state.i);
-				// if (tmpl.filter){
-				// 	tmpl.filter.rebuild();
-				// 	var tags = !_is.empty(state.f) ? state.f : [];
-				// 	tmpl.filter.set(tags, false);
-				// }
-				// if (tmpl.pages){
-				// 	tmpl.pages.rebuild();
-				// 	var page = tmpl.pages.number(state.p);
-				// 	if (item && !tmpl.pages.contains(page, item)){
-				// 		page = tmpl.pages.find(item);
-				// 		page = page !== 0 ? page : 1;
-				// 	}
-				// 	tmpl.pages.set(page, !_is.empty(state), false, true);
-				// 	if (item && tmpl.pages.contains(page, item)){
-				// 		item.scrollTo();
-				// 	}
-				// } else {
-				// 	tmpl.items.detach(tmpl.items.all());
-				// 	tmpl.items.create(tmpl.items.available(), true);
-				// 	if (item){
-				// 		item.scrollTo();
-				// 	}
-				// }
-				// if (!_is.empty(state.i)){
-				// 	state.i = null;
-				// 	self.replace(state);
-				// }
+				if (tmpl.pages){
+					tmpl.pages.rebuild();
+					var page = tmpl.pages.number(state.p);
+					if (item && !tmpl.pages.contains(page, item)){
+						page = tmpl.pages.find(item);
+						page = page !== 0 ? page : 1;
+					}
+					tmpl.pages.set(page, !_is.empty(state), false, true);
+					if (item && tmpl.pages.contains(page, item)){
+						item.scrollTo();
+					}
+				} else {
+					tmpl.items.detach(tmpl.items.all());
+					tmpl.items.create(tmpl.items.available(), true);
+					if (item){
+						item.scrollTo();
+					}
+				}
+				if (!_is.empty(state.i)){
+					state.i = null;
+					self.replace(state);
+				}
 			}
 		},
 	});
@@ -4939,10 +4911,10 @@
 	 */
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils.is,
-		FooGallery.utils.str
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils.is,
+	FooGallery.utils.str
 );
 (function ($, _, _utils, _is, _fn, _obj) {
 
@@ -4969,14 +4941,6 @@
 			self.il8n = template.il8n.item;
 			self.sel = template.sel.item;
 			self.opt = _obj.extend({}, template.opt.item, options);
-
-			/**
-			 * @summary The class used to generate this items content if required.
-			 * @memberof FooGallery.Item#
-			 * @name content
-			 * @type {FooGallery.ItemContent}
-			 */
-			self.content = _.components.make(self.opt.type + "-content", template, self);
 
 			/**
 			 * @summary Whether or not the items' elements are appended to the template.
@@ -5078,13 +5042,6 @@
 			 */
 			self.fixLayout = self.tmpl.opt.fixLayout;
 
-			/**
-			 * @memberof FooGallery.Item#
-			 * @name index
-			 * @type {number}
-			 * @default -1
-			 */
-			self.index = -1;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name type
@@ -5268,8 +5225,8 @@
 			 * 			item.$el.off(".foogallery").remove();
 			 * 			item.$el = null;
 			 * 			...
-			 * 			// once all destroy work is complete you must set isDestroyed to true
-			 * 			item.isDestroyed = true;
+			 * 			// once all destroy work is complete you must set tmpl to null
+			 * 			item.tmpl = null;
 			 * 		}
 			 * 	}
 			 * });
@@ -5309,11 +5266,7 @@
 		 */
 		doDestroyItem: function () {
 			var self = this;
-			if (self.content instanceof _.ItemContent){
-				self.content.destroy();
-			}
 			if (self.isParsed) {
-				self.$anchor.add(self.$caption).off("click.foogallery");
 				self.append();
 				if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
 				else self.$el.attr("class", self._undo.classes);
@@ -6098,484 +6051,6 @@
 		FooGallery.utils.fn,
 		FooGallery.utils.obj
 );
-(function($, _, _utils, _is, _fn, _obj, _str){
-
-	_.ItemContent = _.Component.extend({
-		construct: function(template, item){
-			var self = this;
-			self._super(template);
-
-			self.item = item;
-
-			self.opt = _obj.extend({}, self.tmpl.opt.content);
-
-			self.cls = _obj.extend({}, self.tmpl.cls.content);
-
-			self.sel = _obj.extend({}, self.tmpl.sel.content);
-
-			self.$el = null;
-
-			self.$loader = null;
-
-			self.$inner = null;
-
-			self.$item = null;
-
-			self.$content = null;
-
-			self.$caption = null;
-
-			self.isCreated = false;
-
-			self.isDestroyed = false;
-
-			self.isAttached = false;
-
-			self.isLoading = false;
-
-			self.isLoaded = false;
-
-			self.isError = false;
-		},
-		getSize: function(attrWidth, attrHeight, defWidth, defHeight){
-			var self = this, size = {};
-			if (!_is.string(attrWidth) || !_is.string(attrHeight)) return size;
-
-			size[attrWidth] = _is.size(defWidth) ? defWidth : null;
-			size[attrHeight] = _is.size(defHeight) ? defHeight : null;
-
-			if (!self.item.isCreated) return size;
-
-			size[attrWidth] = self.item.$anchor.data(attrWidth) || size[attrWidth];
-			size[attrHeight] = self.item.$anchor.data(attrHeight) || size[attrHeight];
-			return size;
-		},
-		getSizes: function(){
-			var self = this,
-					size = self.getSize("width", "height", self.opt.width, self.opt.height),
-					max = self.getSize("maxWidth", "maxHeight", self.opt.maxWidth, self.opt.maxHeight),
-					min = self.getSize("minWidth", "minHeight", self.opt.minWidth, self.opt.minHeight);
-			return _obj.extend(size, max, min);
-		},
-		destroy: function(){
-			var self = this;
-			/**
-			 * @summary Raised when a template destroys an items' content.
-			 * @event FooGallery.Template~"destroy-content.foogallery"
-			 * @type {jQuery.Event}
-			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-			 * @param {FooGallery.Template} template - The template raising the event.
-			 * @param {FooGallery.ItemContent} content - The content to destroy.
-			 * @returns {boolean} `true` if the {@link FooGallery.Content|`content`} has been successfully destroyed.
-			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroy-content.foogallery": function(event, template, content){
-			 * 			// do something
-			 * 		}
-			 * 	}
-			 * });
-			 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `item` being destroyed.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroy-content.foogallery": function(event, template, content){
-			 * 			if ("some condition"){
-			 * 				// stop the item being destroyed
-			 * 				event.preventDefault();
-			 * 			}
-			 * 		}
-			 * 	}
-			 * });
-			 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroy-content.foogallery": function(event, template, content){
-			 * 			// stop the default logic
-			 * 			event.preventDefault();
-			 * 			// replacing it with your own destroying the item yourself
-			 * 			content.$el.off(".foogallery").remove();
-			 * 			content.$el = null;
-			 * 			...
-			 * 			// once all destroy work is complete you must set isDestroyed to true
-			 * 			content.isDestroyed = true;
-			 * 		}
-			 * 	}
-			 * });
-			 */
-			var e = self.tmpl.raise("destroy-content", [self]);
-			if (!e.isDefaultPrevented()) {
-				self.isDestroyed = self.doDestroyContent();
-			}
-			if (self.isDestroyed) {
-				/**
-				 * @summary Raised after an items' content has been destroyed.
-				 * @event FooGallery.Template~"destroyed-content.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.ItemContent} content - The content that was destroyed.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"destroyed-content.foogallery": function(event, template, content){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-				 */
-				self.tmpl.raise("destroyed-content", [self]);
-				// call the original method that simply nulls the tmpl property
-				self._super();
-			}
-			return self.isDestroyed;
-		},
-		doDestroyContent: function(){
-			var self = this;
-			if (self.isCreated){
-				self.detach();
-				self.$el.remove();
-			}
-			return true;
-		},
-		create: function(){
-			var self = this;
-			if (!self.isCreated && _is.string(self.item.href)) {
-				/**
-				 * @summary Raised when an items' content needs to create its' elements.
-				 * @event FooGallery.Template~"create-content.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.ItemContent} content - The content to create the markup for.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"create-content.foogallery": function(event, template, content){
-				 * 			// do something
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being created.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"create-content.foogallery": function(event, template, content){
-				 * 			if ("some condition"){
-				 * 				// stop the content being created
-				 * 				event.preventDefault();
-				 * 			}
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"create-content.foogallery": function(event, template, content){
-				 * 			// stop the default logic
-				 * 			event.preventDefault();
-				 * 			// replacing it with your own creating each element property of the content yourself
-				 * 			content.$el = $("<div/>");
-				 * 			...
-				 * 			// once all elements are created you must set isCreated to true
-				 * 			content.isCreated = true;
-				 * 		}
-				 * 	}
-				 * });
-				 */
-				var e = self.tmpl.raise("create-content", [self]);
-				if (!e.isDefaultPrevented()) {
-					self.isCreated = self.doCreateContent();
-				}
-				if (self.isCreated) {
-					/**
-					 * @summary Raised after an items' content elements have been created.
-					 * @event FooGallery.Template~"created-content.foogallery"
-					 * @type {jQuery.Event}
-					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.ItemContent} content - The content that was created.
-					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-					 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"created-content.foogallery": function(event, template, content){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-					 */
-					self.tmpl.raise("created-content", [self]);
-				}
-			}
-			return self.isCreated;
-		},
-		doCreateContent: function(){
-			var self = this;
-			self.$el = self.createElem();
-			self.$inner = self.createInner().appendTo(self.$el);
-			self.$item = self.createItem().appendTo(self.$inner);
-			self.$caption = self.createCaption().appendTo(self.$inner);
-			self.$content = self.createContent().appendTo(self.$item);
-			self.$loader = self.createLoader(self.$item);
-			return true;
-		},
-		createContent: function(){
-			var self = this, sizes = self.getSizes();
-			return $('<img/>').addClass(self.cls.content).css(sizes);
-		},
-		createElem: function(){
-			return $('<div/>').addClass(this.cls.elem).addClass(this.tmpl.getLoaderClass());
-		},
-		createInner: function(){
-			return $('<div/>').addClass(this.cls.inner);
-		},
-		createItem: function(){
-			return $('<div/>').addClass(this.cls.item);
-		},
-		createCaption: function(){
-			return $('<div/>').addClass(this.cls.caption).append(
-					$('<div/>').addClass(this.cls.title).html(this.item.caption),
-					$('<div/>').addClass(this.cls.description).html(this.item.description)
-			);
-		},
-		createLoader: function( parent ){
-			return $('<div/>').addClass(this.cls.loader).appendTo(parent);
-		},
-		appendTo: function( parent ){
-			var self = this;
-			if (!self.isCreated){
-				self.create();
-			}
-			if (self.isCreated && !self.isAttached){
-				/**
-				 * @summary Raised before an items' content is appended to the supplied parent.
-				 * @event FooGallery.Template~"append-content.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.ItemContent} content - The content to append to the parent.
-				 * @param {(string|Element|jQuery)} parent - The parent to append the content to.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"append-content.foogallery": function(event, template, content, parent){
-				 * 			// do something
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being appended.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"append-content.foogallery": function(event, template, content, parent){
-				 * 			if ("some condition"){
-				 * 				// stop the content being appended
-				 * 				event.preventDefault();
-				 * 			}
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"append-content.foogallery": function(event, template, content, parent){
-				 * 			// stop the default logic
-				 * 			event.preventDefault();
-				 * 			// replacing it with your own appending the content to the parent
-				 * 			content.$el.appendTo(parent);
-				 * 			...
-				 * 			// once the content is appended you must set isAttached to true
-				 * 			content.isAttached = true;
-				 * 		}
-				 * 	}
-				 * });
-				 */
-				var e = self.tmpl.raise("append-content", [self, parent]);
-				if (!e.isDefaultPrevented()) {
-					self.isAttached = self.doAppendToContent( parent );
-				}
-				if (self.isAttached) {
-					/**
-					 * @summary Raised after an items' content has been appended to the parent.
-					 * @event FooGallery.Template~"appended-content.foogallery"
-					 * @type {jQuery.Event}
-					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.ItemContent} content - The content that was appended.
-					 * @param {(string|Element|jQuery)} parent - The parent the content was appended to.
-					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-					 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"appended-content.foogallery": function(event, template, content, parent){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-					 */
-					self.tmpl.raise("appended-content", [self, parent]);
-				}
-			}
-			return self.isAttached;
-		},
-		doAppendToContent: function( parent ){
-			this.$el.appendTo( parent );
-			return this.$el.parent().length > 0;
-		},
-		detach: function(){
-			var self = this;
-			if (self.isCreated && self.isAttached) {
-				/**
-				 * @summary Raised when an items' content needs to be detached from its' parent.
-				 * @event FooGallery.Template~"detach-item.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.ItemContent} content - The content to detach.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"detach-content.foogallery": function(event, template, content){
-				 * 			// do something
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being detached.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"detach-content.foogallery": function(event, template, content){
-				 * 			if ("some condition"){
-				 * 				// stop the content being detached
-				 * 				event.preventDefault();
-				 * 			}
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"detach-content.foogallery": function(event, template, content){
-				 * 			// stop the default logic
-				 * 			event.preventDefault();
-				 * 			// replacing it with your own detaching the content from its' parent
-				 * 			content.$el.detach();
-				 * 			...
-				 * 			// once the content is detached you must set isAttached to false
-				 * 			content.isAttached = false;
-				 * 		}
-				 * 	}
-				 * });
-				 */
-				var e = self.tmpl.raise("detach-content", [self]);
-				if (!e.isDefaultPrevented()) {
-					self.isAttached = !self.doDetachContent();
-				}
-				if (!self.isAttached) {
-					/**
-					 * @summary Raised after an items' content has been detached from its' parent.
-					 * @event FooGallery.Template~"detached-content.foogallery"
-					 * @type {jQuery.Event}
-					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.ItemContent} content - The content that was detached.
-					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-					 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"detached-content.foogallery": function(event, template, content){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-					 */
-					self.tmpl.raise("detached-content", [self]);
-				}
-			}
-			return !self.isAttached;
-		},
-		doDetachContent: function(){
-			this.$el.detach();
-			return true;
-		},
-		load: function(){
-			var self = this, cls = self.item.cls;
-			self.isLoading = true;
-			self.isLoaded = false;
-			self.isError = false;
-			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
-			return $.Deferred(function(def){
-				if (!self.isCreated || !self.isAttached){
-					def.rejectWith("not created or attached");
-					return;
-				}
-				var e = self.tmpl.raise("load-content", [self]);
-				if (e.isDefaultPrevented()){
-					def.rejectWith("default prevented");
-					return;
-				}
-				self.doLoadContent().then(def.resolve).fail(def.reject);
-			}).then(function(){
-				self.isLoading = false;
-				self.isLoaded = true;
-				self.$el.removeClass(cls.loading).addClass(cls.loaded);
-				self.tmpl.raise("loaded-content", [self]);
-			}).fail(function(){
-				self.isLoading = false;
-				self.isError = true;
-				self.$el.removeClass(cls.loading).addClass(cls.error);
-				self.tmpl.raise("error-content", [self]);
-			}).promise();
-		},
-		doLoadContent: function(){
-			var self = this;
-			return $.Deferred(function(def){
-				var img = self.$content.get(0);
-				img.onload = function () {
-					img.onload = img.onerror = null;
-					def.resolve(self);
-				};
-				img.onerror = function () {
-					img.onload = img.onerror = null;
-					def.rejectWith("error loading image");
-				};
-				// set everything in motion by setting the src
-				img.src = self.item.href;
-				if (img.complete){
-					img.onload();
-				}
-			}).promise();
-		}
-	});
-
-	_.template.configure("core", {
-		content: {
-			width: null,
-			height: null,
-			minWidth: null,
-			minHeight: null,
-			maxWidth: null,
-			maxHeight: null,
-			attrs: {}
-		}
-	},{
-		content: {
-			elem: "fg-content-container fg-content-image",
-			inner: "fg-content-inner",
-			item: "fg-content-item",
-			content: "fg-content",
-			caption: "fg-content-caption",
-			title: "fg-content-title",
-			description: "fg-content-description",
-			loader: "fg-loader"
-		}
-	});
-
-	_.components.register("item-content", _.ItemContent)
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.fn,
-		FooGallery.utils.obj,
-		FooGallery.utils.str
-);
 (function ($, _, _utils, _is, _fn, _obj) {
 
 	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
@@ -6596,7 +6071,7 @@
 			 * @function _super
 			 */
 			self._super(template);
-			self.maps = {};
+			self.idMap = {};
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -6647,7 +6122,7 @@
 				if (destroyed.length > 0) self.tmpl.raise("destroyed-items", [destroyed]);
 				// should we handle a case where the destroyed.length != items.length??
 			}
-			self.maps = {};
+			self.idMap = {};
 			self._canvas = self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -6695,69 +6170,19 @@
 		available: function () {
 			return this._available.slice();
 		},
-		get: function (idOrIndex) {
-			var map = _is.number(idOrIndex) ? 'index' : 'id';
-			return !!this.maps[map][idOrIndex] ? this.maps[map][idOrIndex] : null;
+		get: function (id) {
+			return !_is.empty(id) && !!this.idMap[id] ? this.idMap[id] : null;
 		},
 		setAll: function (items) {
 			this._arr = _is.array(items) ? items : [];
-			this.maps = this.createMaps(this._arr);
+			this.idMap = this.createIdMap(items);
 			this._available = this.all();
 		},
 		setAvailable: function (items) {
-			this.maps = this.createMaps(this._arr);
 			this._available = _is.array(items) ? items : [];
 		},
 		reset: function () {
 			this.setAvailable(this.all());
-		},
-		first: function(){
-			return this._available.length > 0 ? this._available[0] : null;
-		},
-		last: function(){
-			return this._available.length > 0 ? this._available[this._available.length - 1] : null;
-		},
-		next: function(item, loop){
-			if (!(item instanceof _.Item)) return null;
-			loop = _is.boolean(loop) ? loop : false;
-			var index = this._available.indexOf(item);
-			if (index != -1){
-				index++;
-				if (index >= this._available.length){
-					if (!loop) return null;
-					index = 0;
-				}
-				return this._available[index];
-			}
-			return null;
-		},
-		prev: function(item, loop){
-			if (!(item instanceof _.Item)) return null;
-			loop = _is.boolean(loop) ? loop : false;
-			var index = this._available.indexOf(item);
-			if (index != -1){
-				index--;
-				if (index < 0){
-					if (!loop) return null;
-					index = this._available.length - 1;
-				}
-				return this._available[index];
-			}
-			return null;
-		},
-		createMaps: function(items){
-			items = _is.array(items) ? items : [];
-			var maps = {
-				id: {},
-				index: {}
-			};
-			$.each(items, function (i, item) {
-				if (_is.empty(item.id)) item.id = "" + (i + 1);
-				item.index = i;
-				maps.id[item.id] = item;
-				maps.index[item.index] = item;
-			});
-			return maps;
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be loaded.
@@ -7203,6 +6628,14 @@
 				}
 			}
 			return _fn.resolveWith([]);
+		},
+		createIdMap: function (items) {
+			var map = {};
+			$.each(items, function (i, item) {
+				if (_is.empty(item.id)) item.id = "" + (i + 1);
+				map[item.id] = item;
+			});
+			return map;
 		}
 	});
 
@@ -8048,7 +7481,7 @@
 					rows = self.rows(maxWidth, maxHeight);
 
 			$.each(rows, function(ri, row){
-				if (row.visible) {
+				if (row.visible){
 					if (ri > 0) height += self.options.margins;
 					height += row.height;
 				}

@@ -30,6 +30,13 @@
 			 */
 			self.$el = _is.jq(element) ? element : $(element);
 			/**
+			 * @summary The jQuery object for the template containers scroll parent.
+			 * @memberof FooGallery.Template#
+			 * @name $scrollParent
+			 * @type {jQuery}
+			 */
+			self.$scrollParent = $();
+			/**
 			 * @summary The options for the template.
 			 * @memberof FooGallery.Template#
 			 * @name opt
@@ -159,6 +166,8 @@
 				if (parent.length > 0) {
 					self.$el.appendTo(parent);
 				}
+				self.$scrollParent = _.scrollParent(self.$el);
+
 				var queue = $.Deferred(), promise = queue.promise(), existing;
 				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template) {
 					promise = promise.then(function () {
@@ -326,8 +335,8 @@
 					if (e.isDefaultPrevented()) return _fn.rejectWith("post-init default prevented");
 					var state = self.state.parse();
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
-					$(window).on("scroll" + self.namespace, {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle))
-							.on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
+					self.$scrollParent.on("scroll" + self.namespace, {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle));
+					$(window).on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
 				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
 					/**
@@ -464,6 +473,7 @@
 			 * });
 			 */
 			self.raise("destroy");
+			self.$scrollParent.off(self.namespace);
 			$(window).off(self.namespace);
 			self.state.destroy();
 			if (self.filter) self.filter.destroy();

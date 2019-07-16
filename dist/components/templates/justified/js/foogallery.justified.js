@@ -81,7 +81,7 @@
 					rows = self.rows(maxWidth, maxHeight);
 
 			$.each(rows, function(ri, row){
-				if (row.visible) {
+				if (row.visible){
 					if (ri > 0) height += self.options.margins;
 					height += row.height;
 				}
