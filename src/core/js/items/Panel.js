@@ -486,9 +486,10 @@
 
 	_.template.configure("core", {
 		panel: {
+			parent: "body",
+			popup: true,
 			transition: "none", // none | fade | horizontal | vertical
-			loop: true,
-			popup: false
+			loop: true
 		}
 	},{
 		panel: {
