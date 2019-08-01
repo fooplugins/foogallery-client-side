@@ -34,7 +34,7 @@
 
 			self._items = $.map(self.tmpl.getItems(), function(item, i){
 				var maxWidth = containerWidth - border, single = item.width > maxWidth;
-				var $clone = item.$el.clone().css({width: '', height: ''})
+				var $clone = item.$el.clone().css({width: '', height: '', top: '', left: '', position: 'relative'}).removeClass("fg-positioned")
 						.find(".fg-image,.fg-caption").css("width", single ? maxWidth : item.width).end()
 						.appendTo($test);
 				var width = $clone.outerWidth(), height = $clone.outerHeight();
@@ -45,8 +45,7 @@
 					height: height,
 					top: 0,
 					left: 0,
-					$item: item.$el,
-					$thumb: item.$thumb
+					$item: item.$el
 				};
 			});
 			$test.remove();
@@ -134,7 +133,6 @@
 					width: item.width,
 					height: item.height,
 					$item: item.$item,
-					$thumb: item.$thumb,
 					top: item.top,
 					left: item.left,
 				};
