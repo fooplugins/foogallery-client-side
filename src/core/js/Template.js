@@ -114,6 +114,13 @@
 			 */
 			self.state = _.components.make("state", self);
 			/**
+			 * @summary The item panel for the template.
+			 * @memberof FooGallery.Template#
+			 * @name panel
+			 * @type {FooGallery.Panel}
+			 */
+			self.panel = _.components.make("panel", self);
+			/**
 			 * @summary The promise object returned by the {@link FooGallery.Template#initialize|initialize} method.
 			 * @memberof FooGallery.Template#
 			 * @name _initialize
@@ -475,6 +482,7 @@
 			self.raise("destroy");
 			self.$scrollParent.off(self.namespace);
 			$(window).off(self.namespace);
+			self.panel.destroy();
 			self.state.destroy();
 			if (self.filter) self.filter.destroy();
 			if (self.pages) self.pages.destroy();

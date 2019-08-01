@@ -1001,6 +1001,10 @@
 			var self = e.data.self,
 					state = self.tmpl.state.get(self);
 			self.tmpl.state.update(state);
+			if (self.tmpl.panel.opt.enabled){
+				e.preventDefault();
+				self.tmpl.panel.show( self );
+			}
 		},
 		/**
 		 * @summary Listens for the click event on the {@link FooGallery.Item#$caption|$caption} element and redirects it to the anchor if required.

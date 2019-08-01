@@ -114,7 +114,6 @@
 		doDestroy: function(){
 			var self = this;
 			if (self.isCreated){
-				self.detach();
 				self.$el.remove();
 			}
 			return true;
@@ -448,6 +447,18 @@
 				item.content.$el.removeClass(self.cls.reverse);
 			});
 		},
+		show: function( item, parent ){
+			var self = this;
+			item = item instanceof _.Item ? item : self.tmpl.items.first();
+			parent = !_is.empty(parent) ? parent : self.opt.parent;
+			if (!self.isAttached){
+				self.appendTo( parent );
+			}
+			if (self.isAttached){
+				return self.load( item );
+			}
+			return _fn.rejectWith("not attached");
+		},
 		next: function(){
 			var self = this;
 			if (!(self.currentItem instanceof _.Item)) return _fn.rejectWith("no current item");
@@ -486,6 +497,7 @@
 
 	_.template.configure("core", {
 		panel: {
+			enabled: false,
 			parent: "body",
 			popup: true,
 			transition: "none", // none | fade | horizontal | vertical
