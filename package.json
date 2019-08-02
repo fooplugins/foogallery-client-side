@@ -1,6 +1,6 @@
 {
   "name": "foogallery",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "title": "FooGallery",
   "description": "The Most Intuitive and Extensible Gallery Creation and Management Tool Ever Created for WordPress",
   "main": "Gruntfile.js",
@@ -15,20 +15,19 @@
   "author": "FooPlugins",
   "license": "GPL",
   "devDependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "foo-utils": "0.0.8",
     "foodoc": "0.0.8",
-    "grunt": "^1.0.1",
+    "grunt": "^1.0.4",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^2.0.0",
-    "grunt-contrib-qunit": "^1.2.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-jsdoc": "^2.1.0"
   },
   "dependencies": {
-    "jquery": "^3.1.1",
+    "jquery": "^3.4.1",
     "masonry-layout": "^3.3.2",
     "npm": "^6.8.0"
   }
