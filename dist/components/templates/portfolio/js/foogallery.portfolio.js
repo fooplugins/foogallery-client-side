@@ -17,26 +17,25 @@
 			this.$el.removeAttr("style");
 		},
 		parse: function(){
-			var self = this, containerWidth = self.getContainerWidth(),
-					$test = $('<div/>', {'class': self.$el.attr('class')}).css({
-						position: 'absolute',
-						top: -9999,
-						left: -9999,
-						visibility: 'hidden',
-						maxWidth: containerWidth
-					}).appendTo('body');
-
-			var borderSize = 0;
+			var self = this, borderSize = 0;
 			if (self.$el.hasClass("fg-border-thin")) borderSize = 4;
 			if (self.$el.hasClass("fg-border-medium")) borderSize = 10;
 			if (self.$el.hasClass("fg-border-thick")) borderSize = 16;
-			var border = borderSize * 2;
+			var border = borderSize * 2,
+				containerWidth = self.getContainerWidth(),
+				maxWidth = containerWidth - border,
+				$test = $('<div/>', {'class': self.$el.attr('class')}).css({
+					position: 'absolute',
+					top: -9999,
+					left: -9999,
+					visibility: 'hidden',
+					maxWidth: containerWidth
+				}).appendTo('body');
 
 			self._items = $.map(self.tmpl.getItems(), function(item, i){
-				var maxWidth = containerWidth - border, single = item.width > maxWidth;
-				var $clone = item.$el.clone().css({width: '', height: ''})
-						.find(".fg-image,.fg-caption").css("width", single ? maxWidth : item.width).end()
-						.appendTo($test);
+				var $clone = item.$el.clone().css({width: '', height: '', top: '', left: '', position: 'relative'}).removeClass("fg-positioned")
+					.find(".fg-image,.fg-caption").css("width", item.width > maxWidth ? maxWidth : item.width).end()
+					.appendTo($test);
 				var width = $clone.outerWidth(), height = $clone.outerHeight();
 				$clone.remove();
 				return {
@@ -45,8 +44,7 @@
 					height: height,
 					top: 0,
 					left: 0,
-					$item: item.$el,
-					$thumb: item.$thumb
+					$item: item.$el
 				};
 			});
 			$test.remove();
@@ -134,7 +132,6 @@
 					width: item.width,
 					height: item.height,
 					$item: item.$item,
-					$thumb: item.$thumb,
 					top: item.top,
 					left: item.left,
 				};

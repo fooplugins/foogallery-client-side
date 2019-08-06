@@ -3185,7 +3185,7 @@
 							parent.css( "overflow-x" ) );
 				} ).eq( 0 );
 
-		return position === "fixed" || !scrollParent.length ?
+		return position === "fixed" || !scrollParent.length || scrollParent.is( "html" ) ?
 				$( $elem[ 0 ].ownerDocument || document ) :
 				scrollParent;
 	};
