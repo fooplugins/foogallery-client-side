@@ -11,17 +11,15 @@
 
 			self.sel = _obj.extend({}, self.tmpl.sel.panel);
 
-			self.$el = null;
+			self.enabled = self.opt.enabled;
 
-			self.$loader = null;
+			self.$el = null;
 
 			self.$inner = null;
 
-			self.$prev = null;
+			self.$buttons = null;
 
-			self.$next = null;
-
-			self.$close = null;
+			self.$narrow = null;
 
 			self.isCreated = false;
 
@@ -34,6 +32,10 @@
 			self.isLoaded = false;
 
 			self.isError = false;
+
+			self.isExpanded = false;
+
+			self.isCaptionCollapsed = false;
 
 			self.hasTransition = false;
 
@@ -120,7 +122,7 @@
 		},
 		create: function(){
 			var self = this;
-			if (!self.isCreated && self.tmpl instanceof _.Template && self.tmpl.initialized) {
+			if (!self.isCreated && self.tmpl instanceof _.Template && (self.tmpl.initialized || self.tmpl.initializing)) {
 				/**
 				 * @summary Raised when a template creates a content panel for its' items.
 				 * @event FooGallery.Template~"create-panel.foogallery"
@@ -191,11 +193,39 @@
 		doCreate: function(){
 			var self = this;
 			self.$el = self.createElem();
+			if (self.opt.keyboard){
+				self.$el.attr("tabindex", 0).on("", {self: self}, self.onKeyDown);
+			}
+			self.$buttons = $('<div/>').addClass(self.cls.buttons).appendTo(self.$el);
 			self.$inner = $('<div/>').addClass(self.cls.inner).appendTo(self.$el);
-			self.$prev = $('<div/>').addClass(self.cls.prev).on("click.foogallery", {self: self}, self.onPrevClick).appendTo(self.$el);
-			self.$next = $('<div/>').addClass(self.cls.next).on("click.foogallery", {self: self}, self.onNextClick).appendTo(self.$el);
-			self.$close = $('<div/>').addClass(self.cls.close).on("click.foogallery", {self: self}, self.onCloseClick).appendTo(self.$el);
-			self.$loader = self.createLoader(self.$el);
+			if (self.opt.buttons.navigation){
+				$('<div/>').addClass(self.cls.prev)
+					.append(_.icon("prev", self.opt.icons))
+					.on("click.foogallery", {self: self}, self.onPrevClick)
+					.appendTo(self.$buttons);
+				$('<div/>').addClass(self.cls.next)
+					.append(_.icon("next", self.opt.icons))
+					.on("click.foogallery", {self: self}, self.onNextClick)
+					.appendTo(self.$buttons);
+			}
+			if (self.opt.buttons.caption){
+				$('<div/>').addClass(self.cls.caption)
+					.append(_.icon("caption", self.opt.icons))
+					.on("click.foogallery", {self: self}, self.onCaptionClick)
+					.appendTo(self.$buttons);
+			}
+			if (self.opt.buttons.expand){
+				$('<div/>').addClass(self.cls.expand)
+					.append(_.icon("expand", self.opt.icons), _.icon("shrink", self.opt.icons))
+					.on("click.foogallery", {self: self}, self.onExpandClick)
+					.appendTo(self.$buttons);
+			}
+			if (self.opt.buttons.close){
+				$('<div/>').addClass(self.cls.close)
+					.append(_.icon("close", self.opt.icons))
+					.on("click.foogallery", {self: self}, self.onCloseClick)
+					.appendTo(self.$buttons);
+			}
 			return true;
 		},
 		createElem: function(){
@@ -203,8 +233,7 @@
 			self.hasTransition = !_is.empty(transition);
 			return $('<div/>').addClass(self.cls.elem)
 					.addClass(transition)
-					.addClass(self.tmpl.getLoaderClass())
-					.addClass(self.opt.popup ? self.cls.popup : "");
+					.addClass(self.tmpl.getLoaderClass());
 		},
 		createLoader: function( parent ){
 			return $('<div/>').addClass(this.cls.loader).appendTo(parent);
@@ -285,8 +314,10 @@
 			return self.isAttached;
 		},
 		doAppendTo: function( parent ){
-			this.$el.appendTo( parent );
-			return this.$el.parent().length > 0;
+			var self = this, $parent = $( parent );
+			self.isExpanded = $parent.is("body");
+			self.$el.toggleClass(self.cls.expanded, self.isExpanded).appendTo( $parent );
+			return self.$el.parent().length > 0;
 		},
 		detach: function(){
 			var self = this;
@@ -434,6 +465,7 @@
 			if (!item.content.isCreated){
 				item.content.create();
 			}
+			item.content.setCaptionPosition(self.opt.caption, self.opt.captionOverlay);
 			item.content.$el.toggleClass(self.cls.reverse, reverseTransition);
 			item.content.appendTo( self.$inner );
 			var wait = [];
@@ -445,6 +477,8 @@
 			}
 			return $.when.apply($, wait).promise().always(function(){
 				item.content.$el.removeClass(self.cls.reverse);
+				var state = self.tmpl.state.get( item );
+				self.tmpl.state.update(state);
 			});
 		},
 		show: function( item, parent ){
@@ -472,13 +506,26 @@
 		close: function(){
 			var self = this;
 			if (self.currentItem instanceof _.Item){
-				self.doUnload(self.currentItem, true).then(function(){
+				return self.doUnload(self.currentItem, false).then(function(){
 					self.currentItem = null;
 					self.detach();
+					self.tmpl.state.clear();
 				});
 			} else {
 				self.detach();
+				self.tmpl.state.clear();
+				return _fn.resolve();
 			}
+		},
+		toggleExpand: function(){
+			var self = this;
+			self.isExpanded = !self.isExpanded;
+			self.$el.toggleClass(self.cls.expanded, self.isExpanded);
+		},
+		toggleCaption: function(){
+			var self = this;
+			self.isCaptionCollapsed = !self.isCaptionCollapsed;
+			self.$el.toggleClass(self.cls.captionCollapsed, self.isCaptionCollapsed);
 		},
 		onPrevClick: function(e){
 			e.preventDefault();
@@ -491,6 +538,33 @@
 		onCloseClick: function(e){
 			e.preventDefault();
 			e.data.self.close();
+		},
+		onExpandClick: function(e){
+			e.preventDefault();
+			e.data.self.toggleExpand();
+		},
+		onCaptionClick: function(e){
+			e.preventDefault();
+			e.data.self.toggleCaption();
+		},
+		onKeyDown: function(e){
+			var self = e.data.self;
+			switch (e.which){
+				case 39: self.next(); break;
+				case 37: self.prev(); break;
+				case 27:
+					if (self.isExpanded){
+						self.toggleExpand();
+					} else {
+						self.close();
+					}
+					break;
+				case 13:
+					if (e.altKey){
+						self.toggleExpand();
+					}
+					break;
+			}
 		}
 	});
 
@@ -499,18 +573,32 @@
 		panel: {
 			enabled: false,
 			parent: "body",
-			popup: true,
 			transition: "none", // none | fade | horizontal | vertical
-			loop: true
+			loop: true,
+			caption: null, // null | none | top | bottom | left | right
+			captionOverlay: false,
+			icons: "default",
+			keyboard: true,
+			buttons: {
+				navigation: true,
+				close: true,
+				expand: true,
+				caption: true
+			}
 		}
 	},{
 		panel: {
 			elem: "fg-panel",
-			popup: "fg-panel-popup",
+			expanded: "fg-panel-expanded",
 			inner: "fg-panel-inner",
+			buttons: "fg-panel-buttons",
+			narrow: "fg-panel-narrow",
 			prev: "fg-panel-prev",
 			next: "fg-panel-next",
 			close: "fg-panel-close",
+			expand: "fg-panel-expand",
+			caption: "fg-panel-caption",
+			captionCollapsed: "fg-panel-caption-collapsed",
 			loader: "fg-loader",
 			visible: "fg-visible",
 			reverse: "fg-reverse",

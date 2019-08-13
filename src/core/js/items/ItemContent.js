@@ -57,6 +57,32 @@
 					min = self.getSize("minWidth", "minHeight", self.opt.minWidth, self.opt.minHeight);
 			return _obj.extend(size, max, min);
 		},
+		getCaptionPosition: function(){
+			var self = this, result = [], exists = self.cls.position.hasOwnProperty(self.opt.caption);
+			if (exists){
+				result.push(self.cls.position[self.opt.caption]);
+				if (self.opt.captionOverlay){
+					result.push(self.cls.captionOverlay);
+				}
+				return result.join(" ");
+			}
+			return null;
+		},
+		setCaptionPosition: function( position, overlay ){
+			var self = this;
+			if (!self.cls.position.hasOwnProperty(position)) return;
+			self.opt.caption = position;
+			if (_is.boolean(overlay)){
+				self.opt.captionOverlay = overlay;
+			}
+			if (self.isCreated){
+				var allPositionsAndOverlay = [self.cls.position.bottom, self.cls.position.top, self.cls.position.left, self.cls.position.right, self.cls.captionOverlay].join(" ");
+				self.$el.removeClass(allPositionsAndOverlay).addClass(self.cls.position[position]);
+				if (self.opt.captionOverlay){
+					self.$el.addClass(self.cls.captionOverlay);
+				}
+			}
+		},
 		destroy: function(){
 			var self = this;
 			/**
@@ -222,7 +248,7 @@
 			return $('<img/>').addClass(self.cls.content).css(sizes);
 		},
 		createElem: function(){
-			return $('<div/>').addClass(this.cls.elem).addClass(this.tmpl.getLoaderClass());
+			return $('<div/>').addClass(this.cls.elem).addClass(this.tmpl.getLoaderClass()).addClass(this.getCaptionPosition());
 		},
 		createInner: function(){
 			return $('<div/>').addClass(this.cls.inner);
@@ -450,6 +476,8 @@
 			minHeight: null,
 			maxWidth: null,
 			maxHeight: null,
+			caption: null, // null | none | top | bottom | left | right
+			captionOverlay: false,
 			attrs: {}
 		}
 	},{
@@ -459,9 +487,16 @@
 			item: "fg-content-item",
 			content: "fg-content",
 			caption: "fg-content-caption",
+			captionOverlay: "fg-content-caption-overlay",
 			title: "fg-content-title",
 			description: "fg-content-description",
-			loader: "fg-loader"
+			loader: "fg-loader",
+			position: {
+				bottom: "fg-content-caption-bottom",
+				top: "fg-content-caption-top",
+				left: "fg-content-caption-left",
+				right: "fg-content-caption-right"
+			}
 		}
 	});
 

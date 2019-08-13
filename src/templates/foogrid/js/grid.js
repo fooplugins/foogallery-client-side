@@ -129,8 +129,8 @@
 					items = self.tmpl.getAvailable(),
 					hasCurrentItem = self.currentItem instanceof _.Item,
 					lastIndex = items.length - 1;
-			self.$prev.toggleClass("foogrid-disabled", self.isFirst || (!self.opt.loop && hasCurrentItem && self.currentItem.index == 0));
-			self.$next.toggleClass("foogrid-disabled", self.isFirst || (!self.opt.loop && hasCurrentItem && self.currentItem.index == lastIndex));
+			self.$prev.toggleClass("foogrid-disabled", self.isFirst || (!self.opt.loop && hasCurrentItem && self.currentItem.index === 0));
+			self.$next.toggleClass("foogrid-disabled", self.isFirst || (!self.opt.loop && hasCurrentItem && self.currentItem.index === lastIndex));
 		},
 		scrollTo: function(scrollTop, when, duration){
 			var self = this;
@@ -170,7 +170,7 @@
 			var items = self.tmpl.getAvailable(),
 					newIndex = self.getValidIndex(items, index);
 
-			if (newIndex != -1){
+			if (newIndex !== -1){
 				var oldItem = self.currentItem,
 						newItem = items[newIndex],
 						lastIndex = items.length - 1,
@@ -181,7 +181,7 @@
 					var oldBottom = self.getItemBottom(oldItem),
 							newBottom = self.getItemBottom(newItem);
 
-					newRow = oldBottom != newBottom;
+					newRow = oldBottom !== newBottom;
 					reverseTransition = oldItem.index < newIndex;
 
 					if ((newIndex === 0 && oldItem.index === lastIndex) || (newIndex === lastIndex && oldItem.index === 0)){

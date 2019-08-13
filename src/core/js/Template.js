@@ -100,6 +100,13 @@
 			 */
 			self.filter = !_is.undef(_.filtering) ? _.filtering.make(options.filtering.type, self) : null;
 			/**
+			 * @summary The item panel for the template.
+			 * @memberof FooGallery.Template#
+			 * @name panel
+			 * @type {FooGallery.Panel}
+			 */
+			self.panel = _.components.make("panel", self);
+			/**
 			 * @summary An array of video sources supported by the template.
 			 * @memberof FooGallery.Template#
 			 * @name videoSources
@@ -113,13 +120,6 @@
 			 * @type {FooGallery.State}
 			 */
 			self.state = _.components.make("state", self);
-			/**
-			 * @summary The item panel for the template.
-			 * @memberof FooGallery.Template#
-			 * @name panel
-			 * @type {FooGallery.Panel}
-			 */
-			self.panel = _.components.make("panel", self);
 			/**
 			 * @summary The promise object returned by the {@link FooGallery.Template#initialize|initialize} method.
 			 * @memberof FooGallery.Template#
@@ -482,10 +482,10 @@
 			self.raise("destroy");
 			self.$scrollParent.off(self.namespace);
 			$(window).off(self.namespace);
-			self.panel.destroy();
 			self.state.destroy();
-			if (self.filter) self.filter.destroy();
-			if (self.pages) self.pages.destroy();
+			if (!!self.panel) self.panel.destroy();
+			if (!!self.filter) self.filter.destroy();
+			if (!!self.pages) self.pages.destroy();
 			self.items.destroy();
 			if (!_is.empty(self.opt.on)) {
 				self.$el.off(self.opt.on);

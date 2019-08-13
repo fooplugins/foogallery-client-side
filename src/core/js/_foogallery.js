@@ -57,6 +57,10 @@
 	 */
 	_.dataItem = "__FooGalleryItem__";
 
+	_.get = function(){
+
+	};
+
 	_.init = function (options, element) {
 		return _.template.make(options, element).initialize();
 	};

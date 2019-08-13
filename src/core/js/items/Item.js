@@ -1001,7 +1001,7 @@
 			var self = e.data.self,
 					state = self.tmpl.state.get(self);
 			self.tmpl.state.update(state);
-			if (self.tmpl.panel.opt.enabled){
+			if (!!self.tmpl.panel && self.tmpl.panel.enabled){
 				e.preventDefault();
 				self.tmpl.panel.show( self );
 			}

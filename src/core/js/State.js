@@ -49,19 +49,23 @@
 			 */
 			self.pushOrReplace = self.isPushOrReplace(self.opt.pushOrReplace) ? self.opt.pushOrReplace : "replace";
 
+			self.defaultMask = "foogallery-gallery-{id}";
+
 			var id = _str.escapeRegExp(self.tmpl.id),
-					values = _str.escapeRegExp(self.opt.values),
-					pair = _str.escapeRegExp(self.opt.pair);
+				masked = _str.escapeRegExp(self.getMasked()),
+				values = _str.escapeRegExp(self.opt.values),
+				pair = _str.escapeRegExp(self.opt.pair);
 			/**
 			 * @summary An object containing regular expressions used to test and parse a hash value into a state object.
 			 * @memberof FooGallery.State#
 			 * @name regex
-			 * @type {{exists: RegExp, values: RegExp}}
+			 * @type {{exists: RegExp, masked: RegExp, values: RegExp}}
 			 * @readonly
 			 * @description The regular expressions contained within this object are specific to this template and are created using the template {@link FooGallery.Template#id|id} and the delimiters from the {@link FooGallery.State#opt|options}.
 			 */
 			self.regex = {
 				exists: new RegExp("^#"+id+"\\"+values+".+?"),
+				masked: new RegExp("^#"+masked+"\\"+values+".+?"),
 				values: new RegExp("(\\w+)"+pair+"([^"+values+"]+)", "g")
 			};
 		},
@@ -75,6 +79,13 @@
 			self.clear();
 			self.opt = self.regex = {};
 			self._super();
+		},
+		getIdNumber: function(){
+			return this.tmpl.id.match(/\d+/g)[0];
+		},
+		getMasked: function(){
+			var self = this, mask = _str.contains(self.opt.mask, "{id}") ? self.opt.mask : self.defaultMask;
+			return _str.format(mask, {id: self.getIdNumber()});
 		},
 		/**
 		 * @summary Check if the supplied value is `"push"` or `"replace"`.
@@ -93,7 +104,8 @@
 		 * @returns {boolean}
 		 */
 		exists: function(){
-			return this.regex.exists.test(location.hash) && this.regex.values.test(location.hash);
+			this.regex.values.lastIndex = 0; // reset the index as we use the g flag
+			return (this.regex.exists.test(location.hash) || this.regex.masked.test(location.hash)) && this.regex.values.test(location.hash);
 		},
 		/**
 		 * @summary Parse the current url returning an object containing all values for the template.
@@ -107,6 +119,7 @@
 			if (self.exists()){
 				if (self.enabled){
 					state.id = self.tmpl.id;
+					self.regex.values.lastIndex = 0;
 					var pairs = location.hash.match(self.regex.values);
 					$.each(pairs, function(i, pair){
 						var parts = pair.split(self.opt.pair);
@@ -155,7 +168,7 @@
 					}
 				});
 				if (hash.length > 0){
-					hash.unshift("#"+self.tmpl.id);
+					hash.unshift("#"+self.getMasked());
 				}
 				return hash.join(self.opt.values);
 			}
@@ -275,49 +288,33 @@
 						}
 						tmpl.pages.set(obj.page, !_is.empty(state), false, true);
 						if (obj.item && tmpl.pages.contains(obj.page, obj.item)){
-							obj.item.scrollTo();
+							if (self.opt.scrollTo) {
+								obj.item.scrollTo();
+							}
+							if (!!tmpl.panel && tmpl.panel.enabled){
+								tmpl.panel.show( obj.item );
+							} else if (!_is.empty(state.i)){
+								state.i = null;
+								self.replace(state);
+							}
 						}
 					} else {
 						tmpl.items.detach(tmpl.items.all());
 						tmpl.items.create(tmpl.items.available(), true);
 						if (obj.item){
-							obj.item.scrollTo();
+							if (self.opt.scrollTo) {
+								obj.item.scrollTo();
+							}
+							if (!!tmpl.panel && tmpl.panel.enabled){
+								tmpl.panel.show( obj.item );
+							} else if (!_is.empty(state.i)){
+								state.i = null;
+								self.replace(state);
+							}
 						}
-					}
-					if (!_is.empty(state.i)){
-						state.i = null;
-						self.replace(state);
 					}
 					tmpl.raise("after-state", [obj]);
 				}
-				// var item = tmpl.items.get(state.i);
-				// if (tmpl.filter){
-				// 	tmpl.filter.rebuild();
-				// 	var tags = !_is.empty(state.f) ? state.f : [];
-				// 	tmpl.filter.set(tags, false);
-				// }
-				// if (tmpl.pages){
-				// 	tmpl.pages.rebuild();
-				// 	var page = tmpl.pages.number(state.p);
-				// 	if (item && !tmpl.pages.contains(page, item)){
-				// 		page = tmpl.pages.find(item);
-				// 		page = page !== 0 ? page : 1;
-				// 	}
-				// 	tmpl.pages.set(page, !_is.empty(state), false, true);
-				// 	if (item && tmpl.pages.contains(page, item)){
-				// 		item.scrollTo();
-				// 	}
-				// } else {
-				// 	tmpl.items.detach(tmpl.items.all());
-				// 	tmpl.items.create(tmpl.items.available(), true);
-				// 	if (item){
-				// 		item.scrollTo();
-				// 	}
-				// }
-				// if (!_is.empty(state.i)){
-				// 	state.i = null;
-				// 	self.replace(state);
-				// }
 			}
 		},
 	});
@@ -325,7 +322,9 @@
 	_.template.configure("core", {
 		state: {
 			enabled: false,
+			scrollTo: true,
 			pushOrReplace: "replace",
+			mask: "foogallery-gallery-{id}",
 			values: "/",
 			pair: ":",
 			array: "+"

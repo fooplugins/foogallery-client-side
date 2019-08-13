@@ -24,6 +24,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/__foogallery.js",
 						"./dist/foogallery.utils.js",
 						"./src/core/js/_foogallery.js",
+						"./src/core/js/Icons.js",
 						"./src/core/js/Swipe.js",
 						"./src/core/js/factories/TemplateFactory.js",
 						"./src/core/js/factories/PagingFactory.js",
@@ -62,6 +63,7 @@ module.exports = function ( grunt ) {
 					"./dist/components/core/css/foogallery.css": [
 						"./src/core/css/general/core.css",
 						"./src/core/css/general/content.css",
+						"./src/core/css/general/icons.css",
 
 						"./src/core/css/panel/panel.css",
 

@@ -13,7 +13,7 @@
 		doCreateContent: function(){
 			var self = this;
 
-			if (!_str.startsWith(self.item.href, '#') || (self.$target = $(self.item.href)).length == 0){
+			if (!_str.startsWith(self.item.href, '#') || (self.$target = $(self.item.href)).length === 0){
 				self.$target = null;
 				return false;
 			}
