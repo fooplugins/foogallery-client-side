@@ -33,9 +33,9 @@
 			 * @summary The jQuery object for the template containers scroll parent.
 			 * @memberof FooGallery.Template#
 			 * @name $scrollParent
-			 * @type {jQuery}
+			 * @type {?jQuery}
 			 */
-			self.$scrollParent = $();
+			self.$scrollParent = null;
 			/**
 			 * @summary The options for the template.
 			 * @memberof FooGallery.Template#
@@ -159,7 +159,12 @@
 				if (parent.length > 0) {
 					self.$el.appendTo(parent);
 				}
-				self.$scrollParent = _.scrollParent(self.$el);
+				var $sp;
+				if (!_is.empty(self.opt.scrollParent) && ($sp = $(self.opt.scrollParent)).length !== 0){
+					self.$scrollParent = $sp;
+				} else {
+					self.$scrollParent = _utils.scrollParent(self.$el);
+				}
 
 				var queue = $.Deferred(), promise = queue.promise(), existing;
 				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template) {
@@ -328,7 +333,7 @@
 					if (e.isDefaultPrevented()) return _fn.rejectWith("post-init default prevented");
 					var state = self.state.parse();
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
-					self.$scrollParent.on("scroll" + self.namespace, {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle));
+					self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(self.onWindowScroll, self.opt.throttle));
 					$(window).on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
 				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
@@ -623,25 +628,6 @@
 			self.raise("layout");
 		},
 
-		/**
-		 * @summary Throttles the supplied function to only execute once every N milliseconds.
-		 * @memberof FooGallery.Template#
-		 * @function throttle
-		 * @param {Function} fn - The function to throttle.
-		 * @param {number} wait - The number of milliseconds to wait before allowing execution.
-		 * @returns {Function}
-		 */
-		throttle: function (fn, wait) {
-			var time = Date.now();
-			return function () {
-				if ((time + wait - Date.now()) < 0) {
-					var args = _fn.arg2arr(arguments);
-					fn.apply(this, args);
-					time = Date.now();
-				}
-			}
-		},
-
 		// ###############
 		// ## Listeners ##
 		// ###############
@@ -682,6 +668,7 @@
 		viewport: 200,
 		items: [],
 		fixLayout: true,
+		scrollParent: null,
 		delay: 0,
 		throttle: 50,
 		timeout: 60000,
@@ -703,6 +690,7 @@
 	 * @property {number} [viewport=200] - The number of pixels to inflate the viewport by when checking to lazy load items.
 	 * @property {(FooGallery.Item~Options[]|FooGallery.Item[]| string)} [items=[]] - An array of items to load when required. A url can be provided and the items will be fetched using an ajax call, the response should be a properly formatted JSON array of {@link FooGallery.Item~Options|item} object.
 	 * @property {boolean} [fixLayout=true] - Whether or not the items' size should be set with CSS until the image is loaded.
+	 * @property {string} [scrollParent=null] - The selector used to bind to the scroll parent for the gallery. If not supplied the template will attempt to find the element itself.
 	 * @property {number} [delay=0] - The number of milliseconds to delay the initialization of a template.
 	 * @property {number} [throttle=50] - The number of milliseconds to wait once scrolling has stopped before performing any work.
 	 * @property {number} [timeout=60000] - The number of milliseconds to wait before forcing a timeout when loading items.
