@@ -1,4 +1,4 @@
-(function ($, _, _utils, _is, _obj, _transition) {
+(function ($, _, _utils, _is, _obj, _fn, _transition) {
 
 	_.SliderTemplate = _.Template.extend({
 		construct: function (options, element) {
@@ -77,7 +77,7 @@
 
 		},
 		onInit: function (event, self) {
-			$(window).on("resize.fg-slider", {self: self}, self.throttle(self.onWindowResize, self.template.throttle));
+			$(window).on("resize.fg-slider", {self: self}, _fn.throttle(self.onWindowResize, self.template.throttle));
 			self.$itemPrev.on("click.fg-slider", {self: self}, self.onPrevClick);
 			self.$itemNext.on("click.fg-slider", {self: self}, self.onNextClick);
 			self.$contentPrev.on("click.fg-slider", {self: self}, self.onContentPrevClick);
@@ -604,10 +604,11 @@
 	});
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.obj,
-		FooGallery.utils.transition
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils,
+	FooGallery.utils.is,
+	FooGallery.utils.obj,
+	FooGallery.utils.fn,
+	FooGallery.utils.transition
 );

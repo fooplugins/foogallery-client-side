@@ -927,7 +927,7 @@
 			refresh = _is.boolean(refresh) ? refresh : false;
 			var self = this;
 			if (!refresh && _is.string(self._thumbUrl)) return self._thumbUrl;
-			return self._thumbUrl = _.parseSrc(self.src, self.width, self.height, self.srcset, self.$anchor.innerWidth(), self.$anchor.innerHeight());
+			return self._thumbUrl = _utils.src(self.src, self.srcset, self.width, self.height, self.$anchor.innerWidth(), self.$anchor.innerHeight());
 		},
 		/**
 		 * @summary Scroll the item into the center of the viewport.

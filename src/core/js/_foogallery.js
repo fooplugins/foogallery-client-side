@@ -3,34 +3,6 @@
 	_.debug = new _utils.Debugger("__FooGallery__");
 
 	/**
-	 * @summary Simple utility method to convert space delimited strings of CSS class names into a CSS selector.
-	 * @memberof FooGallery.utils
-	 * @function selectify
-	 * @param {(string|string[]|object)} classes - A single space delimited string of CSS class names to convert or an array of them with each item being included in the selector using the OR (`,`) syntax as a separator. If an object is supplied the result will be an object with the same property names but the values converted to selectors.
-	 * @returns {(object|string)}
-	 */
-	_utils.selectify = function (classes) {
-		if (_is.empty(classes)) return null;
-		if (_is.hash(classes)) {
-			var result = {}, selector;
-			for (var name in classes) {
-				if (!classes.hasOwnProperty(name)) continue;
-				if (selector = _utils.selectify(classes[name])) {
-					result[name] = selector;
-				}
-			}
-			return result;
-		}
-		if (_is.string(classes) || _is.array(classes)) {
-			if (_is.string(classes)) classes = [classes];
-			return $.map(classes, function (str) {
-				return _is.string(str) ? "." + str.split(/\s/g).join(".") : null;
-			}).join(",");
-		}
-		return null;
-	};
-
-	/**
 	 * @summary The url of an empty 1x1 pixel image used as the default value for the `placeholder` and `error` {@link FooGallery.defaults|options}.
 	 * @memberof FooGallery
 	 * @name emptyImage
@@ -225,32 +197,6 @@
 		img.src = "";
 		img = null;
 		return complete;
-	};
-
-	/**
-	 * @summary Gets the closest ancestor element that is scrollable.
-	 * @see https://github.com/jquery/jquery-ui/blob/master/ui/scroll-parent.js
-	 * @param {(string|Element|jQuery)} element - The element to find the scrollable parent for.
-	 * @param {boolean} [includeHidden=false] - Whether or not to include elements with overflow:hidden set on them.
-	 * @returns {jQuery}
-	 */
-	_.scrollParent = function(element, includeHidden){
-		var $elem = _is.jq(element) ? element : $(element),
-				position = $elem.css( "position" ),
-				excludeStaticParent = position === "absolute",
-				overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/,
-				scrollParent = $elem.parents().filter( function() {
-					var parent = $( this );
-					if ( excludeStaticParent && parent.css( "position" ) === "static" ) {
-						return false;
-					}
-					return overflowRegex.test( parent.css( "overflow" ) + parent.css( "overflow-y" ) +
-							parent.css( "overflow-x" ) );
-				} ).eq( 0 );
-
-		return position === "fixed" || !scrollParent.length || scrollParent.is( "html" ) ?
-				$( $elem[ 0 ].ownerDocument || document ) :
-				scrollParent;
 	};
 
 })(
