@@ -291,9 +291,7 @@
 							if (self.opt.scrollTo) {
 								obj.item.scrollTo();
 							}
-							if (!!tmpl.panel && tmpl.panel.enabled){
-								tmpl.panel.show( obj.item );
-							} else if (!_is.empty(state.i)){
+							if (!_is.empty(state.i)){
 								state.i = null;
 								self.replace(state);
 							}
@@ -305,9 +303,7 @@
 							if (self.opt.scrollTo) {
 								obj.item.scrollTo();
 							}
-							if (!!tmpl.panel && tmpl.panel.enabled){
-								tmpl.panel.show( obj.item );
-							} else if (!_is.empty(state.i)){
+							if (!_is.empty(state.i)){
 								state.i = null;
 								self.replace(state);
 							}

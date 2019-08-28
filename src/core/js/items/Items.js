@@ -143,7 +143,7 @@
 			if (!(item instanceof _.Item)) return null;
 			loop = _is.boolean(loop) ? loop : false;
 			var index = this._available.indexOf(item);
-			if (index != -1){
+			if (index !== -1){
 				index++;
 				if (index >= this._available.length){
 					if (!loop) return null;
@@ -157,7 +157,7 @@
 			if (!(item instanceof _.Item)) return null;
 			loop = _is.boolean(loop) ? loop : false;
 			var index = this._available.indexOf(item);
-			if (index != -1){
+			if (index !== -1){
 				index--;
 				if (index < 0){
 					if (!loop) return null;

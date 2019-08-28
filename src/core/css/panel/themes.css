@@ -1,0 +1,38 @@
+.fg-panel.fg-light {
+    background-color: #FFF;
+    color: #333;
+}
+.fg-panel.fg-dark {
+    background-color: #333;
+    color: #FeFeFe;
+}
+
+.fg-panel.fg-light .fg-panel-button,
+.fg-panel.fg-light.fg-small .fg-panel-buttons {
+    color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(156, 156, 156, 0.1);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+.fg-panel.fg-dark .fg-panel-button,
+.fg-panel.fg-dark.fg-small .fg-panel-buttons {
+    color: rgba(254, 254, 254, 1);
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+.fg-panel.fg-light .fg-content-caption {
+    background-color: rgba(156, 156, 156, 0.1);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+.fg-panel.fg-dark .fg-content-caption {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+@media (hover: hover) {
+    .fg-panel.fg-highlight-blue .fg-panel-button:hover {
+        background-color: #4d90fe;
+        border-color: #3079ed;
+        color: #FFF;
+    }
+}

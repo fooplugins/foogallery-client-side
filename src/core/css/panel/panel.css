@@ -1,3 +1,6 @@
+.fg-panel, .fg-panel * {
+	box-sizing: border-box;
+}
 .fg-panel {
 	display: block;
 	position: relative;
@@ -5,18 +8,17 @@
 	height: 100%;
 	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 	overflow: hidden;
-	color: #333;
+	outline: none;
 }
 .fg-panel-expanded {
 	position: fixed;
 	top: 0;
 	left: 0;
-	background-color: #333;
 	z-index: 9999;
-	color: #FeFeFe;
 }
-.fg-panel, .fg-panel * {
-	box-sizing: border-box;
+html.fg-panel-no-scroll, html.fg-panel-no-scroll body {
+	overflow-x: hidden !important;
+	overflow-y: hidden !important;
 }
 .fg-panel-inner {
 	display: block;
@@ -48,15 +50,11 @@
 	align-items: flex-end;
 	justify-content: flex-end;
 }
-.fg-panel-buttons > * {
+.fg-panel-button {
 	cursor: pointer;
 	border-radius: 3px;
-	background-color: rgba(0, 0, 0, 0.1);
-	border: solid 1px rgba(0, 0, 0, 0.1);
-}
-.fg-panel-expanded .fg-panel-buttons > * {
-	background-color: rgba(0, 0, 0, 0.3);
-	border: solid 1px rgba(0, 0, 0, 0.3);
+	border-style: solid;
+	border-width: 1px;
 }
 .fg-panel-close,
 .fg-panel-expand,
@@ -75,7 +73,7 @@
 	top: 50%;
 	transform: translateY(-50%);
 	width: 32px;
-	height: 140px;
+	height: 128px;
 }
 .fg-panel-prev {
 	left: 5px;
@@ -83,44 +81,13 @@
 .fg-panel-next {
 	right: 5px;
 }
-
-@media only screen and (max-width : 414px) {
-	.fg-panel-inner {
-		top: 42px;
-		left: 5px;
-		bottom: 5px;
-		right: 5px;
-	}
-	.fg-panel-buttons {
-		flex-direction: row;
-		align-items: stretch;
-		height: 37px;
-		border-bottom: solid 1px rgba(0, 0, 0, 0.1);
-	}
-	.fg-panel-expanded .fg-panel-buttons {
-		border-bottom: solid 1px rgba(0, 0, 0, 0.3);
-	}
-	.fg-panel-buttons > *,
-	.fg-panel-expanded .fg-panel-buttons > * {
-		border: unset;
-	}
-	.fg-panel-close,
-	.fg-panel-expand,
-	.fg-panel-caption,
-	.fg-panel-prev,
-	.fg-panel-next {
-		position: relative;
-		top: unset;
-		left: unset;
-		bottom: unset;
-		right: unset;
-		width: 100%;
-		height: 100%;
-		border-radius: 0;
-		transform: unset;
-		margin-top: unset;
-		margin-right: unset;
-	}
+.fg-medium .fg-panel-prev,
+.fg-medium .fg-panel-next {
+	height: 96px;
+}
+.fg-small .fg-panel-prev,
+.fg-small .fg-panel-next {
+	height: 64px;
 }
 
 /* icons */
@@ -148,127 +115,4 @@
 /* caption */
 .fg-panel-caption-collapsed .fg-content-caption {
 	display: none;
-}
-
-/* transitions */
-.fg-panel-fade .fg-content-container,
-.fg-panel-horizontal .fg-content-container,
-.fg-panel-vertical .fg-content-container {
-	transition-duration: .3s;
-	transition-timing-function: ease-in-out;
-}
-
-/* content fade in/out */
-.fg-panel-fade .fg-content-container {
-	transition-property: opacity, visibility, padding;
-	visibility: hidden;
-	opacity: 0;
-}
-.fg-panel-fade .fg-content-container.fg-visible,
-.fg-panel-fade .fg-content-container.fg-reverse.fg-visible {
-	visibility: visible;
-	opacity: 1;
-}
-
-/* content slide left/right */
-.fg-panel-horizontal .fg-content-container {
-	transition-property: opacity, visibility, transform, padding;
-	transform: translateX(-100%);
-	visibility: hidden;
-	opacity: 0;
-}
-.fg-panel-horizontal .fg-content-container.fg-reverse {
-	transform: translateX(100%);
-}
-.fg-panel-horizontal .fg-content-container.fg-visible,
-.fg-panel-horizontal .fg-content-container.fg-reverse.fg-visible {
-	transform: translateX(0);
-	visibility: visible;
-	opacity: 1;
-}
-
-/* content slide up/down */
-.fg-panel-vertical .fg-content-container {
-	transition-property: opacity, visibility, transform, padding;
-	transform: translateY(-100%);
-	visibility: hidden;
-	opacity: 0;
-}
-.fg-panel-vertical .fg-content-container.fg-reverse {
-	transform: translateY(100%);
-}
-.fg-panel-vertical .fg-content-container.fg-visible,
-.fg-panel-vertical .fg-content-container.fg-reverse.fg-visible {
-	transform: translateY(0);
-	visibility: visible;
-	opacity: 1;
-}
-
-/* content */
-.fg-panel > .fg-panel-inner > .fg-content-container > .fg-content-inner > .fg-content-caption {
-	background-color: rgba(0, 0, 0, 0.1);
-	border-color: rgba(0, 0, 0, 0.1);
-}
-.fg-panel-expanded > .fg-panel-inner > .fg-content-container > .fg-content-inner > .fg-content-caption {
-	background-color: rgba(0, 0, 0, 0.3);
-	border-color: rgba(0, 0, 0, 0.3);
-}
-.fg-panel > .fg-panel-inner > .fg-content-caption-bottom > .fg-content-inner > .fg-content-caption,
-.fg-panel > .fg-panel-inner > .fg-content-caption-top > .fg-content-inner > .fg-content-caption {
-	margin-left: -42px;
-	margin-right: -42px;
-	padding-left: 42px;
-	padding-right: 42px;
-}
-.fg-panel > .fg-panel-inner > .fg-content-caption-top > .fg-content-inner > .fg-content-caption {
-	margin-top: -5px;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-}
-.fg-panel > .fg-panel-inner > .fg-content-caption-bottom > .fg-content-inner > .fg-content-caption {
-	margin-bottom: -5px;
-	border-top-width: 1px;
-	border-top-style: solid;
-}
-.fg-panel > .fg-panel-inner > .fg-content-caption-left > .fg-content-inner > .fg-content-caption,
-.fg-panel > .fg-panel-inner > .fg-content-caption-right > .fg-content-inner > .fg-content-caption {
-	margin-top: -5px;
-	margin-bottom: -5px;
-}
-.fg-panel > .fg-panel-inner > .fg-content-caption-left > .fg-content-inner > .fg-content-caption {
-	margin-left: -42px;
-	padding-left: 42px;
-	border-right-width: 1px;
-	border-right-style: solid;
-}
-.fg-panel > .fg-panel-inner > .fg-content-caption-right > .fg-content-inner > .fg-content-caption {
-	margin-right: -42px;
-	padding-right: 42px;
-	border-left-width: 1px;
-	border-left-style: solid;
-}
-@media only screen and (max-width : 768px) {
-	.fg-panel > .fg-panel-inner > .fg-content-caption-left > .fg-content-inner > .fg-content-caption,
-	.fg-panel > .fg-panel-inner > .fg-content-caption-right > .fg-content-inner > .fg-content-caption {
-		margin: 5px -42px -5px;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-left-width: unset;
-		border-left-style: unset;
-		border-right-width: unset;
-		border-right-style: unset;
-		border-top-width: 1px;
-		border-top-style: solid;
-	}
-}
-@media only screen and (max-width : 414px) {
-	.fg-panel > .fg-panel-inner > .fg-content-caption-bottom > .fg-content-inner > .fg-content-caption,
-	.fg-panel > .fg-panel-inner > .fg-content-caption-top > .fg-content-inner > .fg-content-caption,
-	.fg-panel > .fg-panel-inner > .fg-content-caption-left > .fg-content-inner > .fg-content-caption,
-	.fg-panel > .fg-panel-inner > .fg-content-caption-right > .fg-content-inner > .fg-content-caption {
-		margin-left: -5px;
-		margin-right: -5px;
-		padding-left: 10px;
-		padding-right: 10px;
-	}
 }

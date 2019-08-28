@@ -1,0 +1,63 @@
+/* transitions */
+.fg-panel-fade .fg-content-container,
+.fg-panel-horizontal .fg-content-container,
+.fg-panel-vertical .fg-content-container {
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+}
+
+@media (hover: hover) {
+    .fg-panel-fade .fg-panel-button,
+    .fg-panel-horizontal .fg-panel-button,
+    .fg-panel-vertical .fg-panel-button {
+        transition-property: background-color, border-color, color;
+        transition-duration: .1s;
+        transition-timing-function: ease-in-out;
+    }
+}
+
+/* content fade in/out */
+.fg-panel-fade .fg-content-container {
+    transition-property: opacity, visibility, padding;
+    visibility: hidden;
+    opacity: 0;
+}
+.fg-panel-fade .fg-content-container.fg-visible,
+.fg-panel-fade .fg-content-container.fg-reverse.fg-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* content slide left/right */
+.fg-panel-horizontal .fg-content-container {
+    transition-property: opacity, visibility, transform, padding;
+    transform: translateX(-100%);
+    visibility: hidden;
+    opacity: 0;
+}
+.fg-panel-horizontal .fg-content-container.fg-reverse {
+    transform: translateX(100%);
+}
+.fg-panel-horizontal .fg-content-container.fg-visible,
+.fg-panel-horizontal .fg-content-container.fg-reverse.fg-visible {
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+}
+
+/* content slide up/down */
+.fg-panel-vertical .fg-content-container {
+    transition-property: opacity, visibility, transform, padding;
+    transform: translateY(-100%);
+    visibility: hidden;
+    opacity: 0;
+}
+.fg-panel-vertical .fg-content-container.fg-reverse {
+    transform: translateY(100%);
+}
+.fg-panel-vertical .fg-content-container.fg-visible,
+.fg-panel-vertical .fg-content-container.fg-reverse.fg-visible {
+    transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+}

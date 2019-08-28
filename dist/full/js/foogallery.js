@@ -58,9 +58,9 @@
 );
 /*!
 * FooGallery.utils - Contains common utility methods and classes used in our plugins.
-* @version 0.0.8
+* @version 0.1.0
 * @link https://github.com/steveush/foo-utils#readme
-* @copyright Steve Usher 2018
+* @copyright Steve Usher 2019
 * @license Released under the GPL-3.0 license.
 */
 /**
@@ -111,7 +111,7 @@
 		 * @name version
 		 * @type {string}
 		 */
-		version: '0.0.8',
+		version: '0.1.0'
 	};
 
 	/**
@@ -152,12 +152,12 @@
 		 * @ignore
 		 */
 		function split(version){
-			var res = version.split('.');
-			for(var i = 0, len = res.length; i < len; i++){
-				res[i] = parseInt(res[i]);
-				if (isNaN(res[i])) res[i] = 0;
+			var parts = version.split('.'), result = [];
+			for(var i = 0, len = parts.length; i < len; i++){
+				result[i] = parseInt(parts[i]);
+				if (isNaN(result[i])) result[i] = 0;
 			}
-			return res;
+			return result;
 		}
 
 		// get the base numeric arrays for each version
@@ -170,12 +170,12 @@
 
 		// perform the actual comparison
 		for (var i = 0; i < v1parts.length; ++i) {
-			if (v2parts.length == i) return 1;
-			if (v1parts[i] == v2parts[i]) continue;
+			if (v2parts.length === i) return 1;
+			if (v1parts[i] === v2parts[i]) continue;
 			if (v1parts[i] > v2parts[i]) return 1;
 			else return -1;
 		}
-		if (v1parts.length != v2parts.length) return -1;
+		if (v1parts.length !== v2parts.length) return -1;
 		return 0;
 	};
 
@@ -207,7 +207,7 @@
 })(jQuery);
 (function ($, _){
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	/**
 	 * @summary Contains common type checking utility methods.
@@ -276,7 +276,7 @@
 	_.is.element = function (value) {
 		return typeof HTMLElement === 'object'
 			? value instanceof HTMLElement
-			: !!value && typeof value === 'object' && value !== null && value.nodeType === 1 && typeof value.nodeName === 'string';
+			: !!value && typeof value === 'object' && value.nodeType === 1 && typeof value.nodeName === 'string';
 	};
 
 	/**
@@ -317,7 +317,7 @@
 	 */
 	_.is.empty = function(value){
 		if (_.is.undef(value) || value === null) return true;
-		if (_.is.number(value) && value == 0) return true;
+		if (_.is.number(value) && value === 0) return true;
 		if (_.is.boolean(value) && value === false) return true;
 		if (_.is.string(value) && value.length === 0) return true;
 		if (_.is.array(value) && value.length === 0) return true;
@@ -513,7 +513,7 @@
 	 */
 	_.is.size = function(value){
 		if (!(_.is.string(value) && !_.is.empty(value)) && !_.is.number(value)) return false;
-		return /^(auto|none|(?:[\d\.]*)+?(?:%|px|mm|q|cm|in|pt|pc|em|ex|ch|rem|vh|vw|vmin|vmax)?)$/.test(value);
+		return /^(auto|none|(?:[\d.]*)+?(?:%|px|mm|q|cm|in|pt|pc|em|ex|ch|rem|vh|vw|vmin|vmax)?)$/.test(value);
 	};
 
 	/**
@@ -561,7 +561,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	/**
 	 * @memberof FooGallery.utils
@@ -722,6 +722,54 @@
 	 */
 	_.fn.arg2arr = function(args){
 		return Array.prototype.slice.call(args);
+	};
+
+	/**
+	 * @summary Debounces the `fn` by the supplied `time`.
+	 * @memberof FooGallery.utils.fn
+	 * @function debounce
+	 * @param {function} fn - The function to debounce.
+	 * @param {number} time - The time in milliseconds to delay execution.
+	 * @returns {function}
+	 * @description This returns a wrapped version of the `fn` which delays its' execution by the supplied `time`. Additional calls to the function will extend the delay until the `time` expires.
+	 */
+	_.fn.debounce = function (fn, time) {
+		var timeout;
+		return function () {
+			var args = _.fn.arg2arr(arguments);
+			clearTimeout(timeout);
+			timeout = setTimeout(function () {
+				fn.apply(this, args);
+			}, time);
+		};
+	};
+
+	/**
+	 * @summary Throttles the `fn` by the supplied `time`.
+	 * @memberof FooGallery.utils.fn
+	 * @function throttle
+	 * @param {function} fn - The function to throttle.
+	 * @param {number} time - The time in milliseconds to delay execution.
+	 * @returns {function}
+	 * @description This returns a wrapped version of the `fn` which ensures it's executed only once every `time` milliseconds. The first call to the function will be executed, after that only the last of any additional calls will be executed once the `time` expires.
+	 */
+	_.fn.throttle = function (fn, time) {
+		var last, timeout;
+		return function () {
+			var ctx = this, args = _.fn.arg2arr(arguments);
+			if (!last){
+				fn.apply(ctx, args);
+				last = Date.now();
+			} else {
+				clearTimeout(timeout);
+				timeout = setTimeout(function () {
+					if (Date.now() - last >= time) {
+						fn.apply(ctx, args);
+						last = Date.now();
+					}
+				}, time - (Date.now() - last));
+			}
+		}
 	};
 
 	/**
@@ -1096,7 +1144,7 @@
 );
 (function(_, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	/**
 	 * @summary Contains common url utility methods.
@@ -1231,7 +1279,7 @@
 );
 (function (_, _is, _fn) {
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	/**
 	 * @summary Contains common string utility methods.
@@ -1546,7 +1594,7 @@
 );
 (function($, _, _is, _fn, _str){
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	/**
 	 * @summary Contains common object utility methods.
@@ -1878,7 +1926,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	// any methods that have dependencies but don't fall into a specific subset or namespace can be added here
 
@@ -1969,6 +2017,186 @@
 		}
 	};
 
+	/**
+	 * @summary Convert CSS class names into CSS selectors.
+	 * @memberof FooGallery.utils
+	 * @function selectify
+	 * @param {(string|string[]|object)} classes - A space delimited string of CSS class names or an array of them with each item being included in the selector using the OR (`,`) syntax as a separator. If an object is supplied the result will be an object with the same property names but the values converted to selectors.
+	 * @returns {(object|string)}
+	 * @example {@caption Shows how the method can be used.}
+	 * // alias the FooGallery.utils namespace
+	 * var _ = FooGallery.utils;
+	 *
+	 * console.log( _.selectify("my-class") ); // => ".my-class"
+	 * console.log( _.selectify("my-class my-other-class") ); // => ".my-class.my-other-class"
+	 * console.log( _.selectify(["my-class", "my-other-class"]) ); // => ".my-class,.my-other-class"
+	 * console.log( _.selectify({
+	 * 	class1: "my-class",
+	 * 	class2: "my-class my-other-class",
+	 * 	class3: ["my-class", "my-other-class"]
+	 * }) ); // => { class1: ".my-class", class2: ".my-class.my-other-class", class3: ".my-class,.my-other-class" }
+	 */
+	_.selectify = function (classes) {
+		if (_is.empty(classes)) return null;
+		if (_is.hash(classes)) {
+			var result = {}, selector;
+			for (var name in classes) {
+				if (!classes.hasOwnProperty(name)) continue;
+				selector = _.selectify(classes[name]);
+				if (selector) {
+					result[name] = selector;
+				}
+			}
+			return result;
+		}
+		if (_is.string(classes) || _is.array(classes)) {
+			if (_is.string(classes)) classes = [classes];
+			return classes.map(function(str){
+				return _is.string(str) ? "." + str.split(/\s/g).join(".") : null;
+			}).join(",");
+		}
+		return null;
+	};
+
+	/**
+	 * @summary Parses the supplied `src` and `srcset` values and returns the best matching URL for the supplied render size.
+	 * @memberof FooGallery.utils
+	 * @function src
+	 * @param {string} src - The default src for the image.
+	 * @param {string} srcset - The srcset containing additional image sizes.
+	 * @param {number} srcWidth - The width of the `src` image.
+	 * @param {number} srcHeight - The height of the `src` image.
+	 * @param {number} renderWidth - The rendered width of the image element.
+	 * @param {number} renderHeight - The rendered height of the image element.
+	 * @param {number} [devicePixelRatio] - The device pixel ratio to use while parsing. Defaults to the current device pixel ratio.
+	 * @returns {(string|null)} Returns the parsed responsive src or null if no src is provided.
+	 * @description This can be used to parse the correct src to use when loading an image through JavaScript.
+	 * @example {@caption The following shows using the method with the srcset w-descriptor.}{@run true}
+	 * var src = "test-240x120.jpg",
+	 * 	width = 240, // the naturalWidth of the 'src' image
+	 * 	height = 120, // the naturalHeight of the 'src' image
+	 * 	srcset = "test-480x240.jpg 480w, test-720x360.jpg 720w, test-960x480.jpg 960w";
+	 *
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 240, 120, 1 ) ); // => "test-240x120.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 240, 120, 2 ) ); // => "test-480x240.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 480, 240, 1 ) ); // => "test-480x240.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 480, 240, 2 ) ); // => "test-960x480.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 720, 360, 1 ) ); // => "test-720x360.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 960, 480, 1 ) ); // => "test-960x480.jpg"
+	 * @example {@caption The following shows using the method with the srcset h-descriptor.}{@run true}
+	 * var src = "test-240x120.jpg",
+	 * 	width = 240, // the naturalWidth of the 'src' image
+	 * 	height = 120, // the naturalHeight of the 'src' image
+	 * 	srcset = "test-480x240.jpg 240h, test-720x360.jpg 360h, test-960x480.jpg 480h";
+	 *
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 240, 120, 1 ) ); // => "test-240x120.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 240, 120, 2 ) ); // => "test-480x240.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 480, 240, 1 ) ); // => "test-480x240.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 480, 240, 2 ) ); // => "test-960x480.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 720, 360, 1 ) ); // => "test-720x360.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 960, 480, 1 ) ); // => "test-960x480.jpg"
+	 * @example {@caption The following shows using the method with the srcset x-descriptor.}{@run true}
+	 * var src = "test-240x120.jpg",
+	 * 	width = 240, // the naturalWidth of the 'src' image
+	 * 	height = 120, // the naturalHeight of the 'src' image
+	 * 	srcset = "test-480x240.jpg 2x, test-720x360.jpg 3x, test-960x480.jpg 4x";
+	 *
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 240, 120, 1 ) ); // => "test-240x120.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 240, 120, 2 ) ); // => "test-480x240.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 480, 240, 1 ) ); // => "test-240x120.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 480, 240, 2 ) ); // => "test-480x240.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 720, 360, 1 ) ); // => "test-240x120.jpg"
+	 * console.log( FooGallery.utils.src( src, srcset, width, height, 960, 480, 1 ) ); // => "test-240x120.jpg"
+	 */
+	_.src = function(src, srcset, srcWidth, srcHeight, renderWidth, renderHeight, devicePixelRatio){
+		if (!_is.string(src)) return null;
+		// if there is no srcset just return the src
+		if (!_is.string(srcset)) return src;
+
+		// first split the srcset into its individual sources
+		var sources = srcset.replace(/(\s[\d.]+[whx]),/g, '$1 @,@ ').split(' @,@ ');
+		// then parse those sources into objects containing the url, width, height and pixel density
+		var list = sources.map(function (val) {
+			return {
+				url: /^\s*(\S*)/.exec(val)[1],
+				w: parseFloat((/\S\s+(\d+)w/.exec(val) || [0, Infinity])[1]),
+				h: parseFloat((/\S\s+(\d+)h/.exec(val) || [0, Infinity])[1]),
+				x: parseFloat((/\S\s+([\d.]+)x/.exec(val) || [0, 1])[1])
+			};
+		});
+
+		// if there is no items parsed from the srcset then just return the src
+		if (!list.length) return src;
+
+		// add the current src into the mix by inspecting the first parsed item to figure out how to handle it
+		list.unshift({
+			url: src,
+			w: list[0].w !== Infinity && list[0].h === Infinity ? srcWidth : Infinity,
+			h: list[0].h !== Infinity && list[0].w === Infinity ? srcHeight : Infinity,
+			x: 1
+		});
+
+		// get the current viewport info and use it to determine the correct src to load
+		var dpr = _is.number(devicePixelRatio) ? devicePixelRatio : (window.devicePixelRatio || 1),
+			area = {w: renderWidth * dpr, h: renderHeight * dpr, x: dpr},
+			props = ['w','h','x'];
+
+		// first check each of the viewport properties against the max values of the same properties in our src array
+		// only src's with a property greater than the viewport or equal to the max are kept
+		props.forEach(function (prop) {
+			var max = Math.max.apply(null, list.map(function (item) {
+				return item[prop];
+			}));
+			list = list.filter(function (item) {
+				return item[prop] >= area[prop] || item[prop] === max;
+			});
+		});
+
+		// next reduce our src array by comparing the viewport properties against the minimum values of the same properties of each src
+		// only src's with a property equal to the minimum are kept
+		props.forEach(function (prop) {
+			var min = Math.min.apply(null, list.map(function (item) {
+				return item[prop];
+			}));
+			list = list.filter(function (item) {
+				return item[prop] === min;
+			});
+		});
+
+		// return the first url as it is the best match for the current viewport
+		return list[0].url;
+	};
+
+	/**
+	 * @summary Get the scroll parent for the supplied element optionally filtering by axis.
+	 * @memberof FooGallery.utils
+	 * @function scrollParent
+	 * @param {(string|Element|jQuery)} element - The selector, element or jQuery element to find the scroll parent of.
+	 * @param {string} [axis="xy"] - The axis to check. By default this method will check both the X and Y axis.
+	 * @param {jQuery} [def] - The default jQuery element to return if no result was found. Defaults to the supplied elements document.
+	 * @returns {jQuery}
+	 */
+	_.scrollParent = function(element, axis, def){
+		element = _is.jq(element) ? element : $(element);
+		axis = _is.string(axis) && /^(x|y|xy|yx)$/i.test(axis) ? axis : "xy";
+		def = _is.jq(def) ? def : $(!!element.length && element[0].ownerDocument || document);
+
+		if (!element.length) return def;
+
+		var position = element.css("position"),
+			excludeStaticParent = position === "absolute",
+			hidden = /hidden/i, axisX = /x/i, axisY = /y/i,
+			$parent = element.parentsUntil(def).filter(function(i, el){
+				var $el = $(this);
+				if (excludeStaticParent && $el.css("position") === "static") return false;
+				var scrollY = axisY.test(axis) && el.scrollHeight > el.clientHeight && !hidden.test($el.css("overflow-y")),
+					scrollX = axisX.test(axis) && el.scrollWidth > el.clientWidth && !hidden.test($el.css("overflow-x"));
+				return scrollY || scrollX;
+			}).eq(0);
+
+		return position === "fixed" || !$parent.length ? def : $parent;
+	};
+
 })(
 	// dependencies
 	FooGallery.utils.$,
@@ -1977,7 +2205,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	/**
 	 * @summary Contains common utility methods and members for the CSS transition property.
@@ -2150,12 +2378,11 @@
 );
 (function ($, _, _is, _obj, _fn) {
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	/**
 	 * @summary A base class providing some helper methods for prototypal inheritance.
-	 * @memberof FooGallery.utils
-	 * @constructs Class
+	 * @constructs FooGallery.utils.Class
 	 * @description This is a base class for making prototypal inheritance simpler to work with. It provides an easy way to inherit from another class and exposes a `_super` method within the scope of any overriding methods that allows a simple way to execute the overridden function.
 	 *
 	 * Have a look at the {@link FooGallery.utils.Class.extend|extend} and {@link FooGallery.utils.Class.override|override} method examples to see some basic usage.
@@ -2288,15 +2515,189 @@
 	FooGallery.utils.obj,
 	FooGallery.utils.fn
 );
+(function (_, _is) {
+    // only register methods if this version is the current version
+    if (_.version !== '0.1.0') return;
+
+    _.Event = _.Class.extend(/** @lends FooGallery.utils.Event */{
+        /**
+         * @summary A base event class providing just a type and defaultPrevented properties.
+         * @constructs
+         * @param {string} type - The type for this event.
+         * @description This is a very basic event class that is used internally by the {@link FooGallery.utils.EventClass#trigger} method when the first parameter supplied is simply the event name.
+         *
+         * To trigger your own custom event you will need to inherit from this class and then supply the instantiated event object as the first parameter to the {@link FooGallery.utils.EventClass#trigger} method.
+         * @example {@caption The following shows how to use this class to create a custom event.}
+         * var MyEvent = FooGallery.utils.Event.extend({
+         * 	construct: function(type, customProp){
+         * 	    this._super(type);
+         * 	    this.myCustomProp = customProp;
+         * 	}
+         * });
+         *
+         * // to use the class you would then instantiate it and pass it as the first argument to a FooGallery.utils.EventClass's trigger method
+         * var eventClass = ...; // any class inheriting from FooGallery.utils.EventClass
+         * var event = new MyEvent( "my-event-type", true );
+         * eventClass.trigger(event);
+         */
+        construct: function(type){
+            /**
+             * @summary The type of event.
+             * @memberof FooGallery.utils.Event#
+             * @name type
+             * @type {string}
+             * @readonly
+             */
+            this.type = type;
+            /**
+             * @summary Whether the default action should be taken or not.
+             * @memberof FooGallery.utils.Event#
+             * @name defaultPrevented
+             * @type {boolean}
+             * @readonly
+             */
+            this.defaultPrevented = false;
+        },
+        /**
+         * @summary Informs the class that raised this event that its default action should not be taken.
+         * @memberof FooGallery.utils.Event#
+         * @function preventDefault
+         */
+        preventDefault: function(){
+            this.defaultPrevented = true;
+        }
+    });
+
+    _.EventClass = _.Class.extend(/** @lends FooGallery.utils.EventClass */{
+        /**
+         * @summary A base class that implements a basic events interface.
+         * @constructs
+         * @description This is a very basic events implementation that provides just enough to cover most needs.
+         */
+        construct: function(){
+            /**
+             * @summary The object used internally to register event handlers.
+             * @memberof FooGallery.utils.EventClass#
+             * @name __handlers
+             * @type {Object}
+             * @private
+             */
+            this.__handlers = {};
+        },
+        /**
+         * @summary Destroy the current instance releasing used resources.
+         * @memberof FooGallery.utils.EventClass#
+         * @function destroy
+         */
+        destroy: function(){
+            this.__handlers = {};
+        },
+        /**
+         * @summary Attach an event handler function for one or more events to the class.
+         * @memberof FooGallery.utils.EventClass#
+         * @function on
+         * @param {string} events - One or more space-separated event types.
+         * @param {function} handler - A function to execute when the event is triggered.
+         * @param {*} [thisArg] - The value of `this` within the `handler` function. Defaults to the `EventClass` raising the event.
+         * @returns {this}
+         */
+        on: function(events, handler, thisArg){
+            if (!_is.string(events) || !_is.fn(handler)) return this;
+            thisArg = _is.undef(thisArg) ? this : thisArg;
+            var self = this, handlers = self.__handlers, exists;
+            events.split(" ").forEach(function(type){
+                if (!_is.array(handlers[type])){
+                    handlers[type] = [];
+                }
+                exists = handlers[type].some(function(h){
+                    return h.fn === handler && h.thisArg === thisArg;
+                });
+                if (!exists){
+                    handlers[type].push({
+                        fn: handler,
+                        thisArg: thisArg
+                    });
+                }
+            });
+            return self;
+        },
+        /**
+         * @summary Remove an event handler function for one or more events from the class.
+         * @memberof FooGallery.utils.EventClass#
+         * @function off
+         * @param {string} events - One or more space-separated event types.
+         * @param {function} handler - The handler to remove.
+         * @param {*} [thisArg] - The value of `this` within the `handler` function.
+         * @returns {FooGallery.utils.EventClass}
+         */
+        off: function(events, handler, thisArg){
+            if (!_is.string(events)) return this;
+            handler = _is.fn(handler) ? handler : null;
+            thisArg = _is.undef(thisArg) ? this : thisArg;
+            var self = this, handlers = self.__handlers;
+            events.split(" ").forEach(function(type){
+                if (_is.array(handlers[type])){
+                    if (handler != null){
+                        handlers[type] = handlers[type].filter(function(h){
+                            return !(h.fn === handler && h.thisArg === thisArg);
+                        });
+                        if (handlers[type].length === 0){
+                            delete handlers[type];
+                        }
+                    } else {
+                        delete handlers[type];
+                    }
+                }
+            });
+            return self;
+        },
+        /**
+         * @summary Trigger an event on the current class.
+         * @memberof FooGallery.utils.EventClass#
+         * @function trigger
+         * @param {(string|FooGallery.utils.Event)} event - Either a space-separated string of event types or a custom event object to raise.
+         * @param {Array} [args] - An array of additional arguments to supply to the handlers after the event object.
+         * @returns {(FooGallery.utils.Event|FooGallery.utils.Event[]|null)} Returns the {@link FooGallery.utils.Event|event object} of the triggered event. If more than one event was triggered an array of {@link FooGallery.utils.Event|event objects} is returned. If no `event` was supplied or triggered `null` is returned.
+         */
+        trigger: function(event, args){
+            var instance = event instanceof _.Event;
+            if (!instance && !_is.string(event)) return null;
+            args = _is.array(args) ? args : [];
+            var self = this,
+                handlers = self.__handlers,
+                result = [],
+                _trigger = function(e){
+                    result.push(e);
+                    if (!_is.array(handlers[e.type])) return;
+                    handlers[e.type].forEach(function (h) {
+                        h.fn.apply(h.thisArg, [e].concat(args));
+                    });
+                };
+
+            if (instance){
+                _trigger(event);
+            } else {
+                event.split(" ").forEach(function(type){
+                    _trigger(new _.Event(type));
+                });
+            }
+            return _is.empty(result) ? null : (result.length === 1 ? result[0] : result);
+        }
+    });
+
+})(
+    // dependencies
+    FooGallery.utils,
+    FooGallery.utils.is
+);
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	_.Bounds = _.Class.extend(/** @lends FooGallery.utils.Bounds */{
 		/**
 		 * @summary A simple bounding rectangle class.
-		 * @memberof FooGallery.utils
-		 * @constructs Bounds
+		 * @constructs
 		 * @augments FooGallery.utils.Class
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
@@ -2392,13 +2793,12 @@
 );
 (function($, _, _is, _fn){
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	_.Factory = _.Class.extend(/** @lends FooGallery.utils.Factory */{
 		/**
 		 * @summary A factory for classes allowing them to be registered and created using a friendly name.
-		 * @memberof FooGallery.utils
-		 * @constructs Factory
+		 * @constructs
 		 * @description This class allows other classes to register themselves for use at a later time. Depending on how you intend to use the registered classes you can also specify a load and execution order through the `priority` parameter of the {@link FooGallery.utils.Factory#register|register} method.
 		 * @augments FooGallery.utils.Class
 		 * @borrows FooGallery.utils.Class.extend as extend
@@ -2716,7 +3116,7 @@
 );
 (function(_, _fn, _str){
 	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
+	if (_.version !== '0.1.0') return;
 
 	// this is done to handle Content Security in Chrome and other browsers blocking access to the localStorage object under certain configurations.
 	// see: https://www.chromium.org/for-testers/bug-reporting-guidelines/uncaught-securityerror-failed-to-read-the-localstorage-property-from-window-access-is-denied-for-this-document
@@ -2727,8 +3127,7 @@
 	_.Debugger = _.Class.extend(/** @lends FooGallery.utils.Debugger */{
 		/**
 		 * @summary A debug utility class that can be enabled across sessions using the given `key` by storing its state in `localStorage`.
-		 * @memberof FooGallery.utils
-		 * @constructs Debugger
+		 * @constructs
 		 * @param {string} key - The key to use to store the debug state in `localStorage`.
 		 * @description This class allows you to write additional debug info to the console within your code which by default is not actually output. You can then enable the debugger and it will start to output the results to the console.
 		 *
@@ -2821,151 +3220,9 @@
 	FooGallery.utils.fn,
 	FooGallery.utils.str
 );
-(function($, _, _is){
-	// only register methods if this version is the current version
-	if (_.version !== '0.0.8') return;
-
-	_.Throttle = _.Class.extend(/** @lends FooGallery.utils.Throttle */{
-		/**
-		 * @summary A timer to throttle the execution of code.
-		 * @memberof FooGallery.utils
-		 * @constructs
-		 * @param {number} [idle=0] - The idle time, in milliseconds, that must pass before executing the callback supplied to the {@link FooGallery.utils.Throttle#limit|limit} method.
-		 * @augments FooGallery.utils.Class
-		 * @borrows FooGallery.utils.Class.extend as extend
-		 * @borrows FooGallery.utils.Class.override as override
-		 * @description This class is basically a wrapper around the {@link https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout|window.setTimeout} and {@link https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/clearTimeout|window.clearTimeout} functions. It was created to help throttle the execution of code in event handlers that could be called multiple times per second such as the window resize event. It is meant to limit the execution of expensive code until the specified idle time has lapsed.
-		 *
-		 * Take a look at the examples for the {@link FooGallery.utils.Throttle#limit|limit} and {@link FooGallery.utils.Throttle#clear|clear} methods for basic usage.
-		 * @example <caption>The below shows how you can use this class to prevent expensive code being executed with every call to your window resize handler. If you run this example resize your browser to see when the messages are logged.</caption>{@run true}
-		 * var throttle = new FooGallery.utils.Throttle( 50 );
-		 *
-		 * $(window).on("resize", function(){
-		 *
-		 * 	throttle.limit(function(){
-		 * 		console.log( "Only called when resizing has stopped for at least 50 milliseconds." );
-		 * 	});
-		 *
-		 * });
-		 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout|WindowTimers.setTimeout() - Web APIs | MDN}
-		 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/clearTimeout|WindowTimers.clearTimeout() - Web APIs | MDN}
-		 */
-		construct: function(idle){
-			/**
-			 * @summary The id from the last call to {@link https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout|window.setTimeout}.
-			 * @type {?number}
-			 * @readonly
-			 * @default null
-			 */
-			this.id = null;
-			/**
-			 * @summary Whether or not there is an active timer.
-			 * @type {boolean}
-			 * @readonly
-			 * @default false
-			 */
-			this.active = false;
-			/**
-			 * @summary The idle time, in milliseconds, the timer should wait before executing the callback supplied to the {@link FooGallery.utils.Throttle#limit|limit} method.
-			 * @type {number}
-			 * @readonly
-			 * @default 0
-			 */
-			this.idle = _is.number(idle) ? idle : 0;
-		},
-		/**
-		 * @summary Starts a new timer clearing any previously set and executes the <code>callback</code> once it expires.
-		 * @instance
-		 * @param {function} callback - The function to call once the timer expires.
-		 * @example <caption>In the below example the <code>callback</code> function will only be executed once despite the repeated calls to the {@link FooGallery.utils.Throttle#limit|limit} method as each call resets the idle timer.</caption>{@run true}
-		 * // create a new throttle
-		 * var throttle = new FooGallery.utils.Throttle( 50 );
-		 *
-		 * // this `for` loop represents something like the window resize event that could call your handler multiple times a second
-		 * for (var i = 0, max = 5; i < max; i++){
-		 *
-		 * 	throttle.limit( function(){
-		 * 		console.log( "Only called once, after the idle timer lapses" );
-		 * 	} );
-		 *
-		 * }
-		 */
-		limit: function(callback){
-			if (!_is.fn(callback)) return;
-			this.clear();
-			var self = this;
-			this.active = true;
-			this.id = setTimeout(function(){
-				self.active = false;
-				self.id = null;
-				callback();
-			}, this.idle);
-		},
-		/**
-		 * @summary Clear any previously set timer and prevent the execution of its' callback.
-		 * @instance
-		 * @example <caption>The below shows how to cancel an active throttle and prevent the execution of it's callback.</caption>{@run true}
-		 * // create a new throttle
-		 * var throttle = new FooGallery.utils.Throttle( 50 );
-		 *
-		 * // this `for` loop represents something like the window resize event that could call your handler multiple times a second
-		 * for (var i = 0, max = 5; i < max; i++){
-		 *
-		 * 	throttle.limit( function(){
-		 * 		console.log( "I'm never called" );
-		 * 	} );
-		 *
-		 * }
-		 *
-		 * // cancel the current throttle timer
-		 * throttle.clear();
-		 */
-		clear: function(){
-			if (_is.number(this.id)){
-				clearTimeout(this.id);
-				this.active = false;
-				this.id = null;
-			}
-		}
-	});
-
-})(
-	// dependencies
-	FooGallery.utils.$,
-	FooGallery.utils,
-	FooGallery.utils.is
-);
 (function ($, _, _utils, _is, _fn) {
 
 	_.debug = new _utils.Debugger("__FooGallery__");
-
-	/**
-	 * @summary Simple utility method to convert space delimited strings of CSS class names into a CSS selector.
-	 * @memberof FooGallery.utils
-	 * @function selectify
-	 * @param {(string|string[]|object)} classes - A single space delimited string of CSS class names to convert or an array of them with each item being included in the selector using the OR (`,`) syntax as a separator. If an object is supplied the result will be an object with the same property names but the values converted to selectors.
-	 * @returns {(object|string)}
-	 */
-	_utils.selectify = function (classes) {
-		if (_is.empty(classes)) return null;
-		if (_is.hash(classes)) {
-			var result = {}, selector;
-			for (var name in classes) {
-				if (!classes.hasOwnProperty(name)) continue;
-				if (selector = _utils.selectify(classes[name])) {
-					result[name] = selector;
-				}
-			}
-			return result;
-		}
-		if (_is.string(classes) || _is.array(classes)) {
-			if (_is.string(classes)) classes = [classes];
-			return $.map(classes, function (str) {
-				return _is.string(str) ? "." + str.split(/\s/g).join(".") : null;
-			}).join(",");
-		}
-		return null;
-	};
 
 	/**
 	 * @summary The url of an empty 1x1 pixel image used as the default value for the `placeholder` and `error` {@link FooGallery.defaults|options}.
@@ -2994,8 +3251,8 @@
 	 */
 	_.dataItem = "__FooGalleryItem__";
 
-	_.get = function(){
-
+	_.get = function(selector){
+		return $(selector).data(_.dataTemplate);
 	};
 
 	_.init = function (options, element) {
@@ -3006,67 +3263,6 @@
 		return _fn.when($(".foogallery").map(function (i, element) {
 			return _.init(options, element);
 		}).get());
-	};
-
-	_.parseSrc = function (src, srcWidth, srcHeight, srcset, renderWidth, renderHeight) {
-		if (!_is.string(src)) return null;
-		// if there is no srcset just return the src
-		if (!_is.string(srcset)) return src;
-
-		// parse the srcset into objects containing the url, width, height and pixel density for each supplied source
-		var list = $.map(srcset.replace(/(\s[\d.]+[whx]),/g, '$1 @,@ ').split(' @,@ '), function (val) {
-			return {
-				url: /^\s*(\S*)/.exec(val)[1],
-				w: parseFloat((/\S\s+(\d+)w/.exec(val) || [0, Infinity])[1]),
-				h: parseFloat((/\S\s+(\d+)h/.exec(val) || [0, Infinity])[1]),
-				x: parseFloat((/\S\s+([\d.]+)x/.exec(val) || [0, 1])[1])
-			};
-		});
-
-		// if there is no items parsed from the srcset then just return the src
-		if (!list.length) return src;
-
-		// add the current src into the mix by inspecting the first parsed item to figure out how to handle it
-		list.unshift({
-			url: src,
-			w: list[0].w !== Infinity && list[0].h === Infinity ? srcWidth : Infinity,
-			h: list[0].h !== Infinity && list[0].w === Infinity ? srcHeight : Infinity,
-			x: 1
-		});
-
-		// get the current viewport info and use it to determine the correct src to load
-		var dpr = window.devicePixelRatio || 1,
-				area = {w: renderWidth * dpr, h: renderHeight * dpr, x: dpr},
-				property;
-
-		// first check each of the viewport properties against the max values of the same properties in our src array
-		// only src's with a property greater than the viewport or equal to the max are kept
-		for (property in area) {
-			if (!area.hasOwnProperty(property)) continue;
-			list = $.grep(list, (function (prop, limit) {
-				return function (item) {
-					return item[prop] >= area[prop] || item[prop] === limit;
-				};
-			})(property, Math.max.apply(null, $.map(list, function (item) {
-				return item[property];
-			}))));
-		}
-
-		// next reduce our src array by comparing the viewport properties against the minimum values of the same properties of each src
-		// only src's with a property equal to the minimum are kept
-		for (property in area) {
-			if (!area.hasOwnProperty(property)) continue;
-			list = $.grep(list, (function (prop, limit) {
-				return function (item) {
-					return item[prop] === limit;
-				};
-			})(property, Math.min.apply(null, $.map(list, function (item) {
-				return item[property];
-			}))));
-		}
-
-		// return the first url as it is the best match for the current viewport
-		return list[0].url;
 	};
 
 	/**
@@ -3166,32 +3362,6 @@
 		img.src = "";
 		img = null;
 		return complete;
-	};
-
-	/**
-	 * @summary Gets the closest ancestor element that is scrollable.
-	 * @see https://github.com/jquery/jquery-ui/blob/master/ui/scroll-parent.js
-	 * @param {(string|Element|jQuery)} element - The element to find the scrollable parent for.
-	 * @param {boolean} [includeHidden=false] - Whether or not to include elements with overflow:hidden set on them.
-	 * @returns {jQuery}
-	 */
-	_.scrollParent = function(element, includeHidden){
-		var $elem = _is.jq(element) ? element : $(element),
-				position = $elem.css( "position" ),
-				excludeStaticParent = position === "absolute",
-				overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/,
-				scrollParent = $elem.parents().filter( function() {
-					var parent = $( this );
-					if ( excludeStaticParent && parent.css( "position" ) === "static" ) {
-						return false;
-					}
-					return overflowRegex.test( parent.css( "overflow" ) + parent.css( "overflow-y" ) +
-							parent.css( "overflow-x" ) );
-				} ).eq( 0 );
-
-		return position === "fixed" || !scrollParent.length || scrollParent.is( "html" ) ?
-				$( $elem[ 0 ].ownerDocument || document ) :
-				scrollParent;
 	};
 
 })(
@@ -4005,6 +4175,158 @@
 	FooGallery.utils.fn,
 	FooGallery.utils.obj
 );
+(function($, _, _utils, _is, _obj, _fn){
+
+    var instance = 0;
+
+    _.Breakpoints = _utils.Class.extend({
+        construct: function(options){
+            var self = this;
+
+            self.namespace = ".foogallery-breakpoints-" + (++instance);
+
+            self.opt = _obj.extend({}, _.Breakpoints.defaults, options);
+
+            self.registered = [];
+        },
+
+        init: function(){
+            $(window).on("resize" + this.namespace, {self: this}, _fn.debounce(this.onWindowResize, 50));
+        },
+
+        destroy: function(){
+            $(window).off(this.namespace);
+            this.registered = [];
+        },
+
+        register: function( $el, breakpoints, callback, thisArg ){
+            if (!_is.jq($el) || !_is.hash(breakpoints)) return -1;
+            var self = this, parsed = self.parse( breakpoints );
+            return self.registered.push({
+                $element: $el,
+                current: _.Breakpoints.NONE,
+                orientation: null,
+                breakpoints: parsed,
+                classNames: parsed.map(function(x){ return x.className; }).concat([self.opt.prefix + "portrait", self.opt.prefix + "landscape"]).join(" "),
+                callback: _is.fn(callback) ? callback : self.onBreakpointChanged,
+                thisArg: !_is.undef(thisArg) ? thisArg : self
+            }) - 1;
+        },
+
+        remove: function( $el ){
+            if (!_is.jq($el)) return;
+            var self = this;
+            self.registered = self.registered.filter(function(x){
+                return x.$element.get(0) !== $el.get(0);
+            });
+        },
+
+        parse: function( breakpoints ){
+            var self = this, result = [];
+            for (var name in breakpoints){
+                if (!breakpoints.hasOwnProperty(name)) continue;
+                var width, height;
+                if (_is.number(breakpoints[name])){
+                    width = height = breakpoints[name];
+                } else if (_is.hash(breakpoints[name])){
+                    width = breakpoints[name].width || 0;
+                    height = breakpoints[name].height || 0;
+                }
+                result.push({
+                    name: name,
+                    width: width,
+                    height: height,
+                    className: self.opt.prefix + name
+                });
+            }
+            result.sort(function (a, b) {
+                if (a.width < b.width) return -1;
+                if (a.width > b.width) return 0;
+                return 0;
+            });
+            return result;
+        },
+
+        check: function( $el ){
+            var self = this;
+            if (_is.jq($el)){
+                self.registered.filter(function(x){
+                    return x.$element.get(0) === $el.get(0);
+                }).forEach(self.checkRegistered, self);
+            } else {
+                self.registered.forEach(self.checkRegistered, self);
+            }
+        },
+
+        checkRegistered: function( registered ){
+            var size = this.getSize( registered ),
+                prevOrientation = registered.orientation,
+                nextOrientation = this.opt.prefix + (size.height > size.width ? "portrait" : "landscape"),
+                prevBreakpoint = registered.current,
+                nextBreakpoint = this.getCurrent( registered, size );
+            if (nextBreakpoint !== prevBreakpoint || nextOrientation !== prevOrientation){
+                registered.current = nextBreakpoint;
+                registered.callback.call(registered.thisArg, registered, nextBreakpoint.className, nextOrientation, prevBreakpoint.className, prevOrientation);
+            }
+        },
+
+        onBreakpointChanged: function(registered, nextBreakpoint, nextOrientation){
+            registered.$element.removeClass(registered.classNames).addClass([nextBreakpoint, nextOrientation].join(" "));
+        },
+
+        getSize: function( registered ){
+            var width, height;
+            if (!registered.$element.is(':visible')){
+                var $el = registered.$element.parents(':visible:first');
+                width = $el.innerWidth();
+                height = $el.innerHeight();
+            } else {
+                width = registered.$element.width();
+                height = registered.$element.height();
+            }
+            var hasWidth = _is.number(width), hasHeight = _is.number(height);
+            return {
+                width: hasWidth ? width : 0,
+                height: hasHeight ? height : 0,
+                isValid: hasWidth && hasHeight
+            };
+        },
+
+        getCurrent: function( registered, size ){
+            if (!_is.hash(size) || !size.isValid) return null;
+            for (var i = 0, l = registered.breakpoints.length; i < l; i++){
+                if (size.width <= registered.breakpoints[i].width || size.height <= registered.breakpoints[i].height) {
+                    return registered.breakpoints[i];
+                }
+            }
+            return _.Breakpoints.NONE;
+        },
+
+        onWindowResize: function(e){
+            e.data.self.check();
+        },
+
+    });
+
+    _.Breakpoints.defaults = {
+        prefix: "fg-"
+    };
+
+    _.Breakpoints.NONE = {
+        name: "none",
+        width: Infinity,
+        height: Infinity,
+        className: ""
+    };
+
+})(
+    FooGallery.$,
+    FooGallery,
+    FooGallery.utils,
+    FooGallery.utils.is,
+    FooGallery.utils.obj,
+    FooGallery.utils.fn
+);
 (function ($, _, _utils, _is, _fn, _str) {
 
 	var instance = 0;
@@ -4114,6 +4436,13 @@
 			 */
 			self.panel = _.components.make("panel", self);
 			/**
+			 * @summary The current breakpoint calculated from the options and the container width.
+			 * @memberof FooGallery.Template#
+			 * @name breakpoint
+			 * @type {?string}
+			 */
+			self.breakpoints = new _.Breakpoints();
+			/**
 			 * @summary An array of video sources supported by the template.
 			 * @memberof FooGallery.Template#
 			 * @name videoSources
@@ -4180,7 +4509,7 @@
 				if (parent.length > 0) {
 					self.$el.appendTo(parent);
 				}
-				self.$scrollParent = _.scrollParent(self.$el);
+				self.$scrollParent = _utils.scrollParent(self.$el);
 
 				var queue = $.Deferred(), promise = queue.promise(), existing;
 				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template) {
@@ -4211,7 +4540,7 @@
 					}
 
 					// if the container currently has no children make them
-					if (self.$el.children().not(self.sel.item.elem).length == 0) {
+					if (self.$el.children().not(self.sel.item.elem).length === 0) {
 						self.$el.append(self.createChildren());
 						self._undo.children = true;
 					}
@@ -4347,9 +4676,10 @@
 					 */
 					var e = self.raise("post-init");
 					if (e.isDefaultPrevented()) return _fn.rejectWith("post-init default prevented");
+					self.breakpoints.init();
 					var state = self.state.parse();
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
-					self.$scrollParent.on("scroll" + self.namespace, {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle));
+					self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(self.onWindowScroll, self.opt.throttle));
 					$(window).on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
 				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
@@ -4494,6 +4824,7 @@
 			if (!!self.filter) self.filter.destroy();
 			if (!!self.pages) self.pages.destroy();
 			self.items.destroy();
+			self.breakpoints.destroy();
 			if (!_is.empty(self.opt.on)) {
 				self.$el.off(self.opt.on);
 			}
@@ -4569,6 +4900,17 @@
 
 		getItems: function(){
 			return this.pages ? this.pages.items() : this.items.available();
+		},
+
+		getWidth: function( $el ){
+			var self = this, width;
+			$el = !$el ? self.$el : $el;
+			if (!$el.is(':visible')){
+				width = $el.parents(':visible:first').innerWidth();
+			} else {
+				width = $el.width();
+			}
+			return _is.number(width) ? width : 0;
 		},
 
 		getLoaderClass: function(){
@@ -4653,25 +4995,6 @@
 			self.raise("layout");
 		},
 
-		/**
-		 * @summary Throttles the supplied function to only execute once every N milliseconds.
-		 * @memberof FooGallery.Template#
-		 * @function throttle
-		 * @param {Function} fn - The function to throttle.
-		 * @param {number} wait - The number of milliseconds to wait before allowing execution.
-		 * @returns {Function}
-		 */
-		throttle: function (fn, wait) {
-			var time = Date.now();
-			return function () {
-				if ((time + wait - Date.now()) < 0) {
-					var args = _fn.arg2arr(arguments);
-					fn.apply(this, args);
-					time = Date.now();
-				}
-			}
-		},
-
 		// ###############
 		// ## Listeners ##
 		// ###############
@@ -4717,9 +5040,17 @@
 		timeout: 60000,
 		srcset: "data-srcset-fg",
 		src: "data-src-fg",
-		template: {}
+		template: {},
+		breakpoints: {
+			small: 414,
+			medium: 768
+		}
 	}, {
-		container: "foogallery"
+		container: "foogallery",
+		breakpoints: {
+			small: "fg-small",
+			medium: "fg-medium"
+		}
 	}, {}, -100);
 
 	/**
@@ -5111,9 +5442,7 @@
 							if (self.opt.scrollTo) {
 								obj.item.scrollTo();
 							}
-							if (!!tmpl.panel && tmpl.panel.enabled){
-								tmpl.panel.show( obj.item );
-							} else if (!_is.empty(state.i)){
+							if (!_is.empty(state.i)){
 								state.i = null;
 								self.replace(state);
 							}
@@ -5125,9 +5454,7 @@
 							if (self.opt.scrollTo) {
 								obj.item.scrollTo();
 							}
-							if (!!tmpl.panel && tmpl.panel.enabled){
-								tmpl.panel.show( obj.item );
-							} else if (!_is.empty(state.i)){
+							if (!_is.empty(state.i)){
 								state.i = null;
 								self.replace(state);
 							}
@@ -6126,7 +6453,7 @@
 			refresh = _is.boolean(refresh) ? refresh : false;
 			var self = this;
 			if (!refresh && _is.string(self._thumbUrl)) return self._thumbUrl;
-			return self._thumbUrl = _.parseSrc(self.src, self.width, self.height, self.srcset, self.$anchor.innerWidth(), self.$anchor.innerHeight());
+			return self._thumbUrl = _utils.src(self.src, self.srcset, self.width, self.height, self.$anchor.innerWidth(), self.$anchor.innerHeight());
 		},
 		/**
 		 * @summary Scroll the item into the center of the viewport.
@@ -6181,10 +6508,6 @@
 			var self = e.data.self,
 					state = self.tmpl.state.get(self);
 			self.tmpl.state.update(state);
-			if (!!self.tmpl.panel && self.tmpl.panel.enabled){
-				e.preventDefault();
-				self.tmpl.panel.show( self );
-			}
 		},
 		/**
 		 * @summary Listens for the click event on the {@link FooGallery.Item#$caption|$caption} element and redirects it to the anchor if required.
@@ -6994,7 +7317,7 @@
 			if (!(item instanceof _.Item)) return null;
 			loop = _is.boolean(loop) ? loop : false;
 			var index = this._available.indexOf(item);
-			if (index != -1){
+			if (index !== -1){
 				index++;
 				if (index >= this._available.length){
 					if (!loop) return null;
@@ -7008,7 +7331,7 @@
 			if (!(item instanceof _.Item)) return null;
 			loop = _is.boolean(loop) ? loop : false;
 			var index = this._available.indexOf(item);
-			if (index != -1){
+			if (index !== -1){
 				index--;
 				if (index < 0){
 					if (!loop) return null;
@@ -7489,12 +7812,14 @@
 		FooGallery.utils.fn,
 		FooGallery.utils.obj
 );
-(function($, _, _is, _obj, _fn, _t){
+(function($, _, _utils, _is, _obj, _fn, _t){
 
 	_.Panel = _.Component.extend({
 		construct: function(template){
 			var self = this;
 			self._super(template);
+
+			self.namespace = self.tmpl.namespace + "-panel";
 
 			self.opt = _obj.extend({}, self.tmpl.opt.panel);
 
@@ -7509,8 +7834,6 @@
 			self.$inner = null;
 
 			self.$buttons = null;
-
-			self.$narrow = null;
 
 			self.isCreated = false;
 
@@ -7528,9 +7851,15 @@
 
 			self.isCaptionCollapsed = false;
 
-			self.hasTransition = false;
+			self.hasTransition = !_is.empty(self.cls.transition[self.opt.transition]);
 
 			self.currentItem = null;
+		},
+		postinit: function(){
+			var self = this;
+			if (self.opt.bindAnchorClick){
+
+			}
 		},
 		destroy: function(){
 			var self = this;
@@ -7606,6 +7935,7 @@
 		},
 		doDestroy: function(){
 			var self = this;
+			self.detach();
 			if (self.isCreated){
 				self.$el.remove();
 			}
@@ -7685,7 +8015,10 @@
 			var self = this;
 			self.$el = self.createElem();
 			if (self.opt.keyboard){
-				self.$el.attr("tabindex", 0).on("", {self: self}, self.onKeyDown);
+				self.$el.attr("tabindex", -1).on("keydown.foogallery", {self: self}, self.onKeyDown);
+			}
+			if (self.opt.swipe){
+				self.$el.fgswipe({data: {self: self}, swipe: self.onPanelSwipe, allowPageScroll: true});
 			}
 			self.$buttons = $('<div/>').addClass(self.cls.buttons).appendTo(self.$el);
 			self.$inner = $('<div/>').addClass(self.cls.inner).appendTo(self.$el);
@@ -7722,9 +8055,8 @@
 		createElem: function(){
 			var self = this, transition = self.cls.transition[self.opt.transition] || "";
 			self.hasTransition = !_is.empty(transition);
-			return $('<div/>').addClass(self.cls.elem)
-					.addClass(transition)
-					.addClass(self.tmpl.getLoaderClass());
+			var classes = [self.cls.elem, self.opt.theme, self.opt.highlight, transition, self.tmpl.getLoaderClass(), self.opt.classNames];
+			return $('<div/>').addClass(classes.join(" "));
 		},
 		createLoader: function( parent ){
 			return $('<div/>').addClass(this.cls.loader).appendTo(parent);
@@ -7807,6 +8139,10 @@
 		doAppendTo: function( parent ){
 			var self = this, $parent = $( parent );
 			self.isExpanded = $parent.is("body");
+			if (self.isExpanded){
+				self.$buttons.find(self.sel.expand).hide();
+			}
+			self.tmpl.breakpoints.register(self.$el, self.opt.breakpoints);
 			self.$el.toggleClass(self.cls.expanded, self.isExpanded).appendTo( $parent );
 			return self.$el.parent().length > 0;
 		},
@@ -7881,8 +8217,13 @@
 			return !self.isAttached;
 		},
 		doDetach: function(){
-			this.$el.detach();
+			var self = this;
+			self.tmpl.breakpoints.remove(self.$el);
+			self.$el.detach();
 			return true;
+		},
+		checkBreakpoints: function(){
+			this.tmpl.breakpoints.check(this.$el);
 		},
 		reverseTransition: function( oldItem, newItem ){
 			if (!(oldItem instanceof _.Item) || !(newItem instanceof _.Item)) return true;
@@ -7921,15 +8262,16 @@
 				self.doUnload( self.currentItem, reverse );
 				self.currentItem = item;
 				self.doLoad( item, reverse ).then(def.resolve).fail(def.reject);
-			}).then(function(){
+			}).always(function(){
 				self.isLoading = false;
+				self.$el.removeClass(item.cls.loading).focus();
+			}).then(function(){
 				self.isLoaded = true;
-				self.$el.removeClass(item.cls.loading).addClass(item.cls.loaded);
+				self.$el.addClass(item.cls.loaded);
 				self.tmpl.raise("loaded-panel", [self, item]);
 			}).fail(function(){
-				self.isLoading = false;
 				self.isError = true;
-				self.$el.removeClass(item.cls.loading).addClass(item.cls.error);
+				self.$el.addClass(item.cls.error);
 				self.tmpl.raise("error-panel", [self, item]);
 			}).promise();
 		},
@@ -7972,46 +8314,87 @@
 				self.tmpl.state.update(state);
 			});
 		},
-		show: function( item, parent ){
+		open: function( item, parent ){
+			var self = this,
+				e = self.tmpl.raise("open-panel", [self, item, parent]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			return self.doOpen(item, parent).then(function(){
+				self.tmpl.raise("opened-panel", [self, item, parent]);
+			});
+		},
+		doOpen: function( item, parent ){
 			var self = this;
-			item = item instanceof _.Item ? item : self.tmpl.items.first();
-			parent = !_is.empty(parent) ? parent : self.opt.parent;
-			if (!self.isAttached){
-				self.appendTo( parent );
-			}
-			if (self.isAttached){
-				return self.load( item );
-			}
-			return _fn.rejectWith("not attached");
+			return $.Deferred(function(def){
+				item = item instanceof _.Item ? item : self.tmpl.items.first();
+				parent = !_is.empty(parent) ? parent : self.opt.parent;
+				if (!self.isAttached){
+					self.appendTo( parent );
+				}
+				$("html").toggleClass(self.cls.noScrollbars, self.isExpanded && self.opt.noScrollbars);
+				if (self.isAttached){
+					self.load( item ).then(def.resolve).fail(def.reject);
+				} else {
+					def.rejectWith("not attached");
+				}
+			}).promise();
 		},
 		next: function(){
 			var self = this;
 			if (!(self.currentItem instanceof _.Item)) return _fn.rejectWith("no current item");
-			return self.load( self.tmpl.items.next(self.currentItem, self.opt.loop) );
+			var next = self.tmpl.items.next(self.currentItem, self.opt.loop),
+				e = self.tmpl.raise("next-panel", [self, self.currentItem, next]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			return self.doNext(next).then(function(){
+				self.tmpl.raise("after-next-panel", [self, self.currentItem, next]);
+			});
+		},
+		doNext: function(item){
+			return this.load( item );
 		},
 		prev: function(){
 			var self = this;
 			if (!(self.currentItem instanceof _.Item)) return _fn.rejectWith("no current item");
-			return self.load( self.tmpl.items.prev(self.currentItem, self.opt.loop) );
+			var prev = self.tmpl.items.prev(self.currentItem, self.opt.loop),
+				e = self.tmpl.raise("prev-panel", [self, self.currentItem, prev]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			return self.doPrev(prev).then(function(){
+				self.tmpl.raise("after-prev-panel", [self, self.currentItem, prev]);
+			});
+		},
+		doPrev: function(item){
+			return this.load( item );
 		},
 		close: function(){
+			var self = this,
+				e = self.tmpl.raise("close-panel", [self, self.currentItem]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			return self.doClose().then(function(){
+				self.tmpl.raise("closed-panel", [self]);
+			});
+		},
+		doClose: function(){
 			var self = this;
-			if (self.currentItem instanceof _.Item){
-				return self.doUnload(self.currentItem, false).then(function(){
-					self.currentItem = null;
-					self.detach();
-					self.tmpl.state.clear();
-				});
-			} else {
+			return $.Deferred(function(def){
+				if (self.currentItem instanceof _.Item){
+					self.doUnload(self.currentItem, false).always(function(){
+						def.resolve();
+					});
+				} else {
+					def.resolve();
+				}
+			}).always(function(){
+				self.currentItem = null;
 				self.detach();
 				self.tmpl.state.clear();
-				return _fn.resolve();
-			}
+				$("html").removeClass(self.cls.noScrollbars);
+			}).promise();
 		},
 		toggleExpand: function(){
 			var self = this;
 			self.isExpanded = !self.isExpanded;
 			self.$el.toggleClass(self.cls.expanded, self.isExpanded);
+			$("html").toggleClass(self.cls.noScrollbars, self.isExpanded && self.opt.noScrollbars);
+			self.tmpl.breakpoints.check(self.$el);
 		},
 		toggleCaption: function(){
 			var self = this;
@@ -8056,6 +8439,15 @@
 					}
 					break;
 			}
+		},
+		onPanelSwipe: function(info, data){
+			var self = data.self;
+			if (info.direction === "E"){
+				self.prev();
+			}
+			if (info.direction === "W"){
+				self.next();
+			}
 		}
 	});
 
@@ -8063,6 +8455,9 @@
 	_.template.configure("core", {
 		panel: {
 			enabled: false,
+			classNames: "",
+			theme: "fg-light",
+			highlight: "",
 			parent: "body",
 			transition: "none", // none | fade | horizontal | vertical
 			loop: true,
@@ -8070,11 +8465,20 @@
 			captionOverlay: false,
 			icons: "default",
 			keyboard: true,
+			noScrollbars: true,
+			swipe: true,
 			buttons: {
 				navigation: true,
 				close: true,
 				expand: true,
 				caption: true
+			},
+			breakpoints: {
+				small: 414,
+				medium: {
+					width: 768,
+					height: 640
+				}
 			}
 		}
 	},{
@@ -8083,13 +8487,13 @@
 			expanded: "fg-panel-expanded",
 			inner: "fg-panel-inner",
 			buttons: "fg-panel-buttons",
-			narrow: "fg-panel-narrow",
-			prev: "fg-panel-prev",
-			next: "fg-panel-next",
-			close: "fg-panel-close",
-			expand: "fg-panel-expand",
-			caption: "fg-panel-caption",
+			prev: "fg-panel-button fg-panel-prev",
+			next: "fg-panel-button fg-panel-next",
+			close: "fg-panel-button fg-panel-close",
+			expand: "fg-panel-button fg-panel-expand",
+			caption: "fg-panel-button fg-panel-caption",
 			captionCollapsed: "fg-panel-caption-collapsed",
+			noScrollbars: "fg-panel-no-scroll",
 			loader: "fg-loader",
 			visible: "fg-visible",
 			reverse: "fg-reverse",
@@ -8104,12 +8508,13 @@
 	_.components.register("panel", _.Panel);
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils.is,
-		FooGallery.utils.obj,
-		FooGallery.utils.fn,
-		FooGallery.utils.transition
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils,
+	FooGallery.utils.is,
+	FooGallery.utils.obj,
+	FooGallery.utils.fn,
+	FooGallery.utils.transition
 );
 (function($, _, _utils, _is){
 
@@ -11509,59 +11914,36 @@
 			self.opt = options;
 
 			self.$el = null;
-			self.$prev = null;
-			self.$next = null;
-			self.$close = null;
-			self.$external = null;
-			self.$fullscreen = null;
-			self.$fullscreenWrap = null;
 
-			self.isFullscreen = false;
-			self.isBusy = false;
 			self.isFirst = true;
-			self.showCaptions = false;
-			self.hasTransition = false;
-			self.currentItem = null;
 		},
 		preinit: function(){
 			var self = this;
 			self.$el = $('<section/>', {'class': 'foogrid-content'});
-			self.$prev = $('<span/>', {'class': 'foogrid-nav-prev'}).append('<i/>');
-			self.$next = $('<span/>', {'class': 'foogrid-nav-next'}).append('<i/>');
-			self.$close = $('<span/>', {'class': 'foogrid-nav-close'});
-			self.$fullscreen = $('<span/>', {'class': 'foogrid-nav-fullscreen'});
-			self.$external = $('<a/>', {'class': 'foogrid-nav-external'});
-			self.$fullscreenWrap = $('<div/>');
-
-			self.showCaptions = self.tmpl.$el.hasClass("foogrid-caption-below") || self.tmpl.$el.hasClass("foogrid-caption-right");
-			self.hasTransition = self.tmpl.$el.hasClass("foogrid-transition-fade") || self.tmpl.$el.hasClass("foogrid-transition-horizontal") || self.tmpl.$el.hasClass("foogrid-transition-vertical");
-			self.disableTransitions = false;
-
-			self.$el.append( self.$prev, self.$next, self.$close, self.$fullscreen, self.$external );
+			self.tmpl.panel.opt.transition = "none";
+			if (self.tmpl.$el.hasClass("foogrid-transition-horizontal")){
+				self.tmpl.panel.opt.transition = "horizontal";
+			}
+			if (self.tmpl.$el.hasClass("foogrid-transition-vertical")){
+				self.tmpl.panel.opt.transition = "vertical";
+			}
+			if (self.tmpl.$el.hasClass("foogrid-transition-fade")){
+				self.tmpl.panel.opt.transition = "fade";
+			}
+			if (self.tmpl.$el.hasClass("foogrid-caption-below")){
+				self.tmpl.panel.opt.caption = "bottom";
+			}
+			if (self.tmpl.$el.hasClass("foogrid-caption-right")){
+				self.tmpl.panel.opt.caption = "right";
+			}
 		},
 		init: function(){
 			var self = this;
-			self.$prev.on('click.gg', {self: self}, self.onPrevClick);
-			self.$next.on('click.gg', {self: self}, self.onNextClick);
-			self.$close.on('click.gg', {self: self}, self.onCloseClick);
-			self.$fullscreen.on('click.gg', {self: self}, self.onFullscreenClick);
 
-			if (self.opt.keyboard){
-				self.$el.attr('tabindex', 1).on('keydown', {self: self}, self.onKeyDown);
-			}
-			if (!_is.empty(self.opt.externalText)){
-				self.$external.attr("target", self.opt.external)
-						.addClass('foogrid-external-text')
-						.html(self.opt.externalText);
-			}
 		},
 		destroy: function(){
 			var self = this;
-			self.$prev.off('click.gg', self.onPrevClick);
-			self.$next.off('click.gg', self.onNextClick);
-			self.$close.off('click.gg', self.onCloseClick);
-			self.$fullscreen.off('click.gg', self.onFullscreenClick);
-			self.$fullscreenWrap.remove();
+
 			self.$el.remove();
 			self._super();
 		},
@@ -11570,28 +11952,13 @@
 			if (refresh){
 
 			}
-			self.checkForLoop();
 		},
 
 		onParsedOrCreatedItem: function(item){
 			if (!item.isError){
 				var self = this;
-				item.$anchor.on("click.gg", {self: self, item: item}, self.onAnchorClick);
-				item.$content = $("<div/>", {"class": "foogrid-content-inner"});
-				item.content.appendTo(item.$content);
-				item.$content.addClass("foogrid-content-" + item.type);
-				var hasTitle = !_is.empty(item.caption), hasDescription = !_is.empty(item.description);
-				if (hasTitle || hasDescription){
-					var $caption = $('<div/>', {'class': 'foogrid-caption'}).append($('<div/>', {'class': 'foogrid-caption-separator'}));
-					if (hasTitle){
-						$caption.append($('<h4/>', {'class': 'foogrid-title'}).html(item.caption));
-					}
-					if (hasDescription){
-						$caption.append($('<p/>', {'class': 'foogrid-description'}).html(item.description));
-					}
-					item.$content.addClass('foogrid-has-caption').append($caption);
-					item.hasCaption = true;
-				}
+				item.$anchor
+					.on("click.gg", {self: self, item: item}, self.onAnchorClick);
 			}
 		},
 
@@ -11600,36 +11967,20 @@
 		 **/
 
 		transitionsEnabled: function(){
-			return _t.supported && !this.disableTransitions && this.hasTransition;
+			return _t.supported && !this.disableTransitions && this.tmpl.panel.hasTransition;
 		},
 
-		getValidIndex: function(items, index){
-			var self = this, length = items.length;
-			if (_is.number(index)){
-				if (length === 0){ // no items
-					index = -1;
-				} else if (index < 0){
-					index = self.opt.loop ? length - 1 : 0;
-				} else if (index >= length){
-					index = self.opt.loop ? 0 : length - 1;
-				}
-			} else {
-				index = -1;
-			}
-			return index;
-		},
-		getItemBottom: function(item){
-			var bounds = item.bounds();
-			return bounds == null ? 0 : bounds.bottom;
-		},
-		checkForLoop: function(){
+		isNewRow: function( item ){
 			var self = this,
-					items = self.tmpl.getAvailable(),
-					hasCurrentItem = self.currentItem instanceof _.Item,
-					lastIndex = items.length - 1;
-			self.$prev.toggleClass("foogrid-disabled", self.isFirst || (!self.opt.loop && hasCurrentItem && self.currentItem.index === 0));
-			self.$next.toggleClass("foogrid-disabled", self.isFirst || (!self.opt.loop && hasCurrentItem && self.currentItem.index === lastIndex));
+				oldTop = self.getOffsetTop(self.tmpl.panel.currentItem),
+				newTop = self.getOffsetTop(item);
+			return oldTop !== newTop;
 		},
+
+		getOffsetTop: function(item){
+			return item instanceof _.Item && item.isCreated ? item.$el.offset().top : 0;
+		},
+
 		scrollTo: function(scrollTop, when, duration){
 			var self = this;
 
@@ -11645,7 +11996,7 @@
 			return $.Deferred(function(d){
 				if (!self.opt.scroll || !when){
 					d.resolve();
-				} else if (self.opt.scrollSmooth && !self.isFullscreen){
+				} else if (self.opt.scrollSmooth && !self.tmpl.panel.isExpanded){
 					$page.animate({ scrollTop: scrollTop }, duration, function(){
 						d.resolve();
 					});
@@ -11660,62 +12011,30 @@
 		 * Public Methods
 		 **/
 
-		open: function(index){
+		open: function(item){
 			var self = this;
-			if (self.isBusy) return $.when();
-			self.isBusy = true;
-
-			var items = self.tmpl.getAvailable(),
-					newIndex = self.getValidIndex(items, index);
-
-			if (newIndex !== -1){
-				var oldItem = self.currentItem,
-						newItem = items[newIndex],
-						lastIndex = items.length - 1,
-						reverseTransition = true,
-						newRow = false;
-
-				if (oldItem instanceof _.Item){
-					var oldBottom = self.getItemBottom(oldItem),
-							newBottom = self.getItemBottom(newItem);
-
-					newRow = oldBottom !== newBottom;
-					reverseTransition = oldItem.index < newIndex;
-
-					if ((newIndex === 0 && oldItem.index === lastIndex) || (newIndex === lastIndex && oldItem.index === 0)){
-						reverseTransition = !reverseTransition;
-					}
-
-					self.$el.removeClass("foogrid-has-caption");
-					if (newRow && !self.isFullscreen){
-						self.isBusy = false;
-						return self._close(reverseTransition, newRow).then(function(){
-							self.isBusy = true;
-							return self._open(newItem, newRow, reverseTransition);
-						});
-					}
-					self.closeItem(oldItem, reverseTransition);
+			if (item.index !== -1){
+				var pnl = self.tmpl.panel,
+					newRow = self.isNewRow(item);
+				if (pnl.currentItem instanceof _.Item && newRow && !pnl.isExpanded){
+					return self.doClose(newRow).then(function(){
+						return self.doOpen(item, newRow);
+					});
 				}
-				return self._open(newItem, newRow, reverseTransition);
+				return self.doOpen(item, newRow);
 			}
 			return $.when();
 		},
-		_open: function(item, newRow, reverseTransition){
-			var self = this;
+		doOpen: function(item, newRow){
+			var self = this, pnl = self.tmpl.panel;
 			return $.Deferred(function(def){
 
-				if (!(item instanceof _.Item)){
-					def.reject();
-					return;
-				}
+				self.scrollTo(self.getOffsetTop(item), newRow || self.isFirst).then(function(){
 
-				self.scrollTo(item.$el.offset().top, newRow || self.isFirst).then(function(){
+					item.$el.after(self.$el);
+					if (!pnl.isAttached) pnl.appendTo(self.$el);
 
-					if ((newRow || self.isFirst) && !self.isFullscreen){
-						item.$el.after(self.$el);
-						self.$external.attr("href", item.content.external);
-					}
-					if (self.transitionsEnabled() && !self.isFullscreen && ((self.opt.transitionOpen && self.isFirst) || (self.opt.transitionRow && newRow))){
+					if (self.transitionsEnabled() && !pnl.isExpanded && ((self.opt.transitionOpen && self.isFirst) || (self.opt.transitionRow && newRow))){
 						self.isFirst = false;
 						_t.start(self.$el, "foogrid-visible", true, 350).then(function(){
 							def.resolve();
@@ -11727,58 +12046,29 @@
 
 				});
 
-
 			}).then(function(){
-
-				self.currentItem = item;
-				self.checkForLoop();
-
-				return self.openItem(item, reverseTransition).then(function(){
-
-					self.$el.focus();
-					self.isBusy = false;
-
-					return self.scrollTo(item.$el.offset().top, true);
-				});
-
-			});
-		},
-		openItem: function(item, reverseTransition){
-			var self = this;
-			return $.Deferred(function(def){
-				item.$el.removeClass("foogrid-visible");
-				item.$content.toggleClass("foogrid-reverse", reverseTransition);
-				self.$el.append(item.$content);
-				item.content.appendTo(item.$content);
-				item.content.load();
-				if (self.transitionsEnabled()){
-					_t.start(item.$content, "foogrid-visible", true, 1000).then(function(){
-						def.resolve();
-					});
-				} else {
-					item.$content.addClass("foogrid-visible");
-					def.resolve();
-				}
-			}).promise().always(function(){
-				item.$content.removeClass("foogrid-reverse");
-			});
+				return pnl.load(item);
+			}).then(function(){
+				self.tmpl.breakpoints.check();
+				self.$el.focus();
+				self.isBusy = false;
+				return self.scrollTo(self.getOffsetTop(item), true);
+			}).promise();
 		},
 		close: function(immediate){
 			immediate = _is.boolean(immediate) ? immediate : false;
 			var self = this;
 			self.disableTransitions = immediate;
-			return self._close().then(function(){
+			return self.doClose(false).then(function(){
 				self.disableTransitions = false;
 			});
 		},
-		_close: function(reverseTransition, newRow){
-			var self = this;
-			if (self.isBusy) return $.when();
-			self.isBusy = true;
+		doClose: function(newRow){
+			var self = this, pnl = self.tmpl.panel;
 			return $.Deferred(function(def){
-				if (self.currentItem instanceof _.Item){
-					self.closeItem(self.currentItem, reverseTransition).then(function(){
-						if (self.transitionsEnabled() && !self.isFullscreen && ((self.opt.transitionRow && newRow) || (self.opt.transitionOpen && !newRow))){
+				if (pnl.currentItem instanceof _.Item){
+					pnl.doClose().then(function(){
+						if (self.transitionsEnabled() && !pnl.isExpanded && ((self.opt.transitionRow && newRow) || (self.opt.transitionOpen && !newRow))){
 							_t.start(self.$el, "foogrid-visible", false, 350).then(function(){
 								def.resolve();
 							});
@@ -11787,123 +12077,37 @@
 							def.resolve();
 						}
 					});
-				} else {
-					def.resolve();
 				}
-			}).promise().always(function(){
-				self.$el.removeClass("foogrid-has-caption foogrid-fullscreen").detach();
-				self.$prev.add(self.$next).removeClass("foogrid-disabled");
-				self.isFullscreen = false;
-				self.currentItem = null;
-				self.isBusy = false;
-				if (!newRow) self.isFirst = true;
-			});
-		},
-		closeItem: function(item, reverseTransition){
-			var self = this;
-			return $.Deferred(function(def){
-				item.$el.removeClass("foogrid-visible");
-				item.$content.toggleClass("foogrid-reverse", !reverseTransition);
-				if (self.transitionsEnabled()){
-					_t.start(item.$content, "foogrid-visible", false, 350).then(function(){
-						item.$content.removeClass("foogrid-reverse").detach();
-						def.resolve();
-					});
-				} else {
-					item.$content.removeClass("foogrid-visible foogrid-reverse").detach();
-					def.resolve();
+			}).always(function(){
+				if (!newRow){
+					pnl.detach();
+					self.$el.detach();
+					self.isFirst = true;
 				}
-			}).promise().always(function(){
-				item.content.detach();
-			});
-		},
-		prev: function(){
-			var self = this;
-			if (self.currentItem instanceof _.Item){
-				return self.open(self.currentItem.index - 1);
-			}
-			return _fn.reject();
-		},
-		next: function(){
-			var self = this;
-			if (self.currentItem instanceof _.Item){
-				return self.open(self.currentItem.index + 1);
-			}
-			return _fn.reject();
+			}).promise();
 		},
 		toggle: function(item){
-			var self = this;
+			var self = this, pnl = self.tmpl.panel;
 			if (item instanceof _.Item){
-				if (self.currentItem == item){
-					return self._close();
+				if (pnl.currentItem === item){
+					return self.close();
 				} else {
-					return self.open(item.index);
+					return self.open(item);
 				}
 			}
 			return _fn.reject();
-		},
-		toggleFullscreen: function(){
-			var self = this;
-			if (self.$el.hasClass('foogrid-fullscreen') && self.currentItem instanceof _.Item){
-				self.currentItem.$el.after(self.$el.removeClass('foogrid-fullscreen'));
-				self.$fullscreenWrap.remove();
-				self.$el.focus();
-				self.isFullscreen = false;
-			} else {
-				self.$fullscreenWrap.attr('class', self.tmpl.$el.attr('class')).append(self.$el.addClass('foogrid-fullscreen')).appendTo('body');
-				self.$el.focus();
-				self.isFullscreen = true;
-			}
 		},
 
 		/**
 		 * Event Handlers
 		 **/
-
-		onPrevClick: function(e){
-			e.preventDefault();
-			var self = e.data.self;
-			if (!self.$prev.hasClass('foogrid-disabled')){
-				self.prev();
-			}
-		},
-		onNextClick: function(e){
-			e.preventDefault();
-			var self = e.data.self;
-			if (!self.$next.hasClass('foogrid-disabled')){
-				self.next();
-			}
-		},
-		onCloseClick: function(e){
-			e.preventDefault();
-			e.data.self._close();
-		},
-		onFullscreenClick: function(e){
-			e.preventDefault();
-			e.data.self.toggleFullscreen();
-		},
-		onKeyDown: function(e){
-			var self = e.data.self;
-			switch (e.which){
-				case 39: self.next(); break;
-				case 37: self.prev(); break;
-				case 27:
-					if (self.isFullscreen){
-						self.toggleFullscreen();
-					} else {
-						self._close();
-					}
-					break;
-				case 13:
-					if (e.altKey){
-						self.toggleFullscreen();
-					}
-					break;
-			}
-		},
 		onAnchorClick: function(e){
 			e.preventDefault();
 			e.data.self.toggle(e.data.item);
+			// var self = e.data.self, item = e.data.item,
+			// 	state = self.tmpl.state.get(item);
+			// self.tmpl.state.update(state);
+			// self.tmpl.panel.show( item, self.$el );
 		}
 	});
 
@@ -11914,12 +12118,16 @@
 		FooGallery.utils.fn,
 		FooGallery.utils.transition
 );
-(function($, _, _utils){
+(function($, _, _obj){
 
 	_.FooGridTemplate = _.Template.extend({
 		construct: function(options, element){
 			var self = this;
-			self._super(options, element);
+			self._super(_obj.extend({}, options, {
+				panel: {
+					enabled: true
+				}
+			}), element);
 			self.foogrid = new _.GridPro( self, self.template );
 			self.hadState = false;
 		},
@@ -11931,6 +12139,18 @@
 		},
 		onDestroy: function(event, self){
 			self.foogrid.destroy();
+		},
+		onNextPanel: function(event, self, panel, currentItem, nextItem){
+			event.preventDefault();
+			self.foogrid.open(nextItem);
+		},
+		onPrevPanel: function(event, self, panel, currentItem, prevItem){
+			event.preventDefault();
+			self.foogrid.open(prevItem);
+		},
+		onClosePanel: function(event, self, panel){
+			event.preventDefault();
+			self.foogrid.close();
 		},
 		onParsedItem: function(event, self, item){
 			self.foogrid.onParsedOrCreatedItem(item);
@@ -11980,6 +12200,12 @@
 			keyboard: true,
 			transitionRow: true,
 			transitionOpen: true
+		},
+		panel: {
+			enabled: true,
+			theme: "fg-light",
+			highlight: "fg-highlight-blue",
+			caption: "none"
 		}
 	}, {
 		container: "foogallery foogrid"
@@ -11988,9 +12214,9 @@
 })(
 		FooGallery.$,
 		FooGallery,
-		FooGallery.utils
+		FooGallery.utils.obj
 );
-(function($, _, _utils, _is, _obj, _transition){
+(function($, _, _utils, _is, _obj, _fn, _transition){
 
 	_.Slider = _.Component.extend({
 		construct: function(template){
@@ -12073,7 +12299,7 @@
 		},
 		init: function(){
 			var self = this;
-			$(window).on("resize.fg-slider", {self: self}, self.tmpl.throttle(self.onWindowResize, self.opt.throttle));
+			$(window).on("resize.fg-slider", {self: self}, _fn.throttle(self.onWindowResize, self.opt.throttle));
 			self.$itemPrev.on("click.fg-slider", {self: self}, self.onPrevClick);
 			self.$itemNext.on("click.fg-slider", {self: self}, self.onNextClick);
 			self.$contentPrev.on("click.fg-slider", {self: self}, self.onContentPrevClick);
@@ -12547,12 +12773,13 @@
 	};
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.obj,
-		FooGallery.utils.transition
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils,
+	FooGallery.utils.is,
+	FooGallery.utils.obj,
+	FooGallery.utils.fn,
+	FooGallery.utils.transition
 );
 (function ($, _, _utils, _is, _obj) {
 

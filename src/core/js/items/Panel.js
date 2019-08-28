@@ -1,9 +1,11 @@
-(function($, _, _is, _obj, _fn, _t){
+(function($, _, _utils, _is, _obj, _fn, _t){
 
 	_.Panel = _.Component.extend({
 		construct: function(template){
 			var self = this;
 			self._super(template);
+
+			self.namespace = self.tmpl.namespace + "-panel";
 
 			self.opt = _obj.extend({}, self.tmpl.opt.panel);
 
@@ -18,8 +20,6 @@
 			self.$inner = null;
 
 			self.$buttons = null;
-
-			self.$narrow = null;
 
 			self.isCreated = false;
 
@@ -37,9 +37,15 @@
 
 			self.isCaptionCollapsed = false;
 
-			self.hasTransition = false;
+			self.hasTransition = !_is.empty(self.cls.transition[self.opt.transition]);
 
 			self.currentItem = null;
+		},
+		postinit: function(){
+			var self = this;
+			if (self.opt.bindAnchorClick){
+
+			}
 		},
 		destroy: function(){
 			var self = this;
@@ -115,6 +121,7 @@
 		},
 		doDestroy: function(){
 			var self = this;
+			self.detach();
 			if (self.isCreated){
 				self.$el.remove();
 			}
@@ -194,7 +201,10 @@
 			var self = this;
 			self.$el = self.createElem();
 			if (self.opt.keyboard){
-				self.$el.attr("tabindex", 0).on("", {self: self}, self.onKeyDown);
+				self.$el.attr("tabindex", -1).on("keydown.foogallery", {self: self}, self.onKeyDown);
+			}
+			if (self.opt.swipe){
+				self.$el.fgswipe({data: {self: self}, swipe: self.onPanelSwipe, allowPageScroll: true});
 			}
 			self.$buttons = $('<div/>').addClass(self.cls.buttons).appendTo(self.$el);
 			self.$inner = $('<div/>').addClass(self.cls.inner).appendTo(self.$el);
@@ -231,9 +241,8 @@
 		createElem: function(){
 			var self = this, transition = self.cls.transition[self.opt.transition] || "";
 			self.hasTransition = !_is.empty(transition);
-			return $('<div/>').addClass(self.cls.elem)
-					.addClass(transition)
-					.addClass(self.tmpl.getLoaderClass());
+			var classes = [self.cls.elem, self.opt.theme, self.opt.highlight, transition, self.tmpl.getLoaderClass(), self.opt.classNames];
+			return $('<div/>').addClass(classes.join(" "));
 		},
 		createLoader: function( parent ){
 			return $('<div/>').addClass(this.cls.loader).appendTo(parent);
@@ -316,6 +325,10 @@
 		doAppendTo: function( parent ){
 			var self = this, $parent = $( parent );
 			self.isExpanded = $parent.is("body");
+			if (self.isExpanded){
+				self.$buttons.find(self.sel.expand).hide();
+			}
+			self.tmpl.breakpoints.register(self.$el, self.opt.breakpoints);
 			self.$el.toggleClass(self.cls.expanded, self.isExpanded).appendTo( $parent );
 			return self.$el.parent().length > 0;
 		},
@@ -390,8 +403,13 @@
 			return !self.isAttached;
 		},
 		doDetach: function(){
-			this.$el.detach();
+			var self = this;
+			self.tmpl.breakpoints.remove(self.$el);
+			self.$el.detach();
 			return true;
+		},
+		checkBreakpoints: function(){
+			this.tmpl.breakpoints.check(this.$el);
 		},
 		reverseTransition: function( oldItem, newItem ){
 			if (!(oldItem instanceof _.Item) || !(newItem instanceof _.Item)) return true;
@@ -430,15 +448,16 @@
 				self.doUnload( self.currentItem, reverse );
 				self.currentItem = item;
 				self.doLoad( item, reverse ).then(def.resolve).fail(def.reject);
-			}).then(function(){
+			}).always(function(){
 				self.isLoading = false;
+				self.$el.removeClass(item.cls.loading).focus();
+			}).then(function(){
 				self.isLoaded = true;
-				self.$el.removeClass(item.cls.loading).addClass(item.cls.loaded);
+				self.$el.addClass(item.cls.loaded);
 				self.tmpl.raise("loaded-panel", [self, item]);
 			}).fail(function(){
-				self.isLoading = false;
 				self.isError = true;
-				self.$el.removeClass(item.cls.loading).addClass(item.cls.error);
+				self.$el.addClass(item.cls.error);
 				self.tmpl.raise("error-panel", [self, item]);
 			}).promise();
 		},
@@ -481,46 +500,87 @@
 				self.tmpl.state.update(state);
 			});
 		},
-		show: function( item, parent ){
+		open: function( item, parent ){
+			var self = this,
+				e = self.tmpl.raise("open-panel", [self, item, parent]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			return self.doOpen(item, parent).then(function(){
+				self.tmpl.raise("opened-panel", [self, item, parent]);
+			});
+		},
+		doOpen: function( item, parent ){
 			var self = this;
-			item = item instanceof _.Item ? item : self.tmpl.items.first();
-			parent = !_is.empty(parent) ? parent : self.opt.parent;
-			if (!self.isAttached){
-				self.appendTo( parent );
-			}
-			if (self.isAttached){
-				return self.load( item );
-			}
-			return _fn.rejectWith("not attached");
+			return $.Deferred(function(def){
+				item = item instanceof _.Item ? item : self.tmpl.items.first();
+				parent = !_is.empty(parent) ? parent : self.opt.parent;
+				if (!self.isAttached){
+					self.appendTo( parent );
+				}
+				$("html").toggleClass(self.cls.noScrollbars, self.isExpanded && self.opt.noScrollbars);
+				if (self.isAttached){
+					self.load( item ).then(def.resolve).fail(def.reject);
+				} else {
+					def.rejectWith("not attached");
+				}
+			}).promise();
 		},
 		next: function(){
 			var self = this;
 			if (!(self.currentItem instanceof _.Item)) return _fn.rejectWith("no current item");
-			return self.load( self.tmpl.items.next(self.currentItem, self.opt.loop) );
+			var next = self.tmpl.items.next(self.currentItem, self.opt.loop),
+				e = self.tmpl.raise("next-panel", [self, self.currentItem, next]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			return self.doNext(next).then(function(){
+				self.tmpl.raise("after-next-panel", [self, self.currentItem, next]);
+			});
+		},
+		doNext: function(item){
+			return this.load( item );
 		},
 		prev: function(){
 			var self = this;
 			if (!(self.currentItem instanceof _.Item)) return _fn.rejectWith("no current item");
-			return self.load( self.tmpl.items.prev(self.currentItem, self.opt.loop) );
+			var prev = self.tmpl.items.prev(self.currentItem, self.opt.loop),
+				e = self.tmpl.raise("prev-panel", [self, self.currentItem, prev]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			return self.doPrev(prev).then(function(){
+				self.tmpl.raise("after-prev-panel", [self, self.currentItem, prev]);
+			});
+		},
+		doPrev: function(item){
+			return this.load( item );
 		},
 		close: function(){
+			var self = this,
+				e = self.tmpl.raise("close-panel", [self, self.currentItem]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			return self.doClose().then(function(){
+				self.tmpl.raise("closed-panel", [self]);
+			});
+		},
+		doClose: function(){
 			var self = this;
-			if (self.currentItem instanceof _.Item){
-				return self.doUnload(self.currentItem, false).then(function(){
-					self.currentItem = null;
-					self.detach();
-					self.tmpl.state.clear();
-				});
-			} else {
+			return $.Deferred(function(def){
+				if (self.currentItem instanceof _.Item){
+					self.doUnload(self.currentItem, false).always(function(){
+						def.resolve();
+					});
+				} else {
+					def.resolve();
+				}
+			}).always(function(){
+				self.currentItem = null;
 				self.detach();
 				self.tmpl.state.clear();
-				return _fn.resolve();
-			}
+				$("html").removeClass(self.cls.noScrollbars);
+			}).promise();
 		},
 		toggleExpand: function(){
 			var self = this;
 			self.isExpanded = !self.isExpanded;
 			self.$el.toggleClass(self.cls.expanded, self.isExpanded);
+			$("html").toggleClass(self.cls.noScrollbars, self.isExpanded && self.opt.noScrollbars);
+			self.tmpl.breakpoints.check(self.$el);
 		},
 		toggleCaption: function(){
 			var self = this;
@@ -565,6 +625,15 @@
 					}
 					break;
 			}
+		},
+		onPanelSwipe: function(info, data){
+			var self = data.self;
+			if (info.direction === "E"){
+				self.prev();
+			}
+			if (info.direction === "W"){
+				self.next();
+			}
 		}
 	});
 
@@ -572,6 +641,9 @@
 	_.template.configure("core", {
 		panel: {
 			enabled: false,
+			classNames: "",
+			theme: "fg-light",
+			highlight: "",
 			parent: "body",
 			transition: "none", // none | fade | horizontal | vertical
 			loop: true,
@@ -579,11 +651,20 @@
 			captionOverlay: false,
 			icons: "default",
 			keyboard: true,
+			noScrollbars: true,
+			swipe: true,
 			buttons: {
 				navigation: true,
 				close: true,
 				expand: true,
 				caption: true
+			},
+			breakpoints: {
+				small: 414,
+				medium: {
+					width: 768,
+					height: 640
+				}
 			}
 		}
 	},{
@@ -592,13 +673,13 @@
 			expanded: "fg-panel-expanded",
 			inner: "fg-panel-inner",
 			buttons: "fg-panel-buttons",
-			narrow: "fg-panel-narrow",
-			prev: "fg-panel-prev",
-			next: "fg-panel-next",
-			close: "fg-panel-close",
-			expand: "fg-panel-expand",
-			caption: "fg-panel-caption",
+			prev: "fg-panel-button fg-panel-prev",
+			next: "fg-panel-button fg-panel-next",
+			close: "fg-panel-button fg-panel-close",
+			expand: "fg-panel-button fg-panel-expand",
+			caption: "fg-panel-button fg-panel-caption",
 			captionCollapsed: "fg-panel-caption-collapsed",
+			noScrollbars: "fg-panel-no-scroll",
 			loader: "fg-loader",
 			visible: "fg-visible",
 			reverse: "fg-reverse",
@@ -613,10 +694,11 @@
 	_.components.register("panel", _.Panel);
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils.is,
-		FooGallery.utils.obj,
-		FooGallery.utils.fn,
-		FooGallery.utils.transition
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils,
+	FooGallery.utils.is,
+	FooGallery.utils.obj,
+	FooGallery.utils.fn,
+	FooGallery.utils.transition
 );

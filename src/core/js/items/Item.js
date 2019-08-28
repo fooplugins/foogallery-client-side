@@ -946,7 +946,7 @@
 			refresh = _is.boolean(refresh) ? refresh : false;
 			var self = this;
 			if (!refresh && _is.string(self._thumbUrl)) return self._thumbUrl;
-			return self._thumbUrl = _.parseSrc(self.src, self.width, self.height, self.srcset, self.$anchor.innerWidth(), self.$anchor.innerHeight());
+			return self._thumbUrl = _utils.src(self.src, self.srcset, self.width, self.height, self.$anchor.innerWidth(), self.$anchor.innerHeight());
 		},
 		/**
 		 * @summary Scroll the item into the center of the viewport.
@@ -1001,10 +1001,6 @@
 			var self = e.data.self,
 					state = self.tmpl.state.get(self);
 			self.tmpl.state.update(state);
-			if (!!self.tmpl.panel && self.tmpl.panel.enabled){
-				e.preventDefault();
-				self.tmpl.panel.show( self );
-			}
 		},
 		/**
 		 * @summary Listens for the click event on the {@link FooGallery.Item#$caption|$caption} element and redirects it to the anchor if required.

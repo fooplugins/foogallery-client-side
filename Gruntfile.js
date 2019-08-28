@@ -29,6 +29,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/factories/TemplateFactory.js",
 						"./src/core/js/factories/PagingFactory.js",
 						"./src/core/js/factories/FilteringFactory.js",
+						"./src/core/js/Breakpoints.js",
 						"./src/core/js/Template.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
@@ -66,6 +67,10 @@ module.exports = function ( grunt ) {
 						"./src/core/css/general/icons.css",
 
 						"./src/core/css/panel/panel.css",
+						"./src/core/css/panel/themes.css",
+						"./src/core/css/panel/small.css",
+						"./src/core/css/panel/transitions.css",
+						"./src/core/css/panel/content.css",
 
 						"./src/core/css/appearance/theme.css",
 						"./src/core/css/appearance/border-size.css",
@@ -265,19 +270,20 @@ module.exports = function ( grunt ) {
 						// "./src/templates/foogrid/js/FooGrid.Player.js",
 						// "./src/templates/foogrid/js/FooGrid.Deeplinking.js",
 						// "./src/templates/foogrid/js/_template.js"
-						"./src/templates/foogrid/js/grid.js",
+						"./src/templates/foogrid/js/grid2.js",
 						"./src/templates/foogrid/js/ready.js"
 					],
 					"./dist/components/templates/foogrid/css/foogallery.foogrid.css": [
 						"./src/templates/foogrid/css/_foogrid.css",
-						"./src/templates/foogrid/css/nav.css",
+						// "./src/templates/foogrid/css/nav.css",
 						"./src/templates/foogrid/css/item.css",
 						"./src/templates/foogrid/css/content.css",
-						"./src/templates/foogrid/css/caption.css",
+						// "./src/templates/foogrid/css/caption.css",
 						"./src/templates/foogrid/css/columns.css",
 						"./src/templates/foogrid/css/transitions.css",
-						"./src/templates/foogrid/css/theme/default.css",
-						"./src/templates/foogrid/css/theme/light.css"
+						// "./src/templates/foogrid/css/theme/default.css",
+						// "./src/templates/foogrid/css/theme/light.css",
+						"./src/templates/foogrid/css/panel.css"
 					]
 				}
 			},

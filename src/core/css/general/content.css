@@ -145,35 +145,6 @@
 	right: 0;
 }
 
-@media only screen and (max-width : 768px) {
-	.fg-content-caption-left .fg-content-inner,
-	.fg-content-caption-right .fg-content-inner {
-		flex-direction: column;
-	}
-	.fg-content-caption-left .fg-content-item,
-	.fg-content-caption-right .fg-content-item {
-		flex: unset;
-	}
-	.fg-content-caption-left .fg-content-caption,
-	.fg-content-caption-right .fg-content-caption {
-		flex: unset;
-		max-width: none;
-		margin-left: 0;
-		border-left: none;
-		margin-right: 0;
-		border-right: none;
-		margin-top: 5px;
-	}
-	.fg-content-caption-overlay.fg-content-caption-left .fg-content-caption,
-	.fg-content-caption-overlay.fg-content-caption-right .fg-content-caption {
-		top: unset;
-		left: 0;
-		right: 0;
-		bottom: 0;
-	}
-}
-
-
 /* Content */
 .fg-content {
 	display: inline-block;
@@ -200,10 +171,10 @@
 .fg-content-html .fg-content {
 
 }
-.fg-content-video .fg-content,
-.fg-content-embed .fg-content {
-	background-color: #000;
-}
+/*.fg-content-video .fg-content,*/
+/*.fg-content-embed .fg-content {*/
+/*	background-color: #000;*/
+/*}*/
 .fg-content-embed .fg-content .fb-video > span,
 .fg-content-embed .fg-content > iframe,
 .fg-content-embed .fg-content > video,

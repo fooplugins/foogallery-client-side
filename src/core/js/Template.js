@@ -107,6 +107,13 @@
 			 */
 			self.panel = _.components.make("panel", self);
 			/**
+			 * @summary The current breakpoint calculated from the options and the container width.
+			 * @memberof FooGallery.Template#
+			 * @name breakpoint
+			 * @type {?string}
+			 */
+			self.breakpoints = new _.Breakpoints();
+			/**
 			 * @summary An array of video sources supported by the template.
 			 * @memberof FooGallery.Template#
 			 * @name videoSources
@@ -173,7 +180,7 @@
 				if (parent.length > 0) {
 					self.$el.appendTo(parent);
 				}
-				self.$scrollParent = _.scrollParent(self.$el);
+				self.$scrollParent = _utils.scrollParent(self.$el);
 
 				var queue = $.Deferred(), promise = queue.promise(), existing;
 				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template) {
@@ -204,7 +211,7 @@
 					}
 
 					// if the container currently has no children make them
-					if (self.$el.children().not(self.sel.item.elem).length == 0) {
+					if (self.$el.children().not(self.sel.item.elem).length === 0) {
 						self.$el.append(self.createChildren());
 						self._undo.children = true;
 					}
@@ -340,9 +347,10 @@
 					 */
 					var e = self.raise("post-init");
 					if (e.isDefaultPrevented()) return _fn.rejectWith("post-init default prevented");
+					self.breakpoints.init();
 					var state = self.state.parse();
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
-					self.$scrollParent.on("scroll" + self.namespace, {self: self}, self.throttle(self.onWindowScroll, self.opt.throttle));
+					self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(self.onWindowScroll, self.opt.throttle));
 					$(window).on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
 				}).then(function () {
 					if (self.destroying) return _fn.rejectWith("destroy in progress");
@@ -487,6 +495,7 @@
 			if (!!self.filter) self.filter.destroy();
 			if (!!self.pages) self.pages.destroy();
 			self.items.destroy();
+			self.breakpoints.destroy();
 			if (!_is.empty(self.opt.on)) {
 				self.$el.off(self.opt.on);
 			}
@@ -562,6 +571,17 @@
 
 		getItems: function(){
 			return this.pages ? this.pages.items() : this.items.available();
+		},
+
+		getWidth: function( $el ){
+			var self = this, width;
+			$el = !$el ? self.$el : $el;
+			if (!$el.is(':visible')){
+				width = $el.parents(':visible:first').innerWidth();
+			} else {
+				width = $el.width();
+			}
+			return _is.number(width) ? width : 0;
 		},
 
 		getLoaderClass: function(){
@@ -646,25 +666,6 @@
 			self.raise("layout");
 		},
 
-		/**
-		 * @summary Throttles the supplied function to only execute once every N milliseconds.
-		 * @memberof FooGallery.Template#
-		 * @function throttle
-		 * @param {Function} fn - The function to throttle.
-		 * @param {number} wait - The number of milliseconds to wait before allowing execution.
-		 * @returns {Function}
-		 */
-		throttle: function (fn, wait) {
-			var time = Date.now();
-			return function () {
-				if ((time + wait - Date.now()) < 0) {
-					var args = _fn.arg2arr(arguments);
-					fn.apply(this, args);
-					time = Date.now();
-				}
-			}
-		},
-
 		// ###############
 		// ## Listeners ##
 		// ###############
@@ -710,9 +711,17 @@
 		timeout: 60000,
 		srcset: "data-srcset-fg",
 		src: "data-src-fg",
-		template: {}
+		template: {},
+		breakpoints: {
+			small: 414,
+			medium: 768
+		}
 	}, {
-		container: "foogallery"
+		container: "foogallery",
+		breakpoints: {
+			small: "fg-small",
+			medium: "fg-medium"
+		}
 	}, {}, -100);
 
 	/**
