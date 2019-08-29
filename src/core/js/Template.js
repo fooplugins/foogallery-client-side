@@ -161,7 +161,7 @@
 				}
 				var $sp;
 				if (!_is.empty(self.opt.scrollParent) && ($sp = $(self.opt.scrollParent)).length !== 0){
-					self.$scrollParent = $sp;
+					self.$scrollParent = $sp.is("html") ? $(document) : $sp;
 				} else {
 					self.$scrollParent = _utils.scrollParent(self.$el);
 				}
