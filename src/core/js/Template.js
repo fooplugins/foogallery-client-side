@@ -33,9 +33,9 @@
 			 * @summary The jQuery object for the template containers scroll parent.
 			 * @memberof FooGallery.Template#
 			 * @name $scrollParent
-			 * @type {jQuery}
+			 * @type {?jQuery}
 			 */
-			self.$scrollParent = $();
+			self.$scrollParent = null;
 			/**
 			 * @summary The options for the template.
 			 * @memberof FooGallery.Template#
@@ -100,27 +100,6 @@
 			 */
 			self.filter = !_is.undef(_.filtering) ? _.filtering.make(options.filtering.type, self) : null;
 			/**
-			 * @summary The item panel for the template.
-			 * @memberof FooGallery.Template#
-			 * @name panel
-			 * @type {FooGallery.Panel}
-			 */
-			self.panel = _.components.make("panel", self);
-			/**
-			 * @summary The current breakpoint calculated from the options and the container width.
-			 * @memberof FooGallery.Template#
-			 * @name breakpoint
-			 * @type {?string}
-			 */
-			self.breakpoints = new _.Breakpoints();
-			/**
-			 * @summary An array of video sources supported by the template.
-			 * @memberof FooGallery.Template#
-			 * @name videoSources
-			 * @type {FooGallery.VideoSource[]}
-			 */
-			self.videoSources = !_is.undef(_.videoSources) ? _.videoSources.load() : [];
-			/**
 			 * @summary The state manager for the template.
 			 * @memberof FooGallery.Template#
 			 * @name state
@@ -180,7 +159,12 @@
 				if (parent.length > 0) {
 					self.$el.appendTo(parent);
 				}
-				self.$scrollParent = _utils.scrollParent(self.$el);
+				var $sp;
+				if (!_is.empty(self.opt.scrollParent) && ($sp = $(self.opt.scrollParent)).length !== 0){
+					self.$scrollParent = $sp.is("html") ? $(document) : $sp;
+				} else {
+					self.$scrollParent = _utils.scrollParent(self.$el);
+				}
 
 				var queue = $.Deferred(), promise = queue.promise(), existing;
 				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template) {
@@ -211,7 +195,7 @@
 					}
 
 					// if the container currently has no children make them
-					if (self.$el.children().not(self.sel.item.elem).length === 0) {
+					if (self.$el.children().not(self.sel.item.elem).length == 0) {
 						self.$el.append(self.createChildren());
 						self._undo.children = true;
 					}
@@ -347,7 +331,6 @@
 					 */
 					var e = self.raise("post-init");
 					if (e.isDefaultPrevented()) return _fn.rejectWith("post-init default prevented");
-					self.breakpoints.init();
 					var state = self.state.parse();
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
 					self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(self.onWindowScroll, self.opt.throttle));
@@ -491,11 +474,9 @@
 			self.$scrollParent.off(self.namespace);
 			$(window).off(self.namespace);
 			self.state.destroy();
-			if (!!self.panel) self.panel.destroy();
-			if (!!self.filter) self.filter.destroy();
-			if (!!self.pages) self.pages.destroy();
+			if (self.filter) self.filter.destroy();
+			if (self.pages) self.pages.destroy();
 			self.items.destroy();
-			self.breakpoints.destroy();
 			if (!_is.empty(self.opt.on)) {
 				self.$el.off(self.opt.on);
 			}
@@ -571,25 +552,6 @@
 
 		getItems: function(){
 			return this.pages ? this.pages.items() : this.items.available();
-		},
-
-		getWidth: function( $el ){
-			var self = this, width;
-			$el = !$el ? self.$el : $el;
-			if (!$el.is(':visible')){
-				width = $el.parents(':visible:first').innerWidth();
-			} else {
-				width = $el.width();
-			}
-			return _is.number(width) ? width : 0;
-		},
-
-		getLoaderClass: function(){
-			var classes = this.$el.prop("className").split(' ');
-			for (var i = 0, l = classes.length; i < l; i++){
-				if (_str.startsWith(classes[i], "fg-loading-")) return classes[i];
-			}
-			return null;
 		},
 
 		/**
@@ -706,22 +668,15 @@
 		viewport: 200,
 		items: [],
 		fixLayout: true,
+		scrollParent: null,
 		delay: 0,
 		throttle: 50,
 		timeout: 60000,
 		srcset: "data-srcset-fg",
 		src: "data-src-fg",
-		template: {},
-		breakpoints: {
-			small: 414,
-			medium: 768
-		}
+		template: {}
 	}, {
-		container: "foogallery",
-		breakpoints: {
-			small: "fg-small",
-			medium: "fg-medium"
-		}
+		container: "foogallery"
 	}, {}, -100);
 
 	/**
@@ -735,6 +690,7 @@
 	 * @property {number} [viewport=200] - The number of pixels to inflate the viewport by when checking to lazy load items.
 	 * @property {(FooGallery.Item~Options[]|FooGallery.Item[]| string)} [items=[]] - An array of items to load when required. A url can be provided and the items will be fetched using an ajax call, the response should be a properly formatted JSON array of {@link FooGallery.Item~Options|item} object.
 	 * @property {boolean} [fixLayout=true] - Whether or not the items' size should be set with CSS until the image is loaded.
+	 * @property {string} [scrollParent=null] - The selector used to bind to the scroll parent for the gallery. If not supplied the template will attempt to find the element itself.
 	 * @property {number} [delay=0] - The number of milliseconds to delay the initialization of a template.
 	 * @property {number} [throttle=50] - The number of milliseconds to wait once scrolling has stopped before performing any work.
 	 * @property {number} [timeout=60000] - The number of milliseconds to wait before forcing a timeout when loading items.

@@ -58,7 +58,7 @@
 );
 /*!
 * FooGallery.utils - Contains common utility methods and classes used in our plugins.
-* @version 0.1.0
+* @version 0.1.2
 * @link https://github.com/steveush/foo-utils#readme
 * @copyright Steve Usher 2019
 * @license Released under the GPL-3.0 license.
@@ -111,7 +111,7 @@
 		 * @name version
 		 * @type {string}
 		 */
-		version: '0.1.0'
+		version: '0.1.2'
 	};
 
 	/**
@@ -207,7 +207,7 @@
 })(jQuery);
 (function ($, _){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	/**
 	 * @summary Contains common type checking utility methods.
@@ -561,7 +561,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	/**
 	 * @memberof FooGallery.utils
@@ -1144,7 +1144,7 @@
 );
 (function(_, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	/**
 	 * @summary Contains common url utility methods.
@@ -1279,7 +1279,7 @@
 );
 (function (_, _is, _fn) {
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	/**
 	 * @summary Contains common string utility methods.
@@ -1594,7 +1594,7 @@
 );
 (function($, _, _is, _fn, _str){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	/**
 	 * @summary Contains common object utility methods.
@@ -1926,7 +1926,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	// any methods that have dependencies but don't fall into a specific subset or namespace can be added here
 
@@ -2179,21 +2179,23 @@
 	_.scrollParent = function(element, axis, def){
 		element = _is.jq(element) ? element : $(element);
 		axis = _is.string(axis) && /^(x|y|xy|yx)$/i.test(axis) ? axis : "xy";
-		def = _is.jq(def) ? def : $(!!element.length && element[0].ownerDocument || document);
+		var $doc = $(!!element.length && element[0].ownerDocument || document);
+		def = _is.jq(def) ? def : $doc;
 
 		if (!element.length) return def;
 
 		var position = element.css("position"),
 			excludeStaticParent = position === "absolute",
-			hidden = /hidden/i, axisX = /x/i, axisY = /y/i,
+			scroll = /(auto|scroll)/i, axisX = /x/i, axisY = /y/i,
 			$parent = element.parentsUntil(def).filter(function(i, el){
 				var $el = $(this);
 				if (excludeStaticParent && $el.css("position") === "static") return false;
-				var scrollY = axisY.test(axis) && el.scrollHeight > el.clientHeight && !hidden.test($el.css("overflow-y")),
-					scrollX = axisX.test(axis) && el.scrollWidth > el.clientWidth && !hidden.test($el.css("overflow-x"));
+				var scrollY = axisY.test(axis) && el.scrollHeight > el.clientHeight && scroll.test($el.css("overflow-y")),
+					scrollX = axisX.test(axis) && el.scrollWidth > el.clientWidth && scroll.test($el.css("overflow-x"));
 				return scrollY || scrollX;
 			}).eq(0);
 
+		if ($parent.is("html")) $parent = $doc;
 		return position === "fixed" || !$parent.length ? def : $parent;
 	};
 
@@ -2205,7 +2207,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	/**
 	 * @summary Contains common utility methods and members for the CSS transition property.
@@ -2378,7 +2380,7 @@
 );
 (function ($, _, _is, _obj, _fn) {
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	/**
 	 * @summary A base class providing some helper methods for prototypal inheritance.
@@ -2517,7 +2519,7 @@
 );
 (function (_, _is) {
     // only register methods if this version is the current version
-    if (_.version !== '0.1.0') return;
+    if (_.version !== '0.1.2') return;
 
     _.Event = _.Class.extend(/** @lends FooGallery.utils.Event */{
         /**
@@ -2692,7 +2694,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	_.Bounds = _.Class.extend(/** @lends FooGallery.utils.Bounds */{
 		/**
@@ -2793,7 +2795,7 @@
 );
 (function($, _, _is, _fn){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	_.Factory = _.Class.extend(/** @lends FooGallery.utils.Factory */{
 		/**
@@ -3116,7 +3118,7 @@
 );
 (function(_, _fn, _str){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.0') return;
+	if (_.version !== '0.1.2') return;
 
 	// this is done to handle Content Security in Chrome and other browsers blocking access to the localStorage object under certain configurations.
 	// see: https://www.chromium.org/for-testers/bug-reporting-guidelines/uncaught-securityerror-failed-to-read-the-localstorage-property-from-window-access-is-denied-for-this-document
@@ -3251,10 +3253,6 @@
 	 */
 	_.dataItem = "__FooGalleryItem__";
 
-	_.get = function(selector){
-		return $(selector).data(_.dataTemplate);
-	};
-
 	_.init = function (options, element) {
 		return _.template.make(options, element).initialize();
 	};
@@ -3263,6 +3261,67 @@
 		return _fn.when($(".foogallery").map(function (i, element) {
 			return _.init(options, element);
 		}).get());
+	};
+
+	_.parseSrc = function (src, srcWidth, srcHeight, srcset, renderWidth, renderHeight) {
+		if (!_is.string(src)) return null;
+		// if there is no srcset just return the src
+		if (!_is.string(srcset)) return src;
+
+		// parse the srcset into objects containing the url, width, height and pixel density for each supplied source
+		var list = $.map(srcset.replace(/(\s[\d.]+[whx]),/g, '$1 @,@ ').split(' @,@ '), function (val) {
+			return {
+				url: /^\s*(\S*)/.exec(val)[1],
+				w: parseFloat((/\S\s+(\d+)w/.exec(val) || [0, Infinity])[1]),
+				h: parseFloat((/\S\s+(\d+)h/.exec(val) || [0, Infinity])[1]),
+				x: parseFloat((/\S\s+([\d.]+)x/.exec(val) || [0, 1])[1])
+			};
+		});
+
+		// if there is no items parsed from the srcset then just return the src
+		if (!list.length) return src;
+
+		// add the current src into the mix by inspecting the first parsed item to figure out how to handle it
+		list.unshift({
+			url: src,
+			w: list[0].w !== Infinity && list[0].h === Infinity ? srcWidth : Infinity,
+			h: list[0].h !== Infinity && list[0].w === Infinity ? srcHeight : Infinity,
+			x: 1
+		});
+
+		// get the current viewport info and use it to determine the correct src to load
+		var dpr = window.devicePixelRatio || 1,
+				area = {w: renderWidth * dpr, h: renderHeight * dpr, x: dpr},
+				property;
+
+		// first check each of the viewport properties against the max values of the same properties in our src array
+		// only src's with a property greater than the viewport or equal to the max are kept
+		for (property in area) {
+			if (!area.hasOwnProperty(property)) continue;
+			list = $.grep(list, (function (prop, limit) {
+				return function (item) {
+					return item[prop] >= area[prop] || item[prop] === limit;
+				};
+			})(property, Math.max.apply(null, $.map(list, function (item) {
+				return item[property];
+			}))));
+		}
+
+		// next reduce our src array by comparing the viewport properties against the minimum values of the same properties of each src
+		// only src's with a property equal to the minimum are kept
+		for (property in area) {
+			if (!area.hasOwnProperty(property)) continue;
+			list = $.grep(list, (function (prop, limit) {
+				return function (item) {
+					return item[prop] === limit;
+				};
+			})(property, Math.min.apply(null, $.map(list, function (item) {
+				return item[property];
+			}))));
+		}
+
+		// return the first url as it is the best match for the current viewport
+		return list[0].url;
 	};
 
 	/**
@@ -3370,59 +3429,6 @@
 		FooGallery.utils,
 		FooGallery.utils.is,
 		FooGallery.utils.fn
-);
-(function(_, _is){
-
-    _.icon = function( name, setNameOrObject ){
-        var icons = _.icon.getSet(setNameOrObject);
-        return _is.string(name) && icons.hasOwnProperty(name) ? icons[name] : null;
-    };
-
-    _.icon.sets = {
-        default: {
-            close: '<svg class="fg-icon fg-icon-close fg-icon-default" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M13.957 3.457l-1.414-1.414-4.543 4.543-4.543-4.543-1.414 1.414 4.543 4.543-4.543 4.543 1.414 1.414 4.543-4.543 4.543 4.543 1.414-1.414-4.543-4.543z"></path></svg>',
-            prev: '<svg class="fg-icon fg-icon-prev fg-icon-default" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M10.5 16l1.5-1.5-6.5-6.5 6.5-6.5-1.5-1.5-8 8 8 8z"></path></svg>',
-            next: '<svg class="fg-icon fg-icon-next fg-icon-default" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M5.5 0l-1.5 1.5 6.5 6.5-6.5 6.5 1.5 1.5 8-8-8-8z"></path></svg>',
-            expand: '<svg class="fg-icon fg-icon-expand fg-icon-default" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 5h-2v-4c0-0.552 0.448-1 1-1h4v2h-3v3z"></path><path d="M16 5h-2v-3h-3v-2h4c0.552 0 1 0.448 1 1v4z"></path><path d="M15 16h-4v-2h3v-3h2v4c0 0.552-0.448 1-1 1z"></path><path d="M5 16h-4c-0.552 0-1-0.448-1-1v-4h2v3h3v2z"></path></svg>',
-            shrink: '<svg class="fg-icon fg-icon-shrink fg-icon-default" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3 0h2v4c0 0.552-0.448 1-1 1h-4v-2h3v-3z"></path><path d="M11 0h2v3h3v2h-4c-0.552 0-1-0.448-1-1v-4z"></path><path d="M12 11h4v2h-3v3h-2v-4c0-0.552 0.448-1 1-1z"></path><path d="M0 11h4c0.552 0 1 0.448 1 1v4h-2v-3h-3v-2z"></path></svg>',
-            caption: '<svg class="fg-icon fg-icon-caption fg-icon-default" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3 4h10v1h-10zM3 6h8v1h-8zM3 8h4v1h-4zM14.5 1h-13c-0.825 0-1.5 0.675-1.5 1.5v8c0 0.825 0.675 1.5 1.5 1.5h2.5v4l4.8-4h5.7c0.825 0 1.5-0.675 1.5-1.5v-8c0-0.825-0.675-1.5-1.5-1.5zM14 10h-5.924l-3.076 2.73v-2.73h-3v-7h12v7z"></path></svg>'
-        },
-        set1: {
-            close: '<svg class="fg-icon fg-icon-close fg-icon-set1" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M15.854 12.854c-0-0-0-0-0-0l-4.854-4.854 4.854-4.854c0-0 0-0 0-0 0.052-0.052 0.090-0.113 0.114-0.178 0.066-0.178 0.028-0.386-0.114-0.529l-2.293-2.293c-0.143-0.143-0.351-0.181-0.529-0.114-0.065 0.024-0.126 0.062-0.178 0.114 0 0-0 0-0 0l-4.854 4.854-4.854-4.854c-0-0-0-0-0-0-0.052-0.052-0.113-0.090-0.178-0.114-0.178-0.066-0.386-0.029-0.529 0.114l-2.293 2.293c-0.143 0.143-0.181 0.351-0.114 0.529 0.024 0.065 0.062 0.126 0.114 0.178 0 0 0 0 0 0l4.854 4.854-4.854 4.854c-0 0-0 0-0 0-0.052 0.052-0.090 0.113-0.114 0.178-0.066 0.178-0.029 0.386 0.114 0.529l2.293 2.293c0.143 0.143 0.351 0.181 0.529 0.114 0.065-0.024 0.126-0.062 0.178-0.114 0-0 0-0 0-0l4.854-4.854 4.854 4.854c0 0 0 0 0 0 0.052 0.052 0.113 0.090 0.178 0.114 0.178 0.066 0.386 0.029 0.529-0.114l2.293-2.293c0.143-0.143 0.181-0.351 0.114-0.529-0.024-0.065-0.062-0.126-0.114-0.178z"></path></svg>',
-            prev: '<svg class="fg-icon fg-icon-prev fg-icon-set1" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M10.5 16l3-3-5-5 5-5-3-3-8 8z"></path></svg>',
-            next: '<svg class="fg-icon fg-icon-next fg-icon-set1" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M5.5 0l-3 3 5 5-5 5 3 3 8-8z"></path></svg>',
-            expand: '<svg class="fg-icon fg-icon-expand fg-icon-set1" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M16 0h-6.5l2.5 2.5-3 3 1.5 1.5 3-3 2.5 2.5z"></path><path d="M16 16v-6.5l-2.5 2.5-3-3-1.5 1.5 3 3-2.5 2.5z"></path><path d="M0 16h6.5l-2.5-2.5 3-3-1.5-1.5-3 3-2.5-2.5z"></path><path d="M0 0v6.5l2.5-2.5 3 3 1.5-1.5-3-3 2.5-2.5z"></path></svg>',
-            shrink: '<svg class="fg-icon fg-icon-shrink fg-icon-set1" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M9 7h6.5l-2.5-2.5 3-3-1.5-1.5-3 3-2.5-2.5z"></path><path d="M9 9v6.5l2.5-2.5 3 3 1.5-1.5-3-3 2.5-2.5z"></path><path d="M7 9h-6.5l2.5 2.5-3 3 1.5 1.5 3-3 2.5 2.5z"></path><path d="M7 7v-6.5l-2.5 2.5-3-3-1.5 1.5 3 3-2.5 2.5z"></path></svg>',
-            caption: '<svg class="fg-icon fg-icon-caption fg-icon-set1" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M14.5 1h-13c-0.825 0-1.5 0.675-1.5 1.5v8c0 0.825 0.675 1.5 1.5 1.5h2.5v4l4.8-4h5.7c0.825 0 1.5-0.675 1.5-1.5v-8c0-0.825-0.675-1.5-1.5-1.5zM7 9h-4v-1h4v1zM11 7h-8v-1h8v1zM13 5h-10v-1h10v1z"></path></svg>'
-        },
-        set2: {
-            close: '<svg class="fg-icon fg-icon-close fg-icon-set2" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M12.207 10.793l-1.414 1.414-2.793-2.793-2.793 2.793-1.414-1.414 2.793-2.793-2.793-2.793 1.414-1.414 2.793 2.793 2.793-2.793 1.414 1.414-2.793 2.793 2.793 2.793z"></path></svg>',
-            prev: '<svg class="fg-icon fg-icon-prev fg-icon-set2" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M6.293 13.707l-5-5c-0.391-0.39-0.391-1.024 0-1.414l5-5c0.391-0.391 1.024-0.391 1.414 0s0.391 1.024 0 1.414l-3.293 3.293h9.586c0.552 0 1 0.448 1 1s-0.448 1-1 1h-9.586l3.293 3.293c0.195 0.195 0.293 0.451 0.293 0.707s-0.098 0.512-0.293 0.707c-0.391 0.391-1.024 0.391-1.414 0z"></path></svg>',
-            next: '<svg class="fg-icon fg-icon-next fg-icon-set2" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M9.707 13.707l5-5c0.391-0.39 0.391-1.024 0-1.414l-5-5c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414l3.293 3.293h-9.586c-0.552 0-1 0.448-1 1s0.448 1 1 1h9.586l-3.293 3.293c-0.195 0.195-0.293 0.451-0.293 0.707s0.098 0.512 0.293 0.707c0.391 0.391 1.024 0.391 1.414 0z"></path></svg>',
-            expand: '<svg class="fg-icon fg-icon-expand fg-icon-set2" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M16 5.5v-5.5h-5.5z"></path><path d="M5.5 0h-5.5v5.5z"></path><path d="M16 16v-5.5l-5.5 5.5z"></path><path d="M0 16h5.5l-5.5-5.5z"></path></svg>',
-            shrink: '<svg class="fg-icon fg-icon-shrink fg-icon-set2" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M10 0.5v5.5h5.5z"></path><path d="M0.5 6h5.5v-5.5z"></path><path d="M10 10v5.5l5.5-5.5z"></path><path d="M6 10h-5.5l5.5 5.5z"></path></svg>',
-            caption: '<svg class="fg-icon fg-icon-caption fg-icon-set2" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M13.063 1h-10.125c-1.616 0-2.938 1.322-2.938 2.938v11.063l3-3h10.063c1.616 0 2.938-1.322 2.938-2.938v-5.125c0-1.616-1.322-2.938-2.938-2.938zM14 9.063c0 0.508-0.429 0.938-0.938 0.938h-11.063v-6.063c0-0.508 0.429-0.938 0.938-0.938h10.125c0.508 0 0.938 0.429 0.938 0.938v5.125zM4 5h8v1h-8zM4 7h6v1h-6z"></path></svg>'
-        }
-    };
-
-    _.icon.getSet = function( setNameOrObject ){
-        if (_.icon.isSetObject(setNameOrObject)) return setNameOrObject;
-        return _.icon.isSetName(setNameOrObject) ? _.icon.sets[setNameOrObject] : _.icon.sets["default"];
-    };
-
-    _.icon.isSetName = function( setName ){
-        return _is.string(setName) && _.icon.sets.hasOwnProperty(setName)
-    };
-
-    _.icon.isSetObject = function( setObject ){
-        if (!_is.hash(setObject)) return false;
-        var names = Object.keys(_.icon.sets.default), keys = Object.keys(setObject);
-        return names.every(function(name){ return keys.includes(name); });
-    };
-
-})(
-    FooGallery,
-    FooGallery.utils.is
 );
 (function($, _, _utils, _is, _obj) {
 
@@ -4175,158 +4181,6 @@
 	FooGallery.utils.fn,
 	FooGallery.utils.obj
 );
-(function($, _, _utils, _is, _obj, _fn){
-
-    var instance = 0;
-
-    _.Breakpoints = _utils.Class.extend({
-        construct: function(options){
-            var self = this;
-
-            self.namespace = ".foogallery-breakpoints-" + (++instance);
-
-            self.opt = _obj.extend({}, _.Breakpoints.defaults, options);
-
-            self.registered = [];
-        },
-
-        init: function(){
-            $(window).on("resize" + this.namespace, {self: this}, _fn.debounce(this.onWindowResize, 50));
-        },
-
-        destroy: function(){
-            $(window).off(this.namespace);
-            this.registered = [];
-        },
-
-        register: function( $el, breakpoints, callback, thisArg ){
-            if (!_is.jq($el) || !_is.hash(breakpoints)) return -1;
-            var self = this, parsed = self.parse( breakpoints );
-            return self.registered.push({
-                $element: $el,
-                current: _.Breakpoints.NONE,
-                orientation: null,
-                breakpoints: parsed,
-                classNames: parsed.map(function(x){ return x.className; }).concat([self.opt.prefix + "portrait", self.opt.prefix + "landscape"]).join(" "),
-                callback: _is.fn(callback) ? callback : self.onBreakpointChanged,
-                thisArg: !_is.undef(thisArg) ? thisArg : self
-            }) - 1;
-        },
-
-        remove: function( $el ){
-            if (!_is.jq($el)) return;
-            var self = this;
-            self.registered = self.registered.filter(function(x){
-                return x.$element.get(0) !== $el.get(0);
-            });
-        },
-
-        parse: function( breakpoints ){
-            var self = this, result = [];
-            for (var name in breakpoints){
-                if (!breakpoints.hasOwnProperty(name)) continue;
-                var width, height;
-                if (_is.number(breakpoints[name])){
-                    width = height = breakpoints[name];
-                } else if (_is.hash(breakpoints[name])){
-                    width = breakpoints[name].width || 0;
-                    height = breakpoints[name].height || 0;
-                }
-                result.push({
-                    name: name,
-                    width: width,
-                    height: height,
-                    className: self.opt.prefix + name
-                });
-            }
-            result.sort(function (a, b) {
-                if (a.width < b.width) return -1;
-                if (a.width > b.width) return 0;
-                return 0;
-            });
-            return result;
-        },
-
-        check: function( $el ){
-            var self = this;
-            if (_is.jq($el)){
-                self.registered.filter(function(x){
-                    return x.$element.get(0) === $el.get(0);
-                }).forEach(self.checkRegistered, self);
-            } else {
-                self.registered.forEach(self.checkRegistered, self);
-            }
-        },
-
-        checkRegistered: function( registered ){
-            var size = this.getSize( registered ),
-                prevOrientation = registered.orientation,
-                nextOrientation = this.opt.prefix + (size.height > size.width ? "portrait" : "landscape"),
-                prevBreakpoint = registered.current,
-                nextBreakpoint = this.getCurrent( registered, size );
-            if (nextBreakpoint !== prevBreakpoint || nextOrientation !== prevOrientation){
-                registered.current = nextBreakpoint;
-                registered.callback.call(registered.thisArg, registered, nextBreakpoint.className, nextOrientation, prevBreakpoint.className, prevOrientation);
-            }
-        },
-
-        onBreakpointChanged: function(registered, nextBreakpoint, nextOrientation){
-            registered.$element.removeClass(registered.classNames).addClass([nextBreakpoint, nextOrientation].join(" "));
-        },
-
-        getSize: function( registered ){
-            var width, height;
-            if (!registered.$element.is(':visible')){
-                var $el = registered.$element.parents(':visible:first');
-                width = $el.innerWidth();
-                height = $el.innerHeight();
-            } else {
-                width = registered.$element.width();
-                height = registered.$element.height();
-            }
-            var hasWidth = _is.number(width), hasHeight = _is.number(height);
-            return {
-                width: hasWidth ? width : 0,
-                height: hasHeight ? height : 0,
-                isValid: hasWidth && hasHeight
-            };
-        },
-
-        getCurrent: function( registered, size ){
-            if (!_is.hash(size) || !size.isValid) return null;
-            for (var i = 0, l = registered.breakpoints.length; i < l; i++){
-                if (size.width <= registered.breakpoints[i].width || size.height <= registered.breakpoints[i].height) {
-                    return registered.breakpoints[i];
-                }
-            }
-            return _.Breakpoints.NONE;
-        },
-
-        onWindowResize: function(e){
-            e.data.self.check();
-        },
-
-    });
-
-    _.Breakpoints.defaults = {
-        prefix: "fg-"
-    };
-
-    _.Breakpoints.NONE = {
-        name: "none",
-        width: Infinity,
-        height: Infinity,
-        className: ""
-    };
-
-})(
-    FooGallery.$,
-    FooGallery,
-    FooGallery.utils,
-    FooGallery.utils.is,
-    FooGallery.utils.obj,
-    FooGallery.utils.fn
-);
 (function ($, _, _utils, _is, _fn, _str) {
 
 	var instance = 0;
@@ -4362,9 +4216,9 @@
 			 * @summary The jQuery object for the template containers scroll parent.
 			 * @memberof FooGallery.Template#
 			 * @name $scrollParent
-			 * @type {jQuery}
+			 * @type {?jQuery}
 			 */
-			self.$scrollParent = $();
+			self.$scrollParent = null;
 			/**
 			 * @summary The options for the template.
 			 * @memberof FooGallery.Template#
@@ -4429,27 +4283,6 @@
 			 */
 			self.filter = !_is.undef(_.filtering) ? _.filtering.make(options.filtering.type, self) : null;
 			/**
-			 * @summary The item panel for the template.
-			 * @memberof FooGallery.Template#
-			 * @name panel
-			 * @type {FooGallery.Panel}
-			 */
-			self.panel = _.components.make("panel", self);
-			/**
-			 * @summary The current breakpoint calculated from the options and the container width.
-			 * @memberof FooGallery.Template#
-			 * @name breakpoint
-			 * @type {?string}
-			 */
-			self.breakpoints = new _.Breakpoints();
-			/**
-			 * @summary An array of video sources supported by the template.
-			 * @memberof FooGallery.Template#
-			 * @name videoSources
-			 * @type {FooGallery.VideoSource[]}
-			 */
-			self.videoSources = !_is.undef(_.videoSources) ? _.videoSources.load() : [];
-			/**
 			 * @summary The state manager for the template.
 			 * @memberof FooGallery.Template#
 			 * @name state
@@ -4509,7 +4342,12 @@
 				if (parent.length > 0) {
 					self.$el.appendTo(parent);
 				}
-				self.$scrollParent = _utils.scrollParent(self.$el);
+				var $sp;
+				if (!_is.empty(self.opt.scrollParent) && ($sp = $(self.opt.scrollParent)).length !== 0){
+					self.$scrollParent = $sp.is("html") ? $(document) : $sp;
+				} else {
+					self.$scrollParent = _utils.scrollParent(self.$el);
+				}
 
 				var queue = $.Deferred(), promise = queue.promise(), existing;
 				if (self.$el.length > 0 && (existing = self.$el.data(_.dataTemplate)) instanceof _.Template) {
@@ -4540,7 +4378,7 @@
 					}
 
 					// if the container currently has no children make them
-					if (self.$el.children().not(self.sel.item.elem).length === 0) {
+					if (self.$el.children().not(self.sel.item.elem).length == 0) {
 						self.$el.append(self.createChildren());
 						self._undo.children = true;
 					}
@@ -4676,7 +4514,6 @@
 					 */
 					var e = self.raise("post-init");
 					if (e.isDefaultPrevented()) return _fn.rejectWith("post-init default prevented");
-					self.breakpoints.init();
 					var state = self.state.parse();
 					self.state.set(_is.empty(state) ? self.state.initial() : state);
 					self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(self.onWindowScroll, self.opt.throttle));
@@ -4820,11 +4657,9 @@
 			self.$scrollParent.off(self.namespace);
 			$(window).off(self.namespace);
 			self.state.destroy();
-			if (!!self.panel) self.panel.destroy();
-			if (!!self.filter) self.filter.destroy();
-			if (!!self.pages) self.pages.destroy();
+			if (self.filter) self.filter.destroy();
+			if (self.pages) self.pages.destroy();
 			self.items.destroy();
-			self.breakpoints.destroy();
 			if (!_is.empty(self.opt.on)) {
 				self.$el.off(self.opt.on);
 			}
@@ -4900,25 +4735,6 @@
 
 		getItems: function(){
 			return this.pages ? this.pages.items() : this.items.available();
-		},
-
-		getWidth: function( $el ){
-			var self = this, width;
-			$el = !$el ? self.$el : $el;
-			if (!$el.is(':visible')){
-				width = $el.parents(':visible:first').innerWidth();
-			} else {
-				width = $el.width();
-			}
-			return _is.number(width) ? width : 0;
-		},
-
-		getLoaderClass: function(){
-			var classes = this.$el.prop("className").split(' ');
-			for (var i = 0, l = classes.length; i < l; i++){
-				if (_str.startsWith(classes[i], "fg-loading-")) return classes[i];
-			}
-			return null;
 		},
 
 		/**
@@ -5035,22 +4851,15 @@
 		viewport: 200,
 		items: [],
 		fixLayout: true,
+		scrollParent: null,
 		delay: 0,
 		throttle: 50,
 		timeout: 60000,
 		srcset: "data-srcset-fg",
 		src: "data-src-fg",
-		template: {},
-		breakpoints: {
-			small: 414,
-			medium: 768
-		}
+		template: {}
 	}, {
-		container: "foogallery",
-		breakpoints: {
-			small: "fg-small",
-			medium: "fg-medium"
-		}
+		container: "foogallery"
 	}, {}, -100);
 
 	/**
@@ -5064,6 +4873,7 @@
 	 * @property {number} [viewport=200] - The number of pixels to inflate the viewport by when checking to lazy load items.
 	 * @property {(FooGallery.Item~Options[]|FooGallery.Item[]| string)} [items=[]] - An array of items to load when required. A url can be provided and the items will be fetched using an ajax call, the response should be a properly formatted JSON array of {@link FooGallery.Item~Options|item} object.
 	 * @property {boolean} [fixLayout=true] - Whether or not the items' size should be set with CSS until the image is loaded.
+	 * @property {string} [scrollParent=null] - The selector used to bind to the scroll parent for the gallery. If not supplied the template will attempt to find the element itself.
 	 * @property {number} [delay=0] - The number of milliseconds to delay the initialization of a template.
 	 * @property {number} [throttle=50] - The number of milliseconds to wait once scrolling has stopped before performing any work.
 	 * @property {number} [timeout=60000] - The number of milliseconds to wait before forcing a timeout when loading items.
@@ -5200,23 +5010,19 @@
 			 */
 			self.pushOrReplace = self.isPushOrReplace(self.opt.pushOrReplace) ? self.opt.pushOrReplace : "replace";
 
-			self.defaultMask = "foogallery-gallery-{id}";
-
 			var id = _str.escapeRegExp(self.tmpl.id),
-				masked = _str.escapeRegExp(self.getMasked()),
 				values = _str.escapeRegExp(self.opt.values),
 				pair = _str.escapeRegExp(self.opt.pair);
 			/**
 			 * @summary An object containing regular expressions used to test and parse a hash value into a state object.
 			 * @memberof FooGallery.State#
 			 * @name regex
-			 * @type {{exists: RegExp, masked: RegExp, values: RegExp}}
+			 * @type {{exists: RegExp, values: RegExp}}
 			 * @readonly
 			 * @description The regular expressions contained within this object are specific to this template and are created using the template {@link FooGallery.Template#id|id} and the delimiters from the {@link FooGallery.State#opt|options}.
 			 */
 			self.regex = {
 				exists: new RegExp("^#"+id+"\\"+values+".+?"),
-				masked: new RegExp("^#"+masked+"\\"+values+".+?"),
 				values: new RegExp("(\\w+)"+pair+"([^"+values+"]+)", "g")
 			};
 		},
@@ -5230,13 +5036,6 @@
 			self.clear();
 			self.opt = self.regex = {};
 			self._super();
-		},
-		getIdNumber: function(){
-			return this.tmpl.id.match(/\d+/g)[0];
-		},
-		getMasked: function(){
-			var self = this, mask = _str.contains(self.opt.mask, "{id}") ? self.opt.mask : self.defaultMask;
-			return _str.format(mask, {id: self.getIdNumber()});
 		},
 		/**
 		 * @summary Check if the supplied value is `"push"` or `"replace"`.
@@ -5255,8 +5054,7 @@
 		 * @returns {boolean}
 		 */
 		exists: function(){
-			this.regex.values.lastIndex = 0; // reset the index as we use the g flag
-			return (this.regex.exists.test(location.hash) || this.regex.masked.test(location.hash)) && this.regex.values.test(location.hash);
+			return this.regex.exists.test(location.hash) && this.regex.values.test(location.hash);
 		},
 		/**
 		 * @summary Parse the current url returning an object containing all values for the template.
@@ -5270,22 +5068,18 @@
 			if (self.exists()){
 				if (self.enabled){
 					state.id = self.tmpl.id;
-					self.regex.values.lastIndex = 0;
 					var pairs = location.hash.match(self.regex.values);
 					$.each(pairs, function(i, pair){
 						var parts = pair.split(self.opt.pair);
 						if (parts.length === 2){
 							state[parts[0]] = parts[1].indexOf(self.opt.array) === -1
-									? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
-									: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
+								? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
+								: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
 							if (_is.string(state[parts[0]]) && !isNaN(state[parts[0]])){
 								state[parts[0]] = parseInt(state[parts[0]]);
 							}
 						}
 					});
-					if (_is.number(state.i)){
-						state.i = state.i + "";
-					}
 				} else {
 					// if we're here it means there is a hash on the url but the option is disabled so remove it
 					if (self.apiEnabled){
@@ -5319,7 +5113,7 @@
 					}
 				});
 				if (hash.length > 0){
-					hash.unshift("#"+self.getMasked());
+					hash.unshift("#"+self.tmpl.id);
 				}
 				return hash.join(self.opt.values);
 			}
@@ -5418,49 +5212,33 @@
 			var self = this, tmpl = self.tmpl;
 			if (_is.hash(state)){
 				tmpl.items.reset();
-
-				var obj = {
-					tags: !!tmpl.filter && !_is.empty(state.f) ? state.f : [],
-					page: !!tmpl.pages ? tmpl.pages.number(state.p) : 0,
-					item: tmpl.items.get(state.i)
-				};
-
-				var e = tmpl.raise("before-state", [obj]);
-				if (!e.isDefaultPrevented()){
-					if (!!tmpl.filter){
-						tmpl.filter.rebuild();
-						tmpl.filter.set(obj.tags, false);
+				var item = tmpl.items.get(state.i);
+				if (tmpl.filter){
+					tmpl.filter.rebuild();
+					var tags = !_is.empty(state.f) ? state.f : [];
+					tmpl.filter.set(tags, false);
+				}
+				if (tmpl.pages){
+					tmpl.pages.rebuild();
+					var page = tmpl.pages.number(state.p);
+					if (item && !tmpl.pages.contains(page, item)){
+						page = tmpl.pages.find(item);
+						page = page !== 0 ? page : 1;
 					}
-					if (!!tmpl.pages){
-						tmpl.pages.rebuild();
-						if (!!obj.item && !tmpl.pages.contains(obj.page, obj.item)){
-							obj.page = tmpl.pages.find(obj.item);
-							obj.page = obj.page !== 0 ? obj.page : 1;
-						}
-						tmpl.pages.set(obj.page, !_is.empty(state), false, true);
-						if (obj.item && tmpl.pages.contains(obj.page, obj.item)){
-							if (self.opt.scrollTo) {
-								obj.item.scrollTo();
-							}
-							if (!_is.empty(state.i)){
-								state.i = null;
-								self.replace(state);
-							}
-						}
-					} else {
-						tmpl.items.detach(tmpl.items.all());
-						tmpl.items.create(tmpl.items.available(), true);
-						if (obj.item){
-							if (self.opt.scrollTo) {
-								obj.item.scrollTo();
-							}
-							if (!_is.empty(state.i)){
-								state.i = null;
-								self.replace(state);
-							}
-						}
+					tmpl.pages.set(page, !_is.empty(state), false, true);
+					if (item && tmpl.pages.contains(page, item)){
+						item.scrollTo();
 					}
-					tmpl.raise("after-state", [obj]);
+				} else {
+					tmpl.items.detach(tmpl.items.all());
+					tmpl.items.create(tmpl.items.available(), true);
+					if (item){
+						item.scrollTo();
+					}
+				}
+				if (!_is.empty(state.i)){
+					state.i = null;
+					self.replace(state);
 				}
 			}
 		},
@@ -5469,9 +5247,7 @@
 	_.template.configure("core", {
 		state: {
 			enabled: false,
-			scrollTo: true,
 			pushOrReplace: "replace",
-			mask: "foogallery-gallery-{id}",
 			values: "/",
 			pair: ":",
 			array: "+"
@@ -5500,10 +5276,10 @@
 	 */
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils.is,
-		FooGallery.utils.str
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils.is,
+	FooGallery.utils.str
 );
 (function ($, _, _utils, _is, _fn, _obj) {
 
@@ -5530,14 +5306,6 @@
 			self.il8n = template.il8n.item;
 			self.sel = template.sel.item;
 			self.opt = _obj.extend({}, template.opt.item, options);
-
-			/**
-			 * @summary The class used to generate this items content if required.
-			 * @memberof FooGallery.Item#
-			 * @name content
-			 * @type {FooGallery.ItemContent}
-			 */
-			self.content = _.components.make(self.opt.type + "-content", template, self);
 
 			/**
 			 * @summary Whether or not the items' elements are appended to the template.
@@ -5639,13 +5407,6 @@
 			 */
 			self.fixLayout = self.tmpl.opt.fixLayout;
 
-			/**
-			 * @memberof FooGallery.Item#
-			 * @name index
-			 * @type {number}
-			 * @default -1
-			 */
-			self.index = -1;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name type
@@ -5829,8 +5590,8 @@
 			 * 			item.$el.off(".foogallery").remove();
 			 * 			item.$el = null;
 			 * 			...
-			 * 			// once all destroy work is complete you must set isDestroyed to true
-			 * 			item.isDestroyed = true;
+			 * 			// once all destroy work is complete you must set tmpl to null
+			 * 			item.tmpl = null;
 			 * 		}
 			 * 	}
 			 * });
@@ -5870,11 +5631,7 @@
 		 */
 		doDestroyItem: function () {
 			var self = this;
-			if (self.content instanceof _.ItemContent){
-				self.content.destroy();
-			}
 			if (self.isParsed) {
-				self.$anchor.add(self.$caption).off("click.foogallery");
 				self.append();
 				if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
 				else self.$el.attr("class", self._undo.classes);
@@ -6659,519 +6416,6 @@
 		FooGallery.utils.fn,
 		FooGallery.utils.obj
 );
-(function($, _, _utils, _is, _fn, _obj, _str){
-
-	_.ItemContent = _.Component.extend({
-		construct: function(template, item){
-			var self = this;
-			self._super(template);
-
-			self.item = item;
-
-			self.opt = _obj.extend({}, self.tmpl.opt.content);
-
-			self.cls = _obj.extend({}, self.tmpl.cls.content);
-
-			self.sel = _obj.extend({}, self.tmpl.sel.content);
-
-			self.$el = null;
-
-			self.$loader = null;
-
-			self.$inner = null;
-
-			self.$item = null;
-
-			self.$content = null;
-
-			self.$caption = null;
-
-			self.isCreated = false;
-
-			self.isDestroyed = false;
-
-			self.isAttached = false;
-
-			self.isLoading = false;
-
-			self.isLoaded = false;
-
-			self.isError = false;
-		},
-		getSize: function(attrWidth, attrHeight, defWidth, defHeight){
-			var self = this, size = {};
-			if (!_is.string(attrWidth) || !_is.string(attrHeight)) return size;
-
-			size[attrWidth] = _is.size(defWidth) ? defWidth : null;
-			size[attrHeight] = _is.size(defHeight) ? defHeight : null;
-
-			if (!self.item.isCreated) return size;
-
-			size[attrWidth] = self.item.$anchor.data(attrWidth) || size[attrWidth];
-			size[attrHeight] = self.item.$anchor.data(attrHeight) || size[attrHeight];
-			return size;
-		},
-		getSizes: function(){
-			var self = this,
-					size = self.getSize("width", "height", self.opt.width, self.opt.height),
-					max = self.getSize("maxWidth", "maxHeight", self.opt.maxWidth, self.opt.maxHeight),
-					min = self.getSize("minWidth", "minHeight", self.opt.minWidth, self.opt.minHeight);
-			return _obj.extend(size, max, min);
-		},
-		getCaptionPosition: function(){
-			var self = this, result = [], exists = self.cls.position.hasOwnProperty(self.opt.caption);
-			if (exists){
-				result.push(self.cls.position[self.opt.caption]);
-				if (self.opt.captionOverlay){
-					result.push(self.cls.captionOverlay);
-				}
-				return result.join(" ");
-			}
-			return null;
-		},
-		setCaptionPosition: function( position, overlay ){
-			var self = this;
-			if (!self.cls.position.hasOwnProperty(position)) return;
-			self.opt.caption = position;
-			if (_is.boolean(overlay)){
-				self.opt.captionOverlay = overlay;
-			}
-			if (self.isCreated){
-				var allPositionsAndOverlay = [self.cls.position.bottom, self.cls.position.top, self.cls.position.left, self.cls.position.right, self.cls.captionOverlay].join(" ");
-				self.$el.removeClass(allPositionsAndOverlay).addClass(self.cls.position[position]);
-				if (self.opt.captionOverlay){
-					self.$el.addClass(self.cls.captionOverlay);
-				}
-			}
-		},
-		destroy: function(){
-			var self = this;
-			/**
-			 * @summary Raised when a template destroys an items' content.
-			 * @event FooGallery.Template~"destroy-content.foogallery"
-			 * @type {jQuery.Event}
-			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-			 * @param {FooGallery.Template} template - The template raising the event.
-			 * @param {FooGallery.ItemContent} content - The content to destroy.
-			 * @returns {boolean} `true` if the {@link FooGallery.Content|`content`} has been successfully destroyed.
-			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroy-content.foogallery": function(event, template, content){
-			 * 			// do something
-			 * 		}
-			 * 	}
-			 * });
-			 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `item` being destroyed.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroy-content.foogallery": function(event, template, content){
-			 * 			if ("some condition"){
-			 * 				// stop the item being destroyed
-			 * 				event.preventDefault();
-			 * 			}
-			 * 		}
-			 * 	}
-			 * });
-			 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroy-content.foogallery": function(event, template, content){
-			 * 			// stop the default logic
-			 * 			event.preventDefault();
-			 * 			// replacing it with your own destroying the item yourself
-			 * 			content.$el.off(".foogallery").remove();
-			 * 			content.$el = null;
-			 * 			...
-			 * 			// once all destroy work is complete you must set isDestroyed to true
-			 * 			content.isDestroyed = true;
-			 * 		}
-			 * 	}
-			 * });
-			 */
-			var e = self.tmpl.raise("destroy-content", [self]);
-			if (!e.isDefaultPrevented()) {
-				self.isDestroyed = self.doDestroyContent();
-			}
-			if (self.isDestroyed) {
-				/**
-				 * @summary Raised after an items' content has been destroyed.
-				 * @event FooGallery.Template~"destroyed-content.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.ItemContent} content - The content that was destroyed.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"destroyed-content.foogallery": function(event, template, content){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-				 */
-				self.tmpl.raise("destroyed-content", [self]);
-				// call the original method that simply nulls the tmpl property
-				self._super();
-			}
-			return self.isDestroyed;
-		},
-		doDestroyContent: function(){
-			var self = this;
-			if (self.isCreated){
-				self.detach();
-				self.$el.remove();
-			}
-			return true;
-		},
-		create: function(){
-			var self = this;
-			if (!self.isCreated && _is.string(self.item.href)) {
-				/**
-				 * @summary Raised when an items' content needs to create its' elements.
-				 * @event FooGallery.Template~"create-content.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.ItemContent} content - The content to create the markup for.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"create-content.foogallery": function(event, template, content){
-				 * 			// do something
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being created.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"create-content.foogallery": function(event, template, content){
-				 * 			if ("some condition"){
-				 * 				// stop the content being created
-				 * 				event.preventDefault();
-				 * 			}
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"create-content.foogallery": function(event, template, content){
-				 * 			// stop the default logic
-				 * 			event.preventDefault();
-				 * 			// replacing it with your own creating each element property of the content yourself
-				 * 			content.$el = $("<div/>");
-				 * 			...
-				 * 			// once all elements are created you must set isCreated to true
-				 * 			content.isCreated = true;
-				 * 		}
-				 * 	}
-				 * });
-				 */
-				var e = self.tmpl.raise("create-content", [self]);
-				if (!e.isDefaultPrevented()) {
-					self.isCreated = self.doCreateContent();
-				}
-				if (self.isCreated) {
-					/**
-					 * @summary Raised after an items' content elements have been created.
-					 * @event FooGallery.Template~"created-content.foogallery"
-					 * @type {jQuery.Event}
-					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.ItemContent} content - The content that was created.
-					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-					 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"created-content.foogallery": function(event, template, content){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-					 */
-					self.tmpl.raise("created-content", [self]);
-				}
-			}
-			return self.isCreated;
-		},
-		doCreateContent: function(){
-			var self = this;
-			self.$el = self.createElem();
-			self.$inner = self.createInner().appendTo(self.$el);
-			self.$item = self.createItem().appendTo(self.$inner);
-			self.$caption = self.createCaption().appendTo(self.$inner);
-			self.$content = self.createContent().appendTo(self.$item);
-			self.$loader = self.createLoader(self.$item);
-			return true;
-		},
-		createContent: function(){
-			var self = this, sizes = self.getSizes();
-			return $('<img/>').addClass(self.cls.content).css(sizes);
-		},
-		createElem: function(){
-			return $('<div/>').addClass(this.cls.elem).addClass(this.tmpl.getLoaderClass()).addClass(this.getCaptionPosition());
-		},
-		createInner: function(){
-			return $('<div/>').addClass(this.cls.inner);
-		},
-		createItem: function(){
-			return $('<div/>').addClass(this.cls.item);
-		},
-		createCaption: function(){
-			return $('<div/>').addClass(this.cls.caption).append(
-					$('<div/>').addClass(this.cls.title).html(this.item.caption),
-					$('<div/>').addClass(this.cls.description).html(this.item.description)
-			);
-		},
-		createLoader: function( parent ){
-			return $('<div/>').addClass(this.cls.loader).appendTo(parent);
-		},
-		appendTo: function( parent ){
-			var self = this;
-			if (!self.isCreated){
-				self.create();
-			}
-			if (self.isCreated && !self.isAttached){
-				/**
-				 * @summary Raised before an items' content is appended to the supplied parent.
-				 * @event FooGallery.Template~"append-content.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.ItemContent} content - The content to append to the parent.
-				 * @param {(string|Element|jQuery)} parent - The parent to append the content to.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"append-content.foogallery": function(event, template, content, parent){
-				 * 			// do something
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being appended.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"append-content.foogallery": function(event, template, content, parent){
-				 * 			if ("some condition"){
-				 * 				// stop the content being appended
-				 * 				event.preventDefault();
-				 * 			}
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"append-content.foogallery": function(event, template, content, parent){
-				 * 			// stop the default logic
-				 * 			event.preventDefault();
-				 * 			// replacing it with your own appending the content to the parent
-				 * 			content.$el.appendTo(parent);
-				 * 			...
-				 * 			// once the content is appended you must set isAttached to true
-				 * 			content.isAttached = true;
-				 * 		}
-				 * 	}
-				 * });
-				 */
-				var e = self.tmpl.raise("append-content", [self, parent]);
-				if (!e.isDefaultPrevented()) {
-					self.isAttached = self.doAppendToContent( parent );
-				}
-				if (self.isAttached) {
-					/**
-					 * @summary Raised after an items' content has been appended to the parent.
-					 * @event FooGallery.Template~"appended-content.foogallery"
-					 * @type {jQuery.Event}
-					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.ItemContent} content - The content that was appended.
-					 * @param {(string|Element|jQuery)} parent - The parent the content was appended to.
-					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-					 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"appended-content.foogallery": function(event, template, content, parent){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-					 */
-					self.tmpl.raise("appended-content", [self, parent]);
-				}
-			}
-			return self.isAttached;
-		},
-		doAppendToContent: function( parent ){
-			this.$el.appendTo( parent );
-			return this.$el.parent().length > 0;
-		},
-		detach: function(){
-			var self = this;
-			if (self.isCreated && self.isAttached) {
-				/**
-				 * @summary Raised when an items' content needs to be detached from its' parent.
-				 * @event FooGallery.Template~"detach-item.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.ItemContent} content - The content to detach.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"detach-content.foogallery": function(event, template, content){
-				 * 			// do something
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being detached.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"detach-content.foogallery": function(event, template, content){
-				 * 			if ("some condition"){
-				 * 				// stop the content being detached
-				 * 				event.preventDefault();
-				 * 			}
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"detach-content.foogallery": function(event, template, content){
-				 * 			// stop the default logic
-				 * 			event.preventDefault();
-				 * 			// replacing it with your own detaching the content from its' parent
-				 * 			content.$el.detach();
-				 * 			...
-				 * 			// once the content is detached you must set isAttached to false
-				 * 			content.isAttached = false;
-				 * 		}
-				 * 	}
-				 * });
-				 */
-				var e = self.tmpl.raise("detach-content", [self]);
-				if (!e.isDefaultPrevented()) {
-					self.isAttached = !self.doDetachContent();
-				}
-				if (!self.isAttached) {
-					/**
-					 * @summary Raised after an items' content has been detached from its' parent.
-					 * @event FooGallery.Template~"detached-content.foogallery"
-					 * @type {jQuery.Event}
-					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.ItemContent} content - The content that was detached.
-					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-					 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"detached-content.foogallery": function(event, template, content){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-					 */
-					self.tmpl.raise("detached-content", [self]);
-				}
-			}
-			return !self.isAttached;
-		},
-		doDetachContent: function(){
-			this.$el.detach();
-			return true;
-		},
-		load: function(){
-			var self = this, cls = self.item.cls;
-			self.isLoading = true;
-			self.isLoaded = false;
-			self.isError = false;
-			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
-			return $.Deferred(function(def){
-				if (!self.isCreated || !self.isAttached){
-					def.rejectWith("not created or attached");
-					return;
-				}
-				var e = self.tmpl.raise("load-content", [self]);
-				if (e.isDefaultPrevented()){
-					def.rejectWith("default prevented");
-					return;
-				}
-				self.doLoadContent().then(def.resolve).fail(def.reject);
-			}).then(function(){
-				self.isLoading = false;
-				self.isLoaded = true;
-				self.$el.removeClass(cls.loading).addClass(cls.loaded);
-				self.tmpl.raise("loaded-content", [self]);
-			}).fail(function(){
-				self.isLoading = false;
-				self.isError = true;
-				self.$el.removeClass(cls.loading).addClass(cls.error);
-				self.tmpl.raise("error-content", [self]);
-			}).promise();
-		},
-		doLoadContent: function(){
-			var self = this;
-			return $.Deferred(function(def){
-				var img = self.$content.get(0);
-				img.onload = function () {
-					img.onload = img.onerror = null;
-					def.resolve(self);
-				};
-				img.onerror = function () {
-					img.onload = img.onerror = null;
-					def.rejectWith("error loading image");
-				};
-				// set everything in motion by setting the src
-				img.src = self.item.href;
-				if (img.complete){
-					img.onload();
-				}
-			}).promise();
-		}
-	});
-
-	_.template.configure("core", {
-		content: {
-			width: null,
-			height: null,
-			minWidth: null,
-			minHeight: null,
-			maxWidth: null,
-			maxHeight: null,
-			caption: null, // null | none | top | bottom | left | right
-			captionOverlay: false,
-			attrs: {}
-		}
-	},{
-		content: {
-			elem: "fg-content-container fg-content-image",
-			inner: "fg-content-inner",
-			item: "fg-content-item",
-			content: "fg-content",
-			caption: "fg-content-caption",
-			captionOverlay: "fg-content-caption-overlay",
-			title: "fg-content-title",
-			description: "fg-content-description",
-			loader: "fg-loader",
-			position: {
-				bottom: "fg-content-caption-bottom",
-				top: "fg-content-caption-top",
-				left: "fg-content-caption-left",
-				right: "fg-content-caption-right"
-			}
-		}
-	});
-
-	_.components.register("item-content", _.ItemContent)
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.fn,
-		FooGallery.utils.obj,
-		FooGallery.utils.str
-);
 (function ($, _, _utils, _is, _fn, _obj) {
 
 	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
@@ -7192,7 +6436,7 @@
 			 * @function _super
 			 */
 			self._super(template);
-			self.maps = {};
+			self.idMap = {};
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -7243,7 +6487,7 @@
 				if (destroyed.length > 0) self.tmpl.raise("destroyed-items", [destroyed]);
 				// should we handle a case where the destroyed.length != items.length??
 			}
-			self.maps = {};
+			self.idMap = {};
 			self._canvas = self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -7291,69 +6535,19 @@
 		available: function () {
 			return this._available.slice();
 		},
-		get: function (idOrIndex) {
-			var map = _is.number(idOrIndex) ? 'index' : 'id';
-			return !!this.maps[map][idOrIndex] ? this.maps[map][idOrIndex] : null;
+		get: function (id) {
+			return !_is.empty(id) && !!this.idMap[id] ? this.idMap[id] : null;
 		},
 		setAll: function (items) {
 			this._arr = _is.array(items) ? items : [];
-			this.maps = this.createMaps(this._arr);
+			this.idMap = this.createIdMap(items);
 			this._available = this.all();
 		},
 		setAvailable: function (items) {
-			this.maps = this.createMaps(this._arr);
 			this._available = _is.array(items) ? items : [];
 		},
 		reset: function () {
 			this.setAvailable(this.all());
-		},
-		first: function(){
-			return this._available.length > 0 ? this._available[0] : null;
-		},
-		last: function(){
-			return this._available.length > 0 ? this._available[this._available.length - 1] : null;
-		},
-		next: function(item, loop){
-			if (!(item instanceof _.Item)) return null;
-			loop = _is.boolean(loop) ? loop : false;
-			var index = this._available.indexOf(item);
-			if (index !== -1){
-				index++;
-				if (index >= this._available.length){
-					if (!loop) return null;
-					index = 0;
-				}
-				return this._available[index];
-			}
-			return null;
-		},
-		prev: function(item, loop){
-			if (!(item instanceof _.Item)) return null;
-			loop = _is.boolean(loop) ? loop : false;
-			var index = this._available.indexOf(item);
-			if (index !== -1){
-				index--;
-				if (index < 0){
-					if (!loop) return null;
-					index = this._available.length - 1;
-				}
-				return this._available[index];
-			}
-			return null;
-		},
-		createMaps: function(items){
-			items = _is.array(items) ? items : [];
-			var maps = {
-				id: {},
-				index: {}
-			};
-			$.each(items, function (i, item) {
-				if (_is.empty(item.id)) item.id = "" + (i + 1);
-				item.index = i;
-				maps.id[item.id] = item;
-				maps.index[item.index] = item;
-			});
-			return maps;
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be loaded.
@@ -7799,6 +6993,14 @@
 				}
 			}
 			return _fn.resolveWith([]);
+		},
+		createIdMap: function (items) {
+			var map = {};
+			$.each(items, function (i, item) {
+				if (_is.empty(item.id)) item.id = "" + (i + 1);
+				map[item.id] = item;
+			});
+			return map;
 		}
 	});
 
@@ -7810,1593 +7012,6 @@
 		FooGallery.utils,
 		FooGallery.utils.is,
 		FooGallery.utils.fn,
-		FooGallery.utils.obj
-);
-(function($, _, _utils, _is, _obj, _fn, _t){
-
-	_.Panel = _.Component.extend({
-		construct: function(template){
-			var self = this;
-			self._super(template);
-
-			self.namespace = self.tmpl.namespace + "-panel";
-
-			self.opt = _obj.extend({}, self.tmpl.opt.panel);
-
-			self.cls = _obj.extend({}, self.tmpl.cls.panel);
-
-			self.sel = _obj.extend({}, self.tmpl.sel.panel);
-
-			self.enabled = self.opt.enabled;
-
-			self.$el = null;
-
-			self.$inner = null;
-
-			self.$buttons = null;
-
-			self.isCreated = false;
-
-			self.isDestroyed = false;
-
-			self.isAttached = false;
-
-			self.isLoading = false;
-
-			self.isLoaded = false;
-
-			self.isError = false;
-
-			self.isExpanded = false;
-
-			self.isCaptionCollapsed = false;
-
-			self.hasTransition = !_is.empty(self.cls.transition[self.opt.transition]);
-
-			self.currentItem = null;
-		},
-		postinit: function(){
-			var self = this;
-			if (self.opt.bindAnchorClick){
-
-			}
-		},
-		destroy: function(){
-			var self = this;
-			/**
-			 * @summary Raised when a template destroys an content panel.
-			 * @event FooGallery.Template~"destroy-panel.foogallery"
-			 * @type {jQuery.Event}
-			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-			 * @param {FooGallery.Template} template - The template raising the event.
-			 * @param {FooGallery.Panel} panel - The panel to destroy.
-			 * @returns {boolean} `true` if the {@link FooGallery.Panel|`panel`} has been successfully destroyed.
-			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroy-panel.foogallery": function(event, template, panel){
-			 * 			// do something
-			 * 		}
-			 * 	}
-			 * });
-			 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `panel` being destroyed.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroy-panel.foogallery": function(event, template, panel){
-			 * 			if ("some condition"){
-			 * 				// stop the panel being destroyed
-			 * 				event.preventDefault();
-			 * 			}
-			 * 		}
-			 * 	}
-			 * });
-			 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroy-panel.foogallery": function(event, template, panel){
-			 * 			// stop the default logic
-			 * 			event.preventDefault();
-			 * 			// replacing it with your own destroying the panel yourself
-			 * 			panel.$el.off(".foogallery").remove();
-			 * 			panel.$el = null;
-			 * 			...
-			 * 			// once all destroy work is complete you must set isDestroyed to true
-			 * 			panel.isDestroyed = true;
-			 * 		}
-			 * 	}
-			 * });
-			 */
-			var e = self.tmpl.raise("destroy-panel", [self]);
-			if (!e.isDefaultPrevented()) {
-				self.isDestroyed = self.doDestroy();
-			}
-			if (self.isDestroyed) {
-				/**
-				 * @summary Raised after a content panel has been destroyed.
-				 * @event FooGallery.Template~"destroyed-panel.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.Panel} panel - The panel that was destroyed.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"destroyed-panel.foogallery": function(event, template, panel){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-				 */
-				self.tmpl.raise("destroyed-panel", [self]);
-				// call the original method that simply nulls the tmpl property
-				self._super();
-			}
-			return self.isDestroyed;
-		},
-		doDestroy: function(){
-			var self = this;
-			self.detach();
-			if (self.isCreated){
-				self.$el.remove();
-			}
-			return true;
-		},
-		create: function(){
-			var self = this;
-			if (!self.isCreated && self.tmpl instanceof _.Template && (self.tmpl.initialized || self.tmpl.initializing)) {
-				/**
-				 * @summary Raised when a template creates a content panel for its' items.
-				 * @event FooGallery.Template~"create-panel.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.Panel} panel - The content panel to create the markup for.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"create-panel.foogallery": function(event, template, panel){
-				 * 			// do something
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `panel` being created.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"create-panel.foogallery": function(event, template, panel){
-				 * 			if ("some condition"){
-				 * 				// stop the panel being created
-				 * 				event.preventDefault();
-				 * 			}
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"create-panel.foogallery": function(event, template, panel){
-				 * 			// stop the default logic
-				 * 			event.preventDefault();
-				 * 			// replacing it with your own creating each element property of the content yourself
-				 * 			panel.$el = $("<div/>");
-				 * 			...
-				 * 			// once all elements are created you must set isCreated to true
-				 * 			panel.isCreated = true;
-				 * 		}
-				 * 	}
-				 * });
-				 */
-				var e = self.tmpl.raise("create-panel", [self]);
-				if (!e.isDefaultPrevented()) {
-					self.isCreated = self.doCreate();
-				}
-				if (self.isCreated) {
-					/**
-					 * @summary Raised after a content panels' elements have been created.
-					 * @event FooGallery.Template~"created-panel.foogallery"
-					 * @type {jQuery.Event}
-					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.Panel} panel - The panel that was created.
-					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-					 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"created-panel.foogallery": function(event, template, panel){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-					 */
-					self.tmpl.raise("created-panel", [self]);
-				}
-			}
-			return self.isCreated;
-		},
-		doCreate: function(){
-			var self = this;
-			self.$el = self.createElem();
-			if (self.opt.keyboard){
-				self.$el.attr("tabindex", -1).on("keydown.foogallery", {self: self}, self.onKeyDown);
-			}
-			if (self.opt.swipe){
-				self.$el.fgswipe({data: {self: self}, swipe: self.onPanelSwipe, allowPageScroll: true});
-			}
-			self.$buttons = $('<div/>').addClass(self.cls.buttons).appendTo(self.$el);
-			self.$inner = $('<div/>').addClass(self.cls.inner).appendTo(self.$el);
-			if (self.opt.buttons.navigation){
-				$('<div/>').addClass(self.cls.prev)
-					.append(_.icon("prev", self.opt.icons))
-					.on("click.foogallery", {self: self}, self.onPrevClick)
-					.appendTo(self.$buttons);
-				$('<div/>').addClass(self.cls.next)
-					.append(_.icon("next", self.opt.icons))
-					.on("click.foogallery", {self: self}, self.onNextClick)
-					.appendTo(self.$buttons);
-			}
-			if (self.opt.buttons.caption){
-				$('<div/>').addClass(self.cls.caption)
-					.append(_.icon("caption", self.opt.icons))
-					.on("click.foogallery", {self: self}, self.onCaptionClick)
-					.appendTo(self.$buttons);
-			}
-			if (self.opt.buttons.expand){
-				$('<div/>').addClass(self.cls.expand)
-					.append(_.icon("expand", self.opt.icons), _.icon("shrink", self.opt.icons))
-					.on("click.foogallery", {self: self}, self.onExpandClick)
-					.appendTo(self.$buttons);
-			}
-			if (self.opt.buttons.close){
-				$('<div/>').addClass(self.cls.close)
-					.append(_.icon("close", self.opt.icons))
-					.on("click.foogallery", {self: self}, self.onCloseClick)
-					.appendTo(self.$buttons);
-			}
-			return true;
-		},
-		createElem: function(){
-			var self = this, transition = self.cls.transition[self.opt.transition] || "";
-			self.hasTransition = !_is.empty(transition);
-			var classes = [self.cls.elem, self.opt.theme, self.opt.highlight, transition, self.tmpl.getLoaderClass(), self.opt.classNames];
-			return $('<div/>').addClass(classes.join(" "));
-		},
-		createLoader: function( parent ){
-			return $('<div/>').addClass(this.cls.loader).appendTo(parent);
-		},
-		appendTo: function( parent ){
-			var self = this;
-			if (!self.isCreated){
-				self.create();
-			}
-			if (self.isCreated && !self.isAttached){
-				/**
-				 * @summary Raised before a content panel is appended to the supplied parent.
-				 * @event FooGallery.Template~"append-panel.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.Panel} panel - The panel to append to the parent.
-				 * @param {(string|Element|jQuery)} parent - The parent to append the content to.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"append-panel.foogallery": function(event, template, panel, parent){
-				 * 			// do something
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `content` being appended.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"append-panel.foogallery": function(event, template, panel, parent){
-				 * 			if ("some condition"){
-				 * 				// stop the content being appended
-				 * 				event.preventDefault();
-				 * 			}
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"append-panel.foogallery": function(event, template, panel, parent){
-				 * 			// stop the default logic
-				 * 			event.preventDefault();
-				 * 			// replacing it with your own appending the content to the parent
-				 * 			panel.$el.appendTo(parent);
-				 * 			...
-				 * 			// once the content is appended you must set isAttached to true
-				 * 			panel.isAttached = true;
-				 * 		}
-				 * 	}
-				 * });
-				 */
-				var e = self.tmpl.raise("append-panel", [self, parent]);
-				if (!e.isDefaultPrevented()) {
-					self.isAttached = self.doAppendTo( parent );
-				}
-				if (self.isAttached) {
-					/**
-					 * @summary Raised after a content panel has been appended to the parent.
-					 * @event FooGallery.Template~"appended-panel.foogallery"
-					 * @type {jQuery.Event}
-					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.Panel} panel - The panel that was appended.
-					 * @param {(string|Element|jQuery)} parent - The parent the content was appended to.
-					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-					 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"appended-panel.foogallery": function(event, template, panel, parent){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-					 */
-					self.tmpl.raise("appended-panel", [self, parent]);
-				}
-			}
-			return self.isAttached;
-		},
-		doAppendTo: function( parent ){
-			var self = this, $parent = $( parent );
-			self.isExpanded = $parent.is("body");
-			if (self.isExpanded){
-				self.$buttons.find(self.sel.expand).hide();
-			}
-			self.tmpl.breakpoints.register(self.$el, self.opt.breakpoints);
-			self.$el.toggleClass(self.cls.expanded, self.isExpanded).appendTo( $parent );
-			return self.$el.parent().length > 0;
-		},
-		detach: function(){
-			var self = this;
-			if (self.isCreated && self.isAttached) {
-				/**
-				 * @summary Raised when a content panel needs to be detached from its' parent.
-				 * @event FooGallery.Template~"detach-panel.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.Panel} panel - The panel to detach.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"detach-panel.foogallery": function(event, template, panel){
-				 * 			// do something
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent the `panel` being detached.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"detach-panel.foogallery": function(event, template, panel){
-				 * 			if ("some condition"){
-				 * 				// stop the content being detached
-				 * 				event.preventDefault();
-				 * 			}
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption You can also prevent the default logic and replace it with your own by calling the `preventDefault` method on the `event` object.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"detach-panel.foogallery": function(event, template, panel){
-				 * 			// stop the default logic
-				 * 			event.preventDefault();
-				 * 			// replacing it with your own detaching the panel from its' parent
-				 * 			panel.$el.detach();
-				 * 			...
-				 * 			// once the panel is detached you must set isAttached to false
-				 * 			panel.isAttached = false;
-				 * 		}
-				 * 	}
-				 * });
-				 */
-				var e = self.tmpl.raise("detach-panel", [self]);
-				if (!e.isDefaultPrevented()) {
-					self.isAttached = !self.doDetach();
-				}
-				if (!self.isAttached) {
-					/**
-					 * @summary Raised after a content panel has been detached from its' parent.
-					 * @event FooGallery.Template~"detached-panel.foogallery"
-					 * @type {jQuery.Event}
-					 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-					 * @param {FooGallery.Template} template - The template raising the event.
-					 * @param {FooGallery.Panel} panel - The panel that was detached.
-					 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-					 * $(".foogallery").foogallery({
-					 * 	on: {
-					 * 		"detached-panel.foogallery": function(event, template, panel){
-					 * 			// do something
-					 * 		}
-					 * 	}
-					 * });
-					 */
-					self.tmpl.raise("detached-panel", [self]);
-				}
-			}
-			return !self.isAttached;
-		},
-		doDetach: function(){
-			var self = this;
-			self.tmpl.breakpoints.remove(self.$el);
-			self.$el.detach();
-			return true;
-		},
-		checkBreakpoints: function(){
-			this.tmpl.breakpoints.check(this.$el);
-		},
-		reverseTransition: function( oldItem, newItem ){
-			if (!(oldItem instanceof _.Item) || !(newItem instanceof _.Item)) return true;
-
-			var result = oldItem.index < newItem.index,
-					last = this.tmpl.items.last();
-			if (last instanceof _.Item && ((newItem.index === 0 && oldItem.index === last.index) || (newItem.index === last.index && oldItem.index === 0))){
-				result = !result;
-			}
-			return result;
-		},
-		load: function( item ){
-			var self = this;
-			item = item instanceof _.Item ? item : self.currentItem;
-			item = item instanceof _.Item ? item : self.tmpl.items.first();
-
-			if (!(item instanceof _.Item)) return _fn.rejectWith("no items to load");
-			if (item === self.currentItem) return _fn.rejectWith("item is currently loaded");
-
-			self.isLoading = true;
-			self.isLoaded = false;
-			self.isError = false;
-			self.$el.removeClass(item.cls.idle).removeClass(item.cls.loaded).removeClass(item.cls.error).addClass(item.cls.loading);
-
-			return $.Deferred(function(def){
-				if (!self.isCreated || !self.isAttached){
-					def.rejectWith("not created or attached");
-					return;
-				}
-				var e = self.tmpl.raise("load-panel", [self, item]);
-				if (e.isDefaultPrevented()){
-					def.rejectWith("default prevented");
-					return;
-				}
-				var reverse = self.reverseTransition( self.currentItem, item );
-				self.doUnload( self.currentItem, reverse );
-				self.currentItem = item;
-				self.doLoad( item, reverse ).then(def.resolve).fail(def.reject);
-			}).always(function(){
-				self.isLoading = false;
-				self.$el.removeClass(item.cls.loading).focus();
-			}).then(function(){
-				self.isLoaded = true;
-				self.$el.addClass(item.cls.loaded);
-				self.tmpl.raise("loaded-panel", [self, item]);
-			}).fail(function(){
-				self.isError = true;
-				self.$el.addClass(item.cls.error);
-				self.tmpl.raise("error-panel", [self, item]);
-			}).promise();
-		},
-		doUnload: function( item, reverseTransition ){
-			var self = this;
-			if (!(item instanceof _.Item) || !item.isCreated) return _fn.resolveWith("no item to unload");
-			return $.Deferred(function(def){
-				item.content.$el.toggleClass(self.cls.reverse, !reverseTransition);
-				if (self.hasTransition){
-					_t.start(item.content.$el, self.cls.visible, false, 350).then(function(){
-						item.content.$el.removeClass(self.cls.reverse);
-						def.resolve();
-					});
-				} else {
-					item.content.$el.removeClass(self.cls.reverse).removeClass(self.cls.visible);
-					def.resolve();
-				}
-			}).promise().always(function(){
-				item.content.detach();
-			});
-		},
-		doLoad: function( item, reverseTransition ){
-			var self = this;
-			if (!item.content.isCreated){
-				item.content.create();
-			}
-			item.content.setCaptionPosition(self.opt.caption, self.opt.captionOverlay);
-			item.content.$el.toggleClass(self.cls.reverse, reverseTransition);
-			item.content.appendTo( self.$inner );
-			var wait = [];
-			wait.push(item.content.load());
-			if (self.hasTransition){
-				wait.push(_t.start(item.content.$el, self.cls.visible, true, 1000));
-			} else {
-				item.content.$el.addClass(self.cls.visible);
-			}
-			return $.when.apply($, wait).promise().always(function(){
-				item.content.$el.removeClass(self.cls.reverse);
-				var state = self.tmpl.state.get( item );
-				self.tmpl.state.update(state);
-			});
-		},
-		open: function( item, parent ){
-			var self = this,
-				e = self.tmpl.raise("open-panel", [self, item, parent]);
-			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
-			return self.doOpen(item, parent).then(function(){
-				self.tmpl.raise("opened-panel", [self, item, parent]);
-			});
-		},
-		doOpen: function( item, parent ){
-			var self = this;
-			return $.Deferred(function(def){
-				item = item instanceof _.Item ? item : self.tmpl.items.first();
-				parent = !_is.empty(parent) ? parent : self.opt.parent;
-				if (!self.isAttached){
-					self.appendTo( parent );
-				}
-				$("html").toggleClass(self.cls.noScrollbars, self.isExpanded && self.opt.noScrollbars);
-				if (self.isAttached){
-					self.load( item ).then(def.resolve).fail(def.reject);
-				} else {
-					def.rejectWith("not attached");
-				}
-			}).promise();
-		},
-		next: function(){
-			var self = this;
-			if (!(self.currentItem instanceof _.Item)) return _fn.rejectWith("no current item");
-			var next = self.tmpl.items.next(self.currentItem, self.opt.loop),
-				e = self.tmpl.raise("next-panel", [self, self.currentItem, next]);
-			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
-			return self.doNext(next).then(function(){
-				self.tmpl.raise("after-next-panel", [self, self.currentItem, next]);
-			});
-		},
-		doNext: function(item){
-			return this.load( item );
-		},
-		prev: function(){
-			var self = this;
-			if (!(self.currentItem instanceof _.Item)) return _fn.rejectWith("no current item");
-			var prev = self.tmpl.items.prev(self.currentItem, self.opt.loop),
-				e = self.tmpl.raise("prev-panel", [self, self.currentItem, prev]);
-			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
-			return self.doPrev(prev).then(function(){
-				self.tmpl.raise("after-prev-panel", [self, self.currentItem, prev]);
-			});
-		},
-		doPrev: function(item){
-			return this.load( item );
-		},
-		close: function(){
-			var self = this,
-				e = self.tmpl.raise("close-panel", [self, self.currentItem]);
-			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
-			return self.doClose().then(function(){
-				self.tmpl.raise("closed-panel", [self]);
-			});
-		},
-		doClose: function(){
-			var self = this;
-			return $.Deferred(function(def){
-				if (self.currentItem instanceof _.Item){
-					self.doUnload(self.currentItem, false).always(function(){
-						def.resolve();
-					});
-				} else {
-					def.resolve();
-				}
-			}).always(function(){
-				self.currentItem = null;
-				self.detach();
-				self.tmpl.state.clear();
-				$("html").removeClass(self.cls.noScrollbars);
-			}).promise();
-		},
-		toggleExpand: function(){
-			var self = this;
-			self.isExpanded = !self.isExpanded;
-			self.$el.toggleClass(self.cls.expanded, self.isExpanded);
-			$("html").toggleClass(self.cls.noScrollbars, self.isExpanded && self.opt.noScrollbars);
-			self.tmpl.breakpoints.check(self.$el);
-		},
-		toggleCaption: function(){
-			var self = this;
-			self.isCaptionCollapsed = !self.isCaptionCollapsed;
-			self.$el.toggleClass(self.cls.captionCollapsed, self.isCaptionCollapsed);
-		},
-		onPrevClick: function(e){
-			e.preventDefault();
-			e.data.self.prev();
-		},
-		onNextClick: function(e){
-			e.preventDefault();
-			e.data.self.next();
-		},
-		onCloseClick: function(e){
-			e.preventDefault();
-			e.data.self.close();
-		},
-		onExpandClick: function(e){
-			e.preventDefault();
-			e.data.self.toggleExpand();
-		},
-		onCaptionClick: function(e){
-			e.preventDefault();
-			e.data.self.toggleCaption();
-		},
-		onKeyDown: function(e){
-			var self = e.data.self;
-			switch (e.which){
-				case 39: self.next(); break;
-				case 37: self.prev(); break;
-				case 27:
-					if (self.isExpanded){
-						self.toggleExpand();
-					} else {
-						self.close();
-					}
-					break;
-				case 13:
-					if (e.altKey){
-						self.toggleExpand();
-					}
-					break;
-			}
-		},
-		onPanelSwipe: function(info, data){
-			var self = data.self;
-			if (info.direction === "E"){
-				self.prev();
-			}
-			if (info.direction === "W"){
-				self.next();
-			}
-		}
-	});
-
-
-	_.template.configure("core", {
-		panel: {
-			enabled: false,
-			classNames: "",
-			theme: "fg-light",
-			highlight: "",
-			parent: "body",
-			transition: "none", // none | fade | horizontal | vertical
-			loop: true,
-			caption: null, // null | none | top | bottom | left | right
-			captionOverlay: false,
-			icons: "default",
-			keyboard: true,
-			noScrollbars: true,
-			swipe: true,
-			buttons: {
-				navigation: true,
-				close: true,
-				expand: true,
-				caption: true
-			},
-			breakpoints: {
-				small: 414,
-				medium: {
-					width: 768,
-					height: 640
-				}
-			}
-		}
-	},{
-		panel: {
-			elem: "fg-panel",
-			expanded: "fg-panel-expanded",
-			inner: "fg-panel-inner",
-			buttons: "fg-panel-buttons",
-			prev: "fg-panel-button fg-panel-prev",
-			next: "fg-panel-button fg-panel-next",
-			close: "fg-panel-button fg-panel-close",
-			expand: "fg-panel-button fg-panel-expand",
-			caption: "fg-panel-button fg-panel-caption",
-			captionCollapsed: "fg-panel-caption-collapsed",
-			noScrollbars: "fg-panel-no-scroll",
-			loader: "fg-loader",
-			visible: "fg-visible",
-			reverse: "fg-reverse",
-			transition: {
-				fade: "fg-panel-fade",
-				horizontal: "fg-panel-horizontal",
-				vertical: "fg-panel-vertical"
-			}
-		}
-	});
-
-	_.components.register("panel", _.Panel);
-
-})(
-	FooGallery.$,
-	FooGallery,
-	FooGallery.utils,
-	FooGallery.utils.is,
-	FooGallery.utils.obj,
-	FooGallery.utils.fn,
-	FooGallery.utils.transition
-);
-(function($, _, _utils, _is){
-
-	_.Video = _.Item.extend({
-		construct: function(template, options){
-			var self = this;
-			self._super(template, options);
-			self.cover = self.opt.cover;
-		},
-		doParseItem: function($element){
-			var self = this;
-			if (self._super($element)){
-				self.cover = self.$anchor.data("cover") || self.cover;
-				self.$el.addClass(self.cls.video);
-				return true;
-			}
-			return false;
-		},
-		doCreateItem: function(){
-			var self = this;
-			if (self._super()){
-				self.$anchor.attr({
-					"data-type": self.type,
-					"data-cover": self.cover
-				});
-				self.$el.addClass(self.cls.video);
-				return true;
-			}
-			return false;
-		}
-	});
-
-	_.template.configure("core", {
-		item: {
-			cover: ""
-		}
-	},{
-		item: {
-			video: "fg-video"
-		}
-	});
-
-	_.components.register("video", _.Video);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function($, _, _utils, _is, _fn, _obj, _url){
-
-	_.VideoContent = _.ItemContent.extend({
-		construct: function(template, item){
-			var self = this;
-			self._super(template, item);
-			_obj.extend(self.opt, self.tmpl.opt.video);
-			_obj.extend(self.cls, self.tmpl.cls.video);
-			_obj.extend(self.sel, self.tmpl.sel.video);
-
-			self.urls = [];
-
-			self.isSelfHosted = false;
-
-			self._autoPlay = self.opt.autoPlay;
-		},
-		parseHref: function(){
-			var self = this, urls = self.item.href.split(','), result = [];
-			for (var i = 0, il = urls.length, url, source; i < il; i++){
-				if (_is.empty(urls[i])) continue;
-				url = _url.parts(urls[i]);
-				source = null;
-				for (var j = 0, jl = self.tmpl.videoSources.length; j < jl; j++){
-					if (self.tmpl.videoSources[j].canPlay(url)){
-						source = self.tmpl.videoSources[j];
-						result.push({
-							parts: url,
-							source: source,
-							embed: source.getEmbedUrl(url, self._autoPlay)
-						});
-						break;
-					}
-				}
-			}
-			return result;
-		},
-		doCreateContent: function(){
-			var self = this;
-			self.urls = self.parseHref();
-			self.isSelfHosted = $.map(self.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
-			return self._super();
-		},
-		createContent: function(){
-			var self = this, sizes = self.getSizes(),
-					$content = self.isSelfHosted ? $('<video/>', self.opt.attrs.video) : $('<iframe/>', self.opt.attrs.iframe);
-			return $content.addClass(self.cls.content).css(sizes);
-		},
-		load: function( autoPlay ){
-			var self = this;
-			self._autoPlay = _is.boolean(autoPlay) ? autoPlay : self.opt.autoPlay;
-			return self._super().always(function(){
-				self._autoPlay = self.opt.autoPlay;
-			});
-		},
-		doLoadContent: function(){
-			var self = this;
-			return $.Deferred(function(def){
-				if (self.urls.length === 0){
-					def.rejectWith("no urls available");
-					return;
-				}
-				var promise = self.isSelfHosted ? self.loadSelfHosted() : self.loadIframe();
-				promise.then(def.resolve).fail(def.reject);
-			}).promise();
-		},
-		loadSelfHosted: function(){
-			var self = this;
-			return $.Deferred(function(def){
-				self.$content.off("loadeddata error");
-				self.$content.find("source").remove();
-				if (!_is.empty(self.item.cover)){
-					self.$content.attr("poster", self.item.cover);
-				}
-				self.$content.on({
-					'loadeddata': function(){
-						self.$content.off("loadeddata error");
-						this.volume = self.opt.volume;
-						if (self._autoPlay){
-							var p = this.play();
-							if (typeof p !== 'undefined'){
-								p.catch(function(){
-									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
-								});
-							}
-						}
-						def.resolve(self);
-					},
-					'error': function(){
-						self.$content.off("loadeddata error");
-						def.reject(self);
-					}
-				});
-				var sources = $.map(self.urls, function(url){
-					var src = url.source.getEmbedUrl(url.parts, self._autoPlay);
-					return $("<source/>", {src: src, mimeType: url.source.mimeType});
-				});
-				self.$content.append(sources);
-				if (self.$content.prop("readyState") > 0){
-					self.$content.get(0).load();
-				}
-			}).promise();
-		},
-		loadIframe: function(){
-			var self = this;
-			return $.Deferred(function(def){
-				if (!_is.empty(self.item.cover)){
-					self.$content.css("background-image", "url('" + self.item.cover + "')");
-				}
-				self.$content.off("load error").on({
-					'load': function(){
-						self.$content.off("load error");
-						def.resolve(self);
-					},
-					'error': function(){
-						self.$content.off("load error");
-						def.reject(self);
-					}
-				});
-				var url = self.urls[0],
-						src = url.source.getEmbedUrl(url.parts, self._autoPlay);
-				self.$content.attr("src", src);
-			}).promise();
-		}
-	});
-
-	_.template.configure("core", {
-		video: {
-			autoPlay: false,
-			volume: 0.2,
-			attrs: {
-				iframe: {
-					src: '',
-					frameborder: 'no',
-					allow: "autoplay; fullscreen",
-					allowfullscreen: true
-				},
-				video: {
-					controls: true,
-					preload: false,
-					controlsList: "nodownload"
-				}
-			}
-		}
-	}, {
-		video: {
-			elem: "fg-content-container fg-content-video",
-			cover: "fg-content-cover"
-		}
-	});
-
-	_.components.register("video-content", _.VideoContent);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.fn,
-		FooGallery.utils.obj,
-		FooGallery.utils.url
-);
-(function(_, _utils, _is, _obj, _url){
-
-
-	_.VideoHelper = _utils.Class.extend({
-		construct: function(playerDefaults){
-			this.playerDefaults = _obj.extend({
-				autoPlay: false,
-				width: null,
-				height: null,
-				minWidth: null,
-				minHeight: null,
-				maxWidth: null,
-				maxHeight: null,
-				attrs: {
-					iframe: {
-						src: '',
-						frameborder: 'no',
-						allow: "autoplay; fullscreen",
-						allowfullscreen: true
-					},
-					video: {
-						controls: true,
-						preload: false,
-						controlsList: "nodownload"
-					}
-				}
-			}, playerDefaults);
-			this.sources = _.videoSources.load();
-		},
-		parseHref: function(href, autoPlay){
-			var self = this, urls = href.split(','), result = [];
-			for (var i = 0, il = urls.length, url, source; i < il; i++){
-				if (_is.empty(urls[i])) continue;
-				url = _url.parts(urls[i]);
-				source = null;
-				for (var j = 0, jl = self.sources.length; j < jl; j++){
-					if (self.sources[j].canPlay(url)){
-						source = self.sources[j];
-						result.push({
-							parts: url,
-							source: source,
-							embed: source.getEmbedUrl(url, autoPlay)
-						});
-						break;
-					}
-				}
-			}
-			return result;
-		},
-		canPlay: function(href){
-			return this.parseHref(href).length > 0;
-		},
-		getPlayer: function(href, options){
-			options = _obj.extend({}, this.playerDefaults, options);
-			var urls = this.parseHref(href, options.autoPlay);
-			return new _.VideoPlayer(urls, options);
-		}
-	});
-
-
-})(
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.obj,
-		FooGallery.utils.url
-);
-(function($, _, _utils, _fn){
-
-
-	_.VideoPlayer = _utils.Class.extend({
-		construct: function(urls, options){
-			this.urls = urls;
-			this.options = options;
-			this.selfHosted = $.map(this.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
-			this.$el = this.$create();
-		},
-		$create: function(){
-			var self = this, o = self.options,
-					$result = self.selfHosted ? $('<video/>', o.attrs.video) : $('<iframe/>', o.attrs.iframe);
-			$result.css({
-				width: o.width, height: o.height,
-				maxWidth: o.maxWidth, maxHeight: o.maxHeight,
-				minWidth: o.minWidth, minHeight: o.minHeight
-			});
-			return $result;
-		},
-		appendTo: function(parent){
-			var self = this, $parent = $(parent);
-			if ($parent.length > 0){
-				if (self.$el.length === 0){
-					self.$el = self.$create();
-				}
-				$parent.append(self.$el);
-			}
-			return self;
-		},
-		load: function(){
-			var self = this;
-			if (self.urls.length === 0){
-				return _fn.rejectWith(Error("No supported urls available."));
-			}
-			if (self.selfHosted){
-				return self.loadSelfHosted();
-			} else {
-				return self.loadEmbed();
-			}
-		},
-		loadSelfHosted: function(){
-			var self = this;
-			self.$el.off("loadeddata error");
-			return $.Deferred(function(def){
-				self.$el.find("source").remove();
-				self.$el.on({
-					'loadeddata': function(){
-						self.$el.off("loadeddata error");
-						this.volume = 0.2;
-						if (self.options.autoPlay){
-							var p = this.play();
-							if (typeof p !== 'undefined'){
-								p.catch(function(){
-									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
-								});
-							}
-						}
-						def.resolve();
-					},
-					'error': function(){
-						self.$el.off("loadeddata error");
-						def.reject(Error('Error loading video: ' + $.map(self.urls, function(url){ return url.embed; }).join(",")));
-					}
-				});
-				var sources = $.map(self.urls, function(url){
-					return $("<source/>", {src: url.embed, mimeType: url.source.mimeType});
-				});
-				self.$el.append(sources);
-				if (self.$el.prop("readyState") > 0){
-					self.$el.get(0).load();
-				}
-			}).promise();
-		},
-		loadEmbed: function(){
-			var self = this;
-			self.$el.off("load error");
-			return $.Deferred(function(def){
-				var src = self.urls[0].embed;
-				self.$el.on({
-					'load': function(){
-						self.$el.off("load error");
-						def.resolve();
-					},
-					'error': function(){
-						self.$el.off("load error");
-						def.reject(Error('Error loading video: ' + src));
-					}
-				});
-				self.$el.attr("src", src);
-			}).promise();
-		},
-		remove: function(){
-			this.$el.off("load loadeddata error").remove();
-		}
-	});
-
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.fn
-);
-(function($, _, _utils, _is, _url, _str){
-
-
-	var _testVideo = document.createElement("video");
-
-	_.VideoSource = _utils.Class.extend({
-		construct: function(mimeType, regex, selfHosted, embedParams, autoPlayParam){
-			this.mimeType = mimeType;
-			this.regex = regex;
-			this.selfHosted = _is.boolean(selfHosted) ? selfHosted : false;
-			this.embedParams = _is.array(embedParams) ? embedParams : [];
-			this.autoPlayParam = _is.hash(autoPlayParam) ? autoPlayParam : {};
-			this.canPlayType = this.selfHosted && _is.fn(_testVideo.canPlayType) ? $.inArray(_testVideo.canPlayType(this.mimeType), ['probably','maybe']) !== -1 : true;
-		},
-		canPlay: function(urlParts){
-			return this.canPlayType && this.regex.test(urlParts.href);
-		},
-		mergeParams: function(urlParts, autoPlay){
-			var self = this;
-			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
-				ip = self.embedParams[i];
-				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
-			}
-			if (!_is.empty(self.autoPlayParam)){
-				urlParts.search = _url.param(urlParts.search, self.autoPlayParam.key, autoPlay ? self.autoPlayParam.value : '');
-			}
-			return urlParts.search;
-		},
-		getId: function(urlParts){
-			var match = urlParts.href.match(/.*\/(.*?)($|\?|#)/);
-			return match && match.length >= 2 ? match[1] : null;
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return _str.join('/', location.protocol, '//', urlParts.hostname, urlParts.pathname) + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources = new _utils.Factory();
-
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.url,
-		FooGallery.utils.str
-);
-(function(_){
-
-
-	_.VideoSource.Mp4 = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/mp4', /\.mp4/i, true);
-		}
-	});
-	_.videoSources.register('video/mp4', _.VideoSource.Mp4);
-
-	_.VideoSource.Webm = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/webm', /\.webm/i, true);
-		}
-	});
-	_.videoSources.register('video/webm', _.VideoSource.Webm);
-
-	_.VideoSource.Wmv = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/wmv', /\.wmv/i, true);
-		}
-	});
-	_.videoSources.register('video/wmv', _.VideoSource.Wmv);
-
-	_.VideoSource.Ogv = _.VideoSource.extend({
-		construct: function(){
-			this._super('video/ogg', /\.ogv|\.ogg/i, true);
-		}
-	});
-	_.videoSources.register('video/ogg', _.VideoSource.Ogv);
-
-
-})(
-		FooGallery
-);
-(function(_){
-
-
-	_.VideoSource.YouTube = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/youtube',
-					/(www.)?youtube|youtu\.be/i,
-					false,
-					[
-						{key: 'modestbranding', value: '1'},
-						{key: 'rel', value: '0'},
-						{key: 'wmode', value: 'transparent'},
-						{key: 'showinfo', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getId: function(urlParts){
-			return /embed\//i.test(urlParts.href)
-					? urlParts.href.split(/embed\//i)[1].split(/[?&]/)[0]
-					: urlParts.href.split(/v\/|v=|youtu\.be\//i)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return 'https://www.youtube-nocookie.com/embed/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/youtube', _.VideoSource.YouTube);
-
-
-})(
-		FooGallery
-);
-(function(_){
-
-	_.VideoSource.Vimeo = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/vimeo',
-					/(player.)?vimeo\.com/i,
-					false,
-					[
-						{key: 'badge', value: '0'},
-						{key: 'portrait', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//player.vimeo.com/video/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/vimeo', _.VideoSource.Vimeo);
-
-})(
-		FooGallery
-);
-(function(_){
-
-	_.VideoSource.Dailymotion = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/daily',
-					/(www.)?dailymotion\.com|dai\.ly/i,
-					false,
-					[
-						{key: 'wmode', value: 'opaque'},
-						{key: 'info', value: '0'},
-						{key: 'logo', value: '0'},
-						{key: 'related', value: '0'}
-					],
-					{key: 'autoplay', value: '1'}
-			);
-		},
-		getId: function(urlParts){
-			return /\/video\//i.test(urlParts.href)
-					? urlParts.href.split(/\/video\//i)[1].split(/[?&]/)[0].split(/[_]/)[0]
-					: urlParts.href.split(/dai\.ly/i)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//www.dailymotion.com/embed/video/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/daily', _.VideoSource.Dailymotion);
-
-})(
-		FooGallery
-);
-(function(_, _is, _url){
-
-	_.VideoSource.Wistia = _.VideoSource.extend({
-		construct: function(){
-			this._super(
-					'video/wistia',
-					/(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
-					false,
-					[],
-					{
-						iframe: {key: 'autoPlay', value: '1'},
-						playlists: {key: 'media_0_0[autoPlay]', value: '1'}
-					}
-			);
-		},
-		getType: function(href){
-			return /playlists\//i.test(href) ? 'playlists' : 'iframe';
-		},
-		mergeParams: function(urlParts, autoPlay){
-			var self = this;
-			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
-				ip = self.embedParams[i];
-				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
-			}
-			if (!_is.empty(self.autoPlayParam)){
-				var param = self.autoPlayParam[self.getType(urlParts.href)];
-				urlParts.search = _url.param(urlParts.search, param.key, autoPlay ? param.value : '');
-			}
-			return urlParts.search;
-		},
-		getId: function(urlParts){
-			return /embed\//i.test(urlParts.href)
-					? urlParts.href.split(/embed\/.*?\//i)[1].split(/[?&]/)[0]
-					: urlParts.href.split(/medias\//)[1].split(/[?&]/)[0];
-		},
-		getEmbedUrl: function(urlParts, autoPlay){
-			var id = this.getId(urlParts);
-			urlParts.search = this.mergeParams(urlParts, autoPlay);
-			return location.protocol + '//fast.wistia.net/embed/'+this.getType(urlParts.href)+'/' + id + urlParts.search + urlParts.hash;
-		}
-	});
-
-	_.videoSources.register('video/wistia', _.VideoSource.Wistia);
-
-})(
-		FooGallery,
-		FooGallery.utils.is,
-		FooGallery.utils.url
-);
-(function($, _, _utils, _is){
-
-	_.Iframe = _.Item.extend({
-		doParseItem: function($element){
-			var self = this;
-			if (self._super($element)){
-				self.$el.addClass(self.cls.iframe);
-				return true;
-			}
-			return false;
-		},
-		doCreateItem: function(){
-			var self = this;
-			if (self._super()){
-				self.$anchor.attr({ "data-type": self.type });
-				self.$el.addClass(self.cls.iframe);
-				return true;
-			}
-			return false;
-		}
-	});
-
-	_.template.configure("core", null,{
-		item: {
-			iframe: "fg-iframe"
-		}
-	});
-
-	_.components.register("iframe", _.Iframe);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function($, _, _utils, _is, _fn, _obj, _url){
-
-	_.IframeContent = _.ItemContent.extend({
-		construct: function(template, item){
-			var self = this;
-			self._super(template, item);
-			_obj.extend(self.opt, self.tmpl.opt.iframe);
-			_obj.extend(self.cls, self.tmpl.cls.iframe);
-			_obj.extend(self.sel, self.tmpl.sel.iframe);
-		},
-		createContent: function(){
-			var self = this, sizes = self.getSizes();
-			return $('<iframe/>', self.opt.attrs).addClass(self.cls.content).css(sizes);
-		},
-		doLoadContent: function(){
-			var self = this;
-			return $.Deferred(function(def){
-				self.$content.off("load error").on({
-					'load': function(){
-						self.$content.off("load error");
-						def.resolve(self);
-					},
-					'error': function(){
-						self.$content.off("load error");
-						def.reject(self);
-					}
-				});
-				self.$content.attr("src", self.item.href);
-			}).promise();
-		}
-	});
-
-	_.template.configure("core", {
-		iframe: {
-			attrs: {
-				src: '',
-				frameborder: 'no',
-				allow: "autoplay; fullscreen",
-				allowfullscreen: true
-			}
-		}
-	}, {
-		iframe: {
-			elem: "fg-content-container fg-content-iframe"
-		}
-	});
-
-	_.components.register("iframe-content", _.IframeContent);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.fn,
-		FooGallery.utils.obj,
-		FooGallery.utils.url
-);
-(function($, _, _utils, _is){
-
-	_.Html = _.Item.extend({
-		doParseItem: function($element){
-			var self = this;
-			if (self._super($element)){
-				self.$el.addClass(self.cls.html);
-				return true;
-			}
-			return false;
-		},
-		doCreateItem: function(){
-			var self = this;
-			if (self._super()){
-				self.$anchor.attr({ "data-type": self.type });
-				self.$el.addClass(self.cls.html);
-				return true;
-			}
-			return false;
-		}
-	});
-
-	_.template.configure("core", null,{
-		item: {
-			html: "fg-html"
-		}
-	});
-
-	_.components.register("html", _.Html);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function($, _, _utils, _is, _fn, _str, _obj){
-
-	_.HtmlContent = _.ItemContent.extend({
-		construct: function(template, item){
-			var self = this;
-			self._super(template, item);
-			_obj.extend(self.opt, self.tmpl.opt.html);
-			_obj.extend(self.cls, self.tmpl.cls.html);
-			_obj.extend(self.sel, self.tmpl.sel.html);
-
-			self.$target = null;
-		},
-		doCreateContent: function(){
-			var self = this;
-
-			if (!_str.startsWith(self.item.href, '#') || (self.$target = $(self.item.href)).length === 0){
-				self.$target = null;
-				return false;
-			}
-
-			return self._super();
-		},
-		createContent: function(){
-			var self = this, sizes = self.getSizes();
-			return $('<div/>', self.opt.attrs).addClass(self.cls.content).css(sizes);
-		},
-		doAppendToContent: function( parent ){
-			var self = this;
-			self.$el.appendTo( parent );
-			self.$content.append( self.$target.contents() );
-			return self.$el.parent().length > 0;
-		},
-		doDetachContent: function(){
-			var self = this;
-			self.$target.append( self.$content.contents() );
-			self.$el.detach();
-			return true;
-		},
-		doLoadContent: function(){
-			var self = this;
-			if (!self.isCreated || !self.isAttached) return _fn.rejectWith("not created or attached");
-			var e = self.tmpl.raise("load-content", [self]);
-			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
-			return _fn.resolveWith(self);
-		}
-	});
-
-	_.template.configure("core", null, {
-		html: {
-			elem: "fg-content-container fg-content-html"
-		}
-	});
-
-	_.components.register("html-content", _.HtmlContent);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.fn,
-		FooGallery.utils.str,
-		FooGallery.utils.obj
-);
-(function($, _, _utils, _is){
-
-	_.Embed = _.Item.extend({
-		construct: function(template, options){
-			var self = this;
-			self._super(template, options);
-			self.cover = self.opt.cover;
-		},
-		doParseItem: function($element){
-			var self = this;
-			if (self._super($element)){
-				self.cover = self.$anchor.data("cover") || self.cover;
-				self.$el.addClass(self.cls.embed);
-				return true;
-			}
-			return false;
-		},
-		doCreateItem: function(){
-			var self = this;
-			if (self._super()){
-				self.$anchor.attr({
-					"data-type": self.type,
-					"data-cover": self.cover
-				});
-				self.$el.addClass(self.cls.embed);
-				return true;
-			}
-			return false;
-		}
-	});
-
-	_.template.configure("core", {
-		item: {
-			cover: ""
-		}
-	},{
-		item: {
-			embed: "fg-video"
-		}
-	});
-
-	_.components.register("embed", _.Embed);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
-);
-(function($, _, _utils, _is, _fn, _str, _obj){
-
-	_.EmbedContent = _.HtmlContent.extend({
-		construct: function(template, item){
-			var self = this;
-			self._super(template, item);
-			_obj.extend(self.opt, self.tmpl.opt.embed);
-			_obj.extend(self.cls, self.tmpl.cls.embed);
-			_obj.extend(self.sel, self.tmpl.sel.embed);
-		}
-	});
-
-	_.template.configure("core", null, {
-		embed: {
-			elem: "fg-content-container fg-content-embed"
-		}
-	});
-
-	_.components.register("embed-content", _.EmbedContent);
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.fn,
-		FooGallery.utils.str,
 		FooGallery.utils.obj
 );
 (function ($, _, _utils, _is) {
@@ -10640,6 +8255,505 @@
 		all: "All",
 		none: "No items found."
 	}, -100);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, _, _utils, _is){
+
+	_.Video = _.Item.extend({
+		construct: function(template, options){
+			var self = this;
+			self._super(template, options);
+			self.cover = self.opt.cover;
+		},
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.cover = self.$anchor.data("cover") || self.cover;
+				self.$el.addClass(self.cls.video);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({
+					"data-type": self.type,
+					"data-cover": self.cover
+				});
+				self.$el.addClass(self.cls.video);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", {
+		item: {
+			cover: ""
+		}
+	},{
+		item: {
+			video: "fg-video"
+		}
+	});
+
+	_.components.register("video", _.Video);
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function(_, _utils, _is, _obj, _url){
+
+
+	_.VideoHelper = _utils.Class.extend({
+		construct: function(playerDefaults){
+			this.playerDefaults = _obj.extend({
+				autoPlay: false,
+				width: null,
+				height: null,
+				minWidth: null,
+				minHeight: null,
+				maxWidth: null,
+				maxHeight: null,
+				attrs: {
+					iframe: {
+						src: '',
+						frameborder: 'no',
+						allow: "autoplay; fullscreen",
+						allowfullscreen: true
+					},
+					video: {
+						controls: true,
+						preload: false,
+						controlsList: "nodownload"
+					}
+				}
+			}, playerDefaults);
+			this.sources = _.videoSources.load();
+		},
+		parseHref: function(href, autoPlay){
+			var self = this, urls = href.split(','), result = [];
+			for (var i = 0, il = urls.length, url, source; i < il; i++){
+				if (_is.empty(urls[i])) continue;
+				url = _url.parts(urls[i]);
+				source = null;
+				for (var j = 0, jl = self.sources.length; j < jl; j++){
+					if (self.sources[j].canPlay(url)){
+						source = self.sources[j];
+						result.push({
+							parts: url,
+							source: source,
+							embed: source.getEmbedUrl(url, autoPlay)
+						});
+						break;
+					}
+				}
+			}
+			return result;
+		},
+		canPlay: function(href){
+			return this.parseHref(href).length > 0;
+		},
+		getPlayer: function(href, options){
+			options = _obj.extend({}, this.playerDefaults, options);
+			var urls = this.parseHref(href, options.autoPlay);
+			return new _.VideoPlayer(urls, options);
+		}
+	});
+
+
+})(
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.obj,
+		FooGallery.utils.url
+);
+(function($, _, _utils, _fn){
+
+
+	_.VideoPlayer = _utils.Class.extend({
+		construct: function(urls, options){
+			this.urls = urls;
+			this.options = options;
+			this.selfHosted = $.map(this.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
+			this.$el = this.$create();
+		},
+		$create: function(){
+			var self = this, o = self.options,
+					$result = self.selfHosted ? $('<video/>', o.attrs.video) : $('<iframe/>', o.attrs.iframe);
+			$result.css({
+				width: o.width, height: o.height,
+				maxWidth: o.maxWidth, maxHeight: o.maxHeight,
+				minWidth: o.minWidth, minHeight: o.minHeight
+			});
+			return $result;
+		},
+		appendTo: function(parent){
+			var self = this, $parent = $(parent);
+			if ($parent.length > 0){
+				if (self.$el.length === 0){
+					self.$el = self.$create();
+				}
+				$parent.append(self.$el);
+			}
+			return self;
+		},
+		load: function(){
+			var self = this;
+			if (self.urls.length === 0){
+				return _fn.rejectWith(Error("No supported urls available."));
+			}
+			if (self.selfHosted){
+				return self.loadSelfHosted();
+			} else {
+				return self.loadEmbed();
+			}
+		},
+		loadSelfHosted: function(){
+			var self = this;
+			self.$el.off("loadeddata error");
+			return $.Deferred(function(def){
+				self.$el.find("source").remove();
+				self.$el.on({
+					'loadeddata': function(){
+						self.$el.off("loadeddata error");
+						this.volume = 0.2;
+						if (self.options.autoPlay){
+							var p = this.play();
+							if (typeof p !== 'undefined'){
+								p.catch(function(){
+									console.log("Unable to autoplay video due to policy changes: https://developers.google.com/web/updates/2017/09/autoplay-policy-changes");
+								});
+							}
+						}
+						def.resolve();
+					},
+					'error': function(){
+						self.$el.off("loadeddata error");
+						def.reject(Error('Error loading video: ' + $.map(self.urls, function(url){ return url.embed; }).join(",")));
+					}
+				});
+				var sources = $.map(self.urls, function(url){
+					return $("<source/>", {src: url.embed, mimeType: url.source.mimeType});
+				});
+				self.$el.append(sources);
+				if (self.$el.prop("readyState") > 0){
+					self.$el.get(0).load();
+				}
+			}).promise();
+		},
+		loadEmbed: function(){
+			var self = this;
+			self.$el.off("load error");
+			return $.Deferred(function(def){
+				var src = self.urls[0].embed;
+				self.$el.on({
+					'load': function(){
+						self.$el.off("load error");
+						def.resolve();
+					},
+					'error': function(){
+						self.$el.off("load error");
+						def.reject(Error('Error loading video: ' + src));
+					}
+				});
+				self.$el.attr("src", src);
+			}).promise();
+		},
+		remove: function(){
+			this.$el.off("load loadeddata error").remove();
+		}
+	});
+
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.fn
+);
+(function($, _, _utils, _is, _url, _str){
+
+
+	var _testVideo = document.createElement("video");
+
+	_.VideoSource = _utils.Class.extend({
+		construct: function(mimeType, regex, selfHosted, embedParams, autoPlayParam){
+			this.mimeType = mimeType;
+			this.regex = regex;
+			this.selfHosted = _is.boolean(selfHosted) ? selfHosted : false;
+			this.embedParams = _is.array(embedParams) ? embedParams : [];
+			this.autoPlayParam = _is.hash(autoPlayParam) ? autoPlayParam : {};
+			this.canPlayType = this.selfHosted && _is.fn(_testVideo.canPlayType) ? $.inArray(_testVideo.canPlayType(this.mimeType), ['probably','maybe']) !== -1 : true;
+		},
+		canPlay: function(urlParts){
+			return this.canPlayType && this.regex.test(urlParts.href);
+		},
+		mergeParams: function(urlParts, autoPlay){
+			var self = this;
+			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
+				ip = self.embedParams[i];
+				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
+			}
+			if (!_is.empty(self.autoPlayParam)){
+				urlParts.search = _url.param(urlParts.search, self.autoPlayParam.key, autoPlay ? self.autoPlayParam.value : '');
+			}
+			return urlParts.search;
+		},
+		getId: function(urlParts){
+			var match = urlParts.href.match(/.*\/(.*?)($|\?|#)/);
+			return match && match.length >= 2 ? match[1] : null;
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return _str.join('/', location.protocol, '//', urlParts.hostname, urlParts.pathname) + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources = new _utils.Factory();
+
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.url,
+		FooGallery.utils.str
+);
+(function(_){
+
+
+	_.VideoSource.Mp4 = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/mp4', /\.mp4/i, true);
+		}
+	});
+	_.videoSources.register('video/mp4', _.VideoSource.Mp4);
+
+	_.VideoSource.Webm = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/webm', /\.webm/i, true);
+		}
+	});
+	_.videoSources.register('video/webm', _.VideoSource.Webm);
+
+	_.VideoSource.Wmv = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/wmv', /\.wmv/i, true);
+		}
+	});
+	_.videoSources.register('video/wmv', _.VideoSource.Wmv);
+
+	_.VideoSource.Ogv = _.VideoSource.extend({
+		construct: function(){
+			this._super('video/ogg', /\.ogv|\.ogg/i, true);
+		}
+	});
+	_.videoSources.register('video/ogg', _.VideoSource.Ogv);
+
+
+})(
+		FooGallery
+);
+(function(_){
+
+
+	_.VideoSource.YouTube = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/youtube',
+					/(www.)?youtube|youtu\.be/i,
+					false,
+					[
+						{key: 'modestbranding', value: '1'},
+						{key: 'rel', value: '0'},
+						{key: 'wmode', value: 'transparent'},
+						{key: 'showinfo', value: '0'}
+					],
+					{key: 'autoplay', value: '1'}
+			);
+		},
+		getId: function(urlParts){
+			return /embed\//i.test(urlParts.href)
+					? urlParts.href.split(/embed\//i)[1].split(/[?&]/)[0]
+					: urlParts.href.split(/v\/|v=|youtu\.be\//i)[1].split(/[?&]/)[0];
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return 'https://www.youtube-nocookie.com/embed/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/youtube', _.VideoSource.YouTube);
+
+
+})(
+		FooGallery
+);
+(function(_){
+
+	_.VideoSource.Vimeo = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/vimeo',
+					/(player.)?vimeo\.com/i,
+					false,
+					[
+						{key: 'badge', value: '0'},
+						{key: 'portrait', value: '0'}
+					],
+					{key: 'autoplay', value: '1'}
+			);
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return location.protocol + '//player.vimeo.com/video/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/vimeo', _.VideoSource.Vimeo);
+
+})(
+		FooGallery
+);
+(function(_){
+
+	_.VideoSource.Dailymotion = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/daily',
+					/(www.)?dailymotion\.com|dai\.ly/i,
+					false,
+					[
+						{key: 'wmode', value: 'opaque'},
+						{key: 'info', value: '0'},
+						{key: 'logo', value: '0'},
+						{key: 'related', value: '0'}
+					],
+					{key: 'autoplay', value: '1'}
+			);
+		},
+		getId: function(urlParts){
+			return /\/video\//i.test(urlParts.href)
+					? urlParts.href.split(/\/video\//i)[1].split(/[?&]/)[0].split(/[_]/)[0]
+					: urlParts.href.split(/dai\.ly/i)[1].split(/[?&]/)[0];
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return location.protocol + '//www.dailymotion.com/embed/video/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/daily', _.VideoSource.Dailymotion);
+
+})(
+		FooGallery
+);
+(function(_, _is, _url){
+
+	_.VideoSource.Wistia = _.VideoSource.extend({
+		construct: function(){
+			this._super(
+					'video/wistia',
+					/(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
+					false,
+					[],
+					{
+						iframe: {key: 'autoPlay', value: '1'},
+						playlists: {key: 'media_0_0[autoPlay]', value: '1'}
+					}
+			);
+		},
+		getType: function(href){
+			return /playlists\//i.test(href) ? 'playlists' : 'iframe';
+		},
+		mergeParams: function(urlParts, autoPlay){
+			var self = this;
+			for (var i = 0, il = self.embedParams.length, ip; i < il; i++){
+				ip = self.embedParams[i];
+				urlParts.search = _url.param(urlParts.search, ip.key, ip.value);
+			}
+			if (!_is.empty(self.autoPlayParam)){
+				var param = self.autoPlayParam[self.getType(urlParts.href)];
+				urlParts.search = _url.param(urlParts.search, param.key, autoPlay ? param.value : '');
+			}
+			return urlParts.search;
+		},
+		getId: function(urlParts){
+			return /embed\//i.test(urlParts.href)
+					? urlParts.href.split(/embed\/.*?\//i)[1].split(/[?&]/)[0]
+					: urlParts.href.split(/medias\//)[1].split(/[?&]/)[0];
+		},
+		getEmbedUrl: function(urlParts, autoPlay){
+			var id = this.getId(urlParts);
+			urlParts.search = this.mergeParams(urlParts, autoPlay);
+			return location.protocol + '//fast.wistia.net/embed/'+this.getType(urlParts.href)+'/' + id + urlParts.search + urlParts.hash;
+		}
+	});
+
+	_.videoSources.register('video/wistia', _.VideoSource.Wistia);
+
+})(
+		FooGallery,
+		FooGallery.utils.is,
+		FooGallery.utils.url
+);
+(function($, _, _utils, _is){
+
+	_.Embed = _.Item.extend({
+		construct: function(template, options){
+			var self = this;
+			self._super(template, options);
+			self.cover = self.opt.cover;
+		},
+		doParseItem: function($element){
+			var self = this;
+			if (self._super($element)){
+				self.cover = self.$anchor.data("cover") || self.cover;
+				self.$el.addClass(self.cls.embed);
+				return true;
+			}
+			return false;
+		},
+		doCreateItem: function(){
+			var self = this;
+			if (self._super()){
+				self.$anchor.attr({
+					"data-type": self.type,
+					"data-cover": self.cover
+				});
+				self.$el.addClass(self.cls.embed);
+				return true;
+			}
+			return false;
+		}
+	});
+
+	_.template.configure("core", {
+		item: {
+			cover: ""
+		}
+	},{
+		item: {
+			embed: "fg-video"
+		}
+	});
+
+	_.components.register("embed", _.Embed);
 
 })(
 		FooGallery.$,
@@ -11901,275 +10015,1165 @@
 		FooGallery,
 		FooGallery.utils.obj
 );
-(function($, _, _is, _fn, _t){
+(function($, _, _utils, _is){
 
-	_.GridPro = _.Component.extend({
-		/**
-		 * Setup/Teardown Methods
-		 **/
-		construct: function( template, options ){
-			var self = this;
-			self._super( template );
+	var uid = -1;
 
-			self.opt = options;
+	/**
+	 * The FooGrid plugin imitates Google's image result viewer, thumbnails are laid out in a grid and when clicked a
+	 * details panel is shown with more information.
+	 * @param {(HTMLElement|jQuery)} element - The container element for the gallery.
+	 * @param {object} options - The options for the plugin.
+	 * @returns {FooGrid}
+	 */
+	function FooGrid(element, options){
+		if (!(this instanceof FooGrid)) return new FooGrid(element, options);
+		this.$el = $(element).addClass('foogrid');
+		this.options = this._options(options, this.$el.data());
+		this.id = this.options.id || uid--;
+		this.deeplinking = new FooGrid.Deeplinking(this);
+		this.parser = new FooGrid.Parser(this.options.parser);
+		this.content = new FooGrid.Content(this);
+		this.items = [];
+		this.disableTransitions = false;
+	}
 
-			self.$el = null;
+	FooGrid.defaults = {
+		id: null,
+		scroll: true,
+		scrollOffset: 0,
+		scrollSmooth: true,
+		loop: true,
+		index: null,
+		external: '_blank',
+		externalText: null,
+		keyboard: true,
+		transitionRow: true,
+		transitionOpen: true,
+		deeplinking: false,
+		deeplinkingPrefix: 'foogrid',
+		video: {}, // see the FooGridPlayer.js file for defaults
+		parser: {} // see the FooGridParser.js file for defaults
+	};
 
-			self.isFirst = true;
-		},
-		preinit: function(){
-			var self = this;
-			self.$el = $('<section/>', {'class': 'foogrid-content'});
-			self.tmpl.panel.opt.transition = "none";
-			if (self.tmpl.$el.hasClass("foogrid-transition-horizontal")){
-				self.tmpl.panel.opt.transition = "horizontal";
-			}
-			if (self.tmpl.$el.hasClass("foogrid-transition-vertical")){
-				self.tmpl.panel.opt.transition = "vertical";
-			}
-			if (self.tmpl.$el.hasClass("foogrid-transition-fade")){
-				self.tmpl.panel.opt.transition = "fade";
-			}
-			if (self.tmpl.$el.hasClass("foogrid-caption-below")){
-				self.tmpl.panel.opt.caption = "bottom";
-			}
-			if (self.tmpl.$el.hasClass("foogrid-caption-right")){
-				self.tmpl.panel.opt.caption = "right";
-			}
-		},
-		init: function(){
-			var self = this;
+	FooGrid.prototype.init = function(){
+		this.layout(true);
+	};
 
-		},
-		destroy: function(){
-			var self = this;
-
-			self.$el.remove();
-			self._super();
-		},
-		layout: function(refresh, index){
-			var self = this;
-			if (refresh){
-
-			}
-		},
-
-		onParsedOrCreatedItem: function(item){
-			if (!item.isError){
-				var self = this;
-				item.$anchor
-					.on("click.gg", {self: self, item: item}, self.onAnchorClick);
-			}
-		},
-
-		/**
-		 * Util Methods
-		 **/
-
-		transitionsEnabled: function(){
-			return _t.supported && !this.disableTransitions && this.tmpl.panel.hasTransition;
-		},
-
-		isNewRow: function( item ){
-			var self = this,
-				oldTop = self.getOffsetTop(self.tmpl.panel.currentItem),
-				newTop = self.getOffsetTop(item);
-			return oldTop !== newTop;
-		},
-
-		getOffsetTop: function(item){
-			return item instanceof _.Item && item.isCreated ? item.$el.offset().top : 0;
-		},
-
-		scrollTo: function(scrollTop, when, duration){
-			var self = this;
-
-			scrollTop = (_is.number(scrollTop) ? scrollTop : 0) - (+self.opt.scrollOffset);
-			when = _is.boolean(when) ? when : true;
-			duration = _is.number(duration) ? duration : 300;
-
-			var $wp = $('#wpadminbar'), $page = $('html, body');
-			if ($wp.length === 1){
-				scrollTop -= $wp.height();
-			}
-
-			return $.Deferred(function(d){
-				if (!self.opt.scroll || !when){
-					d.resolve();
-				} else if (self.opt.scrollSmooth && !self.tmpl.panel.isExpanded){
-					$page.animate({ scrollTop: scrollTop }, duration, function(){
-						d.resolve();
-					});
-				} else {
-					$page.scrollTop(scrollTop);
-					d.resolve();
-				}
+	FooGrid.prototype.layout = function(refresh, index){
+		var self = this;
+		if (refresh){
+			$.each(self.items, function(i, item){
+				item.destroy();
 			});
-		},
-
-		/**
-		 * Public Methods
-		 **/
-
-		open: function(item){
-			var self = this;
-			if (item.index !== -1){
-				var pnl = self.tmpl.panel,
-					newRow = self.isNewRow(item);
-				if (pnl.currentItem instanceof _.Item && newRow && !pnl.isExpanded){
-					return self.doClose(newRow).then(function(){
-						return self.doOpen(item, newRow);
-					});
-				}
-				return self.doOpen(item, newRow);
-			}
-			return $.when();
-		},
-		doOpen: function(item, newRow){
-			var self = this, pnl = self.tmpl.panel;
-			return $.Deferred(function(def){
-
-				self.scrollTo(self.getOffsetTop(item), newRow || self.isFirst).then(function(){
-
-					item.$el.after(self.$el);
-					if (!pnl.isAttached) pnl.appendTo(self.$el);
-
-					if (self.transitionsEnabled() && !pnl.isExpanded && ((self.opt.transitionOpen && self.isFirst) || (self.opt.transitionRow && newRow))){
-						self.isFirst = false;
-						_t.start(self.$el, "foogrid-visible", true, 350).then(function(){
-							def.resolve();
-						});
-					} else {
-						self.$el.addClass('foogrid-visible');
-						def.resolve();
-					}
-
-				});
-
-			}).then(function(){
-				return pnl.load(item);
-			}).then(function(){
-				self.tmpl.breakpoints.check();
-				self.$el.focus();
-				self.isBusy = false;
-				return self.scrollTo(self.getOffsetTop(item), true);
-			}).promise();
-		},
-		close: function(immediate){
-			immediate = _is.boolean(immediate) ? immediate : false;
-			var self = this;
-			self.disableTransitions = immediate;
-			return self.doClose(false).then(function(){
-				self.disableTransitions = false;
+			self.items = $.map($.makeArray(self.$el.find('.fg-item')), function(li, i){
+				return new FooGrid.Item(self, li, i);
 			});
-		},
-		doClose: function(newRow){
-			var self = this, pnl = self.tmpl.panel;
-			return $.Deferred(function(def){
-				if (pnl.currentItem instanceof _.Item){
-					pnl.doClose().then(function(){
-						if (self.transitionsEnabled() && !pnl.isExpanded && ((self.opt.transitionRow && newRow) || (self.opt.transitionOpen && !newRow))){
-							_t.start(self.$el, "foogrid-visible", false, 350).then(function(){
-								def.resolve();
-							});
-						} else {
-							self.$el.removeClass("foogrid-visible");
-							def.resolve();
-						}
-					});
-				}
-			}).always(function(){
-				if (!newRow){
-					pnl.detach();
-					self.$el.detach();
-					self.isFirst = true;
-				}
-			}).promise();
-		},
-		toggle: function(item){
-			var self = this, pnl = self.tmpl.panel;
-			if (item instanceof _.Item){
-				if (pnl.currentItem === item){
-					return self.close();
-				} else {
-					return self.open(item);
-				}
-			}
-			return _fn.reject();
-		},
-
-		/**
-		 * Event Handlers
-		 **/
-		onAnchorClick: function(e){
-			e.preventDefault();
-			e.data.self.toggle(e.data.item);
-			// var self = e.data.self, item = e.data.item,
-			// 	state = self.tmpl.state.get(item);
-			// self.tmpl.state.update(state);
-			// self.tmpl.panel.show( item, self.$el );
 		}
-	});
+		self.content.layout(refresh, index);
+	};
+
+	FooGrid.prototype.destroy = function(){
+		$.each(this.items, function(i, item){
+			item.destroy();
+		});
+		this.content.destroy();
+		this.parser.destroy();
+		this.deeplinking.destroy();
+	};
+
+	FooGrid.prototype._options = function(options, data){
+		var o = $.extend(true, {}, FooGrid.defaults, options);
+		if (_is.number(data.id)) o.id = data.id;
+		if (_is.boolean(data.loop)) o.loop = data.loop;
+		if (_is.boolean(data.scroll)) o.scroll = data.scroll;
+		if (_is.boolean(data.scrollSmooth)) o.scrollSmooth = data.scrollSmooth;
+		if (_is.boolean(data.scrollOffset)) o.scrollOffset = data.scrollOffset;
+		if (_is.string(data.external)) o.external = data.external;
+		if (_is.string(data.externalText)) o.externalText = data.externalText;
+		if (_is.boolean(data.keyboard)) o.keyboard = data.keyboard;
+		if (_is.boolean(data.transitionRow)) o.transitionRow = data.transitionRow;
+		if (_is.boolean(data.transitionOpen)) o.transitionOpen = data.transitionOpen;
+		if (_is.boolean(data.deeplinking)) o.deeplinking = data.deeplinking;
+		if (_is.string(data.deeplinkingPrefix)) o.deeplinkingPrefix = data.deeplinkingPrefix;
+		return o;
+	};
+
+	FooGrid.prototype.redraw = function(){
+		this.content.redraw();
+	};
+
+	FooGrid.prototype.captions = function(){
+		return this.$el.hasClass('foogrid-caption-below') || this.$el.hasClass('foogrid-caption-right');
+	};
+
+	FooGrid.prototype.transitions = function(){
+		return !this.disableTransitions && (this.$el.hasClass('foogrid-transition-fade') || this.$el.hasClass('foogrid-transition-horizontal') || this.$el.hasClass('foogrid-transition-vertical'));
+	};
+
+	FooGrid.prototype.open = function(index){
+		return this.content.open(index);
+	};
+
+	FooGrid.prototype.toggle = function(index){
+		return this.content.toggle(index);
+	};
+
+	FooGrid.prototype.prev = function(){
+		return this.content.prev();
+	};
+
+	FooGrid.prototype.next = function(){
+		return this.content.next();
+	};
+
+	FooGrid.prototype.isActive = function(){
+		return this.content.active instanceof FooGrid.Item;
+	};
+
+	FooGrid.prototype.close = function(immediate){
+		immediate = _is.boolean(immediate) ? immediate : false;
+		var self = this;
+		self.disableTransitions = immediate;
+		return self.content.close().then(function(){
+			self.disableTransitions = false;
+		});
+	};
+
+	_.FooGrid = FooGrid;
+
+	$.fn.foogrid = function(options){
+		return this.each(function(i, el){
+			var $this = $(this), grid = $this.data('__FooGrid__');
+			if (_is(grid, FooGrid)){
+				grid.destroy();
+			}
+			$this.data('__FooGrid__', new FooGrid(el, options));
+		});
+	};
 
 })(
 		FooGallery.$,
 		FooGallery,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, F, _utils, _is){
+
+	if (!F) return;
+
+	F.Parser = function(options){
+		if (!(this instanceof F.Parser)) return new F.Parser(options);
+		this._init(options);
+	};
+
+	F.Parser.defaults = {
+		url: ['attr:href','data:url','data:image','data:video'],
+		external: ['data:external','attr:href','data:url','data:image','data:video'],
+		type: {
+			image: /\.(jpg|jpeg|png|gif|bmp)/i,
+			video: /youtube(-nocookie)?\.com\/(watch|v|embed)|youtu\.be|vimeo\.com|\.mp4|\.ogv|\.wmv|\.webm|(.+)?(wistia\.(com|net)|wi\.st)\/.*|(www.)?dailymotion\.com|dai\.ly/i,
+			iframe: /^(?!.*?(youtube(-nocookie)?\.com\/(watch|v|embed)|youtu\.be|vimeo\.com|\.mp4|\.ogv|\.wmv|\.webm|(.+)?(wistia\.(com|net)|wi\.st)\/.*|(www.)?dailymotion\.com|dai\.ly|\.(jpg|jpeg|png|gif|bmp)($|\?|#)))https?:\/\/.*?/i,
+			html: /^#.+?$/i
+		},
+		thumbnail: ['attr:src','data:thumbnail'],
+		title: ['data:captionTitle','data:title','attr:title'],
+		description: ['data:captionDesc','data:description','attr:alt'],
+		width: ['data:width'],
+		height: ['data:height']
+	};
+
+	F.Parser.prototype._init = function(options){
+		this.options = $.extend(true, {}, F.Parser.defaults, options);
+		this._a = document.createElement('a');
+	};
+
+	F.Parser.prototype.destroy = function(){
+
+	};
+
+	F.Parser.prototype.parse = function($anchor){
+		var type = this._type($anchor),
+				width = parseInt(this._width($anchor)),
+				height = parseInt(this._height($anchor));
+		var content = {
+			url: this._url($anchor, type),
+			external: this._external($anchor),
+			type: type,
+			title: this._title($anchor),
+			description: this._description($anchor),
+			width: isNaN(width) ? 0 : width,
+			height: isNaN(height) ? 0 : height
+		};
+		if (type === 'video' || type === 'embed'){
+			content.thumbnail = this._thumbnail($anchor);
+		}
+		return _is.string(content.url) ? content : null;
+	};
+
+	F.Parser.prototype._full_url = function(url){
+		this._a.href = url;
+		return this._a.href;
+	};
+
+	F.Parser.prototype._parse = function($elem, source){
+		var tmp, value = null, _val = function($e, s){
+			var parts = s.split(':');
+			return parts.length === 2 && $e instanceof $ && _is.fn($e[parts[0]]) ? $e[parts[0]](parts[1]) : null;
+		};
+		if (_is.string(source)){
+			value = _val($elem, source);
+		} else if (_is.array(source)){
+			$.each(source, function(i, src){
+				if (!_is.undef(tmp = _val($elem, src)) && tmp !== null){
+					value = tmp;
+					return false;
+				}
+			});
+		}
+		return value;
+	};
+
+	F.Parser.prototype._url = function($anchor, type){
+		var url = this._parse($anchor, this.options.url);
+		return type === 'embed' ? url : this._full_url(url);
+	};
+
+	F.Parser.prototype._external = function($anchor){
+		var url = this._parse($anchor, this.options.external);
+		return this._full_url(url);
+	};
+
+	F.Parser.prototype._type = function($anchor){
+		var tmp; // first check if the type is supplied and valid
+		if (_is.string(tmp = $anchor.data('type')) && (tmp in this.options.type || tmp === 'embed')){
+			return tmp;
+		}
+		// otherwise perform a best guess using the href and any parser.type values
+		tmp = $anchor.attr('href');
+		var regex = this.options.type, type = null;
+		$.each(['image','video','html','iframe'], function(i, name){
+			if (regex[name] && regex[name].test(tmp)){
+				type = name;
+				return false;
+			}
+		});
+		return type;
+	};
+
+	F.Parser.prototype._thumbnail = function($anchor){
+		var $img, tmp;
+		if (($img = $anchor.find('img')).length !== 0){
+			if (tmp = this._parse($img, this.options.thumbnail)){
+				return tmp;
+			}
+		}
+		return null;
+	};
+
+	F.Parser.prototype._title = function($anchor){
+		return this._parse($anchor, this.options.title);
+	};
+
+	F.Parser.prototype._description = function($anchor){
+		var tmp;
+		if (tmp = this._parse($anchor, this.options.description)){
+			return tmp;
+		}
+		var $img;
+		if (($img = $anchor.find('img')).length !== 0){
+			if (tmp = this._parse($img, this.options.description)){
+				return tmp;
+			}
+		}
+		return null;
+	};
+
+	F.Parser.prototype._width = function($anchor){
+		return this._parse($anchor, this.options.width);
+	};
+
+	F.Parser.prototype._height = function($anchor){
+		return this._parse($anchor, this.options.height);
+	};
+
+})(
+		FooGallery.$,
+		FooGallery.FooGrid,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, _, F, _utils, _is, _transition){
+
+	if (!F) return;
+
+	F.Content = function(grid){
+		if (!(this instanceof F.Content)) return new F.Content(grid);
+		this._init(grid);
+	};
+
+	F.Content.prototype._init = function(grid){
+		this.grid = grid;
+		this.index = this.grid.options.index;
+		this.active = null;
+		this.$prev = null;
+		this.$next = null;
+		this.$close = null;
+		this.$fullscreen = null;
+		this.$external = null;
+		this.$wrap = $('<div/>');
+		this.fullscreen = false;
+		this.busy = false;
+		this.first = true;
+		this.$li = this.$createContent();
+	};
+
+	F.Content.prototype.destroy = function(){
+		this.$prev.off('click.gg', this.onPrevClick);
+		this.$next.off('click.gg', this.onNextClick);
+		this.$close.off('click.gg', this.onCloseClick);
+		this.$fullscreen.off('click.gg', this.onFullscreenClick);
+		this.$wrap.remove();
+		this.$li.remove();
+		this.index = this.grid.options.index;
+		this.active = this.$prev = this.$next = this.$close = this.$fullscreen = this.$external = this.$wrap = null;
+		this.fullscreen = false;
+		this.busy = false;
+	};
+
+	F.Content.prototype.layout = function(refresh, index){
+		if (refresh){
+			this.index = _is.number(index) ? index : 0;
+			this.active = null;
+			this.fullscreen = false;
+			this.busy = false;
+			this.first = true;
+		}
+		this._loop();
+	};
+
+	F.Content.prototype.redraw = function(){
+		this._loop();
+	};
+
+	F.Content.prototype.$createContent = function(){
+		var $content = $('<section/>', {'class': 'foogrid-content'});
+		$content.append(this.$createNav());
+		if (this.grid.options.keyboard){
+			$content.attr('tabindex', 1).on('keydown', {self: this}, this.onKeyDown);
+		}
+		return $content;
+	};
+
+	F.Content.prototype.$createNav = function(){
+		this.$prev = $('<span/>', {'class': 'foogrid-nav-prev'}).on('click.gg', {self: this}, this.onPrevClick).append('<i/>');
+		this.$next = $('<span/>', {'class': 'foogrid-nav-next'}).on('click.gg', {self: this}, this.onNextClick).append('<i/>');
+		this.$close = $('<span/>', {'class': 'foogrid-nav-close'}).on('click.gg', {self: this}, this.onCloseClick);
+		this.$fullscreen = $('<span/>', {'class': 'foogrid-nav-fullscreen'}).on('click.gg', {self: this}, this.onFullscreenClick);
+		this.$external = $('<a/>', {'class': 'foogrid-nav-external', target: this.grid.options.external});
+		if (_is.string(this.grid.options.externalText) && this.grid.options.externalText !== ''){
+			this.$external.addClass('foogrid-external-text').html(this.grid.options.externalText);
+		}
+		return [this.$prev, this.$next, this.$close, this.$fullscreen, this.$external];
+	};
+
+	F.Content.prototype._index = function(index){
+		index = index || 0;
+		var length = this.grid.items.length;
+		if (index > -1 && index < length){
+			this.index = index;
+		} else if (length > 0 && index < 0){
+			this.index = this.grid.options.loop ? length - 1 : 0;
+		} else if (length > 0 && index >= length){
+			this.index = this.grid.options.loop ? 0 : length - 1;
+		} else {
+			this.index = null;
+		}
+	};
+
+	F.Content.prototype._loop = function(){
+		if (this.index == 0 && !this.grid.options.loop){
+			this.$prev.addClass('foogrid-disabled');
+		} else {
+			this.$prev.removeClass('foogrid-disabled');
+		}
+		if (this.index == this.grid.items.length - 1 && !this.grid.options.loop){
+			this.$next.addClass('foogrid-disabled');
+		} else {
+			this.$next.removeClass('foogrid-disabled');
+		}
+	};
+
+	F.Content.prototype.scrollTo = function(scrollTop, condition, duration){
+		var self = this, $wpadminbar;
+		scrollTop = (_is.number(scrollTop) ? scrollTop : 0) - (+self.grid.options.scrollOffset);
+		condition = _is.boolean(condition) ? condition : true;
+		duration = _is.number(duration) ? duration : 300;
+		if (($wpadminbar = $('#wpadminbar')).length === 1){
+			scrollTop -= $wpadminbar.height();
+		}
+		return $.Deferred(function(d){
+			if (!self.grid.options.scroll || !condition){
+				d.resolve();
+			} else if (self.grid.options.scrollSmooth && !self.fullscreen){
+				$('html, body').animate({ scrollTop: scrollTop }, duration, function(){
+					d.resolve();
+				});
+			} else {
+				$('html, body').scrollTop(scrollTop);
+				d.resolve();
+			}
+		});
+	};
+
+	F.Content.prototype._open = function(item, diff_row, reverse){
+		var self = this;
+		return $.Deferred(function(d){
+			if (item instanceof F.Item){
+				//var first = !jQuery.contains(document, self.$li.get(0));
+				if (item.hasCaption){
+					self.$li.addClass('foogrid-has-caption');
+				} else {
+					self.$li.removeClass('foogrid-has-caption');
+				}
+
+				self.scrollTo(item.$li.offset().top, diff_row || self.first).then(function(){
+					if ((self.first || diff_row) && !self.fullscreen){
+						item.$li.after(self.$li);
+					}
+					self.$external.attr('href', item.content.external);
+					if (self.grid.transitions() && !self.fullscreen && ((self.grid.options.transitionOpen && self.first) || (self.grid.options.transitionRow && diff_row))){
+						self.first = false;
+						_transition.start(self.$li, 'foogrid-visible', true, 350).then(function(){
+							d.resolve();
+						});
+					} else {
+						d.resolve();
+					}
+				});
+			} else {
+				d.resolve();
+			}
+		}).always(function(){
+			self._loop();
+			self.$li.addClass('foogrid-visible').focus();
+			self.active = item;
+			if (self.grid && self.grid.deeplinking) self.grid.deeplinking.set(item);
+			self.busy = false;
+			return item.open(reverse).then(function(){
+				return self.scrollTo(item.$li.offset().top, true);
+			});
+		});
+	};
+
+	F.Content.prototype.open = function(index){
+		if (this.busy) return $.when();
+		this.busy = true;
+		this._index(index);
+		if (_is.number(this.index) && this.grid.items[this.index] instanceof F.Item){
+			var self = this,
+				prev = this.active,
+				next = this.grid.items[this.index],
+				last = this.grid.items.length - 1,
+				reverse = true,
+				diff_row = false,
+				bottom, old_bottom;
+
+			// hide previously displayed content
+			if (prev instanceof F.Item){
+				bottom = next.bottom();
+				old_bottom = prev.bottom();
+				diff_row = bottom != old_bottom;
+				reverse = prev.index < next.index;
+				if (next.index === 0 && prev.index === last || next.index === last && prev.index === 0) reverse = !reverse;
+				self.$li.removeClass('foogrid-has-caption');
+				if (diff_row && !self.fullscreen){
+					self.busy = false;
+					return self.close(reverse, diff_row).then(function(){
+						self.busy = true;
+						return self._open(next, diff_row, reverse);
+					});
+				}
+				prev.close(reverse);
+			}
+			return self._open(next, diff_row, reverse);
+		}
+		return $.when();
+	};
+
+	F.Content.prototype.close = function(reverse, diff_row){
+		if (this.busy) return $.when();
+		this.busy = true;
+		var self = this;
+		return $.Deferred(function(d){
+			if (self.active instanceof F.Item){
+				self.active.close(reverse).then(function(){
+					if (self.grid.transitions() && !self.fullscreen && ((self.grid.options.transitionRow && diff_row) || (self.grid.options.transitionOpen && !diff_row))){
+						_transition.start(self.$li, 'foogrid-visible', false, 350).then(function(){
+							d.resolve();
+						});
+					} else {
+						d.resolve();
+					}
+				});
+			} else {
+				d.resolve();
+			}
+		}).always(function(){
+			self.$li.removeClass('foogrid-visible foogrid-has-caption foogrid-fullscreen').detach();
+			self.$prev.add(self.$next).removeClass('foogrid-disabled');
+			self.fullscreen = false;
+			self.active = null;
+			if (self.grid && self.grid.deeplinking) self.grid.deeplinking.clear();
+			self.busy = false;
+			if (!diff_row) self.first = true;
+		});
+	};
+
+	F.Content.prototype.toggle = function(index){
+		if (this.busy) return $.when();
+		this._index(index);
+		if (_is.number(this.index) && this.grid.items[this.index] instanceof F.Item){
+			if (this.active === this.grid.items[this.index]){
+				return this.close();
+			} else {
+				return this.open(index);
+			}
+		}
+		return $.when();
+	};
+
+	F.Content.prototype.prev = function(){
+		if (_is.number(this.index)){
+			return this.open(this.index - 1);
+		}
+		return $.when();
+	};
+
+	F.Content.prototype.next = function(){
+		if (_is.number(this.index)){
+			return this.open(this.index + 1);
+		}
+		return $.when();
+	};
+
+	F.Content.prototype.toggleFullscreen = function(){
+		if (this.$li.hasClass('foogrid-fullscreen')){
+			this.active.$li.after(this.$li.removeClass('foogrid-fullscreen'));
+			this.$wrap.remove();
+			this.$li.focus();
+			this.fullscreen = false;
+		} else {
+			this.$wrap.attr('class', this.grid.$el.attr('class')).append(this.$li.addClass('foogrid-fullscreen')).appendTo('body');
+			this.$li.focus();
+			this.fullscreen = true;
+		}
+		var ul = this.grid.$el.get(0);
+		ul.style.display = 'none';
+		ul.offsetHeight;
+		ul.style.display = '';
+	};
+
+	F.Content.prototype.onPrevClick = function(e){
+		e.preventDefault();
+		var self = e.data.self;
+		if (!self.$prev.hasClass('foogrid-disabled')){
+			self.prev();
+		}
+	};
+
+	F.Content.prototype.onNextClick = function(e){
+		e.preventDefault();
+		var self = e.data.self;
+		if (!self.$next.hasClass('foogrid-disabled')){
+			self.next();
+		}
+	};
+
+	F.Content.prototype.onCloseClick = function(e){
+		e.preventDefault();
+		e.data.self.close();
+	};
+
+	F.Content.prototype.onFullscreenClick = function(e){
+		e.preventDefault();
+		e.data.self.toggleFullscreen();
+	};
+
+	F.Content.prototype.onKeyDown = function(e){
+		var self = e.data.self;
+		switch (e.which){
+			case 39: self.next(); break;
+			case 37: self.prev(); break;
+			case 27:
+				if (self.fullscreen){
+					self.toggleFullscreen();
+				} else {
+					self.close();
+				}
+				break;
+			case 13:
+				if (e.altKey){
+					self.toggleFullscreen();
+				}
+				break;
+		}
+	};
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.FooGrid,
+		FooGallery.utils,
 		FooGallery.utils.is,
-		FooGallery.utils.fn,
 		FooGallery.utils.transition
 );
-(function($, _, _obj){
+(function($, F, _utils, _is, _transition){
+
+	if (!F) return;
+
+	F.Item = function(grid, li, index){
+		if (!(this instanceof F.Item)) return new F.Item(grid, li, index);
+		this._init(grid, li, index);
+	};
+
+	F.Item.prototype._init = function(grid, li, index){
+		this.grid = grid;
+		this.index = index;
+		this.$li = $(li).append('<span/>');
+		this.$link = this.$li.find('.fg-thumb').first().on('click.gg', {self: this}, this.onClick);
+		this.visible = false;
+		this.content = this.grid.parser.parse(this.$link);
+		this.hash = this.grid.deeplinking.hash(this.content.external);
+		this.hasCaption = false;
+		this.isCreated = false;
+		this.player = null;
+		this.$content = null;
+	};
+
+	F.Item.prototype.destroy = function(){
+		if (this.player){
+			this.player.destroy();
+		}
+		this.player = null;
+		this.$li.removeClass('foogrid-visible').children('span').remove();
+		this.$link.off('click.gg', this.onClick);
+		if (this.isCreated){
+			this.$content.remove();
+		}
+		this.$content = null;
+		this.visible = false;
+		this.hasCaption = false;
+		this.isCreated = false;
+		this.index = null;
+		this.content = {};
+	};
+
+	F.Item.prototype.$create = function(){
+		var $inner = $('<div/>', {'class': 'foogrid-content-inner'}),
+			$caption, $content;
+
+		switch (this.content.type){
+			case 'image':
+				$inner.addClass('foogrid-content-image');
+				$content = $('<img/>', {src: this.content.url, 'class': 'foogrid-image'});
+				break;
+			case 'html':
+				$inner.addClass('foogrid-content-html');
+				$content = $(this.content.url).contents();
+				break;
+			case 'embed':
+				$inner.addClass('foogrid-content-embed');
+				$content = $('<div/>', {'class': 'foogrid-embed'}).append($(this.content.url).contents());
+				break;
+			case 'video':
+				$inner.addClass('foogrid-content-video');
+				this.player = new F.Player(this.grid, this.content.url);
+				$content = this.player.$el;
+				break;
+			case 'iframe':
+			default:
+				$inner.addClass('foogrid-content-iframe');
+				$content = $('<iframe/>', {
+					src: this.content.url, 'class': 'foogrid-iframe', frameborder: 'no',
+					webkitallowfullscreen: true, mozallowfullscreen: true, allowfullscreen: true
+				});
+				break;
+		}
+		$inner.append($content);
+		if ($caption = this.$createCaption()){
+			this.hasCaption = true;
+			$inner.addClass('foogrid-has-caption').append($caption);
+		}
+
+		this.isCreated = true;
+		return $inner;
+	};
+
+	F.Item.prototype.$createCaption = function(){
+		var has_title = _is.string(this.content.title), has_desc = _is.string(this.content.description);
+		if (has_title || has_desc){
+			var $caption = $('<div/>', {'class': 'foogrid-caption'}).append($('<div/>', {'class': 'foogrid-caption-separator'}));
+			if (has_title){
+				$caption.append($('<h4/>', {'class': 'foogrid-title'}).html(this.content.title));
+			}
+			if (has_desc){
+				$caption.append($('<p/>', {'class': 'foogrid-description'}).html(this.content.description));
+			}
+			return $caption;
+		}
+		return null;
+	};
+
+	F.Item.prototype.setEmbedSize = function(){
+		var ah = this.$content.height(), ch = this.content.height,
+				aw = this.$content.width(), cw = this.content.width,
+				rh = ah / ch, rw = aw / cw, ratio = 0;
+
+		if (rh < rw){
+			ratio = rh;
+		} else {
+			ratio = rw;
+		}
+
+		if (ratio > 0 && ratio < 1){
+			this.$content.children('.foogrid-embed').css({height: this.content.height * ratio, width: this.content.width * ratio});
+		} else {
+			this.$content.children('.foogrid-embed').css({height: '', width: ''});
+		}
+	};
+
+	F.Item.prototype.open = function(reverse){
+		var self = this;
+		return $.Deferred(function(d){
+			if (!self.isCreated){
+				self.$content = self.$create();
+			}
+			self.visible = true;
+			if (reverse){
+				self.$content.addClass('foogrid-reverse');
+			} else {
+				self.$content.removeClass('foogrid-reverse');
+			}
+			self.grid.content.$li.append(self.$content);
+
+			self.$li.addClass('foogrid-visible');
+			if (self.grid.transitions()){
+				_transition.start(self.$content, 'foogrid-visible', true, 1000).then(function(){
+					if (self.content.type === 'embed'){
+						$(window).on('resize.foogrid', function(){
+							self.setEmbedSize();
+						});
+						self.setEmbedSize();
+					}
+
+					self.$content.removeClass('foogrid-reverse');
+					if (self.player && self.player.options.autoplay){
+						self.player.play();
+					}
+					d.resolve();
+				});
+			} else {
+				self.$content.removeClass('foogrid-reverse').addClass('foogrid-visible');
+				if (self.player && self.player.options.autoplay){
+					self.player.play();
+				}
+				d.resolve();
+			}
+		});
+	};
+
+	F.Item.prototype.close = function(reverse){
+		var self = this;
+		return $.Deferred(function(d){
+			self.visible = false;
+			if (self.player instanceof F.Player){
+				self.player.pause();
+			}
+			self.$li.removeClass('foogrid-visible');
+			if (reverse){
+				self.$content.removeClass('foogrid-reverse');
+			} else {
+				self.$content.addClass('foogrid-reverse');
+			}
+			$(window).off('resize.foogrid');
+			if (self.grid.transitions()){
+				_transition.start(self.$content, 'foogrid-visible', false, 350).then(function(){
+					self.$content.removeClass('foogrid-reverse').detach();
+					d.resolve();
+				});
+			} else {
+				self.$content.removeClass('foogrid-visible foogrid-reverse').detach();
+				d.resolve();
+			}
+		});
+	};
+
+	F.Item.prototype.bottom = function(){
+		var offset = this.$li.offset().top, height = this.$li.height();
+		return offset + height;
+	};
+
+	F.Item.prototype.onClick = function(e){
+		e.preventDefault();
+		var self = e.data.self;
+		self.grid.toggle(self.index);
+	};
+
+})(
+		FooGallery.$,
+		FooGallery.FooGrid,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.transition
+);
+(function($, F, _utils, _is){
+
+	F.Video = function(url, autoplay){
+		if (!(this instanceof F.Video)) return new F.Video(url, autoplay);
+		this._init(url, autoplay);
+	};
+
+	F.Video.prototype._init = function(url, autoplay){
+		this.autoplay = !!autoplay;
+		this._parse(url);
+		this._mimeType(url);
+
+		var ua = navigator.userAgent.toLowerCase(), ie = ua.indexOf('msie ') > -1 || ua.indexOf('trident/') > -1 || ua.indexOf('edge/') > -1, ie8orless = !document.addEventListener;
+		this.direct = this.hasMimeType ? $.inArray(this.mimeType, ['video/mp4','video/wmv','video/ogg','video/webm']) !== -1 : false;
+		this.supported = this.hasMimeType ? (this.direct ? $.inArray(this.mimeType, ie ? ie8orless ? [] : ['video/mp4','video/wmv'] : ['video/mp4','video/ogg','video/webm']) !== -1 : true) : false;
+	};
+
+	F.Video.prototype._parse = function(url){
+		var parts = url.split('#');
+		this.hash = parts.length == 2 ? '#'+parts[1] : '';
+		parts = parts[0].split('?');
+		this.url = parts[0];
+		var match = this.url.match(/.*\/(.*)$/);
+		this.id = match && match.length >= 2 ? match[1] : null;
+		this.protocol = url.substring(0,5) == 'https' ? 'https:' : 'http:';
+		this.params = [];
+		var params = (parts.length == 2 ? parts[1] : '').split(/[&;]/g);
+		for (var i = 0, len = params.length, pair; i < len; i++){
+			pair = params[i].split('=');
+			if (pair.length != 2) continue;
+			this.params.push({key: decodeURIComponent(pair[0]), value: decodeURIComponent(pair[1])});
+		}
+	};
+
+	F.Video.prototype._mimeType = function(url){
+		this.mimeTypes = { // list of supported mimeTypes and the regex used to test a url
+			'video/youtube': /(www.)?youtube|youtu\.be/i,
+			'video/vimeo': /(player.)?vimeo\.com/i,
+			'video/wistia': /(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
+			'video/daily': /(www.)?dailymotion\.com|dai\.ly/i,
+			'video/mp4': /\.mp4/i,
+			'video/webm': /\.webm/i,
+			'video/wmv': /\.wmv/i,
+			'video/ogg': /\.ogv/i
+		};
+		this.mimeType = null;
+		for (var name in this.mimeTypes){
+			if (this.mimeTypes.hasOwnProperty(name) && this.mimeTypes[name].test(url))
+				this.mimeType = name;
+		}
+		this.hasMimeType = this.mimeType !== null;
+
+		if (this.mimeType == 'video/youtube'){
+			this.id = /embed\//i.test(this.url)
+				? this.url.split(/embed\//i)[1].split(/[?&]/)[0]
+				: url.split(/v\/|v=|youtu\.be\//i)[1].split(/[?&]/)[0];
+			this.url = this.protocol + '//www.youtube.com/embed/' + this.id;
+			if (this.autoplay) this.param('autoplay', '1');
+			this.param('modestbranding', '1');
+			this.param('rel', '0');
+			this.param('wmode', 'transparent');
+			this.param('showinfo', '0');
+		} else if (this.mimeType == 'video/vimeo'){
+			this.id = this.url.substr(this.url.lastIndexOf('/')+1);
+			this.url = this.protocol + '//player.vimeo.com/video/' + this.id;
+			if (this.autoplay) this.param('autoplay', '1');
+			this.param('badge', '0');
+			this.param('portrait', '0');
+		} else if (this.mimeType == 'video/wistia'){
+			this.id = /embed\//i.test(this.url)
+				? this.url.split(/embed\/.*?\//i)[1].split(/[?&]/)[0]
+				: this.url.split(/medias\//)[1].split(/[?&]/)[0];
+			var playlist = /playlists\//i.test(this.url);
+			this.url = this.protocol + '//fast.wistia.net/embed/'+(playlist ? 'playlists' : 'iframe')+'/'+this.id;
+			if (this.autoplay){
+				if (playlist) this.param('media_0_0[autoPlay]', '1');
+				else this.param('autoPlay', '1');
+			}
+			this.param('theme', '');
+		} else if (this.mimeType == 'video/daily'){
+			this.id = /\/video\//i.test(this.url)
+				? this.url.split(/\/video\//i)[1].split(/[?&]/)[0].split(/[_]/)[0]
+				: url.split(/dai\.ly/i)[1].split(/[?&]/)[0];
+			this.url = this.protocol + '//www.dailymotion.com/embed/video/' + this.id;
+			if (this.autoplay) this.param('autoplay', '1');
+			this.param('wmode', 'opaque');
+			this.param('info', '0');
+			this.param('logo', '0');
+			this.param('related', '0');
+		}
+	};
+
+	F.Video.prototype.param = function(key, value){
+		var GET = typeof value === 'undefined', DELETE = typeof value === 'string' && value === '';
+		for (var i = this.params.length; i-- > 0;) {
+			if (this.params[i].key == key) {
+				if (GET) return this.params[i].value;
+				if (DELETE) this.params.splice(i, 1);
+				else this.params[i].value = value;
+				return;
+			}
+		}
+		if (!GET && !DELETE) this.params.push({key: key, value: value});
+	};
+
+	F.Video.prototype.toString = function(){
+		var params = this.params.length > 0 ? '?' : '';
+		for (var i = 0, len = this.params.length; i < len; i++){
+			if (i != 0) params += '&';
+			params += encodeURIComponent(this.params[i].key) + '=' + encodeURIComponent(this.params[i].value);
+		}
+		return this.url + params + this.hash;
+	};
+
+})(
+		FooGallery.$,
+		FooGallery.FooGrid,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, F, _utils, _is){
+
+	if (!F) return;
+
+	F.Player = function(grid, url){
+		if (!(this instanceof F.Player)) return new F.Player(grid, url);
+		this._init(grid, url);
+	};
+
+	F.Player.defaults = {
+		width: 1280,
+		height: 720,
+		autoplay: true
+	};
+
+	F.Player.prototype._init = function(grid, url){
+		this.grid = grid;
+		this.options = $.extend(true, {}, F.Player.defaults, this.grid.options);
+		this.urls = this._parse(url);
+		this.direct = this._direct();
+		this.$video = null;
+		this.$el = this.$create();
+		if (this.$video instanceof $){
+			this.video = this.$video[0];
+		}
+	};
+
+	F.Player.prototype._parse = function(url){
+		if (typeof url === 'string'){
+			url = url.split(',');
+			for (var i = 0, len = url.length; i < len; i++){
+				url[i] = new F.Video($.trim(url[i]), this.options.autoplay);
+			}
+			return url;
+		}
+		return [];
+	};
+
+	F.Player.prototype._direct = function(){
+		if (!document.addEventListener) return false;
+		for (var i = 0, len = this.urls.length; i < len; i++){
+			if (this.urls[i].direct && this.urls[i].supported) return true;
+		}
+		return false;
+	};
+
+	F.Player.prototype.$create = function(){
+		var $wrap = $('<div/>', {'class': 'foogrid-video'})
+			.css({width: '100%',height: '100%',maxWidth: this.options.width,maxHeight: this.options.height});
+
+		if (this.direct){
+			this.$video = this.$createVideo(this.urls);
+			this.video = this.$video.get(0);
+			return $wrap.append(this.$video);
+		} else if (this.urls.length > 0 && !this.urls[0].direct) {
+			return $wrap.append(this.$video = this.$createEmbed(this.urls[0]));
+		}
+		return null;
+	};
+
+	F.Player.prototype.play = function(){
+		if (this.video && this.video instanceof HTMLVideoElement){
+			this.video.load();
+			this.video.play();
+		}
+	};
+
+	F.Player.prototype.pause = function(){
+		if (this.video && this.video instanceof HTMLVideoElement){
+			this.video.pause();
+		}
+	};
+
+	F.Player.prototype.destroy = function(){
+		if (this.direct && this.$video){
+			this.$video.off('error loadeddata');
+		}
+		this.$el.remove();
+		this.$el = null;
+	};
+
+	F.Player.prototype.$createVideo = function(urls){
+		var $el = $('<video/>', { controls: true, preload: false })
+			.css({width: '100%',height: '100%'});
+
+		var el = $el[0], src = [];
+		function onerror(){
+			for (var i = 0, len = src.length; i < len; i++){
+				src[0].removeEventListener('error', onerror, false);
+			}
+			el.removeEventListener('error', onerror, false);
+			el.removeEventListener('loadeddata', onloadeddata, false);
+		}
+
+		for (var i = 0, len = urls.length, $src; i < len; i++){
+			if (urls[i].direct){
+				$src = $('<source/>', { type: urls[i].mimeType, src: urls[i].toString() });
+				$src[0].addEventListener('error', onerror, false);
+				src.push($src[0]);
+				$el.append($src);
+			}
+		}
+
+		function onloadeddata(){
+			for (var i = 0, len = src.length; i < len; i++){
+				src[0].removeEventListener('error', onerror, false);
+			}
+			el.removeEventListener('loadeddata', onloadeddata, false);
+			el.removeEventListener('error', onerror, false);
+		}
+		el.addEventListener('error', onerror, false);
+		el.addEventListener('loadeddata', onloadeddata, false);
+
+		if (el.readyState < 4) el.load();
+		else onloadeddata();
+		return $el;
+	};
+
+	F.Player.prototype.$createEmbed = function(url){
+		return $('<iframe/>', {
+			src: url, frameborder: 'no', allow: "autoplay; fullscreen",
+			width: this.options.width, height: this.options.height,
+			webkitallowfullscreen: true, mozallowfullscreen: true, allowfullscreen: true
+		}).css({width: '100%',height: '100%'});
+	};
+
+})(
+		FooGallery.$,
+		FooGallery.FooGrid,
+		FooGallery.utils,
+		FooGallery.utils.is
+);
+(function($, F, _utils, _is, _str){
+
+	if (!F) return;
+
+	F.Deeplinking = function(grid){
+		if (!(this instanceof F.Deeplinking)) return new F.Deeplinking(grid);
+		this._init(grid);
+	};
+
+	F.Deeplinking.prototype._init = function(grid){
+		this.grid = grid;
+		if (this.grid.options.deeplinking && window.history){
+			$(window).on('popstate', {self: this}, this.onPopState);
+			var self = this;
+			setTimeout(function(){
+				self.check();
+			}, 500);
+		}
+	};
+
+	F.Deeplinking.prototype.destroy = function(){
+		if (this.grid.options.deeplinking && window.history){
+			$(window).off('popstate', this.onPopState);
+		}
+	};
+
+	F.Deeplinking.prototype.onPopState = function(e){
+		e.data.self.check();
+	};
+
+	F.Deeplinking.prototype.hash = function(value){
+		return ['#!'+this.grid.options.deeplinkingPrefix, this.grid.id, _str.fnv1a(value)].join('/');
+	};
+
+	F.Deeplinking.prototype.check = function(){
+		var self = this,
+			current = location.hash,
+			check = '#!'+self.grid.options.deeplinkingPrefix+'/';
+
+		if (_is.string(current) && current.length >= check.length && current.substr(0, check.length) === check){
+			var parts = current.split('/');
+			if (parts.length === 3){
+				var id = parts[1];
+				if (self.grid.id == id){
+					$.each(self.grid.items, function(i, item){
+						if (item.hash == current){
+							self.grid.content.open(item.index);
+							return false;
+						}
+					});
+				}
+			}
+		}
+	};
+
+	F.Deeplinking.prototype.clear = function(){
+		if (this.grid.options.deeplinking && window.history){
+			history.replaceState(null, '', location.href.split('#')[0]);
+		}
+	};
+
+	F.Deeplinking.prototype.set = function(item){
+		if (this.grid.options.deeplinking && window.history){
+			history.replaceState(null, item.content.title, item.hash);
+		}
+	};
+
+})(
+		FooGallery.$,
+		FooGallery.FooGrid,
+		FooGallery.utils,
+		FooGallery.utils.is,
+		FooGallery.utils.str
+);
+(function($, _, _utils){
 
 	_.FooGridTemplate = _.Template.extend({
 		construct: function(options, element){
-			var self = this;
-			self._super(_obj.extend({}, options, {
-				panel: {
-					enabled: true
-				}
-			}), element);
-			self.foogrid = new _.GridPro( self, self.template );
-			self.hadState = false;
+			this._super(options, element);
+			this.wasActive = false;
 		},
 		onPreInit: function(event, self){
-			self.foogrid.preinit();
+			self.foogrid = new _.FooGrid( self.$el.get(0), self.template, self );
 		},
 		onInit: function(event, self){
 			self.foogrid.init();
 		},
-		onDestroy: function(event, self){
-			self.foogrid.destroy();
-		},
-		onNextPanel: function(event, self, panel, currentItem, nextItem){
-			event.preventDefault();
-			self.foogrid.open(nextItem);
-		},
-		onPrevPanel: function(event, self, panel, currentItem, prevItem){
-			event.preventDefault();
-			self.foogrid.open(prevItem);
-		},
-		onClosePanel: function(event, self, panel){
-			event.preventDefault();
-			self.foogrid.close();
-		},
-		onParsedItem: function(event, self, item){
-			self.foogrid.onParsedOrCreatedItem(item);
-		},
-		onCreatedItem: function(event, self, item){
-			self.foogrid.onParsedOrCreatedItem(item);
-		},
-		onAfterState: function(event, self, state){
-			if (!!state.item){
-				self.foogrid.layout(true, state.item.index);
-				self.foogrid.open(state.item.index);
-				self.hadState = true;
-			}
-		},
 		onFirstLoad: function(event, self){
-			self.foogrid.layout(!self.hadState);
+			self.foogrid.layout(true);
 		},
 		onReady: function(event, self){
 			self.foogrid.layout();
+		},
+		onDestroy: function(event, self){
+			self.foogrid.destroy();
 		},
 		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
 			if (!isFilter){
@@ -12189,61 +11193,40 @@
 		}
 	});
 
-	_.template.register("foogrid", _.FooGridTemplate, {
-		template: {
-			scroll: true,
-			scrollOffset: 0,
-			scrollSmooth: true,
-			loop: true,
-			external: '_blank',
-			externalText: null,
-			keyboard: true,
-			transitionRow: true,
-			transitionOpen: true
-		},
-		panel: {
-			enabled: true,
-			theme: "fg-light",
-			highlight: "fg-highlight-blue",
-			caption: "none"
-		}
-	}, {
+	_.template.register("foogrid", _.FooGridTemplate, null, {
 		container: "foogallery foogrid"
 	});
 
 })(
 		FooGallery.$,
 		FooGallery,
-		FooGallery.utils.obj
+		FooGallery.utils
 );
-(function($, _, _utils, _is, _obj, _fn, _transition){
+(function ($, _, _utils, _is, _obj, _fn, _transition) {
 
-	_.Slider = _.Component.extend({
-		construct: function(template){
+	_.SliderTemplate = _.Template.extend({
+		construct: function (options, element) {
 			var self = this;
-			self._super(template);
-
-			self.opt = self.tmpl.opt.template;
-			self.cls = self.tmpl.cls.template;
-			self.sel = self.tmpl.sel.template;
-
-			self.allBreakpointClasses = $.map(self.opt.breakpoints, function(breakpoint){ return breakpoint.classes; }).join(' ');
-
+			self._super(_obj.extend({}, options, {
+				paging: {
+					type: "none"
+				}
+			}), element);
 			self.$contentContainer = $();
 			self.$contentStage = $();
 			self.$itemContainer = $();
 			self.$itemStage = $();
 			self.$itemPrev = $();
 			self.$itemNext = $();
-
-			self.horizontal = self.opt.horizontal;
-			self.noCaptions = self.opt.noCaptions;
-			self.useViewport = self.opt.useViewport;
-			self.breakpoints = self.opt.breakpoints;
-			self.allowPageScroll = self.opt.allowPageScroll;
-			self.contentNav = self.opt.contentNav;
-
-			self._current = null;
+			self.selected = null;
+			self.helper = new _.VideoHelper(self.template.player);
+			self.horizontal = self.template.horizontal;
+			self.noCaptions = self.template.noCaptions;
+			self.useViewport = self.template.useViewport;
+			self.breakpoints = self.template.breakpoints;
+			self.allowPageScroll = self.template.allowPageScroll;
+			self.contentNav = self.template.contentNav;
+			self.allBreakpointClasses = $.map(self.breakpoints, function(breakpoint){ return breakpoint.classes; }).join(' ');
 			self._contentWidth = 0;
 			self._contentHeight = 0;
 			self._firstVisible = -1;
@@ -12268,38 +11251,37 @@
 			];
 		},
 		destroyChildren: function(){
-			var self = this, $tmpl = self.tmpl.$el;
-			$tmpl.append($tmpl.find(self.tmpl.sel.item.elem));
-			self.$contentContainer.remove();
-			self.$itemContainer.remove();
+			var self = this, $items = self.$el.find(self.sel.item.elem).detach();
+			self.$el.find(self.sel.contentContainer).remove();
+			self.$el.find(self.sel.itemContainer).remove();
+			self.$el.append($items);
 		},
 		getContainerWidth: function(){
-			var self = this, $tmpl = self.tmpl.$el, visible = $tmpl.is(':visible');
+			var self = this, visible = self.$el.is(':visible');
 			if (!visible){
-				return $tmpl.parents(':visible:first').innerWidth();
+				return self.$el.parents(':visible:first').innerWidth();
 			}
-			return $tmpl.outerWidth();
+			return self.$el.outerWidth();
 		},
-		preinit: function(){
-			var self = this, $tmpl = self.tmpl.$el;
-			self.$contentContainer = $tmpl.find(self.sel.contentContainer);
-			self.$contentStage = $tmpl.find(self.sel.contentStage);
-			self.$itemContainer = $tmpl.find(self.sel.itemContainer);
-			self.$itemStage = $tmpl.find(self.sel.itemStage);
-			self.$itemPrev = $tmpl.find(self.sel.itemPrev);
-			self.$itemNext = $tmpl.find(self.sel.itemNext);
-			self.$contentPrev = $tmpl.find(self.sel.contentPrev);
-			self.$contentNext = $tmpl.find(self.sel.contentNext);
-			self.horizontal = $tmpl.hasClass(self.cls.horizontal) || self.horizontal;
-			if (self.horizontal) $tmpl.addClass(self.cls.horizontal);
-			self.noCaptions = $tmpl.hasClass(self.cls.noCaptions) || self.noCaptions;
-			if (self.noCaptions) $tmpl.addClass(self.cls.noCaptions);
-			self.contentNav = $tmpl.hasClass(self.cls.contentNav) || self.contentNav;
-			if (self.contentNav) $tmpl.addClass(self.cls.contentNav);
+		onPreInit: function(event, self){
+			self.$contentContainer = self.$el.find(self.sel.contentContainer);
+			self.$contentStage = self.$el.find(self.sel.contentStage);
+			self.$itemContainer = self.$el.find(self.sel.itemContainer);
+			self.$itemStage = self.$el.find(self.sel.itemStage);
+			self.$itemPrev = self.$el.find(self.sel.itemPrev);
+			self.$itemNext = self.$el.find(self.sel.itemNext);
+			self.$contentPrev = self.$el.find(self.sel.contentPrev);
+			self.$contentNext = self.$el.find(self.sel.contentNext);
+			self.horizontal = self.$el.hasClass(self.cls.horizontal) || self.horizontal;
+			if (self.horizontal) self.$el.addClass(self.cls.horizontal);
+			self.noCaptions = self.$el.hasClass(self.cls.noCaptions) || self.noCaptions;
+			if (self.noCaptions) self.$el.addClass(self.cls.noCaptions);
+			self.contentNav = self.$el.hasClass(self.cls.contentNav) || self.contentNav;
+			if (self.contentNav) self.$el.addClass(self.cls.contentNav);
+
 		},
-		init: function(){
-			var self = this;
-			$(window).on("resize.fg-slider", {self: self}, _fn.throttle(self.onWindowResize, self.opt.throttle));
+		onInit: function (event, self) {
+			$(window).on("resize.fg-slider", {self: self}, _fn.throttle(self.onWindowResize, self.template.throttle));
 			self.$itemPrev.on("click.fg-slider", {self: self}, self.onPrevClick);
 			self.$itemNext.on("click.fg-slider", {self: self}, self.onNextClick);
 			self.$contentPrev.on("click.fg-slider", {self: self}, self.onContentPrevClick);
@@ -12308,8 +11290,21 @@
 			self.$itemContainer.fgswipe({data: {self: self}, swipe: self.onItemSwipe})
 					.on("DOMMouseScroll.fg-slider mousewheel.fg-slider", {self: self}, self.onItemMouseWheel);
 		},
-		destroy: function(){
-			var self = this;
+		onFirstLoad: function(event, self){
+			self.redraw();
+			self.setSelected(0);
+		},
+		onAfterFilterChange: function(event, self){
+			self.selected = null;
+			self.redraw();
+			self.setSelected(0);
+		},
+		/**
+		 * @summary Destroy the plugin cleaning up any bound events.
+		 * @memberof FooGallery.SliderTemplate#
+		 * @function onDestroy
+		 */
+		onDestroy: function (event, self) {
 			$(window).off("resize.fg-slider");
 			self.$itemPrev.off("click.fg-slider");
 			self.$itemNext.off("click.fg-slider");
@@ -12318,18 +11313,79 @@
 			self.$contentContainer.fgswipe("destroy");
 			self.$itemContainer.fgswipe("destroy")
 					.off("DOMMouseScroll.fg-slider mousewheel.fg-slider");
-			self._current = null;
-			self._contentWidth = 0;
-			self._contentHeight = 0;
-			self._firstVisible = -1;
-			self._lastVisible = -1;
-			self._breakpoint = null;
 		},
-		reset: function(){
-			var self = this;
-			self._current = null;
+		onParsedOrCreatedItem: function(item){
+			if (!item.isError){
+				var self = this;
+				item.$anchor.add(item.$image).attr("draggable", false);
+				item.$anchor.add(item.$caption).off("click.foogallery");
+				item.$inner.on("click.foogallery", {self: self, item: item}, self.onItemClick);
+
+				item.$content = $("<div/>", {"class": self.cls.content})
+						.append($("<div/>", {"class": self.cls.contentImage}))
+						.append($("<p/>", {"class": self.cls.contentText}).html(item.caption).append($("<small/>").html(item.description)));
+				if (item.type === "video"){
+					item.index = -1;
+					item.player = self.helper.getPlayer(item.href, {});
+					item.$content.append(
+							$("<div/>", {"class": self.cls.contentClose})
+									.on("click.foogallery", {self: self, item: item}, self.onCloseVideo),
+							$("<div/>", {"class": self.cls.contentPlay})
+									.on("click.foogallery", {self: self, item: item}, self.onPlayVideo)
+					);
+				} else if (item.type === "embed") {
+					item.$embed = $("<div/>", {'class': self.cls.embed});
+					item.$content.addClass(self.cls.embedable).append(item.$embed);
+					item.$target = $(item.href).contents();
+				}
+			}
+		},
+		onParsedItem: function(event, self, item){
+			self.onParsedOrCreatedItem(item);
+		},
+		onCreatedItem: function(event, self, item){
+			self.onParsedOrCreatedItem(item);
+		},
+		onDestroyedItem: function(event, self, item){
+			if (item.type === "video" && item.player instanceof _.VideoPlayer){
+				item.player.$el.detach();
+				item.$el.add(item.$content)
+						.removeClass(self.cls.playing);
+			}
+			if (item.type === "embed" && item.$target){
+				item.$target.detach();
+				$(item.href).append(item.$target);
+			}
+			item.$el.add(item.$content).removeClass(self.cls.selected);
+			item.$inner.off("click.foogallery");
+		},
+		onAppendItem: function (event, self, item) {
+			event.preventDefault();
+			self.$itemStage.append(item.$el);
+			self.$contentStage.append(item.$content);
+			item.isAttached = true;
+		},
+		onDetachItem: function(event, self, item){
+			event.preventDefault();
+			if (item.type === "video" && item.player instanceof _.VideoPlayer){
+				item.player.$el.detach();
+				item.$el.add(item.$content)
+						.removeClass(self.cls.playing);
+			}
+			if (item.type === "embed" && item.$target){
+				item.$target.detach();
+				$(item.href).append(item.$target);
+			}
+			item.$el.add(item.$content)
+					.removeClass(self.cls.selected).detach();
+			item.isAttached = false;
+		},
+		onLayout: function(event, self){
 			self.redraw();
-			self.setSelected(0);
+		},
+		onWindowResize: function(e){
+			var self = e.data.self;
+			self.redraw();
 		},
 		getBreakpoint: function(){
 			var self = this, width = self.useViewport ? $(window).width() : self.getContainerWidth();
@@ -12345,22 +11401,22 @@
 			return self.horizontal ? h : self._breakpoint.items.v;
 		},
 		redraw: function(){
-			var self = this, $tmpl = self.tmpl.$el,
-					index = self._current instanceof _.Item ? self._current.index : 0,
-					items = self.tmpl.getAvailable(),
+			var self = this,
+					index = self.selected instanceof _.Item ? self.selected.index : 0,
+					items = self.items.available(),
 					count = items.length,
 					prev = self._breakpoint;
 
-			$tmpl.addClass("fgs-transitions-disabled");
+			self.$el.addClass("fgs-transitions-disabled");
 
-			self.horizontal = $tmpl.hasClass(self.cls.horizontal);
-			$tmpl.toggleClass(self.cls.horizontal, self.horizontal);
+			self.horizontal = self.$el.hasClass(self.cls.horizontal);
+			self.$el.toggleClass(self.cls.horizontal, self.horizontal);
 
-			self.noCaptions = $tmpl.hasClass(self.cls.noCaptions);
-			$tmpl.toggleClass(self.cls.noCaptions, self.noCaptions);
+			self.noCaptions = self.$el.hasClass(self.cls.noCaptions);
+			self.$el.toggleClass(self.cls.noCaptions, self.noCaptions);
 
 			self._breakpoint = self.getBreakpoint();
-			$tmpl.removeClass(self.allBreakpointClasses).addClass(self._breakpoint.classes);
+			self.$el.removeClass(self.allBreakpointClasses).addClass(self._breakpoint.classes);
 
 			var max = self.getMaxVisibleItems() - 1, cWidth = self.getContainerWidth();
 			if (self._firstVisible == -1 || self._lastVisible == -1){
@@ -12399,41 +11455,56 @@
 
 				self.setVisible(self._firstVisible, false);
 			}
-			$tmpl.removeClass("fgs-transitions-disabled");
+			self.$el.removeClass("fgs-transitions-disabled");
 		},
-		setLoading: function(item, state){
-			var self = this;
-			if (state){
-				$("<div/>", {'class': "fg-loader"}).appendTo(item.$content.addClass(self.cls.loading));
+		setEmbedSize: function(item){
+			var self = this,
+					ah = self._contentHeight, ch = item.$anchor.data("height"),
+					aw = self._contentWidth, cw = item.$anchor.data("width"),
+					rh = ah / ch, rw = aw / cw, ratio = 0;
+
+			if (rh < rw){
+				ratio = rh;
 			} else {
-				item.$content.removeClass(self.cls.loading).find(".fg-loader").remove();
+				ratio = rw;
+			}
+
+			if (ratio > 0 && ratio < 1){
+				item.$embed.css({height: ch * ratio, width: cw * ratio});
+			} else {
+				item.$embed.css({height: '', width: ''});
 			}
 		},
 		setSelected: function(itemOrIndex){
-			var self = this, prev = self._current, next = itemOrIndex, items = self.tmpl.getAvailable();
+			var self = this, prev = self.selected, next = itemOrIndex, items = self.items.available();
 			if (_is.number(itemOrIndex)){
 				itemOrIndex = itemOrIndex < 0 ? 0 : (itemOrIndex >= items.length ? items.length - 1 : itemOrIndex);
 				next = items[itemOrIndex];
 			}
 			if (prev != next && next instanceof _.Item){
 				if (prev instanceof _.Item){
-					prev.$el.add(prev.$content).removeClass(self.cls.selected);
-					if (prev.type === "video"){
+					if (prev.type === "video" && prev.player instanceof _.VideoPlayer){
+						prev.player.$el.detach();
 						prev.$el.add(prev.$content).removeClass(self.cls.playing);
-						prev.content.detach();
 					}
+					if (prev.type === "embed" && prev.$target){
+						prev.$target.detach();
+						$(prev.href).append(prev.$target);
+					}
+					prev.$el.add(prev.$content).removeClass(self.cls.selected);
 				}
-
-				next.$el.add(next.$content).addClass(self.cls.selected);
-				self.$contentStage.css("transform", "translateX(-" + (next.index * self._contentWidth) + "px)");
-
 				self.setBackgroundImage(next);
-				if (next.type === "video" && (self.tmpl.opt.video.autoPlay || !self.opt.showPlayClose)){
-					next.content.appendTo(next.$content);
+				self.$contentStage.css("transform", "translateX(-" + (next.index * self._contentWidth) + "px)");
+				next.$el.add(next.$content).addClass(self.cls.selected);
+				if (self.template.autoPlay && next.type === "video" && next.player instanceof _.VideoPlayer){
 					next.$el.add(next.$content).addClass(self.cls.playing);
-					next.content.load();
+					next.player.appendTo(next.$content).load();
 				}
-				self._current = next;
+				if (next.type === "embed" && next.$target){
+					next.$target.appendTo(next.$embed);
+					self.setEmbedSize(next);
+				}
+				self.selected = next;
 
 				if (next.index <= self._firstVisible || next.index >= self._lastVisible){
 					var last = prev instanceof _.Item ? next.index > prev.index : false,
@@ -12447,31 +11518,8 @@
 				self.$contentNext.data("index", cNext);
 			}
 		},
-		setVisible: function(index, last){
-			var self = this, count = self.tmpl.getAvailable().length, max = self.getMaxVisibleItems() - 1;
-			index = index < 0 ? 0 : (index >= count ? count - 1 : index);
-
-			if (last) index = index - max < 0 ? 0 : index - max;
-			if (index >= 0 && index < count){
-				self._firstVisible = index;
-				self._lastVisible = index + max;
-				var translate = self.horizontal
-						? 'translateX(-'+((index * self._itemWidth) + 1)+'px) translateY(0px)'
-						: 'translateX(0px) translateY(-'+((index * self._itemHeight) + 1)+'px)';
-
-				_transition.start(self.$itemStage, function($el){
-					$el.css("transform", translate);
-				}).then(function(){
-					self.tmpl.loadAvailable();
-				});
-			} else {
-				self.tmpl.loadAvailable();
-			}
-			self.$itemPrev.toggle(self._firstVisible > 0);
-			self.$itemNext.toggle(self._lastVisible < count - 1);
-		},
 		setBackgroundImage: function(item){
-			if ((item.type === "video" || item.type === "item") && !item.isError && !item.isBackgroundLoaded && _is.jq(item.$content)){
+			if (item.type !== "embed" && !item.isError && !item.isBackgroundLoaded && _is.jq(item.$content)){
 				var self = this,
 						src = item.type === "video" ? item.cover : item.href,
 						$loader = $("<div/>", {'class': 'fg-loader'}).appendTo(item.$content.addClass(self.cls.loading)),
@@ -12495,46 +11543,28 @@
 				item.isBackgroundLoaded = true;
 			}
 		},
-		onParsedOrCreatedItem: function(item){
-			if (!item.isError){
-				var self = this;
-				item.$anchor.add(item.$image).attr("draggable", false);
-				item.$anchor.add(item.$caption).off("click.foogallery");
-				item.$inner.on("click.foogallery", {self: self, item: item}, self.onItemClick);
+		setVisible: function(index, last){
+			var self = this, count = self.items.count(), max = self.getMaxVisibleItems() - 1;
+			index = index < 0 ? 0 : (index >= count ? count - 1 : index);
 
-				item.$content = $("<div/>", {"class": self.cls.content})
-						.append($("<div/>", {"class": self.cls.contentImage}))
-						.append($("<p/>", {"class": self.cls.contentText}).html(item.caption).append($("<small/>").html(item.description)));
-				if (item.type === "video" && self.opt.showPlayClose){
-					item.$content.append(
-							$("<div/>", {"class": self.cls.contentClose})
-									.on("click.foogallery", {self: self, item: item}, self.onCloseVideo),
-							$("<div/>", {"class": self.cls.contentPlay})
-									.on("click.foogallery", {self: self, item: item}, self.onPlayVideo)
-					);
-				}
+			if (last) index = index - max < 0 ? 0 : index - max;
+			if (index >= 0 && index < count){
+				self._firstVisible = index;
+				self._lastVisible = index + max;
+				var translate = self.horizontal
+						? 'translateX(-'+((index * self._itemWidth) + 1)+'px) translateY(0px)'
+						: 'translateX(0px) translateY(-'+((index * self._itemHeight) + 1)+'px)';
+
+				_transition.start(self.$itemStage, function($el){
+					$el.css("transform", translate);
+				}).then(function(){
+					self.loadAvailable();
+				});
+			} else {
+				self.loadAvailable();
 			}
-		},
-		onDestroyItem: function(item){
-			var self = this;
-			item.content.detach();
-			item.$el.add(item.$content).removeClass(self.cls.selected).removeClass(self.cls.playing);
-			item.$inner.off("click.foogallery");
-		},
-		onAppendItem: function (item) {
-			var self = this;
-			self.$itemStage.append(item.$el);
-			self.$contentStage.append(item.$content);
-			item.isAttached = true;
-		},
-		onDetachItem: function(item){
-			var self = this;
-			item.content.detach();
-			item.$el.add(item.$content).removeClass(self.cls.selected).removeClass(self.cls.playing).detach();
-			item.isAttached = false;
-		},
-		onWindowResize: function(e){
-			e.data.self.redraw();
+			self.$itemPrev.toggle(self._firstVisible > 0);
+			self.$itemNext.toggle(self._lastVisible < count - 1);
 		},
 		onItemClick: function(e){
 			e.preventDefault();
@@ -12561,18 +11591,17 @@
 		},
 		onPlayVideo: function(e){
 			var self = e.data.self, item = e.data.item;
-			item.content.appendTo(item.$content);
 			item.$el.add(item.$content).addClass(self.cls.playing);
-			item.content.load(true);
+			item.player.appendTo(item.$content).load();
 		},
 		onCloseVideo: function(e){
 			var self = e.data.self, item = e.data.item;
-			item.content.detach();
+			item.player.$el.detach();
 			item.$el.add(item.$content).removeClass(self.cls.playing);
 		},
 		onItemMouseWheel: function(e){
 			var self = e.data.self,
-					max = self.tmpl.getAvailable().length - 1,
+					max = self.items.count() - 1,
 					delta = Math.max(-1, Math.min(1, (e.originalEvent.wheelDelta || -e.originalEvent.detail)));
 
 			if (delta > 0 && self._firstVisible > 0){
@@ -12606,149 +11635,155 @@
 		onContentSwipe: function (info, data) {
 			var self = data.self;
 			if ($.inArray(info.direction, ["NE", "E", "SE"]) !== -1){
-				self.setSelected(self._current.index - 1);
+				self.setSelected(self.selected.index - 1);
 			}
 			if ($.inArray(info.direction, ["NW", "W", "SW"]) !== -1){
-				self.setSelected(self._current.index + 1);
+				self.setSelected(self.selected.index + 1);
 			}
 		}
 	});
 
-	_.Slider.options = {
-		horizontal: false,
-		useViewport: false,
-		noCaptions: false,
-		showPlayClose: true,
-		contentNav: false,
-		allowPageScroll: {
-			x: false,
-			y: true
-		},
-		breakpoints: [{
-			width: 480,
-			classes: "fgs-xs",
-			items: {
-				h: {
-					captions: 2,
-					noCaptions: 5
-				},
-				v: 6
+	_.template.register("slider", _.SliderTemplate, {
+		template: {
+			horizontal: false,
+			useViewport: false,
+			noCaptions: false,
+			autoPlay: false,
+			contentNav: false,
+			allowPageScroll: {
+				x: false,
+				y: true
 			},
-			size: {
-				h: {
-					height: 336,
-					items: 56
+			breakpoints: [{
+				width: 480,
+				classes: "fgs-xs",
+				items: {
+					h: {
+						captions: 2,
+						noCaptions: 5
+					},
+					v: 6
 				},
-				v: {
-					height: 336,
-					items: {
-						noCaptions: 70,
-						width: 100,
-						height: 56
+				size: {
+					h: {
+						height: 336,
+						items: 56
+					},
+					v: {
+						height: 336,
+						items: {
+							noCaptions: 70,
+							width: 100,
+							height: 56
+						}
 					}
 				}
-			}
-		},{
-			width: 768,
-			classes: "fgs-sm",
-			items: {
-				h: {
-					captions: 3,
-					noCaptions: 7
+			},{
+				width: 768,
+				classes: "fgs-sm",
+				items: {
+					h: {
+						captions: 3,
+						noCaptions: 7
+					},
+					v: 7
 				},
-				v: 7
-			},
-			size: {
-				h: {
-					height: 420,
-					items: 56
-				},
-				v: {
-					height: 392,
-					items: {
-						noCaptions: 100,
-						width: 150,
-						height: 56
+				size: {
+					h: {
+						height: 420,
+						items: 56
+					},
+					v: {
+						height: 392,
+						items: {
+							noCaptions: 100,
+							width: 150,
+							height: 56
+						}
 					}
 				}
-			}
-		},{
-			width: 1024,
-			classes: "fgs-md",
-			items: {
-				h: {
-					captions: 4,
-					noCaptions: 9
+			},{
+				width: 1024,
+				classes: "fgs-md",
+				items: {
+					h: {
+						captions: 4,
+						noCaptions: 9
+					},
+					v: 6
 				},
-				v: 6
-			},
-			size: {
-				h: {
-					height: 520,
-					items: 77
-				},
-				v: {
-					height: 461,
-					items: {
-						noCaptions: 150,
-						width: 220,
-						height: 77
+				size: {
+					h: {
+						height: 520,
+						items: 77
+					},
+					v: {
+						height: 461,
+						items: {
+							noCaptions: 150,
+							width: 220,
+							height: 77
+						}
 					}
 				}
-			}
-		},{
-			width: 1280,
-			classes: "fgs-lg",
-			items: {
-				h: {
-					captions: 5,
-					noCaptions: 11
+			},{
+				width: 1280,
+				classes: "fgs-lg",
+				items: {
+					h: {
+						captions: 5,
+						noCaptions: 11
+					},
+					v: 7
 				},
-				v: 7
-			},
-			size: {
-				h: {
-					height: 546,
-					items: 77
-				},
-				v: {
-					height: 538,
-					items: {
-						noCaptions: 150,
-						width: 280,
-						height: 77
+				size: {
+					h: {
+						height: 546,
+						items: 77
+					},
+					v: {
+						height: 538,
+						items: {
+							noCaptions: 150,
+							width: 280,
+							height: 77
+						}
 					}
 				}
-			}
-		},{
-			width: 1600,
-			classes: "fgs-xl",
-			items: {
-				h: {
-					captions: 6,
-					noCaptions: 13
+			},{
+				width: 1600,
+				classes: "fgs-xl",
+				items: {
+					h: {
+						captions: 6,
+						noCaptions: 13
+					},
+					v: 8
 				},
-				v: 8
-			},
-			size: {
-				h: {
-					height: 623,
-					items: 77
-				},
-				v: {
-					height: 615,
-					items: {
-						noCaptions: 150,
-						width: 280,
-						height: 77
+				size: {
+					h: {
+						height: 623,
+						items: 77
+					},
+					v: {
+						height: 615,
+						items: {
+							noCaptions: 150,
+							width: 280,
+							height: 77
+						}
 					}
 				}
-			}
-		}],
-		throttle: 150
-	};
-
-	_.Slider.classes = {
+			}],
+			player: {
+				autoPlay: true,
+				width: "100%",
+				height: "100%"
+			},
+			throttle: 150
+		}
+	}, {
+		container: "foogallery fg-slider",
 		contentContainer: "fgs-content-container",
 		contentStage: "fgs-content-stage",
 		content: "fgs-content",
@@ -12770,7 +11805,7 @@
 		noCaptions: "fgs-no-captions",
 		embed: "fgs-embed",
 		embedable: "fgs-embedable"
-	};
+	});
 
 })(
 	FooGallery.$,
@@ -12780,81 +11815,6 @@
 	FooGallery.utils.obj,
 	FooGallery.utils.fn,
 	FooGallery.utils.transition
-);
-(function ($, _, _utils, _is, _obj) {
-
-	_.SliderTemplate = _.Template.extend({
-		construct: function (options, element) {
-			var self = this;
-			self._super(_obj.extend({}, options, {
-				paging: {
-					type: "none"
-				}
-			}), element);
-			self.slider = new _.Slider(self);
-		},
-		createChildren: function(){
-			return this.slider.createChildren();
-		},
-		destroyChildren: function(){
-			this.slider.destroyChildren();
-		},
-		onPreInit: function(event, self){
-			self.slider.preinit();
-		},
-		onInit: function (event, self) {
-			self.slider.init();
-		},
-		onFirstLoad: function(event, self){
-			self.slider.reset();
-		},
-		onAfterFilterChange: function(event, self){
-			self.slider.reset();
-		},
-		/**
-		 * @summary Destroy the plugin cleaning up any bound events.
-		 * @memberof FooGallery.SliderTemplate#
-		 * @function onDestroy
-		 */
-		onDestroy: function (event, self) {
-			self.slider.destroy();
-		},
-		onParsedItem: function(event, self, item){
-			self.slider.onParsedOrCreatedItem(item);
-		},
-		onCreatedItem: function(event, self, item){
-			self.slider.onParsedOrCreatedItem(item);
-		},
-		onDestroyItem: function(event, self, item){
-			self.slider.onDestroyItem(item);
-		},
-		onAppendItem: function (event, self, item) {
-			event.preventDefault();
-			self.slider.onAppendItem(item);
-		},
-		onDetachItem: function(event, self, item){
-			event.preventDefault();
-			self.slider.onDetachItem(item);
-		},
-		onLayout: function(event, self){
-			self.slider.redraw();
-		}
-	});
-
-	_.template.register("slider", _.SliderTemplate, {
-		template: _.Slider.options
-	}, {
-		container: "foogallery fg-slider",
-		template: _.Slider.classes
-	});
-
-})(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.obj,
-		FooGallery.utils.transition
 );
 (function ($, _, _utils, _obj) {
 
