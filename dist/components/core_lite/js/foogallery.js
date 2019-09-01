@@ -4667,6 +4667,21 @@
 			self.raise("layout");
 		},
 
+		/**
+		 * @summary Gets the width of the FooGallery container.
+		 * @memberof FooGallery.Template#
+		 * @type function
+		 * @name getContainerWidth
+		 * @returns {number}
+		 */
+		getContainerWidth: function(){
+			var self = this, visible = self.$el.is(':visible');
+			if (!visible){
+				return self.$el.parents(':visible:first').innerWidth();
+			}
+			return self.$el.width();
+		},
+
 		// ###############
 		// ## Listeners ##
 		// ###############
