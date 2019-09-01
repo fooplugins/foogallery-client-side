@@ -3627,8 +3627,13 @@ only screen and (min-resolution: 2.25dppx) {
     max-width: 250px;
 }
 .fg-simple_portfolio .fg-item-inner {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     height: 100%;
+}
+.fg-simple_portfolio.fg-captions-top .fg-item-inner {
+    flex-direction: column-reverse;
 }
 .fg-simple_portfolio .fg-image {
     height: auto;
@@ -3646,8 +3651,8 @@ only screen and (min-resolution: 2.25dppx) {
     bottom: auto;
     left: auto;
     right: auto;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     text-transform: none;
     transform: none;
     transition: none;
@@ -3714,12 +3719,6 @@ only screen and (min-resolution: 2.25dppx) {
 }
 .fg-simple_portfolio.fg-dark .fg-caption-title a {
     border-bottom: 1px solid #FFF;
-}
-
-.fg-simple_portfolio.fg-captions-top .fg-item.fg-positioned .fg-thumb {
-    position: absolute;
-    bottom: 0;
-    left: 0;
 }
 
 /* Handle Border Sizing */
