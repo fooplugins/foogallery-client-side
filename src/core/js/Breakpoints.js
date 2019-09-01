@@ -116,7 +116,7 @@
         },
 
         getCurrent: function( registered, size ){
-            if (!_is.hash(size) || !size.isValid) return null;
+            if (!_is.hash(size) || !size.isValid) return _.Breakpoints.NONE;
             for (var i = 0, l = registered.breakpoints.length; i < l; i++){
                 if (size.width <= registered.breakpoints[i].width || size.height <= registered.breakpoints[i].height) {
                     return registered.breakpoints[i];
