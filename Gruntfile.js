@@ -240,7 +240,6 @@ module.exports = function ( grunt ) {
 			"portfolio": {
 				"files": {
 					"./dist/components/templates/portfolio/js/foogallery.portfolio.js": [
-						"./src/templates/portfolio/js/Portfolio.js",
 						"./src/templates/portfolio/js/ready.js"
 					],
 					"./dist/components/templates/portfolio/css/foogallery.portfolio.css": [
