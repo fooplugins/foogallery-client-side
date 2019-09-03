@@ -29,10 +29,82 @@
     border-color: rgba(0, 0, 0, 0.3);
 }
 
+.fg-panel.fg-button-blue .fg-panel-button {
+    background-color: #4d90fe;
+    border-color: #3079ed;
+    color: #FFF;
+}
+
+.fg-panel.fg-button-dark .fg-panel-button {
+    background-color: #4e4e4e;
+    border-color: #292929;
+    color: #adadad;
+}
+
+.fg-panel.fg-button-green .fg-panel-button {
+    background-color: #02874A;
+    border-color: #02874A;
+    color: #FFF;
+}
+
+.fg-panel.fg-button-purple .fg-panel-button {
+    background-color: #7816D6;
+    border-color: #6816c2;
+    color: #FFF;
+}
+
+.fg-panel.fg-button-orange .fg-panel-button {
+    background-color: #FF8E31;
+    border-color: #e57731;
+    color: #FFF;
+}
+
+.fg-panel.fg-button-red .fg-panel-button {
+    background-color: #F12B24;
+    border-color: #c22b24;
+    color: #FFF;
+}
+
 @media (hover: hover) {
-    .fg-panel.fg-highlight-blue .fg-panel-button:hover {
-        background-color: #4d90fe;
-        border-color: #3079ed;
+    .fg-panel.fg-button-blue .fg-panel-button:hover,
+    .fg-panel.fg-highlight-blue .fg-panel-buttons .fg-panel-button:hover {
+        background-color: #3079ed;
+        border-color: #2f5bb7;
+        color: #FFF;
+    }
+
+    .fg-panel.fg-button-dark .fg-panel-button:hover,
+    .fg-panel.fg-highlight-dark .fg-panel-buttons .fg-panel-button:hover {
+        background-color: #5e5e5e;
+        border-color: #292929;
+        color: #bbb;
+    }
+
+    .fg-panel.fg-button-green .fg-panel-button:hover,
+    .fg-panel.fg-highlight-green .fg-panel-buttons .fg-panel-button:hover {
+        background-color: #02874A;
+        border-color: #027339;
+        color: #FFF;
+    }
+
+    .fg-panel.fg-button-purple .fg-panel-button:hover,
+    .fg-panel.fg-highlight-purple .fg-panel-buttons .fg-panel-button:hover {
+        background-color: #6816c2;
+        border-color: #5416a8;
+        color: #FFF;
+    }
+
+    .fg-panel.fg-button-orange .fg-panel-button:hover,
+    .fg-panel.fg-highlight-orange .fg-panel-buttons .fg-panel-button:hover {
+        background-color: #e57731;
+        border-color: #c36230;
+        color: #FFF;
+    }
+
+    .fg-panel.fg-button-red .fg-panel-button:hover,
+    .fg-panel.fg-highlight-red .fg-panel-buttons .fg-panel-button:hover {
+        background-color: #c22b24;
+        border-color: #9f2924;
         color: #FFF;
     }
 }

@@ -1,9 +1,11 @@
 (function($, _, _utils, _is, _obj, _fn, _t){
 
 	_.Panel = _.Component.extend({
-		construct: function(template){
+		construct: function(template, breakpoints){
 			var self = this;
 			self._super(template);
+
+			self.breakpoints = breakpoints instanceof _.Breakpoints ? breakpoints : new _.Breakpoints();
 
 			self.namespace = self.tmpl.namespace + "-panel";
 
@@ -12,8 +14,6 @@
 			self.cls = _obj.extend({}, self.tmpl.cls.panel);
 
 			self.sel = _obj.extend({}, self.tmpl.sel.panel);
-
-			self.enabled = self.opt.enabled;
 
 			self.$el = null;
 
@@ -40,12 +40,6 @@
 			self.hasTransition = !_is.empty(self.cls.transition[self.opt.transition]);
 
 			self.currentItem = null;
-		},
-		postinit: function(){
-			var self = this;
-			if (self.opt.bindAnchorClick){
-
-			}
 		},
 		destroy: function(){
 			var self = this;
@@ -239,9 +233,14 @@
 			return true;
 		},
 		createElem: function(){
-			var self = this, transition = self.cls.transition[self.opt.transition] || "";
+			var self = this,
+				transition = self.cls.transition[self.opt.transition] || "",
+				theme = _is.string(self.opt.theme) ? self.opt.theme : self.tmpl.getThemeClass(),
+				loader = _is.string(self.opt.loader) ? self.opt.loader : self.tmpl.getLoaderClass(),
+				button = _is.string(self.opt.button) ? self.opt.button : "",
+				highlight = _is.string(self.opt.highlight) ? self.opt.highlight : "";
 			self.hasTransition = !_is.empty(transition);
-			var classes = [self.cls.elem, self.opt.theme, self.opt.highlight, transition, self.tmpl.getLoaderClass(), self.opt.classNames];
+			var classes = [self.cls.elem, theme, loader, transition, button, highlight, self.opt.classNames];
 			return $('<div/>').addClass(classes.join(" "));
 		},
 		createLoader: function( parent ){
@@ -328,7 +327,7 @@
 			if (self.isExpanded){
 				self.$buttons.find(self.sel.expand).hide();
 			}
-			self.tmpl.breakpoints.register(self.$el, self.opt.breakpoints);
+			self.breakpoints.register(self.$el, self.opt.breakpoints);
 			self.$el.toggleClass(self.cls.expanded, self.isExpanded).appendTo( $parent );
 			return self.$el.parent().length > 0;
 		},
@@ -404,12 +403,12 @@
 		},
 		doDetach: function(){
 			var self = this;
-			self.tmpl.breakpoints.remove(self.$el);
+			self.breakpoints.remove(self.$el);
 			self.$el.detach();
 			return true;
 		},
 		checkBreakpoints: function(){
-			this.tmpl.breakpoints.check(this.$el);
+			this.breakpoints.check(this.$el);
 		},
 		reverseTransition: function( oldItem, newItem ){
 			if (!(oldItem instanceof _.Item) || !(newItem instanceof _.Item)) return true;
@@ -640,10 +639,11 @@
 
 	_.template.configure("core", {
 		panel: {
-			enabled: false,
 			classNames: "",
-			theme: "fg-light",
-			highlight: "",
+			theme: null,
+			loader: null,
+			button: null,
+			highlight: null,
 			parent: "body",
 			transition: "none", // none | fade | horizontal | vertical
 			loop: true,

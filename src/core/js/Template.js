@@ -643,6 +643,36 @@
 			return self.$el.width();
 		},
 
+		/**
+		 * @summary Gets the current theme class for the template.
+		 * @memberof FooGallery.Template#
+		 * @type function
+		 * @name getThemeClass
+		 * @returns {string}
+		 */
+		getThemeClass: function(){
+			var self = this, className = (self.$el.prop("className") || '');
+			if (/\bfg-light\b/.test(className)) return "fg-light";
+			if (/\bfg-dark\b/.test(className)) return "fg-dark";
+			return "";
+		},
+
+		/**
+		 * @summary Gets the current loader class for the template.
+		 * @memberof FooGallery.Template#
+		 * @type function
+		 * @name getLoaderClass
+		 * @returns {string}
+		 */
+		getLoaderClass: function(){
+			var self = this,
+				classes = (self.$el.prop("className") || '').split(" "),
+				found = classes.find(function(className){
+					return /^fg-loading-/.test(className);
+				});
+			return _is.string(found) ? found : "";
+		},
+
 		// ###############
 		// ## Listeners ##
 		// ###############
