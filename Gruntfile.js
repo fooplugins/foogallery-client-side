@@ -261,27 +261,14 @@ module.exports = function ( grunt ) {
 			"foogrid": {
 				"files": {
 					"./dist/components/templates/foogrid/js/foogallery.foogrid.js": [
-						// "./src/templates/foogrid/js/FooGrid.js",
-						// "./src/templates/foogrid/js/FooGrid.Parser.js",
-						// "./src/templates/foogrid/js/FooGrid.Content.js",
-						// "./src/templates/foogrid/js/FooGrid.Item.js",
-						// "./src/templates/foogrid/js/FooGrid.Video.js",
-						// "./src/templates/foogrid/js/FooGrid.Player.js",
-						// "./src/templates/foogrid/js/FooGrid.Deeplinking.js",
-						// "./src/templates/foogrid/js/_template.js"
-						"./src/templates/foogrid/js/grid2.js",
 						"./src/templates/foogrid/js/ready.js"
 					],
 					"./dist/components/templates/foogrid/css/foogallery.foogrid.css": [
 						"./src/templates/foogrid/css/_foogrid.css",
-						// "./src/templates/foogrid/css/nav.css",
 						"./src/templates/foogrid/css/item.css",
 						"./src/templates/foogrid/css/content.css",
-						// "./src/templates/foogrid/css/caption.css",
 						"./src/templates/foogrid/css/columns.css",
 						"./src/templates/foogrid/css/transitions.css",
-						// "./src/templates/foogrid/css/theme/default.css",
-						// "./src/templates/foogrid/css/theme/light.css",
 						"./src/templates/foogrid/css/panel.css"
 					]
 				}
