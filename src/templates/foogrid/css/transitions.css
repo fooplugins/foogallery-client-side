@@ -1,30 +1,11 @@
 .foogrid.foogrid-transition-fade .foogrid-content,
 .foogrid.foogrid-transition-horizontal .foogrid-content,
 .foogrid.foogrid-transition-vertical .foogrid-content,
-.foogrid.foogrid-transition-fade .foogrid-nav-prev,
-.foogrid.foogrid-transition-horizontal .foogrid-nav-prev,
-.foogrid.foogrid-transition-vertical .foogrid-nav-prev,
-.foogrid.foogrid-transition-fade .foogrid-nav-next,
-.foogrid.foogrid-transition-horizontal .foogrid-nav-next,
-.foogrid.foogrid-transition-vertical .foogrid-nav-next,
-.foogrid.foogrid-transition-fade .foogrid-content-inner,
-.foogrid.foogrid-transition-horizontal .foogrid-content-inner,
-.foogrid.foogrid-transition-vertical .foogrid-content-inner,
-.foogrid.foogrid-transition-fade .foogrid-caption,
-.foogrid.foogrid-transition-horizontal .foogrid-caption,
-.foogrid.foogrid-transition-vertical .foogrid-caption,
 .foogrid.foogrid-transition-fade .fg-item.foogrid-visible > span,
 .foogrid.foogrid-transition-horizontal .fg-item.foogrid-visible > span,
 .foogrid.foogrid-transition-vertical .fg-item.foogrid-visible > span {
 	transition-duration: .3s;
 	transition-timing-function: ease-in-out;
-}
-
-/* disable main content container transitions when fullscreen */
-.foogrid.foogrid-transition-fade .foogrid-content.foogrid-visible.foogrid-fullscreen,
-.foogrid.foogrid-transition-horizontal .foogrid-content.foogrid-visible.foogrid-fullscreen,
-.foogrid.foogrid-transition-vertical .foogrid-content.foogrid-visible.foogrid-fullscreen {
-	transition: none;
 }
 
 /* active item pointer fade in/out */
@@ -39,59 +20,4 @@
 .foogrid.foogrid-transition-horizontal .foogrid-content,
 .foogrid.foogrid-transition-vertical .foogrid-content {
 	transition-property: height, opacity, visibility;
-}
-
-/* prev & next button fade in/out */
-.foogrid.foogrid-transition-fade .foogrid-nav-prev,
-.foogrid.foogrid-transition-horizontal .foogrid-nav-prev,
-.foogrid.foogrid-transition-vertical .foogrid-nav-prev,
-.foogrid.foogrid-transition-fade .foogrid-nav-next,
-.foogrid.foogrid-transition-horizontal .foogrid-nav-next,
-.foogrid.foogrid-transition-vertical .foogrid-nav-next {
-	transition-property: opacity, visibility;
-}
-
-/* content fade in/out */
-.foogrid.foogrid-transition-fade .foogrid-content-inner {
-	transition-property: opacity, visibility, padding;
-	visibility: hidden;
-	opacity: 0;
-}
-.foogrid.foogrid-transition-fade .foogrid-content-inner.foogrid-visible,
-.foogrid.foogrid-transition-fade .foogrid-content-inner.foogrid-reverse.foogrid-visible {
-	visibility: visible;
-	opacity: 1;
-}
-
-/* content slide left/right */
-.foogrid.foogrid-transition-horizontal .foogrid-content-inner {
-	transition-property: transform, padding;
-	transform: translateX(-100%);
-}
-.foogrid.foogrid-transition-horizontal .foogrid-content-inner.foogrid-reverse {
-	transform: translateX(100%);
-}
-.foogrid.foogrid-transition-horizontal .foogrid-content-inner.foogrid-visible,
-.foogrid.foogrid-transition-horizontal .foogrid-content-inner.foogrid-reverse.foogrid-visible {
-	transform: translateX(0);
-}
-
-/* content slide up/down */
-.foogrid.foogrid-transition-vertical .foogrid-content-inner {
-	transition-property: transform, padding;
-	transform: translateY(-100%);
-}
-.foogrid.foogrid-transition-vertical .foogrid-content-inner.foogrid-reverse {
-	transform: translateY(100%);
-}
-.foogrid.foogrid-transition-vertical .foogrid-content-inner.foogrid-visible,
-.foogrid.foogrid-transition-vertical .foogrid-content-inner.foogrid-reverse.foogrid-visible {
-	transform: translateY(0);
-}
-
-/* Caption changes */
-.foogrid.foogrid-transition-fade .foogrid-caption,
-.foogrid.foogrid-transition-horizontal .foogrid-caption,
-.foogrid.foogrid-transition-vertical .foogrid-caption {
-	transition-property: width, padding, top, left;
 }

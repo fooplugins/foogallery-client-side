@@ -1,4 +1,4 @@
-(function($, _, _obj){
+(function($, _, _is, _fn, _obj, _t){
 
 	_.FooGridTemplate = _.Template.extend({
 		construct: function(options, element){
@@ -8,64 +8,199 @@
 					enabled: true
 				}
 			}), element);
-			self.foogrid = new _.GridPro( self, self.template );
-			self.hadState = false;
+			self.$section = null;
+			self.breakpoints = new _.Breakpoints();
+			self.panel = new _.Panel( self, self.breakpoints );
+			self.isFirst = false;
 		},
 		onPreInit: function(event, self){
-			self.foogrid.preinit();
-		},
-		onInit: function(event, self){
-			self.foogrid.init();
+			self.$section = $('<section/>', {'class': 'foogrid-content'});
+			self.panel.opt.transition = "none";
+			if (self.$el.hasClass("foogrid-transition-horizontal")){
+				self.panel.opt.transition = "horizontal";
+			}
+			if (self.$el.hasClass("foogrid-transition-vertical")){
+				self.panel.opt.transition = "vertical";
+			}
+			if (self.$el.hasClass("foogrid-transition-fade")){
+				self.panel.opt.transition = "fade";
+			}
+			if (self.$el.hasClass("foogrid-caption-below")){
+				self.panel.opt.caption = "bottom";
+			}
+			if (self.$el.hasClass("foogrid-caption-right")){
+				self.panel.opt.caption = "right";
+			}
 		},
 		onDestroy: function(event, self){
-			self.foogrid.destroy();
+			self.panel.destroy();
+			self.$section.remove();
 		},
 		onNextPanel: function(event, self, panel, currentItem, nextItem){
 			event.preventDefault();
-			self.foogrid.open(nextItem);
+			self.open(nextItem);
 		},
 		onPrevPanel: function(event, self, panel, currentItem, prevItem){
 			event.preventDefault();
-			self.foogrid.open(prevItem);
+			self.open(prevItem);
 		},
 		onClosePanel: function(event, self, panel){
 			event.preventDefault();
-			self.foogrid.close();
+			self.close();
 		},
 		onParsedItem: function(event, self, item){
-			self.foogrid.onParsedOrCreatedItem(item);
+			if (item.isError) return;
+			item.$anchor.on("click.gg", {self: self, item: item}, self.onAnchorClick);
 		},
 		onCreatedItem: function(event, self, item){
-			self.foogrid.onParsedOrCreatedItem(item);
+			if (item.isError) return;
+			item.$anchor.on("click.gg", {self: self, item: item}, self.onAnchorClick);
 		},
 		onAfterState: function(event, self, state){
-			if (!!state.item){
-				self.foogrid.layout(true, state.item.index);
-				self.foogrid.open(state.item.index);
-				self.hadState = true;
-			}
-		},
-		onFirstLoad: function(event, self){
-			self.foogrid.layout(!self.hadState);
-		},
-		onReady: function(event, self){
-			self.foogrid.layout();
+			if (!(state.item instanceof _.Item)) return;
+			self.open(state.item);
 		},
 		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
-			if (!isFilter){
-				self.foogrid.close(true);
-			}
-		},
-		onAfterPageChange: function(event, self, current, prev, isFilter){
-			if (!isFilter){
-				self.foogrid.layout(true);
-			}
+			if (isFilter) return;
+			self.close(true);
 		},
 		onBeforeFilterChange: function(event, self, current, next, setFilter){
-			self.foogrid.close(true);
+			self.close(true);
 		},
-		onAfterFilterChange: function(event, self){
-			self.foogrid.layout(true);
+		onAnchorClick: function(e){
+			e.preventDefault();
+			e.data.self.toggle(e.data.item);
+		},
+
+
+		transitionsEnabled: function(){
+			return _t.supported && !this.disableTransitions && this.panel.hasTransition;
+		},
+		isNewRow: function( item ){
+			var self = this,
+				oldTop = self.getOffsetTop(self.panel.currentItem),
+				newTop = self.getOffsetTop(item);
+			return oldTop !== newTop;
+		},
+		getOffsetTop: function(item){
+			return item instanceof _.Item && item.isCreated ? item.$el.offset().top : 0;
+		},
+		scrollTo: function(scrollTop, when, duration){
+			var self = this;
+
+			scrollTop = (_is.number(scrollTop) ? scrollTop : 0) - (+self.template.scrollOffset);
+			when = _is.boolean(when) ? when : true;
+			duration = _is.number(duration) ? duration : 300;
+
+			var $wp = $('#wpadminbar'), $page = $('html, body');
+			if ($wp.length === 1){
+				scrollTop -= $wp.height();
+			}
+
+			return $.Deferred(function(d){
+				if (!self.template.scroll || !when){
+					d.resolve();
+				} else if (self.template.scrollSmooth && !self.panel.isExpanded){
+					$page.animate({ scrollTop: scrollTop }, duration, function(){
+						d.resolve();
+					});
+				} else {
+					$page.scrollTop(scrollTop);
+					d.resolve();
+				}
+			});
+		},
+
+		open: function(item){
+			var self = this;
+			if (item.index !== -1){
+				var newRow = self.isNewRow(item);
+				if (self.panel.currentItem instanceof _.Item && newRow && !self.panel.isExpanded){
+					return self.doClose(newRow).then(function(){
+						return self.doOpen(item, newRow);
+					});
+				}
+				return self.doOpen(item, newRow);
+			}
+			return $.when();
+		},
+		doOpen: function(item, newRow){
+			var self = this;
+			return $.Deferred(function(def){
+
+				self.scrollTo(self.getOffsetTop(item), newRow || self.isFirst).then(function(){
+
+					item.$el.after(self.$section);
+					if (!self.panel.isAttached) self.panel.appendTo(self.$section);
+
+					if (self.transitionOpen(newRow)){
+						self.isFirst = false;
+						_t.start(self.$section, "foogrid-visible", true, 350).then(function(){
+							def.resolve();
+						});
+					} else {
+						self.$section.addClass('foogrid-visible');
+						def.resolve();
+					}
+
+				});
+
+			}).then(function(){
+				return self.panel.load(item);
+			}).then(function(){
+				self.breakpoints.check();
+				self.$section.focus();
+				self.isBusy = false;
+				return self.scrollTo(self.getOffsetTop(item), true);
+			}).promise();
+		},
+		transitionOpen: function(newRow){
+			return this.transitionsEnabled() && !this.panel.isExpanded && ((this.template.transitionOpen && this.isFirst) || (this.template.transitionRow && newRow));
+		},
+		close: function(immediate){
+			immediate = _is.boolean(immediate) ? immediate : false;
+			var self = this, previous = self.disableTransitions;
+			self.disableTransitions = immediate;
+			return self.doClose(false).then(function(){
+				self.disableTransitions = previous;
+			});
+		},
+		doClose: function(newRow){
+			var self = this;
+			return $.Deferred(function(def){
+				if (self.panel.currentItem instanceof _.Item){
+					self.panel.doClose().then(function(){
+						if (self.transitionClose(newRow)){
+							_t.start(self.$section, "foogrid-visible", false, 350).then(function(){
+								def.resolve();
+							});
+						} else {
+							self.$section.removeClass("foogrid-visible");
+							def.resolve();
+						}
+					});
+				}
+			}).always(function(){
+				if (!newRow){
+					self.panel.detach();
+					self.$section.detach();
+					self.isFirst = true;
+				}
+			}).promise();
+		},
+		transitionClose: function(newRow){
+			return this.transitionsEnabled() && !this.panel.isExpanded && ((this.template.transitionRow && newRow) || (this.template.transitionOpen && !newRow));
+		},
+		toggle: function(item){
+			var self = this;
+			if (item instanceof _.Item){
+				if (self.panel.currentItem === item){
+					return self.close();
+				} else {
+					return self.open(item);
+				}
+			}
+			return _fn.reject();
 		}
 	});
 
@@ -82,9 +217,9 @@
 			transitionOpen: true
 		},
 		panel: {
-			enabled: true,
 			theme: "fg-light",
-			highlight: "fg-highlight-blue",
+			button: "fg-button-blue",
+			highlight: "",
 			caption: "none"
 		}
 	}, {
@@ -92,7 +227,10 @@
 	});
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils.obj
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils.is,
+	FooGallery.utils.fn,
+	FooGallery.utils.obj,
+	FooGallery.utils.transition
 );
