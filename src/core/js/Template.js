@@ -116,6 +116,7 @@
 			self._initialize = null;
 			self.initializing = false;
 			self.initialized = false;
+            self.destroying = false;
 			self.destroyed = false;
 			self._undo = {
 				classes: "",
@@ -175,6 +176,7 @@
 		 */
 		preInit: function (parent) {
 			var self = this;
+            if (self.destroying) return false;
 			parent = _is.jq(parent) ? parent : $(parent);
 			self.initializing = true;
 
@@ -311,6 +313,7 @@
 		 */
 		postInit: function () {
 			var self = this;
+			if (self.destroying) return false;
 			/**
 			 * @summary Raised after the template is initialized but before any post-initialization work is complete.
 			 * @event FooGallery.Template~"post-init.foogallery"
@@ -371,6 +374,7 @@
 		 */
 		firstLoad: function(){
 			var self = this;
+            if (self.destroying) return _fn.rejected;
 			/**
 			 * @summary Raised after the template is fully initialized but before the first load occurs.
 			 * @event FooGallery.Template~"first-load.foogallery"
@@ -399,6 +403,7 @@
 		 */
 		ready: function(){
 			var self = this;
+            if (self.destroying) return false;
 			self.initializing = false;
 			self.initialized = true;
 			// performed purely to re-check if any items need to be loaded after content has possibly shifted
@@ -461,66 +466,85 @@
 		 */
 		destroy: function () {
 			var self = this;
-			/**
-			 * @summary Raised before the template is destroyed.
-			 * @event FooGallery.Template~"destroy.foogallery"
-			 * @type {jQuery.Event}
-			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-			 * @param {FooGallery.Template} template - The template raising the event.
-			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroy.foogallery": function(event, template){
-			 * 			// do something
-			 * 		}
-			 * 	}
-			 * });
-			 */
-			self.raise("destroy");
-			self.$scrollParent.off(self.namespace);
-			$(window).off(self.namespace);
-			self.state.destroy();
-			if (self.filter) self.filter.destroy();
-			if (self.pages) self.pages.destroy();
-			self.items.destroy();
-			if (!_is.empty(self.opt.on)) {
-				self.$el.off(self.opt.on);
-			}
-			/**
-			 * @summary Raised after the template has been destroyed.
-			 * @event FooGallery.Template~"destroyed.foogallery"
-			 * @type {jQuery.Event}
-			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-			 * @param {FooGallery.Template} template - The template raising the event.
-			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"destroyed.foogallery": function(event, template){
-			 * 			// do something
-			 * 		}
-			 * 	}
-			 * });
-			 */
-			self.raise("destroyed");
-			self.$el.removeData(_.dataTemplate);
-
-			if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
-			else self.$el.attr("class", self._undo.classes);
-
-			if (_is.empty(self._undo.style)) self.$el.removeAttr("style");
-			else self.$el.attr("style", self._undo.style);
-
-			if (self._undo.children) {
-				self.destroyChildren();
-			}
-			if (self._undo.create) {
-				self.$el.remove();
-			}
-			self.$el = self.state = self.items = self.pages = null;
-			self.destroyed = true;
-			self.initializing = false;
-			self.initialized = false;
+            if (self.destroyed) return _fn.resolved;
+            self.destroying = true;
+            return $.Deferred(function (def) {
+                if (self.initializing && _is.promise(self._initialize)) {
+                    self._initialize.always(function () {
+                        self.destroying = false;
+                        self.doDestroy();
+                        def.resolve();
+                    });
+                } else {
+                    self.destroying = false;
+                    self.doDestroy();
+                    def.resolve();
+                }
+            }).promise();
 		},
+        doDestroy: function(){
+		    var self = this;
+            if (self.destroyed) return;
+            /**
+             * @summary Raised before the template is destroyed.
+             * @event FooGallery.Template~"destroy.foogallery"
+             * @type {jQuery.Event}
+             * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+             * @param {FooGallery.Template} template - The template raising the event.
+             * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+             * $(".foogallery").foogallery({
+             * 	on: {
+             * 		"destroy.foogallery": function(event, template){
+             * 			// do something
+             * 		}
+             * 	}
+             * });
+             */
+            self.raise("destroy");
+            self.$scrollParent.off(self.namespace);
+            $(window).off(self.namespace);
+            self.state.destroy();
+            if (self.filter) self.filter.destroy();
+            if (self.pages) self.pages.destroy();
+            self.items.destroy();
+            if (!_is.empty(self.opt.on)) {
+                self.$el.off(self.opt.on);
+            }
+            /**
+             * @summary Raised after the template has been destroyed.
+             * @event FooGallery.Template~"destroyed.foogallery"
+             * @type {jQuery.Event}
+             * @param {jQuery.Event} event - The jQuery.Event object for the current event.
+             * @param {FooGallery.Template} template - The template raising the event.
+             * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
+             * $(".foogallery").foogallery({
+             * 	on: {
+             * 		"destroyed.foogallery": function(event, template){
+             * 			// do something
+             * 		}
+             * 	}
+             * });
+             */
+            self.raise("destroyed");
+            self.$el.removeData(_.dataTemplate);
+
+            if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
+            else self.$el.attr("class", self._undo.classes);
+
+            if (_is.empty(self._undo.style)) self.$el.removeAttr("style");
+            else self.$el.attr("style", self._undo.style);
+
+            if (self._undo.children) {
+                self.destroyChildren();
+            }
+            if (self._undo.create) {
+                self.$el.remove();
+            }
+            self.$el = self.state = self.items = self.pages = null;
+            self.destroyed = true;
+            self.initializing = false;
+            self.initialized = false;
+        },
 		/**
 		 * @summary If the {@link FooGallery.Template#createChildren|createChildren} method is used to generate custom elements for a template this method should also be overridden and used to destroy them.
 		 * @memberof FooGallery.Template#
@@ -570,7 +594,7 @@
 			delay = _is.number(delay) ? delay : 0;
 			var self = this;
 			setTimeout(function () {
-				if (self.initialized) {
+				if (self.initialized && (!self.destroying || !self.destroyed)) {
 					self.loadAvailable();
 				}
 			}, delay);
