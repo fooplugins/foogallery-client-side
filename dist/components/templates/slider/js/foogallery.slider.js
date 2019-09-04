@@ -77,7 +77,9 @@
 
 		},
 		onInit: function (event, self) {
-			$(window).on("resize.fg-slider", {self: self}, _fn.throttle(self.onWindowResize, self.template.throttle));
+			$(window).on("resize.fg-slider", {self: self}, _fn.throttle(function () {
+				self.redraw();
+			}, self.template.throttle));
 			self.$itemPrev.on("click.fg-slider", {self: self}, self.onPrevClick);
 			self.$itemNext.on("click.fg-slider", {self: self}, self.onNextClick);
 			self.$contentPrev.on("click.fg-slider", {self: self}, self.onContentPrevClick);
