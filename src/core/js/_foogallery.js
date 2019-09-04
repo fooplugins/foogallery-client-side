@@ -151,8 +151,8 @@
 	 */
 	$.fn.foogallery = function (options, ready) {
 		return this.each(function (i, element) {
+			var template = $.data(element, _.dataTemplate);
 			if (_is.string(options)) {
-				var template = $.data(element, _.dataTemplate);
 				if (template instanceof _.Template) {
 					switch (options) {
 						case "layout":
@@ -164,6 +164,9 @@
 					}
 				}
 			} else {
+				if (template instanceof _.Template) {
+					template.destroy();
+				}
 				_.template.make(options, element).initialize().then(function (template) {
 					if (_is.fn(ready)) {
 						ready(template);
