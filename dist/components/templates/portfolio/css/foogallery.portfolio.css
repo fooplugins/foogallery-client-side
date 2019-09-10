@@ -26,6 +26,12 @@
     width: 100%;
 }
 
+/* Some badly written themes apply min-width:0 and min-height:0 to every element in the page which causes layout issues with flex. */
+.fg-simple_portfolio .fg-thumb {
+    min-width: unset;
+    min-height: unset;
+}
+
 /* Reset captions for the portfolio */
 .foogallery.fg-simple_portfolio .fg-item-inner .fg-caption {
     visibility: visible;
