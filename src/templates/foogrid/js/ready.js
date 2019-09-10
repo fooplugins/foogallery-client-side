@@ -3,14 +3,9 @@
 	_.FooGridTemplate = _.Template.extend({
 		construct: function(options, element){
 			var self = this;
-			self._super(_obj.extend({}, options, {
-				panel: {
-					enabled: true
-				}
-			}), element);
+			self._super(options, element);
 			self.$section = null;
-			self.breakpoints = new _.Breakpoints();
-			self.panel = new _.Panel( self, self.breakpoints );
+			self.panel = new _.Panel( self, self.template );
 			self.isFirst = false;
 		},
 		onPreInit: function(event, self){
@@ -148,7 +143,7 @@
 			}).then(function(){
 				return self.panel.load(item);
 			}).then(function(){
-				self.breakpoints.check();
+				self.panel.checkBreakpoints();
 				self.$section.focus();
 				self.isBusy = false;
 				return self.scrollTo(self.getOffsetTop(item), true);
@@ -214,12 +209,7 @@
 			externalText: null,
 			keyboard: true,
 			transitionRow: true,
-			transitionOpen: true
-		},
-		panel: {
-			theme: "fg-light",
-			button: "fg-button-blue",
-			highlight: "",
+			transitionOpen: true,
 			caption: "none"
 		}
 	}, {

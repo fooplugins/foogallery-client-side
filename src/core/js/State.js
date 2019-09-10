@@ -73,10 +73,11 @@
 		 * @summary Destroy the component clearing any current state from the url and preparing it for garbage collection.
 		 * @memberof FooGallery.State#
 		 * @function destroy
+		 * @param {boolean} [preserve=false] - If set to true any existing state is left intact on the URL.
 		 */
-		destroy: function(){
+		destroy: function(preserve){
 			var self = this;
-			self.clear();
+			if (!preserve) self.clear();
 			self.opt = self.regex = {};
 			self._super();
 		},

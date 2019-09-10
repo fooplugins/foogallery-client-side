@@ -33,10 +33,12 @@ module.exports = function ( grunt ) {
 						"./src/core/js/Template.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
+						"./src/core/js/Timer.js",
 						"./src/core/js/items/Item.js",
 						"./src/core/js/items/ItemContent.js",
 						"./src/core/js/items/Items.js",
 						"./src/core/js/items/Panel.js",
+						"./src/core/js/items/ProgressRing.js",
 						"./src/core/js/items/video/Video.js",
 						"./src/core/js/items/video/VideoContent.js",
 						"./src/core/js/items/video/VideoHelper.js",
@@ -59,7 +61,8 @@ module.exports = function ( grunt ) {
 						"./src/core/js/paging/Dots.js",
 						"./src/core/js/paging/Pagination.js",
 						"./src/core/js/filtering/Filtering.js",
-						"./src/core/js/filtering/Tags.js"
+						"./src/core/js/filtering/Tags.js",
+						"./src/core/js/Lightbox.js"
 					],
 					"./dist/components/core/css/foogallery.css": [
 						"./src/core/css/general/core.css",
@@ -71,6 +74,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/panel/small.css",
 						"./src/core/css/panel/transitions.css",
 						"./src/core/css/panel/content.css",
+						"./src/core/css/panel/progress-ring.css",
 
 						"./src/core/css/appearance/theme.css",
 						"./src/core/css/appearance/border-size.css",

@@ -11,7 +11,7 @@
 
 			self.sel = _obj.extend({}, self.tmpl.sel.panel);
 
-			self.progressRing = new _.ProgressRing({ radius: 30, strokeWidth: 12, fontSize: "12px", classes: { elem: "fg-icon fg-progress-ring" } });
+			self.progressRing = new _.ProgressRing({ radius: 14, strokeWidth: 2, fontSize: "12px", classes: { elem: "fg-icon fg-progress-ring" } });
 
 			self.$el = null;
 

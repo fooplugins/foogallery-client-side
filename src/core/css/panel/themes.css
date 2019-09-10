@@ -16,9 +16,6 @@
 .fg-panel.fg-light .fg-progress-ring {
     color: rgba(0, 0, 0, 0.3);
 }
-.fg-panel.fg-light .fg-progress-ring-inner {
-    stroke: rgba(0, 0, 0, 0.1);
-}
 .fg-panel.fg-dark .fg-panel-button,
 .fg-panel.fg-dark.fg-small .fg-panel-buttons {
     color: rgba(254, 254, 254, 1);
@@ -27,9 +24,6 @@
 }
 .fg-panel.fg-dark .fg-progress-ring {
     color: rgba(254, 254, 254, 1);
-}
-.fg-panel.fg-dark .fg-progress-ring-inner {
-    stroke: rgba(0, 0, 0, 0.3);
 }
 
 .fg-panel.fg-light .fg-content-caption {

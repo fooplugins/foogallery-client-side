@@ -649,7 +649,7 @@
 			}
 
 			attr.image["class"] = cls.image;
-			attr.image["src"] = _.emptyImage;
+			// attr.image["src"] = _.emptyImage;
 			attr.image[o.src] = self.src;
 			attr.image[o.srcset] = self.srcset;
 			attr.image["width"] = self.width;
@@ -754,7 +754,7 @@
 				var e = self.tmpl.raise("append-item", [self]);
 				if (!e.isDefaultPrevented()) {
 					self.tmpl.$el.append(self.$el);
-					if (self.fixLayout) self.fix();
+					if (self.fixLayout || !self.isParsed) self.fix();
 					self.isAttached = true;
 				}
 				if (self.isAttached) {
@@ -832,7 +832,7 @@
 				var e = self.tmpl.raise("detach-item", [self]);
 				if (!e.isDefaultPrevented()) {
 					self.$el.detach();
-					if (self.fixLayout) self.unfix();
+					if (self.fixLayout || !self.isParsed) self.unfix();
 					self.isAttached = false;
 				}
 				if (!self.isAttached) {
@@ -878,7 +878,7 @@
 					self.isLoading = false;
 					self.isLoaded = true;
 					self.$el.removeClass(cls.loading).addClass(cls.loaded);
-					if (self.fixLayout) self.unfix();
+					if (self.fixLayout || !self.isParsed) self.unfix();
 					self.tmpl.raise("loaded-item", [self]);
 					def.resolve(self);
 				};
@@ -991,6 +991,14 @@
 			return this.isAttached ? this.bounds().intersects(bounds) : false;
 		},
 		/**
+		 * @summary Updates the current state to this item.
+		 * @memberof FooGallery.Item#
+		 * @function updateState
+		 */
+		updateState: function(){
+			this.tmpl.state.update(this.tmpl.state.get(this));
+		},
+		/**
 		 * @summary Listens for the click event on the {@link FooGallery.Item#$anchor|$anchor} element and updates the state if enabled.
 		 * @memberof FooGallery.Item#
 		 * @function onAnchorClick
@@ -998,9 +1006,12 @@
 		 * @private
 		 */
 		onAnchorClick: function (e) {
-			var self = e.data.self,
-					state = self.tmpl.state.get(self);
-			self.tmpl.state.update(state);
+			var self = e.data.self, evt = self.tmpl.raise("anchor-click-item", [self]);
+			if (evt.isDefaultPrevented()) {
+				e.preventDefault();
+			} else {
+				self.updateState();
+			}
 		},
 		/**
 		 * @summary Listens for the click event on the {@link FooGallery.Item#$caption|$caption} element and redirects it to the anchor if required.
@@ -1010,8 +1021,8 @@
 		 * @private
 		 */
 		onCaptionClick: function (e) {
-			var self = e.data.self;
-			if (self.$anchor.length > 0) {
+			var self = e.data.self, evt = self.tmpl.raise("caption-click-item", [self]);
+			if (!evt.isDefaultPrevented() && self.$anchor.length > 0) {
 				self.$anchor.get(0).click();
 			}
 		}

@@ -11,10 +11,10 @@
             self.opt = _obj.extend({}, _.Breakpoints.defaults, options);
 
             self.registered = [];
-        },
 
-        init: function(){
-            $(window).on("resize" + this.namespace, {self: this}, _fn.debounce(this.onWindowResize, 50));
+            $(window).on("resize" + self.namespace, _fn.debounce(function(){
+                self.check();
+            }, 50));
         },
 
         destroy: function(){
@@ -42,6 +42,14 @@
             self.registered = self.registered.filter(function(x){
                 return x.$element.get(0) !== $el.get(0);
             });
+        },
+
+        current: function( $el ){
+            if (!_is.jq($el)) return _.Breakpoints.NONE;
+            var self = this, registered = self.registered.find(function(x){
+                return x.$element.get(0) === $el.get(0);
+            });
+            return _is.hash(registered) ? registered.current : _.Breakpoints.NONE;
         },
 
         parse: function( breakpoints ){
@@ -123,11 +131,7 @@
                 }
             }
             return _.Breakpoints.NONE;
-        },
-
-        onWindowResize: function(e){
-            e.data.self.check();
-        },
+        }
 
     });
 
@@ -141,6 +145,8 @@
         height: Infinity,
         className: ""
     };
+
+    _.breakpoints = new _.Breakpoints();
 
 })(
     FooGallery.$,
