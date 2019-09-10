@@ -6,9 +6,6 @@
 	max-width: 100%;
 	max-height: 100%;
 }
-.fg-content-container .fg-content {
-	transition: opacity 300ms, visibility 300ms;
-}
 .fg-content-container.fg-idle .fg-content,
 .fg-content-container.fg-loading .fg-content {
 	visibility: hidden;

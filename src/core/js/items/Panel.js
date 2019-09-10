@@ -1,19 +1,17 @@
 (function($, _, _utils, _is, _obj, _fn, _t){
 
 	_.Panel = _.Component.extend({
-		construct: function(template, breakpoints){
+		construct: function(template, options){
 			var self = this;
 			self._super(template);
 
-			self.breakpoints = breakpoints instanceof _.Breakpoints ? breakpoints : new _.Breakpoints();
-
-			self.namespace = self.tmpl.namespace + "-panel";
-
-			self.opt = _obj.extend({}, self.tmpl.opt.panel);
+			self.opt = _obj.extend({}, self.tmpl.opt.panel, options);
 
 			self.cls = _obj.extend({}, self.tmpl.cls.panel);
 
 			self.sel = _obj.extend({}, self.tmpl.sel.panel);
+
+			self.progressRing = new _.ProgressRing({ radius: 30, strokeWidth: 12, fontSize: "12px", classes: { elem: "fg-icon fg-progress-ring" } });
 
 			self.$el = null;
 
@@ -38,6 +36,8 @@
 			self.isCaptionCollapsed = false;
 
 			self.hasTransition = !_is.empty(self.cls.transition[self.opt.transition]);
+
+			self.hasAutoProgress = !_is.empty(self.opt.autoProgress);
 
 			self.currentItem = null;
 		},
@@ -212,6 +212,12 @@
 					.on("click.foogallery", {self: self}, self.onNextClick)
 					.appendTo(self.$buttons);
 			}
+			if (self.hasAutoProgress){
+				self.progressRing.on("complete", self.next, self);
+				$('<div/>').addClass(self.cls.progress)
+					.append(self.progressRing.$el)
+					.appendTo(self.$buttons);
+			}
 			if (self.opt.buttons.caption){
 				$('<div/>').addClass(self.cls.caption)
 					.append(_.icon("caption", self.opt.icons))
@@ -327,7 +333,7 @@
 			if (self.isExpanded){
 				self.$buttons.find(self.sel.expand).hide();
 			}
-			self.breakpoints.register(self.$el, self.opt.breakpoints);
+			_.breakpoints.register(self.$el, self.opt.breakpoints);
 			self.$el.toggleClass(self.cls.expanded, self.isExpanded).appendTo( $parent );
 			return self.$el.parent().length > 0;
 		},
@@ -403,12 +409,12 @@
 		},
 		doDetach: function(){
 			var self = this;
-			self.breakpoints.remove(self.$el);
+			_.breakpoints.remove(self.$el);
 			self.$el.detach();
 			return true;
 		},
 		checkBreakpoints: function(){
-			this.breakpoints.check(this.$el);
+			_.breakpoints.check(this.$el);
 		},
 		reverseTransition: function( oldItem, newItem ){
 			if (!(oldItem instanceof _.Item) || !(newItem instanceof _.Item)) return true;
@@ -443,6 +449,9 @@
 					def.rejectWith("default prevented");
 					return;
 				}
+				if (self.hasAutoProgress){
+					self.progressRing.stop();
+				}
 				var reverse = self.reverseTransition( self.currentItem, item );
 				self.doUnload( self.currentItem, reverse );
 				self.currentItem = item;
@@ -450,6 +459,9 @@
 			}).always(function(){
 				self.isLoading = false;
 				self.$el.removeClass(item.cls.loading).focus();
+				if (self.hasAutoProgress){
+					self.progressRing.countdown(self.opt.autoProgress);
+				}
 			}).then(function(){
 				self.isLoaded = true;
 				self.$el.addClass(item.cls.loaded);
@@ -495,8 +507,7 @@
 			}
 			return $.when.apply($, wait).promise().always(function(){
 				item.content.$el.removeClass(self.cls.reverse);
-				var state = self.tmpl.state.get( item );
-				self.tmpl.state.update(state);
+				item.updateState();
 			});
 		},
 		open: function( item, parent ){
@@ -521,6 +532,8 @@
 				} else {
 					def.rejectWith("not attached");
 				}
+			}).then(function(){
+				self.checkBreakpoints();
 			}).promise();
 		},
 		next: function(){
@@ -579,7 +592,7 @@
 			self.isExpanded = !self.isExpanded;
 			self.$el.toggleClass(self.cls.expanded, self.isExpanded);
 			$("html").toggleClass(self.cls.noScrollbars, self.isExpanded && self.opt.noScrollbars);
-			self.tmpl.breakpoints.check(self.$el);
+			self.checkBreakpoints();
 		},
 		toggleCaption: function(){
 			var self = this;
@@ -653,6 +666,7 @@
 			keyboard: true,
 			noScrollbars: true,
 			swipe: true,
+			autoProgress: 0,
 			buttons: {
 				navigation: true,
 				close: true,
@@ -675,6 +689,7 @@
 			buttons: "fg-panel-buttons",
 			prev: "fg-panel-button fg-panel-prev",
 			next: "fg-panel-button fg-panel-next",
+			progress: "fg-panel-button fg-panel-progress",
 			close: "fg-panel-button fg-panel-close",
 			expand: "fg-panel-button fg-panel-expand",
 			caption: "fg-panel-button fg-panel-caption",

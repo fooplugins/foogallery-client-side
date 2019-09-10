@@ -6,6 +6,14 @@
     transition-timing-function: ease-in-out;
 }
 
+.fg-panel-fade .fg-content,
+.fg-panel-horizontal .fg-content,
+.fg-panel-vertical .fg-content {
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+    transition-property: opacity, visibility;
+}
+
 @media (hover: hover) {
     .fg-panel-fade .fg-panel-button,
     .fg-panel-horizontal .fg-panel-button,

@@ -36,6 +36,13 @@ html.fg-panel-no-scroll, html.fg-panel-no-scroll body {
 	left: 0;
 	bottom: 0;
 	right: 0;
+	z-index: 1;
+}
+.fg-panel-inner .fg-progress-ring {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 2;
 }
 .fg-panel-buttons {
 	position: absolute;
@@ -55,10 +62,12 @@ html.fg-panel-no-scroll, html.fg-panel-no-scroll body {
 	border-radius: 3px;
 	border-style: solid;
 	border-width: 1px;
+	overflow: hidden;
 }
 .fg-panel-close,
 .fg-panel-expand,
-.fg-panel-caption {
+.fg-panel-caption,
+.fg-panel-progress {
 	display: block;
 	position: relative;
 	width: 32px;
@@ -94,6 +103,7 @@ html.fg-panel-no-scroll, html.fg-panel-no-scroll body {
 .fg-panel-close .fg-icon,
 .fg-panel-expand .fg-icon,
 .fg-panel-caption .fg-icon,
+.fg-panel-progress .fg-icon,
 .fg-panel-prev .fg-icon,
 .fg-panel-next .fg-icon {
 	display: block;
