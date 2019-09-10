@@ -34,6 +34,15 @@
 	};
 
 	_.init = function (options, element) {
+		element = _is.jq(element) ? element : $(element);
+		if (element.length > 0){
+			var current = element.data(_.dataTemplate);
+			if (current instanceof _.Template) {
+				return current.destroy(true).then(function(){
+					return _.template.make(options, element).initialize();
+				});
+			}
+		}
 		return _.template.make(options, element).initialize();
 	};
 
@@ -93,9 +102,10 @@
 	 * </script>
 	 */
 	$.fn.foogallery = function (options, ready) {
+		ready = _is.fn(ready) ? ready : $.noop;
 		return this.each(function (i, element) {
-			var template = $.data(element, _.dataTemplate);
 			if (_is.string(options)) {
+				var template = $.data(element, _.dataTemplate);
 				if (template instanceof _.Template) {
 					switch (options) {
 						case "layout":
@@ -107,21 +117,7 @@
 					}
 				}
 			} else {
-				if (template instanceof _.Template) {
-					template.destroy().then(function(){
-						_.template.make(options, element).initialize().then(function (template) {
-							if (_is.fn(ready)) {
-								ready(template);
-							}
-						});
-					});
-				} else {
-					_.template.make(options, element).initialize().then(function (template) {
-						if (_is.fn(ready)) {
-							ready(template);
-						}
-					});
-				}
+				_.init( options, element ).then( ready );
 			}
 		});
 	};
