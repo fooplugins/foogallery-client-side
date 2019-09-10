@@ -2,7 +2,7 @@
 
 	var instance = 0;
 
-	_.Template = _utils.Class.extend(/** @lends FooGallery.Template */{
+	_.Template = _utils.EventClass.extend(/** @lends FooGallery.Template */{
 		/**
 		 * @summary The primary class for FooGallery, this controls the flow of the plugin across all templates.
 		 * @memberof FooGallery
@@ -15,6 +15,7 @@
 		 */
 		construct: function (options, element) {
 			var self = this;
+			self._super();
 			/**
 			 * @summary An instance specific namespace to use when binding events to global objects that could be shared across multiple galleries.
 			 * @memberof FooGallery.Template#
@@ -460,29 +461,32 @@
 		 * @summary Destroy the template.
 		 * @memberof FooGallery.Template#
 		 * @function destroy
+		 * @param {boolean} [preserveState=false] - If set to true any existing state is left intact on the URL.
 		 * @returns {Promise}
 		 * @description Once this method is called it can not be stopped and the template will be destroyed.
 		 * @fires FooGallery.Template~"destroy.foogallery"
 		 */
-		destroy: function () {
-			var self = this;
+		destroy: function (preserveState) {
+			var self = this, _super = self._super;
             if (self.destroyed) return _fn.resolved;
             self.destroying = true;
             return $.Deferred(function (def) {
                 if (self.initializing && _is.promise(self._initialize)) {
                     self._initialize.always(function () {
                         self.destroying = false;
-                        self.doDestroy();
+                        self.doDestroy(preserveState);
                         def.resolve();
                     });
                 } else {
                     self.destroying = false;
-                    self.doDestroy();
+                    self.doDestroy(preserveState);
                     def.resolve();
                 }
-            }).promise();
+            }).then(function(){
+            	_super();
+			}).promise();
 		},
-        doDestroy: function(){
+        doDestroy: function(preserveState){
 		    var self = this;
             if (self.destroyed) return;
             /**
@@ -503,7 +507,7 @@
             self.raise("destroy");
             self.$scrollParent.off(self.namespace);
             $(window).off(self.namespace);
-            self.state.destroy();
+            self.state.destroy(preserveState);
             if (self.filter) self.filter.destroy();
             if (self.pages) self.pages.destroy();
             self.items.destroy();
@@ -627,6 +631,8 @@
 					listener = _str.camel("on-" + name),
 					event = $.Event(name + ".foogallery");
 			args.unshift(self); // add self
+			var e = self.trigger(name, args);
+			if (e.defaultPrevented) event.preventDefault();
 			self.$el.trigger(event, args);
 			_.debug.logf("{id}|{name}:", {id: self.id, name: name}, args);
 			if (_is.fn(self[listener])) {
