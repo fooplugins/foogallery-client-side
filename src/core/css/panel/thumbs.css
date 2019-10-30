@@ -1,0 +1,199 @@
+.fg-panel-thumbs-inner {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: auto;
+}
+.fg-panel-thumbs-top .fg-panel-thumbs-inner,
+.fg-panel-thumbs-bottom .fg-panel-thumbs-inner {
+    flex-direction: row;
+}
+.fg-panel-thumbs-left .fg-panel-thumbs-inner,
+.fg-panel-thumbs-right .fg-panel-thumbs-inner {
+    flex-direction: column;
+}
+
+.fg-panel-thumbs-button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    user-select: none;
+}
+.fg-panel-thumbs-button.fg-disabled {
+    pointer-events: none;
+}
+.fg-panel-thumbs-top .fg-panel-thumbs-button,
+.fg-panel-thumbs-bottom .fg-panel-thumbs-button {
+    width: 37px;
+    min-width: 37px;
+}
+.fg-panel-thumbs-left .fg-panel-thumbs-button,
+.fg-panel-thumbs-right .fg-panel-thumbs-button {
+    height: 37px;
+    min-height: 37px;
+}
+
+@media (hover: hover) {
+    .fg-panel-hover-buttons .fg-panel-thumbs-button {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        z-index: 1;
+    }
+    .fg-panel-hover-buttons .fg-panel-thumbs:hover .fg-panel-thumbs-button:not(.fg-disabled) {
+        visibility: visible;
+        opacity: 0.5;
+    }
+    .fg-panel-hover-buttons .fg-panel-thumbs .fg-panel-thumbs-button:not(.fg-disabled):hover {
+        opacity: 1;
+    }
+    .fg-panel-hover-buttons .fg-panel-thumbs-prev {
+        top: 0;
+        left: 0;
+    }
+    .fg-panel-hover-buttons .fg-panel-thumbs-next {
+        bottom: 0;
+        right: 0;
+    }
+}
+
+
+.fg-panel-thumbs-button .fg-icon {
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.fg-panel-thumbs-button.fg-disabled .fg-icon {
+    opacity: 0.3;
+}
+.fg-panel-thumbs-left .fg-panel-thumbs-button .fg-icon,
+.fg-panel-thumbs-right .fg-panel-thumbs-button .fg-icon {
+    transform: translateX(-50%) translateY(-50%) rotate(90deg);
+}
+
+.fg-panel-thumbs-viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.fg-panel-thumbs-stage {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: center;
+}
+.fg-panel-thumbs-top .fg-panel-thumbs-stage,
+.fg-panel-thumbs-bottom .fg-panel-thumbs-stage {
+    flex-direction: row;
+}
+.fg-panel-thumbs-left .fg-panel-thumbs-stage,
+.fg-panel-thumbs-right .fg-panel-thumbs-stage {
+    flex-direction: column;
+}
+.fg-panel-thumb-spacer {
+    width: 100%;
+    height: 100%;
+    min-height: 1px;
+    min-width: 1px;
+}
+
+.fg-panel-thumb {
+    position: relative;
+    display: flex;
+    margin: 0;
+    padding: 4px 4px 5px 4px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    cursor: pointer;
+    user-select: none;
+}
+.fg-panel.fg-medium .fg-panel-thumb {
+    justify-content: flex-start;
+}
+
+.fg-panel-thumbs-viewport > .fg-panel-thumb {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.fg-panel-thumb-media {
+    position: relative;
+    width: 72px;
+    min-width: 72px;
+    height: 72px;
+    min-height: 72px;
+    overflow: hidden;
+}
+.fg-panel.fg-medium-width:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb-media {
+    margin-right: 5px;
+}
+.fg-panel.fg-large-width:not(.fg-panel-thumbs-small) .fg-panel-thumb-media {
+    width: 100px;
+    min-width: 100px;
+}
+.fg-panel.fg-x-large-width:not(.fg-panel-thumbs-small) .fg-panel-thumb-media {
+    width: 128px;
+    min-width: 128px;
+}
+.fg-panel .fg-panel-thumb-media .fg-loader {
+
+}
+
+.fg-panel-thumb-overlay {
+
+}
+
+
+.fg-panel-thumb-image {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    transform: translateX(-50%) translateY(-50%);
+}
+.fg-panel-thumb-caption {
+    display: none;
+    width: 100%;
+    height: 72px;
+    max-height: 72px;
+    margin: 0;
+    font-size: 14px;
+    overflow: hidden;
+    line-height: 1.3;
+}
+.fg-panel.fg-medium-width:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb-caption {
+    display: block;
+}
+.fg-panel-thumb-title {
+    font-weight: 600;
+}
+.fg-panel-thumb-description {
+    font-size: smaller;
+}
+.fg-panel-thumb-title,
+.fg-panel-thumb-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

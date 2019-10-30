@@ -38,7 +38,7 @@
             enabled = this.opt.lightbox.enabled || _is.hash(data) || (this.$el.length > 0 && this.$el.get(0).hasAttribute("data-foogallery-lightbox"));
 
         this.opt.lightbox = _obj.extend({}, this.opt.panel, this.opt.lightbox, { enabled: enabled }, data);
-        this.lightbox = new _.Lightbox(this, this.opt.lightbox);
+        this.lightbox = enabled ? new _.Lightbox(this, this.opt.lightbox) : null;
     });
 
 })(

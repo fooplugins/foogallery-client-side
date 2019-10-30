@@ -33,48 +33,69 @@ module.exports = function ( grunt ) {
 						"./src/core/js/Template.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
-						"./src/core/js/Timer.js",
-						"./src/core/js/items/Item.js",
-						"./src/core/js/items/ItemContent.js",
+
 						"./src/core/js/items/Items.js",
-						"./src/core/js/items/Panel.js",
-						"./src/core/js/items/ProgressRing.js",
-						"./src/core/js/items/video/Video.js",
-						"./src/core/js/items/video/VideoContent.js",
-						"./src/core/js/items/video/VideoHelper.js",
-						"./src/core/js/items/video/VideoPlayer.js",
-						"./src/core/js/items/video/VideoSource.js",
-						"./src/core/js/items/video/sources/SelfHosted.js",
-						"./src/core/js/items/video/sources/YouTube.js",
-						"./src/core/js/items/video/sources/Vimeo.js",
-						"./src/core/js/items/video/sources/DailyMotion.js",
-						"./src/core/js/items/video/sources/Wistia.js",
-						"./src/core/js/items/iframe/Iframe.js",
-						"./src/core/js/items/iframe/IframeContent.js",
-						"./src/core/js/items/html/Html.js",
-						"./src/core/js/items/html/HtmlContent.js",
-						"./src/core/js/items/embed/Embed.js",
-						"./src/core/js/items/embed/EmbedContent.js",
+						"./src/core/js/items/Item.js",
+						"./src/core/js/items/Image.js",
+						"./src/core/js/items/Video.js",
+						"./src/core/js/items/Iframe.js",
+						"./src/core/js/items/Html.js",
+						"./src/core/js/items/Embed.js",
+
 						"./src/core/js/paging/Paging.js",
 						"./src/core/js/paging/Infinite.js",
 						"./src/core/js/paging/LoadMore.js",
 						"./src/core/js/paging/Dots.js",
 						"./src/core/js/paging/Pagination.js",
+
 						"./src/core/js/filtering/Filtering.js",
 						"./src/core/js/filtering/Tags.js",
+
+						"./src/core/js/panel/Panel.js",
+						"./src/core/js/panel/buttons/Buttons.js",
+						"./src/core/js/panel/buttons/Button.js",
+						"./src/core/js/panel/buttons/AutoProgress.js",
+						"./src/core/js/panel/buttons/Fullscreen.js",
+						"./src/core/js/panel/buttons/Maximize.js",
+						"./src/core/js/panel/areas/Area.js",
+						"./src/core/js/panel/areas/Content.js",
+						"./src/core/js/panel/areas/sides/SideArea.js",
+						"./src/core/js/panel/areas/sides/Info.js",
+						"./src/core/js/panel/areas/sides/Thumbs.js",
+						"./src/core/js/panel/areas/sides/Cart.js",
+						"./src/core/js/panel/media/Media.js",
+						"./src/core/js/panel/media/Caption.js",
+						"./src/core/js/panel/media/Product.js",
+						"./src/core/js/panel/media/Image.js",
+						"./src/core/js/panel/media/Iframe.js",
+						"./src/core/js/panel/media/Html.js",
+						"./src/core/js/panel/media/Embed.js",
+						"./src/core/js/panel/media/video/Video.js",
+						"./src/core/js/panel/media/video/Source.js",
+						"./src/core/js/panel/media/video/sources/DailyMotion.js",
+						"./src/core/js/panel/media/video/sources/SelfHosted.js",
+						"./src/core/js/panel/media/video/sources/Vimeo.js",
+						"./src/core/js/panel/media/video/sources/Wistia.js",
+						"./src/core/js/panel/media/video/sources/YouTube.js",
 						"./src/core/js/Lightbox.js"
 					],
 					"./dist/components/core/css/foogallery.css": [
 						"./src/core/css/general/core.css",
-						"./src/core/css/general/content.css",
 						"./src/core/css/general/icons.css",
 
 						"./src/core/css/panel/panel.css",
+						"./src/core/css/panel/panel-grid.css",
+						"./src/core/css/panel/panel-sizing.css",
+						"./src/core/css/panel/panel-buttons.css",
+						"./src/core/css/panel/panel-borders.css",
+						"./src/core/css/panel/icons.css",
+						"./src/core/css/panel/media.css",
+						"./src/core/css/panel/media-caption.css",
+						"./src/core/css/panel/media-product.css",
 						"./src/core/css/panel/themes.css",
-						"./src/core/css/panel/small.css",
 						"./src/core/css/panel/transitions.css",
-						"./src/core/css/panel/content.css",
-						"./src/core/css/panel/progress-ring.css",
+						"./src/core/css/panel/auto-progress.css",
+						"./src/core/css/panel/thumbs.css",
 
 						"./src/core/css/appearance/theme.css",
 						"./src/core/css/appearance/border-size.css",
@@ -101,7 +122,6 @@ module.exports = function ( grunt ) {
 
 						"./src/core/css/hover-effects/captions.css",
 						"./src/core/css/hover-effects/icons.css",
-						"./src/core/css/hover-effects/video-icons.css",
 
 						"./src/core/css/hover-effects/preset.css",
 						"./src/core/css/hover-effects/presets/goliath.css",
@@ -148,7 +168,6 @@ module.exports = function ( grunt ) {
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
 						"./src/core/js/items/Item.js",
-						"./src/core/js/items/ItemContent.js",
 						"./src/core/js/items/Items.js",
 						"./src/core/js/paging/Paging.js",
 						"./src/core/js/paging/Dots.js"
@@ -280,17 +299,47 @@ module.exports = function ( grunt ) {
 			"slider": {
 				"files": {
 					"./dist/components/templates/slider/js/foogallery.slider.js": [
-						"./src/templates/slider/js/Slider.js",
-						"./src/templates/slider/js/ready.js"
+						"./src/templates/slider/js/rdy.js",
+						// "./src/templates/slider/js/ready.js"
 					],
 					"./dist/components/templates/slider/css/foogallery.slider.css": [
-						"./src/templates/slider/css/slider.css",
-						"./src/templates/slider/css/item.css",
-						"./src/templates/slider/css/content.css",
-						"./src/templates/slider/css/no-captions.css",
-						"./src/templates/slider/css/theme.css",
-						"./src/templates/slider/css/highlight.css",
-						"./src/templates/slider/css/transitions.css"
+						"./src/templates/slider/css/_.css",
+						// "./src/templates/slider/css/slider.css",
+						// "./src/templates/slider/css/item.css",
+						// "./src/templates/slider/css/content.css",
+						// "./src/templates/slider/css/no-captions.css",
+						// "./src/templates/slider/css/theme.css",
+						// "./src/templates/slider/css/highlight.css",
+						// "./src/templates/slider/css/transitions.css"
+					]
+				}
+			},
+			"full_polyfill": {
+				"files": {
+					"./dist/full_polyfill/js/foogallery.js": [
+						"./polyfills/IntersectionObserver.js",
+						"./polyfills/ResizeObserver.js",
+						"./dist/components/core/js/foogallery.js",
+						"./dist/components/templates/default/js/foogallery.default.js",
+						"./dist/components/templates/masonry/js/foogallery.masonry.js",
+						"./dist/components/templates/justified/js/foogallery.justified.js",
+						"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
+						"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
+						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
+						"./dist/components/templates/foogrid/js/foogallery.foogrid.js",
+						"./dist/components/templates/slider/js/foogallery.slider.js",
+						"./src/core/js/ready.js"
+					],
+					"./dist/full_polyfill/css/foogallery.css": [
+						"./dist/components/core/css/foogallery.css",
+						"./dist/components/templates/default/css/foogallery.default.css",
+						"./dist/components/templates/masonry/css/foogallery.masonry.css",
+						"./dist/components/templates/justified/css/foogallery.justified.css",
+						"./dist/components/templates/portfolio/css/foogallery.portfolio.css",
+						"./dist/components/templates/image-viewer/css/foogallery.image-viewer.css",
+						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css",
+						"./dist/components/templates/foogrid/css/foogallery.foogrid.css",
+						"./dist/components/templates/slider/css/foogallery.slider.css"
 					]
 				}
 			},
@@ -355,6 +404,11 @@ module.exports = function ( grunt ) {
 					'* @copyright Steven Usher & Brad Vincent 2015\n' +
 					'* @license Released under the GPLv3 license.\n' +
 					'*/\n'
+			},
+			"full_polyfill": {
+				"files": {
+					"./dist/full_polyfill/js/foogallery.min.js": "./dist/full_polyfill/js/foogallery.js"
+				}
 			},
 			"full": {
 				"files": {
@@ -433,6 +487,11 @@ module.exports = function ( grunt ) {
 					'* @license Released under the GPLv3 license.\n' +
 					'*/\n'
 			},
+			"full_polyfill": {
+				"files": {
+					"./dist/full_polyfill/css/foogallery.min.css": "./dist/full_polyfill/css/foogallery.css"
+				}
+			},
 			"full": {
 				"files": {
 					"./dist/full/css/foogallery.min.css": "./dist/full/css/foogallery.css"
@@ -500,27 +559,33 @@ module.exports = function ( grunt ) {
 			}
 		},
 		"copy": {
+			"full_polyfill": {
+				"expand": true,
+				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
+				"dest": "./dist/full_polyfill/img",
+				"flatten": true
+			},
 			"full": {
 				"expand": true,
-				"src": "./src/core/css/img/*.png",
+				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
 				"dest": "./dist/full/img",
 				"flatten": true
 			},
 			"lite": {
 				"expand": true,
-				"src": "./src/core/css/img/*.png",
+				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
 				"dest": "./dist/lite/img",
 				"flatten": true
 			},
 			"core": {
 				"expand": true,
-				"src": "./src/core/css/img/*.png",
+				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
 				"dest": "./dist/components/core/img",
 				"flatten": true
 			},
 			"core_lite": {
 				"expand": true,
-				"src": "./src/core/css/img/*.png",
+				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
 				"dest": "./dist/components/core_lite/img",
 				"flatten": true
 			}
@@ -599,6 +664,10 @@ module.exports = function ( grunt ) {
 		"concat:slider",
 		"uglify:slider",
 		"cssmin:slider",
+		"concat:full_polyfill", // create the full_polyfill version
+		"uglify:full_polyfill",
+		"cssmin:full_polyfill",
+		"copy:full_polyfill",
 		"concat:full", // create the full version
 		"uglify:full",
 		"cssmin:full",

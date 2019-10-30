@@ -1,116 +1,211 @@
 .fg-panel.fg-light {
-    background-color: #FFF;
+    background-color: #EEE;
     color: #333;
 }
 .fg-panel.fg-dark {
-    background-color: #333;
+    background-color: #151515;
     color: #FeFeFe;
 }
 
-.fg-panel.fg-light .fg-panel-button,
-.fg-panel.fg-light.fg-small .fg-panel-buttons {
-    color: rgba(0, 0, 0, 0.3);
-    background-color: rgba(156, 156, 156, 0.1);
-    border-color: rgba(0, 0, 0, 0.1);
+/* Border Color */
+.fg-panel.fg-light,
+.fg-panel.fg-light .fg-panel-info-inner,
+.fg-panel.fg-light .fg-panel-cart-inner,
+.fg-panel.fg-light .fg-panel-thumbs-inner,
+.fg-panel.fg-light .fg-product-body,
+.fg-panel.fg-light.fg-panel-preserve-button-space .fg-media-iframe .fg-media-content {
+    border-color: #e2e2e2;
 }
-.fg-panel.fg-light .fg-progress-ring {
-    color: rgba(0, 0, 0, 0.3);
+
+.fg-panel.fg-dark,
+.fg-panel.fg-dark .fg-panel-info-inner,
+.fg-panel.fg-dark .fg-panel-cart-inner,
+.fg-panel.fg-dark .fg-panel-thumbs-inner,
+.fg-panel.fg-dark .fg-product-body,
+.fg-panel.fg-dark.fg-panel-preserve-button-space .fg-media-iframe .fg-media-content {
+    border-color: #2e2e2e;
+}
+
+/* Background Color */
+.fg-panel.fg-light .fg-panel-info-inner {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.fg-panel.fg-dark .fg-panel-info-inner {
+    background-color: rgba(51, 51, 51, 0.8);
+}
+
+/* Button & Highlight Colors */
+.fg-panel.fg-light .fg-panel-button,
+.fg-panel.fg-light .fg-panel-thumbs-button,
+.fg-panel.fg-light .fg-panel-thumb,
+.fg-panel.fg-light .fg-panel-thumb-spacer,
+.fg-panel.fg-light.fg-medium:not(.fg-panel-info-overlay) .fg-panel-info-inner,
+.fg-panel.fg-light.fg-panel-no-mobile:not(.fg-panel-info-overlay) .fg-panel-info-inner,
+.fg-panel.fg-light .fg-panel-cart-inner {
+    background-color: #FFF;
+    border-color: #e2e2e2;
+}
+.fg-panel.fg-light .fg-panel-thumb.fg-selected {
+    background-color: #f0f0f0;
+}
+.fg-panel.fg-light .fg-panel-button,
+.fg-panel.fg-light .fg-panel-area-toggle,
+.fg-panel.fg-light .fg-panel-thumbs-button {
+    color: #767676;
+}
+
+.fg-panel.fg-dark .fg-panel-button,
+.fg-panel.fg-dark .fg-panel-thumbs-button,
+.fg-panel.fg-dark .fg-panel-thumb,
+.fg-panel.fg-dark .fg-panel-thumb-spacer,
+.fg-panel.fg-dark.fg-medium:not(.fg-panel-info-overlay) .fg-panel-info-inner,
+.fg-panel.fg-dark.fg-panel-no-mobile:not(.fg-panel-info-overlay) .fg-panel-info-inner,
+.fg-panel.fg-dark .fg-panel-cart-inner {
+    background-color: #333;
+    border-color: #2e2e2e;
+}
+.fg-panel.fg-dark .fg-panel-thumb.fg-selected {
+    background-color: #2c2c2c;
 }
 .fg-panel.fg-dark .fg-panel-button,
-.fg-panel.fg-dark.fg-small .fg-panel-buttons {
-    color: rgba(254, 254, 254, 1);
-    background-color: rgba(0, 0, 0, 0.3);
-    border-color: rgba(0, 0, 0, 0.3);
-}
-.fg-panel.fg-dark .fg-progress-ring {
-    color: rgba(254, 254, 254, 1);
-}
-
-.fg-panel.fg-light .fg-content-caption {
-    background-color: rgba(156, 156, 156, 0.1);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-.fg-panel.fg-dark .fg-content-caption {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-color: rgba(0, 0, 0, 0.3);
-}
-
-.fg-panel.fg-button-blue .fg-panel-button {
-    background-color: #4d90fe;
-    border-color: #3079ed;
+.fg-panel.fg-dark .fg-panel-area-toggle,
+.fg-panel.fg-dark .fg-panel-thumbs-button {
     color: #FFF;
 }
 
-.fg-panel.fg-button-dark .fg-panel-button {
+@media (hover: hover) {
+    .fg-panel.fg-light .fg-panel-area-toggle:hover {
+        color: #bbbbbb;
+    }
+    .fg-panel.fg-light .fg-panel-button:hover,
+    .fg-panel.fg-light .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-light .fg-panel-thumb:hover {
+        background-color: #f5f5f5;
+    }
+    .fg-panel.fg-dark .fg-panel-area-toggle:hover {
+        color: #bbbbbb;
+    }
+    .fg-panel.fg-dark .fg-panel-button:hover,
+    .fg-panel.fg-dark .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-dark .fg-panel-thumb:hover {
+        background-color: #303030;
+    }
+}
+
+
+.fg-panel.fg-button-blue .fg-panel-button,
+.fg-panel.fg-button-blue .fg-panel-thumbs-button,
+.fg-panel.fg-button-blue .fg-panel-thumb.fg-selected,
+.fg-panel.fg-highlight-blue .fg-panel-thumb.fg-selected {
+    background-color: #3079ed;
+    border-color: #306be1;
+    color: #FFF;
+}
+
+.fg-panel.fg-button-dark .fg-panel-button,
+.fg-panel.fg-button-dark .fg-panel-thumbs-button,
+.fg-panel.fg-button-dark .fg-panel-thumb.fg-selected,
+.fg-panel.fg-highlight-dark .fg-panel-thumb.fg-selected {
     background-color: #4e4e4e;
     border-color: #292929;
-    color: #adadad;
-}
-
-.fg-panel.fg-button-green .fg-panel-button {
-    background-color: #02874A;
-    border-color: #02874A;
     color: #FFF;
 }
 
-.fg-panel.fg-button-purple .fg-panel-button {
-    background-color: #7816D6;
-    border-color: #6816c2;
+.fg-panel.fg-button-green .fg-panel-button,
+.fg-panel.fg-button-green .fg-panel-thumbs-button,
+.fg-panel.fg-button-green .fg-panel-thumb.fg-selected,
+.fg-panel.fg-highlight-green .fg-panel-thumb.fg-selected {
+    background-color: #027339;
+    border-color: #025f2f;
     color: #FFF;
 }
 
-.fg-panel.fg-button-orange .fg-panel-button {
-    background-color: #FF8E31;
-    border-color: #e57731;
+.fg-panel.fg-button-purple .fg-panel-area .fg-panel-button,
+.fg-panel.fg-button-purple .fg-panel-area .fg-panel-thumbs-button,
+.fg-panel.fg-button-purple .fg-panel-area .fg-panel-thumb.fg-selected,
+.fg-panel.fg-highlight-purple .fg-panel-area .fg-panel-thumb.fg-selected {
+    background-color: #6816c2;
+    border-color: #5416a8;
     color: #FFF;
 }
 
-.fg-panel.fg-button-red .fg-panel-button {
-    background-color: #F12B24;
-    border-color: #c22b24;
+.fg-panel.fg-button-orange .fg-panel-button,
+.fg-panel.fg-button-orange .fg-panel-thumbs-button,
+.fg-panel.fg-button-orange .fg-panel-thumb.fg-selected,
+.fg-panel.fg-highlight-orange .fg-panel-thumb.fg-selected {
+    background-color: #e57731;
+    border-color: #c36230;
+    color: #FFF;
+}
+
+.fg-panel.fg-button-red .fg-panel-button,
+.fg-panel.fg-button-red .fg-panel-thumbs-button,
+.fg-panel.fg-button-red .fg-panel-thumb.fg-selected,
+.fg-panel.fg-highlight-red .fg-panel-thumb.fg-selected {
+    background-color: #c22b24;
+    border-color: #9f2924;
     color: #FFF;
 }
 
 @media (hover: hover) {
     .fg-panel.fg-button-blue .fg-panel-button:hover,
-    .fg-panel.fg-highlight-blue .fg-panel-buttons .fg-panel-button:hover {
-        background-color: #3079ed;
-        border-color: #2f5bb7;
+    .fg-panel.fg-button-blue .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-blue .fg-panel-thumb:hover,
+    .fg-panel.fg-highlight-blue * .fg-panel-button:hover,
+    .fg-panel.fg-highlight-blue * .fg-panel-thumbs-button:hover {
+        background-color: #4d90fe;
+        border-color: #3079ed;
         color: #FFF;
     }
 
     .fg-panel.fg-button-dark .fg-panel-button:hover,
-    .fg-panel.fg-highlight-dark .fg-panel-buttons .fg-panel-button:hover {
+    .fg-panel.fg-button-dark .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-dark .fg-panel-thumb:hover,
+    .fg-panel.fg-highlight-dark * .fg-panel-button:hover,
+    .fg-panel.fg-highlight-dark * .fg-panel-thumbs-button:hover {
         background-color: #5e5e5e;
         border-color: #292929;
-        color: #bbb;
+        color: #FFF;
     }
 
     .fg-panel.fg-button-green .fg-panel-button:hover,
-    .fg-panel.fg-highlight-green .fg-panel-buttons .fg-panel-button:hover {
+    .fg-panel.fg-button-green .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-green .fg-panel-thumb:hover,
+    .fg-panel.fg-highlight-green * .fg-panel-button:hover,
+    .fg-panel.fg-highlight-green * .fg-panel-thumbs-button:hover {
         background-color: #02874A;
         border-color: #027339;
         color: #FFF;
     }
 
-    .fg-panel.fg-button-purple .fg-panel-button:hover,
-    .fg-panel.fg-highlight-purple .fg-panel-buttons .fg-panel-button:hover {
-        background-color: #6816c2;
-        border-color: #5416a8;
+    .fg-panel.fg-button-purple .fg-panel-area .fg-panel-button:hover,
+    .fg-panel.fg-button-purple .fg-panel-area .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-purple .fg-panel-area .fg-panel-thumb:hover,
+    .fg-panel.fg-highlight-purple .fg-panel-area * .fg-panel-button:hover,
+    .fg-panel.fg-highlight-purple .fg-panel-area * .fg-panel-thumbs-button:hover {
+        background-color: #7816D6;
+        border-color: #6816c2;
         color: #FFF;
     }
 
     .fg-panel.fg-button-orange .fg-panel-button:hover,
-    .fg-panel.fg-highlight-orange .fg-panel-buttons .fg-panel-button:hover {
-        background-color: #e57731;
-        border-color: #c36230;
+    .fg-panel.fg-button-orange .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-orange .fg-panel-thumb:hover,
+    .fg-panel.fg-highlight-orange * .fg-panel-button:hover,
+    .fg-panel.fg-highlight-orange * .fg-panel-thumbs-button:hover {
+        background-color: #FF8E31;
+        border-color: #e57731;
         color: #FFF;
     }
 
     .fg-panel.fg-button-red .fg-panel-button:hover,
-    .fg-panel.fg-highlight-red .fg-panel-buttons .fg-panel-button:hover {
-        background-color: #c22b24;
-        border-color: #9f2924;
+    .fg-panel.fg-button-red .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-red .fg-panel-thumb:hover,
+    .fg-panel.fg-highlight-red * .fg-panel-button:hover,
+    .fg-panel.fg-highlight-red * .fg-panel-thumbs-button:hover {
+        background-color: #F12B24;
+        border-color: #c22b24;
         color: #FFF;
     }
 }

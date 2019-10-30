@@ -1,0 +1,96 @@
+.fg-panel:not(.fg-panel-maximized):not(.fg-panel-fullscreen) {
+    border-style: solid;
+    border-width: 1px;
+}
+
+.fg-panel.fg-medium .fg-panel-info-inner,
+.fg-panel.fg-panel-no-mobile .fg-panel-info-inner {
+    border-width: 0;
+    border-style: solid;
+}
+.fg-panel.fg-medium.fg-panel-info-right .fg-panel-info-inner,
+.fg-panel.fg-panel-no-mobile.fg-panel-info-right .fg-panel-info-inner {
+    border-left-width: 1px;
+}
+.fg-panel.fg-medium.fg-panel-info-left .fg-panel-info-inner,
+.fg-panel.fg-panel-no-mobile.fg-panel-info-left .fg-panel-info-inner {
+    border-right-width: 1px;
+}
+.fg-panel.fg-medium.fg-panel-info-top .fg-panel-info-inner,
+.fg-panel.fg-panel-no-mobile.fg-panel-info-top .fg-panel-info-inner {
+    border-bottom-width: 1px;
+}
+.fg-panel.fg-medium.fg-panel-info-bottom .fg-panel-info-inner,
+.fg-panel.fg-panel-no-mobile.fg-panel-info-bottom .fg-panel-info-inner {
+    border-top-width: 1px;
+}
+
+.fg-panel.fg-medium .fg-panel-cart-inner,
+.fg-panel.fg-panel-no-mobile .fg-panel-cart-inner {
+    border-width: 0;
+    border-style: solid;
+}
+.fg-panel.fg-medium.fg-panel-cart-right .fg-panel-cart-inner,
+.fg-panel.fg-panel-no-mobile.fg-panel-cart-right .fg-panel-cart-inner {
+    border-left-width: 1px;
+}
+.fg-panel.fg-medium.fg-panel-cart-left .fg-panel-cart-inner,
+.fg-panel.fg-panel-no-mobile.fg-panel-cart-left .fg-panel-cart-inner {
+    border-right-width: 1px;
+}
+.fg-panel.fg-medium.fg-panel-cart-top .fg-panel-cart-inner,
+.fg-panel.fg-panel-no-mobile.fg-panel-cart-top .fg-panel-cart-inner {
+    border-bottom-width: 1px;
+}
+.fg-panel.fg-medium.fg-panel-cart-bottom .fg-panel-cart-inner,
+.fg-panel.fg-panel-no-mobile.fg-panel-cart-bottom .fg-panel-cart-inner {
+    border-top-width: 1px;
+}
+
+.fg-panel-thumb,
+.fg-panel-thumb-spacer,
+.fg-panel-thumbs-inner,
+.fg-panel-thumbs-button {
+    border-width: 0;
+    border-style: solid;
+}
+.fg-panel-thumbs-right .fg-panel-thumb,
+.fg-panel-thumbs-right .fg-panel-thumb-spacer,
+.fg-panel-thumbs-right .fg-panel-thumbs-button,
+.fg-panel-thumbs-top .fg-panel-thumb,
+.fg-panel-thumbs-bottom .fg-panel-thumb,
+.fg-panel-thumbs-top .fg-panel-thumbs-next,
+.fg-panel-thumbs-bottom .fg-panel-thumbs-next {
+    border-left-width: 1px;
+}
+.fg-panel-thumbs-bottom .fg-panel-thumb,
+.fg-panel-thumbs-bottom .fg-panel-thumb-spacer,
+.fg-panel-thumbs-bottom .fg-panel-thumbs-button,
+.fg-panel-thumbs-left .fg-panel-thumb,
+.fg-panel-thumbs-right .fg-panel-thumb,
+.fg-panel-thumbs-left .fg-panel-thumbs-next,
+.fg-panel-thumbs-right .fg-panel-thumbs-next,
+.fg-medium.fg-panel-area-stack.fg-panel-hover-buttons.fg-panel-thumbs-left.fg-panel-info-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
+.fg-medium.fg-panel-area-stack.fg-panel-hover-buttons.fg-panel-thumbs-right.fg-panel-info-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
+.fg-medium.fg-panel-area-stack.fg-panel-thumbs-left.fg-panel-info-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-prev,
+.fg-medium.fg-panel-area-stack.fg-panel-thumbs-right.fg-panel-info-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-prev,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-hover-buttons.fg-panel-thumbs-left.fg-panel-info-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-hover-buttons.fg-panel-thumbs-right.fg-panel-info-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-thumbs-left.fg-panel-info-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-prev,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-thumbs-right.fg-panel-info-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-prev {
+    border-top-width: 1px;
+}
+.fg-panel-thumbs-left .fg-panel-thumb,
+.fg-panel-thumbs-left .fg-panel-thumb-spacer,
+.fg-panel-thumbs-left .fg-panel-thumbs-button,
+.fg-panel-thumbs-top .fg-panel-thumbs-prev,
+.fg-panel-thumbs-bottom .fg-panel-thumbs-prev {
+    border-right-width: 1px;
+}
+.fg-panel-thumbs-top .fg-panel-thumb,
+.fg-panel-thumbs-top .fg-panel-thumb-spacer,
+.fg-panel-thumbs-top .fg-panel-thumbs-button,
+.fg-panel-thumbs-left .fg-panel-thumbs-prev,
+.fg-panel-thumbs-right .fg-panel-thumbs-prev {
+    border-bottom-width: 1px;
+}

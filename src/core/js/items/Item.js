@@ -1,4 +1,4 @@
-(function ($, _, _utils, _is, _fn, _obj) {
+(function ($, _, _utils, _is, _fn, _obj, _str) {
 
 	_.Item = _.Component.extend(/** @lends FooGallery.Item */{
 		/**
@@ -23,14 +23,6 @@
 			self.il8n = template.il8n.item;
 			self.sel = template.sel.item;
 			self.opt = _obj.extend({}, template.opt.item, options);
-
-			/**
-			 * @summary The class used to generate this items content if required.
-			 * @memberof FooGallery.Item#
-			 * @name content
-			 * @type {FooGallery.ItemContent}
-			 */
-			self.content = _.components.make(self.opt.type + "-content", template, self);
 
 			/**
 			 * @summary Whether or not the items' elements are appended to the template.
@@ -108,6 +100,12 @@
 			self.$anchor = null;
 			/**
 			 * @memberof FooGallery.Item#
+			 * @name $overlay
+			 * @type {?jQuery}
+			 */
+			self.$overlay = null;
+			/**
+			 * @memberof FooGallery.Item#
 			 * @name $wrap
 			 * @type {?jQuery}
 			 */
@@ -151,6 +149,12 @@
 			 * @type {string}
 			 */
 			self.id = self.opt.id;
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name productId
+			 * @type {string}
+			 */
+			self.productId = self.opt.productId;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name href
@@ -251,7 +255,7 @@
 			 * @summary The cached result of the last call to the {@link FooGallery.Item#getThumbUrl|getThumbUrl} method.
 			 * @memberof FooGallery.Item#
 			 * @name _thumbUrl
-			 * @type {string}
+			 * @type {?string}
 			 * @private
 			 */
 			self._thumbUrl = null;
@@ -267,7 +271,7 @@
 			 * @summary This property is used to store the init state of an item the first time it is parsed and is used to reset state during destroy.
 			 * @memberof FooGallery.Item#
 			 * @name _undo
-			 * @type {object}
+			 * @type {Object}
 			 * @private
 			 */
 			self._undo = {
@@ -275,6 +279,7 @@
 				style: "",
 				loader: false,
 				wrap: false,
+				overlay: false,
 				placeholder: false
 			};
 		},
@@ -363,9 +368,6 @@
 		 */
 		doDestroyItem: function () {
 			var self = this;
-			if (self.content instanceof _.ItemContent){
-				self.content.destroy();
-			}
 			if (self.isParsed) {
 				self.$anchor.add(self.$caption).off("click.foogallery");
 				self.append();
@@ -375,13 +377,17 @@
 				if (_is.empty(self._undo.style)) self.$el.removeAttr("style");
 				else self.$el.attr("style", self._undo.style);
 
+				if (self._undo.overlay) {
+					self.$overlay.remove();
+				}
 				if (self._undo.wrap) {
-					self.$image.unwrap();
+					self.$anchor.append(self.$image);
+					self.$wrap.remove();
 				}
 				if (self._undo.loader) {
 					self.$el.find(self.sel.loader).remove();
 				}
-				if (self._undo.placeholder && self.$image.prop("src") == _.emptyImage) {
+				if (self._undo.placeholder && self.$image.prop("src") === _.EMPTY_IMAGE) {
 					self.$image.removeAttr("src");
 				}
 			} else if (self.isCreated) {
@@ -484,7 +490,7 @@
 			self._undo.classes = $el.attr("class") || "";
 			self._undo.style = $el.attr("style") || "";
 
-			self.$el = $el.data(_.dataItem, self);
+			self.$el = $el.data(_.DATA_ITEM, self);
 			self.$inner = self.$el.children(sel.inner);
 			self.$anchor = self.$inner.children(sel.anchor).on("click.foogallery", {self: self}, self.onAnchorClick);
 			self.$image = self.$anchor.find(sel.image);
@@ -505,8 +511,9 @@
 			self.isLoaded = self.$el.is(sel.loaded);
 			self.isError = self.$el.is(sel.error);
 
-			var data = self.$anchor.data();
+			var data = self.$anchor.attr("data-type", self.type).data();
 			self.id = data.id || self.id;
+			self.productId = data.productId || self.productId;
 			self.tags = data.tags || self.tags;
 			self.href = data.href || self.$anchor.attr('href') || self.href;
 			self.src = self.$image.attr(o.src) || self.src;
@@ -527,10 +534,18 @@
 			if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength > 0 && !_is.empty(self.description) && _is.string(self.description) && self.description.length > self.maxDescriptionLength) {
 				self.$caption.find(sel.caption.description).html(self.description.substr(0, self.maxDescriptionLength) + "&hellip;");
 			}
+			// check if the item has an overlay
+			self.$overlay = self.$anchor.children(sel.overlay);
+			if (self.$overlay.length === 0) {
+				self.$overlay = $("<span/>", {"class": cls.overlay});
+				self.$anchor.append(self.$overlay);
+				self._undo.overlay = true;
+			}
 			// check if the item has a wrap
-			if (self.$anchor.children(sel.wrap).length === 0) {
-				var $wrap = $("<span/>", {"class": cls.wrap});
-				self.$anchor.append($wrap.append(self.$image));
+			self.$wrap = self.$anchor.children(sel.wrap);
+			if (self.$wrap.length === 0) {
+				self.$wrap = $("<span/>", {"class": cls.wrap});
+				self.$anchor.append(self.$wrap.append(self.$image));
 				self._undo.wrap = true;
 			}
 			// check if the item has a loader
@@ -541,9 +556,10 @@
 			// if the image has no src url then set the placeholder
 			var img = self.$image.get(0);
 			if (_is.empty(img.src)) {
-				img.src = _.emptyImage;
+				img.src = _.EMPTY_IMAGE;
 				self._undo.placeholder = true;
 			}
+			self.$el.addClass(self.getTypeClass());
 			if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError) {
 				self.$el.addClass(cls.idle);
 			}
@@ -634,22 +650,25 @@
 		 * @returns {boolean}
 		 */
 		doCreateItem: function () {
-			var self = this, o = self.tmpl.opt, cls = self.cls, attr = self.attr;
-			attr.elem["class"] = cls.elem + " " + cls.idle;
+			var self = this, o = self.tmpl.opt, cls = self.cls, attr = self.attr, type = self.getTypeClass();
+			attr.elem["class"] = [cls.elem, type, cls.idle].join(" ");
 
 			attr.inner["class"] = cls.inner;
 
 			attr.anchor["class"] = cls.anchor;
 			attr.anchor["href"] = self.href;
+			attr.anchor["data-type"] = self.type;
 			attr.anchor["data-id"] = self.id;
 			attr.anchor["data-title"] = self.caption;
 			attr.anchor["data-description"] = self.description;
 			if (!_is.empty(self.tags)) {
 				attr.anchor["data-tags"] = JSON.stringify(self.tags);
 			}
+			if (!_is.empty(self.productId)) {
+				attr.anchor["data-product-id"] = self.productId;
+			}
 
 			attr.image["class"] = cls.image;
-			// attr.image["src"] = _.emptyImage;
 			attr.image[o.src] = self.src;
 			attr.image[o.srcset] = self.srcset;
 			attr.image["width"] = self.width;
@@ -657,11 +676,12 @@
 			attr.image["title"] = self.title;
 			attr.image["alt"] = self.alt;
 
-			self.$el = $("<div/>").attr(attr.elem).data(_.dataItem, self);
+			self.$el = $("<div/>").attr(attr.elem).data(_.DATA_ITEM, self);
 			self.$inner = $("<figure/>").attr(attr.inner).appendTo(self.$el);
 			self.$anchor = $("<a/>").attr(attr.anchor).appendTo(self.$inner).on("click.foogallery", {self: self}, self.onAnchorClick);
-			var $wrap = $("<span/>", {"class": cls.wrap}).appendTo(self.$anchor);
-			self.$image = $("<img/>").attr(attr.image).appendTo($wrap);
+			self.$overlay = $("<span/>", {"class": cls.overlay}).appendTo(self.$anchor);
+			self.$wrap = $("<span/>", {"class": cls.wrap}).appendTo(self.$anchor);
+			self.$image = $("<img/>").attr(attr.image).appendTo(self.$wrap);
 
 			cls = self.cls.caption;
 			attr = self.attr.caption;
@@ -938,6 +958,17 @@
 		/**
 		 * @summary Inspect the `src` and `srcset` properties to determine which url to load for the thumb.
 		 * @memberof FooGallery.Item#
+		 * @function getThumbSrc
+		 * @param {number} renderWidth - The rendered width of the image to fetch the url for.
+		 * @param {number} renderHeight - The rendered height of the image to fetch the url for.
+		 * @returns {string}
+		 */
+		getThumbSrc: function(renderWidth, renderHeight){
+			return _utils.src(this.src, this.srcset, this.width, this.height, renderWidth, renderHeight);
+		},
+		/**
+		 * @summary Inspect the `src` and `srcset` properties to determine which url to load for the thumb.
+		 * @memberof FooGallery.Item#
 		 * @function getThumbUrl
 		 * @param {boolean} [refresh=false] - Whether or not to force refreshing of the cached value.
 		 * @returns {string}
@@ -946,7 +977,16 @@
 			refresh = _is.boolean(refresh) ? refresh : false;
 			var self = this;
 			if (!refresh && _is.string(self._thumbUrl)) return self._thumbUrl;
-			return self._thumbUrl = _utils.src(self.src, self.srcset, self.width, self.height, self.$anchor.innerWidth(), self.$anchor.innerHeight());
+			return self._thumbUrl = self.getThumbSrc(self.$anchor.innerWidth(), self.$anchor.innerHeight());
+		},
+		/**
+		 * @summary Gets the type specific CSS class for the item.
+		 * @memberof FooGallery.Item#
+		 * @function getTypeClass
+		 * @returns {string}
+		 */
+		getTypeClass: function(){
+			return this.cls.types.hasOwnProperty(this.type) ? this.cls.types[this.type] : "";
 		},
 		/**
 		 * @summary Scroll the item into the center of the viewport.
@@ -997,6 +1037,32 @@
 		 */
 		updateState: function(){
 			this.tmpl.state.update(this.tmpl.state.get(this));
+		},
+		/**
+		 * @summary Converts the item to a JSON object.
+		 * @memberof FooGallery.Item#
+		 * @function toJSON
+		 * @returns {object}
+		 */
+		toJSON: function(){
+			return {
+				"type": this.type,
+				"href": this.href,
+				"src": this.src,
+				"srcset": this.srcset,
+				"width": this.width,
+				"height": this.height,
+				"alt": this.alt,
+				"title": this.title,
+				"caption": this.caption,
+				"description": this.description,
+				"tags": this.tags.slice(),
+				"maxCaptionLength": this.maxCaptionLength,
+				"maxDescriptionLength": this.maxDescriptionLength,
+				"showCaptionTitle": this.showCaptionTitle,
+				"showCaptionDescription": this.showCaptionDescription,
+				"attr": _obj.extend({}, this.attr)
+			};
 		},
 		/**
 		 * @summary Listens for the click event on the {@link FooGallery.Item#$anchor|$anchor} element and updates the state if enabled.
@@ -1100,6 +1166,7 @@
 			elem: "fg-item",
 			inner: "fg-item-inner",
 			anchor: "fg-thumb",
+			overlay: "fg-image-overlay",
 			wrap: "fg-image-wrap",
 			image: "fg-image",
 			loader: "fg-loader",
@@ -1107,6 +1174,9 @@
 			loading: "fg-loading",
 			loaded: "fg-loaded",
 			error: "fg-error",
+			types: {
+				item: "fg-type-unknown"
+			},
 			caption: {
 				elem: "fg-caption",
 				inner: "fg-caption-inner",
@@ -1156,10 +1226,11 @@
 	 */
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.fn,
-		FooGallery.utils.obj
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils,
+	FooGallery.utils.is,
+	FooGallery.utils.fn,
+	FooGallery.utils.obj,
+	FooGallery.utils.str
 );

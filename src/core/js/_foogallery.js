@@ -5,38 +5,38 @@
 	/**
 	 * @summary The url of an empty 1x1 pixel image used as the default value for the `placeholder` and `error` {@link FooGallery.defaults|options}.
 	 * @memberof FooGallery
-	 * @name emptyImage
+	 * @name EMPTY_IMAGE
 	 * @type {string}
 	 * @default "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
 	 */
-	_.emptyImage = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+	_.EMPTY_IMAGE = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
 	/**
 	 * @summary The name to use when getting or setting an instance of a {@link FooGallery.Template|template} on an element using jQuery's `.data()` method.
 	 * @memberof FooGallery
-	 * @name dataTemplate
+	 * @name DATA_TEMPLATE
 	 * @type {string}
 	 * @default "__FooGallery__"
 	 */
-	_.dataTemplate = "__FooGallery__";
+	_.DATA_TEMPLATE = "__FooGallery__";
 
 	/**
 	 * @summary The name to use when getting or setting an instance of a {@link FooGallery.Item|item} on an element using jQuery's `.data()` method.
 	 * @memberof FooGallery
-	 * @name dataItem
+	 * @name DATA_ITEM
 	 * @type {string}
 	 * @default "__FooGalleryItem__"
 	 */
-	_.dataItem = "__FooGalleryItem__";
+	_.DATA_ITEM = "__FooGalleryItem__";
 
 	_.get = function(selector){
-		return $(selector).data(_.dataTemplate);
+		return $(selector).data(_.DATA_TEMPLATE);
 	};
 
 	_.init = function (options, element) {
 		element = _is.jq(element) ? element : $(element);
 		if (element.length > 0){
-			var current = element.data(_.dataTemplate);
+			var current = element.data(_.DATA_TEMPLATE);
 			if (current instanceof _.Template) {
 				return current.destroy(true).then(function(){
 					return _.template.make(options, element).initialize();
@@ -105,7 +105,7 @@
 		ready = _is.fn(ready) ? ready : $.noop;
 		return this.each(function (i, element) {
 			if (_is.string(options)) {
-				var template = $.data(element, _.dataTemplate);
+				var template = $.data(element, _.DATA_TEMPLATE);
 				if (template instanceof _.Template) {
 					switch (options) {
 						case "layout":

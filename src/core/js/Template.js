@@ -198,7 +198,7 @@
 			} else {
 				self.$scrollParent = $(document);
 			}
-			self.$el.data(_.dataTemplate, self);
+			self.$el.data(_.DATA_TEMPLATE, self);
 
 			// at this point we have our container element free of pre-existing instances so let's bind any event listeners supplied by the .on option
 			if (!_is.empty(self.opt.on)) {
@@ -467,7 +467,7 @@
 		 * @fires FooGallery.Template~"destroy.foogallery"
 		 */
 		destroy: function (preserveState) {
-			var self = this, _super = self._super;
+			var self = this, _super = self._super.bind(self);
             if (self.destroyed) return _fn.resolved;
             self.destroying = true;
             return $.Deferred(function (def) {
@@ -530,7 +530,7 @@
              * });
              */
             self.raise("destroyed");
-            self.$el.removeData(_.dataTemplate);
+            self.$el.removeData(_.DATA_TEMPLATE);
 
             if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
             else self.$el.attr("class", self._undo.classes);
@@ -624,7 +624,7 @@
 		 * });
 		 */
 		raise: function (eventName, args) {
-			if (!_is.string(eventName) || _is.empty(eventName)) return null;
+			if (this.destroying || this.destroyed || !_is.string(eventName) || _is.empty(eventName)) return null;
 			args = _is.array(args) ? args : [];
 			var self = this,
 					name = eventName.split(".")[0],
@@ -667,7 +667,7 @@
 		/**
 		 * @summary Gets the width of the FooGallery container.
 		 * @memberof FooGallery.Template#
-		 * @type function
+		 * @function
 		 * @name getContainerWidth
 		 * @returns {number}
 		 */
@@ -680,33 +680,18 @@
 		},
 
 		/**
-		 * @summary Gets the current theme class for the template.
+		 * @summary Gets a specific type of CSS class from the template.
 		 * @memberof FooGallery.Template#
-		 * @type function
-		 * @name getThemeClass
+		 * @function
+		 * @name getCSSClass
+		 * @param {string} type - The specific type of CSS class to retrieve.
 		 * @returns {string}
 		 */
-		getThemeClass: function(){
-			var self = this, className = (self.$el.prop("className") || '');
-			if (/\bfg-light\b/.test(className)) return "fg-light";
-			if (/\bfg-dark\b/.test(className)) return "fg-dark";
-			return "";
-		},
-
-		/**
-		 * @summary Gets the current loader class for the template.
-		 * @memberof FooGallery.Template#
-		 * @type function
-		 * @name getLoaderClass
-		 * @returns {string}
-		 */
-		getLoaderClass: function(){
-			var self = this,
-				classes = (self.$el.prop("className") || '').split(" "),
-				found = classes.find(function(className){
-					return /^fg-loading-/.test(className);
-				});
-			return _is.string(found) ? found : "";
+		getCSSClass: function(type){
+			var regex = type instanceof RegExp ? type : (_is.string(type) && this.opt.regex.hasOwnProperty(type) ? this.opt.regex[type] : null),
+				className = (this.$el.prop("className") || ''),
+				match = regex != null ? className.match(regex) : null;
+			return match != null && match.length >= 2 ? match[1] : "";
 		},
 
 		// ###############
@@ -744,7 +729,14 @@
 		timeout: 60000,
 		srcset: "data-srcset-fg",
 		src: "data-src-fg",
-		template: {}
+		template: {},
+		regex: {
+			theme: /(?:\s|^)(fg-(?:light|dark))(?:\s|$)/,
+			loadingIcon: /(?:\s|^)(fg-loading-(?:default|bars|dots|partial|pulse|trail))(?:\s|$)/,
+			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|plus|circle-plus|eye|external|tint))(?:\s|$)/,
+			videoIcon: /(?:\s|^)(fg-video-(?:default|1|2|3|4))(?:\s|$)/,
+			stickyVideoIcon: /(?:\s|^)(fg-video-sticky)(?:\s|$)/
+		}
 	}, {
 		container: "foogallery"
 	}, {}, -100);

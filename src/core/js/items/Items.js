@@ -12,6 +12,9 @@
 		 */
 		construct: function (template) {
 			var self = this;
+			self.ALLOW_CREATE = true;
+			self.ALLOW_APPEND = true;
+			self.ALLOW_LOAD = true;
 			/**
 			 * @ignore
 			 * @memberof FooGallery.Items#
@@ -22,7 +25,6 @@
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
-			self._canvas = document.createElement("canvas");
 			// add the .all caption selector
 			var cls = self.tmpl.cls.item.caption;
 			self.tmpl.sel.item.caption.all = _utils.selectify([cls.elem, cls.inner, cls.title, cls.description]);
@@ -70,7 +72,7 @@
 				// should we handle a case where the destroyed.length != items.length??
 			}
 			self.maps = {};
-			self._canvas = self._fetched = null;
+			self._fetched = null;
 			self._arr = [];
 			self._available = [];
 			self._super();
@@ -107,6 +109,12 @@
 				self.setAll(items);
 			});
 			return self._fetched = def.promise();
+		},
+		toJSON: function(all){
+			var items = all ? this.all() : this.available();
+			return items.map(function(item){
+				return item.toJSON();
+			});
 		},
 		all: function () {
 			return this._arr.slice();
@@ -193,7 +201,7 @@
 			if (opt.lazy) {
 				viewport = _utils.getViewportBounds(opt.viewport);
 			}
-			return _is.array(items) ? $.map(items, function (item) {
+			return self.ALLOW_LOAD && _is.array(items) ? $.map(items, function (item) {
 						return item.isCreated && item.isAttached && !item.isLoading && !item.isLoaded && !item.isError && (!opt.lazy || (opt.lazy && item.intersects(viewport))) ? item : null;
 					}) : [];
 		},
@@ -205,7 +213,7 @@
 		 * @returns {FooGallery.Item[]}
 		 */
 		creatable: function (items) {
-			return _is.array(items) ? $.map(items, function (item) {
+			return this.ALLOW_CREATE && _is.array(items) ? $.map(items, function (item) {
 						return item instanceof _.Item && !item.isCreated ? item : null;
 					}) : [];
 		},
@@ -217,7 +225,7 @@
 		 * @returns {FooGallery.Item[]}
 		 */
 		appendable: function (items) {
-			return _is.array(items) ? $.map(items, function (item) {
+			return this.ALLOW_APPEND && _is.array(items) ? $.map(items, function (item) {
 						return item instanceof _.Item && item.isCreated && !item.isAttached ? item : null;
 					}) : [];
 		},
@@ -291,8 +299,7 @@
 				var e = self.tmpl.raise("make-items", [arr]);
 				if (!e.isDefaultPrevented()) {
 					made = $.map(arr, function (obj) {
-						var type = self.type(obj),
-								opt = _obj.extend(_is.hash(obj) ? obj : {}, {type: type});
+						var type = self.type(obj), opt = _obj.extend(_is.hash(obj) ? obj : {}, {type: type});
 						var item = _.components.make(type, self.tmpl, opt);
 						if (_is.element(obj)) {
 							if (item.parse(obj)) {
@@ -349,13 +356,9 @@
 				type = objOrElement.type;
 			} else if (_is.element(objOrElement)) {
 				var $el = $(objOrElement), item = this.tmpl.sel.item;
-				// if (_is.string(item.video) && $el.is(item.video)){
-				// 	type = "video";
-				// } else {
-				// }
 				type = $el.find(item.anchor).data("type");
 			}
-			return _is.string(type) && _.components.contains(type) ? type : "item";
+			return _is.string(type) && _.components.contains(type) ? type : "image";
 		},
 		/**
 		 * @summary Create each of the supplied {@link FooGallery.Item|`items`} elements.

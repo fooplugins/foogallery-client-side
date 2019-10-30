@@ -41,6 +41,17 @@
 			 */
 			self.enabled = self.opt.enabled;
 			/**
+			 * @summary The current state of the template.
+			 * @memberof FooGallery.State#
+			 * @name current
+			 * @type {{item: null, page: number, tags: []}}
+			 */
+			self.current = {
+				tags: [],
+				page: 0,
+				item: null
+			};
+			/**
 			 * @summary Which method of the history API to use by default when updating the state.
 			 * @memberof FooGallery.State#
 			 * @name pushOrReplace
@@ -310,6 +321,7 @@
 							}
 						}
 					}
+					self.current = obj;
 					tmpl.raise("after-state", [obj]);
 				}
 			}

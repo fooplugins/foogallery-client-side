@@ -20,26 +20,46 @@
 			if (self.$el.hasClass("foogrid-transition-fade")){
 				self.panel.opt.transition = "fade";
 			}
+			self.panel.opt.caption = "none";
 			if (self.$el.hasClass("foogrid-caption-below")){
 				self.panel.opt.caption = "bottom";
 			}
 			if (self.$el.hasClass("foogrid-caption-right")){
 				self.panel.opt.caption = "right";
 			}
+			var theme = self.getCSSClass("theme");
+			if (theme === "fg-light" && self.panel.opt.button === null){
+				self.panel.opt.button = "fg-button-blue";
+			}
+			if (theme === "fg-dark" && self.panel.opt.button === null){
+				self.panel.opt.button = "fg-button-dark";
+			}
 		},
-		onDestroy: function(event, self){
-			self.panel.destroy();
-			self.$section.remove();
+		ready: function(){
+			var self = this;
+			if (self._super()){
+				_.breakpoints.register(self.$el, self.template.outerBreakpoints);
+				return true;
+			}
+			return false;
 		},
-		onNextPanel: function(event, self, panel, currentItem, nextItem){
+		destroy: function(preserveState){
+			var self = this, _super = self._super.bind(self);
+			return self.panel.destroy().then(function(){
+				_.breakpoints.remove(self.$el);
+				self.$section.remove();
+				return _super(preserveState);
+			});
+		},
+		onPanelNext: function(event, self, panel, currentItem, nextItem){
 			event.preventDefault();
 			self.open(nextItem);
 		},
-		onPrevPanel: function(event, self, panel, currentItem, prevItem){
+		onPanelPrev: function(event, self, panel, currentItem, prevItem){
 			event.preventDefault();
 			self.open(prevItem);
 		},
-		onClosePanel: function(event, self, panel){
+		onPanelClose: function(event, self, panel){
 			event.preventDefault();
 			self.close();
 		},
@@ -51,16 +71,20 @@
 			if (item.isError) return;
 			item.$anchor.on("click.gg", {self: self, item: item}, self.onAnchorClick);
 		},
+		onDestroyItem: function(event, self, item){
+			if (item.isError) return;
+			item.$anchor.off("click.gg", self.onAnchorClick);
+		},
 		onAfterState: function(event, self, state){
 			if (!(state.item instanceof _.Item)) return;
 			self.open(state.item);
 		},
 		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
 			if (isFilter) return;
-			self.close(true);
+			self.close(true, self.panel.isAttached);
 		},
 		onBeforeFilterChange: function(event, self, current, next, setFilter){
-			self.close(true);
+			self.close(true, self.panel.isAttached);
 		},
 		onAnchorClick: function(e){
 			e.preventDefault();
@@ -95,7 +119,7 @@
 			return $.Deferred(function(d){
 				if (!self.template.scroll || !when){
 					d.resolve();
-				} else if (self.template.scrollSmooth && !self.panel.isExpanded){
+				} else if (self.template.scrollSmooth && !self.panel.isMaximized){
 					$page.animate({ scrollTop: scrollTop }, duration, function(){
 						d.resolve();
 					});
@@ -110,10 +134,16 @@
 			var self = this;
 			if (item.index !== -1){
 				var newRow = self.isNewRow(item);
-				if (self.panel.currentItem instanceof _.Item && newRow && !self.panel.isExpanded){
+				if (self.panel.currentItem instanceof _.Item && newRow && !self.panel.isMaximized){
 					return self.doClose(newRow).then(function(){
+						if (!!self.pages && !self.pages.contains(self.pages.current, item)){
+							self.pages.goto(self.pages.find(item));
+						}
 						return self.doOpen(item, newRow);
 					});
+				}
+				if (!!self.pages && !self.pages.contains(self.pages.current, item)){
+					self.pages.goto(self.pages.find(item));
 				}
 				return self.doOpen(item, newRow);
 			}
@@ -126,7 +156,7 @@
 				self.scrollTo(self.getOffsetTop(item), newRow || self.isFirst).then(function(){
 
 					item.$el.after(self.$section);
-					if (!self.panel.isAttached) self.panel.appendTo(self.$section);
+					self.panel.appendTo(self.$section);
 
 					if (self.transitionOpen(newRow)){
 						self.isFirst = false;
@@ -143,20 +173,19 @@
 			}).then(function(){
 				return self.panel.load(item);
 			}).then(function(){
-				self.panel.checkBreakpoints();
 				self.$section.focus();
 				self.isBusy = false;
 				return self.scrollTo(self.getOffsetTop(item), true);
 			}).promise();
 		},
 		transitionOpen: function(newRow){
-			return this.transitionsEnabled() && !this.panel.isExpanded && ((this.template.transitionOpen && this.isFirst) || (this.template.transitionRow && newRow));
+			return this.transitionsEnabled() && !this.panel.isMaximized && ((this.template.transitionOpen && this.isFirst) || (this.template.transitionRow && newRow));
 		},
-		close: function(immediate){
+		close: function(immediate, newRow){
 			immediate = _is.boolean(immediate) ? immediate : false;
 			var self = this, previous = self.disableTransitions;
 			self.disableTransitions = immediate;
-			return self.doClose(false).then(function(){
+			return self.doClose(newRow).then(function(){
 				self.disableTransitions = previous;
 			});
 		},
@@ -164,27 +193,28 @@
 			var self = this;
 			return $.Deferred(function(def){
 				if (self.panel.currentItem instanceof _.Item){
-					self.panel.doClose().then(function(){
-						if (self.transitionClose(newRow)){
-							_t.start(self.$section, "foogrid-visible", false, 350).then(function(){
-								def.resolve();
-							});
-						} else {
-							self.$section.removeClass("foogrid-visible");
+					if (self.transitionClose(newRow)){
+						_t.start(self.$section, "foogrid-visible", false, 350).then(function(){
+							self.panel.doClose(true, !newRow);
 							def.resolve();
-						}
-					});
+						});
+					} else {
+						self.$section.removeClass("foogrid-visible");
+						self.panel.doClose(true, !newRow);
+						def.resolve();
+					}
+				} else {
+					def.resolve();
 				}
 			}).always(function(){
 				if (!newRow){
-					self.panel.detach();
 					self.$section.detach();
 					self.isFirst = true;
 				}
 			}).promise();
 		},
 		transitionClose: function(newRow){
-			return this.transitionsEnabled() && !this.panel.isExpanded && ((this.template.transitionRow && newRow) || (this.template.transitionOpen && !newRow));
+			return this.transitionsEnabled() && !this.panel.isMaximized && ((this.template.transitionRow && newRow) || (this.template.transitionOpen && !newRow));
 		},
 		toggle: function(item){
 			var self = this;
@@ -203,14 +233,26 @@
 		template: {
 			scroll: true,
 			scrollOffset: 0,
-			scrollSmooth: true,
+			scrollSmooth: false,
 			loop: true,
 			external: '_blank',
 			externalText: null,
 			keyboard: true,
 			transitionRow: true,
 			transitionOpen: true,
-			caption: "none"
+			info: "bottom",
+            infoVisible: true,
+            infoOverlay: false,
+			buttons: {
+				fullscreen: false,
+			},
+			outerBreakpoints: {
+				"x-small": 480,
+				small: 768,
+				medium: 1024,
+				large: 1280,
+				"x-large": 1600
+			}
 		}
 	}, {
 		container: "foogallery foogrid"

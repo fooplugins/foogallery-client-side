@@ -12,17 +12,16 @@
 		(function(_){
 
 			_.auto({
-				"lazy": false,
+				"lazy": true,
 				"src": "data-src",
 				"srcset": "data-srcset",
 				"fixLayout": false,
 				"state": {
-					"enabled": false
-				},
-				"panel": {
-					"highlight": "fg-highlight-blue"
+					"enabled": true
 				},
 				"template": {
+					"button": "fg-button-blue",
+					"autoProgress": 5,
 					"parser": {
 						"type": {
 							"image": /\.(jpg|jpeg|png|gif|bmp)|dummyimage\.com/i

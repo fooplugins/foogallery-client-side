@@ -65,6 +65,6 @@
 	left: 0;
 	transform: translateY(-50%);
 }
-.foogallery.fg-caption-hover .fg-item.fg-loaded .fg-thumb:before {
+.foogallery.fg-caption-hover .fg-item.fg-loaded .fg-image-overlay {
 	display: none;
 }

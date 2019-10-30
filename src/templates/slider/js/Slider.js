@@ -253,7 +253,7 @@
 			self.$itemNext.toggle(self._lastVisible < count - 1);
 		},
 		setBackgroundImage: function(item){
-			if ((item.type === "video" || item.type === "item") && !item.isError && !item.isBackgroundLoaded && _is.jq(item.$content)){
+			if ((item.type === "video" || item.type === "image") && !item.isError && !item.isBackgroundLoaded && _is.jq(item.$content)){
 				var self = this,
 						src = item.type === "video" ? item.cover : item.href,
 						$loader = $("<div/>", {'class': 'fg-loader'}).appendTo(item.$content.addClass(self.cls.loading)),
