@@ -28,8 +28,8 @@
 
 /* Some badly written themes apply min-width:0 and min-height:0 to every element in the page which causes layout issues with flex. */
 .fg-simple_portfolio .fg-thumb {
-    min-width: unset;
-    min-height: unset;
+    min-width: auto;
+    min-height: auto;
 }
 
 /* Reset captions for the portfolio */
