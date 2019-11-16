@@ -112,7 +112,7 @@
     position: relative;
     display: flex;
     margin: 0;
-    padding: 4px 4px 5px 4px;
+    padding: 4px;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -122,7 +122,7 @@
     cursor: pointer;
     user-select: none;
 }
-.fg-panel.fg-medium .fg-panel-thumb {
+.fg-panel.fg-medium:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb {
     justify-content: flex-start;
 }
 
