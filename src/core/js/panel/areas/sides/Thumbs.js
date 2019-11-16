@@ -193,26 +193,26 @@
             if (scrollIndex > maxIndex) scrollIndex = maxIndex;
 
             // now that we know the index of the first and last visible thumbs we can set the disabled state of the prev & next buttons
-            self.$prev.toggleClass(states.disabled, !self.panel.opt.loop && scrollIndex <= 0);
-            self.$next.toggleClass(states.disabled, !self.panel.opt.loop && scrollIndex >= maxIndex);
+            self.$prev.toggleClass(states.disabled, scrollIndex <= 0);
+            self.$next.toggleClass(states.disabled, scrollIndex >= maxIndex);
 
             // find the thumb
             var $thumb = self.$stage.find(self.sel.thumb.elem).eq(scrollIndex);
             if ($thumb.length === 0) return;
 
             // align the right or bottom edge of the thumb with the viewport
-            var alignRightOrBottom = scrollIndex > self.scrollIndex, offset, translate;
+            var alignRightOrBottom = scrollIndex > self.scrollIndex, hasFullStage = self.__items.length >= self.info.count, offset, translate;
             if (self.info.isHorizontal) {
                 offset = -($thumb.prop("offsetLeft"));
                 if (alignRightOrBottom) offset += self.info.remaining.width;
-                if (self.info.stage.width - Math.abs(offset) < self.info.viewport.width) {
+                if (hasFullStage && self.info.stage.width - Math.abs(offset) < self.info.viewport.width) {
                     offset = self.info.viewport.width - self.info.stage.width;
                 }
                 translate = "translateX(" + (offset - 1) + "px)";
             } else {
                 offset = -($thumb.prop("offsetTop"));
                 if (alignRightOrBottom) offset += self.info.remaining.height;
-                if (self.info.stage.height - Math.abs(offset) < self.info.viewport.height) {
+                if (hasFullStage && self.info.stage.height - Math.abs(offset) < self.info.viewport.height) {
                     offset = self.info.viewport.height - self.info.stage.height;
                 }
                 translate = "translateY(" + (offset - 1) + "px)";
