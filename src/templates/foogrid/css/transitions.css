@@ -1,18 +1,8 @@
 .foogrid.foogrid-transition-fade .foogrid-content,
 .foogrid.foogrid-transition-horizontal .foogrid-content,
-.foogrid.foogrid-transition-vertical .foogrid-content,
-.foogrid.foogrid-transition-fade .fg-item.foogrid-visible > span,
-.foogrid.foogrid-transition-horizontal .fg-item.foogrid-visible > span,
-.foogrid.foogrid-transition-vertical .fg-item.foogrid-visible > span {
+.foogrid.foogrid-transition-vertical .foogrid-content {
 	transition-duration: .3s;
 	transition-timing-function: ease-in-out;
-}
-
-/* active item pointer fade in/out */
-.foogrid.foogrid-transition-fade .fg-item.foogrid-visible > span,
-.foogrid.foogrid-transition-horizontal .fg-item.foogrid-visible > span,
-.foogrid.foogrid-transition-vertical .fg-item.foogrid-visible > span {
-	transition-property: opacity, visibility;
 }
 
 /* content container slide up/down */

@@ -109,13 +109,22 @@
                 }
                 var hasMedia = self.currentMedia instanceof _.Panel.Media, prev = self.currentMedia;
                 if (self.opt.waitForUnload && hasMedia){
+                    self.panel.trigger("area-unload", [self, prev]);
                     self.doUnload(prev, reverseTransition).then(function(){
+                        self.panel.trigger("area-unloaded", [self, prev]);
                         self.currentMedia = media;
+                        self.panel.trigger("area-load", [self, media]);
                         self.doLoad(media, reverseTransition).then(def.resolve).fail(def.reject);
                     }).fail(def.reject);
                 } else {
-                    if (hasMedia) self.doUnload(prev, reverseTransition);
+                    if (hasMedia){
+                        self.panel.trigger("area-unload", [self, prev]);
+                        self.doUnload(prev, reverseTransition).then(function(){
+                            self.panel.trigger("area-unloaded", [self, prev]);
+                        });
+                    }
                     self.currentMedia = media;
+                    self.panel.trigger("area-load", [self, media]);
                     self.doLoad(media, reverseTransition).then(def.resolve).fail(def.reject);
                 }
             }).then(function(){
@@ -133,12 +142,18 @@
         close: function(immediate){
             var self = this;
             if (self.currentMedia instanceof _.Panel.Media){
+                var current = self.currentMedia;
                 if (!immediate){
-                    return self.doUnload(self.currentMedia, false).then(function() {
+                    self.panel.trigger("area-unload", [self, current]);
+                    return self.doUnload(current, false).then(function() {
+                        self.panel.trigger("area-unloaded", [self, current]);
                         self.currentMedia = null;
                     });
                 }
-                self.doUnload(self.currentMedia, false);
+                self.panel.trigger("area-unload", [self, current]);
+                self.doUnload(current, false).then(function(){
+                    self.panel.trigger("area-unloaded", [self, current]);
+                });
                 self.currentMedia = null;
             }
             return _fn.resolved;

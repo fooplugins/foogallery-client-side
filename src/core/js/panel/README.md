@@ -18,7 +18,7 @@
 
 * **loop** - `true` - Whether or not to allow content to loop from the last item back to the first and vice versa. Can be `true` or `false`.
 * **autoProgress** - `0` - The time in seconds to display content before auto progressing to the next item. A value less than or equal to `0` will disable this feature.
-* **fitImages** - `false` - Whether or not to force images to fill the content area. Aspect ratios are maintained, the image is simply scaled so it covers the entire available area. Can be `true` or `false`.
+* **fitMedia** - `false` - Whether or not to force images to fill the content area. Aspect ratios are maintained, the image is simply scaled so it covers the entire available area. Can be `true` or `false`.
 * **keyboard** - `true` - Whether or not to allow keyboard navigation within the panel. Can be `true` or `false`.
 * **noScrollbars** - `true` - Whether or not to hide the page scrollbars when maximizing the panel. Can be `true` or `false`.
 * **swipe** - `true` - Whether or not swipe is enabled to navigate content or thumbs. Can be `true` or `false`.

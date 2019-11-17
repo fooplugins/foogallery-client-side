@@ -13,7 +13,7 @@
         },
         resize: function(){
             var self = this;
-            if (self.isCreated && self.panel.opt.fitImages){
+            if (self.isCreated && self.panel.opt.fitMedia){
                 var img = self.$content.get(0);
                 if (img.naturalWidth && img.naturalHeight){
                     var landscape = img.naturalWidth >= img.naturalHeight,

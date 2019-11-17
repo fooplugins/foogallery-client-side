@@ -70,7 +70,7 @@
             contentNav: false,
 
             fitContainer: false,
-            fitImages: true,
+            fitMedia: true,
             transition: "horizontal",
             hoverButtons: true,
             preserveButtonSpace: false,

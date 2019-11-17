@@ -6,7 +6,12 @@
     background-color: #333;
     border: 1px solid #292929;
 }
-
+.fg-current-pointer.fg-light {
+    border-bottom-color: #e6e6e6;
+}
+.fg-current-pointer.fg-dark {
+    border-bottom-color: #292929;
+}
 .foogrid-content .fg-panel.fg-light .fg-panel-area .fg-panel-info-inner,
 .foogrid-content .fg-panel.fg-dark .fg-panel-area .fg-panel-info-inner {
     background-color: transparent;
@@ -19,4 +24,37 @@
 .foogrid-content .fg-panel.fg-dark.fg-panel-info-bottom .fg-panel-area .fg-panel-info-inner {
     border-color: #292929;
     border-top-width: 1px;
+}
+
+.foogrid-content .fg-panel .fg-media-caption {
+    padding: 20px;
+}
+.foogrid-content .fg-panel .fg-media-caption-title {
+    font-size: 18px;
+    line-height: 20px;
+}
+.foogrid-content .fg-panel .fg-media-caption-description {
+    font-size: 12px;
+    line-height: 15px;
+}
+.foogrid-content .fg-panel.fg-medium .fg-media-caption-title {
+    font-size: 22px;
+    line-height: 24px;
+}
+.foogrid-content .fg-panel.fg-medium .fg-media-caption-description {
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.foogrid-content .fg-panel.fg-medium.fg-panel-preserve-button-space .fg-media,
+.foogrid-content .fg-panel.fg-panel-no-mobile.fg-panel-preserve-button-space .fg-media {
+    overflow: visible;
+    top: 25px;
+    left: 62px;
+    width: calc(100% - 124px);
+    height: calc(100% - 50px);
+}
+.foogrid-content .fg-panel.fg-medium.fg-panel-preserve-button-space .fg-media-content,
+.foogrid-content .fg-panel.fg-panel-no-mobile.fg-panel-preserve-button-space .fg-media-content {
+    box-shadow: 0 5px 35px rgba(0,0,0,.65);
 }

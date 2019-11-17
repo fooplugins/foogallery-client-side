@@ -92,13 +92,27 @@
 .fg-panel-thumbs-right .fg-panel-thumb,
 .fg-panel-thumbs-top .fg-panel-thumbs-inner,
 .fg-panel-thumbs-bottom .fg-panel-thumbs-inner {
-    height: 82px;
-    min-height: 82px;
+    height: 70px;
+    min-height: 70px;
 }
 .fg-panel-thumbs-top .fg-panel-thumb,
 .fg-panel-thumbs-bottom .fg-panel-thumb,
 .fg-panel-thumbs-left .fg-panel-thumbs-inner,
 .fg-panel-thumbs-right .fg-panel-thumbs-inner {
+    width: 70px;
+    min-width: 70px;
+}
+.fg-medium.fg-panel-thumbs-left:not(.fg-panel-thumbs-small) .fg-panel-thumb,
+.fg-medium.fg-panel-thumbs-right:not(.fg-panel-thumbs-small) .fg-panel-thumb,
+.fg-medium.fg-panel-thumbs-top:not(.fg-panel-thumbs-small) .fg-panel-thumbs-inner,
+.fg-medium.fg-panel-thumbs-bottom:not(.fg-panel-thumbs-small) .fg-panel-thumbs-inner {
+    height: 82px;
+    min-height: 82px;
+}
+.fg-medium.fg-panel-thumbs-top:not(.fg-panel-thumbs-small) .fg-panel-thumb,
+.fg-medium.fg-panel-thumbs-bottom:not(.fg-panel-thumbs-small) .fg-panel-thumb,
+.fg-medium.fg-panel-thumbs-left:not(.fg-panel-thumbs-small) .fg-panel-thumbs-inner,
+.fg-medium.fg-panel-thumbs-right:not(.fg-panel-thumbs-small) .fg-panel-thumbs-inner {
     width: 82px;
     min-width: 82px;
 }

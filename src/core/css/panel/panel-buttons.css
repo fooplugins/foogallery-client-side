@@ -88,12 +88,6 @@
 .fg-panel.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button-next {
     right: 5px;
 }
-.fg-panel.fg-medium.fg-large-height .fg-panel-buttons .fg-panel-button-prev,
-.fg-panel.fg-medium.fg-large-height .fg-panel-buttons .fg-panel-button-next,
-.fg-panel.fg-panel-no-mobile.fg-large-height .fg-panel-buttons .fg-panel-button-prev,
-.fg-panel.fg-panel-no-mobile.fg-large-height .fg-panel-buttons .fg-panel-button-next {
-    height: 128px;
-}
 
 /* Hover buttons */
 @media (hover: hover) {

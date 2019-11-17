@@ -65,8 +65,6 @@
 
             self.__loading = null;
 
-            console.log("panel construct: ", self.instanceId);
-
             if (!(self.tmpl.destroying || self.tmpl.destroyed)){
                 self.tmpl.on({
                     "after-filter-change": self.onItemsChanged
@@ -81,7 +79,6 @@
         },
         create: function(){
             var self = this;
-            console.log("panel create: ", self.instanceId);
             if (!self.isCreated) {
                 var e = self.trigger("create", [self]);
                 if (!e.isDefaultPrevented()) {
@@ -120,7 +117,7 @@
                 _is.string(self.opt.highlight) ? self.opt.highlight : "",
                 self.opt.stackSideAreas ? self.cls.stackSideAreas : "",
                 self.opt.preserveButtonSpace ? self.cls.preserveButtonSpace : "",
-                self.opt.fitImages ? self.cls.fitImages : "",
+                self.opt.fitMedia ? self.cls.fitMedia : "",
                 self.opt.noMobile ? self.cls.noMobile : "",
                 self.opt.hoverButtons ? self.cls.hoverButtons : "",
                 self.opt.classNames
@@ -130,7 +127,6 @@
         destroy: function () {
             var self = this, _super = self._super.bind(self);
             if (self.isDestroyed) return _fn.resolved;
-            console.log("panel destroy: ", self.instanceId);
             self.isDestroying = true;
             return $.Deferred(function (def) {
                 if (self.isLoading && _is.promise(self.__loading)) {
@@ -157,26 +153,9 @@
                     def.resolve();
                 }
             }).then(function(){
-                console.log("panel destroyed: ", self.instanceId);
                 _super();
             }).promise();
         },
-        // destroy2: function(){
-        //     var self = this;
-        //     console.log("panel destroy: ", self.instanceId);
-        //     if (self.isCreated){
-        //         var e = self.trigger("destroy", [self]);
-        //         if (!e.isDefaultPrevented()) {
-        //             self.isCreated = !self.doDestroy();
-        //         }
-        //         if (!self.isCreated) {
-        //             self.trigger("destroyed", [self]);
-        //             // call the original method
-        //             self._super();
-        //         }
-        //     }
-        //     return !self.isCreated;
-        // },
         doDestroy: function(){
             var self = this;
             self.buttons.destroy();
@@ -259,8 +238,6 @@
             if (!(item instanceof _.Item)) return _fn.rejectWith("no items to load");
             if (item === self.currentItem) return _fn.rejectWith("item is currently loaded");
 
-            console.log("panel load: ", self.instanceId);
-
             self.isLoading = true;
             self.isLoaded = false;
             self.isError = false;
@@ -288,12 +265,10 @@
                 self.isLoading = false;
                 self.$el.focus();
             }).then(function(){
-                console.log("panel loaded: ", self.instanceId);
                 self.isLoaded = true;
                 self.trigger("loaded", [self, item]);
                 item.updateState();
             }).fail(function(){
-                console.log("panel error: ", self.instanceId);
                 self.isError = true;
                 self.trigger("error", [self, item]);
             }).promise();
@@ -419,7 +394,7 @@
 
             loop: true,
             autoProgress: 0,
-            fitImages: false,
+            fitMedia: false,
             keyboard: true,
             noScrollbars: true,
             swipe: true,
@@ -471,7 +446,7 @@
             maximized: "fg-panel-maximized",
             fullscreen: "fg-panel-fullscreen",
 
-            fitImages: "fg-panel-fit-images",
+            fitMedia: "fg-panel-fit-media",
             noScrollbars: "fg-panel-no-scroll",
             stackSideAreas: "fg-panel-area-stack",
             preserveButtonSpace: "fg-panel-preserve-button-space",
