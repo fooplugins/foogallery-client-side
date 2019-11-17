@@ -299,18 +299,10 @@ module.exports = function ( grunt ) {
 			"slider": {
 				"files": {
 					"./dist/components/templates/slider/js/foogallery.slider.js": [
-						"./src/templates/slider/js/rdy.js",
-						// "./src/templates/slider/js/ready.js"
+						"./src/templates/slider/js/rdy.js"
 					],
 					"./dist/components/templates/slider/css/foogallery.slider.css": [
-						"./src/templates/slider/css/_.css",
-						// "./src/templates/slider/css/slider.css",
-						// "./src/templates/slider/css/item.css",
-						// "./src/templates/slider/css/content.css",
-						// "./src/templates/slider/css/no-captions.css",
-						// "./src/templates/slider/css/theme.css",
-						// "./src/templates/slider/css/highlight.css",
-						// "./src/templates/slider/css/transitions.css"
+						"./src/templates/slider/css/_.css"
 					]
 				}
 			},
