@@ -29,11 +29,13 @@
 					self.panel.opt.info = "right";
 				}
 			}
-			var theme = self.getCSSClass("theme");
-			if (theme === "fg-light" && self.panel.opt.button === null){
+			if (self.panel.opt.theme === null){
+				self.panel.opt.theme = self.getCSSClass("theme");
+			}
+			if (self.panel.opt.theme === "fg-light" && self.panel.opt.button === null){
 				self.panel.opt.button = "fg-button-blue";
 			}
-			if (theme === "fg-dark" && self.panel.opt.button === null){
+			if (self.panel.opt.theme === "fg-dark" && self.panel.opt.button === null){
 				self.panel.opt.button = "fg-button-dark";
 			}
 		},
@@ -63,19 +65,32 @@
 		},
 		onPanelClose: function(event, self, panel){
 			event.preventDefault();
-			self.close();
+			self.close(false, true);
+		},
+		onPanelAreaLoad: function(event, self, area, media){
+			if (area.name === "content"){
+				media.item.$el.addClass(self.cls.visible);
+			}
+		},
+		onPanelAreaUnload: function(event, self, area, media){
+			if (area.name === "content"){
+				media.item.$el.removeClass(self.cls.visible);
+			}
 		},
 		onParsedItem: function(event, self, item){
 			if (item.isError) return;
 			item.$anchor.on("click.gg", {self: self, item: item}, self.onAnchorClick);
+			item.$el.append($("<span/>").addClass([self.cls.currentPointer, self.panel.opt.theme].join(' ')));
 		},
 		onCreatedItem: function(event, self, item){
 			if (item.isError) return;
 			item.$anchor.on("click.gg", {self: self, item: item}, self.onAnchorClick);
+			item.$el.append($("<span/>").addClass([self.cls.currentPointer, self.panel.opt.theme].join(' ')));
 		},
 		onDestroyItem: function(event, self, item){
 			if (item.isError) return;
 			item.$anchor.off("click.gg", self.onAnchorClick);
+			item.$el.find(self.sel.currentPointer).remove();
 		},
 		onAfterState: function(event, self, state){
 			if (!(state.item instanceof _.Item)) return;
@@ -83,10 +98,10 @@
 		},
 		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
 			if (isFilter) return;
-			self.close(true, self.panel.isAttached);
+			if (!self.panel.isMaximized) self.close(true, self.panel.isAttached);
 		},
 		onBeforeFilterChange: function(event, self, current, next, setFilter){
-			self.close(true, self.panel.isAttached);
+			if (!self.panel.isMaximized) self.close(true, self.panel.isAttached);
 		},
 		onAnchorClick: function(e){
 			e.preventDefault();
@@ -157,27 +172,27 @@
 
 				self.scrollTo(self.getOffsetTop(item), newRow || self.isFirst).then(function(){
 
-					item.$el.after(self.$section);
 					self.panel.appendTo(self.$section);
-
+					if (newRow) item.$el.after(self.$section);
 					if (self.transitionOpen(newRow)){
 						self.isFirst = false;
-						_t.start(self.$section, "foogrid-visible", true, 350).then(function(){
+						_t.start(self.$section, self.cls.visible, true, 350).then(function(){
 							def.resolve();
 						});
 					} else {
-						self.$section.addClass('foogrid-visible');
+						self.$section.addClass(self.cls.visible);
 						def.resolve();
 					}
 
 				});
 
 			}).then(function(){
+				return self.scrollTo(self.getOffsetTop(item), true);
+			}).then(function(){
 				return self.panel.load(item);
 			}).then(function(){
 				self.$section.focus();
 				self.isBusy = false;
-				return self.scrollTo(self.getOffsetTop(item), true);
 			}).promise();
 		},
 		transitionOpen: function(newRow){
@@ -195,13 +210,14 @@
 			var self = this;
 			return $.Deferred(function(def){
 				if (self.panel.currentItem instanceof _.Item){
+					if (newRow) self.panel.currentItem.$el.removeClass(self.cls.visible);
 					if (self.transitionClose(newRow)){
-						_t.start(self.$section, "foogrid-visible", false, 350).then(function(){
+						_t.start(self.$section, self.cls.visible, false, 350).then(function(){
 							self.panel.doClose(true, !newRow);
 							def.resolve();
 						});
 					} else {
-						self.$section.removeClass("foogrid-visible");
+						self.$section.removeClass(self.cls.visible);
 						self.panel.doClose(true, !newRow);
 						def.resolve();
 					}
@@ -209,10 +225,8 @@
 					def.resolve();
 				}
 			}).always(function(){
-				if (!newRow){
-					self.$section.detach();
-					self.isFirst = true;
-				}
+				self.$section.detach();
+				self.isFirst = true;
 			}).promise();
 		},
 		transitionClose: function(newRow){
@@ -257,7 +271,9 @@
 			}
 		}
 	}, {
-		container: "foogallery foogrid"
+		container: "foogallery foogrid",
+		currentPointer: "fg-current-pointer",
+		visible: "foogrid-visible"
 	});
 
 })(

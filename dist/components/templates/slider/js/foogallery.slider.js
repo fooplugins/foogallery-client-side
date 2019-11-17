@@ -20,12 +20,14 @@
                 if (this.panel.opt.thumbs === null){
                     this.panel.thumbs.opt.position = this.template.horizontal ? "bottom" : "right";
                 }
-                this.template.noCaptions = this.$el.hasClass("fgs-no-captions") || this.template.noCaptions;
-                this.panel.thumbs.opt.captions = !this.template.noCaptions;
-
-                this.template.contentNav = this.$el.hasClass("fgs-content-nav") || this.template.contentNav;
-                this.panel.opt.buttons.prev = this.panel.opt.buttons.next = this.template.contentNav;
-
+                if (this.$el.hasClass("fgs-no-captions")){
+                    this.template.noCaptions = true;
+                    this.panel.thumbs.opt.captions = !this.template.noCaptions;
+                }
+                if (this.$el.hasClass("fgs-content-nav")){
+                    this.template.contentNav = true;
+                    this.panel.opt.buttons.prev = this.panel.opt.buttons.next = this.template.contentNav;
+                }
                 if (this.panel.opt.highlight === null){
                     this.panel.opt.highlight = this.getPanelHighlightClass();
                 }
@@ -68,7 +70,7 @@
             contentNav: false,
 
             fitContainer: false,
-            fitImages: true,
+            fitMedia: true,
             transition: "horizontal",
             hoverButtons: true,
             preserveButtonSpace: false,
