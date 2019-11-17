@@ -23,7 +23,7 @@
     user-select: none;
 }
 .fg-panel-thumbs-button.fg-disabled {
-    pointer-events: none;
+    display: none;
 }
 .fg-panel-thumbs-top .fg-panel-thumbs-button,
 .fg-panel-thumbs-bottom .fg-panel-thumbs-button {
