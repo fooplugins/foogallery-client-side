@@ -11248,7 +11248,7 @@
     FooGallery.utils.is,
     FooGallery.utils.fn
 );
-(function($, _, _icons, _utils, _is, _fn){
+(function($, _, _icons, _utils, _is, _fn, _t){
 
     _.Panel.Thumbs = _.Panel.SideArea.extend({
         construct: function(panel){
@@ -11442,40 +11442,47 @@
             if (maxIndex < 0) maxIndex = 0;
             if (scrollIndex > maxIndex) scrollIndex = maxIndex;
 
-            // now that we know the index of the first and last visible thumbs we can set the disabled state of the prev & next buttons
-            self.$prev.toggleClass(states.disabled, scrollIndex <= 0);
-            self.$next.toggleClass(states.disabled, scrollIndex >= maxIndex);
-
             // find the thumb
             var $thumb = self.$stage.find(self.sel.thumb.elem).eq(scrollIndex);
-            if ($thumb.length === 0) return;
+            if ($thumb.length > 0){
+                // align the right or bottom edge of the thumb with the viewport
+                var alignRightOrBottom = scrollIndex > self.scrollIndex, hasFullStage = self.__items.length >= self.info.count, offset, translate;
+                if (self.info.isHorizontal) {
+                    offset = -($thumb.prop("offsetLeft"));
+                    if (alignRightOrBottom) offset += self.info.remaining.width;
+                    if (hasFullStage && self.info.stage.width - Math.abs(offset) < self.info.viewport.width) {
+                        offset = self.info.viewport.width - self.info.stage.width;
+                    }
+                    translate = "translateX(" + (offset - 1) + "px)";
+                } else {
+                    offset = -($thumb.prop("offsetTop"));
+                    if (alignRightOrBottom) offset += self.info.remaining.height;
+                    if (hasFullStage && self.info.stage.height - Math.abs(offset) < self.info.viewport.height) {
+                        offset = self.info.viewport.height - self.info.stage.height;
+                    }
+                    translate = "translateY(" + (offset - 1) + "px)";
+                }
 
-            // align the right or bottom edge of the thumb with the viewport
-            var alignRightOrBottom = scrollIndex > self.scrollIndex, hasFullStage = self.__items.length >= self.info.count, offset, translate;
-            if (self.info.isHorizontal) {
-                offset = -($thumb.prop("offsetLeft"));
-                if (alignRightOrBottom) offset += self.info.remaining.width;
-                if (hasFullStage && self.info.stage.width - Math.abs(offset) < self.info.viewport.width) {
-                    offset = self.info.viewport.width - self.info.stage.width;
+                self.scrollIndex = scrollIndex;
+
+                if (!!disableTransition){
+                    self.$stage.addClass(states.noTransitions).css("transform", translate);
+                    self.$stage.prop("offsetHeight");
+                    self.$stage.removeClass(states.noTransitions);
+                    self.$prev.toggleClass(states.disabled, scrollIndex <= 0);
+                    self.$next.toggleClass(states.disabled, scrollIndex >= maxIndex);
+                } else {
+                    _t.start(self.$stage, function($el){
+                        $el.css("transform", translate);
+                    }, null, 350).then(function(){
+                        self.$prev.toggleClass(states.disabled, scrollIndex <= 0);
+                        self.$next.toggleClass(states.disabled, scrollIndex >= maxIndex);
+                    });
                 }
-                translate = "translateX(" + (offset - 1) + "px)";
             } else {
-                offset = -($thumb.prop("offsetTop"));
-                if (alignRightOrBottom) offset += self.info.remaining.height;
-                if (hasFullStage && self.info.stage.height - Math.abs(offset) < self.info.viewport.height) {
-                    offset = self.info.viewport.height - self.info.stage.height;
-                }
-                translate = "translateY(" + (offset - 1) + "px)";
+                self.$prev.toggleClass(states.disabled, scrollIndex <= 0);
+                self.$next.toggleClass(states.disabled, scrollIndex >= maxIndex);
             }
-            if (!!disableTransition) {
-                self.$stage.addClass(states.noTransitions);
-            }
-            self.$stage.css("transform", translate);
-            if (!!disableTransition) {
-                self.$stage.prop("offsetHeight");
-                self.$stage.removeClass(states.noTransitions);
-            }
-            self.scrollIndex = scrollIndex;
         },
         getInfo: function(){
             var isHorizontal = this.isHorizontal(),
@@ -11520,7 +11527,7 @@
                     }
                 }
                 var visible = this.selectedIndex >= this.scrollIndex && this.selectedIndex < this.scrollIndex + this.info.count;
-                this.goto(visible ? this.scrollIndex : this.selectedIndex, true);
+                this.goto(this.scrollIndex, true);
             }
         },
         onThumbClick: function(e){
@@ -11576,7 +11583,8 @@
     FooGallery.icons,
     FooGallery.utils,
     FooGallery.utils.is,
-    FooGallery.utils.fn
+    FooGallery.utils.fn,
+    FooGallery.utils.transition
 );
 (function($, _, _fn, _t){
 
