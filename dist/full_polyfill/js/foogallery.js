@@ -13106,7 +13106,7 @@
         },
         goto: function(index, disableTransition){
             var self = this;
-            if (!self.isCreated) return;
+            if (!self.isCreated) return _fn.rejectWith("thumbs not created");
 
             index = index < 0 ? 0 : (index > self.lastIndex ? self.lastIndex : index);
 
@@ -13120,47 +13120,47 @@
             if (maxIndex < 0) maxIndex = 0;
             if (scrollIndex > maxIndex) scrollIndex = maxIndex;
 
-            // find the thumb
-            var $thumb = self.$stage.find(self.sel.thumb.elem).eq(scrollIndex);
-            if ($thumb.length > 0){
-                // align the right or bottom edge of the thumb with the viewport
-                var alignRightOrBottom = scrollIndex > self.scrollIndex, hasFullStage = self.__items.length >= self.info.count, offset, translate;
-                if (self.info.isHorizontal) {
-                    offset = -($thumb.prop("offsetLeft"));
-                    if (alignRightOrBottom) offset += self.info.remaining.width;
-                    if (hasFullStage && self.info.stage.width - Math.abs(offset) < self.info.viewport.width) {
-                        offset = self.info.viewport.width - self.info.stage.width;
+            return $.Deferred(function(def){
+                // find the thumb
+                var $thumb = self.$stage.find(self.sel.thumb.elem).eq(scrollIndex);
+                if ($thumb.length > 0){
+                    // align the right or bottom edge of the thumb with the viewport
+                    var alignRightOrBottom = scrollIndex > self.scrollIndex, hasFullStage = self.__items.length >= self.info.count, offset, translate;
+                    if (self.info.isHorizontal) {
+                        offset = -($thumb.prop("offsetLeft"));
+                        if (alignRightOrBottom) offset += self.info.remaining.width;
+                        if (hasFullStage && self.info.stage.width - Math.abs(offset) < self.info.viewport.width) {
+                            offset = self.info.viewport.width - self.info.stage.width;
+                        }
+                        translate = "translateX(" + (offset - 1) + "px)";
+                    } else {
+                        offset = -($thumb.prop("offsetTop"));
+                        if (alignRightOrBottom) offset += self.info.remaining.height;
+                        if (hasFullStage && self.info.stage.height - Math.abs(offset) < self.info.viewport.height) {
+                            offset = self.info.viewport.height - self.info.stage.height;
+                        }
+                        translate = "translateY(" + (offset - 1) + "px)";
                     }
-                    translate = "translateX(" + (offset - 1) + "px)";
+                    if (self.panel.hasTransition && !disableTransition) {
+                        _t.start(self.$stage, function ($el) {
+                            $el.css("transform", translate);
+                        }, null, 350).then(function () {
+                            def.resolve();
+                        }).fail(def.reject);
+                    } else {
+                        self.$stage.addClass(states.noTransitions).css("transform", translate);
+                        self.$stage.prop("offsetHeight");
+                        self.$stage.removeClass(states.noTransitions);
+                        def.resolve();
+                    }
                 } else {
-                    offset = -($thumb.prop("offsetTop"));
-                    if (alignRightOrBottom) offset += self.info.remaining.height;
-                    if (hasFullStage && self.info.stage.height - Math.abs(offset) < self.info.viewport.height) {
-                        offset = self.info.viewport.height - self.info.stage.height;
-                    }
-                    translate = "translateY(" + (offset - 1) + "px)";
+                    def.resolve();
                 }
-
+            }).always(function(){
                 self.scrollIndex = scrollIndex;
-
-                if (!!disableTransition){
-                    self.$stage.addClass(states.noTransitions).css("transform", translate);
-                    self.$stage.prop("offsetHeight");
-                    self.$stage.removeClass(states.noTransitions);
-                    self.$prev.toggleClass(states.disabled, scrollIndex <= 0);
-                    self.$next.toggleClass(states.disabled, scrollIndex >= maxIndex);
-                } else {
-                    _t.start(self.$stage, function($el){
-                        $el.css("transform", translate);
-                    }, null, 350).then(function(){
-                        self.$prev.toggleClass(states.disabled, scrollIndex <= 0);
-                        self.$next.toggleClass(states.disabled, scrollIndex >= maxIndex);
-                    });
-                }
-            } else {
                 self.$prev.toggleClass(states.disabled, scrollIndex <= 0);
                 self.$next.toggleClass(states.disabled, scrollIndex >= maxIndex);
-            }
+            }).promise();
         },
         getInfo: function(){
             var isHorizontal = this.isHorizontal(),
