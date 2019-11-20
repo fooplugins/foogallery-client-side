@@ -116,17 +116,17 @@
     width: 82px;
     min-width: 82px;
 }
-.fg-large-width.fg-panel-thumbs-top.fg-panel-thumbs-no-captions .fg-panel-thumb,
-.fg-large-width.fg-panel-thumbs-bottom.fg-panel-thumbs-no-captions .fg-panel-thumb,
-.fg-large-width.fg-panel-thumbs-left.fg-panel-thumbs-no-captions .fg-panel-thumbs-inner,
-.fg-large-width.fg-panel-thumbs-right.fg-panel-thumbs-no-captions .fg-panel-thumbs-inner {
+.fg-large-width.fg-panel-thumbs-top.fg-panel-thumbs-no-captions:not(.fg-panel-thumbs-small) .fg-panel-thumb,
+.fg-large-width.fg-panel-thumbs-bottom.fg-panel-thumbs-no-captions:not(.fg-panel-thumbs-small) .fg-panel-thumb,
+.fg-large-width.fg-panel-thumbs-left.fg-panel-thumbs-no-captions:not(.fg-panel-thumbs-small) .fg-panel-thumbs-inner,
+.fg-large-width.fg-panel-thumbs-right.fg-panel-thumbs-no-captions:not(.fg-panel-thumbs-small) .fg-panel-thumbs-inner {
     width: 110px;
     min-width: 110px;
 }
-.fg-x-large-width.fg-panel-thumbs-top.fg-panel-thumbs-no-captions .fg-panel-thumb,
-.fg-x-large-width.fg-panel-thumbs-bottom.fg-panel-thumbs-no-captions .fg-panel-thumb,
-.fg-x-large-width.fg-panel-thumbs-left.fg-panel-thumbs-no-captions .fg-panel-thumbs-inner,
-.fg-x-large-width.fg-panel-thumbs-right.fg-panel-thumbs-no-captions .fg-panel-thumbs-inner {
+.fg-x-large-width.fg-panel-thumbs-top.fg-panel-thumbs-no-captions:not(.fg-panel-thumbs-small) .fg-panel-thumb,
+.fg-x-large-width.fg-panel-thumbs-bottom.fg-panel-thumbs-no-captions:not(.fg-panel-thumbs-small) .fg-panel-thumb,
+.fg-x-large-width.fg-panel-thumbs-left.fg-panel-thumbs-no-captions:not(.fg-panel-thumbs-small) .fg-panel-thumbs-inner,
+.fg-x-large-width.fg-panel-thumbs-right.fg-panel-thumbs-no-captions:not(.fg-panel-thumbs-small) .fg-panel-thumbs-inner {
     width: 138px;
     min-width: 138px;
 }
@@ -142,10 +142,10 @@
     width: 200px;
     min-width: 200px;
 }
-.fg-medium.fg-large-width.fg-panel-info-left .fg-panel-info-inner,
-.fg-medium.fg-large-width.fg-panel-info-right .fg-panel-info-inner,
-.fg-medium.fg-large-width.fg-panel-cart-left .fg-panel-cart-inner,
-.fg-medium.fg-large-width.fg-panel-cart-right .fg-panel-cart-inner,
+.fg-large-width.fg-panel-info-left .fg-panel-info-inner,
+.fg-large-width.fg-panel-info-right .fg-panel-info-inner,
+.fg-large-width.fg-panel-cart-left .fg-panel-cart-inner,
+.fg-large-width.fg-panel-cart-right .fg-panel-cart-inner,
 .fg-large-width.fg-panel-thumbs-top:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
 .fg-large-width.fg-panel-thumbs-bottom:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
 .fg-large-width.fg-panel-thumbs-left:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
@@ -153,10 +153,10 @@
     width: 240px;
     min-width: 240px;
 }
-.fg-medium.fg-x-large-width.fg-panel-info-left .fg-panel-info-inner,
-.fg-medium.fg-x-large-width.fg-panel-info-right .fg-panel-info-inner,
-.fg-medium.fg-x-large-width.fg-panel-cart-left .fg-panel-cart-inner,
-.fg-medium.fg-x-large-width.fg-panel-cart-right .fg-panel-cart-inner,
+.fg-x-large-width.fg-panel-info-left .fg-panel-info-inner,
+.fg-x-large-width.fg-panel-info-right .fg-panel-info-inner,
+.fg-x-large-width.fg-panel-cart-left .fg-panel-cart-inner,
+.fg-x-large-width.fg-panel-cart-right .fg-panel-cart-inner,
 .fg-x-large-width.fg-panel-thumbs-top:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
 .fg-x-large-width.fg-panel-thumbs-bottom:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
 .fg-x-large-width.fg-panel-thumbs-left:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
