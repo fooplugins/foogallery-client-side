@@ -131,6 +131,14 @@
 			}
 			return self.style.sheet;
 		},
+		delayedLayout: function(){
+			var self = this;
+			if (self._delayedLayout) clearTimeout(self._delayedLayout);
+			self._delayedLayout = setTimeout(function () {
+				self._delayedLayout = null;
+				self.masonry.layout();
+			}, 20);
+		},
 		/**
 		 * @summary Listens for the {@link FooGallery.Template~event:"pre-init.foogallery"|`pre-init.foogallery`} event.
 		 * @memberof FooGallery.MasonryTemplate#
@@ -207,9 +215,10 @@
 			self.masonry.layout();
 		},
 		onReady: function(event, self){
-			self.masonry.layout();
+			self.delayedLayout();
 		},
 		onDestroy: function(event, self){
+			if (self._delayedLayout) clearTimeout(self._delayedLayout);
 			self.$el.find(self.sel.columnWidth).remove();
 			self.$el.find(self.sel.gutterWidth).remove();
 			if (self.style && self.style.parentNode){
