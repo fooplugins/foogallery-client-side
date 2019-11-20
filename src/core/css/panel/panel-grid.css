@@ -29,7 +29,10 @@
     display: none;
 }
 /* Only show the caption if a position is set */
-.fg-panel-info-visible .fg-panel-info {
+.fg-panel-info-top.fg-panel-info-visible .fg-panel-info,
+.fg-panel-info-right.fg-panel-info-visible .fg-panel-info,
+.fg-panel-info-bottom.fg-panel-info-visible .fg-panel-info,
+.fg-panel-info-left.fg-panel-info-visible .fg-panel-info {
     display: block;
 }
 .fg-medium.fg-panel-info-top:not(.fg-panel-info-overlay) .fg-panel-info,
@@ -68,7 +71,10 @@
     display: none;
 }
 /* Only show the cart if a position is set */
-.fg-panel-cart-visible .fg-panel-cart {
+.fg-panel-cart-top.fg-panel-cart-visible .fg-panel-cart,
+.fg-panel-cart-right.fg-panel-cart-visible .fg-panel-cart,
+.fg-panel-cart-bottom.fg-panel-cart-visible .fg-panel-cart,
+.fg-panel-cart-left.fg-panel-cart-visible .fg-panel-cart {
     display: block;
 }
 .fg-medium.fg-panel-cart-top:not(.fg-panel-cart-overlay) .fg-panel-cart,
@@ -107,7 +113,10 @@
     -ms-grid-row-span: 9;
     display: none;
 }
-.fg-panel-thumbs-visible .fg-panel-thumbs {
+.fg-panel-thumbs-top.fg-panel-thumbs-visible .fg-panel-thumbs,
+.fg-panel-thumbs-right.fg-panel-thumbs-visible .fg-panel-thumbs,
+.fg-panel-thumbs-bottom.fg-panel-thumbs-visible .fg-panel-thumbs,
+.fg-panel-thumbs-left.fg-panel-thumbs-visible .fg-panel-thumbs {
     display: block;
 }
 .fg-panel-thumbs-top .fg-panel-thumbs {
@@ -133,30 +142,34 @@
 
 
 /* Allow side areas to be stacked */
-.fg-medium.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
-.fg-medium.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
-.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
-.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info {
+.fg-medium.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-medium.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info {
     grid-row: 4 / 5;
     -ms-grid-row: 4;
     -ms-grid-row-span: 1;
 }
 .fg-medium.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
-.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info {
+.fg-medium.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs {
     grid-column: 1 / 2;
     -ms-grid-column: 1;
     -ms-grid-column-span: 1;
 }
 .fg-medium.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
-.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info {
+.fg-medium.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs {
     grid-column: 9 / 10;
     -ms-grid-column: 9;
     -ms-grid-column-span: 1;
 }
-.fg-medium.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
-.fg-medium.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
-.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
-.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs {
+.fg-medium.fg-panel-area-stack.fg-panel-info-visible.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
+.fg-medium.fg-panel-area-stack.fg-panel-info-visible.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-visible.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-visible.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs {
     grid-row: 5 / 7;
     -ms-grid-row: 5;
     -ms-grid-row-span: 2;
