@@ -91,18 +91,18 @@
 
 /* Hover buttons */
 @media (hover: hover) {
-    .fg-medium.fg-panel-hover-buttons .fg-panel-content .fg-panel-button,
-    .fg-panel-no-mobile.fg-panel-hover-buttons .fg-panel-content .fg-panel-button {
+    .fg-medium.fg-panel-hover-buttons .fg-panel-button,
+    .fg-panel-no-mobile.fg-panel-hover-buttons .fg-panel-button {
         visibility: hidden;
         opacity: 0;
     }
-    .fg-medium.fg-panel-hover-buttons .fg-panel-content:hover .fg-panel-button:not(.fg-disabled),
-    .fg-panel-no-mobile.fg-panel-hover-buttons .fg-panel-content:hover .fg-panel-button:not(.fg-disabled) {
+    .fg-medium.fg-panel-hover-buttons:hover .fg-panel-button:not(.fg-disabled),
+    .fg-panel-no-mobile.fg-panel-hover-buttons:hover .fg-panel-button:not(.fg-disabled) {
         visibility: visible;
         opacity: 0.5;
     }
-    .fg-medium.fg-panel-hover-buttons .fg-panel-content .fg-panel-button:not(.fg-disabled):hover,
-    .fg-panel-no-mobile.fg-panel-hover-buttons .fg-panel-content .fg-panel-button:not(.fg-disabled):hover {
+    .fg-medium.fg-panel-hover-buttons .fg-panel-button:not(.fg-disabled):hover,
+    .fg-panel-no-mobile.fg-panel-hover-buttons .fg-panel-button:not(.fg-disabled):hover {
         opacity: 1;
     }
 }
