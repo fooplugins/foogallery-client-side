@@ -115,6 +115,7 @@
 			 * @private
 			 */
 			self._initialize = null;
+			self._checkTimeout = null;
 			self.initializing = false;
 			self.initialized = false;
             self.destroying = false;
@@ -505,6 +506,7 @@
              * });
              */
             self.raise("destroy");
+			if (self._checkTimeout) clearTimeout(self._checkTimeout);
             self.$scrollParent.off(self.namespace);
             $(window).off(self.namespace);
             self.state.destroy(preserveState);
@@ -597,7 +599,9 @@
 		_check: function (delay) {
 			delay = _is.number(delay) ? delay : 0;
 			var self = this;
-			setTimeout(function () {
+			if (self._checkTimeout) clearTimeout(self._checkTimeout);
+			return self._checkTimeout = setTimeout(function () {
+				self._checkTimeout = null;
 				if (self.initialized && (!self.destroying || !self.destroyed)) {
 					self.loadAvailable();
 				}
@@ -731,7 +735,7 @@
 		src: "data-src-fg",
 		template: {},
 		regex: {
-			theme: /(?:\s|^)(fg-(?:light|dark))(?:\s|$)/,
+			theme: /(?:\s|^)(fg-(?:light|dark|custom))(?:\s|$)/,
 			loadingIcon: /(?:\s|^)(fg-loading-(?:default|bars|dots|partial|pulse|trail))(?:\s|$)/,
 			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|plus|circle-plus|eye|external|tint))(?:\s|$)/,
 			videoIcon: /(?:\s|^)(fg-video-(?:default|1|2|3|4))(?:\s|$)/,
