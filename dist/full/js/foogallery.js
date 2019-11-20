@@ -58,7 +58,7 @@
 );
 /*!
 * FooGallery.utils - Contains common utility methods and classes used in our plugins.
-* @version 0.1.6
+* @version 0.1.7
 * @link https://github.com/steveush/foo-utils#readme
 * @copyright Steve Usher 2019
 * @license Released under the GPL-3.0 license.
@@ -111,7 +111,7 @@
 		 * @name version
 		 * @type {string}
 		 */
-		version: '0.1.6'
+		version: '0.1.7'
 	};
 
 	/**
@@ -207,7 +207,7 @@
 })(jQuery);
 (function ($, _){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	/**
 	 * @summary Contains common type checking utility methods.
@@ -561,7 +561,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	/**
 	 * @memberof FooGallery.utils
@@ -1144,7 +1144,7 @@
 );
 (function(_, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	/**
 	 * @summary Contains common url utility methods.
@@ -1283,7 +1283,7 @@
 );
 (function (_, _is, _fn) {
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	/**
 	 * @summary Contains common string utility methods.
@@ -1598,7 +1598,7 @@
 );
 (function($, _, _is, _fn, _str){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	/**
 	 * @summary Contains common object utility methods.
@@ -1930,7 +1930,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	// any methods that have dependencies but don't fall into a specific subset or namespace can be added here
 
@@ -2211,7 +2211,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	/**
 	 * @summary Contains common utility methods and members for the CSS animation property.
@@ -2379,6 +2379,7 @@
 		$element = $element.first();
 
 		if (_.animation.supported){
+			$element.prop('offsetTop');
 			var safety = $element.data('animation_safety');
 			if (_is.hash(safety) && _is.number(safety.timer)){
 				clearTimeout(safety.timer);
@@ -2436,7 +2437,7 @@
 );
 (function($, _, _is, _animation){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	/**
 	 * @summary Contains common utility methods and members for the CSS transition property.
@@ -2558,6 +2559,7 @@
 		$element = $element.first();
 
 		if (_.transition.supported){
+			$element.prop('offsetTop');
 			var safety = $element.data('transition_safety');
 			if (_is.hash(safety) && _is.number(safety.timer)){
 				clearTimeout(safety.timer);
@@ -2609,7 +2611,7 @@
 );
 (function ($, _, _is, _obj, _fn) {
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	/**
 	 * @summary A base class providing some helper methods for prototypal inheritance.
@@ -2748,7 +2750,7 @@
 );
 (function (_, _is, _str) {
     // only register methods if this version is the current version
-    if (_.version !== '0.1.6') return;
+    if (_.version !== '0.1.7') return;
 
     _.Event = _.Class.extend(/** @lends FooGallery.utils.Event */{
         /**
@@ -3010,7 +3012,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	_.Bounds = _.Class.extend(/** @lends FooGallery.utils.Bounds */{
 		/**
@@ -3111,7 +3113,7 @@
 );
 (function($, _, _is, _fn, _obj){
     // only register methods if this version is the current version
-    if (_.version !== '0.1.6') return;
+    if (_.version !== '0.1.7') return;
 
     _.Timer = _.EventClass.extend(/** @lends FooGallery.utils.Timer */{
         /**
@@ -3405,7 +3407,7 @@
 
 (function($, _, _is, _fn){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	_.Factory = _.Class.extend(/** @lends FooGallery.utils.Factory */{
 		/**
@@ -3728,7 +3730,7 @@
 );
 (function(_, _fn, _str){
 	// only register methods if this version is the current version
-	if (_.version !== '0.1.6') return;
+	if (_.version !== '0.1.7') return;
 
 	// this is done to handle Content Security in Chrome and other browsers blocking access to the localStorage object under certain configurations.
 	// see: https://www.chromium.org/for-testers/bug-reporting-guidelines/uncaught-securityerror-failed-to-read-the-localstorage-property-from-window-access-is-denied-for-this-document
@@ -3834,7 +3836,7 @@
 );
 (function($, _, _fn){
     // only register methods if this version is the current version
-    if (_.version !== '0.1.6') return;
+    if (_.version !== '0.1.7') return;
 
     _.FullscreenAPI = _.EventClass.extend(/** @lends FooGallery.utils.FullscreenAPI */{
         /**
@@ -9744,6 +9746,14 @@
 			}
 			return self.style.sheet;
 		},
+		delayedLayout: function(){
+			var self = this;
+			if (self._delayedLayout) clearTimeout(self._delayedLayout);
+			self._delayedLayout = setTimeout(function () {
+				self._delayedLayout = null;
+				self.masonry.layout();
+			}, 20);
+		},
 		/**
 		 * @summary Listens for the {@link FooGallery.Template~event:"pre-init.foogallery"|`pre-init.foogallery`} event.
 		 * @memberof FooGallery.MasonryTemplate#
@@ -9820,9 +9830,10 @@
 			self.masonry.layout();
 		},
 		onReady: function(event, self){
-			self.masonry.layout();
+			self.delayedLayout();
 		},
 		onDestroy: function(event, self){
+			if (self._delayedLayout) clearTimeout(self._delayedLayout);
 			self.$el.find(self.sel.columnWidth).remove();
 			self.$el.find(self.sel.gutterWidth).remove();
 			if (self.style && self.style.parentNode){
