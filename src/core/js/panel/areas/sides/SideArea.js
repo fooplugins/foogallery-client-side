@@ -48,8 +48,10 @@
                         .on("click.foogallery", {self: this}, this.onToggleClick)
                         .appendTo(this.$inner);
                 }
-                this.panel.$el.toggleClass(this.cls.visible, this.isVisible);
-                if (this.isEnabled()) this.setPosition( this.opt.position );
+                if (this.isEnabled()){
+                    this.panel.$el.toggleClass(this.cls.visible, this.isVisible);
+                    this.setPosition( this.opt.position );
+                }
                 return true;
             }
             return false;
