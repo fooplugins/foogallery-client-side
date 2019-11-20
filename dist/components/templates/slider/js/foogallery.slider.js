@@ -28,8 +28,8 @@
                     this.template.contentNav = true;
                     this.panel.opt.buttons.prev = this.panel.opt.buttons.next = this.template.contentNav;
                 }
-                if (this.panel.opt.highlight === null){
-                    this.panel.opt.highlight = this.getPanelHighlightClass();
+                if (this.panel.opt.button === null){
+                    this.panel.opt.button = this.getPanelButtonClass();
                 }
                 return true;
             }
@@ -39,7 +39,6 @@
             var self = this;
             if (self._super()){
                 _.breakpoints.register(self.$el, self.template.outerBreakpoints, function () {
-                    console.log("slider bp");
                     self.panel.resize();
                 });
                 self.panel.appendTo(self.$el);
@@ -55,11 +54,11 @@
                 return _super(preserveState);
             });
         },
-        getPanelHighlightClass: function(){
+        getPanelButtonClass: function(){
             var className = this.$el.prop("className"),
                 match = /(?:^|\s)fgs-(purple|red|green|blue|orange)(?:$|\s)/.exec(className);
 
-            return match != null && match.length >= 2 ? "fg-highlight-" + match[1] : null;
+            return match != null && match.length >= 2 ? "fg-button-" + match[1] : null;
         },
     });
 
