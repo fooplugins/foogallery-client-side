@@ -12,9 +12,12 @@
 .fg-current-pointer.fg-dark {
     border-bottom-color: #292929;
 }
-.foogrid-content .fg-panel.fg-light .fg-panel-area .fg-panel-info-inner,
+.foogrid-content .fg-panel.fg-light .fg-panel-area .fg-panel-info-inner {
+    background-color: rgba(238, 238, 238, 0.5);
+    border-width: 0;
+}
 .foogrid-content .fg-panel.fg-dark .fg-panel-area .fg-panel-info-inner {
-    background-color: transparent;
+    background-color: rgba(51, 51, 51, 0.5);
     border-width: 0;
 }
 .foogrid-content .fg-panel.fg-light.fg-panel-info-bottom .fg-panel-area .fg-panel-info-inner {
