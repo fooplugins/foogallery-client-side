@@ -10,9 +10,13 @@
 * **hoverIcon** - `null` - The icon displayed while hovering over a thumb. Can be `"fg-hover-zoom"`, `"fg-hover-zoom2"`, `"fg-hover-zoom3"`, `"fg-hover-plus"`, `"fg-hover-circle-plus"`, `"fg-hover-eye"`, `"fg-hover-external"`, `"fg-hover-tint"` or `null`. If `null` the hover icon of the associated template is used.
 * **videoIcon** - `null` - The icon displayed while hovering over a video thumb. Can be `"fg-video-default"`, `"fg-video-1"`, `"fg-video-2"`, `"fg-video-3"`, `"fg-video-4"` or `null`. If `null` the video icon of the associated template is used.
 * **stickyVideoIcon** - `null` - Whether or not to make video hover icons always visible. Can be `true`, `false` or `null`. If `null` the sticky state of the associated template is used.
+* **hoverColor** - `null` - Whether to colorize or grayscale the thumbs on hover. Can be `null`, `fg-hover-colorize` or `fg-hover-grayscale`. If `null` the hover color option of the associated template is used.
+* **hoverScale** - `null`- Whether or not to scale the thumb on hover. Can be `null`, `true` or `false`. If `null` the hover scale option from the associated template is used.
 * **noMobile** - `false` - Whether or not the panel can display its' mobile UI view. Can be `true` or `false`.
 * **hoverButtons** - `false` - Whether or not the various panel buttons are only displayed on hover. Can be `true` or `false`. On devices that do not support `:hover` buttons will always be displayed.
 * **transition** - `"none"` - The transition to apply to the main content area when switching between items. Can be `"horizontal"`, `"vertical"`, `"fade"` or `"none"`.
+* **insetShadow** - `null` - The inset shadow to apply to the thumbs. Can be `"fg-shadow-inset-small"`, `"fg-shadow-inset-medium"`, `"fg-shadow-inset-large"` or `null`. If `null` the inset shadow from the associated template is used.
+* **filter** - `null` - The instagram type filter to apply to the thumbs. Can be `"fg-filter-1977"`, `"fg-filter-amaro"`, `"fg-filter-brannan"`, `"fg-filter-clarendon"`, `"fg-filter-earlybird"`, `"fg-filter-lofi"`, `"fg-filter-poprocket"`, `"fg-filter-reyes"`, `"fg-filter-toaster"`, `"fg-filter-walden"`, `"fg-filter-xpro2"`, `"fg-filter-xtreme"` or `null`. If `null` the filter of the associated template is used.
 
 ### Functionality
 

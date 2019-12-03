@@ -96,6 +96,8 @@ module.exports = function ( grunt ) {
 						"./src/core/css/panel/transitions.css",
 						"./src/core/css/panel/auto-progress.css",
 						"./src/core/css/panel/thumbs.css",
+						"./src/core/css/panel/thumbs-inset-shadow.css",
+						"./src/core/css/panel/thumbs-transitions.css",
 
 						"./src/core/css/appearance/theme.css",
 						"./src/core/css/appearance/border-size.css",
