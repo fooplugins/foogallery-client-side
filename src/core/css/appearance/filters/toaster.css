@@ -1,8 +1,10 @@
-.foogallery.fg-filter-toaster .fg-image-wrap {
+.foogallery.fg-filter-toaster .fg-image-wrap,
+.fg-panel.fg-filter-toaster .fg-panel-thumb-wrap {
   -webkit-filter: contrast(150%) brightness(90%);
   filter: contrast(150%) brightness(90%);
 }
-.foogallery.fg-filter-toaster .fg-image-wrap:before {
+.foogallery.fg-filter-toaster .fg-image-wrap:before,
+.fg-panel.fg-filter-toaster .fg-panel-thumb-wrap:before {
   mix-blend-mode: screen;
   opacity: 0.5;
   background: -webkit-radial-gradient(50% 50%, circle closest-corner, rgba(15, 78, 128, 1) 1%, rgba(59, 0, 59, 1));

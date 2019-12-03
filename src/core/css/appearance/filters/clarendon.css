@@ -1,8 +1,10 @@
-.foogallery.fg-filter-clarendon .fg-image-wrap {
+.foogallery.fg-filter-clarendon .fg-image-wrap,
+.fg-panel.fg-filter-clarendon .fg-panel-thumb-wrap {
   -webkit-filter: contrast(120%) saturate(125%);
   filter: contrast(120%) saturate(125%);
 }
-.foogallery.fg-filter-clarendon .fg-image-wrap:before {
+.foogallery.fg-filter-clarendon .fg-image-wrap:before,
+.fg-panel.fg-filter-clarendon .fg-panel-thumb-wrap:before {
   mix-blend-mode: overlay;
   background: rgba(127, 187, 227, 0.2);
 }

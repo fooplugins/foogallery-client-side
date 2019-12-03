@@ -3,6 +3,9 @@
 }
 .foogallery .fg-image-wrap:before {
 	z-index: 8;
+}
+.foogallery .fg-image-wrap:before,
+.fg-panel .fg-panel-thumb-wrap:before {
 	content: "";
 	display: block;
 	height: 100%;

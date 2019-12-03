@@ -1,8 +1,10 @@
-.foogallery.fg-filter-reyes .fg-image-wrap {
+.foogallery.fg-filter-reyes .fg-image-wrap,
+.fg-panel.fg-filter-reyes .fg-panel-thumb-wrap {
   -webkit-filter: contrast(85%) brightness(110%) saturate(75%) sepia(22%);
   filter: contrast(85%) brightness(110%) saturate(75%) sepia(22%);
 }
-.foogallery.fg-filter-reyes .fg-image-wrap:before {
+.foogallery.fg-filter-reyes .fg-image-wrap:before,
+.fg-panel.fg-filter-reyes .fg-panel-thumb-wrap:before {
   mix-blend-mode: soft-light;
   opacity: 0.5;
   background: rgba(173, 205, 239, 1);

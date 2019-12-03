@@ -1,8 +1,10 @@
-.foogallery.fg-filter-xpro2 .fg-image-wrap {
+.foogallery.fg-filter-xpro2 .fg-image-wrap,
+.fg-panel.fg-filter-xpro2 .fg-panel-thumb-wrap {
   -webkit-filter: sepia(30%);
   filter: sepia(30%);
 }
-.foogallery.fg-filter-xpro2 .fg-image-wrap:before {
+.foogallery.fg-filter-xpro2 .fg-image-wrap:before,
+.fg-panel.fg-filter-xpro2 .fg-panel-thumb-wrap:before {
   mix-blend-mode: color-burn;
   background: -webkit-radial-gradient(center center, circle closest-corner, rgba(224, 231, 230, 1) 40%, rgba(43, 42, 161, 0.6));
   background: radial-gradient(center center, circle closest-corner, rgba(224, 231, 230, 1) 40%, rgba(43, 42, 161, 0.6));
