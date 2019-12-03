@@ -6,6 +6,7 @@
             this.name = name;
             this.opt = _obj.extend({
                 icon: null,
+                label: null,
                 visible: true,
                 disabled: false,
                 onclick: $.noop,
@@ -29,8 +30,12 @@
         create: function(){
             var self = this;
             if (!self.isCreated && self.isEnabled()){
-                self.$el = $('<div/>').addClass(self.cls.elem)
-                    .on("click.foogallery", {self: self}, self.onButtonClick);
+                self.$el = $('<button/>', {
+                    type: 'button',
+                    "aria-label": self.opt.label,
+                    "aria-disabled": self.isDisabled,
+                    "aria-hidden": !self.isVisible
+                }).addClass(self.cls.elem).on("click.foogallery", {self: self}, self.onButtonClick);
                 if (_is.string(self.opt.icon)){
                     self.$el.append(_icons.get(self.opt.icon, self.panel.opt.icons));
                 } else if (_is.array(self.opt.icon)){
@@ -66,12 +71,15 @@
         toggle: function(visible){
             if (!this.isCreated) return;
             this.isVisible = _is.boolean(visible) ? visible : !this.isVisible;
-            this.$el.toggleClass(this.cls.states.hidden, !this.isVisible);
+            this.$el.toggleClass(this.cls.states.hidden, !this.isVisible).attr("aria-hidden", !this.isVisible);
         },
         disable: function(disabled){
             if (!this.isCreated) return;
             this.isDisabled = _is.boolean(disabled) ? disabled : !this.isDisabled;
-            this.$el.toggleClass(this.cls.states.disabled, this.isDisabled);
+            this.$el.toggleClass(this.cls.states.disabled, this.isDisabled).attr({
+                "aria-disabled": this.isDisabled,
+                "disabled": this.isDisabled
+            });
         },
         beforeLoad: function(media){
             this.opt.beforeLoad.call(this, media);

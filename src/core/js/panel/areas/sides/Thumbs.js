@@ -4,6 +4,7 @@
         construct: function(panel){
             this._super(panel, "thumbs", {
                 icon: "thumbs",
+                label: "Thumbnails",
                 position: panel.opt.thumbs,
                 captions: panel.opt.thumbsCaptions,
                 small: panel.opt.thumbsSmall,
@@ -36,12 +37,12 @@
             if (self.isEnabled() && self._super()){
                 if (!self.opt.captions) self.panel.$el.addClass(self.cls.noCaptions);
                 if (self.opt.small) self.panel.$el.addClass(self.cls.small);
-                self.$prev = $('<div/>').addClass(self.cls.prev)
+                self.$prev = $('<button/>', {type: 'button'}).addClass(self.cls.prev)
                     .append(_icons.get("arrow-left", self.panel.opt.icons))
                     .on("click.foogallery", {self: self}, self.onPrevClick)
                     .prependTo(self.$inner);
                 self.$viewport = $('<div/>').addClass(self.cls.viewport).appendTo(self.$inner);
-                self.$next = $('<div/>').addClass(self.cls.next)
+                self.$next = $('<button/>', {type: 'button'}).addClass(self.cls.next)
                     .append(_icons.get("arrow-right", self.panel.opt.icons))
                     .on("click.foogallery", {self: self}, self.onNextClick)
                     .appendTo(self.$inner);
@@ -97,7 +98,9 @@
             return $("<figure/>").addClass(cls.elem).addClass(item.getTypeClass()).addClass(self.panel.cls.states.idle).append(
                 $("<div/>").addClass(cls.media).append(
                     $("<div/>").addClass(cls.overlay),
-                    $("<img/>", {title: item.title, alt: item.alt}).attr({draggable: false}).addClass(cls.image),
+                    $("<div/>").addClass(cls.wrap).append(
+                        $("<img/>", {title: item.title, alt: item.alt}).attr({draggable: false}).addClass(cls.image)
+                    ),
                     $("<div/>").addClass(self.panel.cls.loader)
                 ),
                 $("<div/>").addClass(cls.caption).append(

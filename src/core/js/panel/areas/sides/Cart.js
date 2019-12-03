@@ -4,6 +4,7 @@
         construct: function(panel){
             this._super(panel, "cart", {
                 icon: "cart",
+                label: "Cart",
                 position: panel.opt.cart,
                 visible: panel.opt.cartVisible,
                 waitForUnload: false

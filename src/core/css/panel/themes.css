@@ -75,20 +75,28 @@
 }
 
 @media (hover: hover) {
-    .fg-panel.fg-light .fg-panel-area-toggle:hover {
+    .fg-panel.fg-light .fg-panel-area-toggle:hover,
+    .fg-panel.fg-light .fg-panel-area-toggle:focus {
         color: #bbbbbb;
     }
     .fg-panel.fg-light .fg-panel-button:hover,
+    .fg-panel.fg-light .fg-panel-button:focus,
     .fg-panel.fg-light .fg-panel-thumbs-button:hover,
-    .fg-panel.fg-light .fg-panel-thumb:hover {
+    .fg-panel.fg-light .fg-panel-thumbs-button:focus,
+    .fg-panel.fg-light .fg-panel-thumb:hover,
+    .fg-panel.fg-light .fg-panel-thumb:focus {
         background-color: #f5f5f5;
     }
-    .fg-panel.fg-dark .fg-panel-area-toggle:hover {
+    .fg-panel.fg-dark .fg-panel-area-toggle:hover,
+    .fg-panel.fg-dark .fg-panel-area-toggle:focus {
         color: #bbbbbb;
     }
     .fg-panel.fg-dark .fg-panel-button:hover,
+    .fg-panel.fg-dark .fg-panel-button:focus,
     .fg-panel.fg-dark .fg-panel-thumbs-button:hover,
-    .fg-panel.fg-dark .fg-panel-thumb:hover {
+    .fg-panel.fg-dark .fg-panel-thumbs-button:focus,
+    .fg-panel.fg-dark .fg-panel-thumb:hover,
+    .fg-panel.fg-dark .fg-panel-thumb:focus {
         background-color: #303030;
     }
 }
@@ -144,78 +152,126 @@
 
 @media (hover: hover) {
     .fg-panel.fg-button-blue .fg-panel-button:hover,
+    .fg-panel.fg-button-blue .fg-panel-button:focus,
     .fg-panel.fg-button-blue .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-blue .fg-panel-thumbs-button:focus,
     .fg-panel.fg-button-blue .fg-panel-thumb:hover,
+    .fg-panel.fg-button-blue .fg-panel-thumb:focus,
     .fg-panel.fg-button-blue .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-button-blue .fg-panel-thumb.fg-selected:focus,
     .fg-panel.fg-highlight-blue .fg-panel-area .fg-panel-button:hover,
+    .fg-panel.fg-highlight-blue .fg-panel-area .fg-panel-button:focus,
     .fg-panel.fg-highlight-blue .fg-panel-area .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-highlight-blue .fg-panel-area .fg-panel-thumbs-button:focus,
     .fg-panel.fg-highlight-blue .fg-panel-area .fg-panel-thumb:hover,
-    .fg-panel.fg-highlight-blue .fg-panel-area .fg-panel-thumb.fg-selected:hover {
+    .fg-panel.fg-highlight-blue .fg-panel-area .fg-panel-thumb:focus,
+    .fg-panel.fg-highlight-blue .fg-panel-area .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-highlight-blue .fg-panel-area .fg-panel-thumb.fg-selected:focus {
         background-color: #4d90fe;
         border-color: #3079ed;
         color: #FFF;
     }
 
     .fg-panel.fg-button-dark .fg-panel-button:hover,
+    .fg-panel.fg-button-dark .fg-panel-button:focus,
     .fg-panel.fg-button-dark .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-dark .fg-panel-thumbs-button:focus,
     .fg-panel.fg-button-dark .fg-panel-thumb:hover,
+    .fg-panel.fg-button-dark .fg-panel-thumb:focus,
     .fg-panel.fg-button-dark .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-button-dark .fg-panel-thumb.fg-selected:focus,
     .fg-panel.fg-highlight-dark .fg-panel-area .fg-panel-button:hover,
+    .fg-panel.fg-highlight-dark .fg-panel-area .fg-panel-button:focus,
     .fg-panel.fg-highlight-dark .fg-panel-area .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-highlight-dark .fg-panel-area .fg-panel-thumbs-button:focus,
     .fg-panel.fg-highlight-dark .fg-panel-area .fg-panel-thumb:hover,
-    .fg-panel.fg-highlight-dark .fg-panel-area .fg-panel-thumb.fg-selected:hover {
+    .fg-panel.fg-highlight-dark .fg-panel-area .fg-panel-thumb:focus,
+    .fg-panel.fg-highlight-dark .fg-panel-area .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-highlight-dark .fg-panel-area .fg-panel-thumb.fg-selected:focus {
         background-color: #5e5e5e;
         border-color: #292929;
         color: #FFF;
     }
 
     .fg-panel.fg-button-green .fg-panel-button:hover,
+    .fg-panel.fg-button-green .fg-panel-button:focus,
     .fg-panel.fg-button-green .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-green .fg-panel-thumbs-button:focus,
     .fg-panel.fg-button-green .fg-panel-thumb:hover,
+    .fg-panel.fg-button-green .fg-panel-thumb:focus,
     .fg-panel.fg-button-green .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-button-green .fg-panel-thumb.fg-selected:focus,
     .fg-panel.fg-highlight-green .fg-panel-area .fg-panel-button:hover,
+    .fg-panel.fg-highlight-green .fg-panel-area .fg-panel-button:focus,
     .fg-panel.fg-highlight-green .fg-panel-area .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-highlight-green .fg-panel-area .fg-panel-thumbs-button:focus,
     .fg-panel.fg-highlight-green .fg-panel-area .fg-panel-thumb:hover,
-    .fg-panel.fg-highlight-green .fg-panel-area .fg-panel-thumb.fg-selected:hover {
+    .fg-panel.fg-highlight-green .fg-panel-area .fg-panel-thumb:focus,
+    .fg-panel.fg-highlight-green .fg-panel-area .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-highlight-green .fg-panel-area .fg-panel-thumb.fg-selected:focus {
         background-color: #02874A;
         border-color: #027339;
         color: #FFF;
     }
 
     .fg-panel.fg-button-purple .fg-panel-button:hover,
+    .fg-panel.fg-button-purple .fg-panel-button:focus,
     .fg-panel.fg-button-purple .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-purple .fg-panel-thumbs-button:focus,
     .fg-panel.fg-button-purple .fg-panel-thumb:hover,
+    .fg-panel.fg-button-purple .fg-panel-thumb:focus,
     .fg-panel.fg-button-purple .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-button-purple .fg-panel-thumb.fg-selected:focus,
     .fg-panel.fg-highlight-purple .fg-panel-area .fg-panel-button:hover,
+    .fg-panel.fg-highlight-purple .fg-panel-area .fg-panel-button:focus,
     .fg-panel.fg-highlight-purple .fg-panel-area .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-highlight-purple .fg-panel-area .fg-panel-thumbs-button:focus,
     .fg-panel.fg-highlight-purple .fg-panel-area .fg-panel-thumb:hover,
-    .fg-panel.fg-highlight-purple .fg-panel-area .fg-panel-thumb.fg-selected:hover {
+    .fg-panel.fg-highlight-purple .fg-panel-area .fg-panel-thumb:focus,
+    .fg-panel.fg-highlight-purple .fg-panel-area .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-highlight-purple .fg-panel-area .fg-panel-thumb.fg-selected:focus {
         background-color: #7816D6;
         border-color: #6816c2;
         color: #FFF;
     }
 
     .fg-panel.fg-button-orange .fg-panel-button:hover,
+    .fg-panel.fg-button-orange .fg-panel-button:focus,
     .fg-panel.fg-button-orange .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-orange .fg-panel-thumbs-button:focus,
     .fg-panel.fg-button-orange .fg-panel-thumb:hover,
+    .fg-panel.fg-button-orange .fg-panel-thumb:focus,
     .fg-panel.fg-button-orange .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-button-orange .fg-panel-thumb.fg-selected:focus,
     .fg-panel.fg-highlight-orange .fg-panel-area .fg-panel-button:hover,
+    .fg-panel.fg-highlight-orange .fg-panel-area .fg-panel-button:focus,
     .fg-panel.fg-highlight-orange .fg-panel-area .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-highlight-orange .fg-panel-area .fg-panel-thumbs-button:focus,
     .fg-panel.fg-highlight-orange .fg-panel-area .fg-panel-thumb:hover,
-    .fg-panel.fg-highlight-orange .fg-panel-area .fg-panel-thumb.fg-selected:hover {
+    .fg-panel.fg-highlight-orange .fg-panel-area .fg-panel-thumb:focus,
+    .fg-panel.fg-highlight-orange .fg-panel-area .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-highlight-orange .fg-panel-area .fg-panel-thumb.fg-selected:focus {
         background-color: #FF8E31;
         border-color: #e57731;
         color: #FFF;
     }
 
     .fg-panel.fg-button-red .fg-panel-button:hover,
+    .fg-panel.fg-button-red .fg-panel-button:focus,
     .fg-panel.fg-button-red .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-red .fg-panel-thumbs-button:focus,
     .fg-panel.fg-button-red .fg-panel-thumb:hover,
+    .fg-panel.fg-button-red .fg-panel-thumb:focus,
     .fg-panel.fg-button-red .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-button-red .fg-panel-thumb.fg-selected:focus,
     .fg-panel.fg-highlight-red .fg-panel-area .fg-panel-button:hover,
+    .fg-panel.fg-highlight-red .fg-panel-area .fg-panel-button:focus,
     .fg-panel.fg-highlight-red .fg-panel-area .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-highlight-red .fg-panel-area .fg-panel-thumbs-button:focus,
     .fg-panel.fg-highlight-red .fg-panel-area .fg-panel-thumb:hover,
-    .fg-panel.fg-highlight-red .fg-panel-area .fg-panel-thumb.fg-selected:hover {
+    .fg-panel.fg-highlight-red .fg-panel-area .fg-panel-thumb:focus,
+    .fg-panel.fg-highlight-red .fg-panel-area .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-highlight-red .fg-panel-area .fg-panel-thumb.fg-selected:focus {
         background-color: #F12B24;
         border-color: #c22b24;
         color: #FFF;

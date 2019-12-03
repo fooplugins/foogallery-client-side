@@ -6,7 +6,8 @@
             self.__stopped = false;
             self.__timer = new _utils.Timer();
             self._super(panel, "autoProgress", {
-                icon: "auto-progress"
+                icon: "auto-progress",
+                label: "Auto Progress"
             });
             self.$icon = null;
             self.$circle = null;

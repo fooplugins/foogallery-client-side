@@ -4,8 +4,16 @@
         construct: function(panel){
             var self = this;
             self._super(panel, "fullscreen", {
-                icon: ["expand", "shrink"]
+                icon: ["expand", "shrink"],
+                label: "Fullscreen"
             });
+        },
+        create: function(){
+            if (this._super()){
+                this.$el.attr("aria-pressed", false);
+                return true;
+            }
+            return false;
         },
         click: function(){
             var self = this, pnl = self.panel.$el.get(0);
@@ -27,10 +35,28 @@
         },
         enter: function(){
             this.panel.$el.addClass(this.panel.cls.fullscreen);
+            if (!this.panel.isMaximized){
+                this.panel.$el.attr({
+                    'role': 'dialog',
+                    'aria-modal': true
+                });
+                this.panel.trapFocus();
+            }
+            this.$el.attr("aria-pressed", true);
+            this.panel.buttons.toggle('maximize', false);
             this.panel.isFullscreen = true;
         },
         exit: function(){
             this.panel.$el.removeClass(this.panel.cls.fullscreen);
+            if (!this.panel.isMaximized){
+                this.panel.$el.attr({
+                    'role': null,
+                    'aria-modal': null
+                });
+                this.panel.releaseFocus();
+            }
+            this.$el.attr("aria-pressed", false);
+            this.panel.buttons.toggle('maximize', this.panel.buttons.opt.maximize);
             this.panel.isFullscreen = false;
         }
     });

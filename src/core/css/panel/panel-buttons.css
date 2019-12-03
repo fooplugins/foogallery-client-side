@@ -45,6 +45,7 @@
     border-style: solid;
     border-width: 0;
     box-shadow: none;
+    outline: none;
 }
 .fg-panel-button.fg-disabled {
     pointer-events: none;
@@ -119,6 +120,10 @@
     pointer-events: auto;
     user-select: none;
     -webkit-tap-highlight-color: unset;
+    background-color: transparent;
+    box-shadow: none;
+    outline: none;
+    border: none;
 }
 .fg-panel-area-toggle+.fg-panel-caption .fg-panel-caption-title {
     margin-right: 32px;

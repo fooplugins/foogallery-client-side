@@ -5,6 +5,7 @@
             var self = this, cls = panel.cls.sideArea;
             self._super(panel, name, _obj.extend({
                 icon: null,
+                label: null,
                 position: null,
                 visible: true,
                 toggle: !!panel.opt.buttons[name]
@@ -25,6 +26,7 @@
             }).join(" ");
             self.panel.buttons.register(new _.Panel.Button(panel, name, {
                 icon: self.opt.icon,
+                label: self.opt.label,
                 onclick: self.toggle.bind(self),
                 beforeLoad: function(media){
                     var enabled = self.isEnabled(), supported = enabled && self.canLoad(media);
@@ -43,7 +45,7 @@
         doCreate: function(){
             if (this._super()){
                 if (this.opt.toggle){
-                    $('<div/>').addClass(this.cls.toggle)
+                    $('<button/>', {type: 'button'}).addClass(this.cls.toggle)
                         .append(_icons.get("circle-close", this.panel.opt.icons))
                         .on("click.foogallery", {self: this}, this.onToggleClick)
                         .appendTo(this.$inner);

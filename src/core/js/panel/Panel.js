@@ -113,6 +113,10 @@
                 _is.string(self.opt.hoverIcon) ? self.opt.hoverIcon : self.tmpl.getCSSClass("hoverIcon"),
                 _is.string(self.opt.videoIcon) ? self.opt.videoIcon : self.tmpl.getCSSClass("videoIcon"),
                 _is.boolean(self.opt.stickyVideoIcon) && self.opt.stickyVideoIcon ? self.cls.stickyVideoIcon : self.tmpl.getCSSClass("stickyVideoIcon"),
+                _is.string(self.opt.insetShadow) ? self.opt.insetShadow : self.tmpl.getCSSClass("insetShadow"),
+                _is.string(self.opt.filter) ? self.opt.filter : self.tmpl.getCSSClass("filter"),
+                _is.string(self.opt.hoverColor) ? self.opt.hoverColor : self.tmpl.getCSSClass("hoverColor"),
+                _is.boolean(self.opt.hoverScale) && self.opt.hoverScale ? self.cls.hoverScale : self.tmpl.getCSSClass("hoverScale"),
                 _is.string(self.opt.button) ? self.opt.button : "",
                 _is.string(self.opt.highlight) ? self.opt.highlight : "",
                 self.opt.stackSideAreas ? self.cls.stackSideAreas : "",
@@ -355,6 +359,33 @@
                 self.tmpl.state.clear();
             }).promise();
         },
+        trapFocus: function(){
+            if (!this.isCreated) return;
+            this.$el.on('keydown', {self: this}, this.onTrapFocusKeydown);
+        },
+        releaseFocus: function(){
+            if (!this.isCreated) return;
+            this.$el.off('keydown', this.onTrapFocusKeydown);
+        },
+        onTrapFocusKeydown: function(e){
+            // If TAB key pressed
+            if (e.keyCode === 9) {
+                var self = e.data.self, $target = $(e.target), $dialog = $target.parents('[role=dialog]');
+                // If inside a Modal dialog (determined by attribute role="dialog")
+                if ($dialog.length) {
+                    // Find first or last input element in the dialog parent (depending on whether Shift was pressed).
+                    var $focusable = $dialog.find(self.opt.focusable.include).not(self.opt.focusable.exclude),
+                        $first = $focusable.first(), $last = $focusable.last(),
+                        $boundary = e.shiftKey ? $first : $last,
+                        $new = e.shiftKey ? $last : $first;
+
+                    if ($boundary.length && $target.is($boundary)) {
+                        e.preventDefault();
+                        $new.focus();
+                    }
+                }
+            }
+        },
         onKeyDown: function(e){
             var self = e.data.self;
             switch (e.which){
@@ -387,6 +418,10 @@
             hoverIcon: null,
             videoIcon: null,
             stickyVideoIcon: null,
+            hoverColor: null,
+            hoverScale: null,
+            insetShadow: null,
+            filter: null,
             noMobile: false,
             hoverButtons: false,
             icons: "default",
@@ -413,6 +448,11 @@
             thumbsCaptions: true,
             thumbsSmall: false,
             thumbsBestFit: true,
+
+            focusable: {
+                include: 'a[href], area[href], input, select, textarea, button, iframe, object, embed, [tabindex], [contenteditable]',
+                exclude: '[tabindex=-1], [disabled], :hidden'
+            },
 
             buttons: {
                 prev: true,
@@ -452,6 +492,7 @@
             preserveButtonSpace: "fg-panel-preserve-button-space",
             hoverButtons: "fg-panel-hover-buttons",
             stickyVideoIcon: "fg-video-sticky",
+            hoverScale: "fg-hover-scale",
             noMobile: "fg-panel-no-mobile",
 
             loader: "fg-loader",
@@ -528,6 +569,7 @@
                     elem: "fg-panel-thumb",
                     media: "fg-panel-thumb-media",
                     overlay: "fg-panel-thumb-overlay",
+                    wrap: "fg-panel-thumb-wrap",
                     image: "fg-panel-thumb-image",
                     caption: "fg-panel-thumb-caption",
                     title: "fg-panel-thumb-title",

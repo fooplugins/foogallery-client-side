@@ -24,6 +24,7 @@
         registerCore: function(){
             this.register(new _.Panel.Button(this.panel, "prev", {
                 icon: "arrow-left",
+                label: "Previous Media",
                 onclick: this.panel.prev.bind(this.panel),
                 beforeLoad: function (media) {
                     this.disable(this.panel.prevItem == null);
@@ -31,6 +32,7 @@
             }), 10);
             this.register(new _.Panel.Button(this.panel, "next", {
                 icon: "arrow-right",
+                label: "Next Media",
                 onclick: this.panel.next.bind(this.panel),
                 beforeLoad: function (media) {
                     this.disable(this.panel.nextItem == null);
@@ -42,7 +44,11 @@
 
             this.register(new _.Panel.Maximize(this.panel), 180);
             this.register(new _.Panel.Fullscreen(this.panel), 190);
-            this.register(new _.Panel.Button(this.panel, "close", { icon: "close", onclick: this.panel.close.bind(this.panel) }), 200);
+            this.register(new _.Panel.Button(this.panel, "close", {
+                icon: "close",
+                label: "Close Modal",
+                onclick: this.panel.close.bind(this.panel)
+            }), 200);
         },
 
         register: function( button, priority ){
