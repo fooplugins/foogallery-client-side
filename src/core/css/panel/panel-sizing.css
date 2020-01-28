@@ -25,6 +25,7 @@
 .fg-panel-thumbs-inner {
     pointer-events: auto;
     display: flex;
+    overflow: hidden;
 }
 
 /* By default collapse and overlay the caption along the bottom on small screens */
