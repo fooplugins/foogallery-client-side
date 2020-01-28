@@ -102,6 +102,14 @@
 }
 
 
+.fg-panel.fg-button-light .fg-panel-button,
+.fg-panel.fg-button-light .fg-panel-thumbs-button,
+.fg-panel.fg-button-light .fg-panel-thumb.fg-selected {
+    background-color: #fff;
+    border-color: #e2e2e2;
+    color: #767676;
+}
+
 .fg-panel.fg-button-blue .fg-panel-button,
 .fg-panel.fg-button-blue .fg-panel-thumbs-button,
 .fg-panel.fg-button-blue .fg-panel-thumb.fg-selected {
@@ -151,6 +159,27 @@
 }
 
 @media (hover: hover) {
+    .fg-panel.fg-button-light .fg-panel-button:hover,
+    .fg-panel.fg-button-light .fg-panel-button:focus,
+    .fg-panel.fg-button-light .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-button-light .fg-panel-thumbs-button:focus,
+    .fg-panel.fg-button-light .fg-panel-thumb:hover,
+    .fg-panel.fg-button-light .fg-panel-thumb:focus,
+    .fg-panel.fg-button-light .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-button-light .fg-panel-thumb.fg-selected:focus,
+    .fg-panel.fg-highlight-light .fg-panel-area .fg-panel-button:hover,
+    .fg-panel.fg-highlight-light .fg-panel-area .fg-panel-button:focus,
+    .fg-panel.fg-highlight-light .fg-panel-area .fg-panel-thumbs-button:hover,
+    .fg-panel.fg-highlight-light .fg-panel-area .fg-panel-thumbs-button:focus,
+    .fg-panel.fg-highlight-light .fg-panel-area .fg-panel-thumb:hover,
+    .fg-panel.fg-highlight-light .fg-panel-area .fg-panel-thumb:focus,
+    .fg-panel.fg-highlight-light .fg-panel-area .fg-panel-thumb.fg-selected:hover,
+    .fg-panel.fg-highlight-light .fg-panel-area .fg-panel-thumb.fg-selected:focus {
+        background-color: #f5f5f5;
+        border-color: #e2e2e2;
+        color: #bbb;
+    }
+
     .fg-panel.fg-button-blue .fg-panel-button:hover,
     .fg-panel.fg-button-blue .fg-panel-button:focus,
     .fg-panel.fg-button-blue .fg-panel-thumbs-button:hover,
