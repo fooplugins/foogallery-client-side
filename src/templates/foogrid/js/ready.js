@@ -213,13 +213,15 @@
 					if (newRow) self.panel.currentItem.$el.removeClass(self.cls.visible);
 					if (self.transitionClose(newRow)){
 						_t.start(self.$section, self.cls.visible, false, 350).then(function(){
-							self.panel.doClose(true, !newRow);
-							def.resolve();
+							self.panel.doClose(true, true).then(function(){
+								def.resolve();
+							});
 						});
 					} else {
 						self.$section.removeClass(self.cls.visible);
-						self.panel.doClose(true, !newRow);
-						def.resolve();
+						self.panel.doClose(true, true).then(function(){
+							def.resolve();
+						});
 					}
 				} else {
 					def.resolve();
@@ -247,6 +249,7 @@
 
 	_.template.register("foogrid", _.FooGridTemplate, {
 		template: {
+			classNames: "foogrid-panel",
 			scroll: true,
 			scrollOffset: 0,
 			scrollSmooth: false,
