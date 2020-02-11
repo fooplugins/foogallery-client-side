@@ -41,7 +41,11 @@
 	transform: translateX(-50%) translateY(-50%);
 	width: 32px;
 	height: 32px;
-	background: transparent url('../img/icons.svg#image') no-repeat center center;
+	background-image: url('../img/icons.svg#image');
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 32px 32px;
 }
 
 .foogallery .fg-item.fg-loaded {

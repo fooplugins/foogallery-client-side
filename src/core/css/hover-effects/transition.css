@@ -24,4 +24,5 @@
 .foogallery.fg-hover-grayscale .fg-image {
 	transition-timing-function: ease;
 	transition-duration: 300ms;
+	backface-visibility: hidden;
 }

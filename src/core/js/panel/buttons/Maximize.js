@@ -6,6 +6,7 @@
                 icon: "maximize",
                 label: "Maximize"
             });
+            this.$placeholder = $("<span/>");
         },
         create: function(){
             if (this._super()){
@@ -30,11 +31,12 @@
         },
         enter: function(){
             this.panel.isMaximized = true;
-            this.panel.$el.addClass(this.panel.cls.maximized).attr({
+            this.$placeholder.insertAfter(this.panel.$el);
+            this.panel.$el.appendTo("body").addClass(this.panel.cls.maximized).attr({
                 'role': 'dialog',
                 'aria-modal': true
             });
-            this.$el.attr("aria-pressed", true);
+            if (this.isCreated) this.$el.attr("aria-pressed", true);
             this.panel.trapFocus();
             if (this.panel.opt.noScrollbars){
                 $("html").addClass(this.panel.cls.noScrollbars);
@@ -45,8 +47,9 @@
             this.panel.$el.removeClass(this.panel.cls.maximized).attr({
                 'role': null,
                 'aria-modal': null
-            });
-            this.$el.attr("aria-pressed", false);
+            }).insertBefore(this.$placeholder);
+            this.$placeholder.detach();
+            if (this.isCreated) this.$el.attr("aria-pressed", false);
             this.panel.releaseFocus();
             if (this.panel.opt.noScrollbars){
                 $("html").removeClass(this.panel.cls.noScrollbars);
