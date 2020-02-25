@@ -169,8 +169,9 @@ module.exports = function ( grunt ) {
 						"./src/core/js/Template.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
-						"./src/core/js/items/Item.js",
 						"./src/core/js/items/Items.js",
+						"./src/core/js/items/Item.js",
+						"./src/core/js/items/Image.js",
 						"./src/core/js/paging/Paging.js",
 						"./src/core/js/paging/Dots.js"
 					],
