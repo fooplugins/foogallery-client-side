@@ -1088,7 +1088,7 @@
 		 */
 		onCaptionClick: function (e) {
 			var self = e.data.self, evt = self.tmpl.raise("caption-click-item", [self]);
-			if (!evt.isDefaultPrevented() && self.$anchor.length > 0) {
+			if (!evt.isDefaultPrevented() && self.$anchor.length > 0 && !$(e.target).is("a,:input")) {
 				self.$anchor.get(0).click();
 			}
 		}
