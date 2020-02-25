@@ -301,10 +301,6 @@
 						tmpl.filter.setState(obj);
 					}
 					if (!!tmpl.pages){
-						if (!!obj.item && !tmpl.pages.contains(obj.page, obj.item)){
-							obj.page = tmpl.pages.find(obj.item);
-							obj.page = obj.page !== 0 ? obj.page : 1;
-						}
 						tmpl.pages.setState(obj);
 					} else {
 						tmpl.items.detach(tmpl.items.all());

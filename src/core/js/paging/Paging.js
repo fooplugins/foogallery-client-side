@@ -36,6 +36,10 @@
 		},
 		setState: function(state){
 			this.rebuild();
+			if (!!state.item && !this.contains(state.page, state.item)){
+				state.page = this.find(state.item);
+				state.page = state.page !== 0 ? state.page : 1;
+			}
 			this.set(state.page, false, false, true);
 		},
 		destroy: function () {
