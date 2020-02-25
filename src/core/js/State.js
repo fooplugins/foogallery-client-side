@@ -1,4 +1,4 @@
-(function($, _, _is, _str){
+(function($, _, _is, _str, _obj){
 
 	_.State = _.Component.extend(/** @lends FooGallery.State */{
 		/**
@@ -44,10 +44,10 @@
 			 * @summary The current state of the template.
 			 * @memberof FooGallery.State#
 			 * @name current
-			 * @type {{item: null, page: number, tags: []}}
+			 * @type {{item: null, page: number, filter: []}}
 			 */
 			self.current = {
-				tags: [],
+				filter: [],
 				page: 0,
 				item: null
 			};
@@ -92,6 +92,9 @@
 			self.opt = self.regex = {};
 			self._super();
 		},
+		init: function(){
+			this.set(this.initial());
+		},
 		getIdNumber: function(){
 			return this.tmpl.id.match(/\d+/g)[0];
 		},
@@ -127,26 +130,35 @@
 		 * @description This method always returns an object, if successful the object contains properties otherwise it is just a plain empty object. For this method to be successful the current template {@link FooGallery.Template#id|id} must match the one from the url.
 		 */
 		parse: function(){
-			var self = this, state = {};
+			var self = this, tmpl = self.tmpl, state = {};
 			if (self.exists()){
 				if (self.enabled){
 					state.id = self.tmpl.id;
 					self.regex.values.lastIndex = 0;
 					var pairs = location.hash.match(self.regex.values);
 					$.each(pairs, function(i, pair){
-						var parts = pair.split(self.opt.pair);
+						var parts = pair.split(self.opt.pair), val;
 						if (parts.length === 2){
-							state[parts[0]] = parts[1].indexOf(self.opt.array) === -1
-									? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
-									: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
-							if (_is.string(state[parts[0]]) && !isNaN(state[parts[0]])){
-								state[parts[0]] = parseInt(state[parts[0]]);
+							switch(parts[0]){
+								case self.opt.itemKey:
+									val = tmpl.items.fromHash(parts[1]);
+									if (val !== null) state.item = val;
+									break;
+								case self.opt.pageKey:
+									if (tmpl.pages){
+										val = tmpl.pages.fromHash(parts[1]);
+										if (val !== null) state.page = val;
+									}
+									break;
+								case self.opt.filterKey:
+									if (tmpl.filter){
+										val = tmpl.filter.fromHash(parts[1]);
+										if (val !== null) state.filter = val;
+									}
+									break;
 							}
 						}
 					});
-					if (_is.number(state.i)){
-						state.i = state.i + "";
-					}
 				} else {
 					// if we're here it means there is a hash on the url but the option is disabled so remove it
 					if (self.apiEnabled){
@@ -166,19 +178,19 @@
 		 * @returns {string}
 		 */
 		hashify: function(state){
-			var self = this;
+			var self = this, tmpl = self.tmpl;
 			if (_is.hash(state)){
-				var hash = [];
-				$.each(state, function(name, value){
-					if (!_is.empty(value) && name !== "id"){
-						if (_is.array(value)){
-							value = $.map(value, function(part){ return encodeURIComponent(part); }).join(self.opt.array);
-						} else {
-							value = encodeURIComponent(value);
-						}
-						hash.push(name + self.opt.pair + value);
-					}
-				});
+				var hash = [], val = tmpl.items.toHash(state.item);
+				if (val !== null) hash.push(self.opt.itemKey + self.opt.pair + val);
+
+				if (!!tmpl.filter){
+					val = tmpl.filter.toHash(state.filter);
+					if (val !== null) hash.push(self.opt.filterKey + self.opt.pair + val);
+				}
+				if (!!tmpl.pages){
+					val = tmpl.pages.toHash(state.page);
+					if (val !== null) hash.push(self.opt.pageKey + self.opt.pair + val);
+				}
 				if (hash.length > 0){
 					hash.unshift("#"+self.getMasked());
 				}
@@ -244,10 +256,11 @@
 		 * @description This method returns an initial start up state from the template options.
 		 */
 		initial: function(){
-			var self = this, tmpl = self.tmpl, state = {};
-			if (tmpl.filter && !_is.empty(tmpl.filter.current)) state.f = tmpl.filter.current;
-			if (tmpl.pages && tmpl.pages.current > 1) state.p = tmpl.pages.current;
-			return state;
+			var self = this, state = self.parse();
+			if (_is.empty(state)){
+				return self.get();
+			}
+			return _obj.extend({ filter: [], page: 1, item: null }, state);
 		},
 		/**
 		 * @summary Get the current state of the template.
@@ -258,15 +271,17 @@
 		 * @description This method does not parse the history or url it returns the current state of the template itself. To parse the current url use the {@link FooGallery.State#parse|parse} method instead.
 		 */
 		get: function(item){
-			var self = this, tmpl = self.tmpl, state = {};
-			if (item instanceof _.Item) state.i = item.id;
-			if (tmpl.filter && !_is.empty(tmpl.filter.current)){
-				state.f = tmpl.filter.current;
+			var self = this, tmpl = self.tmpl, state = {}, val;
+			if (item instanceof _.Item) state.item = item;
+			if (!!tmpl.filter){
+				val = tmpl.filter.getState();
+				if (val !== null) state.filter = val;
 			}
-			if (tmpl.pages && tmpl.pages.isValid(tmpl.pages.current)){
-				state.p = tmpl.pages.current;
+			if (!!tmpl.pages){
+				val = tmpl.pages.getState();
+				if (val !== null) state.page = val;
 			}
-			return state;
+			return _obj.extend({ filter: [], page: 1, item: null }, state);
 		},
 		/**
 		 * @summary Set the current state of the template.
@@ -278,47 +293,30 @@
 		set: function(state){
 			var self = this, tmpl = self.tmpl;
 			if (_is.hash(state)){
+				var obj = _obj.extend({ filter: [], page: 1, item: null }, state);
 				tmpl.items.reset();
-
-				var obj = {
-					tags: !!tmpl.filter && !_is.empty(state.f) ? state.f : [],
-					page: !!tmpl.pages ? tmpl.pages.number(state.p) : 0,
-					item: tmpl.items.get(state.i)
-				};
-
 				var e = tmpl.raise("before-state", [obj]);
 				if (!e.isDefaultPrevented()){
 					if (!!tmpl.filter){
-						tmpl.filter.rebuild();
-						tmpl.filter.set(obj.tags, false);
+						tmpl.filter.setState(obj);
 					}
 					if (!!tmpl.pages){
-						tmpl.pages.rebuild();
 						if (!!obj.item && !tmpl.pages.contains(obj.page, obj.item)){
 							obj.page = tmpl.pages.find(obj.item);
 							obj.page = obj.page !== 0 ? obj.page : 1;
 						}
-						tmpl.pages.set(obj.page, !_is.empty(state), false, true);
-						if (obj.item && tmpl.pages.contains(obj.page, obj.item)){
-							if (self.opt.scrollTo) {
-								obj.item.scrollTo();
-							}
-							if (!_is.empty(state.i)){
-								state.i = null;
-								self.replace(state);
-							}
-						}
+						tmpl.pages.setState(obj);
 					} else {
 						tmpl.items.detach(tmpl.items.all());
 						tmpl.items.create(tmpl.items.available(), true);
-						if (obj.item){
-							if (self.opt.scrollTo) {
-								obj.item.scrollTo();
-							}
-							if (!_is.empty(state.i)){
-								state.i = null;
-								self.replace(state);
-							}
+					}
+					if (obj.item){
+						if (self.opt.scrollTo) {
+							obj.item.scrollTo();
+						}
+						if (!_is.empty(state.item)){
+							state.item = null;
+							self.replace(state);
 						}
 					}
 					self.current = obj;
@@ -336,7 +334,11 @@
 			mask: "foogallery-gallery-{id}",
 			values: "/",
 			pair: ":",
-			array: "+"
+			array: "+",
+			arraySeparator: ",",
+			itemKey: "i",
+			filterKey: "f",
+			pageKey: "p"
 		}
 	});
 
@@ -356,14 +358,15 @@
 	/**
 	 * @summary An object used to store the state of a template.
 	 * @typedef {object} FooGallery~State
-	 * @property {number} [p] - The current page number.
-	 * @property {string[]} [f] - The current filter array.
-	 * @property {?string} [i] - The currently selected item.
+	 * @property {number} [page] - The current page number.
+	 * @property {string[]} [filter] - The current filter array.
+	 * @property {?FooGallery.Item} [item] - The currently selected item.
 	 */
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils.is,
-		FooGallery.utils.str
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils.is,
+	FooGallery.utils.str,
+	FooGallery.utils.obj
 );

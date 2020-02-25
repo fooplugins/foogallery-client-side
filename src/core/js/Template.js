@@ -359,8 +359,7 @@
 			 */
 			var e = self.raise("post-init");
 			if (e.isDefaultPrevented()) return false;
-			var state = self.state.parse();
-			self.state.set(_is.empty(state) ? self.state.initial() : state);
+			self.state.init();
 			self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(function () {
 				self.loadAvailable();
 			}, 50));

@@ -29,6 +29,12 @@
 			var cls = self.tmpl.cls.item.caption;
 			self.tmpl.sel.item.caption.all = _utils.selectify([cls.elem, cls.inner, cls.title, cls.description]);
 		},
+		fromHash: function(hash){
+			return this.get(hash);
+		},
+		toHash: function(value){
+			return value instanceof _.Item ? value.id : null;
+		},
 		destroy: function () {
 			var self = this, items = self.all(), destroyed = [];
 			if (items.length > 0) {

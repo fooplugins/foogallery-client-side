@@ -24,6 +24,20 @@
 			self.ctrls = [];
 			self._arr = [];
 		},
+		fromHash: function(hash){
+			var parsed = parseInt(hash);
+			return isNaN(parsed) ? null : parsed;
+		},
+		toHash: function(value){
+			return _is.number(value) && value > 0 ? value.toString() : null;
+		},
+		getState: function(){
+			return this.isValid(this.current) ? this.current : null;
+		},
+		setState: function(state){
+			this.rebuild();
+			this.set(state.page, false, false, true);
+		},
 		destroy: function () {
 			var self = this;
 			self._arr.splice(0, self._arr.length);
