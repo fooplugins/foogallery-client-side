@@ -284,7 +284,7 @@
 		maxRowHeight: "200%",
 		margins: 0,
 		lastRow: "center",
-		justifyThreshold: 0.5,
+		justifyThreshold: 1,
 		refreshInterval: 250
 	};
 
