@@ -36,6 +36,7 @@
     left: 0;
     right: 0;
     height: auto;
+    min-height: 42px;
 }
 .fg-panel.fg-landscape .fg-panel-info-inner,
 .fg-panel.fg-landscape .fg-panel-info-inner {
