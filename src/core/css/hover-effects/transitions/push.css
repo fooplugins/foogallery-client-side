@@ -1,5 +1,5 @@
 /* Push */
-.foogallery.fg-hover-push .fg-loaded .fg-thumb:before,
+.foogallery.fg-hover-push .fg-loaded .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-push .fg-loaded .fg-caption {
 	display: block;
 	left: 0;

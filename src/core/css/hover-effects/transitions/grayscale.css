@@ -15,7 +15,7 @@
 	filter: gray;
 	opacity: 1;
 }
-.foogallery.fg-hover-grayscale .fg-thumb:before,
+.foogallery.fg-hover-grayscale .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-grayscale .fg-caption {
 	display: block;
 	left: 0;
@@ -23,7 +23,7 @@
 	bottom: 0;
 	transition-property: visibility, opacity, background-color;
 }
-.foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-grayscale .fg-item-inner:hover .fg-caption {
 	visibility: visible;
 	opacity: 1;
