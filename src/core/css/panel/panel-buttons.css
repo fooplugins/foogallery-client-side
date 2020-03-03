@@ -117,7 +117,7 @@
     }
 }
 
-.fg-panel-area-toggle {
+.fg-panel-area .fg-panel-area-toggle {
     position: absolute;
     top: 5px;
     right: 5px;
