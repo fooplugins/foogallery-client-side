@@ -25,7 +25,7 @@
             this.register(new _.Panel.Button(this.panel, "prev", {
                 icon: "arrow-left",
                 label: "Previous Media",
-                onclick: this.panel.prev.bind(this.panel),
+                click: this.panel.prev.bind(this.panel),
                 beforeLoad: function (media) {
                     this.disable(this.panel.prevItem == null);
                 }
@@ -33,7 +33,7 @@
             this.register(new _.Panel.Button(this.panel, "next", {
                 icon: "arrow-right",
                 label: "Next Media",
-                onclick: this.panel.next.bind(this.panel),
+                click: this.panel.next.bind(this.panel),
                 beforeLoad: function (media) {
                     this.disable(this.panel.nextItem == null);
                 }
@@ -47,7 +47,7 @@
             this.register(new _.Panel.Button(this.panel, "close", {
                 icon: "close",
                 label: "Close Modal",
-                onclick: this.panel.close.bind(this.panel)
+                click: this.panel.close.bind(this.panel)
             }), 200);
         },
 
@@ -197,7 +197,11 @@
             });
         },
 
-        resize: function(){}
+        resize: function(){
+            this.each(function(button){
+                button.resize();
+            });
+        }
     });
 
 })(

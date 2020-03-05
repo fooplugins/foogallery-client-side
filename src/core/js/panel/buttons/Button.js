@@ -9,10 +9,11 @@
                 label: null,
                 visible: true,
                 disabled: false,
-                onclick: $.noop,
+                click: $.noop,
                 beforeLoad: $.noop,
                 afterLoad: $.noop,
-                close: $.noop
+                close: $.noop,
+                resize: $.noop
             }, options);
             this.cls = {
                 elem: panel.cls.buttons[name],
@@ -91,7 +92,10 @@
             this.opt.close.call(this);
         },
         click: function(){
-            this.opt.onclick.call(this);
+            this.opt.click.call(this);
+        },
+        resize: function(){
+            this.opt.resize.call(this);
         },
         onButtonClick: function (e) {
             e.preventDefault();
