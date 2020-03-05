@@ -20,27 +20,13 @@
                 }
             }, classes));
             self.isVisible = self.opt.visible;
-            self.__isVisible = null;
             self.allPositionClasses = Object.keys(self.cls.position).map(function (key) {
                 return self.cls.position[key];
             }).join(" ");
-            self.panel.buttons.register(new _.Panel.Button(panel, name, {
-                icon: self.opt.icon,
-                label: self.opt.label,
-                onclick: self.toggle.bind(self),
-                beforeLoad: function(media){
-                    var enabled = self.isEnabled(), supported = enabled && self.canLoad(media);
-                    if (!supported && self.__isVisible == null){
-                        self.__isVisible = self.isVisible;
-                        self.toggle(false);
-                    } else if (self.__isVisible != null) {
-                        self.toggle(self.__isVisible);
-                        self.__isVisible = null;
-                    }
-                    if (enabled) this.disable(!supported);
-                    else this.toggle(supported);
-                }
-            }));
+            self.registerButton();
+        },
+        registerButton: function(){
+            this.panel.buttons.register(new _.Panel.SideAreaButton(this));
         },
         doCreate: function(){
             if (this._super()){

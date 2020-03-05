@@ -54,6 +54,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/panel/Panel.js",
 						"./src/core/js/panel/buttons/Buttons.js",
 						"./src/core/js/panel/buttons/Button.js",
+						"./src/core/js/panel/buttons/SideAreaButton.js",
 						"./src/core/js/panel/buttons/AutoProgress.js",
 						"./src/core/js/panel/buttons/Fullscreen.js",
 						"./src/core/js/panel/buttons/Maximize.js",
