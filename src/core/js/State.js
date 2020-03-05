@@ -208,8 +208,8 @@
 			var self = this;
 			if (self.enabled && self.apiEnabled){
 				state.id = self.tmpl.id;
-				var hash = self.hashify(state), empty = _is.empty(hash);
-				history.replaceState(empty ? null : state, "", empty ? location.pathname + location.search : hash);
+				var hash = self.hashify(state), empty = _is.empty(hash), hs = _obj.extend({}, state, {item: state.item instanceof _.Item ? state.item.id : state.item});
+				history.replaceState(empty ? null : hs, "", empty ? location.pathname + location.search : hash);
 			}
 		},
 		/**
@@ -222,8 +222,8 @@
 			var self = this;
 			if (self.enabled && self.apiEnabled){
 				state.id = self.tmpl.id;
-				var hash = self.hashify(state), empty = _is.empty(hash);
-				history.pushState(empty ? null : state, "", empty ? location.pathname + location.search : hash);
+				var hash = self.hashify(state), empty = _is.empty(hash), hs = _obj.extend({}, state, {item: state.item instanceof _.Item ? state.item.id : state.item});
+				history.pushState(empty ? null : hs, "", empty ? location.pathname + location.search : hash);
 			}
 		},
 		/**
