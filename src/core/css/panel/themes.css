@@ -1,9 +1,7 @@
 .fg-panel.fg-light {
-    background-color: #EEE;
     color: #333;
 }
 .fg-panel.fg-dark {
-    background-color: #151515;
     color: #FeFeFe;
 }
 
@@ -13,7 +11,10 @@
 .fg-panel.fg-light .fg-panel-cart-inner,
 .fg-panel.fg-light .fg-panel-thumbs-inner,
 .fg-panel.fg-light .fg-product-body,
-.fg-panel.fg-light.fg-panel-preserve-button-space .fg-media-iframe .fg-media-content {
+.fg-panel.fg-light.fg-panel-preserve-button-space .fg-media-iframe .fg-media-content,
+.fg-panel.fg-light .fg-panel-thumb.fg-idle .fg-panel-thumb-media,
+.fg-panel.fg-light .fg-panel-thumb.fg-loading .fg-panel-thumb-media,
+.fg-panel.fg-light .fg-panel-thumb.fg-error .fg-panel-thumb-media {
     border-color: #e2e2e2;
 }
 
@@ -22,15 +23,30 @@
 .fg-panel.fg-dark .fg-panel-cart-inner,
 .fg-panel.fg-dark .fg-panel-thumbs-inner,
 .fg-panel.fg-dark .fg-product-body,
-.fg-panel.fg-dark.fg-panel-preserve-button-space .fg-media-iframe .fg-media-content {
+.fg-panel.fg-dark.fg-panel-preserve-button-space .fg-media-iframe .fg-media-content,
+.fg-panel.fg-dark .fg-panel-thumb.fg-idle .fg-panel-thumb-media,
+.fg-panel.fg-dark .fg-panel-thumb.fg-loading .fg-panel-thumb-media,
+.fg-panel.fg-dark .fg-panel-thumb.fg-error .fg-panel-thumb-media {
     border-color: #2e2e2e;
 }
 
 /* Background Color */
+.fg-panel.fg-light,
+.fg-panel.fg-light .fg-panel-thumb.fg-idle .fg-panel-thumb-media,
+.fg-panel.fg-light .fg-panel-thumb.fg-loading .fg-panel-thumb-media,
+.fg-panel.fg-light .fg-panel-thumb.fg-error .fg-panel-thumb-media {
+    background-color: #EEE;
+}
+.fg-panel.fg-dark,
+.fg-panel.fg-dark .fg-panel-thumb.fg-idle .fg-panel-thumb-media,
+.fg-panel.fg-dark .fg-panel-thumb.fg-loading .fg-panel-thumb-media,
+.fg-panel.fg-dark .fg-panel-thumb.fg-error .fg-panel-thumb-media {
+    background-color: #151515;
+}
+
 .fg-panel.fg-light .fg-panel-info-inner {
     background-color: rgba(255, 255, 255, 0.8);
 }
-
 .fg-panel.fg-dark .fg-panel-info-inner {
     background-color: rgba(51, 51, 51, 0.8);
 }
