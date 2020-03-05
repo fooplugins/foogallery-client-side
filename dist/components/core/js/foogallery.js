@@ -6390,8 +6390,8 @@
 			var self = this;
 			if (self.enabled && self.apiEnabled){
 				state.id = self.tmpl.id;
-				var hash = self.hashify(state), empty = _is.empty(hash);
-				history.replaceState(empty ? null : state, "", empty ? location.pathname + location.search : hash);
+				var hash = self.hashify(state), empty = _is.empty(hash), hs = _obj.extend({}, state, {item: state.item instanceof _.Item ? state.item.id : state.item});
+				history.replaceState(empty ? null : hs, "", empty ? location.pathname + location.search : hash);
 			}
 		},
 		/**
@@ -6404,8 +6404,8 @@
 			var self = this;
 			if (self.enabled && self.apiEnabled){
 				state.id = self.tmpl.id;
-				var hash = self.hashify(state), empty = _is.empty(hash);
-				history.pushState(empty ? null : state, "", empty ? location.pathname + location.search : hash);
+				var hash = self.hashify(state), empty = _is.empty(hash), hs = _obj.extend({}, state, {item: state.item instanceof _.Item ? state.item.id : state.item});
+				history.pushState(empty ? null : hs, "", empty ? location.pathname + location.search : hash);
 			}
 		},
 		/**
@@ -10517,7 +10517,7 @@
             this.register(new _.Panel.Button(this.panel, "prev", {
                 icon: "arrow-left",
                 label: "Previous Media",
-                onclick: this.panel.prev.bind(this.panel),
+                click: this.panel.prev.bind(this.panel),
                 beforeLoad: function (media) {
                     this.disable(this.panel.prevItem == null);
                 }
@@ -10525,7 +10525,7 @@
             this.register(new _.Panel.Button(this.panel, "next", {
                 icon: "arrow-right",
                 label: "Next Media",
-                onclick: this.panel.next.bind(this.panel),
+                click: this.panel.next.bind(this.panel),
                 beforeLoad: function (media) {
                     this.disable(this.panel.nextItem == null);
                 }
@@ -10539,7 +10539,7 @@
             this.register(new _.Panel.Button(this.panel, "close", {
                 icon: "close",
                 label: "Close Modal",
-                onclick: this.panel.close.bind(this.panel)
+                click: this.panel.close.bind(this.panel)
             }), 200);
         },
 
@@ -10689,7 +10689,11 @@
             });
         },
 
-        resize: function(){}
+        resize: function(){
+            this.each(function(button){
+                button.resize();
+            });
+        }
     });
 
 })(
@@ -10710,10 +10714,11 @@
                 label: null,
                 visible: true,
                 disabled: false,
-                onclick: $.noop,
+                click: $.noop,
                 beforeLoad: $.noop,
                 afterLoad: $.noop,
-                close: $.noop
+                close: $.noop,
+                resize: $.noop
             }, options);
             this.cls = {
                 elem: panel.cls.buttons[name],
@@ -10792,7 +10797,10 @@
             this.opt.close.call(this);
         },
         click: function(){
-            this.opt.onclick.call(this);
+            this.opt.click.call(this);
+        },
+        resize: function(){
+            this.opt.resize.call(this);
         },
         onButtonClick: function (e) {
             e.preventDefault();
@@ -10807,6 +10815,39 @@
     FooGallery.utils,
     FooGallery.utils.is,
     FooGallery.utils.obj
+);
+(function($, _, _is){
+
+    _.Panel.SideAreaButton = _.Panel.Button.extend({
+        construct: function(area){
+            this._super(area.panel, area.name, {
+                icon: area.opt.icon,
+                label: area.opt.label,
+                click: area.toggle.bind(area)
+            });
+            this.area = area;
+            this.__isVisible = null;
+        },
+        beforeLoad: function(media){
+            var enabled = this.area.isEnabled(), supported = enabled && this.area.canLoad(media);
+            if (!supported && this.__isVisible == null){
+                this.__isVisible = this.area.isVisible;
+                this.area.toggle(false);
+            } else if (supported && _is.boolean(this.__isVisible)) {
+                this.area.toggle(this.__isVisible);
+                this.__isVisible = null;
+            }
+            if (enabled) this.disable(!supported);
+            else this.toggle(supported);
+            this.opt.beforeLoad.call(this, media);
+        }
+    });
+
+})(
+    FooGallery.$,
+    FooGallery,
+    FooGallery.utils.is,
+    FooGallery.utils.is
 );
 (function($, _, _utils){
 
@@ -10983,6 +11024,7 @@
                 icon: "maximize",
                 label: "Maximize"
             });
+            this.scrollPosition = [];
             this.$placeholder = $("<span/>");
         },
         create: function(){
@@ -11016,6 +11058,7 @@
             if (this.isCreated) this.$el.attr("aria-pressed", true);
             this.panel.trapFocus();
             if (this.panel.opt.noScrollbars){
+                this.scrollPosition = [window.scrollX, window.scrollY];
                 $("html").addClass(this.panel.cls.noScrollbars);
             }
         },
@@ -11029,7 +11072,10 @@
             if (this.isCreated) this.$el.attr("aria-pressed", false);
             this.panel.releaseFocus();
             if (this.panel.opt.noScrollbars){
-                $("html").removeClass(this.panel.cls.noScrollbars);
+                $("html").removeClass(this.panel.cls.noScrollbars)
+                    .prop("clientWidth"); // query the clientWidth to force the class to be removed prior to setting the scroll position
+                window.scrollTo(this.scrollPosition[0], this.scrollPosition[1]);
+                this.scrollPosition = [];
             }
         }
     });
@@ -11335,27 +11381,13 @@
                 }
             }, classes));
             self.isVisible = self.opt.visible;
-            self.__isVisible = null;
             self.allPositionClasses = Object.keys(self.cls.position).map(function (key) {
                 return self.cls.position[key];
             }).join(" ");
-            self.panel.buttons.register(new _.Panel.Button(panel, name, {
-                icon: self.opt.icon,
-                label: self.opt.label,
-                onclick: self.toggle.bind(self),
-                beforeLoad: function(media){
-                    var enabled = self.isEnabled(), supported = enabled && self.canLoad(media);
-                    if (!supported && self.__isVisible == null){
-                        self.__isVisible = self.isVisible;
-                        self.toggle(false);
-                    } else if (self.__isVisible != null) {
-                        self.toggle(self.__isVisible);
-                        self.__isVisible = null;
-                    }
-                    if (enabled) this.disable(!supported);
-                    else this.toggle(supported);
-                }
-            }));
+            self.registerButton();
+        },
+        registerButton: function(){
+            this.panel.buttons.register(new _.Panel.SideAreaButton(this));
         },
         doCreate: function(){
             if (this._super()){
