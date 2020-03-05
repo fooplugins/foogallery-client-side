@@ -6,6 +6,7 @@
                 icon: "maximize",
                 label: "Maximize"
             });
+            this.scrollPosition = [];
             this.$placeholder = $("<span/>");
         },
         create: function(){
@@ -39,6 +40,7 @@
             if (this.isCreated) this.$el.attr("aria-pressed", true);
             this.panel.trapFocus();
             if (this.panel.opt.noScrollbars){
+                this.scrollPosition = [window.scrollX, window.scrollY];
                 $("html").addClass(this.panel.cls.noScrollbars);
             }
         },
@@ -52,7 +54,10 @@
             if (this.isCreated) this.$el.attr("aria-pressed", false);
             this.panel.releaseFocus();
             if (this.panel.opt.noScrollbars){
-                $("html").removeClass(this.panel.cls.noScrollbars);
+                $("html").removeClass(this.panel.cls.noScrollbars)
+                    .prop("clientWidth"); // query the clientWidth to force the class to be removed prior to setting the scroll position
+                window.scrollTo(this.scrollPosition[0], this.scrollPosition[1]);
+                this.scrollPosition = [];
             }
         }
     });
