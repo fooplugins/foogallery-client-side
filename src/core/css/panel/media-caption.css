@@ -1,0 +1,43 @@
+.fg-media-caption {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 10px;
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+}
+.fg-media-caption-title {
+    font-weight: 600;
+    line-height: 32px;
+    margin-bottom: 5px;
+}
+.fg-media-caption-description {
+    font-size: smaller;
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.fg-medium.fg-panel-info-left .fg-media-caption,
+.fg-medium.fg-panel-info-right .fg-media-caption,
+.fg-panel-no-mobile.fg-panel-info-left .fg-media-caption,
+.fg-panel-no-mobile.fg-panel-info-right .fg-media-caption {
+    height: 100%;
+}
+.fg-medium.fg-panel-info-top.fg-panel-info-overlay .fg-media-caption,
+.fg-medium.fg-panel-info-right.fg-panel-info-overlay .fg-media-caption,
+.fg-panel-no-mobile.fg-panel-info-top.fg-panel-info-overlay .fg-media-caption,
+.fg-panel-no-mobile.fg-panel-info-right.fg-panel-info-overlay .fg-media-caption {
+    padding-right: 42px;
+}
+.fg-medium.fg-panel-info-left.fg-panel-info-overlay .fg-media-caption,
+.fg-panel-no-mobile.fg-panel-info-left.fg-panel-info-overlay .fg-media-caption {
+    padding-left: 42px;
+}

@@ -71,7 +71,7 @@
 .foogallery.fg-simple_portfolio .fg-item-inner .fg-caption-inner:before {
     display: none;
 }
-.foogallery.fg-simple_portfolio.fg-caption-hover .fg-item-inner .fg-thumb:before {
+.foogallery.fg-simple_portfolio.fg-caption-hover .fg-item-inner .fg-image-overlay {
     display: block;
 }
 .foogallery.fg-simple_portfolio.fg-caption-always .fg-item-inner:hover .fg-caption {

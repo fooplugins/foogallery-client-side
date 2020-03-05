@@ -1,0 +1,176 @@
+/* CSS Grid Layout */
+.fg-panel {
+    display: grid;
+    grid-template-columns: min-content min-content min-content minmax(0, 1fr) min-content min-content min-content;
+    grid-template-rows: min-content min-content min-content minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) min-content min-content min-content;
+    display: -ms-grid;
+    -ms-grid-columns: min-content min-content min-content minmax(0, 1fr) min-content min-content min-content;
+    -ms-grid-rows: min-content min-content min-content minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) min-content min-content min-content;
+}
+/* Content Area */
+.fg-panel-content {
+    grid-column: 4 / 5;
+    grid-row: 4 / 7;
+    -ms-grid-column: 4;
+    -ms-grid-column-span: 1;
+    -ms-grid-row: 4;
+    -ms-grid-row-span: 3;
+}
+
+
+/* Info Area */
+.fg-panel-info {
+    grid-column: 4 / 5;
+    grid-row: 4 / 7;
+    -ms-grid-column: 4;
+    -ms-grid-column-span: 1;
+    -ms-grid-row: 4;
+    -ms-grid-row-span: 3;
+    display: none;
+}
+/* Only show the caption if a position is set */
+.fg-panel-info-top.fg-panel-info-visible .fg-panel-info,
+.fg-panel-info-right.fg-panel-info-visible .fg-panel-info,
+.fg-panel-info-bottom.fg-panel-info-visible .fg-panel-info,
+.fg-panel-info-left.fg-panel-info-visible .fg-panel-info {
+    display: block;
+}
+.fg-medium.fg-panel-info-top:not(.fg-panel-info-overlay) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-info-top:not(.fg-panel-info-overlay) .fg-panel-info {
+    grid-row: 3 / 4;
+    -ms-grid-row: 3;
+    -ms-grid-row-span: 1;
+}
+.fg-medium.fg-panel-info-bottom:not(.fg-panel-info-overlay) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-info-bottom:not(.fg-panel-info-overlay) .fg-panel-info {
+    grid-row: 7 / 8;
+    -ms-grid-row: 7;
+    -ms-grid-row-span: 1;
+}
+.fg-medium.fg-panel-info-left:not(.fg-panel-info-overlay) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-info-left:not(.fg-panel-info-overlay) .fg-panel-info {
+    grid-column: 3 / 4;
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 1;
+}
+.fg-medium.fg-panel-info-right:not(.fg-panel-info-overlay) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-info-right:not(.fg-panel-info-overlay) .fg-panel-info {
+    grid-column: 5 / 6;
+    -ms-grid-column: 5;
+    -ms-grid-column-span: 1;
+}
+
+/* Cart Area */
+.fg-panel-cart {
+    grid-column: 3 / 6;
+    grid-row: 3 / 8;
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 3;
+    -ms-grid-row: 3;
+    -ms-grid-row-span: 5;
+    display: none;
+}
+/* Only show the cart if a position is set */
+.fg-panel-cart-top.fg-panel-cart-visible .fg-panel-cart,
+.fg-panel-cart-right.fg-panel-cart-visible .fg-panel-cart,
+.fg-panel-cart-bottom.fg-panel-cart-visible .fg-panel-cart,
+.fg-panel-cart-left.fg-panel-cart-visible .fg-panel-cart {
+    display: block;
+}
+.fg-medium.fg-panel-cart-top:not(.fg-panel-cart-overlay) .fg-panel-cart,
+.fg-panel-no-mobile.fg-panel-cart-top:not(.fg-panel-cart-overlay) .fg-panel-cart {
+    grid-row: 2 / 3;
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+}
+.fg-medium.fg-panel-cart-bottom:not(.fg-panel-cart-overlay) .fg-panel-cart,
+.fg-panel-no-mobile.fg-panel-cart-bottom:not(.fg-panel-cart-overlay) .fg-panel-cart {
+    grid-row: 8 / 9;
+    -ms-grid-row: 8;
+    -ms-grid-row-span: 1;
+}
+.fg-medium.fg-panel-cart-left:not(.fg-panel-cart-overlay) .fg-panel-cart,
+.fg-panel-no-mobile.fg-panel-cart-left:not(.fg-panel-cart-overlay) .fg-panel-cart {
+    grid-column: 2 / 3;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+}
+.fg-medium.fg-panel-cart-right:not(.fg-panel-cart-overlay) .fg-panel-cart,
+.fg-panel-no-mobile.fg-panel-cart-right:not(.fg-panel-cart-overlay) .fg-panel-cart {
+    grid-column: 6 / 7;
+    -ms-grid-column: 6;
+    -ms-grid-column-span: 1;
+}
+
+
+/* Thumbs Area */
+.fg-panel-thumbs {
+    grid-column: 1 / 8;
+    grid-row: 1 / 10;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 7;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 9;
+    display: none;
+}
+.fg-panel-thumbs-top.fg-panel-thumbs-visible .fg-panel-thumbs,
+.fg-panel-thumbs-right.fg-panel-thumbs-visible .fg-panel-thumbs,
+.fg-panel-thumbs-bottom.fg-panel-thumbs-visible .fg-panel-thumbs,
+.fg-panel-thumbs-left.fg-panel-thumbs-visible .fg-panel-thumbs {
+    display: block;
+}
+.fg-panel-thumbs-top .fg-panel-thumbs {
+    grid-row: 1 / 2;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 1;
+}
+.fg-panel-thumbs-bottom .fg-panel-thumbs {
+    grid-row: 9 / 10;
+    -ms-grid-row: 9;
+    -ms-grid-row-span: 1;
+}
+.fg-panel-thumbs-left .fg-panel-thumbs {
+    grid-column: 1 / 2;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+}
+.fg-panel-thumbs-right .fg-panel-thumbs {
+    grid-column: 7 / 8;
+    -ms-grid-column: 7;
+    -ms-grid-column-span: 1;
+}
+
+
+/* Allow side areas to be stacked */
+.fg-medium.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-medium.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info {
+    grid-row: 4 / 5;
+    -ms-grid-row: 4;
+    -ms-grid-row-span: 1;
+}
+.fg-medium.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-medium.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs {
+    grid-column: 1 / 2;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+}
+.fg-medium.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-medium.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-info,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs {
+    grid-column: 9 / 10;
+    -ms-grid-column: 9;
+    -ms-grid-column-span: 1;
+}
+.fg-medium.fg-panel-area-stack.fg-panel-info-visible.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
+.fg-medium.fg-panel-area-stack.fg-panel-info-visible.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-visible.fg-panel-info-left.fg-panel-thumbs-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs,
+.fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-visible.fg-panel-info-right.fg-panel-thumbs-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs {
+    grid-row: 5 / 7;
+    -ms-grid-row: 5;
+    -ms-grid-row-span: 2;
+}

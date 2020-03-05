@@ -1,0 +1,39 @@
+/* Colorize */
+.fg-panel.fg-hover-colorize .fg-panel-thumb-image {
+    /* Firefox 10+, Firefox on Android */
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'saturate\' values=\'0\'/></filter></svg>#grayscale");
+    /* IE 6-9 */
+    filter: gray;
+    /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+    -webkit-filter: grayscale(100%);
+    -webkit-transition-property: -webkit-filter;
+    transition-property: filter;
+}
+.fg-panel.fg-hover-colorize .fg-panel-thumb:hover .fg-panel-thumb-image {
+    -webkit-filter: none;
+    filter: none;
+}
+/* Grayscale */
+.fg-panel.fg-hover-grayscale .fg-panel-thumb-image {
+    -webkit-filter: none;
+    filter: none;
+    -webkit-transition-property: -webkit-filter;
+    transition-property: filter;
+}
+.fg-panel.fg-hover-grayscale .fg-panel-thumb:hover .fg-panel-thumb-image {
+    /* Firefox 10+, Firefox on Android */
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'saturate\' values=\'0\'/></filter></svg>#grayscale");
+    /* IE 6-9 */
+    filter: gray;
+    /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+    -webkit-filter: grayscale(100%);
+    opacity: 1;
+}
+
+/* Scale */
+.fg-panel.fg-hover-scale .fg-panel-thumb {
+    transition-property: transform;
+}
+.fg-panel.fg-hover-scale .fg-panel-thumb:hover {
+    transform: scale(1.048);
+}

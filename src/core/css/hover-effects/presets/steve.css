@@ -3,10 +3,7 @@
 	overflow: visible;
 }
 
-.foogallery.fg-preset.fg-steve .fg-thumb {
-	background: #fff;
-}
-.foogallery.fg-preset.fg-steve .fg-thumb:before {
+.foogallery.fg-preset.fg-steve .fg-image-overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -18,7 +15,7 @@
 	transition: opacity 0.35s;
 	opacity: 0;
 }
-.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-thumb:before {
+.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-image-overlay {
 	opacity: 1;
 }
 

@@ -303,6 +303,7 @@
 	});
 
 	_.template.register("masonry", _.MasonryTemplate, {
+		fixLayout: true,
 		template: {
 			initLayout: false,
 			isInitLayout: false,

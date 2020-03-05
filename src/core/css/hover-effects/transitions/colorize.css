@@ -13,7 +13,7 @@
 	-webkit-filter: none;
 	filter: none;
 }
-.foogallery.fg-hover-colorize .fg-thumb:before,
+.foogallery.fg-hover-colorize .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-colorize .fg-caption {
 	display: block;
 	left: 0;
@@ -21,7 +21,7 @@
 	bottom: 0;
 	transition-property: visibility, opacity, background-color;
 }
-.foogallery.fg-hover-colorize .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-colorize .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-colorize .fg-item-inner:hover .fg-caption {
 	visibility: visible;
 	opacity: 1;

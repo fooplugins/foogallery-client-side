@@ -1,0 +1,99 @@
+/* Icon & Overlay */
+.fg-panel .fg-panel-thumb-overlay {
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 8;
+    background: rgba(0,0,0,0.5) no-repeat center center;
+    transition-duration: .1s;
+    transition-timing-function: ease-in-out;
+    transition-property: opacity, visibility;
+}
+
+.fg-panel .fg-panel-thumb-overlay:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.fg-panel.fg-hover-zoom 				.fg-panel-thumb:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-hover-zoom2 				.fg-panel-thumb:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-hover-zoom3 				.fg-panel-thumb:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-hover-plus 				.fg-panel-thumb:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-hover-circle-plus 	        .fg-panel-thumb:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-hover-eye 				    .fg-panel-thumb:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-hover-external 		    .fg-panel-thumb:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-hover-tint 				.fg-panel-thumb:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-video-default              .fg-panel-thumb.fg-type-video:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-video-1                    .fg-panel-thumb.fg-type-video:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-video-2                    .fg-panel-thumb.fg-type-video:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-video-3                    .fg-panel-thumb.fg-type-video:hover .fg-panel-thumb-overlay,
+.fg-panel.fg-video-4                    .fg-panel-thumb.fg-type-video:hover .fg-panel-thumb-overlay {
+    visibility: visible;
+    opacity: 1;
+}
+.fg-panel.fg-video-sticky               .fg-panel-thumb.fg-type-video.fg-loaded .fg-panel-thumb-overlay {
+    background-color: transparent;
+    visibility: visible;
+    opacity: 1;
+}
+
+.fg-panel.fg-hover-zoom .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#zoom-light');
+}
+
+.fg-panel.fg-hover-zoom2 .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#zoom2-light');
+}
+
+.fg-panel.fg-hover-zoom3 .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#zoom3-light');
+}
+
+.fg-panel.fg-hover-plus .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#plus-light');
+}
+
+.fg-panel.fg-hover-circle-plus .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#circle-plus-light');
+}
+
+.fg-panel.fg-hover-eye .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#eye-light');
+}
+
+.fg-panel.fg-hover-external .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#external-light');
+}
+
+.fg-panel.fg-video-default .fg-type-video .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#video-default-light');
+}
+
+.fg-panel.fg-video-1 .fg-type-video .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#video-1-light');
+}
+
+.fg-panel.fg-video-2 .fg-type-video .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#video-2-light');
+}
+
+.fg-panel.fg-video-3 .fg-type-video .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#video-3-light');
+}
+
+.fg-panel.fg-video-4 .fg-type-video .fg-panel-thumb-overlay:before {
+    background-image: url('../img/icons.svg#video-4-light');
+}

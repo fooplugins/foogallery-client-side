@@ -8,7 +8,7 @@
 	transform: scale(1.048);
 	z-index: 10;
 }
-.foogallery.fg-hover-scale .fg-thumb:before,
+.foogallery.fg-hover-scale .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-scale .fg-caption {
 	display: block;
 	left: 0;
@@ -16,7 +16,7 @@
 	bottom: 0;
 	transition-property: visibility, opacity, background-color;
 }
-.foogallery.fg-hover-scale .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-scale .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-scale .fg-item-inner:hover .fg-caption {
 	visibility: visible;
 	opacity: 1;

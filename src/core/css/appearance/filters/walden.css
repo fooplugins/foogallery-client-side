@@ -1,8 +1,10 @@
-.foogallery.fg-filter-walden .fg-image-wrap {
+.foogallery.fg-filter-walden .fg-image-wrap,
+.fg-panel.fg-filter-walden .fg-panel-thumb-wrap {
   -webkit-filter: brightness(110%) saturate(160%) sepia(30%) hue-rotate(350deg);
   filter: brightness(110%) saturate(160%) sepia(30%) hue-rotate(350deg);
 }
-.foogallery.fg-filter-walden .fg-image-wrap:before {
+.foogallery.fg-filter-walden .fg-image-wrap:before,
+.fg-panel.fg-filter-walden .fg-panel-thumb-wrap:before {
   mix-blend-mode: screen;
   opacity: 0.3;
   background: rgba(204, 68, 0, 1);

@@ -1,4 +1,4 @@
-(function($, _, _is, _str){
+(function($, _, _is, _str, _obj){
 
 	_.State = _.Component.extend(/** @lends FooGallery.State */{
 		/**
@@ -41,6 +41,17 @@
 			 */
 			self.enabled = self.opt.enabled;
 			/**
+			 * @summary The current state of the template.
+			 * @memberof FooGallery.State#
+			 * @name current
+			 * @type {{item: null, page: number, filter: []}}
+			 */
+			self.current = {
+				filter: [],
+				page: 0,
+				item: null
+			};
+			/**
 			 * @summary Which method of the history API to use by default when updating the state.
 			 * @memberof FooGallery.State#
 			 * @name pushOrReplace
@@ -49,19 +60,23 @@
 			 */
 			self.pushOrReplace = self.isPushOrReplace(self.opt.pushOrReplace) ? self.opt.pushOrReplace : "replace";
 
+			self.defaultMask = "foogallery-gallery-{id}";
+
 			var id = _str.escapeRegExp(self.tmpl.id),
+				masked = _str.escapeRegExp(self.getMasked()),
 				values = _str.escapeRegExp(self.opt.values),
 				pair = _str.escapeRegExp(self.opt.pair);
 			/**
 			 * @summary An object containing regular expressions used to test and parse a hash value into a state object.
 			 * @memberof FooGallery.State#
 			 * @name regex
-			 * @type {{exists: RegExp, values: RegExp}}
+			 * @type {{exists: RegExp, masked: RegExp, values: RegExp}}
 			 * @readonly
 			 * @description The regular expressions contained within this object are specific to this template and are created using the template {@link FooGallery.Template#id|id} and the delimiters from the {@link FooGallery.State#opt|options}.
 			 */
 			self.regex = {
 				exists: new RegExp("^#"+id+"\\"+values+".+?"),
+				masked: new RegExp("^#"+masked+"\\"+values+".+?"),
 				values: new RegExp("(\\w+)"+pair+"([^"+values+"]+)", "g")
 			};
 		},
@@ -69,12 +84,23 @@
 		 * @summary Destroy the component clearing any current state from the url and preparing it for garbage collection.
 		 * @memberof FooGallery.State#
 		 * @function destroy
+		 * @param {boolean} [preserve=false] - If set to true any existing state is left intact on the URL.
 		 */
-		destroy: function(){
+		destroy: function(preserve){
 			var self = this;
-			self.clear();
+			if (!preserve) self.clear();
 			self.opt = self.regex = {};
 			self._super();
+		},
+		init: function(){
+			this.set(this.initial());
+		},
+		getIdNumber: function(){
+			return this.tmpl.id.match(/\d+/g)[0];
+		},
+		getMasked: function(){
+			var self = this, mask = _str.contains(self.opt.mask, "{id}") ? self.opt.mask : self.defaultMask;
+			return _str.format(mask, {id: self.getIdNumber()});
 		},
 		/**
 		 * @summary Check if the supplied value is `"push"` or `"replace"`.
@@ -93,7 +119,8 @@
 		 * @returns {boolean}
 		 */
 		exists: function(){
-			return this.regex.exists.test(location.hash) && this.regex.values.test(location.hash);
+			this.regex.values.lastIndex = 0; // reset the index as we use the g flag
+			return (this.regex.exists.test(location.hash) || this.regex.masked.test(location.hash)) && this.regex.values.test(location.hash);
 		},
 		/**
 		 * @summary Parse the current url returning an object containing all values for the template.
@@ -103,19 +130,32 @@
 		 * @description This method always returns an object, if successful the object contains properties otherwise it is just a plain empty object. For this method to be successful the current template {@link FooGallery.Template#id|id} must match the one from the url.
 		 */
 		parse: function(){
-			var self = this, state = {};
+			var self = this, tmpl = self.tmpl, state = {};
 			if (self.exists()){
 				if (self.enabled){
 					state.id = self.tmpl.id;
+					self.regex.values.lastIndex = 0;
 					var pairs = location.hash.match(self.regex.values);
 					$.each(pairs, function(i, pair){
-						var parts = pair.split(self.opt.pair);
+						var parts = pair.split(self.opt.pair), val;
 						if (parts.length === 2){
-							state[parts[0]] = parts[1].indexOf(self.opt.array) === -1
-								? decodeURIComponent(parts[1].replace(/\+/g, '%20'))
-								: $.map(parts[1].split(self.opt.array), function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); });
-							if (_is.string(state[parts[0]]) && !isNaN(state[parts[0]])){
-								state[parts[0]] = parseInt(state[parts[0]]);
+							switch(parts[0]){
+								case self.opt.itemKey:
+									val = tmpl.items.fromHash(parts[1]);
+									if (val !== null) state.item = val;
+									break;
+								case self.opt.pageKey:
+									if (tmpl.pages){
+										val = tmpl.pages.fromHash(parts[1]);
+										if (val !== null) state.page = val;
+									}
+									break;
+								case self.opt.filterKey:
+									if (tmpl.filter){
+										val = tmpl.filter.fromHash(parts[1]);
+										if (val !== null) state.filter = val;
+									}
+									break;
 							}
 						}
 					});
@@ -138,21 +178,21 @@
 		 * @returns {string}
 		 */
 		hashify: function(state){
-			var self = this;
+			var self = this, tmpl = self.tmpl;
 			if (_is.hash(state)){
-				var hash = [];
-				$.each(state, function(name, value){
-					if (!_is.empty(value) && name !== "id"){
-						if (_is.array(value)){
-							value = $.map(value, function(part){ return encodeURIComponent(part); }).join(self.opt.array);
-						} else {
-							value = encodeURIComponent(value);
-						}
-						hash.push(name + self.opt.pair + value);
-					}
-				});
+				var hash = [], val = tmpl.items.toHash(state.item);
+				if (val !== null) hash.push(self.opt.itemKey + self.opt.pair + val);
+
+				if (!!tmpl.filter){
+					val = tmpl.filter.toHash(state.filter);
+					if (val !== null) hash.push(self.opt.filterKey + self.opt.pair + val);
+				}
+				if (!!tmpl.pages){
+					val = tmpl.pages.toHash(state.page);
+					if (val !== null) hash.push(self.opt.pageKey + self.opt.pair + val);
+				}
 				if (hash.length > 0){
-					hash.unshift("#"+self.tmpl.id);
+					hash.unshift("#"+self.getMasked());
 				}
 				return hash.join(self.opt.values);
 			}
@@ -168,8 +208,8 @@
 			var self = this;
 			if (self.enabled && self.apiEnabled){
 				state.id = self.tmpl.id;
-				var hash = self.hashify(state), empty = _is.empty(hash);
-				history.replaceState(empty ? null : state, "", empty ? location.pathname + location.search : hash);
+				var hash = self.hashify(state), empty = _is.empty(hash), hs = _obj.extend({}, state, {item: state.item instanceof _.Item ? state.item.id : state.item});
+				history.replaceState(empty ? null : hs, "", empty ? location.pathname + location.search : hash);
 			}
 		},
 		/**
@@ -182,8 +222,8 @@
 			var self = this;
 			if (self.enabled && self.apiEnabled){
 				state.id = self.tmpl.id;
-				var hash = self.hashify(state), empty = _is.empty(hash);
-				history.pushState(empty ? null : state, "", empty ? location.pathname + location.search : hash);
+				var hash = self.hashify(state), empty = _is.empty(hash), hs = _obj.extend({}, state, {item: state.item instanceof _.Item ? state.item.id : state.item});
+				history.pushState(empty ? null : hs, "", empty ? location.pathname + location.search : hash);
 			}
 		},
 		/**
@@ -216,10 +256,11 @@
 		 * @description This method returns an initial start up state from the template options.
 		 */
 		initial: function(){
-			var self = this, tmpl = self.tmpl, state = {};
-			if (tmpl.filter && !_is.empty(tmpl.filter.current)) state.f = tmpl.filter.current;
-			if (tmpl.pages && tmpl.pages.current > 1) state.p = tmpl.pages.current;
-			return state;
+			var self = this, state = self.parse();
+			if (_is.empty(state)){
+				return self.get();
+			}
+			return _obj.extend({ filter: [], page: 1, item: null }, state);
 		},
 		/**
 		 * @summary Get the current state of the template.
@@ -230,15 +271,17 @@
 		 * @description This method does not parse the history or url it returns the current state of the template itself. To parse the current url use the {@link FooGallery.State#parse|parse} method instead.
 		 */
 		get: function(item){
-			var self = this, tmpl = self.tmpl, state = {};
-			if (item instanceof _.Item) state.i = item.id;
-			if (tmpl.filter && !_is.empty(tmpl.filter.current)){
-				state.f = tmpl.filter.current;
+			var self = this, tmpl = self.tmpl, state = {}, val;
+			if (item instanceof _.Item) state.item = item;
+			if (!!tmpl.filter){
+				val = tmpl.filter.getState();
+				if (val !== null) state.filter = val;
 			}
-			if (tmpl.pages && tmpl.pages.isValid(tmpl.pages.current)){
-				state.p = tmpl.pages.current;
+			if (!!tmpl.pages){
+				val = tmpl.pages.getState();
+				if (val !== null) state.page = val;
 			}
-			return state;
+			return _obj.extend({ filter: [], page: 1, item: null }, state);
 		},
 		/**
 		 * @summary Set the current state of the template.
@@ -250,34 +293,30 @@
 		set: function(state){
 			var self = this, tmpl = self.tmpl;
 			if (_is.hash(state)){
+				var obj = _obj.extend({ filter: [], page: 1, item: null }, state);
 				tmpl.items.reset();
-				var item = tmpl.items.get(state.i);
-				if (tmpl.filter){
-					tmpl.filter.rebuild();
-					var tags = !_is.empty(state.f) ? state.f : [];
-					tmpl.filter.set(tags, false);
-				}
-				if (tmpl.pages){
-					tmpl.pages.rebuild();
-					var page = tmpl.pages.number(state.p);
-					if (item && !tmpl.pages.contains(page, item)){
-						page = tmpl.pages.find(item);
-						page = page !== 0 ? page : 1;
+				var e = tmpl.raise("before-state", [obj]);
+				if (!e.isDefaultPrevented()){
+					if (!!tmpl.filter){
+						tmpl.filter.setState(obj);
 					}
-					tmpl.pages.set(page, !_is.empty(state), false, true);
-					if (item && tmpl.pages.contains(page, item)){
-						item.scrollTo();
+					if (!!tmpl.pages){
+						tmpl.pages.setState(obj);
+					} else {
+						tmpl.items.detach(tmpl.items.all());
+						tmpl.items.create(tmpl.items.available(), true);
 					}
-				} else {
-					tmpl.items.detach(tmpl.items.all());
-					tmpl.items.create(tmpl.items.available(), true);
-					if (item){
-						item.scrollTo();
+					if (obj.item){
+						if (self.opt.scrollTo) {
+							obj.item.scrollTo();
+						}
+						if (!_is.empty(state.item)){
+							state.item = null;
+							self.replace(state);
+						}
 					}
-				}
-				if (!_is.empty(state.i)){
-					state.i = null;
-					self.replace(state);
+					self.current = obj;
+					tmpl.raise("after-state", [obj]);
 				}
 			}
 		},
@@ -286,10 +325,16 @@
 	_.template.configure("core", {
 		state: {
 			enabled: false,
+			scrollTo: true,
 			pushOrReplace: "replace",
+			mask: "foogallery-gallery-{id}",
 			values: "/",
 			pair: ":",
-			array: "+"
+			array: "+",
+			arraySeparator: ",",
+			itemKey: "i",
+			filterKey: "f",
+			pageKey: "p"
 		}
 	});
 
@@ -309,14 +354,15 @@
 	/**
 	 * @summary An object used to store the state of a template.
 	 * @typedef {object} FooGallery~State
-	 * @property {number} [p] - The current page number.
-	 * @property {string[]} [f] - The current filter array.
-	 * @property {?string} [i] - The currently selected item.
+	 * @property {number} [page] - The current page number.
+	 * @property {string[]} [filter] - The current filter array.
+	 * @property {?FooGallery.Item} [item] - The currently selected item.
 	 */
 
 })(
 	FooGallery.$,
 	FooGallery,
 	FooGallery.utils.is,
-	FooGallery.utils.str
+	FooGallery.utils.str,
+	FooGallery.utils.obj
 );

@@ -2,7 +2,7 @@
 
 	var instance = 0;
 
-	_.Template = _utils.Class.extend(/** @lends FooGallery.Template */{
+	_.Template = _utils.EventClass.extend(/** @lends FooGallery.Template */{
 		/**
 		 * @summary The primary class for FooGallery, this controls the flow of the plugin across all templates.
 		 * @memberof FooGallery
@@ -15,6 +15,7 @@
 		 */
 		construct: function (options, element) {
 			var self = this;
+			self._super();
 			/**
 			 * @summary An instance specific namespace to use when binding events to global objects that could be shared across multiple galleries.
 			 * @memberof FooGallery.Template#
@@ -114,6 +115,7 @@
 			 * @private
 			 */
 			self._initialize = null;
+			self._checkTimeout = null;
 			self.initializing = false;
 			self.initialized = false;
             self.destroying = false;
@@ -197,7 +199,7 @@
 			} else {
 				self.$scrollParent = $(document);
 			}
-			self.$el.data(_.dataTemplate, self);
+			self.$el.data(_.DATA_TEMPLATE, self);
 
 			// at this point we have our container element free of pre-existing instances so let's bind any event listeners supplied by the .on option
 			if (!_is.empty(self.opt.on)) {
@@ -357,8 +359,7 @@
 			 */
 			var e = self.raise("post-init");
 			if (e.isDefaultPrevented()) return false;
-			var state = self.state.parse();
-			self.state.set(_is.empty(state) ? self.state.initial() : state);
+			self.state.init();
 			self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(function () {
 				self.loadAvailable();
 			}, 50));
@@ -460,29 +461,32 @@
 		 * @summary Destroy the template.
 		 * @memberof FooGallery.Template#
 		 * @function destroy
+		 * @param {boolean} [preserveState=false] - If set to true any existing state is left intact on the URL.
 		 * @returns {Promise}
 		 * @description Once this method is called it can not be stopped and the template will be destroyed.
 		 * @fires FooGallery.Template~"destroy.foogallery"
 		 */
-		destroy: function () {
-			var self = this;
+		destroy: function (preserveState) {
+			var self = this, _super = self._super.bind(self);
             if (self.destroyed) return _fn.resolved;
             self.destroying = true;
             return $.Deferred(function (def) {
                 if (self.initializing && _is.promise(self._initialize)) {
                     self._initialize.always(function () {
                         self.destroying = false;
-                        self.doDestroy();
+                        self.doDestroy(preserveState);
                         def.resolve();
                     });
                 } else {
                     self.destroying = false;
-                    self.doDestroy();
+                    self.doDestroy(preserveState);
                     def.resolve();
                 }
-            }).promise();
+            }).then(function(){
+            	_super();
+			}).promise();
 		},
-        doDestroy: function(){
+        doDestroy: function(preserveState){
 		    var self = this;
             if (self.destroyed) return;
             /**
@@ -501,9 +505,10 @@
              * });
              */
             self.raise("destroy");
+			if (self._checkTimeout) clearTimeout(self._checkTimeout);
             self.$scrollParent.off(self.namespace);
             $(window).off(self.namespace);
-            self.state.destroy();
+            self.state.destroy(preserveState);
             if (self.filter) self.filter.destroy();
             if (self.pages) self.pages.destroy();
             self.items.destroy();
@@ -526,7 +531,7 @@
              * });
              */
             self.raise("destroyed");
-            self.$el.removeData(_.dataTemplate);
+            self.$el.removeData(_.DATA_TEMPLATE);
 
             if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
             else self.$el.attr("class", self._undo.classes);
@@ -593,7 +598,9 @@
 		_check: function (delay) {
 			delay = _is.number(delay) ? delay : 0;
 			var self = this;
-			setTimeout(function () {
+			if (self._checkTimeout) clearTimeout(self._checkTimeout);
+			return self._checkTimeout = setTimeout(function () {
+				self._checkTimeout = null;
 				if (self.initialized && (!self.destroying || !self.destroyed)) {
 					self.loadAvailable();
 				}
@@ -620,13 +627,15 @@
 		 * });
 		 */
 		raise: function (eventName, args) {
-			if (!_is.string(eventName) || _is.empty(eventName)) return null;
+			if (this.destroying || this.destroyed || !_is.string(eventName) || _is.empty(eventName)) return null;
 			args = _is.array(args) ? args : [];
 			var self = this,
 					name = eventName.split(".")[0],
 					listener = _str.camel("on-" + name),
 					event = $.Event(name + ".foogallery");
 			args.unshift(self); // add self
+			var e = self.trigger(name, args);
+			if (e.defaultPrevented) event.preventDefault();
 			self.$el.trigger(event, args);
 			_.debug.logf("{id}|{name}:", {id: self.id, name: name}, args);
 			if (_is.fn(self[listener])) {
@@ -661,7 +670,7 @@
 		/**
 		 * @summary Gets the width of the FooGallery container.
 		 * @memberof FooGallery.Template#
-		 * @type function
+		 * @function
 		 * @name getContainerWidth
 		 * @returns {number}
 		 */
@@ -671,6 +680,21 @@
 				return self.$el.parents(':visible:first').innerWidth();
 			}
 			return self.$el.width();
+		},
+
+		/**
+		 * @summary Gets a specific type of CSS class from the template.
+		 * @memberof FooGallery.Template#
+		 * @function
+		 * @name getCSSClass
+		 * @param {string} type - The specific type of CSS class to retrieve.
+		 * @returns {string}
+		 */
+		getCSSClass: function(type){
+			var regex = type instanceof RegExp ? type : (_is.string(type) && this.opt.regex.hasOwnProperty(type) ? this.opt.regex[type] : null),
+				className = (this.$el.prop("className") || ''),
+				match = regex != null ? className.match(regex) : null;
+			return match != null && match.length >= 2 ? match[1] : "";
 		},
 
 		// ###############
@@ -708,7 +732,18 @@
 		timeout: 60000,
 		srcset: "data-srcset-fg",
 		src: "data-src-fg",
-		template: {}
+		template: {},
+		regex: {
+			theme: /(?:\s|^)(fg-(?:light|dark|custom))(?:\s|$)/,
+			loadingIcon: /(?:\s|^)(fg-loading-(?:default|bars|dots|partial|pulse|trail))(?:\s|$)/,
+			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|plus|circle-plus|eye|external|tint))(?:\s|$)/,
+			videoIcon: /(?:\s|^)(fg-video-(?:default|1|2|3|4))(?:\s|$)/,
+			hoverColor: /(?:\s|^)(fg-hover-(?:colorize|grayscale))(?:\s|$)/,
+			hoverScale: /(?:\s|^)(fg-hover-scale)(?:\s|$)/,
+			stickyVideoIcon: /(?:\s|^)(fg-video-sticky)(?:\s|$)/,
+			insetShadow: /(?:\s|^)(fg-shadow-inset-(?:small|medium|large))(?:\s|$)/,
+			filter: /(?:\s|^)(fg-filter-(?:1977|amaro|brannan|clarendon|earlybird|lofi|poprocket|reyes|toaster|walden|xpro2|xtreme))(?:\s|$)/
+		}
 	}, {
 		container: "foogallery"
 	}, {}, -100);
