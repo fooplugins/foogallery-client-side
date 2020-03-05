@@ -6,42 +6,36 @@
 		construct: function(template, parent, position){
 			this._super(template, parent, position);
 			this.$container = $();
-			this.$list = $();
-			this.$items = $();
+			this.lists = [];
 		},
 		create: function(){
-			var self = this, cls = self.filter.cls, il8n = self.filter.il8n,
-					items = [], $list = $("<ul/>", {"class": cls.list}), $item;
-
-			items.push($item = self.createItem({
-				value: "",
-				count: self.tmpl.items.all().length,
-				percent: 1,
-				size: self.filter.largest,
-				opacity: self.filter.darkest
-			}, il8n.all));
-			$list.append($item.addClass(cls.selected));
-
+			var self = this, cls = self.filter.cls;
+			self.$container = $("<nav/>", {"class": cls.container}).addClass(self.filter.theme);
 			for (var i = 0, l = self.filter.tags.length; i < l; i++){
-				items.push($item = self.createItem(self.filter.tags[i]));
-				$list.append($item);
+				self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
 			}
-
-			self.$list = $list;
-			self.$container = $("<nav/>", {"class": cls.container}).addClass(self.filter.theme).append($list);
-			if (self.filter.showCount === true){
+			if (!self.filter.isMultiLevel && self.filter.showCount === true){
 				self.$container.addClass(cls.showCount);
 			}
-			self.$items = $($.map(items, function($item){ return $item.get(); }));
 			return true;
+		},
+		createList: function(tags){
+			var self = this, cls = self.filter.cls,
+				$list = $("<ul/>", {"class": cls.list});
+
+			for (var i = 0, l = tags.length; i < l; i++){
+				$list.append(self.createItem(tags[i]).toggleClass(cls.selected, i === 0));
+			}
+			return $list;
 		},
 		destroy: function(){
 			var self = this, sel = self.filter.sel;
-			self.$list.find(sel.link).off("click.foogallery", self.onLinkClick);
+			self.lists.forEach(function($list, i){
+				$list.find(sel.link).off("click.foogallery", self.onLinkClick);
+			});
 			self.$container.remove();
 			self.$container = $();
-			self.$list = $();
-			self.$items = $();
+			self.lists = [];
 		},
 		append: function(){
 			var self = this;
@@ -52,48 +46,59 @@
 			}
 		},
 		update: function(tags){
-			var self = this, cls = self.filter.cls;
-			self.$items.removeClass(cls.selected);
-			self.$items.each(function(){
-				var $item = $(this), tag = $item.data("tag"), empty = _is.empty(tag);
-				$item.toggleClass(cls.selected, (empty && _is.empty(tags)) || (!empty && $.inArray(tag, tags) !== -1));
+			var self = this, cls = self.filter.cls, sel = self.filter.sel;
+			self.lists.forEach(function($list, i){
+				$list.find(sel.item).removeClass(cls.selected).each(function(){
+					var $item = $(this), tag = $item.data("tag"), empty = _is.empty(tag);
+					$item.toggleClass(cls.selected, (empty && _is.empty(tags[i])) || (!empty && $.inArray(tag, tags[i]) !== -1));
+				});
 			});
 		},
-		createItem: function(tag, text){
+		createItem: function(tag){
 			var self = this, cls = self.filter.cls,
 					$li = $("<li/>", {"class": cls.item}).attr("data-tag", tag.value),
 					$link = $("<a/>", {"href": "#tag-" + tag.value, "class": cls.link})
 							.on("click.foogallery", {self: self, tag: tag}, self.onLinkClick)
 							.css("font-size", tag.size)
 							.css("opacity", tag.opacity)
-							.append($("<span/>", {"text": _is.string(text) ? text : tag.value, "class": cls.text}))
+							.append($("<span/>", {"text": _is.string(tag.text) ? tag.text : tag.value, "class": cls.text}))
 							.appendTo($li);
 
-			if (self.filter.showCount === true){
+			if (!self.filter.isMultiLevel && self.filter.showCount === true){
 				$link.append($("<span/>", {"text": tag.count, "class": cls.count}));
 			}
 			return $li;
 		},
 		onLinkClick: function(e){
 			e.preventDefault();
-			var self = e.data.self, tag = e.data.tag, tags = [], i;
+			var self = e.data.self, tag = e.data.tag, tags = self.filter.current.map(function(obj){
+				if (_is.array(obj)) return obj.slice();
+				return obj;
+			}), i;
 			if (!_is.empty(tag.value)){
 				switch (self.filter.mode){
 					case "union":
 					case "intersect":
-						tags = self.filter.current.slice();
-						i = $.inArray(tag.value, tags);
+						if (!_is.array(tags[tag.level])){
+							tags[tag.level] = [];
+						}
+						i = $.inArray(tag.value, tags[tag.level]);
 						if (i === -1){
-							tags.push(tag.value);
+							tags[tag.level].push(tag.value);
 						} else {
-							tags.splice(i, 1);
+							tags[tag.level].splice(i, 1);
 						}
 						break;
 					case "single":
 					default:
-						tags = [tag.value];
+						tags[tag.level] = [tag.value];
 						break;
 				}
+			} else {
+				tags[tag.level] = [];
+			}
+			if (tags.every(_is.empty)){
+				tags = [];
 			}
 			self.filter.apply(tags);
 		}

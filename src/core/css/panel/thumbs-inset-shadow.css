@@ -1,0 +1,25 @@
+/* Inset Shadows */
+.fg-panel.fg-shadow-inset-small .fg-panel-thumb-media:after,
+.fg-panel.fg-shadow-inset-medium .fg-panel-thumb-media:after,
+.fg-panel.fg-shadow-inset-large .fg-panel-thumb-media:after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 7;
+}
+.fg-panel.fg-light.fg-shadow-inset-small .fg-panel-thumb-media:after,
+.fg-panel.fg-dark.fg-shadow-inset-small .fg-panel-thumb-media:after {
+    box-shadow: inset 0 1px 4px 0 rgba(0,0,0,0.3);
+}
+.fg-panel.fg-light.fg-shadow-inset-medium .fg-panel-thumb-media:after,
+.fg-panel.fg-dark.fg-shadow-inset-medium .fg-panel-thumb-media:after {
+    box-shadow: inset 0 1px 10px 0 rgba(0,0,0,0.3);
+}
+.fg-panel.fg-light.fg-shadow-inset-large .fg-panel-thumb-media:after,
+.fg-panel.fg-dark.fg-shadow-inset-large .fg-panel-thumb-media:after {
+    box-shadow: inset 0 1px 16px 0 rgba(0,0,0,0.3);
+}

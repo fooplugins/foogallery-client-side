@@ -3,7 +3,7 @@
 	/**
 	 * @summary A reference to the jQuery object the plugin is registered with.
 	 * @memberof FooGallery
-	 * @name $
+	 * @function $
 	 * @type {jQuery}
 	 * @description This is used internally for all jQuery operations to help work around issues where multiple jQuery libraries have been included in a single page.
 	 * @example {@caption The following shows the issue when multiple jQuery's are included in a single page.}{@lang xml}
@@ -32,6 +32,7 @@
 	 * @external "jQuery.fn"
 	 * @see {@link http://learn.jquery.com/plugins/basic-plugin-creation/|How to Create a Basic Plugin | jQuery Learning Center}
 	 */
+
 })(
 	// dependencies
 	jQuery,

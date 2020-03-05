@@ -16,8 +16,8 @@
 			self.pushOrReplace = self.opt.pushOrReplace;
 			self.type = self.opt.type;
 			self.theme = self.opt.theme;
-
 			self.position = self.opt.position;
+
 			self.mode = self.opt.mode;
 			self.sortBy = self.opt.sortBy;
 			self.sortInvert = self.opt.sortInvert;
@@ -34,10 +34,46 @@
 			self.lightest = self.opt.lightest;
 			self.darkest = self.opt.darkest;
 
-			self.items = [];
-			self.tags = [];
 			self.current = [];
 			self.ctrls = [];
+			self.tags = [];
+			self.isMultiLevel = false;
+		},
+		fromHash: function(hash){
+			var self = this, opt = self.tmpl.state.opt;
+			return hash.indexOf(opt.arraySeparator) === -1
+				? [hash.split(opt.array).map(function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); })]
+				: hash.split(opt.arraySeparator).map(function(arr){
+					return _is.empty(arr) ? [] : arr.split(opt.array).map(function(part){
+						return decodeURIComponent(part.replace(/\+/g, '%20'));
+					})
+				});
+		},
+		toHash: function(value){
+			var self = this, opt = self.tmpl.state.opt, hash = null;
+			if (_is.array(value)){
+				if (_is.array(value[0])){
+					hash = $.map(value, function(tags){
+						return $.map(tags, function(tag){
+							return encodeURIComponent(tag);
+						}).join(opt.array);
+					}).join(opt.arraySeparator);
+				} else {
+					hash = $.map(value, function(tag){
+						return encodeURIComponent(tag);
+					}).join(opt.array);
+				}
+			}
+			return _is.empty(hash) ? null : hash;
+		},
+		getState: function(){
+			return _is.array(this.current) && !this.current.every(function (tags) {
+				return tags.length === 0;
+			}) ? this.current.slice() : null;
+		},
+		setState: function(state){
+			this.rebuild();
+			this.set(state.filter, false);
 		},
 		destroy: function () {
 			var self = this;
@@ -45,17 +81,17 @@
 			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
-			self.items.splice(0, self.items.length);
 			self._super();
 		},
 		count: function (items, tags) {
 			items = _is.array(items) ? items : [];
 			tags = _is.array(tags) ? tags : [];
-			var result = {}, generate = tags.length === 0;
+			var result = { __ALL__: 0 }, generate = tags.length === 0;
 			for (var i = 0, l = items.length, t; i < l; i++) {
 				if (!_is.empty(t = items[i].tags)) {
+					result.__ALL__++;
 					for (var j = 0, jl = t.length, tag; j < jl; j++) {
-						if (!_is.empty(tag = t[j]) && (generate || (!generate && $.inArray(tag, tags) != -1))) {
+						if (!_is.empty(tag = t[j]) && (generate || (!generate && $.inArray(tag, tags) !== -1))) {
 							if (_is.number(result[tag])) {
 								result[tag]++;
 							} else {
@@ -70,61 +106,86 @@
 			}
 			return result;
 		},
-		build: function () {
-			var self = this, items = self.tmpl.items.all();
-			self.items.push.apply(self.items, items);
-			if (items.length > 0) {
-				// first get a count of every tag available from all items
-				var counts = self.count(items, self.opt.tags), supplied = self.opt.tags.length > 0, min = Infinity, max = 0, index = -1;
-				for (var prop in counts) {
-					if (counts.hasOwnProperty(prop)) {
-						var count = counts[prop];
-						if (self.min <= 0 || count >= self.min) {
-							if (supplied){
-								index = $.inArray(prop, self.opt.tags);
-							} else {
-								index++;
-							}
-							self.tags.push({index: index, value: prop, count: count, percent: 1, size: self.largest, opacity: self.darkest});
-							if (count < min) min = count;
-							if (count > max) max = count;
+		createTagObjects: function(items, tags, levelIndex, levelText){
+			var self = this, result = [];
+			// first get a count of the tags
+			var counts = self.count(items, tags), min = Infinity, max = 0, index = -1;
+			for (var prop in counts) {
+				if (counts.hasOwnProperty(prop)) {
+					var count = counts[prop], isAll = prop === "__ALL__";
+					if (self.min <= 0 || count >= self.min) {
+						if (tags.length > 0){
+							index = $.inArray(prop, tags);
+						} else {
+							index++;
 						}
+						result.push({
+							level: levelIndex,
+							index: index,
+							value: isAll ? "" : prop,
+							text: isAll ? levelText : prop,
+							count: count,
+							percent: 1,
+							size: self.largest,
+							opacity: self.darkest
+						});
+						if (count < min) min = count;
+						if (count > max) max = count;
 					}
 				}
-
-				// if there's a limit set, remove other tags
-				if (self.limit > 0 && self.tags.length > self.limit) {
-					self.tags.sort(function (a, b) {
-						return b.count - a.count;
-					});
-					self.tags = self.tags.slice(0, self.limit);
-				}
-
-				// if adjustSize or adjustOpacity is enabled, calculate a percentage value used to calculate the appropriate font size and opacity
-				if (self.adjustSize === true || self.adjustOpacity === true) {
-					var fontRange = self.largest - self.smallest;
-					var opacityRange = self.darkest - self.lightest;
-					for (var i = 0, l = self.tags.length, tag; i < l; i++) {
-						tag = self.tags[i];
-						tag.percent = (tag.count - min) / (max - min);
-						tag.size = self.adjustSize ? Math.round((fontRange * tag.percent) + self.smallest) : self.largest;
-						tag.opacity = self.adjustOpacity ? (opacityRange * tag.percent) + self.lightest : self.darkest;
-					}
-				}
-
-				// finally sort the tags using the sort options
-				switch (self.sortBy){
-					case "none":
-						self.sortTags("index", false);
-						break;
-					default:
-						self.sortTags(self.sortBy, self.sortInvert);
-						break;
-				}
-
 			}
 
-			if (self.tags.length > 0 && _.filtering.hasCtrl(self.type)) {
+			// if there's a limit set, remove other tags
+			if (self.limit > 0 && result.length > self.limit) {
+				result.sort(function (a, b) {
+					return b.count - a.count;
+				});
+				result = result.slice(0, self.limit);
+			}
+
+			// if adjustSize or adjustOpacity is enabled, calculate a percentage value used to calculate the appropriate font size and opacity
+			if (!self.isMultiLevel && (self.adjustSize === true || self.adjustOpacity === true)) {
+				var fontRange = self.largest - self.smallest;
+				var opacityRange = self.darkest - self.lightest;
+				for (var i = 0, l = result.length, tag; i < l; i++) {
+					tag = result[i];
+					tag.percent = (tag.count - min) / (max - min);
+					tag.size = self.adjustSize ? Math.round((fontRange * tag.percent) + self.smallest) : self.largest;
+					tag.opacity = self.adjustOpacity ? (opacityRange * tag.percent) + self.lightest : self.darkest;
+				}
+			}
+
+			// finally sort the tags using the sort options
+			switch (self.sortBy){
+				case "none":
+					self.sort(result, "index", false);
+					break;
+				default:
+					self.sort(result, self.sortBy, self.sortInvert);
+					break;
+			}
+
+			return result;
+		},
+		showControl: function(){
+			return !this.tags.every(function (tags) {
+				return tags.length === 0;
+			});
+		},
+		build: function () {
+			var self = this, items = self.tmpl.items.all();
+			self.isMultiLevel = self.opt.tags.length > 0 && _is.object(self.opt.tags[0]);
+			if (items.length > 0) {
+				if (self.isMultiLevel){
+					$.each(self.opt.tags, function(i, level){
+						self.tags.push(self.createTagObjects(items, level.tags, i, level.all || self.il8n.all));
+					});
+				} else {
+					self.tags.push(self.createTagObjects(items, self.opt.tags, 0, self.il8n.all));
+				}
+			}
+
+			if (self.showControl() && _.filtering.hasCtrl(self.type)) {
 				var pos = self.position, top, bottom;
 				if (pos === "both" || pos === "top") {
 					top = _.filtering.makeCtrl(self.type, self.tmpl, self, "top");
@@ -148,7 +209,6 @@
 			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
-			self.items.splice(0, self.items.length);
 			self.build();
 		},
 		controls: function (tags) {
@@ -157,8 +217,22 @@
 				control.update(tags);
 			});
 		},
+		hasAll: function(item, tags){
+			return tags.every(function(arr){
+				return arr.length === 0 || (_is.array(item.tags) && arr.every(function (tag) {
+					return item.tags.indexOf(tag) !== -1;
+				}));
+			});
+		},
+		hasSome: function(item, tags){
+			return tags.every(function(arr){
+				return arr.length === 0 || (_is.array(item.tags) && arr.some(function (tag) {
+					return item.tags.indexOf(tag) !== -1;
+				}));
+			});
+		},
 		set: function (tags, updateState) {
-			if (_is.string(tags)) tags = [tags];
+			if (_is.string(tags)) tags = [[tags]];
 			if (!_is.array(tags)) tags = [];
 			var self = this, state;
 			if (!self.arraysEqual(self.current, tags)) {
@@ -169,32 +243,23 @@
 						self.tmpl.state.update(state, self.pushOrReplace);
 					}
 
-					self.controls(tags);
-
 					if (_is.empty(tags)) {
 						self.tmpl.items.reset();
-						self.items.splice(0, self.items.length);
-						self.items.push.apply(self.items, self.tmpl.items.all());
 					} else {
-						self.items.splice(0, self.items.length);
 						var items = self.tmpl.items.all();
 						if (self.mode === 'intersect') {
 							items = $.map(items, function (item) {
-								return _is.array(item.tags) && tags.every(function (tag) {
-									return item.tags.indexOf(tag) >= 0;
-								}) ? item : null;
+								return self.hasAll(item, tags) ? item : null;
 							});
 						} else {
 							items = $.map(items, function (item) {
-								return _is.array(item.tags) && item.tags.some(function (tag) {
-									return tags.indexOf(tag) >= 0;
-								}) ? item : null;
+								return self.hasSome(item, tags) ? item : null;
 							});
 						}
-						self.items.push.apply(self.items, items);
 						self.tmpl.items.setAvailable(items);
 					}
 					self.current = tags.slice();
+					self.controls(tags);
 					if (self.tmpl.pages) {
 						self.tmpl.pages.rebuild();
 						self.tmpl.pages.set(1, null, null, true);
@@ -232,8 +297,8 @@
 			}
 			return true;
 		},
-		sortTags: function(prop, invert){
-			this.tags.sort(function(a, b){
+		sort: function(tags, prop, invert){
+			tags.sort(function(a, b){
 
 				if (a.hasOwnProperty(prop) && b.hasOwnProperty(prop)){
 					if (_is.string(a[prop]) && _is.string(b[prop])){

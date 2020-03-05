@@ -32,7 +32,7 @@
 	padding: 0;
 	text-decoration: none;
 }
-.foogrid .fg-item > span {
+.foogrid .fg-current-pointer {
 	display: block;
 	border-bottom: 45px solid transparent;
 	border-left: 35px solid transparent;
@@ -46,7 +46,7 @@
 	visibility: hidden;
 	opacity: 0;
 }
-.foogrid .fg-item.foogrid-visible > span {
+.foogrid .fg-item.foogrid-visible .fg-current-pointer {
 	visibility: visible;
 	opacity: 1;
 }

@@ -1,0 +1,118 @@
+/* Media CSS */
+.fg-media {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    overflow: hidden;
+}
+.fg-panel.fg-landscape .fg-media {
+    width: calc(100% - 37px);
+}
+.fg-panel.fg-portrait .fg-media {
+    top: 37px;
+    height: calc(100% - 37px);
+}
+
+.fg-panel.fg-medium .fg-media,
+.fg-panel.fg-panel-no-mobile .fg-media {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.fg-panel.fg-medium.fg-panel-preserve-button-space .fg-media,
+.fg-panel.fg-panel-no-mobile.fg-panel-preserve-button-space .fg-media {
+    top: 5px;
+    left: 42px;
+    width: calc(100% - 84px);
+    height: calc(100% - 10px);
+}
+.fg-media .fg-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 1em;
+    height: 1em;
+    font-size: 5px;
+    visibility: hidden;
+    opacity: 0;
+}
+.fg-media.fg-loading .fg-loader {
+    visibility: visible;
+    opacity: 1;
+}
+.fg-media:not(.fg-media-html) {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.fg-media-content {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    max-width: 100%;
+    max-height: 100%;
+    visibility: hidden;
+    opacity: 0;
+}
+.fg-media.fg-loaded .fg-media-content {
+    visibility: visible;
+    opacity: 1;
+}
+.fg-media-image .fg-media-content {
+    height: auto;
+}
+.fg-panel-fit-media .fg-media-image .fg-media-full-width {
+    width: 100%;
+    max-height: unset;
+}
+.fg-panel-fit-media .fg-media-image .fg-media-full-height {
+    height: 100%;
+    max-width: unset;
+}
+.fg-media-iframe .fg-media-content,
+.fg-media-video .fg-media-content {
+    width: 100%;
+    height: 100%;
+}
+.fg-panel-fit-media .fg-media-iframe .fg-media-content,
+.fg-panel-fit-media .fg-media-video .fg-media-content {
+    width: 100% !important;
+    height: 100% !important;
+}
+.fg-panel.fg-panel-preserve-button-space .fg-media-iframe .fg-media-content {
+    border-width: 1px;
+    border-style: solid;
+}
+.fg-panel-fit-media .fg-media-video.fg-loaded {
+    background-color: #000;
+}
+.fg-media-video .fg-media-content {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+.fg-media-html .fg-media-content {
+
+}
+.fg-media-embed .fg-media-content .fb-video > span,
+.fg-media-embed .fg-media-content > iframe,
+.fg-media-embed .fg-media-content > video,
+.fg-media-embed .fg-media-content > object {
+    margin: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}

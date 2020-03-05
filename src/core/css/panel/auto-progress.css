@@ -1,0 +1,58 @@
+.fg-icon-auto-progress {
+    cursor: pointer;
+}
+
+.fg-icon-auto-progress-idle {
+    fill: currentColor;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.fg-icon-auto-progress.fg-paused .fg-icon-auto-progress-idle,
+.fg-icon-auto-progress.fg-stopped .fg-icon-auto-progress-idle,
+.fg-icon-auto-progress.fg-started .fg-icon-auto-progress-idle {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.fg-icon-auto-progress-circle {
+    stroke: currentColor;
+    fill: transparent;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    opacity: 0;
+    visibility: hidden;
+    stroke-width: 8px;
+    stroke-dasharray: 0, 0;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s, opacity 0.3s, visibility 0.3s;
+}
+.fg-icon-auto-progress.fg-started .fg-icon-auto-progress-circle {
+    opacity: 1;
+    visibility: visible;
+}
+.fg-icon-auto-progress-play,
+.fg-icon-auto-progress-pause {
+    fill: currentColor;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.fg-icon-auto-progress.fg-paused .fg-icon-auto-progress-play,
+.fg-icon-auto-progress.fg-stopped .fg-icon-auto-progress-play {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (hover: hover) {
+    *:hover > .fg-icon-auto-progress.fg-started .fg-icon-auto-progress-circle {
+        opacity: 0;
+        visibility: hidden;
+    }
+    *:hover > .fg-icon-auto-progress.fg-paused .fg-icon-auto-progress-play,
+    *:hover > .fg-icon-auto-progress.fg-stopped .fg-icon-auto-progress-play,
+    *:hover > .fg-icon-auto-progress.fg-started .fg-icon-auto-progress-pause {
+        opacity: 1;
+        visibility: visible;
+    }
+}

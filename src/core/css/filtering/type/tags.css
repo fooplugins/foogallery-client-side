@@ -1,5 +1,5 @@
 .fg-tag-list {
-	display: inline-block;
+	display: block;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -50,11 +50,14 @@
 }
 .fg-tag-item .fg-tag-link .fg-tag-count {
 	vertical-align: middle;
-	margin: 0 0 0 5px;
+	margin: 0 0 0 7px;
 	padding: 3px 5px;
 	font-size: 66%;
 	border: 1px solid transparent;
 	border-radius: 4px;
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
 }
 
 /* Light */

@@ -1,11 +1,11 @@
 /* Slide */
-.foogallery.fg-hover-slide-up .fg-loaded .fg-thumb:before,
+.foogallery.fg-hover-slide-up .fg-loaded .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-up .fg-loaded .fg-caption,
-.foogallery.fg-hover-slide-down .fg-loaded .fg-thumb:before,
+.foogallery.fg-hover-slide-down .fg-loaded .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-down .fg-loaded .fg-caption,
-.foogallery.fg-hover-slide-left .fg-loaded .fg-thumb:before,
+.foogallery.fg-hover-slide-left .fg-loaded .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-left .fg-loaded .fg-caption,
-.foogallery.fg-hover-slide-right .fg-loaded .fg-thumb:before,
+.foogallery.fg-hover-slide-right .fg-loaded .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-right .fg-loaded .fg-caption {
 	display: block;
 	left: 0;
@@ -15,38 +15,38 @@
 	visibility: visible;
 	opacity: 1;
 }
-.foogallery.fg-hover-slide-up .fg-loaded .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-slide-up .fg-loaded .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-up .fg-loaded .fg-item-inner:hover .fg-caption,
-.foogallery.fg-hover-slide-down .fg-loaded .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-slide-down .fg-loaded .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-down .fg-loaded .fg-item-inner:hover .fg-caption,
-.foogallery.fg-hover-slide-left .fg-loaded .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-slide-left .fg-loaded .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-left .fg-loaded .fg-item-inner:hover .fg-caption,
-.foogallery.fg-hover-slide-right .fg-loaded .fg-item-inner:hover .fg-thumb:before,
+.foogallery.fg-hover-slide-right .fg-loaded .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-right .fg-loaded .fg-item-inner:hover .fg-caption {
 	transform: translateY(0) translateX(0);
 }
 
 
 /* Slide Up */
-.foogallery.fg-hover-slide-up .fg-loaded .fg-thumb:before,
+.foogallery.fg-hover-slide-up .fg-loaded .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-up .fg-loaded .fg-caption {
 	transform: translateY(100%);
 }
 
 /* Slide Down */
-.foogallery.fg-hover-slide-down .fg-loaded .fg-thumb:before,
+.foogallery.fg-hover-slide-down .fg-loaded .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-down .fg-loaded .fg-caption {
 	transform: translateY(-100%);
 }
 
 /* Slide Left */
-.foogallery.fg-hover-slide-left .fg-loaded .fg-thumb:before,
+.foogallery.fg-hover-slide-left .fg-loaded .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-left .fg-loaded .fg-caption {
 	transform: translateX(100%);
 }
 
 /* Slide Right */
-.foogallery.fg-hover-slide-right .fg-loaded .fg-thumb:before,
+.foogallery.fg-hover-slide-right .fg-loaded .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-right .fg-loaded .fg-caption {
 	transform: translateX(-100%);
 }

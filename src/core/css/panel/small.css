@@ -1,0 +1,45 @@
+.fg-panel.fg-x-small .fg-panel-buttons,
+.fg-panel.fg-small .fg-panel-buttons {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    align-items: stretch;
+}
+.fg-panel.fg-x-small.fg-portrait .fg-panel-buttons,
+.fg-panel.fg-small.fg-portrait .fg-panel-buttons {
+    flex-direction: row;
+    width: 100%;
+    height: 37px;
+    bottom: unset;
+}
+.fg-panel.fg-x-small.fg-landscape .fg-panel-buttons,
+.fg-panel.fg-small.fg-landscape .fg-panel-buttons {
+    flex-direction: column-reverse;
+    width: 37px;
+    height: 100%;
+    left: unset;
+}
+.fg-panel.fg-x-small .fg-panel-button,
+.fg-panel.fg-small .fg-panel-button {
+    position: relative;
+    top: unset;
+    left: unset;
+    bottom: unset;
+    right: unset;
+    width: 100%;
+    height: 100%;
+    border-radius: unset;
+    border-width: 0;
+    transform: unset;
+    margin-top: unset;
+    margin-right: unset;
+}
+.fg-panel.fg-x-small.fg-portrait .fg-panel-button,
+.fg-panel.fg-small.fg-portrait .fg-panel-button {
+    border-bottom-width: 1px;
+}
+.fg-panel.fg-x-small.fg-landscape .fg-panel-button,
+.fg-panel.fg-small.fg-landscape .fg-panel-button {
+    border-left-width: 1px;
+}

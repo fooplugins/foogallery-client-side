@@ -16,12 +16,22 @@
 	border: none;
 	text-align: center;
 	cursor: pointer;
+	margin: 0;
 }
 .foogallery .fg-caption a {
 	text-decoration: none;
 	color: #fff;
 	border-bottom: 1px solid #FFF;
 }
+.foogallery.fg-light-overlays .fg-caption {
+	background-color: rgba(255,255,255,0.8);
+	color: #333;
+}
+.foogallery.fg-light-overlays .fg-caption a {
+	color: #333;
+	border-bottom-color: #333;
+}
+
 .foogallery .fg-caption a:hover {
 	border-bottom: none;
 }
@@ -65,6 +75,6 @@
 	left: 0;
 	transform: translateY(-50%);
 }
-.foogallery.fg-caption-hover .fg-item.fg-loaded .fg-thumb:before {
+.foogallery.fg-caption-hover .fg-item.fg-loaded .fg-image-overlay {
 	display: none;
 }

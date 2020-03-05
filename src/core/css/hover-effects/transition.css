@@ -9,19 +9,20 @@
 .foogallery.fg-caption-hover.fg-hover-colorize .fg-caption,
 .foogallery.fg-caption-hover.fg-hover-grayscale .fg-caption,
 .foogallery.fg-caption-hover.fg-hover-scale .fg-caption,
-.foogallery.fg-hover-instant .fg-thumb:before,
-.foogallery.fg-hover-fade .fg-thumb:before,
-.foogallery.fg-hover-slide-up .fg-thumb:before,
-.foogallery.fg-hover-slide-down .fg-thumb:before,
-.foogallery.fg-hover-slide-left .fg-thumb:before,
-.foogallery.fg-hover-slide-right .fg-thumb:before,
+.foogallery.fg-hover-instant .fg-image-overlay,
+.foogallery.fg-hover-fade .fg-image-overlay,
+.foogallery.fg-hover-slide-up .fg-image-overlay,
+.foogallery.fg-hover-slide-down .fg-image-overlay,
+.foogallery.fg-hover-slide-left .fg-image-overlay,
+.foogallery.fg-hover-slide-right .fg-image-overlay,
 .foogallery.fg-hover-push .fg-thumb,
-.foogallery.fg-hover-colorize .fg-thumb:before,
-.foogallery.fg-hover-grayscale .fg-thumb:before,
+.foogallery.fg-hover-colorize .fg-image-overlay,
+.foogallery.fg-hover-grayscale .fg-image-overlay,
 .foogallery.fg-hover-scale .fg-item,
-.foogallery.fg-hover-scale .fg-thumb:before,
+.foogallery.fg-hover-scale .fg-image-overlay,
 .foogallery.fg-hover-colorize .fg-image,
 .foogallery.fg-hover-grayscale .fg-image {
 	transition-timing-function: ease;
 	transition-duration: 300ms;
+	backface-visibility: hidden;
 }
