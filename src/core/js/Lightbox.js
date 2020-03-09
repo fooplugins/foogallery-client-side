@@ -13,14 +13,16 @@
             }
         },
         onAnchorClickItem: function(e, tmpl, item){
-            e.preventDefault();
-            this.open(item);
+            if (!item.noLightbox){
+                e.preventDefault();
+                this.open(item);
+            }
         },
         onDestroyedTemplate: function(e, tmpl){
             this.destroy();
         },
         onAfterState: function(e, tmpl, state){
-            if (state.item instanceof _.Item){
+            if (state.item instanceof _.Item && !state.item.noLightbox){
                 this.open(state.item);
             }
         }

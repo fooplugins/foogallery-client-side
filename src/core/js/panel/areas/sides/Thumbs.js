@@ -68,7 +68,7 @@
                     }
                 }, 50));
 
-                self.doCreateThumbs(self.panel.tmpl.items.available());
+                self.doCreateThumbs(self.panel.tmpl.items.available(self.panel.isVisible));
 
                 return true;
             }
