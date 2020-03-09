@@ -279,7 +279,6 @@
                         this.$stage.find(this.sel.thumb.elem).css({height: this.info.height, minHeight: this.info.height, width: "", minWidth: ""});
                     }
                 }
-                var visible = this.selectedIndex >= this.scrollIndex && this.selectedIndex < this.scrollIndex + this.info.count;
                 this.goto(this.scrollIndex, true);
             }
         },
