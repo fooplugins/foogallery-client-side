@@ -34,28 +34,30 @@
             }
         },
         enter: function(){
+            if (this.panel.isFullscreen) return;
+            this.panel.isFullscreen = true;
             this.panel.$el.addClass(this.panel.cls.fullscreen);
             if (!this.panel.isMaximized){
                 this.panel.$el.attr({
                     'role': 'dialog',
                     'aria-modal': true
-                });
+                }).focus();
                 this.panel.trapFocus();
             }
-            this.$el.attr("aria-pressed", true);
+            if (this.isCreated) this.$el.attr("aria-pressed", true);
             this.panel.buttons.toggle('maximize', false);
-            this.panel.isFullscreen = true;
         },
         exit: function(){
+            if (!this.panel.isFullscreen) return;
             this.panel.$el.removeClass(this.panel.cls.fullscreen);
             if (!this.panel.isMaximized){
                 this.panel.$el.attr({
                     'role': null,
                     'aria-modal': null
-                });
+                }).focus();
                 this.panel.releaseFocus();
             }
-            this.$el.attr("aria-pressed", false);
+            if (this.isCreated) this.$el.attr("aria-pressed", false);
             this.panel.buttons.toggle('maximize', this.panel.isInline && this.panel.buttons.opt.maximize);
             this.panel.isFullscreen = false;
         }

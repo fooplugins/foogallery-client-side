@@ -31,12 +31,13 @@
             this.toggle(visible);
         },
         enter: function(){
+            if (this.panel.isMaximized) return;
             this.panel.isMaximized = true;
             this.$placeholder.insertAfter(this.panel.$el);
             this.panel.$el.appendTo("body").addClass(this.panel.cls.maximized).attr({
                 'role': 'dialog',
                 'aria-modal': true
-            });
+            }).focus();
             if (this.isCreated) this.$el.attr("aria-pressed", true);
             this.panel.trapFocus();
             if (this.panel.opt.noScrollbars){
@@ -45,11 +46,12 @@
             }
         },
         exit: function(){
+            if (!this.panel.isMaximized) return;
             this.panel.isMaximized = false;
             this.panel.$el.removeClass(this.panel.cls.maximized).attr({
                 'role': null,
                 'aria-modal': null
-            }).insertBefore(this.$placeholder);
+            }).insertBefore(this.$placeholder).focus();
             this.$placeholder.detach();
             if (this.isCreated) this.$el.attr("aria-pressed", false);
             this.panel.releaseFocus();

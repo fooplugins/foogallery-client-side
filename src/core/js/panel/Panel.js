@@ -192,16 +192,16 @@
         doAppendTo: function( parent ){
             var self = this, $parent = $( parent ), maximize = self.buttons.get("maximize");
             self.isInline = !$parent.is("body");
+            self.$el.appendTo( $parent );
+
             maximize.set(!self.isInline, self.isInline);
+
             _.breakpoints.register(self.$el, self.opt.breakpoints, function(){
                 self.areas.forEach(function (area) {
                     area.resize();
                 });
                 self.buttons.resize();
             });
-
-            self.$el.appendTo( $parent );
-
             _.breakpoints.check( self.$el );
 
             self.areas.forEach(function (area) {
@@ -284,7 +284,6 @@
                 self.doLoad(media).then(def.resolve).fail(def.reject);
             }).always(function(){
                 self.isLoading = false;
-                self.$el.focus();
             }).then(function(){
                 self.isLoaded = true;
                 self.trigger("loaded", [self, item]);
