@@ -161,7 +161,7 @@
         shouldReverseTransition: function( oldMedia, newMedia ){
             if (!(oldMedia instanceof _.Panel.Media) || !(newMedia instanceof _.Panel.Media)) return true;
             var result = oldMedia.item.index < newMedia.item.index,
-                last = this.panel.tmpl.items.last();
+                last = this.panel.tmpl.items.last(this.panel.isVisible);
             if (last instanceof _.Item && ((newMedia.item.index === 0 && oldMedia.item.index === last.index) || (newMedia.item.index === last.index && oldMedia.item.index === 0))){
                 result = !result;
             }

@@ -1,3 +1,7 @@
+.foogallery.fg-slider .fgs-item-stage .fg-item {
+    display: none;
+}
+
 .fg-slider {
     display: block;
     width: auto;

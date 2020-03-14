@@ -71,10 +71,13 @@
                 }, self);
             }
         },
+        isVisible: function(item){
+            return item instanceof _.Item && !item.noLightbox && !item.panelHide;
+        },
         onItemsChanged: function(e, tmpl){
             if (this.thumbs.isCreated && tmpl.initialized){
-                this.thumbs.doCreateThumbs(tmpl.items.available());
-                if (this.isAttached) this.load(tmpl.items.first());
+                this.thumbs.doCreateThumbs(tmpl.items.available(this.isVisible));
+                if (this.isAttached) this.load(tmpl.items.first(this.isVisible));
             }
         },
         create: function(){
@@ -189,15 +192,18 @@
         doAppendTo: function( parent ){
             var self = this, $parent = $( parent ), maximize = self.buttons.get("maximize");
             self.isInline = !$parent.is("body");
+            self.$el.appendTo( $parent );
+
             maximize.set(!self.isInline, self.isInline);
+
             _.breakpoints.register(self.$el, self.opt.breakpoints, function(){
                 self.areas.forEach(function (area) {
                     area.resize();
                 });
                 self.buttons.resize();
             });
+            _.breakpoints.check( self.$el );
 
-            self.$el.appendTo( $parent );
             self.areas.forEach(function (area) {
                 area.listen();
             });
@@ -233,13 +239,24 @@
             if (this.__media.hasOwnProperty(item.id)) return this.__media[item.id];
             return this.__media[item.id] = _.Panel.media.make(item.type, this, item);
         },
+        getItem: function(item){
+            var self = this, result = item;
+            if (!(result instanceof _.Item)) result = self.currentItem;
+            if (!(result instanceof _.Item)) result = self.tmpl.items.first(self.isVisible);
+            if (item instanceof _.Item && !self.isVisible(item)){
+                result = self.tmpl.items.next(item, self.isVisible, self.opt.loop);
+                if (!(result instanceof _.Item)){
+                    result = self.tmpl.items.prev(item, self.isVisible, self.opt.loop);
+                }
+            }
+            return result;
+        },
         load: function( item ){
             var self = this;
 
-            item = item instanceof _.Item ? item : self.currentItem;
-            item = item instanceof _.Item ? item : self.tmpl.items.first();
+            item = self.getItem(item);
 
-            if (!(item instanceof _.Item)) return _fn.rejectWith("no items to load");
+            if (!(item instanceof _.Item)) return _fn.rejectWith("no item to load");
             if (item === self.currentItem) return _fn.rejectWith("item is currently loaded");
 
             self.isLoading = true;
@@ -262,12 +279,11 @@
                     return;
                 }
                 self.currentItem = item;
-                self.prevItem = self.tmpl.items.prev(item, self.opt.loop);
-                self.nextItem = self.tmpl.items.next(item, self.opt.loop);
+                self.prevItem = self.tmpl.items.prev(item, self.isVisible, self.opt.loop);
+                self.nextItem = self.tmpl.items.next(item, self.isVisible, self.opt.loop);
                 self.doLoad(media).then(def.resolve).fail(def.reject);
             }).always(function(){
                 self.isLoading = false;
-                self.$el.focus();
             }).then(function(){
                 self.isLoaded = true;
                 self.trigger("loaded", [self, item]);
@@ -288,8 +304,9 @@
             }).promise();
         },
         open: function( item, parent ){
-            var self = this,
-                e = self.trigger("open", [self, item, parent]);
+            var self = this;
+            item = self.getItem(item);
+            var e = self.trigger("open", [self, item, parent]);
             if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
             return self.doOpen(item, parent).then(function(){
                 self.trigger("opened", [self, item, parent]);
@@ -298,7 +315,10 @@
         doOpen: function( item, parent ){
             var self = this;
             return $.Deferred(function(def){
-                item = item instanceof _.Item ? item : self.tmpl.items.first();
+                if (!(item instanceof _.Item)){
+                    def.rejectWith("item not instanceof FooGallery.Item");
+                    return;
+                }
                 parent = !_is.empty(parent) ? parent : "body";
                 if (!self.isAttached){
                     self.appendTo( parent );

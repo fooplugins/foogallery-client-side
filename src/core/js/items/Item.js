@@ -252,6 +252,18 @@
 			 */
 			self.showCaptionDescription = self.opt.showCaptionDescription;
 			/**
+			 * @memberof FooGallery.Item#
+			 * @name noLightbox
+			 * @type {boolean}
+			 */
+			self.noLightbox = self.opt.noLightbox;
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name panelHide
+			 * @type {boolean}
+			 */
+			self.panelHide = self.opt.panelHide;
+			/**
 			 * @summary The cached result of the last call to the {@link FooGallery.Item#getThumbUrl|getThumbUrl} method.
 			 * @memberof FooGallery.Item#
 			 * @name _thumbUrl
@@ -524,6 +536,8 @@
 			self.alt = self.$image.attr("alt") || self.alt;
 			self.caption = data.title || data.captionTitle || self.caption || self.title;
 			self.description = data.description || data.captionDesc || self.description || self.alt;
+			self.noLightbox = self.$anchor.hasClass(cls.noLightbox);
+			self.panelHide = self.$anchor.hasClass(cls.panelHide);
 			// if the caption or description are not set yet try fetching it from the html
 			if (_is.empty(self.caption)) self.caption = $.trim(self.$caption.find(sel.caption.title).html());
 			if (_is.empty(self.description)) self.description = $.trim(self.$caption.find(sel.caption.description).html());
@@ -655,7 +669,14 @@
 
 			attr.inner["class"] = cls.inner;
 
-			attr.anchor["class"] = cls.anchor;
+			var anchorClasses = [cls.anchor];
+			if (self.noLightbox){
+				anchorClasses.push(cls.noLightbox);
+			}
+			if (self.panelHide){
+				anchorClasses.push(cls.panelHide);
+			}
+			attr.anchor["class"] = anchorClasses.join(" ");
 			attr.anchor["href"] = self.href;
 			attr.anchor["data-type"] = self.type;
 			attr.anchor["data-id"] = self.id;
@@ -1047,6 +1068,8 @@
 		toJSON: function(){
 			return {
 				"type": this.type,
+				"id": this.id,
+				"productId": this.productId,
 				"href": this.href,
 				"src": this.src,
 				"srcset": this.srcset,
@@ -1061,6 +1084,8 @@
 				"maxDescriptionLength": this.maxDescriptionLength,
 				"showCaptionTitle": this.showCaptionTitle,
 				"showCaptionDescription": this.showCaptionDescription,
+				"noLightbox": this.noLightbox,
+				"panelHide": this.panelHide,
 				"attr": _obj.extend({}, this.attr)
 			};
 		},
@@ -1148,6 +1173,8 @@
 			maxDescriptionLength: 0,
 			showCaptionTitle: true,
 			showCaptionDescription: true,
+			noLightbox: false,
+			panelHide: false,
 			attr: {
 				elem: {},
 				inner: {},
@@ -1174,6 +1201,8 @@
 			loading: "fg-loading",
 			loaded: "fg-loaded",
 			error: "fg-error",
+			noLightbox: "fg-no-lightbox",
+			panelHide: "fg-panel-hide",
 			types: {
 				item: "fg-type-unknown"
 			},

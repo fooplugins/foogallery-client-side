@@ -128,7 +128,10 @@
 		count: function (all) {
 			return all ? this.all().length : this.available().length;
 		},
-		available: function () {
+		available: function (where) {
+			if (_is.fn(where)){
+				return this._available.filter(where, this);
+			}
 			return this._available.slice();
 		},
 		get: function (idOrIndex) {
@@ -147,37 +150,50 @@
 		reset: function () {
 			this.setAvailable(this.all());
 		},
-		first: function(){
-			return this._available.length > 0 ? this._available[0] : null;
-		},
-		last: function(){
-			return this._available.length > 0 ? this._available[this._available.length - 1] : null;
-		},
-		next: function(item, loop){
-			if (!(item instanceof _.Item)) return null;
-			loop = _is.boolean(loop) ? loop : false;
-			var index = this._available.indexOf(item);
-			if (index !== -1){
-				index++;
-				if (index >= this._available.length){
-					if (!loop) return null;
-					index = 0;
+		find: function(items, where){
+			where = _is.fn(where) ? where : function(){ return true; };
+			if (_is.array(items)){
+				for (var i = 0, l = items.length; i < l; i++){
+					if (where.call(this, items[i]) === true){
+						return items[i];
+					}
 				}
-				return this._available[index];
 			}
 			return null;
 		},
-		prev: function(item, loop){
+		first: function(where){
+			return this.find(this._available, where);
+		},
+		last: function(where){
+			return this.find(this._available.slice().reverse(), where);
+		},
+		next: function(item, where, loop){
 			if (!(item instanceof _.Item)) return null;
 			loop = _is.boolean(loop) ? loop : false;
-			var index = this._available.indexOf(item);
+			var items = this._available.slice(),
+				index = items.indexOf(item);
 			if (index !== -1){
-				index--;
-				if (index < 0){
-					if (!loop) return null;
-					index = this._available.length - 1;
+				var remainder = items.slice(0, index);
+				items = items.slice(index + 1);
+				if (loop){
+					items = items.concat(remainder);
 				}
-				return this._available[index];
+				return this.find(items, where);
+			}
+			return null;
+		},
+		prev: function(item, where, loop){
+			if (!(item instanceof _.Item)) return null;
+			loop = _is.boolean(loop) ? loop : false;
+			var items = this._available.slice().reverse(),
+				index = items.indexOf(item);
+			if (index !== -1){
+				var remainder = items.slice(0, index);
+				items = items.slice(index + 1);
+				if (loop){
+					items = items.concat(remainder);
+				}
+				return this.find(items, where);
 			}
 			return null;
 		},
@@ -310,6 +326,7 @@
 						if (_is.element(obj)) {
 							if (item.parse(obj)) {
 								parsed.push(item);
+								if (!self.ALLOW_APPEND) item.detach();
 								return item;
 							}
 							return null;

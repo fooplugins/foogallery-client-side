@@ -68,7 +68,7 @@
                     }
                 }, 50));
 
-                self.doCreateThumbs(self.panel.tmpl.items.available());
+                self.doCreateThumbs(self.panel.tmpl.items.available(self.panel.isVisible));
 
                 return true;
             }
@@ -245,12 +245,12 @@
                 counts = { horizontal: 0, vertical: 0 },
                 adjusted = { width: 0, height: 0 },
                 remaining = { width: 0, height: 0 },
-                width = 0, height = 0;
+                width = 0, height = 0, itemCount = this.__items.length;
             if (this.isCreated){
                 viewport = { width: this.$viewport.innerWidth() + 1, height: this.$viewport.innerHeight() + 1 };
                 original = { width: this.$dummy.outerWidth(), height: this.$dummy.outerHeight() };
                 counts = { horizontal: Math.floor(viewport.width / original.width), vertical: Math.floor(viewport.height / original.height) };
-                adjusted = { width: viewport.width / counts.horizontal, height: viewport.height / counts.vertical };
+                adjusted = { width: viewport.width / Math.min(itemCount, counts.horizontal), height: viewport.height / Math.min(itemCount, counts.vertical) };
                 width = this.opt.bestFit ? adjusted.width : original.width;
                 height = this.opt.bestFit ? adjusted.height : original.height;
                 stage = { width: isHorizontal ? this.__items.length * width : width, height: !isHorizontal ? this.__items.length * height : height };
@@ -279,7 +279,6 @@
                         this.$stage.find(this.sel.thumb.elem).css({height: this.info.height, minHeight: this.info.height, width: "", minWidth: ""});
                     }
                 }
-                var visible = this.selectedIndex >= this.scrollIndex && this.selectedIndex < this.scrollIndex + this.info.count;
                 this.goto(this.scrollIndex, true);
             }
         },
