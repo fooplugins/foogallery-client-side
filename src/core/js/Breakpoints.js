@@ -132,6 +132,7 @@
                 nextBreakpoint = this.getCurrent( registered, size );
             if (nextBreakpoint !== prevBreakpoint || nextOrientation !== prevOrientation){
                 registered.current = nextBreakpoint;
+                registered.orientation = nextOrientation;
                 registered.$element.removeClass(registered.classNames).addClass([nextBreakpoint, nextOrientation].join(" "));
                 registered.callback.call(registered.thisArg, registered, nextBreakpoint, nextOrientation, prevBreakpoint, prevOrientation);
             }
