@@ -8,6 +8,7 @@
                 position: panel.opt.info,
                 overlay: panel.opt.infoOverlay,
                 visible: panel.opt.infoVisible,
+                autoHide: panel.opt.infoAutoHide,
                 waitForUnload: false
             }, panel.cls.info);
             this.allPositionClasses += " " + this.cls.overlay;
