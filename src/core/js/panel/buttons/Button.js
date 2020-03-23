@@ -30,7 +30,7 @@
         },
         create: function(){
             var self = this;
-            if (!self.isCreated && self.isEnabled()){
+            if (!self.isCreated){
                 self.$el = $('<button/>', {
                     type: 'button',
                     "aria-label": self.opt.label,
@@ -47,6 +47,9 @@
                     self.$el.append(self.opt.icon.call(this));
                 }
                 self.isCreated = true;
+                var enabled = self.isEnabled();
+                self.toggle(enabled);
+                self.disable(!enabled);
             }
             return self.isCreated;
         },

@@ -61,6 +61,13 @@
 
             self.nextItem = null;
 
+            self.lastResize = {
+                breakpoint: null,
+                orientation: null,
+                prevBreakpoint: null,
+                prevOrientation: null
+            };
+
             self.__media = {};
 
             self.__loading = null;
@@ -194,9 +201,15 @@
             self.isInline = !$parent.is("body");
             self.$el.appendTo( $parent );
 
-            maximize.set(!self.isInline, self.isInline);
+            maximize.set(!self.isInline, maximize.isEnabled());
 
-            _.breakpoints.register(self.$el, self.opt.breakpoints, function(){
+            _.breakpoints.register(self.$el, self.opt.breakpoints, function(registered, breakpoint, orientation, prevBreakpoint, prevOrientation){
+                self.lastResize = {
+                    breakpoint: breakpoint,
+                    orientation: orientation,
+                    prevBreakpoint: prevBreakpoint,
+                    prevOrientation: prevOrientation
+                };
                 self.areas.forEach(function (area) {
                     area.resize();
                 });
@@ -459,6 +472,7 @@
             info: "bottom", // none | top | bottom | left | right
             infoVisible: false,
             infoOverlay: true,
+            infoAutoHide: true,
 
             cart: "none", // none | top | bottom | left | right
             cartVisible: false,

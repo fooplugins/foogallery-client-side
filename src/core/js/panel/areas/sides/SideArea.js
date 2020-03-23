@@ -8,6 +8,7 @@
                 label: null,
                 position: null,
                 visible: true,
+                autoHide: false,
                 toggle: !!panel.opt.buttons[name]
             }, options), _obj.extend({
                 toggle: this.__cls(cls.toggle, name, true),
@@ -23,10 +24,12 @@
             self.allPositionClasses = Object.keys(self.cls.position).map(function (key) {
                 return self.cls.position[key];
             }).join(" ");
-            self.registerButton();
+            self.button = self.registerButton();
         },
         registerButton: function(){
-            this.panel.buttons.register(new _.Panel.SideAreaButton(this));
+            var btn = new _.Panel.SideAreaButton(this);
+            this.panel.buttons.register(btn);
+            return btn;
         },
         doCreate: function(){
             if (this._super()){
