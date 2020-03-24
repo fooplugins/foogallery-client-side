@@ -10150,7 +10150,7 @@
             self.isInline = !$parent.is("body");
             self.$el.appendTo( $parent );
 
-            maximize.set(!self.isInline, maximize.isEnabled());
+            maximize.set(!self.isInline, self.isInline && maximize.isEnabled());
 
             _.breakpoints.register(self.$el, self.opt.breakpoints, function(registered, breakpoint, orientation, prevBreakpoint, prevOrientation){
                 self.lastResize = {
