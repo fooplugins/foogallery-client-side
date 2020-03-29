@@ -16,7 +16,7 @@
         getEmbedUrl: function(urlParts, autoPlay){
             var id = this.getId(urlParts);
             urlParts.search = this.mergeParams(urlParts, autoPlay);
-            return location.protocol + '//player.vimeo.com/video/' + id + urlParts.search + urlParts.hash;
+            return 'https://player.vimeo.com/video/' + id + urlParts.search + urlParts.hash;
         }
     });
 

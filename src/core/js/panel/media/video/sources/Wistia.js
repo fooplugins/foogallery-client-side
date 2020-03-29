@@ -36,7 +36,7 @@
         getEmbedUrl: function(urlParts, autoPlay){
             var id = this.getId(urlParts);
             urlParts.search = this.mergeParams(urlParts, autoPlay);
-            return location.protocol + '//fast.wistia.net/embed/'+this.getType(urlParts.href)+'/' + id + urlParts.search + urlParts.hash;
+            return 'https://fast.wistia.net/embed/'+this.getType(urlParts.href)+'/' + id + urlParts.search + urlParts.hash;
         }
     });
 
