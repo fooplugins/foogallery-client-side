@@ -23,7 +23,7 @@
         getEmbedUrl: function(urlParts, autoPlay){
             var id = this.getId(urlParts);
             urlParts.search = this.mergeParams(urlParts, autoPlay);
-            return location.protocol + '//www.dailymotion.com/embed/video/' + id + urlParts.search + urlParts.hash;
+            return 'https://www.dailymotion.com/embed/video/' + id + urlParts.search + urlParts.hash;
         }
     });
 
