@@ -209,6 +209,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/hover-effects/transitions/instant.css",
 						"./src/core/css/hover-effects/transitions/push.css",
 						"./src/core/css/hover-effects/transitions/scale.css",
+						"./src/core/css/hover-effects/transitions/zoomed.css",
 						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css",
 
 						"./src/core/css/paging/paging.css",
