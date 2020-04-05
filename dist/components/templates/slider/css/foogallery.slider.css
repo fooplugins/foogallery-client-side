@@ -10,17 +10,20 @@
     margin: 0 auto;
     position: relative;
 }
-.fg-slider.fg-small {
+.fg-slider.fg-x-small {
     height: 392px;
 }
-.fg-slider.fg-medium {
+.fg-slider.fg-small {
     height: 480px;
 }
-.fg-slider.fg-large {
+.fg-slider.fg-medium {
     height: 560px;
 }
-.fg-slider.fg-x-large {
+.fg-slider.fg-large {
     height: 620px;
+}
+.fg-slider.fg-x-large {
+    height: 720px;
 }
 
 .fg-slider .fg-panel.fg-panel-info-overlay.fg-light .fg-panel-info-inner,

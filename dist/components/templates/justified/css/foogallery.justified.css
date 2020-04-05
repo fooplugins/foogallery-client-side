@@ -40,3 +40,6 @@
 	top: 50%;
 	transform: translateY(-50%);
 }
+.fg-justified.fg-hover-zoomed .fg-item.fg-positioned:hover .fg-image {
+	transform: translateY(-50%) scale(1.15);
+}
