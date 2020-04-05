@@ -20,6 +20,7 @@
 .foogallery.fg-hover-grayscale .fg-image-overlay,
 .foogallery.fg-hover-scale .fg-item,
 .foogallery.fg-hover-scale .fg-image-overlay,
+.foogallery.fg-hover-zoomed .fg-image,
 .foogallery.fg-hover-colorize .fg-image,
 .foogallery.fg-hover-grayscale .fg-image {
 	transition-timing-function: ease;
