@@ -43,6 +43,7 @@
                 });
                 self.panel.appendTo(self.$el);
                 self.panel.load(self.state.current.item);
+                _.breakpoints.check(self.$el);
                 return true;
             }
             return false;
