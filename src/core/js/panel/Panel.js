@@ -473,6 +473,7 @@
             infoVisible: false,
             infoOverlay: true,
             infoAutoHide: true,
+            exif: "none", // none | full | partial | minimal
 
             cart: "none", // none | top | bottom | left | right
             cartVisible: false,

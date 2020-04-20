@@ -264,6 +264,18 @@
 			 */
 			self.panelHide = self.opt.panelHide;
 			/**
+			 * @memberof FooGallery.Item#
+			 * @name exif
+			 * @type {Object}
+			 */
+			self.exif = self.opt.exif;
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name hasExif
+			 * @type {boolean}
+			 */
+			self.hasExif = _is.exif(self.exif);
+			/**
 			 * @summary The cached result of the last call to the {@link FooGallery.Item#getThumbUrl|getThumbUrl} method.
 			 * @memberof FooGallery.Item#
 			 * @name _thumbUrl
@@ -538,6 +550,10 @@
 			self.description = data.description || data.captionDesc || self.description || self.alt;
 			self.noLightbox = self.$anchor.hasClass(cls.noLightbox);
 			self.panelHide = self.$anchor.hasClass(cls.panelHide);
+			if (_is.exif(data.exif)){
+				self.exif = _obj.extend(self.exif, data.exif);
+				self.hasExif = true;
+			}
 			// if the caption or description are not set yet try fetching it from the html
 			if (_is.empty(self.caption)) self.caption = $.trim(self.$caption.find(sel.caption.title).html());
 			if (_is.empty(self.description)) self.description = $.trim(self.$caption.find(sel.caption.description).html());
@@ -574,6 +590,9 @@
 				self._undo.placeholder = true;
 			}
 			self.$el.addClass(self.getTypeClass());
+			if (self.hasExif){
+				self.$el.addClass(cls.exif);
+			}
 			if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError) {
 				self.$el.addClass(cls.idle);
 			}
@@ -664,8 +683,8 @@
 		 * @returns {boolean}
 		 */
 		doCreateItem: function () {
-			var self = this, o = self.tmpl.opt, cls = self.cls, attr = self.attr, type = self.getTypeClass();
-			attr.elem["class"] = [cls.elem, type, cls.idle].join(" ");
+			var self = this, o = self.tmpl.opt, cls = self.cls, attr = self.attr, type = self.getTypeClass(), exif = self.hasExif ? cls.exif : "";
+			attr.elem["class"] = [cls.elem, type, exif, cls.idle].join(" ");
 
 			attr.inner["class"] = cls.inner;
 
@@ -1175,6 +1194,15 @@
 			showCaptionDescription: true,
 			noLightbox: false,
 			panelHide: false,
+			exif: {
+				aperture: null,
+				camera: null,
+				date: null,
+				exposure: null,
+				focalLength: null,
+				iso: null,
+				orientation: null
+			},
 			attr: {
 				elem: {},
 				inner: {},
@@ -1192,6 +1220,7 @@
 		item: {
 			elem: "fg-item",
 			inner: "fg-item-inner",
+			exif: "fg-item-exif",
 			anchor: "fg-thumb",
 			overlay: "fg-image-overlay",
 			wrap: "fg-image-wrap",
@@ -1214,7 +1243,17 @@
 			}
 		}
 	}, {
-		item: {}
+		item: {
+			exif: {
+				aperture: "Aperture",
+				camera: "Camera",
+				date: "Date",
+				exposure: "Exposure",
+				focalLength: "Focal Length",
+				iso: "ISO",
+				orientation: "Orientation"
+			}
+		}
 	});
 
 	_.components.register("item", _.Item);
