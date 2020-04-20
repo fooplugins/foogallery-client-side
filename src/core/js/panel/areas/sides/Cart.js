@@ -4,7 +4,7 @@
         construct: function(panel){
             this._super(panel, "cart", {
                 icon: "cart",
-                label: "Cart",
+                label: panel.il8n.buttons.cart,
                 position: panel.opt.cart,
                 visible: panel.opt.cartVisible,
                 waitForUnload: false

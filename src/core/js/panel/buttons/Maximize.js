@@ -4,7 +4,7 @@
         construct: function(panel){
             this._super(panel, "maximize", {
                 icon: "maximize",
-                label: "Maximize"
+                label: panel.il8n.buttons.maximize
             });
             this.scrollPosition = [];
             this.$placeholder = $("<span/>");

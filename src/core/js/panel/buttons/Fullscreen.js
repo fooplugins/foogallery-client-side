@@ -5,7 +5,7 @@
             var self = this;
             self._super(panel, "fullscreen", {
                 icon: ["expand", "shrink"],
-                label: "Fullscreen"
+                label: panel.il8n.buttons.fullscreen
             });
         },
         create: function(){

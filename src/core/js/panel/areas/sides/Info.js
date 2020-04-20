@@ -4,7 +4,7 @@
         construct: function(panel){
             this._super(panel, "info", {
                 icon: "info",
-                label: "Information",
+                label: panel.il8n.buttons.info,
                 position: panel.opt.info,
                 overlay: panel.opt.infoOverlay,
                 visible: panel.opt.infoVisible,

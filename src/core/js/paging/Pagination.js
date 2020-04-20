@@ -247,8 +247,8 @@
 			prev: "Previous page",
 			next: "Next page",
 			last: "Last page",
-			prevMore: "Select from previous {LIMIT} pages",
-			nextMore: "Select from next {LIMIT} pages"
+			prevMore: "Show previous {LIMIT} pages",
+			nextMore: "Show next {LIMIT} pages"
 		}
 	});
 
