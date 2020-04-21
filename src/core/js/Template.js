@@ -126,6 +126,9 @@
 				create: false,
 				children: false
 			};
+			self.robserver = new ResizeObserver(_fn.throttle(function () {
+				if (self.$el.is(":visible")) self.layout();
+			}, 250));
 		},
 
 		// ################
@@ -216,6 +219,7 @@
 			if (selector != null && !self.$el.is(selector)) {
 				self.$el.addClass(self.opt.classes);
 			}
+			self.robserver.observe(self.$el.get(0));
 
 			// if the container currently has no children make them
 			if (self.$el.children().not(self.sel.item.elem).length === 0) {
@@ -505,6 +509,7 @@
              * });
              */
             self.raise("destroy");
+			self.robserver.disconnect();
 			if (self._checkTimeout) clearTimeout(self._checkTimeout);
             self.$scrollParent.off(self.namespace);
             $(window).off(self.namespace);

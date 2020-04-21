@@ -8,24 +8,24 @@
 			self.justified.init();
 		},
 		onFirstLoad: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		},
 		onReady: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		},
 		onDestroy: function(event, self){
 			self.justified.destroy();
 		},
 		onLayout: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		},
 		onAfterPageChange: function(event, self, current, prev, isFilter){
 			if (!isFilter){
-				self.justified.layout( true );
+				self.justified.layout();
 			}
 		},
 		onAfterFilterChange: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		}
 	});
 
