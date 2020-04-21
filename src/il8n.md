@@ -1,6 +1,6 @@
 ## il8n
 
-To provide localization for FooGallery and its templates simply output a global variable called `FooGallery_i8ln` into the page. The below shows all supported strings for this object.
+To provide localization for FooGallery and its templates simply output a global variable called `FooGallery_il8n` into the page. The below shows all supported strings for this object.
 
 ```javascript
 var FooGallery_il8n = {
