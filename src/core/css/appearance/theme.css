@@ -22,3 +22,41 @@
 	background-color: #444;
 	box-shadow: inset 0 0 0 1px #333;
 }
+/* Caption & Overlay Colors */
+.foogallery .fg-caption {
+	background-color: rgba(0,0,0,0.6);
+	color: #fff;
+}
+.foogallery .fg-caption a {
+	color: #fff;
+	border-bottom: 1px solid #FFF;
+}
+.foogallery.fg-light-overlays .fg-caption {
+	background-color: rgba(255,255,255,0.8);
+	color: #333;
+}
+.foogallery.fg-light-overlays .fg-caption a {
+	color: #333;
+	border-bottom-color: #333;
+}
+.foogallery.fg-transparent-overlays .fg-caption {
+	background-color: transparent;
+	color: #fff;
+}
+.foogallery.fg-transparent-overlays .fg-caption a {
+	color: #fff;
+	border-bottom-color: #fff;
+}
+
+.foogallery .fg-image-overlay {
+	background-color: rgba(0,0,0,0.6);
+	color: #fff;
+}
+.foogallery.fg-light-overlays .fg-image-overlay {
+	background-color: rgba(255,255,255,0.8);
+	color: #333;
+}
+.foogallery.fg-transparent-overlays .fg-image-overlay {
+	background-color: transparent;
+	color: #fff;
+}

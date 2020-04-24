@@ -1,0 +1,45 @@
+/* Colors */
+.fg-exif-light .fg-item.fg-item-exif .fg-image-wrap:after {
+    background-color: #FFF;
+    color: #333;
+}
+.fg-exif-dark .fg-item.fg-item-exif .fg-image-wrap:after {
+    background-color: #333;
+    color: #FFF;
+}
+
+/* Rounded Corners */
+.fg-exif-rounded .fg-item.fg-item-exif .fg-image-wrap:after {
+    border-radius: 3px;
+}
+
+/* Positions ~ Top, Right, Bottom & Left */
+.fg-exif-bottom-right .fg-item.fg-item-exif .fg-image-wrap:after,
+.fg-exif-bottom-left .fg-item.fg-item-exif .fg-image-wrap:after,
+.fg-exif-top-right .fg-item.fg-item-exif .fg-image-wrap:after,
+.fg-exif-top-left .fg-item.fg-item-exif .fg-image-wrap:after {
+    display: inline-block;
+    position: absolute;
+    content: 'EXIF';
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size: 11px;
+    line-height: 10px;
+    padding: 3px 4px;
+    z-index: 7;
+}
+.fg-exif-bottom-right .fg-item.fg-item-exif .fg-image-wrap:after {
+    bottom: 5px;
+    right: 5px;
+}
+.fg-exif-bottom-left .fg-item.fg-item-exif .fg-image-wrap:after {
+    bottom: 5px;
+    left: 5px;
+}
+.fg-exif-top-right .fg-item.fg-item-exif .fg-image-wrap:after {
+    top: 5px;
+    right: 5px;
+}
+.fg-exif-top-left .fg-item.fg-item-exif .fg-image-wrap:after {
+    top: 5px;
+    left: 5px;
+}

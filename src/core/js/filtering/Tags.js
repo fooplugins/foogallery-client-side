@@ -49,7 +49,9 @@
 			var self = this, cls = self.filter.cls, sel = self.filter.sel;
 			self.lists.forEach(function($list, i){
 				$list.find(sel.item).removeClass(cls.selected).each(function(){
-					var $item = $(this), tag = $item.data("tag"), empty = _is.empty(tag);
+					var $item = $(this), tag = $item.data("tag");
+					if (!_is.string(tag)) tag += "";
+					var empty = _is.empty(tag);
 					$item.toggleClass(cls.selected, (empty && _is.empty(tags[i])) || (!empty && $.inArray(tag, tags[i]) !== -1));
 				});
 			});

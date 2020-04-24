@@ -162,32 +162,32 @@
 .fg-medium.fg-panel-info-right .fg-panel-info-inner,
 .fg-medium.fg-panel-cart-left .fg-panel-cart-inner,
 .fg-medium.fg-panel-cart-right .fg-panel-cart-inner,
-.fg-medium-width.fg-panel-thumbs-top:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
-.fg-medium-width.fg-panel-thumbs-bottom:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
-.fg-medium-width.fg-panel-thumbs-left:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
-.fg-medium-width.fg-panel-thumbs-right:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner {
+.fg-medium.fg-panel-thumbs-top:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
+.fg-medium.fg-panel-thumbs-bottom:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
+.fg-medium.fg-panel-thumbs-left:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
+.fg-medium.fg-panel-thumbs-right:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner {
     width: 200px;
     min-width: 200px;
 }
-.fg-large-width.fg-panel-info-left .fg-panel-info-inner,
-.fg-large-width.fg-panel-info-right .fg-panel-info-inner,
-.fg-large-width.fg-panel-cart-left .fg-panel-cart-inner,
-.fg-large-width.fg-panel-cart-right .fg-panel-cart-inner,
-.fg-large-width.fg-panel-thumbs-top:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
-.fg-large-width.fg-panel-thumbs-bottom:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
-.fg-large-width.fg-panel-thumbs-left:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
-.fg-large-width.fg-panel-thumbs-right:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner {
+.fg-medium.fg-large-width.fg-panel-info-left .fg-panel-info-inner,
+.fg-medium.fg-large-width.fg-panel-info-right .fg-panel-info-inner,
+.fg-medium.fg-large-width.fg-panel-cart-left .fg-panel-cart-inner,
+.fg-medium.fg-large-width.fg-panel-cart-right .fg-panel-cart-inner,
+.fg-medium.fg-large-width.fg-panel-thumbs-top:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
+.fg-medium.fg-large-width.fg-panel-thumbs-bottom:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
+.fg-medium.fg-large-width.fg-panel-thumbs-left:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
+.fg-medium.fg-large-width.fg-panel-thumbs-right:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner {
     width: 240px;
     min-width: 240px;
 }
-.fg-x-large-width.fg-panel-info-left .fg-panel-info-inner,
-.fg-x-large-width.fg-panel-info-right .fg-panel-info-inner,
-.fg-x-large-width.fg-panel-cart-left .fg-panel-cart-inner,
-.fg-x-large-width.fg-panel-cart-right .fg-panel-cart-inner,
-.fg-x-large-width.fg-panel-thumbs-top:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
-.fg-x-large-width.fg-panel-thumbs-bottom:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
-.fg-x-large-width.fg-panel-thumbs-left:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
-.fg-x-large-width.fg-panel-thumbs-right:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner {
+.fg-medium.fg-x-large-width.fg-panel-info-left .fg-panel-info-inner,
+.fg-medium.fg-x-large-width.fg-panel-info-right .fg-panel-info-inner,
+.fg-medium.fg-x-large-width.fg-panel-cart-left .fg-panel-cart-inner,
+.fg-medium.fg-x-large-width.fg-panel-cart-right .fg-panel-cart-inner,
+.fg-medium.fg-x-large-width.fg-panel-thumbs-top:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
+.fg-medium.fg-x-large-width.fg-panel-thumbs-bottom:not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
+.fg-medium.fg-x-large-width.fg-panel-thumbs-left:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
+.fg-medium.fg-x-large-width.fg-panel-thumbs-right:not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner {
     width: 280px;
     min-width: 280px;
 }

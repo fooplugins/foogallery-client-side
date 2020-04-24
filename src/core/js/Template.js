@@ -126,6 +126,9 @@
 				create: false,
 				children: false
 			};
+			self.robserver = new ResizeObserver(_fn.throttle(function () {
+				if (self.$el.is(":visible")) self.layout();
+			}, 250));
 		},
 
 		// ################
@@ -216,6 +219,7 @@
 			if (selector != null && !self.$el.is(selector)) {
 				self.$el.addClass(self.opt.classes);
 			}
+			self.robserver.observe(self.$el.get(0));
 
 			// if the container currently has no children make them
 			if (self.$el.children().not(self.sel.item.elem).length === 0) {
@@ -505,6 +509,7 @@
              * });
              */
             self.raise("destroy");
+			self.robserver.disconnect();
 			if (self._checkTimeout) clearTimeout(self._checkTimeout);
             self.$scrollParent.off(self.namespace);
             $(window).off(self.namespace);
@@ -688,13 +693,15 @@
 		 * @function
 		 * @name getCSSClass
 		 * @param {string} type - The specific type of CSS class to retrieve.
+		 * @param {string} [def=""] - The default value to return if no CSS class is found.
 		 * @returns {string}
 		 */
-		getCSSClass: function(type){
+		getCSSClass: function(type, def){
+			def = _is.empty(def) ? "" : def;
 			var regex = type instanceof RegExp ? type : (_is.string(type) && this.opt.regex.hasOwnProperty(type) ? this.opt.regex[type] : null),
 				className = (this.$el.prop("className") || ''),
 				match = regex != null ? className.match(regex) : null;
-			return match != null && match.length >= 2 ? match[1] : "";
+			return match != null && match.length >= 2 ? match[1] : def;
 		},
 
 		// ###############

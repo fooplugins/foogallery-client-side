@@ -148,10 +148,35 @@
 		return complete;
 	};
 
+	/**
+	 * @summary A string array of supported EXIF properties.
+	 * @memberof FooGallery
+	 * @name supportedExifProperties
+	 * @type {string[]}
+	 */
+	_.supportedExifProperties = ["aperture","camera","date","exposure","focalLength","iso","orientation"];
+
+	/**
+	 * @memberof FooGallery.utils.is
+	 * @function exif
+	 * @param {*} value - The value to check.
+	 * @returns {boolean} `true` if the `value` contains any supported and valid EXIF properties.
+	 */
+	_is.exif = function(value){
+		if (_is.object(value)){
+			var keys = Object.keys(value);
+			return keys.length > 0 && keys.some(function(key){
+				return _.supportedExifProperties.indexOf(key) !== -1 && !_is.empty(value[key]);
+			});
+		}
+		return false;
+	};
+
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is,
-		FooGallery.utils.fn
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils,
+	FooGallery.utils.is,
+	FooGallery.utils.fn,
+	FooGallery.utils.str
 );

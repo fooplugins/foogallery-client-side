@@ -103,6 +103,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/panel/thumbs-transitions.css",
 
 						"./src/core/css/appearance/theme.css",
+						"./src/core/css/appearance/exif.css",
 						"./src/core/css/appearance/border-size.css",
 						"./src/core/css/appearance/drop-shadow.css",
 						"./src/core/css/appearance/inset-shadow.css",
@@ -183,6 +184,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/general/core.css",
 
 						"./src/core/css/appearance/theme.css",
+						"./src/core/css/appearance/exif.css",
 						"./src/core/css/appearance/border-size.css",
 						"./src/core/css/appearance/drop-shadow.css",
 						"./src/core/css/appearance/inset-shadow.css",

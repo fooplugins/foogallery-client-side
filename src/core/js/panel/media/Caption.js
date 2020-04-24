@@ -1,4 +1,6 @@
-(function ($, _, _utils, _is, _fn, _obj, _t) {
+(function ($, _, _icons, _utils, _is, _fn, _obj, _str, _t) {
+
+    var canHover = !!window.matchMedia && window.matchMedia("(hover: hover)").matches;
 
     _.Panel.Media.Caption = _utils.Class.extend({
         construct: function (panel, media) {
@@ -13,11 +15,13 @@
             self.isAttached = false;
             self.hasTitle = false;
             self.hasDescription = false;
+            self.hasExif = false;
         },
         canLoad: function(){
             this.hasTitle = !_is.empty(this.media.item.caption);
             this.hasDescription = !_is.empty(this.media.item.description);
-            return this.hasTitle || this.hasDescription;
+            this.hasExif = this.media.item.hasExif && $.inArray(this.opt.exif, ["auto","full","partial","minimal"]) !== -1;
+            return this.hasTitle || this.hasDescription || this.hasExif;
         },
         create: function(){
             if (!this.isCreated){
@@ -39,7 +43,59 @@
             if (this.hasDescription){
                 this.$el.append($("<div/>").addClass(this.cls.description).html(this.media.item.description));
             }
+            if (this.hasExif){
+                var exif = this.media.item.exif, $exif = $("<div/>", {"class": this.cls.exif.elem}).addClass(this.cls.exif[this.opt.exif]);
+                for (var prop in exif){
+                    if (!exif.hasOwnProperty(prop) || _is.empty(exif[prop])) continue;
+                    var icon = "exif-" + _str.kebab(prop), text = this.media.item.il8n.exif[prop], value = exif[prop];
+                    var $exifProp = $("<div/>", {"class": this.cls.exif.prop}).append(
+                        $("<div/>", {"class": this.cls.exif.icon}).append(_icons.get(icon, this.opt.icons)),
+                        $("<div/>", {"class": this.cls.exif.content}).append(
+                            $("<div/>", {"class": this.cls.exif.label}).text(text),
+                            $("<div/>", {"class": this.cls.exif.value}).text(value)
+                        ),
+                        $("<span/>", {"class": this.cls.exif.tooltip}).text(text + ": " + value).append(
+                            $("<span/>", {"class": this.cls.exif.tooltipPointer})
+                        )
+                    );
+                    if (!canHover){
+                        $exifProp.on("click", {self: this}, this.onExifClick);
+                    }
+                    $exif.append($exifProp);
+                }
+                this.$el.append($exif);
+            }
             return true;
+        },
+        onExifClick: function(e){
+            e.preventDefault();
+            var self = e.data.self, $this = $(this),
+                $tooltip = $this.find(self.sel.exif.tooltip),
+                $current = $(self.sel.exif.showTooltip);
+
+            $(self.sel.exif.prop).removeClass(self.cls.exif.showTooltip)
+                .find(self.sel.exif.tooltip).css("left", "")
+                .find(self.sel.exif.tooltipPointer).css("left", "");
+            if (!$current.is($this)){
+                $tooltip.css("display", "inline-block");
+
+                var left = $tooltip.offset().left,
+                    right = left + $tooltip.outerWidth(),
+                    diff = Math.ceil(right - window.innerWidth);
+
+                if (diff > 0){
+                    $tooltip.css("left", "calc(50% - " + diff + "px)")
+                        .find(self.sel.exif.tooltipPointer).css("left", "calc(50% + " + diff + "px)");
+                }
+                if (left < 0){
+                    left = Math.abs(left);
+                    $tooltip.css("left", "calc(50% + " + left + "px)")
+                        .find(self.sel.exif.tooltipPointer).css("left", "calc(50% - " + left + "px)");
+                }
+
+                $tooltip.css("display", "");
+                $this.addClass(self.cls.exif.showTooltip);
+            }
         },
         destroy: function(){
             if (this.isCreated){
@@ -142,9 +198,11 @@
 })(
     FooGallery.$,
     FooGallery,
+    FooGallery.icons,
     FooGallery.utils,
     FooGallery.utils.is,
     FooGallery.utils.fn,
     FooGallery.utils.obj,
+    FooGallery.utils.str,
     FooGallery.utils.transition
 );

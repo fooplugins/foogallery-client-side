@@ -139,10 +139,8 @@
     line-height: 27px;
     margin-bottom: 5px;
 }
-.fg-medium.fg-panel-info-top.fg-panel-info-overlay .fg-panel-info .fg-panel-area-toggle,
-.fg-medium.fg-panel-info-right.fg-panel-info-overlay .fg-panel-info .fg-panel-area-toggle,
-.fg-panel-no-mobile.fg-panel-info-top.fg-panel-info-overlay .fg-panel-info .fg-panel-area-toggle,
-.fg-panel-no-mobile.fg-panel-info-right.fg-panel-info-overlay .fg-panel-info .fg-panel-area-toggle {
+.fg-medium.fg-panel-info-overlay .fg-panel-info .fg-panel-area-toggle,
+.fg-panel-no-mobile.fg-panel-info-overlay .fg-panel-info .fg-panel-area-toggle {
     right: 42px;
 }
 

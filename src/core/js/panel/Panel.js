@@ -3,7 +3,7 @@
     var instance_id = 0;
 
     _.Panel = _.EventComponent.extend({
-        construct: function(template, options, classes){
+        construct: function(template, options, classes, il8n){
             var self = this;
             self.instanceId = ++instance_id;
             self._super(template, "panel-");
@@ -11,6 +11,8 @@
             self.opt = _obj.extend({}, self.tmpl.opt.panel, options);
 
             self.cls = _obj.extend({}, self.tmpl.cls.panel, classes);
+
+            self.il8n = _obj.extend({}, self.tmpl.il8n.panel, il8n);
 
             var states = self.cls.states;
             self.cls.states.all = Object.keys(states).map(function (key) {
@@ -118,7 +120,7 @@
             var classes = [
                 self.cls.elem,
                 transition,
-                _is.string(self.opt.theme) ? self.opt.theme : self.tmpl.getCSSClass("theme"),
+                _is.string(self.opt.theme) ? self.opt.theme : self.tmpl.getCSSClass("theme", "fg-dark"),
                 _is.string(self.opt.loadingIcon) ? self.opt.loadingIcon : self.tmpl.getCSSClass("loadingIcon"),
                 _is.string(self.opt.hoverIcon) ? self.opt.hoverIcon : self.tmpl.getCSSClass("hoverIcon"),
                 _is.string(self.opt.videoIcon) ? self.opt.videoIcon : self.tmpl.getCSSClass("videoIcon"),
@@ -473,6 +475,7 @@
             infoVisible: false,
             infoOverlay: true,
             infoAutoHide: true,
+            exif: "none", // none | full | partial | minimal
 
             cart: "none", // none | top | bottom | left | right
             cartVisible: false,
@@ -609,6 +612,20 @@
                     title: "fg-panel-thumb-title",
                     description: "fg-panel-thumb-description"
                 }
+            }
+        }
+    },{
+        panel: {
+            buttons: {
+                prev: "Previous Media",
+                next: "Next Media",
+                close: "Close Modal",
+                maximize: "Toggle Maximize",
+                fullscreen: "Toggle Fullscreen",
+                autoProgress: "Auto Progress",
+                info: "Toggle Information",
+                thumbs: "Toggle Thumbnails",
+                cart: "Toggle Cart"
             }
         }
     });

@@ -51,6 +51,27 @@
     background-color: rgba(51, 51, 51, 0.8);
 }
 
+/* EXIF Colors */
+.fg-panel.fg-light .fg-media-caption-exif {
+    border-color: #767676;
+}
+.fg-panel.fg-light .fg-media-caption-exif-icon {
+    color: #767676;
+}
+.fg-panel.fg-light .fg-media-caption-exif-label {
+    color: #777777;
+}
+
+.fg-panel.fg-dark .fg-media-caption-exif {
+    border-color: #FFFFFF;
+}
+.fg-panel.fg-dark .fg-media-caption-exif-icon {
+    color: #FFFFFF;
+}
+.fg-panel.fg-dark .fg-media-caption-exif-label {
+    color: #bbbbbb;
+}
+
 /* Button & Highlight Colors */
 .fg-panel.fg-light .fg-panel-button,
 .fg-panel.fg-light .fg-panel-thumbs-button,

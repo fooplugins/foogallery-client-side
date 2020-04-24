@@ -4,7 +4,7 @@
         construct: function(panel){
             this._super(panel, "thumbs", {
                 icon: "thumbs",
-                label: "Thumbnails",
+                label: panel.il8n.buttons.thumbs,
                 position: panel.opt.thumbs,
                 captions: panel.opt.thumbsCaptions,
                 small: panel.opt.thumbsSmall,

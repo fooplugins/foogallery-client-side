@@ -10,6 +10,8 @@
 
             this.sel = panel.sel.buttons;
 
+            this.il8n = panel.il8n.buttons;
+
             this.$el = null;
 
             this.isCreated = false;
@@ -24,7 +26,7 @@
         registerCore: function(){
             this.register(new _.Panel.Button(this.panel, "prev", {
                 icon: "arrow-left",
-                label: "Previous Media",
+                label: this.il8n.prev,
                 click: this.panel.prev.bind(this.panel),
                 beforeLoad: function (media) {
                     this.disable(this.panel.prevItem == null);
@@ -32,7 +34,7 @@
             }), 10);
             this.register(new _.Panel.Button(this.panel, "next", {
                 icon: "arrow-right",
-                label: "Next Media",
+                label: this.il8n.next,
                 click: this.panel.next.bind(this.panel),
                 beforeLoad: function (media) {
                     this.disable(this.panel.nextItem == null);
@@ -46,7 +48,7 @@
             this.register(new _.Panel.Fullscreen(this.panel), 190);
             this.register(new _.Panel.Button(this.panel, "close", {
                 icon: "close",
-                label: "Close Modal",
+                label: this.il8n.close,
                 click: this.panel.close.bind(this.panel)
             }), 200);
         },

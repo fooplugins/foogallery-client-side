@@ -201,7 +201,22 @@
                 caption: {
                     elem: "fg-media-caption",
                     title: "fg-media-caption-title",
-                    description: "fg-media-caption-description"
+                    description: "fg-media-caption-description",
+                    exif: {
+                        elem: "fg-media-caption-exif",
+                        auto: "fg-media-caption-exif-auto",
+                        full: "fg-media-caption-exif-full",
+                        partial: "fg-media-caption-exif-partial",
+                        minimal: "fg-media-caption-exif-minimal",
+                        prop: "fg-media-caption-exif-prop",
+                        icon: "fg-media-caption-exif-icon",
+                        content: "fg-media-caption-exif-content",
+                        label: "fg-media-caption-exif-label",
+                        value: "fg-media-caption-exif-value",
+                        tooltip: "fg-media-caption-exif-tooltip",
+                        tooltipPointer: "fg-media-caption-exif-tooltip-pointer",
+                        showTooltip: "fg-media-caption-exif-show-tooltip"
+                    }
                 },
                 product: {
                     elem: "fg-media-product",

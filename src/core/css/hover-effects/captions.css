@@ -2,8 +2,6 @@
 .foogallery .fg-caption {
 	visibility: hidden;
 	opacity: 0;
-	background-color: rgba(0,0,0,0.6);
-	color: #fff;
 	position: absolute;
 	z-index: 8;
 	width: 100%;
@@ -20,16 +18,6 @@
 }
 .foogallery .fg-caption a {
 	text-decoration: none;
-	color: #fff;
-	border-bottom: 1px solid #FFF;
-}
-.foogallery.fg-light-overlays .fg-caption {
-	background-color: rgba(255,255,255,0.8);
-	color: #333;
-}
-.foogallery.fg-light-overlays .fg-caption a {
-	color: #333;
-	border-bottom-color: #333;
 }
 
 .foogallery .fg-caption a:hover {
