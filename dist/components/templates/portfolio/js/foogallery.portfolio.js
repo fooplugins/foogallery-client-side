@@ -31,13 +31,12 @@
 		},
 		onPostInit: function(event, self){
 			self.checkCSS();
-			$(window).on("resize" + self.namespace, {self: self}, _fn.debounce(function () {
-				self.checkCSS();
-			}, 50));
 		},
 		onDestroy: function(event, self){
 			self.removeCSS();
-			$(window).off("resize" + self.namespace);
+		},
+		onLayout: function(event, self){
+			self.checkCSS();
 		},
 		checkCSS: function(){
 			var self = this, maxWidth = self.getContainerWidth(), current = maxWidth < self.template.columnWidth;
