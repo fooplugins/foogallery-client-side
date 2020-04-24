@@ -6,8 +6,6 @@
 			this.$el = template.$el;
 			this.options = $.extend(true, {}, _.Justified.defaults, options);
 			this._items = [];
-			this._lastRefresh = 0;
-			this._refresh = null;
 		},
 		init: function(){
 			var self = this;
@@ -18,22 +16,9 @@
 					self.options.maxRowHeight = parseInt(self.options.maxRowHeight);
 				}
 			}
-			$(window).on("resize.justified", {self: self}, self.onWindowResize);
-			this._refresh = setInterval(function(){
-				self.refresh();
-			}, self.options.refreshInterval);
 		},
 		destroy: function(){
-			if (this._refresh) clearInterval(this._refresh);
-			$(window).off("resize.justified");
 			this.$el.removeAttr("style");
-		},
-		refresh: function(){
-			var maxWidth = this.getContainerWidth();
-			if (maxWidth != this._lastRefresh){
-				this.layout();
-				this._lastRefresh = maxWidth;
-			}
 		},
 		parse: function(){
 			var self = this;
@@ -66,19 +51,14 @@
 			}
 			return self.$el.width();
 		},
-		layout: function(refresh, autoCorrect){
-			refresh = _is.boolean(refresh) ? refresh : false;
-			autoCorrect = _is.boolean(autoCorrect) ? autoCorrect : true;
-
-			if (refresh || this._items.length === 0){
-				this.parse();
-			}
+		layout: function(){
+			this.parse();
 
 			var self = this,
-					height = 0,
-					maxWidth = self.getContainerWidth(),
-					maxHeight = self.getMaxRowHeight(),
-					rows = self.rows(maxWidth, maxHeight);
+				height = 0,
+				maxWidth = self.getContainerWidth(),
+				maxHeight = self.getMaxRowHeight(),
+				rows = self.rows(maxWidth, maxHeight);
 
 			$.each(rows, function(ri, row){
 				if (row.visible){
@@ -88,11 +68,6 @@
 				self.render(row);
 			});
 			self.$el.height(height);
-			// if our layout caused the container width to get smaller
-			// i.e. makes a scrollbar appear then layout again to account for it
-			if (autoCorrect && self.getContainerWidth() < maxWidth){
-				self.layout(false, false);
-			}
 		},
 		render: function(row){
 			for (var j = 0, jl = row.items.length, item; j < jl; j++){
@@ -272,9 +247,6 @@
 			if (rows.length > 1) top += self.options.margins;
 			self.lastRow(row, top, maxWidth, maxHeight);
 			return rows;
-		},
-		onWindowResize: function(e){
-			e.data.self.layout( true );
 		}
 	});
 
@@ -304,24 +276,24 @@
 			self.justified.init();
 		},
 		onFirstLoad: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		},
 		onReady: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		},
 		onDestroy: function(event, self){
 			self.justified.destroy();
 		},
 		onLayout: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		},
 		onAfterPageChange: function(event, self, current, prev, isFilter){
 			if (!isFilter){
-				self.justified.layout( true );
+				self.justified.layout();
 			}
 		},
 		onAfterFilterChange: function(event, self){
-			self.justified.layout( true );
+			self.justified.layout();
 		}
 	});
 

@@ -120,7 +120,7 @@
             var classes = [
                 self.cls.elem,
                 transition,
-                _is.string(self.opt.theme) ? self.opt.theme : self.tmpl.getCSSClass("theme"),
+                _is.string(self.opt.theme) ? self.opt.theme : self.tmpl.getCSSClass("theme", "fg-dark"),
                 _is.string(self.opt.loadingIcon) ? self.opt.loadingIcon : self.tmpl.getCSSClass("loadingIcon"),
                 _is.string(self.opt.hoverIcon) ? self.opt.hoverIcon : self.tmpl.getCSSClass("hoverIcon"),
                 _is.string(self.opt.videoIcon) ? self.opt.videoIcon : self.tmpl.getCSSClass("videoIcon"),

@@ -693,13 +693,15 @@
 		 * @function
 		 * @name getCSSClass
 		 * @param {string} type - The specific type of CSS class to retrieve.
+		 * @param {string} [def=""] - The default value to return if no CSS class is found.
 		 * @returns {string}
 		 */
-		getCSSClass: function(type){
+		getCSSClass: function(type, def){
+			def = _is.empty(def) ? "" : def;
 			var regex = type instanceof RegExp ? type : (_is.string(type) && this.opt.regex.hasOwnProperty(type) ? this.opt.regex[type] : null),
 				className = (this.$el.prop("className") || ''),
 				match = regex != null ? className.match(regex) : null;
-			return match != null && match.length >= 2 ? match[1] : "";
+			return match != null && match.length >= 2 ? match[1] : def;
 		},
 
 		// ###############
