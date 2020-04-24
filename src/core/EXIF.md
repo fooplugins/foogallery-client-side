@@ -64,6 +64,36 @@ This can be customized by adding you own CSS class and setting the CSS propertie
 
 You can also display this icon with rounded corners by adding the `fg-exif-rounded` CSS class to the root `.foogallery` container.
 
+##### Panel Display
+
+The panel supports displaying the EXIF data in the info area along with the caption. To control how to display the data you can supply the new `exif` option. This option supports four values:
+
+1. `auto` - The default value for the option. This switches the appearance of the data between the `full`, `partial` and `minimal` views depending on the size of the panel.
+2. `full` - The icon, label and value are all visible.
+3. `partial` - The icon and value are visible.
+4. `minimal` - Only the icon is visible.
+
+```json
+{
+	"panel": {
+		"exif": "auto"
+	}
+}
+```
+ 
+For templates like FooGrid or Slider you can supply this value as part of the `template` options.
+
+```json
+{
+	"template": {
+		"exif": "auto"
+	}
+}
+```
+
+When hovering over or tapping on an EXIF property in the panel a tooltip becomes visible showing the label and value.
+
+
 ##### il8n
 
-To supply localization for the EXIF property names you will need to supply them through a global property
+To supply localization for the EXIF property names you will need to supply them through the global `FooGallery_il8n` property. Take a look at the associated `il8n.md` file.
