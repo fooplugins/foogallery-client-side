@@ -7,7 +7,7 @@
             this.opt = _obj.extend({
                 icon: null,
                 label: null,
-                visible: true,
+                visible: !!panel.opt.buttons[name],
                 disabled: false,
                 click: $.noop,
                 beforeLoad: $.noop,
