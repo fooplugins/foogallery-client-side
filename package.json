@@ -29,6 +29,6 @@
   "dependencies": {
     "jquery": "^3.4.1",
     "masonry-layout": "^3.3.2",
-    "npm": "^6.8.0"
+    "npm": "^6.13.4"
   }
 }
