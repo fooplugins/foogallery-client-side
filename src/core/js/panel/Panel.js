@@ -500,7 +500,7 @@
                 autoProgress: true,
                 info: true,
                 thumbs: false,
-                cart: true
+                cart: false
             },
             breakpoints: {
                 medium: {
