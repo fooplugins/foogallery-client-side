@@ -316,38 +316,11 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
-			"full_polyfill": {
-				"files": {
-					"./dist/full_polyfill/js/foogallery.js": [
-						"./polyfills/IntersectionObserver.js",
-						"./polyfills/ResizeObserver.js",
-						"./dist/components/core/js/foogallery.js",
-						"./dist/components/templates/default/js/foogallery.default.js",
-						"./dist/components/templates/masonry/js/foogallery.masonry.js",
-						"./dist/components/templates/justified/js/foogallery.justified.js",
-						"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
-						"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
-						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
-						"./dist/components/templates/foogrid/js/foogallery.foogrid.js",
-						"./dist/components/templates/slider/js/foogallery.slider.js",
-						"./src/core/js/ready.js"
-					],
-					"./dist/full_polyfill/css/foogallery.css": [
-						"./dist/components/core/css/foogallery.css",
-						"./dist/components/templates/default/css/foogallery.default.css",
-						"./dist/components/templates/masonry/css/foogallery.masonry.css",
-						"./dist/components/templates/justified/css/foogallery.justified.css",
-						"./dist/components/templates/portfolio/css/foogallery.portfolio.css",
-						"./dist/components/templates/image-viewer/css/foogallery.image-viewer.css",
-						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css",
-						"./dist/components/templates/foogrid/css/foogallery.foogrid.css",
-						"./dist/components/templates/slider/css/foogallery.slider.css"
-					]
-				}
-			},
 			"full": {
 				"files": {
 					"./dist/full/js/foogallery.js": [
+						"./polyfills/IntersectionObserver.js",
+						"./polyfills/ResizeObserver.js",
 						"./dist/components/core/js/foogallery.js",
 						"./dist/components/templates/default/js/foogallery.default.js",
 						"./dist/components/templates/masonry/js/foogallery.masonry.js",
@@ -375,6 +348,8 @@ module.exports = function ( grunt ) {
 			"lite": {
 				"files": {
 					"./dist/lite/js/foogallery.js": [
+						"./polyfills/IntersectionObserver.js",
+						"./polyfills/ResizeObserver.js",
 						"./dist/components/core_lite/js/foogallery.js",
 						"./dist/components/templates/default/js/foogallery.default.js",
 						"./dist/components/templates/masonry/js/foogallery.masonry.js",
@@ -406,11 +381,6 @@ module.exports = function ( grunt ) {
 					'* @copyright Steven Usher & Brad Vincent 2015\n' +
 					'* @license Released under the GPLv3 license.\n' +
 					'*/\n'
-			},
-			"full_polyfill": {
-				"files": {
-					"./dist/full_polyfill/js/foogallery.min.js": "./dist/full_polyfill/js/foogallery.js"
-				}
 			},
 			"full": {
 				"files": {
@@ -489,11 +459,6 @@ module.exports = function ( grunt ) {
 					'* @license Released under the GPLv3 license.\n' +
 					'*/\n'
 			},
-			"full_polyfill": {
-				"files": {
-					"./dist/full_polyfill/css/foogallery.min.css": "./dist/full_polyfill/css/foogallery.css"
-				}
-			},
 			"full": {
 				"files": {
 					"./dist/full/css/foogallery.min.css": "./dist/full/css/foogallery.css"
@@ -561,12 +526,6 @@ module.exports = function ( grunt ) {
 			}
 		},
 		"copy": {
-			"full_polyfill": {
-				"expand": true,
-				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
-				"dest": "./dist/full_polyfill/img",
-				"flatten": true
-			},
 			"full": {
 				"expand": true,
 				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
@@ -666,10 +625,6 @@ module.exports = function ( grunt ) {
 		"concat:slider",
 		"uglify:slider",
 		"cssmin:slider",
-		"concat:full_polyfill", // create the full_polyfill version
-		"uglify:full_polyfill",
-		"cssmin:full_polyfill",
-		"copy:full_polyfill",
 		"concat:full", // create the full version
 		"uglify:full",
 		"cssmin:full",
