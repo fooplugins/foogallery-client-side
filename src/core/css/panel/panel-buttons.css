@@ -32,6 +32,13 @@
     align-items: flex-end;
 }
 
+/* Mini reset to override certain WP themes */
+.fg-panel .fg-panel-button,
+.fg-panel .fg-panel-area-toggle,
+.fg-panel .fg-panel-thumbs-button {
+    background: none;
+    border-radius: 0;
+}
 
 .fg-panel-button {
     position: relative;
