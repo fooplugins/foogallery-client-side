@@ -41,28 +41,20 @@
 		},
 		fromHash: function(hash){
 			var self = this, opt = self.tmpl.state.opt;
-			return hash.indexOf(opt.arraySeparator) === -1
-				? [hash.split(opt.array).map(function(part){ return decodeURIComponent(part.replace(/\+/g, '%20')); })]
-				: hash.split(opt.arraySeparator).map(function(arr){
-					return _is.empty(arr) ? [] : arr.split(opt.array).map(function(part){
-						return decodeURIComponent(part.replace(/\+/g, '%20'));
-					})
+			return hash.split(opt.arraySeparator).map(function(arr){
+				return _is.empty(arr) ? [] : arr.split(opt.array).map(function(part){
+					return decodeURIComponent(part);
 				});
+			});
 		},
 		toHash: function(value){
 			var self = this, opt = self.tmpl.state.opt, hash = null;
 			if (_is.array(value)){
-				if (_is.array(value[0])){
-					hash = $.map(value, function(tags){
-						return $.map(tags, function(tag){
-							return encodeURIComponent(tag);
-						}).join(opt.array);
-					}).join(opt.arraySeparator);
-				} else {
-					hash = $.map(value, function(tag){
-						return encodeURIComponent(tag);
-					}).join(opt.array);
-				}
+				hash = $.map(value, function(tags){
+					return (_is.array(tags) ? $.map(tags, function(tag){
+						return _is.undef(tag) ? "" : encodeURIComponent(tag);
+					}) : []).join(opt.array);
+				}).join(opt.arraySeparator);
 			}
 			return _is.empty(hash) ? null : hash;
 		},

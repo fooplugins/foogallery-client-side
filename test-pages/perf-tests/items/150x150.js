@@ -15,7 +15,9 @@ var ITEMS = window.ITEMS = [
 		"attr": {
 			"item": {},
 			"inner": {},
-			"anchor": {},
+			"anchor": {
+				"data-lightbox-title": "Custom Lightbox Title"
+			},
 			"image": {}
 		}
 	},
@@ -36,7 +38,9 @@ var ITEMS = window.ITEMS = [
 		"attr": {
 			"item": {},
 			"inner": {},
-			"anchor": {},
+			"anchor": {
+				"data-lightbox-description": "Custom Lightbox Description"
+			},
 			"image": {}
 		}
 	},
@@ -57,7 +61,10 @@ var ITEMS = window.ITEMS = [
 		"attr": {
 			"item": {},
 			"inner": {},
-			"anchor": {},
+			"anchor": {
+				"data-lightbox-title": "Custom Lightbox Title",
+				"data-lightbox-description": "Custom Lightbox Description"
+			},
 			"image": {}
 		}
 	},
