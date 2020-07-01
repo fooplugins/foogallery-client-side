@@ -222,6 +222,7 @@ module.exports = function ( grunt ) {
 			"admin": {
 				"files": {
 					"./dist/admin/js/foogallery.admin.js": [
+						"./src/admin/js/settings.js",
 						"./src/admin/js/vertical-tabs.js"
 					],
 					"./dist/admin/css/foogallery.admin.css": [
