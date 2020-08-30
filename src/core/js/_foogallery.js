@@ -39,11 +39,13 @@
 			var current = element.data(_.DATA_TEMPLATE);
 			if (current instanceof _.Template) {
 				return current.destroy(true).then(function(){
-					return _.template.make(options, element).initialize();
+					var tmpl = _.template.make(options, element);
+					return tmpl instanceof _.Template ? tmpl.initialize() : _fn.rejected;
 				});
 			}
 		}
-		return _.template.make(options, element).initialize();
+		var tmpl = _.template.make(options, element);
+		return tmpl instanceof _.Template ? tmpl.initialize() : _fn.rejected;
 	};
 
 	_.initAll = function (options) {
