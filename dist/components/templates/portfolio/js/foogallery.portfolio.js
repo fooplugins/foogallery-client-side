@@ -72,7 +72,7 @@
 			}
 			self.fullWidth = maxWidth < width;
 			if (self.fullWidth){
-				rule = item + ' { max-width: 100%; margin: ' + gutter + 'px; }';
+				rule = item + ' { max-width: 100%; min-width: 100%; margin: ' + gutter + 'px; }';
 				sheet.insertRule(rule , 0);
 			} else {
 				rule = item + ' { max-width: ' + width + 'px; min-width: ' + width + 'px; margin: ' + gutter + 'px; }';
