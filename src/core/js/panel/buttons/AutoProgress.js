@@ -3,7 +3,7 @@
     _.Panel.AutoProgress = _.Panel.Button.extend({
         construct: function(panel){
             var self = this;
-            self.__stopped = false;
+            self.__stopped = !panel.opt.autoProgressStart;
             self.__timer = new _utils.Timer();
             self._super(panel, "autoProgress", {
                 icon: "auto-progress",
