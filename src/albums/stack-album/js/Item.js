@@ -12,7 +12,7 @@
             self._loading = null;
         },
         init: function(){
-            var self = this;
+
         },
         destroy: function(){
 
