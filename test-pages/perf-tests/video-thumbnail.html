@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Justified Template</title>
+	<link href="test.css" rel="stylesheet"/>
+	<link href="../../dist/full/css/foogallery.css" rel="stylesheet"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="../../dist/full/js/foogallery.js"></script>
+	<script>
+		(function(_){
+
+			_.auto({
+				"lazy": false,
+				"src": "data-src",
+				"srcset": "data-srcset",
+				"fixLayout": false,
+				"template": {
+					"rowHeight": 250,
+					"margins": 10
+				}
+			});
+
+		})(FooGallery);
+	</script>
+	<script>
+(function($, _, _is, _fn){
+
+	_.Item.override('load', function(){
+		const self = this;
+		if (self.$image.is('video')){
+			if (_is.promise(self._load)) return self._load;
+			if (!self.isCreated || !self.isAttached) return _fn.rejectWith("not created or attached");
+			const e = self.tmpl.raise("load-item", [self]);
+			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			const cls = self.cls;
+			self.isLoading = true;
+			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
+			return self._load = $.Deferred(function (def) {
+				self.$image.on({
+					'loadeddata.video-thumbnail': function(){
+						self.$image.off('.video-thumbnail');
+						self.isLoading = false;
+						self.isLoaded = true;
+						self.$el.removeClass(cls.loading).addClass(cls.loaded);
+						if (self.fixLayout || !self.isParsed) self.unfix();
+						self.tmpl.raise("loaded-item", [self]);
+						def.resolve(self);
+					},
+					'error.video-thumbnail': function(){
+						self.$image.off('.video-thumbnail');
+						self.isLoading = false;
+						self.isError = true;
+						self.$el.removeClass(cls.loading).addClass(cls.error);
+						self.tmpl.raise("error-item", [self]);
+						def.reject(self);
+					}
+				});
+				// set everything in motion by setting the src
+				self.$image.attr('src', self.src);
+			}).promise();
+		}
+		return self._super();
+	});
+
+})(
+		FooGallery.$,
+		FooGallery,
+		FooGallery.utils.is,
+		FooGallery.utils.fn
+);
+	</script>
+	<style>
+		body {
+			background-color: #333;
+		}
+	</style>
+</head>
+<body>
+<div id="wrapper">
+
+	<h3>HTML Items</h3>
+
+	<div id="foogallery-gallery-2" class="foogallery fg-light fg-hover-fade fg-hover-zoom fg-video-default fg-video-sticky fg-justified fg-loading-default">
+
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" data-type="video" href="https://s3-eu-west-2.amazonaws.com/wildfire-2019/wp-content/uploads/2020/10/12-Second-WIP-10.mp4?autoplay=1" data-title="Title for 0" data-description="This is a short description for item 0.">
+					<span class="fg-image-wrap">
+						<video autoplay="" muted="" loop="" class="fg-image swarm-exclude" width="1071" height="600" data-src="https://s3-eu-west-2.amazonaws.com/wildfire-2019/wp-content/uploads/2020/10/12-Second-WIP-10.mp4"></video>
+					</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">Title for 0</div>
+						<div class="fg-caption-desc">This is a short description for item 0.</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" href="https://dummyimage.com/1920x1200/f000ff/000000&text=Item+1+(1920×1200)" data-title="Title for 1" data-description="This is a long description for item 1 to see how templates handle various lengths even if they start to get very, very long. Ideally if your descriptions are this long you should only display the title.">
+					<span class="fg-image-wrap">
+						<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/150x225/f000ff/000000&text=Item+1+(150×225)" data-srcset="https://dummyimage.com/300x450/f000ff/000000&text=Item+1+(300×450) 300w,https://dummyimage.com/450x675/f000ff/000000&text=Item+1+(450×675) 450w" width="150" height="225" title="Title for 1" alt="This is a long description for item 1 to see how templates handle various lengths even if they start to get very, very long. Ideally if your descriptions are this long you should only display the title.">
+					</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">Title for 1</div>
+						<div class="fg-caption-desc">This is a long description for item 1 to see how templates handle various lengths even if they start to get very, very long. Ideally if your descriptions are this long you should only display the title.</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" href="https://dummyimage.com/1920x1200/7fdbdc/000000&text=Item+2+(1920×1200)" data-title="Title for 2" data-description="This is a short description for item 2.">
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/150x150/7fdbdc/000000&text=Item+2+(150×150)" data-srcset="https://dummyimage.com/300x300/7fdbdc/000000&text=Item+2+(300×300) 300w,https://dummyimage.com/450x450/7fdbdc/000000&text=Item+2+(450×450) 450w" width="150" height="150" title="Title for 2" alt="This is a short description for item 2.">
+			</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">Title for 2</div>
+						<div class="fg-caption-desc">This is a short description for item 2.</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" href="https://dummyimage.com/1920x1200/663e00/ffffff&text=Item+3+(1920×1200)" data-title="Title for 3" data-description="This is a short description for item 3.">
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/250x250/663e00/ffffff&text=Item+3+(250×250)" data-srcset="https://dummyimage.com/500x500/663e00/ffffff&text=Item+3+(500×500) 500w,https://dummyimage.com/750x750/663e00/ffffff&text=Item+3+(750×750) 750w" width="250" height="250" title="Title for 3" alt="This is a short description for item 3.">
+			</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">Title for 3</div>
+						<div class="fg-caption-desc">This is a short description for item 3.</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+		<div class="fg-item">
+			<figure class="fg-item-inner">
+				<a class="fg-thumb" href="https://dummyimage.com/1920x1200/cccccc/000000&text=Item+4+(1920×1200)" data-title="Title for 4" data-description="This is a medium description for item 4 to see how templates handle various lengths.">
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="1x1.gif" data-src="https://dummyimage.com/360x240/cccccc/000000&text=Item+4+(360×240)" data-srcset="https://dummyimage.com/720x480/cccccc/000000&text=Item+4+(720×480) 720w,https://dummyimage.com/1080x720/cccccc/000000&text=Item+4+(1080×720) 1080w" width="360" height="240" title="Title for 4" alt="This is a medium description for item 4 to see how templates handle various lengths.">
+			</span>
+				</a>
+				<figcaption class="fg-caption">
+					<div class="fg-caption-inner">
+						<div class="fg-caption-title">Title for 4</div>
+						<div class="fg-caption-desc">This is a medium description for item 4 to see how templates handle various lengths.</div>
+					</div>
+				</figcaption>
+			</figure>
+			<div class="fg-loader"></div>
+		</div>
+	</div>
+	<video autoplay="" muted="" loop="" class="fg-image swarm-exclude" width="1071" height="600" data-src="https://s3-eu-west-2.amazonaws.com/wildfire-2019/wp-content/uploads/2020/10/12-Second-WIP-10.mp4" style="width: 1071px; height: 600px;"></video>
+
+</div>
+</body>
+</html>
