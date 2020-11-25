@@ -28,6 +28,7 @@
         destroy: function(){
             var self = this;
             self.robserver.disconnect();
+            self.$back.off('.foogallery');
             self.piles.forEach(function(pile){
                 pile.destroy();
             });
