@@ -317,6 +317,19 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
+			"stack-album": {
+				"files": {
+					"./dist/components/albums/stack-album/js/foogallery.stack-album.js": [
+						"./src/albums/stack-album/js/Album.js",
+						"./src/albums/stack-album/js/Pile.js",
+						"./src/albums/stack-album/js/Item.js",
+						"./src/albums/stack-album/js/ready.js"
+					],
+					"./dist/components/albums/stack-album/css/foogallery.stack-album.css": [
+						"./src/albums/stack-album/css/album.css"
+					]
+				}
+			},
 			"full": {
 				"files": {
 					"./dist/full/js/foogallery.js": [
@@ -331,6 +344,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
 						"./dist/components/templates/foogrid/js/foogallery.foogrid.js",
 						"./dist/components/templates/slider/js/foogallery.slider.js",
+						"./dist/components/albums/stack-album/js/foogallery.stack-album.js",
 						"./src/core/js/ready.js"
 					],
 					"./dist/full/css/foogallery.css": [
@@ -342,7 +356,8 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/image-viewer/css/foogallery.image-viewer.css",
 						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css",
 						"./dist/components/templates/foogrid/css/foogallery.foogrid.css",
-						"./dist/components/templates/slider/css/foogallery.slider.css"
+						"./dist/components/templates/slider/css/foogallery.slider.css",
+						"./dist/components/albums/stack-album/css/foogallery.stack-album.css",
 					]
 				}
 			},
@@ -358,6 +373,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
 						"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
 						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
+						"./dist/components/albums/stack-album/js/foogallery.stack-album.js",
 						"./src/core/js/ready.js"
 					],
 					"./dist/lite/css/foogallery.css": [
@@ -367,7 +383,8 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/justified/css/foogallery.justified.css",
 						"./dist/components/templates/portfolio/css/foogallery.portfolio.css",
 						"./dist/components/templates/image-viewer/css/foogallery.image-viewer.css",
-						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css"
+						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css",
+						"./dist/components/albums/stack-album/css/foogallery.stack-album.css"
 					]
 				}
 			}
@@ -447,6 +464,11 @@ module.exports = function ( grunt ) {
 				"files": {
 					"./dist/components/templates/slider/js/foogallery.slider.min.js": "./dist/components/templates/slider/js/foogallery.slider.js"
 				}
+			},
+			"stack-album": {
+				"files": {
+					"./dist/components/albums/stack-album/js/foogallery.stack-album.min.js": "./dist/components/albums/stack-album/js/foogallery.stack-album.js"
+				}
 			}
 		},
 		"cssmin": {
@@ -524,6 +546,11 @@ module.exports = function ( grunt ) {
 				"files": {
 					"./dist/components/templates/slider/css/foogallery.slider.min.css": "./dist/components/templates/slider/css/foogallery.slider.css"
 				}
+			},
+			"stack-album": {
+				"files": {
+					"./dist/components/albums/stack-album/css/foogallery.stack-album.min.css": "./dist/components/albums/stack-album/css/foogallery.stack-album.css"
+				}
 			}
 		},
 		"copy": {
@@ -563,7 +590,8 @@ module.exports = function ( grunt ) {
 					"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
 					"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
 					"./dist/components/templates/foogrid/js/foogallery.foogrid.js",
-					"./dist/components/templates/slider/js/foogallery.slider.js"
+					"./dist/components/templates/slider/js/foogallery.slider.js",
+					"./dist/components/albums/stack-album/js/foogallery.stack-album.js"
 				],
 				"jsdoc": "./node_modules/jsdoc/jsdoc.js",
 				"options": {
@@ -626,6 +654,9 @@ module.exports = function ( grunt ) {
 		"concat:slider",
 		"uglify:slider",
 		"cssmin:slider",
+		"concat:stack-album",
+		"uglify:stack-album",
+		"cssmin:stack-album",
 		"concat:full", // create the full version
 		"uglify:full",
 		"cssmin:full",
