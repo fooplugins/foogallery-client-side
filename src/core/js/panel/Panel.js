@@ -464,6 +464,7 @@
 
             loop: true,
             autoProgress: 0,
+            autoProgressStart: true,
             fitMedia: false,
             keyboard: true,
             noScrollbars: true,
