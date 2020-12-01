@@ -644,7 +644,6 @@
 			var e = self.trigger(name, args);
 			if (e.defaultPrevented) event.preventDefault();
 			self.$el.trigger(event, args);
-			_.debug.logf("{id}|{name}:", {id: self.id, name: name}, args);
 			if (_is.fn(self[listener])) {
 				args.unshift(event); // add event
 				self[listener].apply(self.$el.get(0), args);
