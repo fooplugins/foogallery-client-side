@@ -1,4 +1,6 @@
-(function($, _, _fs){
+(function($, _, _utils){
+
+    _.fullscreen = new _utils.FullscreenAPI();
 
     _.Panel.Fullscreen = _.Panel.Button.extend({
         construct: function(panel){
@@ -17,19 +19,21 @@
         },
         click: function(){
             var self = this, pnl = self.panel.$el.get(0);
-            _fs.toggle(pnl).then(function(){
-                if (_fs.element() === pnl){
-                    _fs.on("change error", self.onFullscreenChange, self);
+            _.fullscreen.toggle(pnl).then(function(){
+                if (_.fullscreen.element() === pnl){
+                    _.fullscreen.on("change error", self.onFullscreenChange, self);
                     self.enter();
                 } else {
-                    _fs.off("change error", self.onFullscreenChange, self);
+                    _.fullscreen.off("change error", self.onFullscreenChange, self);
                     self.exit();
                 }
+            }, function(err){
+                console.debug('Error toggling fullscreen on element.', err, pnl);
             });
             self._super();
         },
         onFullscreenChange: function(){
-            if (_fs.element() !== this.panel.$el.get(0)){
+            if (_.fullscreen.element() !== this.panel.$el.get(0)){
                 this.exit();
             }
         },
@@ -66,5 +70,5 @@
 })(
     FooGallery.$,
     FooGallery,
-    FooGallery.utils.fullscreen
+    FooGallery.utils
 );
