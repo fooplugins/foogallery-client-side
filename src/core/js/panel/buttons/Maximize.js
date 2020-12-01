@@ -1,4 +1,4 @@
-(function($, _, _is, _fs){
+(function($, _, _is){
 
     _.Panel.Maximize = _.Panel.Button.extend({
         construct: function(panel){
@@ -70,6 +70,5 @@
 })(
     FooGallery.$,
     FooGallery,
-    FooGallery.utils.is,
-    FooGallery.utils.fullscreen
+    FooGallery.utils.is
 );
