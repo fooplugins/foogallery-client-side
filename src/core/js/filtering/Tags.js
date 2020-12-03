@@ -52,7 +52,7 @@
 					var $item = $(this), tag = $item.data("tag");
 					if (!_is.string(tag)) tag += "";
 					var empty = _is.empty(tag);
-					$item.toggleClass(cls.selected, (empty && _is.empty(tags[i])) || (!empty && $.inArray(tag, tags[i]) !== -1));
+					$item.toggleClass(cls.selected, (empty && _is.empty(tags[i])) || (!empty && tags[i].indexOf(tag) !== -1));
 				});
 			});
 		},
@@ -84,7 +84,7 @@
 						if (!_is.array(tags[tag.level])){
 							tags[tag.level] = [];
 						}
-						i = $.inArray(tag.value, tags[tag.level]);
+						i = tags[tag.level].indexOf(tag.value);
 						if (i === -1){
 							tags[tag.level].push(tag.value);
 						} else {

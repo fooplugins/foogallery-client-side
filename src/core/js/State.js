@@ -110,7 +110,7 @@
 		 * @returns {boolean}
 		 */
 		isPushOrReplace: function(value){
-			return $.inArray(value, ["push","replace"]) !== -1;
+			return ["push","replace"].indexOf(value) !== -1;
 		},
 		/**
 		 * @summary Check if the current url contains state for this template.

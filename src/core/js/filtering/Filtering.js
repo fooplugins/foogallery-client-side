@@ -83,7 +83,7 @@
 				if (!_is.empty(t = items[i].tags)) {
 					result.__ALL__++;
 					for (var j = 0, jl = t.length, tag; j < jl; j++) {
-						if (!_is.empty(tag = t[j]) && (generate || (!generate && $.inArray(tag, tags) !== -1))) {
+						if (!_is.empty(tag = t[j]) && (generate || (!generate && tags.indexOf(tag) !== -1))) {
 							if (_is.number(result[tag])) {
 								result[tag]++;
 							} else {
@@ -107,7 +107,7 @@
 					var count = counts[prop], isAll = prop === "__ALL__";
 					if (self.min <= 0 || count >= self.min) {
 						if (tags.length > 0){
-							index = $.inArray(prop, tags);
+							index = tags.indexOf(prop);
 						} else {
 							index++;
 						}

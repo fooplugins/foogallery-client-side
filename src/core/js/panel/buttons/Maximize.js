@@ -37,7 +37,7 @@
             this.panel.$el.appendTo("body").addClass(this.panel.cls.maximized).attr({
                 'role': 'dialog',
                 'aria-modal': true
-            }).focus();
+            }).trigger('focus');
             if (this.isCreated) this.$el.attr("aria-pressed", true);
             this.panel.trapFocus();
             if (this.panel.opt.noScrollbars){
@@ -52,7 +52,7 @@
                 'role': null,
                 'aria-modal': null
             }).insertBefore(this.$placeholder);
-            if (this.panel.isInline) this.panel.$el.focus();
+            if (this.panel.isInline) this.panel.$el.trigger('focus');
             this.$placeholder.detach();
             if (this.isCreated) this.$el.attr("aria-pressed", false);
             this.panel.releaseFocus();

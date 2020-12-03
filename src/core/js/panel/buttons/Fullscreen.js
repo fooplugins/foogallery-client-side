@@ -45,7 +45,7 @@
                 this.panel.$el.attr({
                     'role': 'dialog',
                     'aria-modal': true
-                }).focus();
+                }).trigger('focus');
                 this.panel.trapFocus();
             }
             if (this.isCreated) this.$el.attr("aria-pressed", true);
@@ -58,7 +58,7 @@
                 this.panel.$el.attr({
                     'role': null,
                     'aria-modal': null
-                }).focus();
+                }).trigger('focus');
                 this.panel.releaseFocus();
             }
             if (this.isCreated) this.$el.attr("aria-pressed", false);

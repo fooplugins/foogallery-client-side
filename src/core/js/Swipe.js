@@ -206,10 +206,10 @@
 					event.preventDefault();
 				} else if (_is.hash(self.opt.allowPageScroll)){
 					var dir = self.getDirection(self.startPoint, self.endPoint);
-					if (!self.opt.allowPageScroll.x && $.inArray(dir, ['NE','E','SE','NW','W','SW']) !== -1){
+					if (!self.opt.allowPageScroll.x && ['NE','E','SE','NW','W','SW'].indexOf(dir) !== -1){
 						event.preventDefault();
 					}
-					if (!self.opt.allowPageScroll.y && $.inArray(dir, ['NW','N','NE','SW','S','SE']) !== -1){
+					if (!self.opt.allowPageScroll.y && ['NW','N','NE','SW','S','SE'].indexOf(dir) !== -1){
 						event.preventDefault();
 					}
 				}
