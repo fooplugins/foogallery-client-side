@@ -416,7 +416,7 @@
 
                     if ($boundary.length && $target.is($boundary)) {
                         e.preventDefault();
-                        $new.focus();
+                        $new.trigger('focus');
                     }
                 }
             }

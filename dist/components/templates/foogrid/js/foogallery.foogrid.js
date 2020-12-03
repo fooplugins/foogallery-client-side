@@ -191,7 +191,7 @@
 			}).then(function(){
 				return self.panel.load(item);
 			}).then(function(){
-				self.$section.focus();
+				self.$section.trigger('focus');
 				self.isBusy = false;
 			}).promise();
 		},

@@ -1,7 +1,5 @@
 (function ($, _, _utils, _is, _fn) {
 
-	_.debug = new _utils.Debugger("__FooGallery__");
-
 	/**
 	 * @summary The url of an empty 1x1 pixel image used as the default value for the `placeholder` and `error` {@link FooGallery.defaults|options}.
 	 * @memberof FooGallery

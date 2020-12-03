@@ -9,7 +9,7 @@
             this.selfHosted = _is.boolean(selfHosted) ? selfHosted : false;
             this.embedParams = _is.array(embedParams) ? embedParams : [];
             this.autoPlayParam = _is.hash(autoPlayParam) ? autoPlayParam : {};
-            this.canPlayType = this.selfHosted && _is.fn(videoEl.canPlayType) ? $.inArray(videoEl.canPlayType(this.mimeType), ['probably','maybe']) !== -1 : true;
+            this.canPlayType = this.selfHosted && _is.fn(videoEl.canPlayType) ? ['probably','maybe'].indexOf(videoEl.canPlayType(this.mimeType)) !== -1 : true;
         },
         canPlay: function(urlParts){
             return this.canPlayType && this.regex.test(urlParts.href);
