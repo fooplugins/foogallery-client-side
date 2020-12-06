@@ -41,7 +41,7 @@
 			return this._super(pageNumber) || this.isKeyword(pageNumber);
 		},
 		isKeyword: function(pageNumber){
-			return _is.string(pageNumber) && this.pageKeywords.indexOf(pageNumber) !== -1;
+			return _is.string(pageNumber) && _utils.inArray(pageNumber, this.pageKeywords) !== -1;
 		},
 		number: function(value){
 			var self = this;

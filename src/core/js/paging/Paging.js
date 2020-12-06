@@ -160,7 +160,7 @@
 		find: function (item) {
 			var self = this;
 			for (var i = 0, l = self._arr.length; i < l; i++) {
-				if (self._arr[i].indexOf(item) !== -1) {
+				if (_utils.inArray(item, self._arr[i]) !== -1) {
 					return i + 1;
 				}
 			}
@@ -168,7 +168,7 @@
 		},
 		contains: function (pageNumber, item) {
 			var items = this.get(pageNumber);
-			return items.indexOf(item) !== -1;
+			return _utils.inArray(item, items) !== -1;
 		},
 		first: function () {
 			this.goto(1);

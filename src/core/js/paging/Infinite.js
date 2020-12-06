@@ -49,7 +49,7 @@
 			pageNumber = self.number(pageNumber);
 			if (isFilter) self.tmpl.items.detach(self.tmpl.items.all());
 			for (var i = 0; i < pageNumber; i++){
-				var exists = self._created.indexOf(i);
+				var exists = _utils.inArray(i, self._created);
 				if (exists === -1){
 					var items = self.tmpl.items.create(self._arr[i], true);
 					if (items.length){
