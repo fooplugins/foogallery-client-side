@@ -59,7 +59,7 @@
 );
 /*!
 * FooGallery.utils - Contains common utility methods and classes used in our plugins.
-* @version 0.2.1
+* @version 0.2.2
 * @link https://github.com/steveush/foo-utils#readme
 * @copyright Steve Usher 2020
 * @license Released under the GPL-3.0 license.
@@ -122,7 +122,7 @@
 			 * @name version
 			 * @type {string}
 			 */
-			version: '0.2.1'
+			version: '0.2.2'
 		};
 	}
 
@@ -131,7 +131,7 @@
 })(jQuery);
 (function ($, _){
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	/**
 	 * @summary Contains common type checking utility methods.
@@ -485,7 +485,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	/**
 	 * @memberof FooGallery.utils.
@@ -1072,7 +1072,7 @@
 );
 (function(_, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	/**
 	 * @summary Contains common url utility methods.
@@ -1211,7 +1211,7 @@
 );
 (function (_, _is, _fn) {
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	/**
 	 * @summary Contains common string utility methods.
@@ -1551,7 +1551,7 @@
 );
 (function($, _, _is, _fn, _str){
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	/**
 	 * @summary Contains common object utility methods.
@@ -1883,7 +1883,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	// any methods that have dependencies but don't fall into a specific subset or namespace can be added here
 
@@ -1985,6 +1985,21 @@
 				if (result === false) break;
 			}
 		}
+	};
+
+	/**
+	 * @summary Checks if a value exists within an array.
+	 * @memberof FooGallery.utils.
+	 * @function inArray
+	 * @param {*} needle - The value to search for.
+	 * @param {[]} haystack - The array to search within.
+	 * @returns {number} Returns the index of the value if found otherwise -1.
+	 */
+	_.inArray = function(needle, haystack){
+		if (_is.array(haystack)){
+			return haystack.indexOf(needle);
+		}
+		return -1;
 	};
 
 	/**
@@ -2302,7 +2317,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	/**
 	 * @summary Contains common utility methods and members for the CSS animation property.
@@ -2539,7 +2554,7 @@
 );
 (function($, _, _is, _animation){
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	/**
 	 * @summary Contains common utility methods and members for the CSS transition property.
@@ -2717,7 +2732,7 @@
 );
 (function ($, _, _is, _obj, _fn) {
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	/**
 	 * @summary A base class providing some helper methods for prototypal inheritance.
@@ -2887,7 +2902,7 @@
 );
 (function (_, _is, _str) {
     // only register methods if this version is the current version
-    if (_.version !== '0.2.1') return;
+    if (_.version !== '0.2.2') return;
 
     /**
      * @summary A base event class providing just a type and defaultPrevented properties.
@@ -3230,7 +3245,7 @@
 );
 (function($, _, _is){
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	/**
 	 * @summary A simple bounding rectangle class.
@@ -3372,7 +3387,7 @@
 );
 (function($, _, _is, _fn, _obj){
     // only register methods if this version is the current version
-    if (_.version !== '0.2.1') return;
+    if (_.version !== '0.2.2') return;
 
     /**
      * @summary A simple timer that triggers events.
@@ -3672,7 +3687,7 @@
 
 (function($, _, _is, _fn){
 	// only register methods if this version is the current version
-	if (_.version !== '0.2.1') return;
+	if (_.version !== '0.2.2') return;
 
 	/**
 	 * @summary A factory for classes allowing them to be registered and created using a friendly name.
@@ -4008,7 +4023,7 @@
 );
 (function($, _, _fn){
     // only register methods if this version is the current version
-    if (_.version !== '0.2.1') return;
+    if (_.version !== '0.2.2') return;
 
     /**
      * @summary A wrapper around the fullscreen API to ensure cross browser compatibility.
@@ -4645,10 +4660,10 @@
 					event.preventDefault();
 				} else if (_is.hash(self.opt.allowPageScroll)){
 					var dir = self.getDirection(self.startPoint, self.endPoint);
-					if (!self.opt.allowPageScroll.x && ['NE','E','SE','NW','W','SW'].indexOf(dir) !== -1){
+					if (!self.opt.allowPageScroll.x && _utils.inArray(dir, ['NE','E','SE','NW','W','SW']) !== -1){
 						event.preventDefault();
 					}
-					if (!self.opt.allowPageScroll.y && ['NW','N','NE','SW','S','SE'].indexOf(dir) !== -1){
+					if (!self.opt.allowPageScroll.y && _utils.inArray(dir, ['NW','N','NE','SW','S','SE']) !== -1){
 						event.preventDefault();
 					}
 				}
@@ -5988,7 +6003,7 @@
 	FooGallery.utils,
 	FooGallery.utils.is
 );
-(function($, _, _is, _str, _obj){
+(function($, _, _utils, _is, _str, _obj){
 
 	_.State = _.Component.extend(/** @lends FooGallery.State */{
 		/**
@@ -6100,7 +6115,7 @@
 		 * @returns {boolean}
 		 */
 		isPushOrReplace: function(value){
-			return ["push","replace"].indexOf(value) !== -1;
+			return _utils.inArray(value, ["push","replace"]) !== -1;
 		},
 		/**
 		 * @summary Check if the current url contains state for this template.
@@ -6352,6 +6367,7 @@
 })(
 	FooGallery.$,
 	FooGallery,
+	FooGallery.utils,
 	FooGallery.utils.is,
 	FooGallery.utils.str,
 	FooGallery.utils.obj
@@ -8508,7 +8524,7 @@
 		find: function (item) {
 			var self = this;
 			for (var i = 0, l = self._arr.length; i < l; i++) {
-				if (self._arr[i].indexOf(item) !== -1) {
+				if (_utils.inArray(item, self._arr[i]) !== -1) {
 					return i + 1;
 				}
 			}
@@ -8516,7 +8532,7 @@
 		},
 		contains: function (pageNumber, item) {
 			var items = this.get(pageNumber);
-			return items.indexOf(item) !== -1;
+			return _utils.inArray(item, items) !== -1;
 		},
 		first: function () {
 			this.goto(1);
