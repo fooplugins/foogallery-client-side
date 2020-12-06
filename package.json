@@ -1,6 +1,6 @@
 {
   "name": "foogallery",
-  "version": "1.4.23",
+  "version": "1.4.24",
   "title": "FooGallery",
   "description": "The Most Intuitive and Extensible Gallery Creation and Management Tool Ever Created for WordPress",
   "main": "Gruntfile.js",
@@ -16,7 +16,7 @@
   "license": "GPL",
   "devDependencies": {
     "bootstrap": "^3.4.1",
-    "foo-utils": "0.2.1",
+    "foo-utils": "0.2.2",
     "foodoc": "0.0.8",
     "grunt": "^1.0.4",
     "grunt-contrib-clean": "^1.0.0",

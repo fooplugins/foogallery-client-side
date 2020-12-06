@@ -1,4 +1,4 @@
-(function($, _, _is, _str, _obj){
+(function($, _, _utils, _is, _str, _obj){
 
 	_.State = _.Component.extend(/** @lends FooGallery.State */{
 		/**
@@ -110,7 +110,7 @@
 		 * @returns {boolean}
 		 */
 		isPushOrReplace: function(value){
-			return ["push","replace"].indexOf(value) !== -1;
+			return _utils.inArray(value, ["push","replace"]) !== -1;
 		},
 		/**
 		 * @summary Check if the current url contains state for this template.
@@ -362,6 +362,7 @@
 })(
 	FooGallery.$,
 	FooGallery,
+	FooGallery.utils,
 	FooGallery.utils.is,
 	FooGallery.utils.str,
 	FooGallery.utils.obj

@@ -51,7 +51,7 @@
             }
             self.hasTitle = !_is.empty(self.title);
             self.hasDescription = !_is.empty(self.description);
-            self.hasExif = item.hasExif && ["auto","full","partial","minimal"].indexOf(self.opt.exif) !== -1;
+            self.hasExif = item.hasExif && _utils.inArray(self.opt.exif, ["auto","full","partial","minimal"]) !== -1;
         },
         create: function(){
             if (!this.isCreated){
