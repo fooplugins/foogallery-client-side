@@ -11,9 +11,9 @@ Supply the EXIF data as part of an items' JSON by simply adding an object called
 	"exif": {
 		"aperture": null,
 		"camera": null,
-		"date": null,
-		"exposure": null,
-		"focalLength": null,
+		"created_timestamp": null,
+		"shutter_speed": null,
+		"focal_length": null,
 		"iso": null,
 		"orientation": null
 	}
@@ -68,10 +68,11 @@ You can also display this icon with rounded corners by adding the `fg-exif-round
 
 The panel supports displaying the EXIF data in the info area along with the caption. To control how to display the data you can supply the new `exif` option. This option supports four values:
 
-1. `auto` - The default value for the option. This switches the appearance of the data between the `full`, `partial` and `minimal` views depending on the size of the panel.
-2. `full` - The icon, label and value are all visible.
-3. `partial` - The icon and value are visible.
-4. `minimal` - Only the icon is visible.
+1. `none` - The default value for the option. No exif data is displayed within the panel even if it exists.
+2. `auto` - Recommended value. This switches the appearance of the data between the `full`, `partial` and `minimal` views depending on the size of the panel.
+3. `full` - The icon, label and value are all visible.
+4. `partial` - The icon and value are visible.
+5. `minimal` - Only the icon is visible.
 
 ```json
 {
