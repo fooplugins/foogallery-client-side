@@ -303,8 +303,14 @@
 					if (!!tmpl.pages){
 						tmpl.pages.setState(obj);
 					} else {
-						tmpl.items.detach(tmpl.items.all());
-						tmpl.items.create(tmpl.items.available(), true);
+						var all = tmpl.items.all(),
+							available = tmpl.items.available();
+						if (all.length !== available.length){
+							tmpl.items.detach(all.filter(function(item){
+								return available.indexOf(item) !== -1;
+							}));
+						}
+						tmpl.items.create(available, true);
 					}
 					if (obj.item){
 						if (self.opt.scrollTo) {
