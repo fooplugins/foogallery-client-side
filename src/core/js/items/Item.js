@@ -122,6 +122,12 @@
 			 * @type {?jQuery}
 			 */
 			self.$caption = null;
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name $loader
+			 * @type {?jQuery}
+			 */
+			self.$loader = null;
 
 			/**
 			 * @memberof FooGallery.Item#
@@ -409,7 +415,7 @@
 					self.$wrap.remove();
 				}
 				if (self._undo.loader) {
-					self.$el.find(self.sel.loader).remove();
+					self.$loader.remove();
 				}
 				if (self._undo.placeholder && self.$image.prop("src") === _.EMPTY_IMAGE) {
 					self.$image.removeAttr("src");
@@ -476,7 +482,7 @@
 			var e = self.tmpl.raise("parse-item", [self, $el]);
 			if (!e.isDefaultPrevented() && (self.isCreated = $el.is(self.sel.elem))) {
 				self.isParsed = self.doParseItem($el);
-				if (self.fixLayout) self.fix();
+				// if (self.fixLayout) self.fix();
 				// We don't load the attributes when parsing as they are only ever used to create an item and if you're parsing it's already created.
 			}
 			if (self.isParsed) {
@@ -509,16 +515,19 @@
 		 * @returns {boolean}
 		 */
 		doParseItem: function ($el) {
-			var self = this, o = self.tmpl.opt, cls = self.cls, sel = self.sel;
+			var self = this, o = self.tmpl.opt, cls = self.cls, sel = self.sel, el = $el.get(0);
 
 			self._undo.classes = $el.attr("class") || "";
 			self._undo.style = $el.attr("style") || "";
 
 			self.$el = $el.data(_.DATA_ITEM, self);
-			self.$inner = self.$el.children(sel.inner);
-			self.$anchor = self.$inner.children(sel.anchor).on("click.foogallery", {self: self}, self.onAnchorClick);
-			self.$image = self.$anchor.find(sel.image);
-			self.$caption = self.$inner.children(sel.caption.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
+			self.$inner = $(el.querySelector(sel.inner));//self.$el.children(sel.inner);
+			self.$anchor = $(el.querySelector(sel.anchor)).on("click.foogallery", {self: self}, self.onAnchorClick);
+			self.$image = $(el.querySelector(sel.image));
+			self.$caption = $(el.querySelector(sel.caption.elem)).on("click.foogallery", {self: self}, self.onCaptionClick);
+			self.$overlay = $(el.querySelector(sel.overlay));
+			self.$wrap = $(el.querySelector(sel.wrap));
+			self.$loader = $(el.querySelector(sel.loader));
 
 			if ( !self.$el.length || !self.$inner.length || !self.$anchor.length || !self.$image.length ){
 				console.error("FooGallery Error: Invalid HTML markup. Check the item markup for additional elements or malformed HTML in the title or description.", self);
@@ -530,12 +539,12 @@
 				return false;
 			}
 
-			self.isAttached = self.$el.parent().length > 0;
-			self.isLoading = self.$el.is(sel.loading);
-			self.isLoaded = self.$el.is(sel.loaded);
-			self.isError = self.$el.is(sel.error);
+			self.isAttached = el.parentNode !== null;
+			self.isLoading = self.$el.hasClass(cls.loading);
+			self.isLoaded = self.$el.hasClass(cls.loaded);
+			self.isError = self.$el.hasClass(cls.error);
 
-			var data = self.$anchor.attr("data-type", self.type).data();
+			var data = self.$anchor.data();
 			self.id = data.id || self.id;
 			self.productId = data.productId || self.productId;
 			self.tags = data.tags || self.tags;
@@ -565,35 +574,37 @@
 				self.$caption.find(sel.caption.description).html(self.description.substr(0, self.maxDescriptionLength) + "&hellip;");
 			}
 			// check if the item has an overlay
-			self.$overlay = self.$anchor.children(sel.overlay);
 			if (self.$overlay.length === 0) {
 				self.$overlay = $("<span/>", {"class": cls.overlay});
 				self.$anchor.append(self.$overlay);
 				self._undo.overlay = true;
 			}
 			// check if the item has a wrap
-			self.$wrap = self.$anchor.children(sel.wrap);
 			if (self.$wrap.length === 0) {
 				self.$wrap = $("<span/>", {"class": cls.wrap});
 				self.$anchor.append(self.$wrap.append(self.$image));
 				self._undo.wrap = true;
 			}
 			// check if the item has a loader
-			if (self.$el.children(sel.loader).length === 0) {
-				self.$el.append($("<div/>", {"class": cls.loader}));
+			if (self.$loader.length === 0) {
+				self.$loader = $("<div/>", {"class": cls.loader});
+				self.$el.append(self.$loader);
 				self._undo.loader = true;
 			}
 			// if the image has no src url then set the placeholder
 			var img = self.$image.get(0);
-			if (_is.empty(img.src)) {
+			if (!_is.string(img.src) || img.src.length === 0) {
 				img.src = _.EMPTY_IMAGE;
 				self._undo.placeholder = true;
 			}
-			self.$el.addClass(self.getTypeClass());
-			if (self.hasExif){
+			var typeClass = self.getTypeClass();
+			if (!self.$el.hasClass(typeClass)){
+				self.$el.addClass(typeClass);
+			}
+			if (self.hasExif && !self.$el.hasClass(cls.exif)){
 				self.$el.addClass(cls.exif);
 			}
-			if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError) {
+			if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError && !self.$el.hasClass(cls.idle)) {
 				self.$el.addClass(cls.idle);
 			}
 			return true;
@@ -814,7 +825,7 @@
 				var e = self.tmpl.raise("append-item", [self]);
 				if (!e.isDefaultPrevented()) {
 					self.tmpl.$el.append(self.$el);
-					if (self.fixLayout || !self.isParsed) self.fix();
+					// if (self.fixLayout || !self.isParsed) self.fix();
 					self.isAttached = true;
 				}
 				if (self.isAttached) {
@@ -892,7 +903,7 @@
 				var e = self.tmpl.raise("detach-item", [self]);
 				if (!e.isDefaultPrevented()) {
 					self.$el.detach();
-					if (self.fixLayout || !self.isParsed) self.unfix();
+					// if (self.fixLayout || !self.isParsed) self.unfix();
 					self.isAttached = false;
 				}
 				if (!self.isAttached) {
@@ -938,7 +949,7 @@
 					self.isLoading = false;
 					self.isLoaded = true;
 					self.$el.removeClass(cls.loading).addClass(cls.loaded);
-					if (self.fixLayout || !self.isParsed) self.unfix();
+					// if (self.fixLayout || !self.isParsed) self.unfix();
 					self.tmpl.raise("loaded-item", [self]);
 					def.resolve(self);
 				};
@@ -954,7 +965,8 @@
 					def.reject(self);
 				};
 				// set everything in motion by setting the src
-				img.src = self.getThumbUrl();
+				img.src = self.src;
+				img.srcset = self.srcset;
 				if (img.complete){
 					img.onload();
 				}
@@ -1026,7 +1038,7 @@
 		 * @returns {string}
 		 */
 		getTypeClass: function(){
-			return this.cls.types.hasOwnProperty(this.type) ? this.cls.types[this.type] : "";
+			return this.cls.types[this.type] || "";
 		},
 		/**
 		 * @summary Scroll the item into the center of the viewport.
@@ -1058,6 +1070,10 @@
 		 * @returns {?FooGallery.utils.Bounds}
 		 */
 		bounds: function () {
+			if (this.isAttached){
+				var el = this.$el.get(0);
+				console.log(el.getBoundingClientRect());
+			}
 			return this.isAttached ? _utils.getElementBounds(this.$el) : null;
 		},
 		/**
@@ -1069,6 +1085,16 @@
 		 */
 		intersects: function (bounds) {
 			return this.isAttached ? this.bounds().intersects(bounds) : false;
+		},
+		visible: function(){
+			if (this.isAttached){
+				var rect = this.$el.get(0).getBoundingClientRect();
+				return rect.bottom > 0 &&
+					rect.right > 0 &&
+					rect.left < (window.innerWidth || document.documentElement.clientWidth) &&
+					rect.top < (window.innerHeight || document.documentElement.clientHeight);
+			}
+			return false;
 		},
 		/**
 		 * @summary Updates the current state to this item.

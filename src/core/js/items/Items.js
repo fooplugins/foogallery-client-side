@@ -219,13 +219,15 @@
 		 * @returns {FooGallery.Item[]}
 		 */
 		loadable: function (items) {
-			var self = this, opt = self.tmpl.opt, viewport;
-			if (opt.lazy) {
-				viewport = _utils.getViewportBounds(opt.viewport);
+			var self = this, opt = self.tmpl.opt;
+			if (self.ALLOW_LOAD && _is.array(items)) {
+				return $.map(items, function (item) {
+					return item.isCreated && item.isAttached
+						&& !item.isLoading && !item.isLoaded && !item.isError
+						&& (!opt.lazy || (opt.lazy && item.visible())) ? item : null;
+				});
 			}
-			return self.ALLOW_LOAD && _is.array(items) ? $.map(items, function (item) {
-						return item.isCreated && item.isAttached && !item.isLoading && !item.isLoaded && !item.isError && (!opt.lazy || (opt.lazy && item.intersects(viewport))) ? item : null;
-					}) : [];
+			return [];
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be created.
