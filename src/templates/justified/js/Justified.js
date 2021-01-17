@@ -74,6 +74,7 @@
 				item = row.items[j];
 				if (row.visible){
 					item.$item.css({
+						position: "absolute",
 						width: item.width,
 						height: item.height,
 						top: item.top,
@@ -225,7 +226,7 @@
 			for (var i = 0, il = items.length, item; i < il; i++){
 				item = items[i];
 				// first make all the items match the row height
-				if (item.height != self.options.rowHeight){
+				if (item.height !== self.options.rowHeight){
 					var ratio = self.options.rowHeight / item.height;
 					item.height = item.height * ratio;
 					item.width = item.width * ratio;
