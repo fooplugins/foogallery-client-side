@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Justified Template</title>
+	<title>Justified CSS Template</title>
 	<link href="test.css" rel="stylesheet"/>
 	<link href="../../dist/full/css/foogallery.css" rel="stylesheet"/>
 	<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
@@ -11,69 +11,24 @@
 	<script>
 		(function(_){
 
-			// _.autoEnabled = false;
-
 			_.auto({
-				"lazy": true,
-				"template": {
-					"rowHeight": 150,
-					"margins": 10
-				}
+				"lazy": true
 			});
 
 		})(FooGallery);
 	</script>
-
-<!--	<style>-->
-<!--		.foogallery.fg-justified-css {-->
-<!--			position: relative;-->
-<!--			display: flex;-->
-<!--			box-sizing: border-box;-->
-<!--			align-items: center;-->
-<!--			justify-content: stretch;-->
-<!--			flex-wrap: wrap;-->
-<!--		}-->
-<!--		.foogallery.fg-justified-css:after {-->
-<!--			display: block;-->
-<!--			content: '';-->
-<!--			flex-shrink: 0;-->
-<!--			flex-grow: 10;-->
-<!--			min-width: 60px;-->
-<!--		}-->
-<!--		.foogallery.fg-justified-css .fg-item,-->
-<!--		.foogallery.fg-justified-css .fg-item-inner,-->
-<!--		.foogallery.fg-justified-css .fg-thumb,-->
-<!--		.foogallery.fg-justified-css .fg-image {-->
-<!--			display: block;-->
-<!--		}-->
-
-<!--		.foogallery.fg-justified-css .fg-item {-->
-<!--			flex-shrink: 1.5;-->
-<!--			flex-grow: 1.5;-->
-<!--			margin: 5px;-->
-<!--		}-->
-<!--		.foogallery.fg-justified-css .fg-thumb {-->
-<!--			background-color: #00a0d2;-->
-<!--		}-->
-<!--		.foogallery.fg-justified-css .fg-image-wrap {-->
-<!--			display: flex;-->
-<!--			align-items: center;-->
-<!--			justify-content: stretch;-->
-<!--			overflow: hidden;-->
-<!--			max-height: 150px;-->
-<!--		}-->
-<!--		.foogallery.fg-justified-css .fg-image {-->
-<!--			background-color: rgba(0,0,0,0.4);-->
-<!--			width: 100%;-->
-<!--			height: auto;-->
-<!--		}-->
-<!--	</style>-->
 </head>
 <body>
 <div id="wrapper">
 
 	<h3>HTML Items</h3>
 
+	<!--suppress HtmlUnknownTag -->
+	<style>
+		#foogallery-gallery-2.fg-justified-css .fg-image-wrap {
+			max-height: 150px; /* Thumb Height */
+		}
+	</style>
 	<div id="foogallery-gallery-2" class="foogallery fg-justified-css fg-light fg-hover-fade fg-hover-zoom fg-video-default fg-video-sticky fg-loading-default fg-border-thick fg-shadow-outline">
 
 		<div class="fg-item fg-type-image fg-idle">

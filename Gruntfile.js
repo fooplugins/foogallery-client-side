@@ -271,6 +271,16 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
+			"justified-css": {
+				"files": {
+					"./dist/components/templates/justified-css/js/foogallery.justified-css.js": [
+						"./src/templates/justified-css/js/ready.js"
+					],
+					"./dist/components/templates/justified-css/css/foogallery.justified-css.css": [
+						"./src/templates/justified-css/css/justified.css"
+					]
+				}
+			},
 			"portfolio": {
 				"files": {
 					"./dist/components/templates/portfolio/js/foogallery.portfolio.js": [
@@ -339,6 +349,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/default/js/foogallery.default.js",
 						"./dist/components/templates/masonry/js/foogallery.masonry.js",
 						"./dist/components/templates/justified/js/foogallery.justified.js",
+						"./dist/components/templates/justified-css/js/foogallery.justified-css.js",
 						"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
 						"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
 						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
@@ -352,6 +363,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/default/css/foogallery.default.css",
 						"./dist/components/templates/masonry/css/foogallery.masonry.css",
 						"./dist/components/templates/justified/css/foogallery.justified.css",
+						"./dist/components/templates/justified-css/css/foogallery.justified-css.css",
 						"./dist/components/templates/portfolio/css/foogallery.portfolio.css",
 						"./dist/components/templates/image-viewer/css/foogallery.image-viewer.css",
 						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css",
@@ -370,6 +382,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/default/js/foogallery.default.js",
 						"./dist/components/templates/masonry/js/foogallery.masonry.js",
 						"./dist/components/templates/justified/js/foogallery.justified.js",
+						"./dist/components/templates/justified-css/js/foogallery.justified-css.js",
 						"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
 						"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
 						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
@@ -381,6 +394,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/templates/default/css/foogallery.default.css",
 						"./dist/components/templates/masonry/css/foogallery.masonry.css",
 						"./dist/components/templates/justified/css/foogallery.justified.css",
+						"./dist/components/templates/justified-css/css/foogallery.justified-css.css",
 						"./dist/components/templates/portfolio/css/foogallery.portfolio.css",
 						"./dist/components/templates/image-viewer/css/foogallery.image-viewer.css",
 						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css",
@@ -443,6 +457,11 @@ module.exports = function ( grunt ) {
 			"justified": {
 				"files": {
 					"./dist/components/templates/justified/js/foogallery.justified.min.js": "./dist/components/templates/justified/js/foogallery.justified.js"
+				}
+			},
+			"justified-css": {
+				"files": {
+					"./dist/components/templates/justified-css/js/foogallery.justified-css.min.js": "./dist/components/templates/justified-css/js/foogallery.justified-css.js"
 				}
 			},
 			"portfolio": {
@@ -527,6 +546,11 @@ module.exports = function ( grunt ) {
 					"./dist/components/templates/justified/css/foogallery.justified.min.css": "./dist/components/templates/justified/css/foogallery.justified.css"
 				}
 			},
+			"justified-css": {
+				"files": {
+					"./dist/components/templates/justified-css/css/foogallery.justified-css.min.css": "./dist/components/templates/justified/css/foogallery.justified-css.css"
+				}
+			},
 			"portfolio": {
 				"files": {
 					"./dist/components/templates/portfolio/css/foogallery.portfolio.min.css": "./dist/components/templates/portfolio/css/foogallery.portfolio.css"
@@ -587,6 +611,7 @@ module.exports = function ( grunt ) {
 					"./dist/components/templates/masonry/js/foogallery.masonry.js",
 					"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
 					"./dist/components/templates/justified/js/foogallery.justified.js",
+					"./dist/components/templates/justified-css/js/foogallery.justified-css.js",
 					"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
 					"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
 					"./dist/components/templates/foogrid/js/foogallery.foogrid.js",
@@ -642,6 +667,9 @@ module.exports = function ( grunt ) {
 		"concat:justified",
 		"uglify:justified",
 		"cssmin:justified",
+		"concat:justified-css",
+		"uglify:justified-css",
+		"cssmin:justified-css",
 		"concat:portfolio",
 		"uglify:portfolio",
 		"cssmin:portfolio",
