@@ -40,7 +40,7 @@
 				state.page = this.find(state.item);
 				state.page = state.page !== 0 ? state.page : 1;
 			}
-			this.set(state.page, false, false, true);
+			this.set(state.page, true, false, false);
 		},
 		destroy: function () {
 			var self = this;
@@ -111,9 +111,13 @@
 			var self = this;
 			pageNumber = self.number(pageNumber);
 			var index = pageNumber - 1;
-			self.tmpl.items.detach(self.tmpl.items.all());
+			var pageItems = self._arr[index];
+			if (!self.tmpl.items.isAll(pageItems)){
+				var notOnPage = self.tmpl.items.not(pageItems);
+				self.tmpl.items.detach(notOnPage);
+			}
 			self.current = pageNumber;
-			self.tmpl.items.create(self._arr[index], true);
+			self.tmpl.items.create(pageItems, true);
 		},
 		get: function (pageNumber) {
 			var self = this;
@@ -197,19 +201,37 @@
 			self.pages = parent;
 			self.position = position;
 			self.$container = null;
+			self._containerExisted = false;
+			self._placeholderClasses = [];
 		},
 		create: function () {
 			var self = this;
-			self.$container = $("<nav/>", {"class": self.pages.cls.container}).addClass(self.pages.theme);
+			self.$container = $("#" + self.tmpl.id + "_paging-" + self.position);
+			if (self.$container.length > 0){
+				self._containerExisted = true;
+				self.$container.removeClass(function(i, classNames){
+					self._placeholderClasses = classNames.match(/(^|\s)fg-placeholder-\S+/g) || [];
+					return self._placeholderClasses.join(' ');
+				}).addClass([self.pages.cls.container, self.pages.theme].join(' '));
+			} else {
+				self.$container = $("<nav/>", {"class": [self.pages.cls.container, self.pages.theme].join(' ')});
+			}
 			return true;
 		},
 		destroy: function () {
 			var self = this;
-			self.$container.remove();
+			if (self._containerExisted){
+				self.$container.empty()
+					.removeClass()
+					.addClass(self._placeholderClasses.join(' '));
+			} else {
+				self.$container.remove();
+			}
 			self.$container = null;
 		},
 		append: function () {
 			var self = this;
+			if (self._containerExisted) return;
 			if (self.position === "top") {
 				self.$container.insertBefore(self.tmpl.$el);
 			} else {

@@ -1,3 +1,14 @@
+.fg-placeholder-dots {
+	display: block;
+	padding: 15px;
+}
+.fg-placeholder-dots:after {
+	display: block;
+	content: '';
+	width: 0;
+	height: 22px;
+}
+
 .fg-paging-container .fg-dots,
 .fg-paging-container .fg-dot-item {
 	display: inline-block;

@@ -12,10 +12,10 @@
 			this._created = [];
 		},
 		available: function(){
-			var self = this, items = [], page = self.get(self.current), viewport = _utils.getViewportBounds(), last, first;
+			var self = this, items = [], page = self.get(self.current), last, first;
 			if (!self.tmpl.initializing && !_is.empty(page) && self._created.length < self.total){
 				last = page[page.length - 1].bounds();
-				if (last.top - viewport.bottom < self.distance){
+				if (last.top - window.innerHeight < self.distance){
 					self.set(self.current + 1, false);
 					return self.available();
 				}
@@ -26,7 +26,7 @@
 				if (!_is.empty(page)){
 					first = page[0].bounds();
 					last = page[page.length - 1].bounds();
-					if (first.top - viewport.bottom < self.distance || last.bottom - viewport.top < self.distance){
+					if (first.top - window.innerHeight < self.distance || last.bottom < self.distance){
 						items.push.apply(items, page);
 					}
 				}
@@ -51,10 +51,8 @@
 			for (var i = 0; i < pageNumber; i++){
 				var exists = _utils.inArray(i, self._created);
 				if (exists === -1){
-					var items = self.tmpl.items.create(self._arr[i], true);
-					if (items.length){
-						self._created.push(i);
-					}
+					self.tmpl.items.create(self._arr[i], true);
+					self._created.push(i);
 				}
 			}
 			self.current = pageNumber;
