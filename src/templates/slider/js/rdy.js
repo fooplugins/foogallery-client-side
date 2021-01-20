@@ -38,12 +38,12 @@
         ready: function(){
             var self = this;
             if (self._super()){
-                _.breakpoints.register(self.$el, self.template.outerBreakpoints, function () {
-                    self.panel.resize();
-                });
+                // _.breakpoints.register(self.$el, self.template.outerBreakpoints, function () {
+                //     self.panel.resize();
+                // });
                 self.panel.appendTo(self.$el);
                 self.panel.load(self.state.current.item);
-                _.breakpoints.check(self.$el);
+                // _.breakpoints.check(self.$el);
                 return true;
             }
             return false;
@@ -51,7 +51,7 @@
         destroy: function(preserveState){
             var self = this, _super = self._super.bind(self);
             return self.panel.destroy().then(function(){
-                _.breakpoints.remove(self.$el);
+                // _.breakpoints.remove(self.$el);
                 return _super(preserveState);
             });
         },
@@ -85,13 +85,13 @@
                 maximize: false,
                 fullscreen: false
             },
-            outerBreakpoints: {
-                "x-small": 480,
-                small: 768,
-                medium: 1024,
-                large: 1280,
-                "x-large": 1600
-            }
+            // outerBreakpoints: {
+            //     "x-small": 480,
+            //     small: 768,
+            //     medium: 1024,
+            //     large: 1280,
+            //     "x-large": 1600
+            // }
         }
     }, {
         container: "foogallery fg-slider",

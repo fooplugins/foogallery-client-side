@@ -115,7 +115,7 @@
 		onAppendItem: function (event, self, item) {
 			event.preventDefault();
 			self.$inner.append(item.$el);
-			item.fix();
+			// item.fix();
 			item.isAttached = true;
 		},
 		onAfterPageChange: function(event, self, current, prev, isFilter){

@@ -1,4 +1,4 @@
-(function($, _, _is){
+(function($, _){
 
 	_.JustifiedTemplate = _.Template.extend({
 		onPreInit: function(event, self){
@@ -33,14 +33,7 @@
 		container: "foogallery fg-justified"
 	});
 
-	_.JustifiedCSSTemplate = _.Template.extend({});
-
-	_.template.register("justified-css", _.JustifiedCSSTemplate, null, {
-		container: "foogallery fg-justified-css"
-	});
-
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils.is
+	FooGallery.$,
+	FooGallery
 );
