@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Responsive</title>
+    <link href="../theme.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <header>
+        <ul>
+            <li><a href="../index.html">Templates</a></li>
+        </ul>
+        <h1>Responsive</h1>
+    </header>
+    <main>
+        <p>Links marked with a (<span class="recommended">*</span>) are the recommended ways within a category to achieve the best Lighthouse performance score.</p>
+        <section>
+            <h3>Small Galleries (100 items or less with no paging)</h3>
+            <p>For small galleries simply provide all items through HTML with lazy loading enabled.</p>
+            <ul>
+                <li><a href="100-html.html">100 Html Items</a></li>
+                <li><a href="100-html-lazy.html">100 Html Items + Lazy Loading <span class="recommended">*</span></a></li>
+                <li><a href="100-json.html">100 JSON Items</a></li>
+                <li><a href="100-json-lazy.html">100 JSON Items + Lazy Loading</a></li>
+            </ul>
+        </section>
+        <section>
+            <h3>Large Galleries (100+ items) OR Paged Galleries (Any size)</h3>
+            <p>For large galleries enable one of the paging types and supply the first pages items through HTML and then any remaining items through JSON along with having lazy loading enabled.</p>
+            <p>In the following examples the page size is set to 100 with a total of a 1000 items in the gallery.</p>
+            <section>
+                <h4>Pagination</h4>
+                <ul>
+                    <li><a href="paging/pagination/1000-html.html">1000 Html Items</a></li>
+                    <li><a href="paging/pagination/1000-html-lazy.html">1000 Html Items + Lazy Loading</a></li>
+                    <li><a href="paging/pagination/1000-mixed.html">1000 Mixed HTML & JSON Items</a></li>
+                    <li><a href="paging/pagination/1000-mixed-lazy.html">1000 Mixed HTML & JSON Items + Lazy Loading <span class="recommended">*</span></a></li>
+                </ul>
+            </section>
+            <section>
+                <h4>Dots</h4>
+                <ul>
+                    <li><a href="paging/dots/1000-html.html">1000 Html Items</a></li>
+                    <li><a href="paging/dots/1000-html-lazy.html">1000 Html Items + Lazy Loading</a></li>
+                    <li><a href="paging/dots/1000-mixed.html">1000 Mixed HTML & JSON Items</a></li>
+                    <li><a href="paging/dots/1000-mixed-lazy.html">1000 Mixed HTML & JSON Items + Lazy Loading <span class="recommended">*</span></a></li>
+                </ul>
+            </section>
+            <section>
+                <h4>Load More</h4>
+                <ul>
+                    <li><a href="paging/pagination/1000-html.html">1000 Html Items</a></li>
+                    <li><a href="paging/pagination/1000-html-lazy.html">1000 Html Items + Lazy Loading</a></li>
+                    <li><a href="paging/pagination/1000-mixed.html">1000 Mixed HTML & JSON Items</a></li>
+                    <li><a href="paging/pagination/1000-mixed-lazy.html">1000 Mixed HTML & JSON Items + Lazy Loading <span class="recommended">*</span></a></li>
+                </ul>
+            </section>
+            <section>
+                <h4>Infinite</h4>
+                <ul>
+                    <li><a href="paging/pagination/1000-html.html">1000 Html Items</a></li>
+                    <li><a href="paging/pagination/1000-html-lazy.html">1000 Html Items + Lazy Loading</a></li>
+                    <li><a href="paging/pagination/1000-mixed.html">1000 Mixed HTML & JSON Items</a></li>
+                    <li><a href="paging/pagination/1000-mixed-lazy.html">1000 Mixed HTML & JSON Items + Lazy Loading <span class="recommended">*</span></a></li>
+                </ul>
+            </section>
+        </section>
+    </main>
+</body>
+</html>
