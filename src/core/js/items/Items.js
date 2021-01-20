@@ -1,6 +1,6 @@
 (function ($, _, _utils, _is, _fn, _obj) {
 
-	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
+	_.Items = _.Component.extend(/** @lends FooGallery.Items.prototype */{
 		/**
 		 * @summary This class controls everything related to items and serves as the base class for the various paging types.
 		 * @memberof FooGallery
@@ -108,7 +108,9 @@
 					def.resolve(items);
 				}
 			} else {
-				items.push.apply(items, self.make(window[fg.id + "-items"]));
+				if (window.FooGallery_items && _is.object(window.FooGallery_items)) {
+					items.push.apply(items, self.make(window.FooGallery_items[fg.id]));
+				}
 				def.resolve(items);
 			}
 			def.then(function (items) {
@@ -160,6 +162,21 @@
 				}
 			}
 			return null;
+		},
+		not: function(items){
+			var all = this.all();
+			if (_is.array(items)){
+				return all.filter(function(item){
+					return items.indexOf(item) === -1;
+				});
+			}
+			return all;
+		},
+		isAll: function(items){
+			if (_is.array(items)){
+				return this._arr.length === items.length;
+			}
+			return false;
 		},
 		first: function(where){
 			return this.find(this._available, where);
@@ -224,7 +241,7 @@
 				return $.map(items, function (item) {
 					return item.isCreated && item.isAttached
 						&& !item.isLoading && !item.isLoaded && !item.isError
-						&& (!opt.lazy || (opt.lazy && item.visible())) ? item : null;
+						&& (!opt.lazy || (opt.lazy && item.inViewport())) ? item : null;
 				});
 			}
 			return [];

@@ -169,6 +169,12 @@
 			self.href = self.opt.href;
 			/**
 			 * @memberof FooGallery.Item#
+			 * @name placeholder
+			 * @type {string}
+			 */
+			self.placeholder = self.opt.placeholder;
+			/**
+			 * @memberof FooGallery.Item#
 			 * @name src
 			 * @type {string}
 			 */
@@ -417,7 +423,7 @@
 				if (self._undo.loader) {
 					self.$loader.remove();
 				}
-				if (self._undo.placeholder && self.$image.prop("src") === _.EMPTY_IMAGE) {
+				if (self._undo.placeholder && self.$image.prop("src") === self.placeholder) {
 					self.$image.removeAttr("src");
 				}
 			} else if (self.isCreated) {
@@ -594,8 +600,13 @@
 			// if the image has no src url then set the placeholder
 			var img = self.$image.get(0);
 			if (!_is.string(img.src) || img.src.length === 0) {
-				img.src = _.EMPTY_IMAGE;
-				self._undo.placeholder = true;
+				if (!_is.string(self.placeholder) || self.placeholder.length === 0){
+					self.placeholder = self.createPlaceholder(self.width, self.height);
+				}
+				if (self.placeholder.length > 0){
+					img.src = self.placeholder;
+					self._undo.placeholder = true;
+				}
 			}
 			var typeClass = self.getTypeClass();
 			if (!self.$el.hasClass(typeClass)){
@@ -720,6 +731,12 @@
 			}
 
 			attr.image["class"] = cls.image;
+			if (!_is.string(self.placeholder) || self.placeholder.length === 0){
+				self.placeholder = self.createPlaceholder(self.width, self.height);
+			}
+			if (self.placeholder.length > 0){
+				attr.image["src"] = self.placeholder;
+			}
 			attr.image[o.src] = self.src;
 			attr.image[o.srcset] = self.srcset;
 			attr.image["width"] = self.width;
@@ -973,6 +990,20 @@
 			}).promise();
 		},
 		/**
+		 * @summary Create an empty placeholder image using the supplied dimensions.
+		 * @memberof FooGallery.Item#
+		 * @function createPlaceholder
+		 * @param {number} width - The width of the placeholder.
+		 * @param {number} height - The height of the placeholder.
+		 * @returns {string}
+		 */
+		createPlaceholder: function(width, height){
+			if (_is.number(width) && _is.number(height)){
+				return "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20" + width + "%20" + height + "%22%3E%3C/svg%3E";
+			}
+			return "";
+		},
+		/**
 		 * @summary Attempts to set a inline width and height on the {@link FooGallery.Item#$image|$image} to prevent layout jumps.
 		 * @memberof FooGallery.Item#
 		 * @function fix
@@ -1048,18 +1079,12 @@
 		scrollTo: function (align) {
 			var self = this;
 			if (self.isAttached) {
-				var ib = self.bounds(), vb = _utils.getViewportBounds();
-				switch (align) {
-					case "top": // attempts to center the item horizontally but aligns the top with the middle of the viewport
-						ib.left += (ib.width / 2) - (vb.width / 2);
-						ib.top -= (vb.height / 5);
-						break;
-					default: // attempts to center the item in the viewport
-						ib.left += (ib.width / 2) - (vb.width / 2);
-						ib.top += (ib.height / 2) - (vb.height / 2);
-						break;
+				var el = /** @type {HTMLElement} */ self.$el.get(0);
+				if (!!el.scrollIntoViewIfNeeded){
+					el.scrollIntoViewIfNeeded();
+				} else {
+					el.scrollIntoView(align === "top");
 				}
-				window.scrollTo(ib.left, ib.top);
 			}
 			return self;
 		},
@@ -1067,32 +1092,35 @@
 		 * @summary Get the bounds for the item.
 		 * @memberof FooGallery.Item#
 		 * @function bounds
-		 * @returns {?FooGallery.utils.Bounds}
+		 * @returns {?DOMRect}
 		 */
 		bounds: function () {
 			if (this.isAttached){
 				var el = this.$el.get(0);
-				console.log(el.getBoundingClientRect());
+				return el.getBoundingClientRect();
 			}
-			return this.isAttached ? _utils.getElementBounds(this.$el) : null;
+			return null;
 		},
 		/**
-		 * @summary Checks if the item bounds intersects the supplied bounds.
+		 * @summary Checks if the item is within the viewport.
 		 * @memberof FooGallery.Item#
-		 * @function intersects
-		 * @param {FooGallery.utils.Bounds} bounds - The bounds to check.
+		 * @function inViewport
 		 * @returns {boolean}
 		 */
-		intersects: function (bounds) {
-			return this.isAttached ? this.bounds().intersects(bounds) : false;
-		},
-		visible: function(){
-			if (this.isAttached){
-				var rect = this.$el.get(0).getBoundingClientRect();
-				return rect.bottom > 0 &&
+		inViewport: function(){
+			var self = this;
+			if (self.isAttached){
+				var rect = self.bounds();
+
+				// var result = rect !== null && rect.bottom > 0 &&
+				// 	rect.right > 0 &&
+				// 	rect.left < window.innerWidth &&
+				// 	rect.top < window.innerHeight;
+				// console.log('inViewport', result, (window.innerWidth || document.documentElement.clientWidth), (window.innerHeight || document.documentElement.clientHeight), rect);
+				return rect !== null && rect.bottom > 0 &&
 					rect.right > 0 &&
-					rect.left < (window.innerWidth || document.documentElement.clientWidth) &&
-					rect.top < (window.innerHeight || document.documentElement.clientHeight);
+					rect.left < window.innerWidth &&
+					rect.top < window.innerHeight;
 			}
 			return false;
 		},
@@ -1204,6 +1232,7 @@
 			type: "item",
 			id: "",
 			href: "",
+			placeholder: "",
 			src: "",
 			srcset: "",
 			width: 0,

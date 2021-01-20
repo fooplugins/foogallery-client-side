@@ -1,15 +1,6 @@
 (function ($, _, _utils, _is, _fn) {
 
 	/**
-	 * @summary The url of an empty 1x1 pixel image used as the default value for the `placeholder` and `error` {@link FooGallery.defaults|options}.
-	 * @memberof FooGallery
-	 * @name EMPTY_IMAGE
-	 * @type {string}
-	 * @default "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-	 */
-	_.EMPTY_IMAGE = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
-
-	/**
 	 * @summary The name to use when getting or setting an instance of a {@link FooGallery.Template|template} on an element using jQuery's `.data()` method.
 	 * @memberof FooGallery
 	 * @name DATA_TEMPLATE
