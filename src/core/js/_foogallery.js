@@ -154,7 +154,7 @@
 	 * @name supportedExifProperties
 	 * @type {string[]}
 	 */
-	_.supportedExifProperties = ["aperture","camera","created_timestamp","shutter_speed","focal_length","iso","orientation"];
+	_.supportedExifProperties = ["camera","aperture","created_timestamp","shutter_speed","focal_length","iso","orientation"];
 
 	/**
 	 * @memberof FooGallery.utils.is
