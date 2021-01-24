@@ -10,9 +10,9 @@ var FooGallery_il8n = {
 				"exif": {
 					"aperture": "Aperture",
 					"camera": "Camera",
-					"date": "Date",
-					"exposure": "Exposure",
-					"focalLength": "Focal Length",
+					"created_timestamp": "Date",
+					"shutter_speed": "Exposure",
+					"focal_length": "Focal Length",
 					"iso": "ISO",
 					"orientation": "Orientation"
 				}

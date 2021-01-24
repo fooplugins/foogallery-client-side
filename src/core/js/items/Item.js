@@ -1252,9 +1252,9 @@
 			exif: {
 				aperture: null,
 				camera: null,
-				date: null,
-				exposure: null,
-				focalLength: null,
+				created_timestamp: null,
+				shutter_speed: null,
+				focal_length: null,
 				iso: null,
 				orientation: null
 			},
@@ -1302,9 +1302,9 @@
 			exif: {
 				aperture: "Aperture",
 				camera: "Camera",
-				date: "Date",
-				exposure: "Exposure",
-				focalLength: "Focal Length",
+				created_timestamp: "Date",
+				shutter_speed: "Exposure",
+				focal_length: "Focal Length",
 				iso: "ISO",
 				orientation: "Orientation"
 			}

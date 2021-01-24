@@ -615,12 +615,14 @@
 	 * _fn.apply( Test, ["My name", "My value"] ); // => "Test: name = My name, value = My value"
 	 */
 	_.fn.apply = function(klass, args){
-		args = _is.array(args) ? args : [];
-		function Class() {
-			return klass.apply(this, args);
-		}
-		Class.prototype = klass.prototype;
-		return new Class();
+		args.unshift(klass);
+		return new (Function.prototype.bind.apply(klass, args));
+		// args = _is.array(args) ? args : [];
+		// function Class() {
+		// 	return klass.apply(this, args);
+		// }
+		// Class.prototype = klass.prototype;
+		// return new Class();
 	};
 
 	/**
@@ -4426,7 +4428,7 @@
 	 * @name supportedExifProperties
 	 * @type {string[]}
 	 */
-	_.supportedExifProperties = ["aperture","camera","date","exposure","focalLength","iso","orientation"];
+	_.supportedExifProperties = ["camera","aperture","created_timestamp","shutter_speed","focal_length","iso","orientation"];
 
 	/**
 	 * @memberof FooGallery.utils.is
@@ -8237,9 +8239,9 @@
 			exif: {
 				aperture: null,
 				camera: null,
-				date: null,
-				exposure: null,
-				focalLength: null,
+				created_timestamp: null,
+				shutter_speed: null,
+				focal_length: null,
 				iso: null,
 				orientation: null
 			},
@@ -8287,9 +8289,9 @@
 			exif: {
 				aperture: "Aperture",
 				camera: "Camera",
-				date: "Date",
-				exposure: "Exposure",
-				focalLength: "Focal Length",
+				created_timestamp: "Date",
+				shutter_speed: "Exposure",
+				focal_length: "Focal Length",
 				iso: "ISO",
 				orientation: "Orientation"
 			}
