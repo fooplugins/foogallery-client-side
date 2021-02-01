@@ -9,6 +9,23 @@
 	<script>
 		(function($){
 
+			function random(min, max){
+				if ('[object Array]' === Object.prototype.toString.call(min)){
+					max = min.length > 0 ? min.length - 1 : 0;
+					return min[Math.floor(Math.random() * (max + 1))];
+				}
+				if (min instanceof Date){
+					max = max instanceof Date ? max : new Date();
+					var date = new Date(+min + Math.random() * (max - min)),
+							hour = min.getHours() + Math.random() * (max.getHours() - min.getHours()) | 0;
+					date.setHours(hour);
+					return date;
+				}
+				if ('[object Number]' === Object.prototype.toString.call(min) && !isNaN(min) && '[object Number]' === Object.prototype.toString.call(max) && !isNaN(max)){
+					return Math.floor(Math.random() * (max - min + 1)) + min;
+				}
+			}
+
 			function DummyImageGenerator(){
 				if (!(this instanceof DummyImageGenerator)) return new DummyImageGenerator();
 				this.$options = $("#options");
@@ -34,13 +51,7 @@
 						height: 150,
 						title: "Title for {{I}}",
 						alt: "",
-						tags: [],
-						attr: {
-							item: {},
-							inner: {},
-							anchor: {},
-							image: {}
-						}
+						tags: []
 					},
 					"225x150": {
 						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
@@ -54,13 +65,7 @@
 						height: 150,
 						title: "Title for {{I}}",
 						alt: "",
-						tags: [],
-						attr: {
-							item: {},
-							inner: {},
-							anchor: {},
-							image: {}
-						}
+						tags: []
 					},
 					"150x94": {
 						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
@@ -74,13 +79,7 @@
 						height: 94,
 						title: "Title for {{I}}",
 						alt: "",
-						tags: [],
-						attr: {
-							item: {},
-							inner: {},
-							anchor: {},
-							image: {}
-						}
+						tags: []
 					},
 					"150x225": {
 						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
@@ -94,13 +93,7 @@
 						height: 225,
 						title: "Title for {{I}}",
 						alt: "",
-						tags: [],
-						attr: {
-							item: {},
-							inner: {},
-							anchor: {},
-							image: {}
-						}
+						tags: []
 					},
 					"150x150": {
 						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
@@ -114,13 +107,7 @@
 						height: 150,
 						title: "Title for {{I}}",
 						alt: "",
-						tags: [],
-						attr: {
-							item: {},
-							inner: {},
-							anchor: {},
-							image: {}
-						}
+						tags: []
 					},
 					"250x250": {
 						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
@@ -134,13 +121,7 @@
 						height: 250,
 						title: "Title for {{I}}",
 						alt: "",
-						tags: [],
-						attr: {
-							item: {},
-							inner: {},
-							anchor: {},
-							image: {}
-						}
+						tags: []
 					},
 					"360x240": {
 						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
@@ -154,13 +135,7 @@
 						height: 240,
 						title: "Title for {{I}}",
 						alt: "",
-						tags: [],
-						attr: {
-							item: {},
-							inner: {},
-							anchor: {},
-							image: {}
-						}
+						tags: []
 					},
 					"720x480": {
 						href: "https://dummyimage.com/1920x1200/{{BACKGROUND}}/{{TEXT}}&text=Item+{{I}}+(1920×1200)",
@@ -174,13 +149,7 @@
 						height: 480,
 						title: "Title for {{I}}",
 						alt: "",
-						tags: [],
-						attr: {
-							item: {},
-							inner: {},
-							anchor: {},
-							image: {}
-						}
+						tags: []
 					}
 				};
 				this._colors = [
@@ -212,34 +181,32 @@
 					{background: 'dcd07f', text: '000000'},
 					{background: 'dc8a7f', text: '000000'}
 				];
-				this._exif = {
-					"camera": [
-						"Canon 40D",
-						"Canon DIGITAL IXUS 400",
-						"Canon PowerShot S40",
-						"Fujifile FinePix6900ZOOM",
-						"Fujifilm FinePix E500",
-						"Kodak CX7530",
-						"Konica Minolta DiMAGE Z3",
-						"Nikon COOLPIX P1",
-						"Nikon D70",
-						"Olympus C8080WZ",
-						"Panasonic DMC-FZ30",
-						"Pentax K10D",
-						"Samsung Digimax i50",
-						"Sony HDR-HC3"
-					],
-					"aperture": []
-				};
+				// "camera","aperture","created_timestamp","shutter_speed","focal_length","iso","orientation"
+				this._cameras = [
+					"Canon 40D",
+					"Canon DIGITAL IXUS 400",
+					"Canon PowerShot S40",
+					"Fujifile FinePix6900ZOOM",
+					"Fujifilm FinePix E500",
+					"Kodak CX7530",
+					"Konica Minolta DiMAGE Z3",
+					"Nikon COOLPIX P1",
+					"Nikon D70",
+					"Olympus C8080WZ",
+					"Panasonic DMC-FZ30",
+					"Pentax K10D",
+					"Samsung Digimax i50",
+					"Sony HDR-HC3"
+				];
+				this._orientations = [
+					"Top",
+					"Bottom",
+					"Left Side",
+					"Right Side"
+				];
 			}
 
-			DummyImageGenerator.prototype.randomColor = function () {
-				var min = 0, max = this._colors.length - 1;
-				var index = Math.floor(Math.random() * (max - min + 1)) + min;
-				return this._colors[index];
-			};
-
-			DummyImageGenerator.prototype.templates = function(size){
+			DummyImageGenerator.prototype.getTemplates = function(size){
 				return $.map(this._templates, function(template, name){
 					if (size === "150w" && template.width === 150) return template;
 					if (size === "150h" && template.height === 150) return template;
@@ -248,63 +215,51 @@
 				});
 			};
 
+			DummyImageGenerator.prototype.onGenerateClick = function(e){
+				var self = e.data.self, options = self.options(), items = self.generate(options);
+				if (options.generateHTML){
+					self.outputHTML(items, options);
+				}
+				self.output(items, options);
+			};
+
 			DummyImageGenerator.prototype.options = function(){
 				return {
 					amount: parseInt(this.$options.find("#amount").val()),
 					size: this.$options.find("[name=size]:checked").val(),
-					srcset: this.$options.find("[name=srcset]:checked").val()
+					srcset: this.$options.find("[name=srcset]:checked").val(),
+					exif: this.$options.find("[name=exif]").prop('checked'),
+					excludeJSONPlaceholder: this.$options.find("[name=exclude_json_placeholder]").prop('checked'),
+					generateHTML: this.$options.find("[name=generate-html]").prop('checked')
 				};
 			};
 
-			DummyImageGenerator.prototype.generate = function(options){
-				var templates = this.templates(options.size), items = [];
-				for (var i = 0, min = 0, max = templates.length - 1, ti; i < options.amount; i++){
-					ti = max > 0 ? Math.floor(Math.random() * (max - min + 1)) + min : 0;
-					items.push(this.item(templates[ti], i, options.srcset));
-				}
-				return items;
-			};
-
-			DummyImageGenerator.prototype.item = function(template, index, srcset){
-				var item = $.extend(true, {
-					placeholder: "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20{{WIDTH}}%20{{HEIGHT}}%22%3E%3C/svg%3E"
-				}, template), color = this.randomColor();
-				item.placeholder = item.placeholder.replace(/\{\{WIDTH}}/g, item.width).replace(/\{\{HEIGHT}}/g, item.height);
-				item.href = item.href.replace(/\{\{BACKGROUND}}/g, color.background).replace(/\{\{TEXT}}/g, color.text).replace(/\{\{I}}/g, index);
-				item.src = item.src.replace(/\{\{BACKGROUND}}/g, color.background).replace(/\{\{TEXT}}/g, color.text).replace(/\{\{I}}/g, index);
-				item.srcset = item.srcsetOptions[srcset].replace(/\{\{BACKGROUND}}/g, color.background).replace(/\{\{TEXT}}/g, color.text).replace(/\{\{I}}/g, index);
-				item.title = item.title.replace(/\{\{I}}/g, index);
-				var min = 0, max = this._alt.length - 1, i = max > 0 ? Math.floor(Math.random() * (max - min + 1)) + min : 0;
-				item.alt = this._alt[i].replace(/\{\{I}}/g, index);
-
-				item.tags.push(item.width + "x" + item.height);
-				max = this._tags.length - 1;
-				var num = Math.floor(Math.random() * (max - 1)) + 2;
-				for (var j = 0; j < num; j++){
-					i = max > 0 ? Math.floor(Math.random() * (max + 1)) : 0;
-					if ($.inArray(this._tags[i], item.tags) === -1){
-						item.tags.push(this._tags[i]);
-					}
-				}
-
-				return item;
-			};
-
-			DummyImageGenerator.prototype.output = function(items){
+			DummyImageGenerator.prototype.output = function(items, options){
 				items.forEach(function(item){
 					delete item.srcsetOptions;
+					if (options.excludeJSONPlaceholder){
+						delete item.placeholder;
+					}
 				});
 				this.$output.text(JSON.stringify(items, null, 2));
 			};
 
-			DummyImageGenerator.prototype.outputHTML = function(items){
+			DummyImageGenerator.prototype.outputHTML = function(items, options){
 				var html = '';
 				for (var i = 0, l = items.length; i < l; i++){
 					var item = items[i];
 
-					html += '<div class="fg-item fg-type-image fg-idle">\n';
+					if (options.exif) {
+						html += '<div class="fg-item fg-type-image fg-item-exif fg-idle">\n';
+					} else {
+						html += '<div class="fg-item fg-type-image fg-idle">\n';
+					}
 					html += '\t<figure class="fg-item-inner">\n';
-					html += '\t\t<a class="fg-thumb" href="'+item.href+'" data-title="'+item.title+'" data-description="'+item.alt+'">\n';
+					if (options.exif){
+						html += '\t\t<a class="fg-thumb" href="'+item.href+'" data-title="'+item.title+'" data-description="'+item.alt+'" data-tags=\'' + JSON.stringify(item.tags) + '\' data-exif=\'' + JSON.stringify(item.exif) + '\'>\n';
+					} else {
+						html += '\t\t<a class="fg-thumb" href="'+item.href+'" data-title="'+item.title+'" data-description="'+item.alt+'" data-tags=\'' + JSON.stringify(item.tags) + '\'>\n';
+					}
 					html += '\t\t\t<span class="fg-image-wrap">\n';
 					html += '\t\t\t\t<img class="fg-image" src="'+item.placeholder+'" data-src-fg="'+item.src+'" data-srcset-fg="'+item.srcset+'" width="'+item.width+'" height="'+item.height+'" title="'+item.title+'" alt="'+item.alt+'">\n';
 					html += '\t\t\t</span>\n';
@@ -322,16 +277,55 @@
 
 				}
 
-
 				this.$outputHTML.text(html);
 			};
 
-			DummyImageGenerator.prototype.onGenerateClick = function(e){
-				var self = e.data.self, items = self.generate(self.options());
-				if (self.$options.find("#generate-html").is(":checked")){
-					self.outputHTML(items);
+			DummyImageGenerator.prototype.generate = function(options){
+				var templates = this.getTemplates(options.size), items = [];
+				for (var i = 0; i < options.amount; i++){
+					items.push(this.createItem(random(templates), i, options));
 				}
-				self.output(items);
+				return items;
+			};
+
+			DummyImageGenerator.prototype.createItem = function(template, index, options){
+				var self = this, item = $.extend(true, {}, template), color = random(self._colors);
+				item.placeholder = "data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20{{WIDTH}}%20{{HEIGHT}}%22%3E%3C/svg%3E".replace(/\{\{WIDTH}}/g, item.width).replace(/\{\{HEIGHT}}/g, item.height);
+				item.href = item.href.replace(/\{\{BACKGROUND}}/g, color.background).replace(/\{\{TEXT}}/g, color.text).replace(/\{\{I}}/g, index);
+				item.src = item.src.replace(/\{\{BACKGROUND}}/g, color.background).replace(/\{\{TEXT}}/g, color.text).replace(/\{\{I}}/g, index);
+				item.srcset = item.srcsetOptions[options.srcset].replace(/\{\{BACKGROUND}}/g, color.background).replace(/\{\{TEXT}}/g, color.text).replace(/\{\{I}}/g, index);
+				item.title = item.title.replace(/\{\{I}}/g, index);
+				item.alt = random(self._alt).replace(/\{\{I}}/g, index);
+				item.tags = self.createTags(item.width, item.height);
+				if (options.exif){
+					item.exif = self.createEXIF();
+				}
+				return item;
+			};
+
+			DummyImageGenerator.prototype.createEXIF = function() {
+				var self = this, aWeekAgo = new Date();
+				aWeekAgo.setDate(aWeekAgo.getDate() - 7);
+				return {
+					"camera": random(self._cameras),
+					"aperture": "f/" + random(1, 4) + ".0",
+					"shutter_speed": "1/" + random(1, 999) + " s",
+					"focal_length": random(1, 40) + " mm",
+					"iso": random(50, 100) + "",
+					"created_timestamp": random(aWeekAgo).toLocaleString(),
+					"orientation": random(self._orientations)
+				};
+			};
+
+			DummyImageGenerator.prototype.createTags = function(width, height){
+				var self = this, tags = [width + "x" + height], amount = random(1, 5);
+				for (var i = 0, tag; i < amount; i++){
+					tag = random(self._tags);
+					if (tags.indexOf(tag) === -1){
+						tags.push(tag);
+					}
+				}
+				return tags;
 			};
 
 			$(function(){
@@ -431,22 +425,34 @@
 						<div class="col-sm-10">
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="srcset" id="srcset1" value="w" checked>
-									w
+									<input type="radio" name="srcset" id="srcset1" value="x" checked>
+									x
 								</label>
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="srcset" id="srcset2" value="x">
-									x
+									<input type="radio" name="srcset" id="srcset2" value="w">
+									w
 								</label>
 							</div>
 						</div>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label col-sm-offset-2">
-							<input type="checkbox" class="form-check-input" id="generate-html" name="generate-html">
-							Whether or not to also generate the HTML output for the items.
+							<input type="checkbox" class="form-check-input" id="exif" name="exif" checked>
+							Whether or not to generate the EXIF output for the items.
+						</label>
+					</div>
+					<div class="form-check">
+						<label class="form-check-label col-sm-offset-2">
+							<input type="checkbox" class="form-check-input" id="exclude_json_placeholder" name="exclude_json_placeholder" checked>
+							Whether or not to exclude the SVG placeholder from the JSON items output.
+						</label>
+					</div>
+					<div class="form-check">
+						<label class="form-check-label col-sm-offset-2">
+							<input type="checkbox" class="form-check-input" id="generate-html" name="generate-html" checked>
+							Whether or not to generate the HTML output for the items.
 						</label>
 					</div>
 					<button type="button" id="generate" class="btn btn-default pull-right">Generate</button>

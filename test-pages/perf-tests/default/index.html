@@ -9,61 +9,263 @@
     <header>
         <ul>
             <li><a href="../index.html">Templates</a></li>
+            <li><h1>Responsive</h1></li>
         </ul>
-        <h1>Responsive</h1>
     </header>
     <main>
-        <p>Links marked with a (<span class="recommended">*</span>) are the recommended ways within a category to achieve the best Lighthouse performance score.</p>
-        <section>
-            <h3>Small Galleries (100 items or less with no paging)</h3>
-            <p>For small galleries simply provide all items through HTML with lazy loading enabled.</p>
+        <h2>Performance</h2>
+        <p>To get the best performance out of this template use lazy loading and have no more than 50 items in a single page of a gallery. For galleries with more than 50 items enable paging and use one of the built-in paging types with a page size set to 50.</p>
+        <p>If needed the number of items could be extended up to around 100 per page, but once you get up that high Lighthouse tests will start reporting excessive DOM size despite performance still being good.</p>
+        <aside>
+            <h3>Summary</h3>
             <ul>
-                <li><a href="100-html.html">100 Html Items</a></li>
-                <li><a href="100-html-lazy.html">100 Html Items + Lazy Loading <span class="recommended">*</span></a></li>
-                <li><a href="100-json.html">100 JSON Items</a></li>
-                <li><a href="100-json-lazy.html">100 JSON Items + Lazy Loading</a></li>
+                <li>
+                    <h5>Item Count (Per Page)</h5>
+                    <label>Recommended: <span>50</span></label>
+                    <label>Max: <span>100</span></label>
+                </li>
+                <li>
+                    <h5>Load Method</h5>
+                    <label>Default: <span>HTML + Lazy</span></label>
+                    <label>Paged: <span>HTML + JSON + Lazy</span></label>
+                </li>
+            </ul>
+        </aside>
+        <section>
+            <h2>Basic Galleries</h2>
+            <p>A basic gallery is defined as having 100 items or less with no paging enabled.</p>
+            <h3>Recommended</h3>
+            <p>HTML Items + Lazy Loading</p>
+            <section>
+                <ul>
+                    <li><a href="50-html-lazy.html">50 Items</a></li>
+                    <li><a href="50-html-lazy_tags.html">50 Items + Tags</a></li>
+                    <li><a href="100-html-lazy.html">100 Items</a></li>
+                    <li><a href="100-html-lazy_tags.html">100 Items + Tags</a></li>
+                </ul>
+            </section>
+            <h3>Other</h3>
+            <p>The following are test pages for sub-optimal load methods.</p>
+            <ul>
+                <li>
+                    HTML Items -
+                    <a href="50-html.html">50 Items</a> |
+                    <a href="50-html_tags.html">50 Items + Tags</a> |
+                    <a href="100-html.html">100 Items</a> |
+                    <a href="100-html_tags.html">100 Items + Tags</a>
+                </li>
+                <li>
+                    JSON Items -
+                    <a href="50-json.html">50 Items</a> |
+                    <a href="50-json_tags.html">50 Items + Tags</a> |
+                    <a href="100-json.html">100 Items</a> |
+                    <a href="100-json_tags.html">100 Items + Tags</a>
+                </li>
+                <li>
+                    JSON Items + Lazy Loading -
+                    <a href="50-json-lazy.html">50 Items</a> |
+                    <a href="50-json-lazy_tags.html">50 Items + Tags</a> |
+                    <a href="100-json-lazy.html">100 Items</a> |
+                    <a href="100-json-lazy_tags.html">100 Items + Tags</a>
+                </li>
             </ul>
         </section>
         <section>
-            <h3>Large Galleries (100+ items) OR Paged Galleries (Any size)</h3>
-            <p>For large galleries enable one of the paging types and supply the first pages items through HTML and then any remaining items through JSON along with having lazy loading enabled.</p>
-            <p>In the following examples the page size is set to 100 with a total of a 1000 items in the gallery.</p>
+            <h2>Large Galleries and/or Paged Galleries</h2>
+            <p>A large gallery is defined as any gallery that has more than 100 items. A paged gallery is defined as any gallery that has paging enabled.</p>
+            <h3>Recommended</h3>
+            <p>HTML + JSON Items + Lazy Loading</p>
+            <p>The first pages items should be delivered as HTML directly from the server, any additional items should be provided through JSON and created by the front-end when required.</p>
             <section>
                 <h4>Pagination</h4>
                 <ul>
-                    <li><a href="paging/pagination/1000-html.html">1000 Html Items</a></li>
-                    <li><a href="paging/pagination/1000-html-lazy.html">1000 Html Items + Lazy Loading</a></li>
-                    <li><a href="paging/pagination/1000-mixed.html">1000 Mixed HTML & JSON Items</a></li>
-                    <li><a href="paging/pagination/1000-mixed-lazy.html">1000 Mixed HTML & JSON Items + Lazy Loading <span class="recommended">*</span></a></li>
+                    <li><a href="paging/pagination/1000_50-mixed-lazy.html">1000 Items @ 50 Per Page</a></li>
+                    <li><a href="paging/pagination/1000_50-mixed-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a></li>
+                    <li><a href="paging/pagination/1000_100-mixed-lazy.html">1000 Items @ 100 Per Page</a></li>
+                    <li><a href="paging/pagination/1000_100-mixed-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a></li>
                 </ul>
             </section>
             <section>
                 <h4>Dots</h4>
                 <ul>
-                    <li><a href="paging/dots/1000-html.html">1000 Html Items</a></li>
-                    <li><a href="paging/dots/1000-html-lazy.html">1000 Html Items + Lazy Loading</a></li>
-                    <li><a href="paging/dots/1000-mixed.html">1000 Mixed HTML & JSON Items</a></li>
-                    <li><a href="paging/dots/1000-mixed-lazy.html">1000 Mixed HTML & JSON Items + Lazy Loading <span class="recommended">*</span></a></li>
+                    <li><a href="paging/dots/1000_50-mixed-lazy.html">1000 Items @ 50 Per Page</a></li>
+                    <li><a href="paging/dots/1000_50-mixed-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a></li>
+                    <li><a href="paging/dots/1000_100-mixed-lazy.html">1000 Items @ 100 Per Page</a></li>
+                    <li><a href="paging/dots/1000_100-mixed-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a></li>
                 </ul>
             </section>
             <section>
                 <h4>Load More</h4>
                 <ul>
-                    <li><a href="paging/pagination/1000-html.html">1000 Html Items</a></li>
-                    <li><a href="paging/pagination/1000-html-lazy.html">1000 Html Items + Lazy Loading</a></li>
-                    <li><a href="paging/pagination/1000-mixed.html">1000 Mixed HTML & JSON Items</a></li>
-                    <li><a href="paging/pagination/1000-mixed-lazy.html">1000 Mixed HTML & JSON Items + Lazy Loading <span class="recommended">*</span></a></li>
+                    <li><a href="paging/loadMore/1000_50-mixed-lazy.html">1000 Items @ 50 Per Page</a></li>
+                    <li><a href="paging/loadMore/1000_50-mixed-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a></li>
+                    <li><a href="paging/loadMore/1000_100-mixed-lazy.html">1000 Items @ 100 Per Page</a></li>
+                    <li><a href="paging/loadMore/1000_100-mixed-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a></li>
                 </ul>
             </section>
             <section>
                 <h4>Infinite</h4>
                 <ul>
-                    <li><a href="paging/pagination/1000-html.html">1000 Html Items</a></li>
-                    <li><a href="paging/pagination/1000-html-lazy.html">1000 Html Items + Lazy Loading</a></li>
-                    <li><a href="paging/pagination/1000-mixed.html">1000 Mixed HTML & JSON Items</a></li>
-                    <li><a href="paging/pagination/1000-mixed-lazy.html">1000 Mixed HTML & JSON Items + Lazy Loading <span class="recommended">*</span></a></li>
+                    <li><a href="paging/infinite/1000_50-mixed-lazy.html">1000 Items @ 50 Per Page</a></li>
+                    <li><a href="paging/infinite/1000_50-mixed-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a></li>
+                    <li><a href="paging/infinite/1000_100-mixed-lazy.html">1000 Items @ 100 Per Page</a></li>
+                    <li><a href="paging/infinite/1000_100-mixed-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a></li>
                 </ul>
             </section>
+            <h3>Other</h3>
+            <p>The following are test pages for sub-optimal load methods.</p>
+            <h4>Pagination</h4>
+            <ul>
+                <li>
+                    HTML Items -
+                    <a href="paging/pagination/1000_50-html.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/pagination/1000_50-html_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/pagination/1000_100-html.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/pagination/1000_100-html_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    JSON Items -
+                    <a href="paging/pagination/1000_50-json.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/pagination/1000_50-json_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/pagination/1000_100-json.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/pagination/1000_100-json_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    Mixed HTML + JSON Items -
+                    <a href="paging/pagination/1000_50-mixed.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/pagination/1000_50-mixed_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/pagination/1000_100-mixed.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/pagination/1000_100-mixed_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    HTML Items + Lazy Loading -
+                    <a href="paging/pagination/1000_50-html-lazy.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/pagination/1000_50-html-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/pagination/1000_100-html-lazy.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/pagination/1000_100-html-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    JSON Items + Lazy Loading -
+                    <a href="paging/pagination/1000_50-json-lazy.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/pagination/1000_50-json-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/pagination/1000_100-json-lazy.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/pagination/1000_100-json-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+            </ul>
+            <h4>Dots</h4>
+            <ul>
+                <li>
+                    HTML Items -
+                    <a href="paging/dots/1000_50-html.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/dots/1000_50-html_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/dots/1000_100-html.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/dots/1000_100-html_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    JSON Items -
+                    <a href="paging/dots/1000_50-json.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/dots/1000_50-json_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/dots/1000_100-json.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/dots/1000_100-json_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    Mixed HTML + JSON Items -
+                    <a href="paging/dots/1000_50-mixed.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/dots/1000_50-mixed_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/dots/1000_100-mixed.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/dots/1000_100-mixed_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    HTML Items + Lazy Loading -
+                    <a href="paging/dots/1000_50-html-lazy.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/dots/1000_50-html-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/dots/1000_100-html-lazy.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/dots/1000_100-html-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    JSON Items + Lazy Loading -
+                    <a href="paging/dots/1000_50-json-lazy.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/dots/1000_50-json-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/dots/1000_100-json-lazy.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/dots/1000_100-json-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+            </ul>
+            <h4>Load More</h4>
+            <ul>
+                <li>
+                    HTML Items -
+                    <a href="paging/loadMore/1000_50-html.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/loadMore/1000_50-html_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/loadMore/1000_100-html.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/loadMore/1000_100-html_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    JSON Items -
+                    <a href="paging/loadMore/1000_50-json.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/loadMore/1000_50-json_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/loadMore/1000_100-json.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/loadMore/1000_100-json_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    Mixed HTML + JSON Items -
+                    <a href="paging/loadMore/1000_50-mixed.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/loadMore/1000_50-mixed_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/loadMore/1000_100-mixed.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/loadMore/1000_100-mixed_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    HTML Items + Lazy Loading -
+                    <a href="paging/loadMore/1000_50-html-lazy.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/loadMore/1000_50-html-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/loadMore/1000_100-html-lazy.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/loadMore/1000_100-html-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    JSON Items + Lazy Loading -
+                    <a href="paging/loadMore/1000_50-json-lazy.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/loadMore/1000_50-json-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/loadMore/1000_100-json-lazy.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/loadMore/1000_100-json-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+            </ul>
+            <h4>Infinite</h4>
+            <ul>
+                <li>
+                    HTML Items -
+                    <a href="paging/infinite/1000_50-html.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/infinite/1000_50-html_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/infinite/1000_100-html.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/infinite/1000_100-html_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    JSON Items -
+                    <a href="paging/infinite/1000_50-json.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/infinite/1000_50-json_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/infinite/1000_100-json.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/infinite/1000_100-json_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    Mixed HTML + JSON Items -
+                    <a href="paging/infinite/1000_50-mixed.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/infinite/1000_50-mixed_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/infinite/1000_100-mixed.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/infinite/1000_100-mixed_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    HTML Items + Lazy Loading -
+                    <a href="paging/infinite/1000_50-html-lazy.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/infinite/1000_50-html-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/infinite/1000_100-html-lazy.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/infinite/1000_100-html-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+                <li>
+                    JSON Items + Lazy Loading -
+                    <a href="paging/infinite/1000_50-json-lazy.html">1000 Items @ 50 Per Page</a> |
+                    <a href="paging/infinite/1000_50-json-lazy_tags.html">1000 Items @ 50 Per Page + Tags</a> |
+                    <a href="paging/infinite/1000_100-json-lazy.html">1000 Items @ 100 Per Page</a> |
+                    <a href="paging/infinite/1000_100-json-lazy_tags.html">1000 Items @ 100 Per Page + Tags</a>
+                </li>
+            </ul>
         </section>
     </main>
 </body>
