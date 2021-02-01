@@ -6,7 +6,7 @@ module.exports = function ( grunt ) {
 		"clean": {
 			"dist": "./dist/",
 			"foo-utils": "./dist/foogallery.utils.js",
-			"jsdoc": "./docs/jsdocs"
+			"jsdoc": "./docs/jsdocs/"
 		},
 		"foo-utils": {
 			"options": {
@@ -26,6 +26,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/_foogallery.js",
 						"./src/core/js/Icons.js",
 						"./src/core/js/Swipe.js",
+						"./src/core/js/factories/Factory.js",
 						"./src/core/js/factories/TemplateFactory.js",
 						"./src/core/js/factories/PagingFactory.js",
 						"./src/core/js/factories/FilteringFactory.js",
@@ -169,6 +170,7 @@ module.exports = function ( grunt ) {
 						"./dist/foogallery.utils.js",
 						"./src/core/js/_foogallery.js",
 						"./src/core/js/Swipe.js",
+						"./src/core/js/factories/Factory.js",
 						"./src/core/js/factories/TemplateFactory.js",
 						"./src/core/js/factories/PagingFactory.js",
 						"./src/core/js/Template.js",

@@ -280,7 +280,6 @@
 				event.preventDefault();
 				self.masonry.remove(item.$el);
 				item.isAttached = false;
-				item.unfix();
 			}
 		},
 		/**

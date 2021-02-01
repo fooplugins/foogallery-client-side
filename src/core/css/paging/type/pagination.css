@@ -1,8 +1,4 @@
-.fg-placeholder-pagination {
-	display: block;
-	padding: 15px;
-}
-.fg-placeholder-pagination:before {
+.fg-ph-pagination:before {
 	display: block;
 	content: '';
 	width: 0;

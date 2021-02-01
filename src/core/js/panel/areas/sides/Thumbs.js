@@ -160,9 +160,7 @@
             var self = this,
                 $thumb = $(element),
                 item = $thumb.data("item"),
-                $media = $thumb.find(self.sel.thumb.media),
-                $img = $thumb.find(self.sel.thumb.image),
-                img = $img.get(0),
+                img = $thumb.find(self.sel.thumb.image).get(0),
                 states = self.panel.cls.states;
 
             $thumb.removeClass(states.allLoading).addClass(states.loading);
@@ -174,14 +172,15 @@
                 img.onload = img.onerror = null;
                 $thumb.removeClass(states.allLoading).addClass(states.error);
             };
-            img.src = item.getThumbSrc($media.width(), $media.height());
+            img.src = item.src;
+            img.srcset = item.srcset;
             if (img.complete){
                 img.onload();
             }
         },
         goto: function(index, disableTransition){
             var self = this;
-            if (!self.isCreated) return _fn.rejectWith("thumbs not created");
+            if (!self.isCreated) return _fn.reject("thumbs not created");
 
             index = index < 0 ? 0 : (index > self.lastIndex ? self.lastIndex : index);
 

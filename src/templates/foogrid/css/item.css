@@ -32,8 +32,10 @@
 	padding: 0;
 	text-decoration: none;
 }
-.foogrid .fg-current-pointer {
+
+.foogrid .fg-item:after {
 	display: block;
+	content: '';
 	border-bottom: 45px solid transparent;
 	border-left: 35px solid transparent;
 	border-right: 35px solid transparent;
@@ -46,7 +48,13 @@
 	visibility: hidden;
 	opacity: 0;
 }
-.foogrid .fg-item.foogrid-visible .fg-current-pointer {
+.foogrid .fg-item.foogrid-visible:after {
 	visibility: visible;
 	opacity: 1;
+}
+.foogrid.fg-light .fg-item:after {
+	border-bottom-color: #e6e6e6;
+}
+.foogrid.fg-dark .fg-item:after {
+	border-bottom-color: #292929;
 }

@@ -36,11 +36,13 @@
 		},
 		setState: function(state){
 			this.rebuild();
+			var shouldScroll = false;
 			if (!!state.item && !this.contains(state.page, state.item)){
 				state.page = this.find(state.item);
 				state.page = state.page !== 0 ? state.page : 1;
+				shouldScroll = true;
 			}
-			this.set(state.page, true, false, false);
+			this.set(state.page, shouldScroll, false, false);
 		},
 		destroy: function () {
 			var self = this;
@@ -110,13 +112,18 @@
 		create: function (pageNumber, isFilter) {
 			var self = this;
 			pageNumber = self.number(pageNumber);
-			var index = pageNumber - 1;
-			var pageItems = self._arr[index];
-			if (!self.tmpl.items.isAll(pageItems)){
-				var notOnPage = self.tmpl.items.not(pageItems);
-				self.tmpl.items.detach(notOnPage);
+
+			var pageIndex = pageNumber - 1, pageItems = self._arr[pageIndex], detach;
+			if (isFilter){
+				detach = self.tmpl.items.all();
+			} else {
+				detach = self._arr.reduce(function(detach, page, index){
+					return index === pageIndex ? detach : detach.concat(page);
+				}, self.tmpl.items.unavailable());
 			}
+
 			self.current = pageNumber;
+			self.tmpl.items.detach(detach);
 			self.tmpl.items.create(pageItems, true);
 		},
 		get: function (pageNumber) {
@@ -130,6 +137,7 @@
 		set: function (pageNumber, scroll, updateState, isFilter) {
 			var self = this;
 			if (self.isValid(pageNumber)) {
+				self.controls(pageNumber);
 				var num = self.number(pageNumber), state;
 				if (num !== self.current) {
 					var prev = self.current, setPage = function () {
@@ -139,7 +147,6 @@
 							state = self.tmpl.state.get();
 							self.tmpl.state.update(state, self.pushOrReplace);
 						}
-						self.controls(pageNumber);
 						self.create(num, isFilter);
 						if (updateState) {
 							state = self.tmpl.state.get();
@@ -210,7 +217,7 @@
 			if (self.$container.length > 0){
 				self._containerExisted = true;
 				self.$container.removeClass(function(i, classNames){
-					self._placeholderClasses = classNames.match(/(^|\s)fg-placeholder-\S+/g) || [];
+					self._placeholderClasses = classNames.match(/(^|\s)fg-ph-\S+/g) || [];
 					return self._placeholderClasses.join(' ');
 				}).addClass([self.pages.cls.container, self.pages.theme].join(' '));
 			} else {

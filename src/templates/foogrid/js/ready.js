@@ -39,18 +39,9 @@
 				self.panel.opt.button = "fg-button-dark";
 			}
 		},
-		ready: function(){
-			var self = this;
-			if (self._super()){
-				_.breakpoints.register(self.$el, self.template.outerBreakpoints);
-				return true;
-			}
-			return false;
-		},
 		destroy: function(preserveState){
 			var self = this, _super = self._super.bind(self);
 			return self.panel.destroy().then(function(){
-				_.breakpoints.remove(self.$el);
 				self.$section.remove();
 				return _super(preserveState);
 			});
@@ -79,18 +70,15 @@
 		},
 		onParsedItem: function(event, self, item){
 			if (item.isError) return;
-			item.$anchor.on("click.gg", {self: self, item: item}, self.onAnchorClick);
-			item.$el.append($("<span/>").addClass([self.cls.currentPointer, self.panel.opt.theme].join(' ')));
+			item.$anchor.off("click.foogallery").on("click.gg", {self: self, item: item}, self.onAnchorClick);
 		},
 		onCreatedItem: function(event, self, item){
 			if (item.isError) return;
-			item.$anchor.on("click.gg", {self: self, item: item}, self.onAnchorClick);
-			item.$el.append($("<span/>").addClass([self.cls.currentPointer, self.panel.opt.theme].join(' ')));
+			item.$anchor.off("click.foogallery").on("click.gg", {self: self, item: item}, self.onAnchorClick);
 		},
 		onDestroyItem: function(event, self, item){
 			if (item.isError) return;
 			item.$anchor.off("click.gg", self.onAnchorClick);
-			item.$el.find(self.sel.currentPointer).remove();
 		},
 		onAfterState: function(event, self, state){
 			if (!(state.item instanceof _.Item)) return;
@@ -110,7 +98,7 @@
 
 
 		transitionsEnabled: function(){
-			return _t.supported && !this.disableTransitions && this.panel.hasTransition;
+			return !this.disableTransitions && this.panel.hasTransition;
 		},
 		isNewRow: function( item ){
 			var self = this,
@@ -176,7 +164,9 @@
 					if (newRow) item.$el.after(self.$section);
 					if (self.transitionOpen(newRow)){
 						self.isFirst = false;
-						_t.start(self.$section, self.cls.visible, true, 350).then(function(){
+						_t.start(self.$section, function($el){
+							$el.addClass(self.cls.visible);
+						}, null, 350).then(function(){
 							def.resolve();
 						});
 					} else {
@@ -210,9 +200,11 @@
 			var self = this;
 			return $.Deferred(function(def){
 				if (self.panel.currentItem instanceof _.Item){
-					if (newRow) self.panel.currentItem.$el.removeClass(self.cls.visible);
+					self.panel.currentItem.$el.removeClass(self.cls.visible);
 					if (self.transitionClose(newRow)){
-						_t.start(self.$section, self.cls.visible, false, 350).then(function(){
+						_t.start(self.$section, function($el){
+							$el.removeClass(self.cls.visible);
+						}, null, 350).then(function(){
 							self.panel.doClose(true, true).then(function(){
 								def.resolve();
 							});
@@ -259,23 +251,16 @@
 			keyboard: true,
 			transitionRow: true,
 			transitionOpen: true,
+			noMobile: true,
 			info: "bottom",
             infoVisible: true,
             infoOverlay: false,
 			buttons: {
 				fullscreen: false,
-			},
-			outerBreakpoints: {
-				"x-small": 480,
-				small: 768,
-				medium: 1024,
-				large: 1280,
-				"x-large": 1600
 			}
 		}
 	}, {
 		container: "foogallery foogrid",
-		currentPointer: "fg-current-pointer",
 		visible: "foogrid-visible"
 	});
 

@@ -229,7 +229,7 @@
         }
     });
 
-    _.Panel.media = new _utils.Factory();
+    _.Panel.media = new _.Factory();
 
 })(
     FooGallery.$,

@@ -98,9 +98,9 @@
 	 * @summary A factory for registering and creating basic gallery components.
 	 * @memberof FooGallery
 	 * @name components
-	 * @type {FooGallery.utils.Factory}
+	 * @type {FooGallery.Factory}
 	 */
-	_.components = new _utils.Factory();
+	_.components = new _.Factory();
 
 })(
 	FooGallery,

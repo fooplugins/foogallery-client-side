@@ -99,7 +99,7 @@
         },
         load: function(media){
             var self = this;
-            if (!(media instanceof _.Panel.Media)) return _fn.rejectWith("unable to load media");
+            if (!(media instanceof _.Panel.Media)) return _fn.reject("unable to load media");
             return $.Deferred(function(def){
                 var reverseTransition = self.shouldReverseTransition(self.currentMedia, media);
                 var e = self.panel.trigger("area-load", [self, media, reverseTransition]);

@@ -1,16 +1,17 @@
+.foogrid-panel.fg-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
 .foogrid-panel.fg-panel.fg-light {
     background-color: #eee;
-    border: 1px solid #e6e6e6;
+    border: none;
 }
 .foogrid-panel.fg-panel.fg-dark {
     background-color: #333;
-    border: 1px solid #292929;
-}
-.fg-current-pointer.fg-light {
-    border-bottom-color: #e6e6e6;
-}
-.fg-current-pointer.fg-dark {
-    border-bottom-color: #292929;
+    border: none;
 }
 .foogrid-panel.fg-panel.fg-light .fg-panel-area .fg-panel-info-inner {
     background-color: rgba(238, 238, 238, 0.5);

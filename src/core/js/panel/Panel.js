@@ -271,8 +271,8 @@
 
             item = self.getItem(item);
 
-            if (!(item instanceof _.Item)) return _fn.rejectWith("no item to load");
-            if (item === self.currentItem) return _fn.rejectWith("item is currently loaded");
+            if (!(item instanceof _.Item)) return _fn.reject("no item to load");
+            if (item === self.currentItem) return _fn.reject("item is currently loaded");
 
             self.isLoading = true;
             self.isLoaded = false;
@@ -322,7 +322,7 @@
             var self = this;
             item = self.getItem(item);
             var e = self.trigger("open", [self, item, parent]);
-            if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+            if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doOpen(item, parent).then(function(){
                 self.trigger("opened", [self, item, parent]);
             });
@@ -347,9 +347,9 @@
         },
         next: function(){
             var self = this, current = self.currentItem, next = self.nextItem;
-            if (!(next instanceof _.Item)) return _fn.rejectWith("no next item");
+            if (!(next instanceof _.Item)) return _fn.reject("no next item");
             var e = self.trigger("next", [self, current, next]);
-            if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+            if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doNext(next).then(function(){
                 self.trigger("after-next", [self, current, next]);
             });
@@ -359,9 +359,9 @@
         },
         prev: function(){
             var self = this, current = self.currentItem, prev = self.prevItem;
-            if (!(prev instanceof _.Item)) return _fn.rejectWith("no prev item");
+            if (!(prev instanceof _.Item)) return _fn.reject("no prev item");
             var e = self.trigger("prev", [self, current, prev]);
-            if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+            if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doPrev(prev).then(function(){
                 self.trigger("after-prev", [self, current, prev]);
             });
@@ -371,7 +371,7 @@
         },
         close: function(immediate){
             var self = this, e = self.trigger("close", [self, self.currentItem]);
-            if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+            if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doClose(immediate).then(function(){
                 self.trigger("closed", [self]);
             });

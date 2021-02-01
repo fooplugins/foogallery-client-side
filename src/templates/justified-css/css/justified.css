@@ -34,7 +34,6 @@
 	align-items: center;
 	justify-content: stretch;
 	overflow: hidden;
-	max-height: 150px;
 }
 .foogallery.fg-justified-css .fg-image {
 	width: 100%;

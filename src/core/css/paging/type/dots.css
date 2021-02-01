@@ -1,8 +1,4 @@
-.fg-placeholder-dots {
-	display: block;
-	padding: 15px;
-}
-.fg-placeholder-dots:after {
+.fg-ph-dots:after {
 	display: block;
 	content: '';
 	width: 0;

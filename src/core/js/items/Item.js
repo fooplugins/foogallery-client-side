@@ -131,13 +131,6 @@
 
 			/**
 			 * @memberof FooGallery.Item#
-			 * @name fixLayout
-			 * @type {boolean}
-			 */
-			self.fixLayout = self.tmpl.opt.fixLayout;
-
-			/**
-			 * @memberof FooGallery.Item#
 			 * @name index
 			 * @type {number}
 			 * @default -1
@@ -235,12 +228,6 @@
 			self.tags = self.opt.tags;
 			/**
 			 * @memberof FooGallery.Item#
-			 * @name maxWidth
-			 * @type {?FooGallery.Item~maxWidthCallback}
-			 */
-			self.maxWidth = self.opt.maxWidth;
-			/**
-			 * @memberof FooGallery.Item#
 			 * @name maxCaptionLength
 			 * @type {number}
 			 */
@@ -287,14 +274,6 @@
 			 * @type {boolean}
 			 */
 			self.hasExif = _is.exif(self.exif);
-			/**
-			 * @summary The cached result of the last call to the {@link FooGallery.Item#getThumbUrl|getThumbUrl} method.
-			 * @memberof FooGallery.Item#
-			 * @name _thumbUrl
-			 * @type {?string}
-			 * @private
-			 */
-			self._thumbUrl = null;
 			/**
 			 * @summary This property is used to store the promise created when loading an item for the first time.
 			 * @memberof FooGallery.Item#
@@ -488,7 +467,6 @@
 			var e = self.tmpl.raise("parse-item", [self, $el]);
 			if (!e.isDefaultPrevented() && (self.isCreated = $el.is(self.sel.elem))) {
 				self.isParsed = self.doParseItem($el);
-				// if (self.fixLayout) self.fix();
 				// We don't load the attributes when parsing as they are only ever used to create an item and if you're parsing it's already created.
 			}
 			if (self.isParsed) {
@@ -699,6 +677,18 @@
 			return self.isCreated;
 		},
 		/**
+		 * @memberof FooGallery.Item#
+		 * @function _setAttributes
+		 * @param element
+		 * @param attributes
+		 * @private
+		 */
+		_setAttributes: function(element, attributes){
+			Object.keys(attributes).forEach(function(key){
+				element.setAttribute(key, _is.string(attributes[key]) ? attributes[key] : JSON.stringify(attributes[key]));
+			});
+		},
+		/**
 		 * @summary Performs the actual create logic for the item.
 		 * @memberof FooGallery.Item#
 		 * @function doCreateItem
@@ -706,9 +696,15 @@
 		 */
 		doCreateItem: function () {
 			var self = this, o = self.tmpl.opt, cls = self.cls, attr = self.attr, type = self.getTypeClass(), exif = self.hasExif ? cls.exif : "";
-			attr.elem["class"] = [cls.elem, type, exif, cls.idle].join(" ");
 
-			attr.inner["class"] = cls.inner;
+
+			var elem = document.createElement("div");
+			self._setAttributes(elem, attr.elem);
+			elem.className = [cls.elem, type, exif, cls.idle].join(" ");
+
+			var inner = document.createElement("figure");
+			self._setAttributes(inner, attr.inner);
+			inner.className = cls.inner;
 
 			var anchorClasses = [cls.anchor];
 			if (self.noLightbox){
@@ -717,74 +713,102 @@
 			if (self.panelHide){
 				anchorClasses.push(cls.panelHide);
 			}
-			attr.anchor["class"] = anchorClasses.join(" ");
-			attr.anchor["href"] = self.href;
-			attr.anchor["data-type"] = self.type;
-			attr.anchor["data-id"] = self.id;
-			attr.anchor["data-title"] = self.caption;
-			attr.anchor["data-description"] = self.description;
+
+			var anchor = document.createElement("a");
+			self._setAttributes(anchor, attr.anchor);
+			anchor.className = anchorClasses.join(" ");
+			anchor.href = self.href;
+			anchor.setAttribute("data-type", self.type);
+			anchor.setAttribute("data-id", self.id);
+			anchor.setAttribute("data-title", self.caption);
+			anchor.setAttribute("data-description", self.description);
 			if (!_is.empty(self.tags)) {
-				attr.anchor["data-tags"] = JSON.stringify(self.tags);
+				anchor.setAttribute("data-tags", JSON.stringify(self.tags));
 			}
 			if (!_is.empty(self.productId)) {
-				attr.anchor["data-product-id"] = self.productId;
+				anchor.setAttribute("data-product-id", self.productId);
+			}
+			if (self.hasExif) {
+				anchor.setAttribute("data-exif", JSON.stringify(self.exif));
 			}
 
-			attr.image["class"] = cls.image;
+			var image = document.createElement("img");
+			self._setAttributes(image, attr.image);
+			image.className = cls.image;
 			if (!_is.string(self.placeholder) || self.placeholder.length === 0){
 				self.placeholder = self.createPlaceholder(self.width, self.height);
 			}
 			if (self.placeholder.length > 0){
-				attr.image["src"] = self.placeholder;
+				image.src = self.placeholder;
 			}
-			attr.image[o.src] = self.src;
-			attr.image[o.srcset] = self.srcset;
-			attr.image["width"] = self.width;
-			attr.image["height"] = self.height;
-			attr.image["title"] = self.title;
-			attr.image["alt"] = self.alt;
+			image.setAttribute(o.src, self.src);
+			image.setAttribute(o.srcset, self.srcset);
+			image.setAttribute("width", self.width + '');
+			image.setAttribute("height", self.height + '');
+			image.setAttribute("title", self.title);
+			image.setAttribute("alt", self.alt);
 
-			self.$el = $("<div/>").attr(attr.elem).data(_.DATA_ITEM, self);
-			self.$inner = $("<figure/>").attr(attr.inner).appendTo(self.$el);
-			self.$anchor = $("<a/>").attr(attr.anchor).appendTo(self.$inner).on("click.foogallery", {self: self}, self.onAnchorClick);
-			self.$overlay = $("<span/>", {"class": cls.overlay}).appendTo(self.$anchor);
-			self.$wrap = $("<span/>", {"class": cls.wrap}).appendTo(self.$anchor);
-			self.$image = $("<img/>").attr(attr.image).appendTo(self.$wrap);
+			var overlay = document.createElement("span");
+			overlay.className = cls.overlay;
 
-			cls = self.cls.caption;
-			attr = self.attr.caption;
-			attr.elem["class"] = cls.elem;
-			self.$caption = $("<figcaption/>").attr(attr.elem).on("click.foogallery", {self: self}, self.onCaptionClick);
-			attr.inner["class"] = cls.inner;
-			var $inner = $("<div/>").attr(attr.inner).appendTo(self.$caption);
-			var hasTitle = self.showCaptionTitle && !_is.empty(self.caption), hasDesc = self.showCaptionDescription && !_is.empty(self.description);
-			if (hasTitle || hasDesc) {
-				attr.title["class"] = cls.title;
-				attr.description["class"] = cls.description;
-				if (hasTitle) {
-					var $title = $("<div/>").attr(attr.title), titleHtml = self.caption;
-					// enforce the max length for the caption
-					if (_is.number(self.maxCaptionLength) && self.maxCaptionLength > 0 && _is.string(self.caption) && self.caption.length > self.maxCaptionLength) {
-						titleHtml = self.caption.substr(0, self.maxCaptionLength) + "&hellip;";
-					}
-					$title.get(0).innerHTML = titleHtml;
-					$inner.append($title);
+			var wrap = document.createElement("span");
+			wrap.className = cls.wrap;
+
+			var loader = document.createElement("div");
+			loader.className = cls.loader;
+
+			var caption = document.createElement("figcaption");
+			self._setAttributes(caption, attr.caption.elem);
+			caption.className = cls.caption.elem;
+
+			var captionInner = document.createElement("div");
+			self._setAttributes(captionInner, attr.caption.inner);
+			captionInner.className = cls.caption.inner;
+
+			var captionTitle = null;
+			if (self.showCaptionTitle && _is.string(self.caption) && self.caption.length > 0) {
+				captionTitle = document.createElement("div");
+				self._setAttributes(captionTitle, attr.caption.title);
+				var titleHtml = self.caption;
+				// enforce the max length for the caption
+				if (_is.number(self.maxCaptionLength) && self.maxCaptionLength > 0 && self.caption.length > self.maxCaptionLength) {
+					titleHtml = self.caption.substr(0, self.maxCaptionLength) + "&hellip;";
 				}
-				if (hasDesc) {
-					var $desc = $("<div/>").attr(attr.description), descHtml = self.description;
-					// enforce the max length for the description
-					if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength > 0 && _is.string(self.description) && self.description.length > self.maxDescriptionLength) {
-						descHtml = self.description.substr(0, self.maxDescriptionLength) + "&hellip;";
-					}
-					$desc.get(0).innerHTML = descHtml;
-					$inner.append($desc);
+				captionTitle.innerHTML = titleHtml;
+			}
+			var captionDesc = null;
+			if (self.showCaptionDescription && _is.string(self.description) && self.description.length > 0) {
+				captionDesc = document.createElement("div");
+				self._setAttributes(captionDesc, attr.caption.description);
+				var descHtml = self.description;
+				// enforce the max length for the description
+				if (_is.number(self.maxDescriptionLength) && self.maxDescriptionLength > 0 && self.description.length > self.maxDescriptionLength) {
+					descHtml = self.description.substr(0, self.maxDescriptionLength) + "&hellip;";
 				}
+				captionDesc.innerHTML = descHtml;
 			}
-			self.$caption.appendTo(self.$inner);
-			// check if the item has a loader
-			if (self.$el.find(self.sel.loader).length === 0) {
-				self.$el.append($("<div/>", {"class": self.cls.loader}));
-			}
+
+			if (captionTitle !== null) captionInner.appendChild(captionTitle);
+			if (captionDesc !== null) captionInner.appendChild(captionDesc);
+			caption.appendChild(captionInner);
+
+			wrap.appendChild(image);
+			anchor.appendChild(overlay);
+			anchor.appendChild(wrap);
+			inner.appendChild(anchor);
+			inner.appendChild(caption);
+			elem.appendChild(inner);
+			elem.appendChild(loader);
+
+			self.$el = $(elem).data(_.DATA_ITEM, self);
+			self.$inner = $(inner);
+			self.$anchor = $(anchor).on("click.foogallery", {self: self}, self.onAnchorClick);
+			self.$overlay = $(overlay);
+			self.$wrap = $(wrap);
+			self.$image = $(image);
+			self.$caption = $(caption).on("click.foogallery", {self: self}, self.onCaptionClick);
+			self.$loader = $(loader);
+
 			return true;
 		},
 		/**
@@ -842,7 +866,6 @@
 				var e = self.tmpl.raise("append-item", [self]);
 				if (!e.isDefaultPrevented()) {
 					self.tmpl.$el.append(self.$el);
-					// if (self.fixLayout || !self.isParsed) self.fix();
 					self.isAttached = true;
 				}
 				if (self.isAttached) {
@@ -920,7 +943,6 @@
 				var e = self.tmpl.raise("detach-item", [self]);
 				if (!e.isDefaultPrevented()) {
 					self.$el.detach();
-					// if (self.fixLayout || !self.isParsed) self.unfix();
 					self.isAttached = false;
 				}
 				if (!self.isAttached) {
@@ -954,9 +976,9 @@
 		load: function () {
 			var self = this;
 			if (_is.promise(self._load)) return self._load;
-			if (!self.isCreated || !self.isAttached) return _fn.rejectWith("not created or attached");
+			if (!self.isCreated || !self.isAttached) return _fn.reject("not created or attached");
 			var e = self.tmpl.raise("load-item", [self]);
-			if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+			if (e.isDefaultPrevented()) return _fn.reject("default prevented");
 			var cls = self.cls, img = self.$image.get(0), placeholder = img.src;
 			self.isLoading = true;
 			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
@@ -966,7 +988,6 @@
 					self.isLoading = false;
 					self.isLoaded = true;
 					self.$el.removeClass(cls.loading).addClass(cls.loaded);
-					// if (self.fixLayout || !self.isParsed) self.unfix();
 					self.tmpl.raise("loaded-item", [self]);
 					def.resolve(self);
 				};
@@ -1004,65 +1025,6 @@
 			return "";
 		},
 		/**
-		 * @summary Attempts to set a inline width and height on the {@link FooGallery.Item#$image|$image} to prevent layout jumps.
-		 * @memberof FooGallery.Item#
-		 * @function fix
-		 * @returns {FooGallery.Item}
-		 */
-		fix: function () {
-			var self = this;
-			if (self.tmpl == null) return self;
-			if (self.isCreated && !self.isLoading && !self.isLoaded && !self.isError) {
-				var w = self.width, h = self.height, img = self.$image.get(0);
-				// if we have a base width and height to work with
-				if (!isNaN(w) && !isNaN(h) && !!img) {
-					// figure out the max image width and calculate the height the image should be displayed as
-					var width = _is.fn(self.maxWidth) ? self.maxWidth(self) : self.$image.width();
-					if (width <= 0) width = w;
-					var ratio = width / w, height = h * ratio;
-					// actually set the inline css on the image
-					self.$image.css({width: width, height: height});
-				}
-			}
-			return self;
-		},
-		/**
-		 * @summary Removes any inline width and height values set on the {@link FooGallery.Item#$image|$image}.
-		 * @memberof FooGallery.Item#
-		 * @function unfix
-		 * @returns {FooGallery.Item}
-		 */
-		unfix: function () {
-			var self = this;
-			if (self.tmpl == null) return self;
-			if (self.isCreated) self.$image.css({width: '', height: ''});
-			return self;
-		},
-		/**
-		 * @summary Inspect the `src` and `srcset` properties to determine which url to load for the thumb.
-		 * @memberof FooGallery.Item#
-		 * @function getThumbSrc
-		 * @param {number} renderWidth - The rendered width of the image to fetch the url for.
-		 * @param {number} renderHeight - The rendered height of the image to fetch the url for.
-		 * @returns {string}
-		 */
-		getThumbSrc: function(renderWidth, renderHeight){
-			return _utils.src(this.src, this.srcset, this.width, this.height, renderWidth, renderHeight);
-		},
-		/**
-		 * @summary Inspect the `src` and `srcset` properties to determine which url to load for the thumb.
-		 * @memberof FooGallery.Item#
-		 * @function getThumbUrl
-		 * @param {boolean} [refresh=false] - Whether or not to force refreshing of the cached value.
-		 * @returns {string}
-		 */
-		getThumbUrl: function (refresh) {
-			refresh = _is.boolean(refresh) ? refresh : false;
-			var self = this;
-			if (!refresh && _is.string(self._thumbUrl)) return self._thumbUrl;
-			return self._thumbUrl = self.getThumbSrc(self.$anchor.innerWidth(), self.$anchor.innerHeight());
-		},
-		/**
 		 * @summary Gets the type specific CSS class for the item.
 		 * @memberof FooGallery.Item#
 		 * @function getTypeClass
@@ -1079,7 +1041,7 @@
 		scrollTo: function (align) {
 			var self = this;
 			if (self.isAttached) {
-				var el = /** @type {HTMLElement} */ self.$el.get(0);
+				var el = self.$el.get(0);
 				if (!!el.scrollIntoViewIfNeeded){
 					el.scrollIntoViewIfNeeded();
 				} else {
@@ -1089,15 +1051,28 @@
 			return self;
 		},
 		/**
-		 * @summary Get the bounds for the item.
+		 * @summary Get the bounding rectangle for the item.
 		 * @memberof FooGallery.Item#
 		 * @function bounds
-		 * @returns {?DOMRect}
+		 * @returns {?Rect} Returns `null` if the item is not attached to the DOM.
 		 */
 		bounds: function () {
+
+			/**
+			 * @typedef {Object} Rect
+			 * @property {number} x
+			 * @property {number} y
+			 * @property {number} width
+			 * @property {number} height
+			 * @property {number} top
+			 * @property {number} right
+			 * @property {number} bottom
+			 * @property {number} left
+			 */
+
 			if (this.isAttached){
-				var el = this.$el.get(0);
-				return el.getBoundingClientRect();
+				var el = this.$el.get(0), rect = el.getBoundingClientRect();
+				return { x: rect.left, y: rect.top, width: rect.width, height: rect.height, top: rect.top, right: rect.right, bottom: rect.bottom, left: rect.left };
 			}
 			return null;
 		},
@@ -1111,12 +1086,6 @@
 			var self = this;
 			if (self.isAttached){
 				var rect = self.bounds();
-
-				// var result = rect !== null && rect.bottom > 0 &&
-				// 	rect.right > 0 &&
-				// 	rect.left < window.innerWidth &&
-				// 	rect.top < window.innerHeight;
-				// console.log('inViewport', result, (window.innerWidth || document.documentElement.clientWidth), (window.innerHeight || document.documentElement.clientHeight), rect);
 				return rect !== null && rect.bottom > 0 &&
 					rect.right > 0 &&
 					rect.left < window.innerWidth &&
@@ -1193,19 +1162,6 @@
 	});
 
 	/**
-	 * @summary Called when setting an items' image size to prevent layout jumps.
-	 * @callback FooGallery.Item~maxWidthCallback
-	 * @param {FooGallery.Item} item - The item to determine the maxWidth for.
-	 * @returns {number} Returns the maximum width allowed for the {@link FooGallery.Item#$image|$image} element.
-	 * @example {@caption An example of the default behavior this callback replaces would look like the below.}
-	 * {
-	 * 	"maxWidth": function(item){
-	 * 		return item.$image.outerWidth();
-	 * 	}
-	 * }
-	 */
-
-	/**
 	 * @summary A simple object containing an items' default values.
 	 * @typedef {object} FooGallery.Item~Options
 	 * @property {?string} [type="item"] - The `data-type` attribute for the anchor element.
@@ -1220,7 +1176,6 @@
 	 * @property {?string} [caption=null] - The caption for the image. This can contain HTML content.
 	 * @property {?string} [description=null] - The description for the image. This can contain HTML content.
 	 * @property {string[]} [tags=[]] - The `data-tags` attribute for the outer element.
-	 * @property {?FooGallery.Item~maxWidthCallback} [maxWidth=null] - Called when setting an items' image size. If not supplied the images outer width is used.
 	 * @property {number} [maxCaptionLength=0] - The max length of the title for the caption.
 	 * @property {number} [maxDescriptionLength=0] - The max length of the description for the caption.
 	 * @property {boolean} [showCaptionTitle=true] - Whether or not the caption title should be displayed.
@@ -1242,7 +1197,6 @@
 			caption: "",
 			description: "",
 			tags: [],
-			maxWidth: null,
 			maxCaptionLength: 0,
 			maxDescriptionLength: 0,
 			showCaptionTitle: true,

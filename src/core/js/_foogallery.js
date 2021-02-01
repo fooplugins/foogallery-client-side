@@ -37,12 +37,6 @@
 		return tmpl instanceof _.Template ? tmpl.initialize() : _fn.rejected;
 	};
 
-	_.initAll = function (options) {
-		return _fn.when($(".foogallery").map(function (i, element) {
-			return _.init(options, element);
-		}).get());
-	};
-
 	/**
 	 * @summary Expose FooGallery as a jQuery plugin.
 	 * @memberof external:"jQuery.fn"#

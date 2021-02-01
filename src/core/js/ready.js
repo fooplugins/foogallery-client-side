@@ -35,7 +35,7 @@
 		if (window.FooGallery_il8n && _is.object(window.FooGallery_il8n)){
 			var il8n = window.FooGallery_il8n;
 			for (var factory in il8n){
-				if (!il8n.hasOwnProperty(factory) || !(_[factory] instanceof _utils.Factory) || !_is.object(il8n[factory])) continue;
+				if (!il8n.hasOwnProperty(factory) || !(_[factory] instanceof _.Factory) || !_is.object(il8n[factory])) continue;
 				for (var component in il8n[factory]){
 					if (il8n[factory].hasOwnProperty(component)){
 						_[factory].configure(component, null, null, il8n[factory][component]);

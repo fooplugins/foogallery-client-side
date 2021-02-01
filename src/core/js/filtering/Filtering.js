@@ -331,16 +331,32 @@
 		},
 		create: function () {
 			var self = this;
-			self.$container = $("<nav/>", {"class": self.filter.cls.container}).addClass(self.filter.theme);
+			self.$container = $("#" + self.tmpl.id + "_filtering-" + self.position);
+			if (self.$container.length > 0){
+				self._containerExisted = true;
+				self.$container.removeClass(function(i, classNames){
+					self._placeholderClasses = classNames.match(/(^|\s)fg-ph-\S+/g) || [];
+					return self._placeholderClasses.join(' ');
+				}).addClass([self.filter.cls.container, self.filter.theme].join(' '));
+			} else {
+				self.$container = $("<nav/>", {"class": [self.filter.cls.container, self.filter.theme].join(' ')});
+			}
 			return true;
 		},
 		destroy: function () {
 			var self = this;
-			self.$container.remove();
+			if (self._containerExisted){
+				self.$container.empty()
+					.removeClass()
+					.addClass(self._placeholderClasses.join(' '));
+			} else {
+				self.$container.remove();
+			}
 			self.$container = null;
 		},
 		append: function () {
 			var self = this;
+			if (self._containerExisted) return;
 			if (self.position === "top") {
 				self.$container.insertBefore(self.tmpl.$el);
 			} else {

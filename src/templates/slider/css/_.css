@@ -6,39 +6,18 @@
     display: block;
     height: 0;
     width: 100%;
-    max-width: 1920px;
-    margin: 0 auto;
+    padding-top: 56.25%;
+    min-height: 315px;
 }
 .foogallery.fg-slider.fg-16-9 {
     padding-top: 56.25%;
 }
+.foogallery.fg-slider.fg-16-10 {
+    padding-top: 62.5%;
+}
 .foogallery.fg-slider.fg-4-3 {
     padding-top: 75%;
 }
-
-/*.fg-slider {*/
-/*    display: block;*/
-/*    width: auto;*/
-/*    height: 336px;*/
-/*    max-width: 1920px;*/
-/*    margin: 0 auto;*/
-/*    position: relative;*/
-/*}*/
-/*.fg-slider.fg-x-small {*/
-/*    height: 392px;*/
-/*}*/
-/*.fg-slider.fg-small {*/
-/*    height: 480px;*/
-/*}*/
-/*.fg-slider.fg-medium {*/
-/*    height: 560px;*/
-/*}*/
-/*.fg-slider.fg-large {*/
-/*    height: 620px;*/
-/*}*/
-/*.fg-slider.fg-x-large {*/
-/*    height: 720px;*/
-/*}*/
 
 .fg-slider .fg-panel {
     position: absolute;
@@ -93,7 +72,9 @@
     font-weight: normal;
     line-height: normal;
 }
-
+.fg-slider .fg-panel-info-overlay .fg-media-caption-exif-label {
+    color: inherit;
+}
 .fg-slider .fg-panel-thumb-title {
     margin-bottom: 4px;
     font-weight: normal;

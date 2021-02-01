@@ -1,4 +1,4 @@
-(function($, _, _utils, _obj, _animation){
+(function($, _, _utils, _obj){
 
     _.Panel.Image = _.Panel.Media.extend({
         construct: function(panel, item){
@@ -33,7 +33,7 @@
                             fullWidth = true;
                         }
                     }
-                    _animation.requestFrame(function(){
+                    _utils.requestFrame(function(){
                         self.$content.removeClass(self.allFullClasses).addClass(fullWidth ? self.cls.fullWidth : self.cls.fullHeight);
                     });
                 }
@@ -86,6 +86,5 @@
     FooGallery.$,
     FooGallery,
     FooGallery.utils,
-    FooGallery.utils.obj,
-    FooGallery.utils.animation
+    FooGallery.utils.obj
 );

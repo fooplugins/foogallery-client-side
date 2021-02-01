@@ -25,6 +25,7 @@
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
+			self._unavailable = [];
 			// add the .all caption selector
 			var cls = self.tmpl.cls.item.caption;
 			self.tmpl.sel.item.caption.all = _utils.selectify([cls.elem, cls.inner, cls.title, cls.description]);
@@ -81,16 +82,18 @@
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
+			self._unavailable = [];
 			self._super();
 		},
 		fetch: function (refresh) {
 			var self = this;
 			if (!refresh && _is.promise(self._fetched)) return self._fetched;
-			var fg = self.tmpl, selectors = fg.sel,
-					option = fg.opt.items,
-					def = $.Deferred();
+			var itemsId = self.tmpl.id + "_items",
+				selectors = self.tmpl.sel,
+				option = self.tmpl.opt.items,
+				def = $.Deferred();
 
-			var items = self.make(fg.$el.find(selectors.item.elem));
+			var items = self.make(self.tmpl.$el.find(selectors.item.elem));
 
 			if (!_is.empty(option)) {
 				if (_is.array(option)) {
@@ -108,8 +111,8 @@
 					def.resolve(items);
 				}
 			} else {
-				if (window.FooGallery_items && _is.object(window.FooGallery_items)) {
-					items.push.apply(items, self.make(window.FooGallery_items[fg.id]));
+				if (_is.array(window[itemsId])) {
+					items.push.apply(items, self.make(window[itemsId]));
 				}
 				def.resolve(items);
 			}
@@ -136,6 +139,12 @@
 			}
 			return this._available.slice();
 		},
+		unavailable: function (where) {
+			if (_is.fn(where)){
+				return this._unavailable.filter(where, this);
+			}
+			return this._unavailable.slice();
+		},
 		get: function (idOrIndex) {
 			var map = _is.number(idOrIndex) ? 'index' : 'id';
 			return !!this.maps[map][idOrIndex] ? this.maps[map][idOrIndex] : null;
@@ -144,10 +153,19 @@
 			this._arr = _is.array(items) ? items : [];
 			this.maps = this.createMaps(this._arr);
 			this._available = this.all();
+			this._unavailable = [];
 		},
 		setAvailable: function (items) {
-			this.maps = this.createMaps(this._arr);
-			this._available = _is.array(items) ? items : [];
+			var self = this;
+			self.maps = self.createMaps(self._arr);
+			self._available = _is.array(items) ? items : [];
+			if (self._arr.length !== self._available.length){
+				self._unavailable = self._arr.filter(function(item){
+					return self._available.indexOf(item) === -1;
+				});
+			} else {
+				self._unavailable = [];
+			}
 		},
 		reset: function () {
 			this.setAvailable(this.all());
@@ -397,8 +415,12 @@
 			if (_is.hash(objOrElement)) {
 				type = objOrElement.type;
 			} else if (_is.element(objOrElement)) {
-				var $el = $(objOrElement), item = this.tmpl.sel.item;
-				type = $el.find(item.anchor).data("type");
+				var match = objOrElement.className.match(/(?:^|\s)?fg-type-(.*?)(?:$|\s)/);
+				if (match !== null && match.length === 2){
+					type = match[1];
+				}
+				// var $el = $(objOrElement), item = this.tmpl.sel.item;
+				// type = $el.find(item.anchor).data("type");
 			}
 			return _is.string(type) && _.components.contains(type) ? type : "image";
 		},
@@ -648,7 +670,12 @@
 					var loading = $.map(items, function (item) {
 						return item.load();
 					});
-					return _fn.when(loading).done(function (loaded) {
+					return _fn.allSettled(loading).then(function (results) {
+						var loaded = results.filter(function(result){
+							return result.status === "fulfilled";
+						}).map(function(result){
+							return result.value;
+						});
 						/**
 						 * @summary Raised after the template has loaded items.
 						 * @event FooGallery.Template~"loaded-items.foogallery"
@@ -669,7 +696,7 @@
 					});
 				}
 			}
-			return _fn.resolveWith([]);
+			return _fn.resolve([]);
 		}
 	});
 

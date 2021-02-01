@@ -37,7 +37,9 @@
                 media.appendTo(self.$inner);
                 var wait = [];
                 if (self.panel.hasTransition){
-                    wait.push(_t.start(media.$el, states.visible, true, 350));
+                    wait.push(_t.start(media.$el, function($el){
+                        $el.addClass(states.visible);
+                    }, null, 350));
                 } else {
                     media.$el.addClass(states.visible);
                 }
@@ -52,7 +54,9 @@
                 if (media.isCreated){
                     media.$el.toggleClass(states.reverse, !reverseTransition);
                     if (self.panel.hasTransition){
-                        wait.push(_t.start(media.$el, states.visible, false, 350));
+                        wait.push(_t.start(media.$el, function($el){
+                            $el.removeClass(states.visible);
+                        }, null, 350));
                     } else {
                         media.$el.removeClass(states.visible);
                     }

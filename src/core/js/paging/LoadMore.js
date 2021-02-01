@@ -14,7 +14,7 @@
 			var self = this, items = [], page = self.get(self.current), last, first;
 			if (!_is.empty(page) && self._created.length !== self.total){
 				last = page[page.length - 1].bounds();
-				if (last.top - window.innerHeight < self.distance){
+				if (last !== null && last.top - window.innerHeight < self.distance){
 					var pageNumber = self.current + 1;
 					if (self.isValid(pageNumber) && self._count < self.amount){
 						self._count++;
@@ -36,7 +36,7 @@
 				if (!_is.empty(page)){
 					first = page[0].bounds();
 					last = page[page.length - 1].bounds();
-					if (first.top - window.innerHeight < self.distance || last.bottom < self.distance){
+					if ((first !== null && first.top - window.innerHeight < self.distance) || (last !== null && last.bottom < self.distance)){
 						items.push.apply(items, page);
 					}
 				}

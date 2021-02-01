@@ -309,7 +309,7 @@
 			 * });
 			 */
 			var e = self.raise("init");
-			if (e.isDefaultPrevented()) return _fn.rejectWith("init default prevented");
+			if (e.isDefaultPrevented()) return _fn.reject("init default prevented");
 			return self.items.fetch();
 		},
 		/**
@@ -638,12 +638,9 @@
 			args = _is.array(args) ? args : [];
 			var self = this,
 					name = eventName.split(".")[0],
-					listener = _str.camel("on-" + name);//,
-					//event = $.Event(name + ".foogallery");
+					listener = _str.camel("on-" + name);
 			args.unshift(self); // add self
 			var e = self.trigger(name, args);
-			//if (e.defaultPrevented) event.preventDefault();
-			// self.$el.trigger(event, args);
 			if (_is.fn(self[listener])) {
 				args.unshift(e); // add event
 				self[listener].apply(self.$el.get(0), args);
