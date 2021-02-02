@@ -38,12 +38,8 @@
         ready: function(){
             var self = this;
             if (self._super()){
-                // _.breakpoints.register(self.$el, self.template.outerBreakpoints, function () {
-                //     self.panel.resize();
-                // });
                 self.panel.appendTo(self.$el);
                 self.panel.load(self.state.current.item);
-                // _.breakpoints.check(self.$el);
                 return true;
             }
             return false;
@@ -51,7 +47,6 @@
         destroy: function(preserveState){
             var self = this, _super = self._super.bind(self);
             return self.panel.destroy().then(function(){
-                // _.breakpoints.remove(self.$el);
                 return _super(preserveState);
             });
         },

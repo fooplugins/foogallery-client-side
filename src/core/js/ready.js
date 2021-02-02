@@ -18,7 +18,7 @@
 
 	_.autoDefaults = {
 		on: {
-			"first-load.foogallery after-page-change.foogallery after-filter-change.foogallery": _.triggerPostLoad
+			"first-load after-page-change after-filter-change": _.triggerPostLoad
 		}
 	};
 

@@ -1,6 +1,19 @@
 (function($, _, _utils, _is, _fn, _obj, _str){
 
-    _.Panel.Area = _utils.Class.extend({
+    /**
+     * @memberof FooGallery.Panel.
+     * @class Area
+     * @augments FooGallery.utils.Class
+     */
+    _.Panel.Area = _utils.Class.extend(/** @lends FooGallery.Panel.Area */{
+        /**
+         * @ignore
+         * @constructs
+         * @param panel
+         * @param name
+         * @param options
+         * @param classes
+         */
         construct: function(panel, name, options, classes){
             this.panel = panel;
             this.name = name;

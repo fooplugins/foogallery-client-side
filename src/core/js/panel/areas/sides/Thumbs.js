@@ -1,6 +1,16 @@
 (function($, _, _icons, _utils, _is, _fn, _t){
 
-    _.Panel.Thumbs = _.Panel.SideArea.extend({
+    /**
+     * @memberof FooGallery.Panel.
+     * @class Thumbs
+     * @augments FooGallery.Panel.SideArea
+     */
+    _.Panel.Thumbs = _.Panel.SideArea.extend(/** @lends FooGallery.Panel.Thumbs */{
+        /**
+         * @ignore
+         * @constructs
+         * @param panel
+         */
         construct: function(panel){
             this._super(panel, "thumbs", {
                 icon: "thumbs",

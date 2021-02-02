@@ -208,7 +208,7 @@
 
 			// at this point we have our container element free of pre-existing instances so let's bind any event listeners supplied by the .on option
 			if (!_is.empty(self.opt.on)) {
-				self.$el.on(self.opt.on);
+				self.on(self.opt.on);
 			}
 			self._undo.classes = self.$el.attr("class");
 			self._undo.style = self.$el.attr("style");

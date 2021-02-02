@@ -1,6 +1,16 @@
 (function($, _, _fn, _t){
 
-    _.Panel.Content = _.Panel.Area.extend({
+    /**
+     * @memberof FooGallery.Panel.
+     * @class Content
+     * @augments FooGallery.Panel.Area
+     */
+    _.Panel.Content = _.Panel.Area.extend(/** @lends FooGallery.Panel.Content */{
+        /**
+         * @ignore
+         * @constructs
+         * @param panel
+         */
         construct: function(panel){
             this._super(panel, "content", {
                 waitForUnload: false

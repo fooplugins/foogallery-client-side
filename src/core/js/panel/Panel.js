@@ -2,7 +2,12 @@
 
     var instance_id = 0;
 
-    _.Panel = _.EventComponent.extend({
+    /**
+     * @memberof FooGallery.
+     * @class Panel
+     * @augments FooGallery.EventComponent
+     */
+    _.Panel = _.EventComponent.extend(/** @lends FooGallery.Panel */{
         construct: function(template, options, classes, il8n){
             var self = this;
             self.instanceId = ++instance_id;
@@ -23,22 +28,24 @@
 
             self.sel = _utils.selectify(self.cls);
 
-            self.videoSources = _.Panel.Video.sources.load();
+            self.videoSources = !_is.undef(_.Panel.Video) ? _.Panel.Video.sources.load() : [];
 
             self.buttons = new _.Panel.Buttons(self);
 
             self.content = new _.Panel.Content(self);
             self.info = new _.Panel.Info(self);
             self.thumbs = new _.Panel.Thumbs(self);
-            self.cart = new _.Panel.Cart(self);
 
-            self.areas = [self.content, self.info, self.thumbs, self.cart];
+            self.areas = [self.content, self.info, self.thumbs];
 
             self.$el = null;
+
+            self.el = null;
 
             self.isCreated = false;
 
             self.isDestroyed = false;
+
             self.isDestroying = false;
 
             self.isAttached = false;
@@ -63,12 +70,23 @@
 
             self.nextItem = null;
 
-            self.lastResize = {
-                breakpoint: null,
-                orientation: null,
-                prevBreakpoint: null,
-                prevOrientation: null
-            };
+            self.lastBreakpoint = null;
+
+            self.breakpointClassNames = self.opt.breakpoints.map(function(bp){
+                return "fg-" + bp.name + " fg-" + bp.name + "-width" + " fg-" + bp.name + "-height";
+            }).concat(["fg-landscape","fg-portrait"]).join(" ");
+
+            self.robserver = new ResizeObserver(_fn.throttle(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.target === self.el){
+                        if (entry.contentBoxSize){
+                            self.onResize(entry.contentBoxSize[0].inlineSize, entry.contentBoxSize[0].blockSize);
+                        } else {
+                            self.onResize(entry.contentRect.width, entry.contentRect.height);
+                        }
+                    }
+                });
+            }, 50));
 
             self.__media = {};
 
@@ -105,6 +123,7 @@
         doCreate: function(){
             var self = this;
             self.$el = self.createElem();
+            self.el = self.$el.get(0);
             if (self.opt.keyboard){
                 self.$el.attr("tabindex", -1).on("keydown.foogallery", {self: self}, self.onKeyDown);
             }
@@ -205,24 +224,12 @@
 
             maximize.set(!self.isInline, self.isInline && maximize.isEnabled());
 
-            _.breakpoints.register(self.$el, self.opt.breakpoints, function(registered, breakpoint, orientation, prevBreakpoint, prevOrientation){
-                self.lastResize = {
-                    breakpoint: breakpoint,
-                    orientation: orientation,
-                    prevBreakpoint: prevBreakpoint,
-                    prevOrientation: prevOrientation
-                };
-                self.areas.forEach(function (area) {
-                    area.resize();
-                });
-                self.buttons.resize();
-            });
-            _.breakpoints.check( self.$el );
+            self.robserver.observe(self.el);
 
             self.areas.forEach(function (area) {
                 area.listen();
             });
-            return self.$el.parent().length > 0;
+            return self.el.parentNode !== null;
         },
         detach: function(){
             var self = this;
@@ -239,15 +246,42 @@
         },
         doDetach: function(){
             var self = this;
+            self.robserver.unobserve(self.el);
             self.areas.forEach(function (area) {
                 area.stopListening();
             });
-            _.breakpoints.remove(self.$el);
             self.$el.detach();
             return true;
         },
         resize: function(){
-            _.breakpoints.check(this.$el);
+            var self = this;
+            self.$el.removeClass(self.breakpointClassNames).addClass(self.lastBreakpoint);
+            self.areas.forEach(function (area) {
+                area.resize();
+            });
+            self.buttons.resize();
+        },
+        onResize: function(width, height){
+            var self = this, bp = self.getBreakpoint(width, height);
+            if (self.lastBreakpoint !== bp){
+                self.lastBreakpoint = bp;
+                self.resize();
+            }
+        },
+        getBreakpoint: function(width, height){
+            var self = this,
+                result = [];
+
+            self.opt.breakpoints.forEach(function(bp){
+                var w = bp.width <= width, h = bp.height <= height;
+                if (w && h) result.push("fg-" + bp.name);
+                if (w) result.push("fg-" + bp.name + "-width");
+                if (h) result.push("fg-" + bp.name + "-height");
+            });
+
+            result.push(width > height ? "fg-landscape" : "fg-portrait");
+
+            return result.length > 0 ? result.join(" ") : null;
         },
         getMedia: function(item){
             if (!(item instanceof _.Item)) return null;
@@ -382,9 +416,11 @@
             return $.Deferred(function(def){
                 self.content.close(immediate).then(function(){
                     var wait = [];
-                    wait.push(self.cart.close(immediate));
-                    wait.push(self.thumbs.close(immediate));
-                    wait.push(self.info.close(immediate));
+                    self.areas.forEach(function(area){
+                        if (area !== self.content){
+                            wait.push(area.close(immediate));
+                        }
+                    });
                     $.when.apply($, wait).then(def.resolve).fail(def.reject);
                 });
             }).always(function(){
@@ -503,20 +539,19 @@
                 thumbs: false,
                 cart: false
             },
-            breakpoints: {
-                medium: {
-                    width: 480,
-                    height: 480
-                },
-                large: {
-                    width: 768,
-                    height: 640
-                },
-                "x-large": {
-                    width: 1024,
-                    height: 768
-                }
-            }
+            breakpoints: [{
+                name: "medium",
+                width: 480,
+                height: 480
+            },{
+                name: "large",
+                width: 768,
+                height: 640
+            },{
+                name: "x-large",
+                width: 1024,
+                height: 768
+            }]
         }
     },{
         panel: {

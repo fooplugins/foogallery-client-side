@@ -1,6 +1,19 @@
 (function($, _, _icons, _utils, _is, _fn, _obj){
 
-    _.Panel.SideArea = _.Panel.Area.extend({
+    /**
+     * @memberof FooGallery.Panel.
+     * @class Area
+     * @augments FooGallery.Panel.SideArea
+     */
+    _.Panel.SideArea = _.Panel.Area.extend(/** @lends FooGallery.Panel.SideArea */{
+        /**
+         * @ignore
+         * @constructs
+         * @param panel
+         * @param name
+         * @param options
+         * @param classes
+         */
         construct: function(panel, name, options, classes){
             var self = this, cls = panel.cls.sideArea;
             self._super(panel, name, _obj.extend({
