@@ -587,17 +587,8 @@ module.exports = function ( grunt ) {
 		"jsdoc": {
 			"all": {
 				"src": [
-					"./readme.md","./dist/components/core/js/foogallery.js",
-					"./dist/components/templates/default/js/foogallery.default.js",
-					"./dist/components/templates/masonry/js/foogallery.masonry.js",
-					"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
-					"./dist/components/templates/justified/js/foogallery.justified.js",
-					"./dist/components/templates/justified-css/js/foogallery.justified-css.js",
-					"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
-					"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
-					"./dist/components/templates/foogrid/js/foogallery.foogrid.js",
-					"./dist/components/templates/slider/js/foogallery.slider.js",
-					"./dist/components/albums/stack-album/js/foogallery.stack-album.js"
+					"./readme.md",
+					"./dist/pro/js/foogallery.js"
 				],
 				"jsdoc": "./node_modules/jsdoc/jsdoc.js",
 				"options": {
@@ -666,62 +657,6 @@ module.exports = function ( grunt ) {
 		"clean:pagespeed",
 		"copy:pagespeed",
 		"copy:pagespeed_components"
-	]);
-
-	// register build task for this project
-	grunt.registerTask("build", [
-		"clean:dist",
-		"foo-utils", // create the foogallery.utils.js file that is then included as part of the core
-		"concat:core",
-		"uglify:core",
-		"cssmin:core",
-		"copy:core",
-		"concat:core_lite",
-		"uglify:core_lite",
-		"cssmin:core_lite",
-		"copy:core_lite",
-		"clean:foo-utils", // remove the foogallery.utils.js file as it is now part of foobox.core.js
-		"concat:admin",
-		"uglify:admin",
-		"cssmin:admin",
-		"concat:default",
-		"uglify:default",
-		"cssmin:default",
-		"concat:masonry",
-		"uglify:masonry",
-		"cssmin:masonry",
-		"concat:image-viewer",
-		"uglify:image-viewer",
-		"cssmin:image-viewer",
-		"concat:justified",
-		"uglify:justified",
-		"cssmin:justified",
-		"concat:justified-css",
-		"uglify:justified-css",
-		"cssmin:justified-css",
-		"concat:portfolio",
-		"uglify:portfolio",
-		"cssmin:portfolio",
-		"concat:single-thumbnail",
-		"uglify:single-thumbnail",
-		"cssmin:single-thumbnail",
-		"concat:foogrid",
-		"uglify:foogrid",
-		"cssmin:foogrid",
-		"concat:slider",
-		"uglify:slider",
-		"cssmin:slider",
-		"concat:stack-album",
-		"uglify:stack-album",
-		"cssmin:stack-album",
-		"concat:full", // create the full version
-		"uglify:full",
-		"cssmin:full",
-		"copy:full",
-		"concat:lite", // create the lite version
-		"uglify:lite",
-		"cssmin:lite",
-		"copy:lite"
 	]);
 
 	grunt.registerTask("docs", [
