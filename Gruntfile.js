@@ -4,9 +4,10 @@ module.exports = function ( grunt ) {
 	grunt.initConfig({
 		"pkg": grunt.file.readJSON("./package.json"),
 		"clean": {
-			"dist": "./dist/",
+			"dist": "./dist",
 			"foo-utils": "./dist/foogallery.utils.js",
-			"jsdoc": "./docs/jsdocs/"
+			"jsdoc": "./docs/jsdocs",
+			"pagespeed": "./test-pages/templates/assets/foogallery"
 		},
 		"foo-utils": {
 			"options": {
@@ -18,9 +19,18 @@ module.exports = function ( grunt ) {
 			"options": {
 
 			},
+			"polyfills": {
+				"files": {
+					"./dist/components/js/polyfills.js": [
+						"./polyfills/IntersectionObserver.js",
+						"./polyfills/ResizeObserver.js",
+					]
+				}
+			},
+
 			"core": {
 				"files": {
-					"./dist/components/core/js/foogallery.js": [
+					"./dist/components/js/foogallery.core.js": [
 						"./src/core/js/__foogallery.js",
 						"./dist/foogallery.utils.js",
 						"./src/core/js/_foogallery.js",
@@ -28,9 +38,63 @@ module.exports = function ( grunt ) {
 						"./src/core/js/Swipe.js",
 						"./src/core/js/factories/Factory.js",
 						"./src/core/js/factories/TemplateFactory.js",
-						"./src/core/js/factories/PagingFactory.js",
-						"./src/core/js/factories/FilteringFactory.js",
-						"./src/core/js/Breakpoints.js",
+						"./src/core/js/Template.js",
+						"./src/core/js/Component.js",
+						"./src/core/js/State.js",
+
+						"./src/core/js/items/Items.js",
+						"./src/core/js/items/Item.js",
+						"./src/core/js/items/Image.js"
+					],
+					"./dist/components/css/foogallery.core.css": [
+						"./src/core/css/general/core.css",
+
+						"./src/core/css/appearance/theme.css",
+						"./src/core/css/appearance/exif.css",
+						"./src/core/css/appearance/border-size.css",
+						"./src/core/css/appearance/drop-shadow.css",
+						"./src/core/css/appearance/inset-shadow.css",
+						"./src/core/css/appearance/rounded-corners.css",
+
+						"./src/core/css/appearance/loading-icon.css",
+						"./src/core/css/appearance/loading-icons/default.css",
+						"./src/core/css/appearance/loading-icons/bars.css",
+						"./src/core/css/appearance/loading-icons/trail.css",
+						"./src/core/css/appearance/loading-icons/pulse.css",
+						"./src/core/css/appearance/loading-icons/dots.css",
+						"./src/core/css/appearance/loading-icons/partial.css",
+
+						"./src/core/css/appearance/loaded-effect.css",
+						"./src/core/css/appearance/loaded-effects/fade-in.css",
+
+						"./src/core/css/hover-effects/captions.css",
+						"./src/core/css/hover-effects/icons.css",
+
+						"./src/core/css/hover-effects/transition.css",
+						"./src/core/css/hover-effects/transitions/colorize.css",
+						"./src/core/css/hover-effects/transitions/fade.css",
+						"./src/core/css/hover-effects/transitions/grayscale.css",
+						"./src/core/css/hover-effects/transitions/instant.css",
+						"./src/core/css/hover-effects/transitions/push.css",
+						"./src/core/css/hover-effects/transitions/scale.css",
+						"./src/core/css/hover-effects/transitions/zoomed.css",
+						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css",
+
+						"./src/core/css/paging/paging.css",
+						"./src/core/css/paging/type/dots.css"
+					]
+				}
+			},
+			"core_pro": {
+				"files": {
+					"./dist/components/js/foogallery.core.pro.js": [
+						"./src/core/js/__foogallery.js",
+						"./dist/foogallery.utils.js",
+						"./src/core/js/_foogallery.js",
+						"./src/core/js/Icons.js",
+						"./src/core/js/Swipe.js",
+						"./src/core/js/factories/Factory.js",
+						"./src/core/js/factories/TemplateFactory.js",
 						"./src/core/js/Template.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
@@ -41,67 +105,11 @@ module.exports = function ( grunt ) {
 						"./src/core/js/items/Video.js",
 						"./src/core/js/items/Iframe.js",
 						"./src/core/js/items/Html.js",
-						"./src/core/js/items/Embed.js",
-
-						"./src/core/js/paging/Paging.js",
-						"./src/core/js/paging/Infinite.js",
-						"./src/core/js/paging/LoadMore.js",
-						"./src/core/js/paging/Dots.js",
-						"./src/core/js/paging/Pagination.js",
-
-						"./src/core/js/filtering/Filtering.js",
-						"./src/core/js/filtering/Tags.js",
-
-						"./src/core/js/panel/Panel.js",
-						"./src/core/js/panel/buttons/Buttons.js",
-						"./src/core/js/panel/buttons/Button.js",
-						"./src/core/js/panel/buttons/SideAreaButton.js",
-						"./src/core/js/panel/buttons/AutoProgress.js",
-						"./src/core/js/panel/buttons/Fullscreen.js",
-						"./src/core/js/panel/buttons/Maximize.js",
-						"./src/core/js/panel/areas/Area.js",
-						"./src/core/js/panel/areas/Content.js",
-						"./src/core/js/panel/areas/sides/SideArea.js",
-						"./src/core/js/panel/areas/sides/Info.js",
-						"./src/core/js/panel/areas/sides/Thumbs.js",
-						"./src/core/js/panel/areas/sides/Cart.js",
-						"./src/core/js/panel/media/Media.js",
-						"./src/core/js/panel/media/Caption.js",
-						"./src/core/js/panel/media/Product.js",
-						"./src/core/js/panel/media/Image.js",
-						"./src/core/js/panel/media/Iframe.js",
-						"./src/core/js/panel/media/Html.js",
-						"./src/core/js/panel/media/Embed.js",
-						"./src/core/js/panel/media/video/Video.js",
-						"./src/core/js/panel/media/video/Source.js",
-						"./src/core/js/panel/media/video/sources/DailyMotion.js",
-						"./src/core/js/panel/media/video/sources/SelfHosted.js",
-						"./src/core/js/panel/media/video/sources/Vimeo.js",
-						"./src/core/js/panel/media/video/sources/Wistia.js",
-						"./src/core/js/panel/media/video/sources/YouTube.js",
-						"./src/core/js/panel/media/video/sources/TED.js",
-						"./src/core/js/panel/media/video/sources/Facebook.js",
-						"./src/core/js/Lightbox.js"
+						"./src/core/js/items/Embed.js"
 					],
-					"./dist/components/core/css/foogallery.css": [
+					"./dist/components/css/foogallery.core.pro.css": [
 						"./src/core/css/general/core.css",
 						"./src/core/css/general/icons.css",
-
-						"./src/core/css/panel/panel.css",
-						"./src/core/css/panel/panel-grid.css",
-						"./src/core/css/panel/panel-sizing.css",
-						"./src/core/css/panel/panel-buttons.css",
-						"./src/core/css/panel/panel-borders.css",
-						"./src/core/css/panel/icons.css",
-						"./src/core/css/panel/media.css",
-						"./src/core/css/panel/media-caption.css",
-						"./src/core/css/panel/media-product.css",
-						"./src/core/css/panel/themes.css",
-						"./src/core/css/panel/transitions.css",
-						"./src/core/css/panel/auto-progress.css",
-						"./src/core/css/panel/thumbs.css",
-						"./src/core/css/panel/thumbs-inset-shadow.css",
-						"./src/core/css/panel/thumbs-transitions.css",
 
 						"./src/core/css/appearance/theme.css",
 						"./src/core/css/appearance/exif.css",
@@ -152,75 +160,154 @@ module.exports = function ( grunt ) {
 						"./src/core/css/hover-effects/transitions/scale.css",
 						"./src/core/css/hover-effects/transitions/zoomed.css",
 						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css",
+					]
+				}
+			},
+			"ready": {
+				"files": {
+					"./dist/components/js/foogallery.ready.js": [
+						"./src/core/js/ready.js"
+					]
+				}
+			},
 
-						"./src/core/css/paging/paging.css",
-						"./src/core/css/paging/type/load-more.css",
-						"./src/core/css/paging/type/dots.css",
-						"./src/core/css/paging/type/pagination.css",
+			"panel": {
+				"files": {
+					"./dist/components/js/foogallery.panel.js": [
+						"./src/core/js/panel/Panel.js",
+						"./src/core/js/panel/buttons/Buttons.js",
+						"./src/core/js/panel/buttons/Button.js",
+						"./src/core/js/panel/buttons/SideAreaButton.js",
+						"./src/core/js/panel/buttons/AutoProgress.js",
+						"./src/core/js/panel/buttons/Fullscreen.js",
+						"./src/core/js/panel/buttons/Maximize.js",
+						"./src/core/js/panel/areas/Area.js",
+						"./src/core/js/panel/areas/Content.js",
+						"./src/core/js/panel/areas/sides/SideArea.js",
+						"./src/core/js/panel/areas/sides/Info.js",
+						"./src/core/js/panel/areas/sides/Thumbs.js",
+						"./src/core/js/panel/media/Media.js",
+						"./src/core/js/panel/media/Caption.js",
+						"./src/core/js/panel/media/Image.js"
+					],
+					"./dist/components/css/foogallery.panel.css": [
+						"./src/core/css/panel/panel.css",
+						"./src/core/css/panel/panel-grid.css",
+						"./src/core/css/panel/panel-sizing.css",
+						"./src/core/css/panel/panel-buttons.css",
+						"./src/core/css/panel/panel-borders.css",
+						"./src/core/css/panel/icons.css",
+						"./src/core/css/panel/media.css",
+						"./src/core/css/panel/media-caption.css",
+						"./src/core/css/panel/themes.css",
+						"./src/core/css/panel/transitions.css",
+						"./src/core/css/panel/auto-progress.css",
+						"./src/core/css/panel/thumbs.css",
+						"./src/core/css/panel/thumbs-inset-shadow.css",
+						"./src/core/css/panel/thumbs-transitions.css"
+					]
+				}
+			},
 
+			"panel_pro": {
+				"files": {
+					"./dist/components/js/foogallery.panel.pro.js": [
+						"./src/core/js/panel/Panel.js",
+						"./src/core/js/panel/buttons/Buttons.js",
+						"./src/core/js/panel/buttons/Button.js",
+						"./src/core/js/panel/buttons/SideAreaButton.js",
+						"./src/core/js/panel/buttons/AutoProgress.js",
+						"./src/core/js/panel/buttons/Fullscreen.js",
+						"./src/core/js/panel/buttons/Maximize.js",
+						"./src/core/js/panel/areas/Area.js",
+						"./src/core/js/panel/areas/Content.js",
+						"./src/core/js/panel/areas/sides/SideArea.js",
+						"./src/core/js/panel/areas/sides/Info.js",
+						"./src/core/js/panel/areas/sides/Thumbs.js",
+						"./src/core/js/panel/media/Media.js",
+						"./src/core/js/panel/media/Caption.js",
+						"./src/core/js/panel/media/Product.js",
+						"./src/core/js/panel/media/Image.js",
+						"./src/core/js/panel/media/Iframe.js",
+						"./src/core/js/panel/media/Html.js",
+						"./src/core/js/panel/media/Embed.js",
+						"./src/core/js/panel/media/video/Video.js",
+						"./src/core/js/panel/media/video/Source.js",
+						"./src/core/js/panel/media/video/sources/DailyMotion.js",
+						"./src/core/js/panel/media/video/sources/SelfHosted.js",
+						"./src/core/js/panel/media/video/sources/Vimeo.js",
+						"./src/core/js/panel/media/video/sources/Wistia.js",
+						"./src/core/js/panel/media/video/sources/YouTube.js",
+						"./src/core/js/panel/media/video/sources/TED.js",
+						"./src/core/js/panel/media/video/sources/Facebook.js",
+						"./src/core/js/Lightbox.js"
+					],
+					"./dist/components/css/foogallery.panel.pro.css": [
+						"./src/core/css/panel/panel.css",
+						"./src/core/css/panel/panel-grid.css",
+						"./src/core/css/panel/panel-sizing.css",
+						"./src/core/css/panel/panel-buttons.css",
+						"./src/core/css/panel/panel-borders.css",
+						"./src/core/css/panel/icons.css",
+						"./src/core/css/panel/media.css",
+						"./src/core/css/panel/media-caption.css",
+						"./src/core/css/panel/themes.css",
+						"./src/core/css/panel/transitions.css",
+						"./src/core/css/panel/auto-progress.css",
+						"./src/core/css/panel/thumbs.css",
+						"./src/core/css/panel/thumbs-inset-shadow.css",
+						"./src/core/css/panel/thumbs-transitions.css"
+					]
+				}
+			},
+
+			"filtering": {
+				"files": {
+					"./dist/components/js/foogallery.filtering.js": [
+						"./src/core/js/factories/FilteringFactory.js",
+						"./src/core/js/filtering/Filtering.js",
+						"./src/core/js/filtering/Tags.js"
+					],
+					"./dist/components/css/foogallery.filtering.css": [
 						"./src/core/css/filtering/filtering.css",
 						"./src/core/css/filtering/type/tags.css"
 					]
 				}
 			},
-			"core_lite": {
+
+			"paging": {
 				"files": {
-					"./dist/components/core_lite/js/foogallery.js": [
-						"./src/core/js/__foogallery.js",
-						"./dist/foogallery.utils.js",
-						"./src/core/js/_foogallery.js",
-						"./src/core/js/Swipe.js",
-						"./src/core/js/factories/Factory.js",
-						"./src/core/js/factories/TemplateFactory.js",
+					"./dist/components/js/foogallery.paging.js": [
 						"./src/core/js/factories/PagingFactory.js",
-						"./src/core/js/Template.js",
-						"./src/core/js/Component.js",
-						"./src/core/js/State.js",
-						"./src/core/js/items/Items.js",
-						"./src/core/js/items/Item.js",
-						"./src/core/js/items/Image.js",
 						"./src/core/js/paging/Paging.js",
 						"./src/core/js/paging/Dots.js"
 					],
-					"./dist/components/core_lite/css/foogallery.css": [
-						"./src/core/css/general/core.css",
-
-						"./src/core/css/appearance/theme.css",
-						"./src/core/css/appearance/exif.css",
-						"./src/core/css/appearance/border-size.css",
-						"./src/core/css/appearance/drop-shadow.css",
-						"./src/core/css/appearance/inset-shadow.css",
-						"./src/core/css/appearance/rounded-corners.css",
-
-						"./src/core/css/appearance/loading-icon.css",
-						"./src/core/css/appearance/loading-icons/default.css",
-						"./src/core/css/appearance/loading-icons/bars.css",
-						"./src/core/css/appearance/loading-icons/trail.css",
-						"./src/core/css/appearance/loading-icons/pulse.css",
-						"./src/core/css/appearance/loading-icons/dots.css",
-						"./src/core/css/appearance/loading-icons/partial.css",
-
-						"./src/core/css/appearance/loaded-effect.css",
-						"./src/core/css/appearance/loaded-effects/fade-in.css",
-
-						"./src/core/css/hover-effects/captions.css",
-						"./src/core/css/hover-effects/icons.css",
-
-						"./src/core/css/hover-effects/transition.css",
-						"./src/core/css/hover-effects/transitions/colorize.css",
-						"./src/core/css/hover-effects/transitions/fade.css",
-						"./src/core/css/hover-effects/transitions/grayscale.css",
-						"./src/core/css/hover-effects/transitions/instant.css",
-						"./src/core/css/hover-effects/transitions/push.css",
-						"./src/core/css/hover-effects/transitions/scale.css",
-						"./src/core/css/hover-effects/transitions/zoomed.css",
-						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css",
-
+					"./dist/components/css/foogallery.paging.css": [
 						"./src/core/css/paging/paging.css",
 						"./src/core/css/paging/type/dots.css"
 					]
 				}
 			},
+
+			"paging_pro": {
+				"files": {
+					"./dist/components/js/foogallery.paging.pro.js": [
+						"./src/core/js/factories/PagingFactory.js",
+						"./src/core/js/paging/Paging.js",
+						"./src/core/js/paging/Infinite.js",
+						"./src/core/js/paging/LoadMore.js",
+						"./src/core/js/paging/Dots.js",
+						"./src/core/js/paging/Pagination.js"
+					],
+					"./dist/components/css/foogallery.paging.pro.css": [
+						"./src/core/css/paging/paging.css",
+						"./src/core/css/paging/type/load-more.css",
+						"./src/core/css/paging/type/dots.css",
+						"./src/core/css/paging/type/pagination.css"
+					]
+				}
+			},
+
 			"admin": {
 				"files": {
 					"./dist/admin/js/foogallery.admin.js": [
@@ -232,63 +319,64 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
+
 			"default": {
 				"files": {
-					"./dist/components/templates/default/js/foogallery.default.js": [
+					"./dist/components/js/foogallery.tmpl.default.js": [
 						"./src/templates/default/js/ready.js"
 					],
-					"./dist/components/templates/default/css/foogallery.default.css": [
+					"./dist/components/css/foogallery.tmpl.default.css": [
 						"./src/templates/default/css/default.css"
 					]
 				}
 			},
 			"masonry": {
 				"files": {
-					"./dist/components/templates/masonry/js/foogallery.masonry.js": [
+					"./dist/components/js/foogallery.tmpl.masonry.js": [
 						"./src/templates/masonry/js/ready.js"
 					],
-					"./dist/components/templates/masonry/css/foogallery.masonry.css": [
+					"./dist/components/css/foogallery.tmpl.masonry.css": [
 						"./src/templates/masonry/css/masonry.css"
 					]
 				}
 			},
 			"image-viewer": {
 				"files": {
-					"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js": [
+					"./dist/components/js/foogallery.tmpl.image-viewer.js": [
 						"./src/templates/image-viewer/js/ready.js"
 					],
-					"./dist/components/templates/image-viewer/css/foogallery.image-viewer.css": [
+					"./dist/components/css/foogallery.tmpl.image-viewer.css": [
 						"./src/templates/image-viewer/css/image-viewer.css"
 					]
 				}
 			},
 			"justified": {
 				"files": {
-					"./dist/components/templates/justified/js/foogallery.justified.js": [
+					"./dist/components/js/foogallery.tmpl.justified.js": [
 						"./src/templates/justified/js/Justified.js",
 						"./src/templates/justified/js/ready.js"
 					],
-					"./dist/components/templates/justified/css/foogallery.justified.css": [
+					"./dist/components/css/foogallery.tmpl.justified.css": [
 						"./src/templates/justified/css/justified.css"
 					]
 				}
 			},
 			"justified-css": {
 				"files": {
-					"./dist/components/templates/justified-css/js/foogallery.justified-css.js": [
+					"./dist/components/js/foogallery.tmpl.justified-css.js": [
 						"./src/templates/justified-css/js/ready.js"
 					],
-					"./dist/components/templates/justified-css/css/foogallery.justified-css.css": [
+					"./dist/components/css/foogallery.tmpl.justified-css.css": [
 						"./src/templates/justified-css/css/justified.css"
 					]
 				}
 			},
 			"portfolio": {
 				"files": {
-					"./dist/components/templates/portfolio/js/foogallery.portfolio.js": [
+					"./dist/components/js/foogallery.tmpl.portfolio.js": [
 						"./src/templates/portfolio/js/ready.js"
 					],
-					"./dist/components/templates/portfolio/css/foogallery.portfolio.css": [
+					"./dist/components/css/foogallery.tmpl.portfolio.css": [
 						"./src/templates/portfolio/css/portfolio.css",
 						"./src/templates/portfolio/css/polaroid.css"
 					]
@@ -296,20 +384,20 @@ module.exports = function ( grunt ) {
 			},
 			"single-thumbnail": {
 				"files": {
-					"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js": [
+					"./dist/components/js/foogallery.tmpl.single-thumbnail.js": [
 						"./src/templates/single-thumbnail/js/ready.js"
 					],
-					"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css": [
+					"./dist/components/css/foogallery.tmpl.single-thumbnail.css": [
 						"./src/templates/single-thumbnail/css/single-thumbnail.css"
 					]
 				}
 			},
 			"foogrid": {
 				"files": {
-					"./dist/components/templates/foogrid/js/foogallery.foogrid.js": [
+					"./dist/components/js/foogallery.tmpl.foogrid.js": [
 						"./src/templates/foogrid/js/ready.js"
 					],
-					"./dist/components/templates/foogrid/css/foogallery.foogrid.css": [
+					"./dist/components/css/foogallery.tmpl.foogrid.css": [
 						"./src/templates/foogrid/css/_foogrid.css",
 						"./src/templates/foogrid/css/item.css",
 						"./src/templates/foogrid/css/content.css",
@@ -321,86 +409,101 @@ module.exports = function ( grunt ) {
 			},
 			"slider": {
 				"files": {
-					"./dist/components/templates/slider/js/foogallery.slider.js": [
+					"./dist/components/js/foogallery.tmpl.slider.js": [
 						"./src/templates/slider/js/rdy.js"
 					],
-					"./dist/components/templates/slider/css/foogallery.slider.css": [
+					"./dist/components/css/foogallery.tmpl.slider.css": [
 						"./src/templates/slider/css/_.css"
 					]
 				}
 			},
 			"stack-album": {
 				"files": {
-					"./dist/components/albums/stack-album/js/foogallery.stack-album.js": [
+					"./dist/components/js/foogallery.tmpl.stack-album.js": [
 						"./src/albums/stack-album/js/Album.js",
 						"./src/albums/stack-album/js/Pile.js",
 						"./src/albums/stack-album/js/Item.js",
 						"./src/albums/stack-album/js/ready.js"
 					],
-					"./dist/components/albums/stack-album/css/foogallery.stack-album.css": [
+					"./dist/components/css/foogallery.tmpl.stack-album.css": [
 						"./src/albums/stack-album/css/album.css"
 					]
 				}
 			},
-			"full": {
+			"pro": {
 				"files": {
-					"./dist/full/js/foogallery.js": [
-						"./polyfills/IntersectionObserver.js",
-						"./polyfills/ResizeObserver.js",
-						"./dist/components/core/js/foogallery.js",
-						"./dist/components/templates/default/js/foogallery.default.js",
-						"./dist/components/templates/masonry/js/foogallery.masonry.js",
-						"./dist/components/templates/justified/js/foogallery.justified.js",
-						"./dist/components/templates/justified-css/js/foogallery.justified-css.js",
-						"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
-						"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
-						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
-						"./dist/components/templates/foogrid/js/foogallery.foogrid.js",
-						"./dist/components/templates/slider/js/foogallery.slider.js",
-						"./dist/components/albums/stack-album/js/foogallery.stack-album.js",
-						"./src/core/js/ready.js"
+					"./dist/pro/js/foogallery.js": [
+						"./dist/components/js/polyfills.js",
+						"./dist/components/js/foogallery.core.pro.js",
+						"./dist/components/js/foogallery.filtering.js",
+						"./dist/components/js/foogallery.paging.pro.js",
+						"./dist/components/js/foogallery.panel.pro.js",
+
+						"./dist/components/js/foogallery.tmpl.default.js",
+						"./dist/components/js/foogallery.tmpl.masonry.js",
+						"./dist/components/js/foogallery.tmpl.justified.js",
+						"./dist/components/js/foogallery.tmpl.justified-css.js",
+						"./dist/components/js/foogallery.tmpl.portfolio.js",
+						"./dist/components/js/foogallery.tmpl.image-viewer.js",
+						"./dist/components/js/foogallery.tmpl.single-thumbnail.js",
+
+						"./dist/components/js/foogallery.tmpl.foogrid.js",
+						"./dist/components/js/foogallery.tmpl.slider.js",
+
+						"./dist/components/js/foogallery.tmpl.stack-album.js",
+
+						"./dist/components/js/foogallery.ready.js"
 					],
-					"./dist/full/css/foogallery.css": [
-						"./dist/components/core/css/foogallery.css",
-						"./dist/components/templates/default/css/foogallery.default.css",
-						"./dist/components/templates/masonry/css/foogallery.masonry.css",
-						"./dist/components/templates/justified/css/foogallery.justified.css",
-						"./dist/components/templates/justified-css/css/foogallery.justified-css.css",
-						"./dist/components/templates/portfolio/css/foogallery.portfolio.css",
-						"./dist/components/templates/image-viewer/css/foogallery.image-viewer.css",
-						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css",
-						"./dist/components/templates/foogrid/css/foogallery.foogrid.css",
-						"./dist/components/templates/slider/css/foogallery.slider.css",
-						"./dist/components/albums/stack-album/css/foogallery.stack-album.css",
+					"./dist/pro/css/foogallery.css": [
+						"./dist/components/css/foogallery.core.pro.css",
+						"./dist/components/css/foogallery.filtering.css",
+						"./dist/components/css/foogallery.paging.pro.css",
+						"./dist/components/css/foogallery.panel.pro.css",
+
+						"./dist/components/css/foogallery.tmpl.default.css",
+						"./dist/components/css/foogallery.tmpl.masonry.css",
+						"./dist/components/css/foogallery.tmpl.justified.css",
+						"./dist/components/css/foogallery.tmpl.justified-css.css",
+						"./dist/components/css/foogallery.tmpl.portfolio.css",
+						"./dist/components/css/foogallery.tmpl.image-viewer.css",
+						"./dist/components/css/foogallery.tmpl.single-thumbnail.css",
+						"./dist/components/css/foogallery.tmpl.foogrid.css",
+						"./dist/components/css/foogallery.tmpl.slider.css",
+
+						"./dist/components/css/foogallery.tmpl.stack-album.css"
 					]
 				}
 			},
-			"lite": {
+			"free": {
 				"files": {
-					"./dist/lite/js/foogallery.js": [
-						"./polyfills/IntersectionObserver.js",
-						"./polyfills/ResizeObserver.js",
-						"./dist/components/core_lite/js/foogallery.js",
-						"./dist/components/templates/default/js/foogallery.default.js",
-						"./dist/components/templates/masonry/js/foogallery.masonry.js",
-						"./dist/components/templates/justified/js/foogallery.justified.js",
-						"./dist/components/templates/justified-css/js/foogallery.justified-css.js",
-						"./dist/components/templates/portfolio/js/foogallery.portfolio.js",
-						"./dist/components/templates/image-viewer/js/foogallery.image-viewer.js",
-						"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js",
-						"./dist/components/albums/stack-album/js/foogallery.stack-album.js",
-						"./src/core/js/ready.js"
+					"./dist/free/js/foogallery.js": [
+						"./dist/components/js/polyfills.js",
+						"./dist/components/js/foogallery.core.free.js",
+						"./dist/components/js/foogallery.paging.js",
+
+						"./dist/components/js/foogallery.tmpl.default.js",
+						"./dist/components/js/foogallery.tmpl.masonry.js",
+						"./dist/components/js/foogallery.tmpl.justified.js",
+						"./dist/components/js/foogallery.tmpl.justified-css.js",
+						"./dist/components/js/foogallery.tmpl.portfolio.js",
+						"./dist/components/js/foogallery.tmpl.image-viewer.js",
+						"./dist/components/js/foogallery.tmpl.single-thumbnail.js",
+						"./dist/components/js/foogallery.tmpl.stack-album.js",
+
+						"./dist/components/js/foogallery.ready.js"
 					],
-					"./dist/lite/css/foogallery.css": [
-						"./dist/components/core_lite/css/foogallery.css",
-						"./dist/components/templates/default/css/foogallery.default.css",
-						"./dist/components/templates/masonry/css/foogallery.masonry.css",
-						"./dist/components/templates/justified/css/foogallery.justified.css",
-						"./dist/components/templates/justified-css/css/foogallery.justified-css.css",
-						"./dist/components/templates/portfolio/css/foogallery.portfolio.css",
-						"./dist/components/templates/image-viewer/css/foogallery.image-viewer.css",
-						"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css",
-						"./dist/components/albums/stack-album/css/foogallery.stack-album.css"
+					"./dist/free/css/foogallery.css": [
+						"./dist/components/css/foogallery.core.free.css",
+						"./dist/components/css/foogallery.paging.css",
+
+						"./dist/components/css/foogallery.tmpl.default.css",
+						"./dist/components/css/foogallery.tmpl.masonry.css",
+						"./dist/components/css/foogallery.tmpl.justified.css",
+						"./dist/components/css/foogallery.tmpl.justified-css.css",
+						"./dist/components/css/foogallery.tmpl.portfolio.css",
+						"./dist/components/css/foogallery.tmpl.image-viewer.css",
+						"./dist/components/css/foogallery.tmpl.single-thumbnail.css",
+						"./dist/components/css/foogallery.tmpl.stack-album.css"
 					]
 				}
 			}
@@ -416,80 +519,15 @@ module.exports = function ( grunt ) {
 					'* @license Released under the GPLv3 license.\n' +
 					'*/\n'
 			},
-			"full": {
-				"files": {
-					"./dist/full/js/foogallery.min.js": "./dist/full/js/foogallery.js"
-				}
-			},
-			"lite": {
-				"files": {
-					"./dist/lite/js/foogallery.min.js": "./dist/lite/js/foogallery.js"
-				}
-			},
-			"core": {
-				"files": {
-					"./dist/components/core/js/foogallery.min.js": "./dist/components/core/js/foogallery.js"
-				}
-			},
-			"core_lite": {
-				"files": {
-					"./dist/components/core_lite/js/foogallery.min.js": "./dist/components/core_lite/js/foogallery.js"
-				}
-			},
-			"admin": {
-				"files": {
-					"./dist/admin/js/foogallery.admin.min.js": "./dist/admin/js/foogallery.admin.js"
-				}
-			},
-			"default": {
-				"files": {
-					"./dist/components/templates/default/js/foogallery.default.min.js": "./dist/components/templates/default/js/foogallery.default.js"
-				}
-			},
-			"masonry": {
-				"files": {
-					"./dist/components/templates/masonry/js/foogallery.masonry.min.js": "./dist/components/templates/masonry/js/foogallery.masonry.js"
-				}
-			},
-			"image-viewer": {
-				"files": {
-					"./dist/components/templates/image-viewer/js/foogallery.image-viewer.min.js": "./dist/components/templates/image-viewer/js/foogallery.image-viewer.js"
-				}
-			},
-			"justified": {
-				"files": {
-					"./dist/components/templates/justified/js/foogallery.justified.min.js": "./dist/components/templates/justified/js/foogallery.justified.js"
-				}
-			},
-			"justified-css": {
-				"files": {
-					"./dist/components/templates/justified-css/js/foogallery.justified-css.min.js": "./dist/components/templates/justified-css/js/foogallery.justified-css.js"
-				}
-			},
-			"portfolio": {
-				"files": {
-					"./dist/components/templates/portfolio/js/foogallery.portfolio.min.js": "./dist/components/templates/portfolio/js/foogallery.portfolio.js"
-				}
-			},
-			"single-thumbnail": {
-				"files": {
-					"./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.min.js": "./dist/components/templates/single-thumbnail/js/foogallery.single-thumbnail.js"
-				}
-			},
-			"foogrid": {
-				"files": {
-					"./dist/components/templates/foogrid/js/foogallery.foogrid.min.js": "./dist/components/templates/foogrid/js/foogallery.foogrid.js"
-				}
-			},
-			"slider": {
-				"files": {
-					"./dist/components/templates/slider/js/foogallery.slider.min.js": "./dist/components/templates/slider/js/foogallery.slider.js"
-				}
-			},
-			"stack-album": {
-				"files": {
-					"./dist/components/albums/stack-album/js/foogallery.stack-album.min.js": "./dist/components/albums/stack-album/js/foogallery.stack-album.js"
-				}
+			"dist": {
+				"files": [{
+					"expand": true,
+					"cwd": ".",
+					"src": ["dist/**/*.js","!dist/**/*.min.js"],
+					rename: function (dst, src) {
+						return src.replace('.js', '.min.js');
+					}
+				}]
 			}
 		},
 		"cssmin": {
@@ -503,106 +541,47 @@ module.exports = function ( grunt ) {
 					'* @license Released under the GPLv3 license.\n' +
 					'*/\n'
 			},
-			"full": {
-				"files": {
-					"./dist/full/css/foogallery.min.css": "./dist/full/css/foogallery.css"
-				}
-			},
-			"lite": {
-				"files": {
-					"./dist/lite/css/foogallery.min.css": "./dist/lite/css/foogallery.css"
-				}
-			},
-			"core": {
-				"files": {
-					"./dist/components/core/css/foogallery.min.css": "./dist/components/core/css/foogallery.css"
-				}
-			},
-			"core_lite": {
-				"files": {
-					"./dist/components/core_lite/css/foogallery.min.css": "./dist/components/core_lite/css/foogallery.css"
-				}
-			},
-			"admin": {
-				"files": {
-					"./dist/admin/css/foogallery.admin.min.css": "./dist/admin/css/foogallery.admin.css"
-				}
-			},
-			"default": {
-				"files": {
-					"./dist/components/templates/default/css/foogallery.default.min.css": "./dist/components/templates/default/css/foogallery.default.css"
-				}
-			},
-			"masonry": {
-				"files": {
-					"./dist/components/templates/masonry/css/foogallery.masonry.min.css": "./dist/components/templates/masonry/css/foogallery.masonry.css"
-				}
-			},
-			"image-viewer": {
-				"files": {
-					"./dist/components/templates/image-viewer/css/foogallery.image-viewer.min.css": "./dist/components/templates/image-viewer/css/foogallery.image-viewer.css"
-				}
-			},
-			"justified": {
-				"files": {
-					"./dist/components/templates/justified/css/foogallery.justified.min.css": "./dist/components/templates/justified/css/foogallery.justified.css"
-				}
-			},
-			"justified-css": {
-				"files": {
-					"./dist/components/templates/justified-css/css/foogallery.justified-css.min.css": "./dist/components/templates/justified/css/foogallery.justified-css.css"
-				}
-			},
-			"portfolio": {
-				"files": {
-					"./dist/components/templates/portfolio/css/foogallery.portfolio.min.css": "./dist/components/templates/portfolio/css/foogallery.portfolio.css"
-				}
-			},
-			"single-thumbnail": {
-				"files": {
-					"./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.min.css": "./dist/components/templates/single-thumbnail/css/foogallery.single-thumbnail.css"
-				}
-			},
-			"foogrid": {
-				"files": {
-					"./dist/components/templates/foogrid/css/foogallery.foogrid.min.css": "./dist/components/templates/foogrid/css/foogallery.foogrid.css"
-				}
-			},
-			"slider": {
-				"files": {
-					"./dist/components/templates/slider/css/foogallery.slider.min.css": "./dist/components/templates/slider/css/foogallery.slider.css"
-				}
-			},
-			"stack-album": {
-				"files": {
-					"./dist/components/albums/stack-album/css/foogallery.stack-album.min.css": "./dist/components/albums/stack-album/css/foogallery.stack-album.css"
-				}
+			"dist": {
+				"files": [{
+					"expand": true,
+					"cwd": ".",
+					"src": ["dist/**/*.css","!dist/**/*.min.css"],
+					rename: function (dst, src) {
+						return src.replace('.css', '.min.css');
+					}
+				}]
 			}
 		},
 		"copy": {
-			"full": {
+			"pro": {
 				"expand": true,
 				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
-				"dest": "./dist/full/img",
+				"dest": "./dist/pro/img",
 				"flatten": true
 			},
-			"lite": {
+			"free": {
 				"expand": true,
 				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
-				"dest": "./dist/lite/img",
+				"dest": "./dist/free/img",
 				"flatten": true
 			},
-			"core": {
+			"components": {
 				"expand": true,
 				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
-				"dest": "./dist/components/core/img",
+				"dest": "./dist/components/img",
 				"flatten": true
 			},
-			"core_lite": {
+			"pagespeed": {
 				"expand": true,
-				"src": ["./src/core/css/img/*.png","./src/core/css/img/*.svg"],
-				"dest": "./dist/components/core_lite/img",
-				"flatten": true
+				"cwd": "dist/pro",
+				"src": ["**"],
+				"dest": "./test-pages/templates/assets/foogallery"
+			},
+			"pagespeed_components": {
+				"expand": true,
+				"cwd": "dist/components",
+				"src": ["**"],
+				"dest": "./test-pages/templates/assets/foogallery/components"
 			}
 		},
 		"jsdoc": {
@@ -640,6 +619,54 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks("foo-utils");
 	grunt.loadNpmTasks("grunt-jsdoc");
+
+	grunt.registerTask("default", [
+		"clean:dist",
+
+		"concat:polyfills",
+
+		"foo-utils", // create the foogallery.utils.js file that is then included as part of the core
+
+		"concat:core",
+		"concat:core_pro",
+
+		"clean:foo-utils", // remove the foogallery.utils.js file as it is now part of the core
+
+		"concat:panel",
+		"concat:panel_pro",
+		"concat:paging",
+		"concat:paging_pro",
+		"concat:filtering",
+
+		"concat:default",
+		"concat:masonry",
+		"concat:image-viewer",
+		"concat:justified",
+		"concat:justified-css",
+		"concat:portfolio",
+		"concat:single-thumbnail",
+		"concat:foogrid",
+		"concat:slider",
+		"concat:stack-album",
+
+		"concat:ready",
+
+		"concat:pro", // create the pro version
+		"concat:free", // create the free version
+
+		"concat:admin",
+
+		"copy:pro",
+		"copy:free",
+		"copy:components",
+
+		"uglify:dist",
+		"cssmin:dist",
+
+		"clean:pagespeed",
+		"copy:pagespeed",
+		"copy:pagespeed_components"
+	]);
 
 	// register build task for this project
 	grunt.registerTask("build", [
