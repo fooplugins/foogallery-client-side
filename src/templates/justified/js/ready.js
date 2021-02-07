@@ -1,31 +1,38 @@
 (function($, _){
 
 	_.JustifiedTemplate = _.Template.extend({
-		onPreInit: function(event, self){
+		construct: function(options, element){
+			var self = this;
+			self._super(options, element);
+			self.justified = null;
+			self.on({
+				"pre-init": self.onPreInit,
+				"init": self.onInit,
+				"destroyed": self.onDestroyed,
+				"first-load layout after-filter-change": self.onLayoutRequired,
+				"page-change": self.onPageChange
+			}, self);
+		},
+		onPreInit: function(){
+			var self = this;
 			self.justified = new _.Justified( self, self.template );
 		},
-		onInit: function(event, self){
-			self.justified.init();
+		onInit: function(){
+			this.justified.init();
 		},
-		onFirstLoad: function(event, self){
-			self.justified.layout();
-		},
-		onReady: function(event, self){
-			self.justified.layout();
-		},
-		onDestroy: function(event, self){
-			self.justified.destroy();
-		},
-		onLayout: function(event, self){
-			self.justified.layout();
-		},
-		onAfterPageChange: function(event, self, current, prev, isFilter){
-			if (!isFilter){
-				self.justified.layout();
+		onDestroyed: function(){
+			var self = this;
+			if (self.justified instanceof _.Justified){
+				self.justified.destroy();
 			}
 		},
-		onAfterFilterChange: function(event, self){
-			self.justified.layout();
+		onLayoutRequired: function(){
+			this.justified.layout(this.lastWidth);
+		},
+		onPageChange: function(event, current, prev, isFilter){
+			if (!isFilter){
+				this.justified.layout(this.lastWidth);
+			}
 		}
 	});
 

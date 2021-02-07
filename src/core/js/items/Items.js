@@ -22,6 +22,7 @@
 			 */
 			self._super(template);
 			self.maps = {};
+			self._typeRegex = /(?:^|\s)?fg-type-(.*?)(?:$|\s)/;
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
@@ -55,7 +56,7 @@
 				 * 	}
 				 * });
 				 */
-				self.tmpl.raise("destroy-items", [items]);
+				self.tmpl.trigger("destroy-items", [items]);
 				destroyed = $.map(items, function (item) {
 					return item.destroy() ? item : null;
 				});
@@ -75,7 +76,7 @@
 				 * 	}
 				 * });
 				 */
-				if (destroyed.length > 0) self.tmpl.raise("destroyed-items", [destroyed]);
+				if (destroyed.length > 0) self.tmpl.trigger("destroyed-items", [destroyed]);
 				// should we handle a case where the destroyed.length != items.length??
 			}
 			self.maps = {};
@@ -355,7 +356,7 @@
 				 * 	}
 				 * });
 				 */
-				var e = self.tmpl.raise("make-items", [arr]);
+				var e = self.tmpl.trigger("make-items", [arr]);
 				if (!e.isDefaultPrevented()) {
 					made = $.map(arr, function (obj) {
 						var type = self.type(obj), opt = _obj.extend(_is.hash(obj) ? obj : {}, {type: type});
@@ -388,7 +389,7 @@
 				 * 	}
 				 * });
 				 */
-				if (made.length > 0) self.tmpl.raise("made-items", [made]);
+				if (made.length > 0) self.tmpl.trigger("made-items", [made]);
 
 				/**
 				 * @summary Raised after the template has parsed any elements into an array of {@link FooGallery.Item|item} objects.
@@ -406,16 +407,16 @@
 				 * 	}
 				 * });
 				 */
-				if (parsed.length > 0) self.tmpl.raise("parsed-items", [parsed]);
+				if (parsed.length > 0) self.tmpl.trigger("parsed-items", [parsed]);
 			}
 			return made;
 		},
 		type: function (objOrElement) {
-			var type;
+			var self = this, type;
 			if (_is.hash(objOrElement)) {
 				type = objOrElement.type;
 			} else if (_is.element(objOrElement)) {
-				var match = objOrElement.className.match(/(?:^|\s)?fg-type-(.*?)(?:$|\s)/);
+				var match = objOrElement.className.match(self._typeRegex);
 				if (match !== null && match.length === 2){
 					type = match[1];
 				}
@@ -468,7 +469,7 @@
 				 * 	}
 				 * });
 				 */
-				var e = self.tmpl.raise("create-items", [creatable]);
+				var e = self.tmpl.trigger("create-items", [creatable]);
 				if (!e.isDefaultPrevented()) {
 					created = $.map(creatable, function (item) {
 						return item.create() ? item : null;
@@ -490,7 +491,7 @@
 				 * 	}
 				 * });
 				 */
-				if (created.length > 0) self.tmpl.raise("created-items", [created]);
+				if (created.length > 0) self.tmpl.trigger("created-items", [created]);
 			}
 			if (_is.boolean(append) ? append : false) return self.append(items);
 			return created;
@@ -534,7 +535,7 @@
 				 * 	}
 				 * });
 				 */
-				var e = self.tmpl.raise("append-items", [appendable]);
+				var e = self.tmpl.trigger("append-items", [appendable]);
 				if (!e.isDefaultPrevented()) {
 					appended = $.map(appendable, function (item) {
 						return item.append() ? item : null;
@@ -556,7 +557,7 @@
 					 * 	}
 					 * });
 				 */
-				if (appended.length > 0) self.tmpl.raise("appended-items", [appended]);
+				if (appended.length > 0) self.tmpl.trigger("appended-items", [appended]);
 			}
 			return appended;
 		},
@@ -599,7 +600,7 @@
 				 * 	}
 				 * });
 				 */
-				var e = self.tmpl.raise("detach-items", [detachable]);
+				var e = self.tmpl.trigger("detach-items", [detachable]);
 				if (!e.isDefaultPrevented()) {
 					detached = $.map(detachable, function (item) {
 						return item.detach() ? item : null;
@@ -621,7 +622,7 @@
 					 * 	}
 					 * });
 				 */
-				if (detached.length > 0) self.tmpl.raise("detached-items", [detached]);
+				if (detached.length > 0) self.tmpl.trigger("detached-items", [detached]);
 			}
 			return detached;
 		},
@@ -665,7 +666,7 @@
 				 * 	}
 				 * });
 				 */
-				var e = self.tmpl.raise("load-items", [items]);
+				var e = self.tmpl.trigger("load-items", [items]);
 				if (!e.isDefaultPrevented()) {
 					var loading = $.map(items, function (item) {
 						return item.load();
@@ -692,7 +693,7 @@
 						 * 	}
 						 * });
 						 */
-						self.tmpl.raise("loaded-items", [loaded]);
+						self.tmpl.trigger("loaded-items", [loaded]);
 					});
 				}
 			}

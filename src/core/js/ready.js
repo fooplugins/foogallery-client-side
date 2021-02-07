@@ -1,17 +1,20 @@
 (function ($, _, _utils, _obj, _is) {
 
-	_.triggerPostLoad = function (e, tmpl, current, prev, isFilter) {
-		if (e.type === "first-load" || (tmpl.initialized && ((e.type === "after-page-change" && !isFilter) || e.type === "after-filter-change"))) {
-			try {
-				// if the gallery is displayed within a FooBox do not trigger the post-load which would cause the lightbox to re-init
-				if (tmpl.$el.parents(".fbx-item").length > 0) return;
-				if (tmpl.$el.hasClass("fbx-instance") && !!window.FOOBOX && !!$.fn.foobox){
-					tmpl.$el.foobox(window.FOOBOX.o);
-				} else {
-					$("body").trigger("post-load");
+	_.triggerPostLoad = function (e, current, prev, isFilter) {
+		var tmpl = e.target;
+		if (tmpl instanceof _.Template){
+			if (e.type === "first-load" || (tmpl.initialized && ((e.type === "after-page-change" && !isFilter) || e.type === "after-filter-change"))) {
+				try {
+					// if the gallery is displayed within a FooBox do not trigger the post-load which would cause the lightbox to re-init
+					if (tmpl.$el.parents(".fbx-item").length > 0) return;
+					if (tmpl.$el.hasClass("fbx-instance") && !!window.FOOBOX && !!$.fn.foobox){
+						tmpl.$el.foobox(window.FOOBOX.o);
+					} else {
+						$("body").trigger("post-load");
+					}
+				} catch(err) {
+					console.error(err);
 				}
-			} catch(err) {
-				console.error(err);
 			}
 		}
 	};

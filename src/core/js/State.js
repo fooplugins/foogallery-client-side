@@ -295,7 +295,7 @@
 			if (_is.hash(state)){
 				var obj = _obj.extend({ filter: [], page: 1, item: null }, state);
 				tmpl.items.reset();
-				var e = tmpl.raise("before-state", [obj]);
+				var e = tmpl.trigger("before-state", [obj]);
 				if (!e.isDefaultPrevented()){
 					if (!!tmpl.filter){
 						tmpl.filter.setState(obj);
@@ -320,7 +320,7 @@
 						}
 					}
 					self.current = obj;
-					tmpl.raise("after-state", [obj]);
+					tmpl.trigger("after-state", [obj]);
 				}
 			}
 		},

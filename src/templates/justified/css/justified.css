@@ -2,8 +2,14 @@
 .fg-justified {
 	box-sizing: border-box;
 	position: relative;
+	text-align: center;
 }
-.foogallery.fg-justified .fg-item,
+.foogallery.fg-justified .fg-item {
+	box-sizing: border-box;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
 .foogallery.fg-justified .fg-item-inner,
 .foogallery.fg-justified .fg-thumb,
 .foogallery.fg-justified .fg-image {

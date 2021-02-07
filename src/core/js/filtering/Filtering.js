@@ -265,9 +265,9 @@
 						self.tmpl.state.update(state, self.pushOrReplace);
 					}
 
-					self.tmpl.raise("after-filter-change", [self.current, prev]);
+					self.tmpl.trigger("after-filter-change", [self.current, prev]);
 				};
-				var e = self.tmpl.raise("before-filter-change", [self.current, tags, setFilter]);
+				var e = self.tmpl.trigger("before-filter-change", [self.current, tags, setFilter]);
 				if (e.isDefaultPrevented()) return false;
 				setFilter();
 				return true;

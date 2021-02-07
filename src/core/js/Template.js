@@ -31,6 +31,13 @@
 			 */
 			self.$el = _is.jq(element) ? element : $(element);
 			/**
+			 * @summary The element for the template container.
+			 * @memberof FooGallery.Template#
+			 * @name el
+			 * @type {?Element}
+			 */
+			self.el = self.$el.get(0) || null;
+			/**
 			 * @summary The jQuery object for the template containers scroll parent.
 			 * @memberof FooGallery.Template#
 			 * @name $scrollParent
@@ -117,7 +124,19 @@
 			self._initialize = null;
 			self._checkTimeout = null;
 			self._layoutTimeout = null;
+			/**
+			 * @memberof FooGallery.Template#
+			 * @name _layoutWidths
+			 * @type {Number[]}
+			 * @private
+			 */
 			self._layoutWidths = [];
+			/**
+			 * @memberof FooGallery.Template#
+			 * @name lastWidth
+			 * @type {Number}
+			 */
+			self.lastWidth = 0;
 			self.initializing = false;
 			self.initialized = false;
             self.destroying = false;
@@ -128,9 +147,16 @@
 				create: false,
 				children: false
 			};
-			self.robserver = new ResizeObserver(function () {
-				if (self.$el.is(":visible")) self.layout();
-			});
+			self.robserver = new ResizeObserver(_fn.throttle(function(entries) {
+				if (entries.length === 1 && entries[0].target === self.el){
+					// self.layout();
+					if (entries[0].contentBoxSize){
+						self.layout(entries[0].contentBoxSize[0].inlineSize);
+					} else {
+						self.layout(entries[0].contentRect.width);
+					}
+				}
+			}));
 		},
 
 		// ################
@@ -192,6 +218,7 @@
 			}
 			if (self.$el.length === 0) {
 				self.$el = self.create();
+				self.el = self.$el.get(0);
 				self._undo.create = true;
 			}
 			if (parent.length > 0) {
@@ -221,7 +248,7 @@
 			if (selector != null && !self.$el.is(selector)) {
 				self.$el.addClass(self.opt.classes);
 			}
-			self.robserver.observe(self.$el.get(0));
+			self.robserver.observe(self.el);
 
 			// if the container currently has no children make them
 			if (self.$el.children().not(self.sel.item.elem).length === 0) {
@@ -256,7 +283,7 @@
 			 * 	}
 			 * });
 			 */
-			return !self.raise("pre-init").isDefaultPrevented();
+			return !self.trigger("pre-init").isDefaultPrevented();
 		},
 		/**
 		 * @summary Occurs as the template is initialized.
@@ -308,7 +335,7 @@
 			 * 	}
 			 * });
 			 */
-			var e = self.raise("init");
+			var e = self.trigger("init");
 			if (e.isDefaultPrevented()) return _fn.reject("init default prevented");
 			return self.items.fetch();
 		},
@@ -363,7 +390,7 @@
 			 * 	}
 			 * });
 			 */
-			var e = self.raise("post-init");
+			var e = self.trigger("post-init");
 			if (e.isDefaultPrevented()) return false;
 			self.state.init();
 			self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(function () {
@@ -398,7 +425,7 @@
 			 * 	}
 			 * });
 			 */
-			self.raise("first-load");
+			self.trigger("first-load");
 			return self.loadAvailable();
 		},
 		/**
@@ -431,7 +458,7 @@
 			 * 	}
 			 * });
 			 */
-			self.raise("ready");
+			self.trigger("ready");
 			return true;
 		},
 		/**
@@ -510,7 +537,7 @@
              * 	}
              * });
              */
-            self.raise("destroy");
+            self.trigger("destroy");
 			self.robserver.disconnect();
 			if (self._checkTimeout) clearTimeout(self._checkTimeout);
             self.$scrollParent.off(self.namespace);
@@ -537,7 +564,7 @@
              * 	}
              * });
              */
-            self.raise("destroyed");
+            self.trigger("destroyed");
             self.$el.removeData(_.DATA_TEMPLATE);
 
             if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
@@ -619,38 +646,20 @@
 		// #############
 
 		/**
-		 * @summary Raises the supplied `eventName` on the template {@link FooGallery.Template#$el|element}.
 		 * @memberof FooGallery.Template#
-		 * @function raise
-		 * @param {string} eventName - The name of the event to raise.
-		 * @param {Array} [args] - An additional arguments to supply to the listeners for the event.
-		 * @returns {?jQuery.Event} The jQuery.Event object or null if no `eventName` was supplied.
-		 * @description This method also executes any listeners set on the template object itself. These listeners are not bound to the element but are executed after the event is raised but before any default logic is executed. The names of these listeners use the following convention; prefix the `eventName` with `"on-"` and then camel-case the result. e.g. `"pre-init"` becomes `onPreInit`.
-		 * @example {@caption The following displays a listener for the `"pre-init.foogallery"` event in a sub-classed template.}
-		 * FooGallery.MyTemplate = FooGallery.Template.extend({
-		 * 	onPreInit: function(event, template){
-		 * 		// do something
-		 * 	}
-		 * });
+		 * @function layout
 		 */
-		raise: function (eventName, args) {
-			if (this.destroying || this.destroyed || !_is.string(eventName) || _is.empty(eventName)) return null;
-			args = _is.array(args) ? args : [];
-			var self = this,
-					name = eventName.split(".")[0],
-					listener = _str.camel("on-" + name);
-			args.unshift(self); // add self
-			var e = self.trigger(name, args);
-			if (_is.fn(self[listener])) {
-				args.unshift(e); // add event
-				self[listener].apply(self.$el.get(0), args);
+		layout: function (width) {
+			var self = this;
+			if (self._initialize === null) return;
+			if (!_is.number(width)){
+				var rect = self.el.getBoundingClientRect();
+				width = rect.width;
 			}
-			return e;
-		},
+			if (width === 0 || self._checkWidth(width)) return;
 
-		layout: function () {
-			var self = this, width = self.getContainerWidth();
-			if (self._initialize === null || self._checkWidth(width)) return;
+			self.lastWidth = width;
+
 			/**
 			 * @summary Raised when the templates' {@link FooGallery.Template#layout|layout} method is called.
 			 * @event FooGallery.Template~"layout.foogallery"
@@ -667,10 +676,13 @@
 			 * 	}
 			 * });
 			 */
-			self.raise("layout", [width]);
+			self.trigger("layout", [width]);
+			self.loadAvailable();
 		},
 		/**
 		 * @summary This method was added to prevent an infinite loop in the ResizeObserver.
+		 * @memberof FooGallery.Template#
+		 * @function _checkWidth
 		 * @description When the viewport has no scrollbar by default and is then resized down until the gallery layout requires a scrollbar
 		 * to show. There could be an infinite loop as follows:
 		 * 1. No scrollbar shown, layout occurs, scrollbar is then required.
@@ -766,6 +778,7 @@
 			loadingIcon: /(?:\s|^)(fg-loading-(?:default|bars|dots|partial|pulse|trail))(?:\s|$)/,
 			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|plus|circle-plus|eye|external|tint))(?:\s|$)/,
 			videoIcon: /(?:\s|^)(fg-video-(?:default|1|2|3|4))(?:\s|$)/,
+			border: /(?:\s|^)(fg-border-(?:thin|medium|thick))(?:\s|$)/,
 			hoverColor: /(?:\s|^)(fg-hover-(?:colorize|grayscale))(?:\s|$)/,
 			hoverScale: /(?:\s|^)(fg-hover-scale)(?:\s|$)/,
 			stickyVideoIcon: /(?:\s|^)(fg-video-sticky)(?:\s|$)/,

@@ -2,7 +2,8 @@
 
 	_.ImageViewerTemplate = _.Template.extend({
 		construct: function (options, element) {
-			this._super(_obj.extend({}, options, {
+			var self = this;
+			self._super(_obj.extend({}, options, {
 				paging: {
 					pushOrReplace: "replace",
 					theme: "fg-light",
@@ -18,35 +19,35 @@
 			 * @name $inner
 			 * @type {jQuery}
 			 */
-			this.$inner = $();
+			self.$inner = $();
 			/**
 			 * @summary The jQuery object that displays the current image count.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $current
 			 * @type {jQuery}
 			 */
-			this.$current = $();
+			self.$current = $();
 			/**
 			 * @summary The jQuery object that displays the current image count.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $current
 			 * @type {jQuery}
 			 */
-			this.$total = $();
+			self.$total = $();
 			/**
 			 * @summary The jQuery object for the previous button.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $prev
 			 * @type {jQuery}
 			 */
-			this.$prev = $();
+			self.$prev = $();
 			/**
 			 * @summary The jQuery object for the next button.
 			 * @memberof FooGallery.ImageViewerTemplate#
 			 * @name $next
 			 * @type {jQuery}
 			 */
-			this.$next = $();
+			self.$next = $();
 			/**
 			 * @summary The CSS classes for the Image Viewer template.
 			 * @memberof FooGallery.ImageViewerTemplate#
@@ -59,6 +60,15 @@
 			 * @name sel
 			 * @type {FooGallery.ImageViewerTemplate~CSSSelectors}
 			 */
+			self.on({
+				"pre-init": self.onPreInit,
+				"init": self.onInit,
+				"first-load": self.onFirstLoad,
+				"destroy": self.onDestroy,
+				"append-item": self.onAppendItem,
+				"after-page-change": self.onAfterPageChange,
+				"after-filter-change": self.onAfterFilterChange
+			}, self);
 		},
 		createChildren: function(){
 			var self = this;
@@ -79,14 +89,17 @@
 			var self = this;
 			self.$el.find(self.sel.inner).remove();
 		},
-		onPreInit: function(event, self){
+
+		onPreInit: function(event){
+			var self = this;
 			self.$inner = self.$el.find(self.sel.innerContainer);
 			self.$current = self.$el.find(self.sel.countCurrent);
 			self.$total = self.$el.find(self.sel.countTotal);
 			self.$prev = self.$el.find(self.sel.prev);
 			self.$next = self.$el.find(self.sel.next);
 		},
-		onInit: function (event, self) {
+		onInit: function (event) {
+			var self = this;
 			if (self.template.attachFooBox) {
 				self.$el.on('foobox.previous', {self: self}, self.onFooBoxPrev)
 						.on('foobox.next', {self: self}, self.onFooBoxNext);
@@ -94,15 +107,16 @@
 			self.$prev.on('click', {self: self}, self.onPrevClick);
 			self.$next.on('click', {self: self}, self.onNextClick);
 		},
-		onFirstLoad: function(event, self){
-			self.update();
+		onFirstLoad: function(event){
+			this.update();
 		},
 		/**
 		 * @summary Destroy the plugin cleaning up any bound events.
 		 * @memberof FooGallery.ImageViewerTemplate#
 		 * @function onDestroy
 		 */
-		onDestroy: function (event, self) {
+		onDestroy: function (event) {
+			var self = this;
 			if (self.template.attachFooBox) {
 				self.$el.off({
 					'foobox.previous': self.onFooBoxPrev,
@@ -112,20 +126,20 @@
 			self.$prev.off('click', self.onPrevClick);
 			self.$next.off('click', self.onNextClick);
 		},
-		onAppendItem: function (event, self, item) {
+		onAppendItem: function (event, item) {
 			event.preventDefault();
-			self.$inner.append(item.$el);
-			// item.fix();
+			this.$inner.append(item.$el);
 			item.isAttached = true;
 		},
-		onAfterPageChange: function(event, self, current, prev, isFilter){
+		onAfterPageChange: function(event, current, prev, isFilter){
 			if (!isFilter){
-				self.update();
+				this.update();
 			}
 		},
-		onAfterFilterChange: function(event, self){
-			self.update();
+		onAfterFilterChange: function(event){
+			this.update();
 		},
+
 		update: function(){
 			if (this.pages){
 				this.$current.text(this.pages.current);

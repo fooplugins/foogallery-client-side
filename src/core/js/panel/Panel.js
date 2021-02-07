@@ -5,13 +5,24 @@
     /**
      * @memberof FooGallery.
      * @class Panel
-     * @augments FooGallery.EventComponent
+     * @param template
+     * @param options
+     * @param classes
+     * @param il8n
+     * @augments FooGallery.Component
      */
-    _.Panel = _.EventComponent.extend(/** @lends FooGallery.Panel */{
+    _.Panel = _.Component.extend(/** @lends FooGallery.Panel */{
+        /**
+         * @constructs
+         * @param template
+         * @param options
+         * @param classes
+         * @param il8n
+         */
         construct: function(template, options, classes, il8n){
             var self = this;
             self.instanceId = ++instance_id;
-            self._super(template, "panel-");
+            self._super(template);
 
             self.opt = _obj.extend({}, self.tmpl.opt.panel, options);
 
@@ -110,12 +121,12 @@
         create: function(){
             var self = this;
             if (!self.isCreated) {
-                var e = self.trigger("create", [self]);
+                var e = self.trigger("create");
                 if (!e.isDefaultPrevented()) {
                     self.isCreated = self.doCreate();
                 }
                 if (self.isCreated) {
-                    self.trigger("created", [self]);
+                    self.trigger("created");
                 }
             }
             return self.isCreated;
@@ -166,24 +177,24 @@
             return $.Deferred(function (def) {
                 if (self.isLoading && _is.promise(self.__loading)) {
                     self.__loading.always(function () {
-                        var e = self.trigger("destroy", [self]);
+                        var e = self.trigger("destroy");
                         self.isDestroying = false;
                         if (!e.isDefaultPrevented()) {
                             self.isDestroyed = self.doDestroy();
                         }
                         if (self.isDestroyed) {
-                            self.trigger("destroyed", [self]);
+                            self.trigger("destroyed");
                         }
                         def.resolve();
                     });
                 } else {
-                    var e = self.trigger("destroy", [self]);
+                    var e = self.trigger("destroy");
                     self.isDestroying = false;
                     if (!e.isDefaultPrevented()) {
                         self.isDestroyed = self.doDestroy();
                     }
                     if (self.isDestroyed) {
-                        self.trigger("destroyed", [self]);
+                        self.trigger("destroyed");
                     }
                     def.resolve();
                 }
@@ -207,12 +218,12 @@
         appendTo: function( parent ){
             var self = this;
             if ((self.isCreated || self.create()) && !self.isAttached){
-                var e = self.trigger("append", [self, parent]);
+                var e = self.trigger("append", [parent]);
                 if (!e.isDefaultPrevented()) {
                     self.isAttached = self.doAppendTo( parent );
                 }
                 if (self.isAttached) {
-                    self.trigger("appended", [self, parent]);
+                    self.trigger("appended", [parent]);
                 }
             }
             return self.isAttached;
@@ -234,12 +245,12 @@
         detach: function(){
             var self = this;
             if (self.isCreated && self.isAttached) {
-                var e = self.trigger("detach", [self]);
+                var e = self.trigger("detach");
                 if (!e.isDefaultPrevented()) {
                     self.isAttached = !self.doDetach();
                 }
                 if (!self.isAttached) {
-                    self.trigger("detached", [self]);
+                    self.trigger("detached");
                 }
             }
             return !self.isAttached;
@@ -322,7 +333,7 @@
                     def.rejectWith("no media to load");
                     return;
                 }
-                var e = self.trigger("load", [self, media, item]);
+                var e = self.trigger("load", [media, item]);
                 if (e.isDefaultPrevented()){
                     def.rejectWith("default prevented");
                     return;
@@ -335,11 +346,11 @@
                 self.isLoading = false;
             }).then(function(){
                 self.isLoaded = true;
-                self.trigger("loaded", [self, item]);
+                self.trigger("loaded", [item]);
                 item.updateState();
             }).fail(function(){
                 self.isError = true;
-                self.trigger("error", [self, item]);
+                self.trigger("error", [item]);
             }).promise();
         },
         doLoad: function( media ){
@@ -355,10 +366,10 @@
         open: function( item, parent ){
             var self = this;
             item = self.getItem(item);
-            var e = self.trigger("open", [self, item, parent]);
+            var e = self.trigger("open", [item, parent]);
             if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doOpen(item, parent).then(function(){
-                self.trigger("opened", [self, item, parent]);
+                self.trigger("opened", [item, parent]);
             });
         },
         doOpen: function( item, parent ){
@@ -382,10 +393,10 @@
         next: function(){
             var self = this, current = self.currentItem, next = self.nextItem;
             if (!(next instanceof _.Item)) return _fn.reject("no next item");
-            var e = self.trigger("next", [self, current, next]);
+            var e = self.trigger("next", [current, next]);
             if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doNext(next).then(function(){
-                self.trigger("after-next", [self, current, next]);
+                self.trigger("after-next", [current, next]);
             });
         },
         doNext: function(item){
@@ -394,20 +405,20 @@
         prev: function(){
             var self = this, current = self.currentItem, prev = self.prevItem;
             if (!(prev instanceof _.Item)) return _fn.reject("no prev item");
-            var e = self.trigger("prev", [self, current, prev]);
+            var e = self.trigger("prev", [current, prev]);
             if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doPrev(prev).then(function(){
-                self.trigger("after-prev", [self, current, prev]);
+                self.trigger("after-prev", [current, prev]);
             });
         },
         doPrev: function(item){
             return this.load( item );
         },
         close: function(immediate){
-            var self = this, e = self.trigger("close", [self, self.currentItem]);
+            var self = this, e = self.trigger("close", [self.currentItem]);
             if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doClose(immediate).then(function(){
-                self.trigger("closed", [self]);
+                self.trigger("closed");
             });
         },
         doClose: function(immediate, detach){

@@ -152,15 +152,16 @@
 							state = self.tmpl.state.get();
 							self.tmpl.state.update(state, self.pushOrReplace);
 						}
+						self.tmpl.trigger("page-change", [self.current, prev, isFilter]);
 						if (self.scrollToTop && _is.boolean(scroll) ? scroll : false) {
 							var page = self.get(self.current);
 							if (page.length > 0) {
 								page[0].scrollTo("top");
 							}
 						}
-						self.tmpl.raise("after-page-change", [self.current, prev, isFilter]);
+						self.tmpl.trigger("after-page-change", [self.current, prev, isFilter]);
 					};
-					var e = self.tmpl.raise("before-page-change", [self.current, num, setPage, isFilter]);
+					var e = self.tmpl.trigger("before-page-change", [self.current, num, setPage, isFilter]);
 					if (e.isDefaultPrevented()) return false;
 					setPage();
 					return true;

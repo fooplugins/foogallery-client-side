@@ -5,13 +5,37 @@
 			var self = this;
 			self._super(options, element);
 			self.$section = null;
-			self.panel = new _.Panel( self, self.template );
 			self.isFirst = false;
 			self.disableTransitions = false;
+			self.panel = new _.Panel( self, self.template );
+			self.on({
+				"pre-init": self.onPreInit,
+				"parsed-item": self.onParsedItem,
+				"created-item": self.onCreatedItem,
+				"destroy-item": self.onDestroyItem,
+				"after-state": self.onAfterState,
+				"before-page-change": self.onBeforePageChange,
+				"before-filter-change": self.onBeforeFilterChange
+			}, self);
+			self.panel.on({
+				"next": self.onPanelNext,
+				"prev": self.onPanelPrev,
+				"close": self.onPanelClose,
+				"area-load": self.onPanelAreaLoad,
+				"area-unload": self.onPanelAreaUnload
+			}, self);
 		},
-		onPreInit: function(event, self){
+		destroy: function(preserveState){
+			var self = this, _super = self._super.bind(self);
+			return self.panel.destroy().then(function(){
+				self.$section.remove();
+				return _super(preserveState);
+			});
+		},
+
+		onPreInit: function(){
+			var self = this, hasTransition = false;
 			self.$section = $('<section/>', {'class': 'foogrid-content'});
-			var hasTransition = false;
 			if (self.panel.opt.transition === "none"){
 				if (self.$el.hasClass("foogrid-transition-horizontal")){
 					self.panel.opt.transition = "horizontal";
@@ -49,63 +73,59 @@
 				self.panel.opt.button = "fg-button-dark";
 			}
 		},
-		destroy: function(preserveState){
-			var self = this, _super = self._super.bind(self);
-			return self.panel.destroy().then(function(){
-				self.$section.remove();
-				return _super(preserveState);
-			});
-		},
-		onPanelNext: function(event, self, panel, currentItem, nextItem){
-			event.preventDefault();
-			self.open(nextItem);
-		},
-		onPanelPrev: function(event, self, panel, currentItem, prevItem){
-			event.preventDefault();
-			self.open(prevItem);
-		},
-		onPanelClose: function(event, self, panel){
-			event.preventDefault();
-			self.close(false, true);
-		},
-		onPanelAreaLoad: function(event, self, area, media){
-			if (area.name === "content"){
-				media.item.$el.addClass(self.cls.visible);
-			}
-		},
-		onPanelAreaUnload: function(event, self, area, media){
-			if (area.name === "content"){
-				media.item.$el.removeClass(self.cls.visible);
-			}
-		},
-		onParsedItem: function(event, self, item){
+		onParsedItem: function(event, item){
 			if (item.isError) return;
-			item.$anchor.off("click.foogallery").on("click.gg", {self: self, item: item}, self.onAnchorClick);
+			item.$anchor.off("click.foogallery").on("click.gg", {self: this, item: item}, this.onAnchorClick);
 		},
-		onCreatedItem: function(event, self, item){
+		onCreatedItem: function(event, item){
 			if (item.isError) return;
-			item.$anchor.off("click.foogallery").on("click.gg", {self: self, item: item}, self.onAnchorClick);
+			item.$anchor.off("click.foogallery").on("click.gg", {self: this, item: item}, this.onAnchorClick);
 		},
-		onDestroyItem: function(event, self, item){
+		onDestroyItem: function(event, item){
 			if (item.isError) return;
-			item.$anchor.off("click.gg", self.onAnchorClick);
+			item.$anchor.off("click.gg", this.onAnchorClick);
 		},
-		onAfterState: function(event, self, state){
+		onAfterState: function(event, state){
 			if (!(state.item instanceof _.Item)) return;
-			self.open(state.item);
+			this.open(state.item);
 		},
-		onBeforePageChange: function(event, self, current, next, setPage, isFilter){
+		onBeforePageChange: function(event, current, next, setPage, isFilter){
 			if (isFilter) return;
+			var self = this;
 			if (!self.panel.isMaximized) self.close(true, self.panel.isAttached);
 		},
-		onBeforeFilterChange: function(event, self, current, next, setFilter){
+		onBeforeFilterChange: function(){
+			var self = this;
 			if (!self.panel.isMaximized) self.close(true, self.panel.isAttached);
 		},
+
+		onPanelNext: function(event, currentItem, nextItem){
+			event.preventDefault();
+			this.open(nextItem);
+		},
+		onPanelPrev: function(event, currentItem, prevItem){
+			event.preventDefault();
+			this.open(prevItem);
+		},
+		onPanelClose: function(event){
+			event.preventDefault();
+			this.close(false, true);
+		},
+		onPanelAreaLoad: function(event, area, media){
+			if (area.name === "content"){
+				media.item.$el.addClass(this.cls.visible);
+			}
+		},
+		onPanelAreaUnload: function(event, area, media){
+			if (area.name === "content"){
+				media.item.$el.removeClass(this.cls.visible);
+			}
+		},
+
 		onAnchorClick: function(e){
 			e.preventDefault();
 			e.data.self.toggle(e.data.item);
 		},
-
 
 		transitionsEnabled: function(){
 			return !this.disableTransitions && this.panel.hasTransition;
