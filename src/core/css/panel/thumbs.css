@@ -15,12 +15,15 @@
     flex-direction: column;
 }
 
-.fg-panel-thumbs-button {
+.fg-panel-thumbs-button,
+.fg-panel-thumbs-button:active,
+.fg-panel-thumbs-button:focus {
     position: relative;
     width: 100%;
     height: 100%;
     cursor: pointer;
     user-select: none;
+    outline: none;
 }
 .fg-panel-thumbs-button.fg-disabled {
     display: none;
