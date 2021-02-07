@@ -655,8 +655,7 @@ module.exports = function ( grunt ) {
 		"cssmin:dist",
 
 		"clean:pagespeed",
-		"copy:pagespeed",
-		"copy:pagespeed_components"
+		"copy:pagespeed"
 	]);
 
 	grunt.registerTask("docs", [
