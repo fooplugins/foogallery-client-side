@@ -1,4 +1,4 @@
-(function ($, _, _utils, _is, _fn) {
+(function ($, _, _utils, _is, _fn, _str) {
 
 	/**
 	 * @summary The name to use when getting or setting an instance of a {@link FooGallery.Template|template} on an element using jQuery's `.data()` method.
@@ -155,6 +155,22 @@
 			});
 		}
 		return false;
+	};
+
+	/**
+	 * @summary Trims the value if it exceeds the specified length and appends the suffix.
+	 * @memberof FooGallery.utils.str.
+	 * @function trimTo
+	 * @param {string} value - The value to trim if required.
+	 * @param {number} length - The length to trim the string to.
+	 * @param {string} [suffix="&hellip;"] - The suffix to append to a trimmed value.
+	 * @returns {string|null}
+	 */
+	_str.trimTo = function(value, length, suffix){
+		if (_is.string(value) && _is.number(length) && length > 0 && value.length > length) {
+			return value.substr(0, length) + (_is.string(suffix) ? suffix : "&hellip;");
+		}
+		return null;
 	};
 
 })(
