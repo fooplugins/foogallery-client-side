@@ -1,0 +1,399 @@
+.fg-paging-container, .fg-paging-container *, .fg-paging-container *:before, .fg-paging-container *:after {
+	box-sizing: border-box;
+}
+.fg-paging-container {
+	display: block;
+	padding: 15px;
+	margin: 0!important;
+	text-align: center;
+	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+/* Utility */
+.fg-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0,0,0,0);
+	border: 0;
+}
+.fg-ph-load-more:after {
+	display: block;
+	content: '';
+	width: 0;
+	height: 34px;
+}
+
+.fg-paging-container .fg-load-more {
+	display: inline-block;
+	padding: 6px 12px;
+	margin: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	box-shadow: none;
+	outline: none;
+}
+
+/* Light - Default */
+.fg-paging-container.fg-light .fg-load-more {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-paging-container.fg-light .fg-load-more:hover,
+.fg-paging-container.fg-light .fg-load-more:focus {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+
+/* Dark */
+.fg-paging-container.fg-dark .fg-load-more {
+	color: #FFF;
+	background-color: #333;
+	border-color: #222;
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-paging-container.fg-dark .fg-load-more:hover,
+.fg-paging-container.fg-dark .fg-load-more:focus {
+	color: #FFF;
+	background-color: #444;
+	border-color: #333;
+}
+.fg-ph-dots:after {
+	display: block;
+	content: '';
+	width: 0;
+	height: 22px;
+}
+
+.fg-paging-container .fg-dots,
+.fg-paging-container .fg-dot-item {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	outline: none;
+	list-style: none;
+}
+.fg-paging-container .fg-dot-item .fg-dot-link {
+	display: inline-block;
+	margin: 3px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	background-image: none;
+	text-decoration: none;
+	border: 1px solid transparent;
+	position: relative;
+	border-radius: 50%;
+	padding: 0;
+	font-size: 0;
+	outline: none;
+	color: transparent;
+	box-shadow: none;
+}
+.fg-paging-container .fg-dot-item .fg-dot-link:before {
+	content: "";
+	background-color: transparent;
+	border: 1px solid transparent;
+	display: block;
+	border-radius: 50%;
+	width: 9px;
+	height: 9px;
+	padding: 0;
+	margin: 2px;
+}
+.fg-paging-container .fg-dot-item .fg-dot-link:active,
+.fg-paging-container .fg-dot-item .fg-dot-link:hover,
+.fg-paging-container .fg-dot-item .fg-dot-link:focus {
+	text-decoration: none;
+	box-shadow: none;
+	outline: none;
+}
+.fg-paging-container .fg-dot-item.fg-disabled .fg-dot-link,
+.fg-paging-container .fg-dot-item.fg-selected .fg-dot-link {
+	cursor: not-allowed;
+	pointer-events: none;
+}
+.fg-paging-container .fg-dot-item.fg-disabled .fg-dot-link {
+	cursor: not-allowed;
+	pointer-events: none;
+	outline: none;
+}
+
+/* Light - Dots */
+.fg-paging-container.fg-light .fg-dot-item .fg-dot-link,
+.fg-paging-container.fg-light .fg-dot-item .fg-dot-link:before {
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-paging-container.fg-light .fg-dot-item .fg-dot-link {
+	background-color: #eee;
+	border-color: #9d9d9d;
+}
+.fg-paging-container.fg-light .fg-dot-item.fg-selected .fg-dot-link {
+	border-color: #888;
+}
+.fg-paging-container.fg-light .fg-dot-item.fg-selected .fg-dot-link:before,
+.fg-paging-container.fg-light .fg-dot-item .fg-dot-link:hover:before,
+.fg-paging-container.fg-light .fg-dot-item .fg-dot-link:focus:before {
+	background-color: #666;
+	border-color: #888;
+}
+.fg-paging-container.fg-light .fg-dot-item.fg-disabled .fg-dot-link,
+.fg-paging-container.fg-light .fg-dot-item.fg-disabled .fg-dot-link:hover,
+.fg-paging-container.fg-light .fg-dot-item.fg-disabled .fg-dot-link:focus {
+	background-color: #eee;
+	border-color: #9d9d9d;
+	opacity: 0.5;
+}
+
+/* Dark - Dots */
+.fg-paging-container.fg-dark .fg-dot-item .fg-dot-link,
+.fg-paging-container.fg-dark .fg-dot-item .fg-dot-link:before {
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-paging-container.fg-dark .fg-dot-item .fg-dot-link {
+	background-color: #666;
+	border-color: #333;
+}
+.fg-paging-container.fg-dark .fg-dot-item.fg-selected .fg-dot-link {
+	border-color: #444;
+}
+.fg-paging-container.fg-dark .fg-dot-item.fg-selected .fg-dot-link:before,
+.fg-paging-container.fg-dark .fg-dot-item .fg-dot-link:hover:before,
+.fg-paging-container.fg-dark .fg-dot-item .fg-dot-link:focus:before {
+	background-color: #333;
+	border-color: #444;
+}
+.fg-paging-container.fg-dark .fg-dot-item.fg-disabled .fg-dot-link,
+.fg-paging-container.fg-dark .fg-dot-item.fg-disabled .fg-dot-link:hover,
+.fg-paging-container.fg-dark .fg-dot-item.fg-disabled .fg-dot-link:focus {
+	background-color: #666;
+	border-color: #333;
+	opacity: 0.5;
+}
+.fg-ph-pagination:before {
+	display: block;
+	content: '';
+	width: 0;
+	height: 36px;
+}
+
+.fg-paging-container .fg-pages {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.fg-paging-container .fg-page-item {
+	display: inline-block;
+	list-style: none;
+}
+.fg-paging-container .fg-page-item {
+	display: none;
+}
+.fg-paging-container .fg-page-item.fg-visible,
+.fg-paging-container .fg-page-item.fg-page-button {
+	display: inline-block;
+}
+.fg-paging-container .fg-page-item .fg-page-link {
+	display: inline-block;
+	min-width: 40px;
+	padding: 6px 12px;
+	margin: 1px;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	background-image: none;
+	text-decoration: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	box-shadow: none;
+	outline: none;
+}
+.fg-paging-container .fg-page-item:hover .fg-page-link,
+.fg-paging-container .fg-page-item:focus .fg-page-link {
+	text-decoration: none;
+	box-shadow: none;
+	outline: none;
+}
+.fg-paging-container .fg-page-item.fg-disabled .fg-page-link,
+.fg-paging-container .fg-page-item.fg-selected .fg-page-link {
+	cursor: not-allowed;
+	pointer-events: none;
+}
+.fg-paging-container .fg-page-item.fg-disabled .fg-page-link {
+	cursor: not-allowed;
+	pointer-events: none;
+	outline: none;
+}
+
+/* Light - Numbers */
+.fg-paging-container.fg-light .fg-page-item .fg-page-link {
+	color: #333;
+	background-color: transparent;
+	border-color: transparent;
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-paging-container.fg-light .fg-page-item:hover .fg-page-link,
+.fg-paging-container.fg-light .fg-page-item:focus .fg-page-link,
+.fg-paging-container.fg-light .fg-page-item.fg-selected .fg-page-link {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+.fg-paging-container.fg-light .fg-page-item.fg-selected .fg-page-link {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+}
+.fg-paging-container.fg-light .fg-page-item.fg-disabled .fg-page-link,
+.fg-paging-container.fg-light .fg-page-item.fg-disabled:hover .fg-page-link,
+.fg-paging-container.fg-light .fg-page-item.fg-disabled:focus .fg-page-link {
+	color: #333;
+	background-color: transparent;
+	border-color: transparent;
+	opacity: 0.5;
+}
+
+/* Dark - Numbers */
+.fg-paging-container.fg-dark .fg-page-item .fg-page-link {
+	color: #9d9d9d;
+	background-color: transparent;
+	border-color: transparent;
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-paging-container.fg-dark .fg-page-item:hover .fg-page-link,
+.fg-paging-container.fg-dark .fg-page-item:focus .fg-page-link {
+	color: #FFF;
+	background-color: #444;
+	border-color: #333;
+}
+.fg-paging-container.fg-dark .fg-page-item.fg-selected .fg-page-link {
+	color: #FFF;
+	background-color: #333;
+	border-color: #222;
+}
+.fg-paging-container.fg-dark .fg-page-item.fg-disabled .fg-page-link,
+.fg-paging-container.fg-dark .fg-page-item.fg-disabled:hover .fg-page-link,
+.fg-paging-container.fg-dark .fg-page-item.fg-disabled:focus .fg-page-link {
+	color: #9d9d9d;
+	background-color: transparent;
+	border-color: transparent;
+	opacity: 0.5;
+}
+
+
+/* Dots */
+.fg-paging-container.fg-dots .fg-page-item .fg-page-link {
+	position: relative;
+	border-radius: 50%;
+	min-width: 0;
+	padding: 0;
+	font-size: 0;
+}
+.fg-paging-container.fg-dots .fg-page-item .fg-page-link:before {
+	content: "";
+	display: block;
+	border-radius: 50%;
+	width: 15px;
+	height: 15px;
+	padding: 0;
+	margin: 2px;
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-first .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-prev .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-prev-more .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-next-more .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-next .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-last .fg-page-link:after {
+	display: inline-block;
+	font-size: 15px;
+	line-height: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-first .fg-page-link:after {
+	content: "\00ab";
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-prev .fg-page-link:after {
+	content: "\2039";
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-prev-more .fg-page-link:after,
+.fg-paging-container.fg-dots .fg-page-item.fg-page-next-more .fg-page-link:after {
+	content: "\2026";
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-next .fg-page-link:after {
+	content: "\203A";
+}
+.fg-paging-container.fg-dots .fg-page-item.fg-page-last .fg-page-link:after {
+	content: "\00bb";
+}
+
+/* Light - Dots */
+.fg-paging-container.fg-light.fg-dots .fg-page-item .fg-page-link {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+	transition-timing-function: ease-out;
+	transition-duration: 0.3s;
+	transition-property: color, border-color, background-color;
+}
+.fg-paging-container.fg-light.fg-dots .fg-page-item:hover .fg-page-link,
+.fg-paging-container.fg-light.fg-dots .fg-page-item:focus .fg-page-link,
+.fg-paging-container.fg-light.fg-dots .fg-page-item.fg-selected .fg-page-link {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+.fg-paging-container.fg-light.fg-dots .fg-page-item.fg-selected .fg-page-link:before {
+	background-color: #333;
+	border-color: #ccc;
+}
+.fg-paging-container.fg-light.fg-dots .fg-page-item.fg-disabled .fg-page-link,
+.fg-paging-container.fg-light.fg-dots .fg-page-item.fg-disabled:hover .fg-page-link,
+.fg-paging-container.fg-light.fg-dots .fg-page-item.fg-disabled:focus .fg-page-link {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+	opacity: 0.5;
+}
