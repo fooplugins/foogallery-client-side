@@ -2,16 +2,19 @@
 
 	_.Justified = _utils.Class.extend({
 		construct: function(template, options){
-			this.tmpl = template;
-			this.$el = template.$el;
-			this.options = $.extend(true, {}, _.Justified.defaults, options);
-			this._items = [];
-			this.maxRowHeight = 0;
-			this.borderSize = 0;
+			var self = this;
+			self.tmpl = template;
+			self.$el = template.$el;
+			self.options = $.extend(true, {}, _.Justified.defaults, options);
+			self._items = [];
+			self.maxRowHeight = 0;
+			self.borderSize = 0;
+			self.lastRowPosition = ["left","center","right"].indexOf(self.options.lastRow) !== -1 ? self.options.lastRow : "center";
 		},
 		init: function(){
-			this.maxRowHeight = this.getMaxRowHeight();
-			this.borderSize = this.getBorderSize();
+			var self = this;
+			self.maxRowHeight = self.getMaxRowHeight();
+			self.borderSize = self.getBorderSize();
 		},
 		destroy: function(){
 			this.$el.removeAttr("style");
@@ -123,21 +126,21 @@
 			var self = this,
 				margin = self.options.margins,
 				margins = margin * (row.items.length - 1),
-				max = maxWidth - margins;
+				max = maxWidth - margins,
+				rowWidth = row.width - margins;
 
 			row.top = top;
 			row.left = 0;
-			if (row.width < max){
+			if (rowWidth < max){
 				switch (align){
 					case "center":
-						row.left = (max - row.width) / 2;
+						row.left = (max - rowWidth) / 2;
 						break;
 					case "right":
-						row.left = max - row.width;
+						row.left = max - rowWidth;
 						break;
 				}
 			}
-			row.width += margins;
 
 			var left = row.left;
 			row.items.forEach(function(item, i){
@@ -150,38 +153,25 @@
 			return row.height;
 		},
 		lastRow: function(row, top, maxWidth){
-			var self = this;
-			if ((row.items.length === 1 && row.items[0].maxWidth / maxWidth > self.options.justifyThreshold) || row.width / maxWidth > self.options.justifyThreshold){
+			var self = this,
+				// compare a single items max width against the threshold
+				itemThreshold = row.items.length === 1 && row.items[0].maxWidth / maxWidth > self.options.justifyThreshold,
+				// compare the rows width against the threshold
+				rowThreshold = row.width / maxWidth > self.options.justifyThreshold;
+
+			// if the last row is set to be justified or one of the thresholds has been met
+			if (self.options.lastRow === "justify" || itemThreshold || rowThreshold){
 				return self.justify(row, top, maxWidth);
-			} else {
-				return self.position(row, top, maxWidth, "center");
 			}
-			// switch (self.options.lastRow){
-			// 	case "hide":
-			// 		if (threshold){
-			// 			return self.justify(row, top, maxWidth);
-			// 		} else {
-			// 			row.visible = false;
-			// 			return 0;
-			// 		}
-			// 	case "justify":
-			// 		return self.justify(row, top, maxWidth);
-			// 	case "nojustify":
-			// 		if (threshold){
-			// 			return self.justify(row, top, maxWidth);
-			// 		} else {
-			// 			return self.position(row, top, maxWidth, "left");
-			// 		}
-			// 	case "left":
-			// 	case "center":
-			// 	case "right":
-			// 		if (threshold){
-			// 			return self.justify(row, top, maxWidth);
-			// 		} else {
-			// 			return self.position(row, top, maxWidth, self.options.lastRow);
-			// 		}
-			// }
-			// return 0;
+			// if we can't justify the row then hide it if configured
+			else if (self.options.lastRow === "hide"){
+				row.visible = false;
+				return 0;
+			}
+			// otherwise position the row using the configured value
+			else {
+				return self.position(row, top, maxWidth, self.lastRowPosition);
+			}
 		},
 		createRows: function(maxWidth){
 			var self = this,
@@ -255,13 +245,11 @@
 	});
 
 	_.Justified.defaults = {
-		itemSelector: ".fg-item",
 		rowHeight: 150,
 		maxRowHeight: "200%",
 		margins: 0,
 		lastRow: "center",
-		justifyThreshold: 1,
-		refreshInterval: 250
+		justifyThreshold: 0.6
 	};
 
 })(
