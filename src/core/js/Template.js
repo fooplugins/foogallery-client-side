@@ -156,7 +156,7 @@
 						self.layout(entries[0].contentRect.width);
 					}
 				}
-			}));
+			}, 50));
 		},
 
 		// ################
