@@ -36,9 +36,14 @@
 			if (_is.string(value)){
 				var parsed = parseInt(value);
 				if (isNaN(parsed)) return def;
+				if (parsed <= 0) return Infinity;
 				return value.indexOf('%') !== -1 ? def * (parsed / 100) : parsed;
 			}
-			return _is.number(value) ? value : def;
+			if (_is.number(value)){
+				if (value <= 0) return Infinity;
+				return value;
+			}
+			return def;
 		},
 		layout: function(width){
 			var self = this;
