@@ -546,13 +546,17 @@
 				self.hasExif = true;
 			}
 			// enforce the max lengths for the caption and description
-			var title = _str.trimTo(self.caption, self.maxCaptionLength);
-			if (title !== self.caption) {
-				self.$caption.find(sel.caption.title).html(title);
+			if (self.maxCaptionLength > 0){
+				var title = _str.trimTo(self.caption, self.maxCaptionLength);
+				if (title !== self.caption) {
+					self.$caption.find(sel.caption.title).html(title);
+				}
 			}
-			var desc = _str.trimTo(self.description, self.maxDescriptionLength);
-			if (desc !== self.description) {
-				self.$caption.find(sel.caption.description).html(desc);
+			if (self.maxDescriptionLength){
+				var desc = _str.trimTo(self.description, self.maxDescriptionLength);
+				if (desc !== self.description) {
+					self.$caption.find(sel.caption.description).html(desc);
+				}
 			}
 
 			// if the image has no src url then set the placeholder
@@ -751,14 +755,14 @@
 				captionTitle = document.createElement("div");
 				self._setAttributes(captionTitle, attr.caption.title);
 				captionTitle.className = cls.caption.title;
-				captionTitle.innerHTML = _str.trim(self.caption, self.maxCaptionLength);
+				captionTitle.innerHTML = self.maxCaptionLength > 0 ? _str.trimTo(self.caption, self.maxCaptionLength) : self.caption;
 			}
 			var captionDesc = null;
 			if (self.showCaptionDescription && _is.string(self.description) && self.description.length > 0) {
 				captionDesc = document.createElement("div");
 				self._setAttributes(captionDesc, attr.caption.description);
 				captionDesc.className = cls.caption.description;
-				captionDesc.innerHTML = _str.trim(self.description, self.maxDescriptionLength);
+				captionDesc.innerHTML = self.maxDescriptionLength > 0 ? _str.trimTo(self.description, self.maxDescriptionLength) : self.description;
 			}
 
 			if (captionTitle !== null) captionInner.appendChild(captionTitle);
