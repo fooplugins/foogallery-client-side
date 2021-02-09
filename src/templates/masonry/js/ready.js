@@ -73,10 +73,7 @@
 
 	_.template.register("masonry", _.MasonryTemplate, {
 		fixLayout: true,
-		template: {
-			initLayout: false,
-			isInitLayout: false
-		}
+		template: {}
 	}, {
 		container: "foogallery fg-masonry",
 		columnWidth: "fg-column-width",
