@@ -88,15 +88,17 @@
             }).concat(["fg-landscape","fg-portrait"]).join(" ");
 
             self.robserver = new ResizeObserver(_fn.throttle(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.target === self.el){
-                        if (entry.contentBoxSize){
-                            self.onResize(entry.contentBoxSize[0].inlineSize, entry.contentBoxSize[0].blockSize);
-                        } else {
-                            self.onResize(entry.contentRect.width, entry.contentRect.height);
+                if (!self.destroying && !self.destroyed){
+                    entries.forEach(function (entry) {
+                        if (entry.target === self.el){
+                            if (entry.contentBoxSize){
+                                self.onResize(entry.contentBoxSize[0].inlineSize, entry.contentBoxSize[0].blockSize);
+                            } else {
+                                self.onResize(entry.contentRect.width, entry.contentRect.height);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }, 50));
 
             self.__media = {};

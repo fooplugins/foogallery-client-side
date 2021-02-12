@@ -148,7 +148,7 @@
 				children: false
 			};
 			self.robserver = new ResizeObserver(_fn.throttle(function(entries) {
-				if (entries.length === 1 && entries[0].target === self.el){
+				if (!self.destroying && !self.destroyed && entries.length === 1 && entries[0].target === self.el){
 					// self.layout();
 					if (entries[0].contentBoxSize){
 						self.layout(entries[0].contentBoxSize[0].inlineSize);
@@ -394,7 +394,9 @@
 			if (e.isDefaultPrevented()) return false;
 			self.state.init();
 			self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(function () {
-				self.loadAvailable();
+				if (!self.destroying && !self.destroyed){
+					self.loadAvailable();
+				}
 			}, 50));
 			$(window).on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
 			return true;

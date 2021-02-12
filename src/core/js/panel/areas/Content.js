@@ -24,8 +24,10 @@
                     self.$inner.fgswipe({data: {self: self}, swipe: self.onSwipe, allowPageScroll: true});
                 }
                 self.robserver = new ResizeObserver(_fn.throttle(function () {
-                    // only the inner is being observed so if a change occurs we can safely just call resize
-                    self.resize();
+                    if (self.panel instanceof _.Panel && !self.panel.destroying && !self.panel.destroyed) {
+                        // only the inner is being observed so if a change occurs we can safely just call resize
+                        self.resize();
+                    }
                 }, 50));
                 self.robserver.observe(self.$inner.get(0));
                 return true;

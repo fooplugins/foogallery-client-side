@@ -69,12 +69,14 @@
                 }, { root: self.$inner.get(0), rootMargin: "82px 300px" });
 
                 self.robserver = new ResizeObserver(_fn.throttle(function (entries) {
-                    // only the viewport is being observed so if a change occurs we can safely grab just the first entry
-                    var rect = entries[0].contentRect, viewport = self.info.viewport;
-                    var diffX = Math.floor(Math.abs(rect.width - viewport.width)),
-                        diffY = Math.floor(Math.abs(rect.height - viewport.height));
-                    if (self.isVisible && (diffX > 1 || diffY > 1)){
-                        self.resize();
+                    if (entries.length > 0 && self.panel instanceof _.Panel && !self.panel.destroying && !self.panel.destroyed) {
+                        // only the viewport is being observed so if a change occurs we can safely grab just the first entry
+                        var rect = entries[0].contentRect, viewport = self.info.viewport;
+                        var diffX = Math.floor(Math.abs(rect.width - viewport.width)),
+                            diffY = Math.floor(Math.abs(rect.height - viewport.height));
+                        if (self.isVisible && (diffX > 1 || diffY > 1)) {
+                            self.resize();
+                        }
                     }
                 }, 50));
 
