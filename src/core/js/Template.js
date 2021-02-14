@@ -149,12 +149,8 @@
 			};
 			self.robserver = new ResizeObserver(_fn.throttle(function(entries) {
 				if (!self.destroying && !self.destroyed && entries.length === 1 && entries[0].target === self.el){
-					// self.layout();
-					if (entries[0].contentBoxSize){
-						self.layout(entries[0].contentBoxSize[0].inlineSize);
-					} else {
-						self.layout(entries[0].contentRect.width);
-					}
+					var size = _utils.getResizeObserverSize(entries[0]);
+					self.layout(size.width);
 				}
 			}, 50));
 		},

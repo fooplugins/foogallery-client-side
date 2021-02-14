@@ -91,11 +91,8 @@
                 if (!self.destroying && !self.destroyed){
                     entries.forEach(function (entry) {
                         if (entry.target === self.el){
-                            if (entry.contentBoxSize){
-                                self.onResize(entry.contentBoxSize[0].inlineSize, entry.contentBoxSize[0].blockSize);
-                            } else {
-                                self.onResize(entry.contentRect.width, entry.contentRect.height);
-                            }
+                            var size = _utils.getResizeObserverSize(entry);
+                            self.onResize(size.width, size.height);
                         }
                     });
                 }

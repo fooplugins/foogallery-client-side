@@ -71,9 +71,9 @@
                 self.robserver = new ResizeObserver(_fn.throttle(function (entries) {
                     if (entries.length > 0 && self.panel instanceof _.Panel && !self.panel.destroying && !self.panel.destroyed) {
                         // only the viewport is being observed so if a change occurs we can safely grab just the first entry
-                        var rect = entries[0].contentRect, viewport = self.info.viewport;
-                        var diffX = Math.floor(Math.abs(rect.width - viewport.width)),
-                            diffY = Math.floor(Math.abs(rect.height - viewport.height));
+                        var size = _utils.getResizeObserverSize(entries[0]), viewport = self.info.viewport;
+                        var diffX = Math.floor(Math.abs(size.width - viewport.width)),
+                            diffY = Math.floor(Math.abs(size.height - viewport.height));
                         if (self.isVisible && (diffX > 1 || diffY > 1)) {
                             self.resize();
                         }
