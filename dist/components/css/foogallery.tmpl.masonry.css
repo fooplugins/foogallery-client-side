@@ -20,9 +20,15 @@
 
 .fg-masonry .fg-column-width {
 	display: inline-block;
-	visibility: hidden;
-	height: 0;
 	border: solid 0 transparent;
+}
+.fg-masonry .fg-column-width,
+.fg-masonry .fg-gutter-width {
+	position: absolute;
+	height: 0;
+	visibility: hidden;
+	opacity: 0;
+	pointer-events: none;
 }
 
 .fg-masonry.fg-col5 .fg-image,

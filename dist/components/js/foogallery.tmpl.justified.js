@@ -2,16 +2,19 @@
 
 	_.Justified = _utils.Class.extend({
 		construct: function(template, options){
-			this.tmpl = template;
-			this.$el = template.$el;
-			this.options = $.extend(true, {}, _.Justified.defaults, options);
-			this._items = [];
-			this.maxRowHeight = 0;
-			this.borderSize = 0;
+			var self = this;
+			self.tmpl = template;
+			self.$el = template.$el;
+			self.options = $.extend(true, {}, _.Justified.defaults, options);
+			self._items = [];
+			self.maxRowHeight = 0;
+			self.borderSize = 0;
+			self.align = ["left","center","right"].indexOf(self.options.align) !== -1 ? self.options.align : "center";
 		},
 		init: function(){
-			this.maxRowHeight = this.getMaxRowHeight();
-			this.borderSize = this.getBorderSize();
+			var self = this;
+			self.maxRowHeight = self.getMaxRowHeight(self.options.maxRowHeight, self.options.rowHeight);
+			self.borderSize = self.getBorderSize();
 		},
 		destroy: function(){
 			this.$el.removeAttr("style");
@@ -29,16 +32,18 @@
 					return 0;
 			}
 		},
-		getMaxRowHeight: function() {
-			var self = this;
-			if (_is.string(self.options.maxRowHeight)){
-				if (self.options.maxRowHeight.indexOf('%')){
-					self.options.maxRowHeight = self.options.rowHeight * (parseInt(self.options.maxRowHeight) / 100);
-				} else {
-					self.options.maxRowHeight = parseInt(self.options.maxRowHeight);
-				}
+		getMaxRowHeight: function(value, def) {
+			if (_is.string(value)){
+				var parsed = parseInt(value);
+				if (isNaN(parsed)) return def;
+				if (parsed <= 0) return Infinity;
+				return value.indexOf('%') !== -1 ? def * (parsed / 100) : parsed;
 			}
-			return _is.number(self.options.maxRowHeight) ? self.options.maxRowHeight : self.options.rowHeight;
+			if (_is.number(value)){
+				if (value <= 0) return Infinity;
+				return value;
+			}
+			return def;
 		},
 		layout: function(width){
 			var self = this;
@@ -68,7 +73,7 @@
 						item.elem.style.setProperty("margin", "0");
 						item.elem.style.removeProperty("display");
 						if (self.maxRowHeight > 0){
-							item.elem.style.setProperty("max-height", self.maxRowHeight + "px");
+							item.elem.style.setProperty("max-height", (self.maxRowHeight + (self.borderSize * 2)) + "px");
 						} else {
 							item.elem.style.removeProperty("max-height");
 						}
@@ -81,7 +86,7 @@
 				}
 			});
 		},
-		justify: function(row, top, maxWidth){
+		justify: function(row, top, maxWidth, maxHeight){
 			var self = this,
 				margin = self.options.margins,
 				margins = margin * (row.items.length - 1),
@@ -91,17 +96,25 @@
 			var w_ratio = max / rowWidth;
 			row.width = rowWidth * w_ratio;
 			row.height = row.height * w_ratio;
+
+			if (row.height > (maxHeight + (self.borderSize * 2))){
+				var h_ratio = (maxHeight + (self.borderSize * 2)) / row.height;
+				row.width = row.width * h_ratio;
+				row.height = row.height * h_ratio;
+			}
+
 			row.top = top;
-
-			if (row.height > self.maxRowHeight){
-				row.height = self.maxRowHeight;
-			}
-
+			// default is left 0 because a full row starts at 0 and it matches default layouts
 			row.left = 0;
-			if (row.width < max){
-				// here I'm not sure if I should center, left or right align a row that cannot be displayed at 100% width
-				row.left = (max - row.width) / 2;
+			// if we don't have a full row and align !== left
+			if (self.align !== "left" && row.width < max){
+				if (self.align === "right"){
+					row.left = max - row.width;
+				} else {
+					row.left = (max - row.width) / 2;
+				}
 			}
+
 			row.width += margins;
 
 			var left = row.left;
@@ -109,79 +122,13 @@
 				if (i > 0) left += margin;
 				item.left = left;
 				item.top = top;
-				item.width = item.width * w_ratio;
-				item.height = item.height * w_ratio;
-				if (item.height > self.maxRowHeight){
-					item.height = self.maxRowHeight;
-				}
+				var i_ratio = row.height / item.height;
+				item.width = item.width * i_ratio;
+				item.height = item.height * i_ratio;
 				left += item.width;
 			});
 
 			return row.height;
-		},
-		position: function(row, top, maxWidth, align){
-			var self = this,
-				margin = self.options.margins,
-				margins = margin * (row.items.length - 1),
-				max = maxWidth - margins;
-
-			row.top = top;
-			row.left = 0;
-			if (row.width < max){
-				switch (align){
-					case "center":
-						row.left = (max - row.width) / 2;
-						break;
-					case "right":
-						row.left = max - row.width;
-						break;
-				}
-			}
-			row.width += margins;
-
-			var left = row.left;
-			row.items.forEach(function(item, i){
-				if (i > 0) left += margin;
-				item.left = left;
-				item.top = top;
-				left += item.width;
-			});
-
-			return row.height;
-		},
-		lastRow: function(row, top, maxWidth){
-			var self = this;
-			if ((row.items.length === 1 && row.items[0].maxWidth / maxWidth > self.options.justifyThreshold) || row.width / maxWidth > self.options.justifyThreshold){
-				return self.justify(row, top, maxWidth);
-			} else {
-				return self.position(row, top, maxWidth, "center");
-			}
-			// switch (self.options.lastRow){
-			// 	case "hide":
-			// 		if (threshold){
-			// 			return self.justify(row, top, maxWidth);
-			// 		} else {
-			// 			row.visible = false;
-			// 			return 0;
-			// 		}
-			// 	case "justify":
-			// 		return self.justify(row, top, maxWidth);
-			// 	case "nojustify":
-			// 		if (threshold){
-			// 			return self.justify(row, top, maxWidth);
-			// 		} else {
-			// 			return self.position(row, top, maxWidth, "left");
-			// 		}
-			// 	case "left":
-			// 	case "center":
-			// 	case "right":
-			// 		if (threshold){
-			// 			return self.justify(row, top, maxWidth);
-			// 		} else {
-			// 			return self.position(row, top, maxWidth, self.options.lastRow);
-			// 		}
-			// }
-			// return 0;
 		},
 		createRows: function(maxWidth){
 			var self = this,
@@ -225,13 +172,15 @@
 				};
 			}
 
-			var row = newRow(), top = 0;
+			var row = newRow(), top = 0, max = 0;
 			items.forEach(function(fgItem){
 				var item = newItem(fgItem, row.height);
 				// adding this item to the row would exceed the max width
 				if (row.width + item.width > maxWidth && row.items.length > 0){
 					if (rows.length > 0) top += margin;
-					top += self.justify(row, top, maxWidth); // first justify the current row
+					var height = self.justify(row, top, maxWidth, self.maxRowHeight); // first justify the current row
+					if (height > max) max = height;
+					top += height;
 					rows.push(row);
 					row = newRow(); // then make the new one
 				}
@@ -242,8 +191,17 @@
 			});
 
 			if (row.items.length > 0){
-				if (rows.length > 1) top += margin;
-				top += self.lastRow(row, top, maxWidth);
+				if (rows.length > 0) top += margin;
+				var height = self.justify(row, top, maxWidth, self.maxRowHeight);
+				if (max !== 0 && height > max){
+					var h_ratio = max / height,
+						w_ratio = (row.width * h_ratio) / maxWidth;
+
+					if (h_ratio < 0.9 || w_ratio < 0.9){
+						height = self.justify(row, top, maxWidth, max - (self.borderSize * 2));
+					}
+				}
+				top += height;
 				rows.push(row);
 			}
 
@@ -255,13 +213,10 @@
 	});
 
 	_.Justified.defaults = {
-		itemSelector: ".fg-item",
 		rowHeight: 150,
 		maxRowHeight: "200%",
 		margins: 0,
-		lastRow: "center",
-		justifyThreshold: 1,
-		refreshInterval: 250
+		align: "center"
 	};
 
 })(

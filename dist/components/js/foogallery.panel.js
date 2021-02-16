@@ -88,15 +88,14 @@
             }).concat(["fg-landscape","fg-portrait"]).join(" ");
 
             self.robserver = new ResizeObserver(_fn.throttle(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.target === self.el){
-                        if (entry.contentBoxSize){
-                            self.onResize(entry.contentBoxSize[0].inlineSize, entry.contentBoxSize[0].blockSize);
-                        } else {
-                            self.onResize(entry.contentRect.width, entry.contentRect.height);
+                if (!self.destroying && !self.destroyed){
+                    entries.forEach(function (entry) {
+                        if (entry.target === self.el){
+                            var size = _utils.getResizeObserverSize(entry);
+                            self.onResize(size.width, size.height);
                         }
-                    }
-                });
+                    });
+                }
             }, 50));
 
             self.__media = {};
@@ -1540,8 +1539,10 @@
                     self.$inner.fgswipe({data: {self: self}, swipe: self.onSwipe, allowPageScroll: true});
                 }
                 self.robserver = new ResizeObserver(_fn.throttle(function () {
-                    // only the inner is being observed so if a change occurs we can safely just call resize
-                    self.resize();
+                    if (self.panel instanceof _.Panel && !self.panel.destroying && !self.panel.destroyed) {
+                        // only the inner is being observed so if a change occurs we can safely just call resize
+                        self.resize();
+                    }
                 }, 50));
                 self.robserver.observe(self.$inner.get(0));
                 return true;
@@ -1846,12 +1847,14 @@
                 }, { root: self.$inner.get(0), rootMargin: "82px 300px" });
 
                 self.robserver = new ResizeObserver(_fn.throttle(function (entries) {
-                    // only the viewport is being observed so if a change occurs we can safely grab just the first entry
-                    var rect = entries[0].contentRect, viewport = self.info.viewport;
-                    var diffX = Math.floor(Math.abs(rect.width - viewport.width)),
-                        diffY = Math.floor(Math.abs(rect.height - viewport.height));
-                    if (self.isVisible && (diffX > 1 || diffY > 1)){
-                        self.resize();
+                    if (entries.length > 0 && self.panel instanceof _.Panel && !self.panel.destroying && !self.panel.destroyed) {
+                        // only the viewport is being observed so if a change occurs we can safely grab just the first entry
+                        var size = _utils.getResizeObserverSize(entries[0]), viewport = self.info.viewport;
+                        var diffX = Math.floor(Math.abs(size.width - viewport.width)),
+                            diffY = Math.floor(Math.abs(size.height - viewport.height));
+                        if (self.isVisible && (diffX > 1 || diffY > 1)) {
+                            self.resize();
+                        }
                     }
                 }, 50));
 

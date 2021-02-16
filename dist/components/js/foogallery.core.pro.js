@@ -3953,6 +3953,46 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		return null;
 	};
 
+	/**
+	 * @typedef {Object} ResizeObserverSize
+	 * @property {number} inlineSize
+	 * @property {number} blockSize
+	 * @property {number} width
+	 * @property {number} height
+	 */
+	/**
+	 * @typedef {Object} ResizeObserverEntry
+	 * @property {ResizeObserverSize|Array<ResizeObserverSize>|undefined} contentBoxSize
+	 * @property {DOMRect} contentRect
+	 */
+	/**
+	 * @summary Gets the width and height from the ResizeObserverEntry
+	 * @memberof FooGallery.utils.
+	 * @function getResizeObserverSize
+	 * @param {ResizeObserverEntry} entry - The entry to retrieve the size from.
+	 * @returns {{width: Number,height: Number}}
+	 */
+	_utils.getResizeObserverSize = function(entry){
+		var width, height;
+		if(entry.contentBoxSize) {
+			// Checking for chrome as using a non-standard array
+			if (entry.contentBoxSize[0]) {
+				width = entry.contentBoxSize[0].inlineSize;
+				height = entry.contentBoxSize[0].blockSize;
+			} else {
+				width = entry.contentBoxSize.inlineSize;
+				height = entry.contentBoxSize.blockSize;
+			}
+		} else {
+			width = entry.contentRect.width;
+			height = entry.contentRect.height;
+		}
+		return {
+			width: width,
+			height: height
+		};
+	};
+
 })(
 	FooGallery.$,
 	FooGallery,
@@ -4849,15 +4889,11 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 				children: false
 			};
 			self.robserver = new ResizeObserver(_fn.throttle(function(entries) {
-				if (entries.length === 1 && entries[0].target === self.el){
-					// self.layout();
-					if (entries[0].contentBoxSize){
-						self.layout(entries[0].contentBoxSize[0].inlineSize);
-					} else {
-						self.layout(entries[0].contentRect.width);
-					}
+				if (!self.destroying && !self.destroyed && entries.length === 1 && entries[0].target === self.el){
+					var size = _utils.getResizeObserverSize(entries[0]);
+					self.layout(size.width);
 				}
-			}));
+			}, 50));
 		},
 
 		// ################
@@ -5095,7 +5131,9 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			if (e.isDefaultPrevented()) return false;
 			self.state.init();
 			self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(function () {
-				self.loadAvailable();
+				if (!self.destroying && !self.destroyed){
+					self.loadAvailable();
+				}
 			}, 50));
 			$(window).on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
 			return true;
@@ -7223,13 +7261,17 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 				self.hasExif = true;
 			}
 			// enforce the max lengths for the caption and description
-			var title = _str.trimTo(self.caption, self.maxCaptionLength);
-			if (title !== self.caption) {
-				self.$caption.find(sel.caption.title).html(title);
+			if (self.maxCaptionLength > 0){
+				var title = _str.trimTo(self.caption, self.maxCaptionLength);
+				if (title !== self.caption) {
+					self.$caption.find(sel.caption.title).html(title);
+				}
 			}
-			var desc = _str.trimTo(self.description, self.maxDescriptionLength);
-			if (desc !== self.description) {
-				self.$caption.find(sel.caption.description).html(desc);
+			if (self.maxDescriptionLength){
+				var desc = _str.trimTo(self.description, self.maxDescriptionLength);
+				if (desc !== self.description) {
+					self.$caption.find(sel.caption.description).html(desc);
+				}
 			}
 
 			// if the image has no src url then set the placeholder
@@ -7428,14 +7470,14 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 				captionTitle = document.createElement("div");
 				self._setAttributes(captionTitle, attr.caption.title);
 				captionTitle.className = cls.caption.title;
-				captionTitle.innerHTML = _str.trim(self.caption, self.maxCaptionLength);
+				captionTitle.innerHTML = self.maxCaptionLength > 0 ? _str.trimTo(self.caption, self.maxCaptionLength) : self.caption;
 			}
 			var captionDesc = null;
 			if (self.showCaptionDescription && _is.string(self.description) && self.description.length > 0) {
 				captionDesc = document.createElement("div");
 				self._setAttributes(captionDesc, attr.caption.description);
 				captionDesc.className = cls.caption.description;
-				captionDesc.innerHTML = _str.trim(self.description, self.maxDescriptionLength);
+				captionDesc.innerHTML = self.maxDescriptionLength > 0 ? _str.trimTo(self.description, self.maxDescriptionLength) : self.description;
 			}
 
 			if (captionTitle !== null) captionInner.appendChild(captionTitle);

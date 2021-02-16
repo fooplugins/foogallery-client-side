@@ -251,9 +251,15 @@
 
 .fg-masonry .fg-column-width {
 	display: inline-block;
-	visibility: hidden;
-	height: 0;
 	border: solid 0 transparent;
+}
+.fg-masonry .fg-column-width,
+.fg-masonry .fg-gutter-width {
+	position: absolute;
+	height: 0;
+	visibility: hidden;
+	opacity: 0;
+	pointer-events: none;
 }
 
 .fg-masonry.fg-col5 .fg-image,
@@ -688,6 +694,8 @@
 }
 .fg-justified .fg-image {
 	z-index: 1;
+	width: auto;
+	height: auto;
 }
 .fg-justified .fg-item.fg-positioned .fg-thumb,
 .fg-justified .fg-item.fg-positioned .fg-image-wrap {
@@ -695,14 +703,9 @@
 	height: 100%;
 }
 .fg-justified .fg-item.fg-positioned .fg-image {
-	width: 100%;
-	height: auto;
+	width: 100%!important;
+	height: auto!important;
 	min-height: 100%;
-	top: 50%;
-	transform: translateY(-50%);
-}
-.fg-justified.fg-hover-zoomed .fg-item.fg-positioned:hover .fg-image {
-	transform: translateY(-50%) scale(1.15);
 }
 /* CSS justified layout. */
 .foogallery.fg-justified-css {
@@ -829,6 +832,7 @@
 
 .fg-simple_portfolio .fg-caption-title {
     text-align: left;
+    white-space: normal;
 }
 .fg-simple_portfolio .fg-caption-desc {
     text-align: left;
