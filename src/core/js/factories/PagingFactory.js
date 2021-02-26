@@ -1,14 +1,14 @@
-(function(_, _utils, _is, _fn, _obj){
+(function(_, _is, _fn, _obj){
 
-	_.PagingFactory = _utils.Factory.extend(/** @lends FooGallery.PagingFactory */{
+	_.PagingFactory = _.Factory.extend(/** @lends FooGallery.PagingFactory */{
 		/**
 		 * @summary A factory for paging types allowing them to be easily registered and created.
 		 * @memberof FooGallery
 		 * @constructs PagingFactory
 		 * @description The plugin makes use of an instance of this class exposed as {@link FooGallery.paging}.
 		 * @augments FooGallery.Factory
-		 * @borrows FooGallery.Factory.extend as extend
-		 * @borrows FooGallery.Factory.override as override
+		 * @borrows FooGallery.utils.Class.extend as extend
+		 * @borrows FooGallery.utils.Class.override as override
 		 */
 		construct: function(){
 			/**
@@ -137,7 +137,6 @@
 
 })(
 		FooGallery,
-		FooGallery.utils,
 		FooGallery.utils.is,
 		FooGallery.utils.fn,
 		FooGallery.utils.obj

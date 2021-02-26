@@ -1,6 +1,16 @@
 (function($, _, _icons, _utils, _is, _fn, _t){
 
-    _.Panel.Thumbs = _.Panel.SideArea.extend({
+    /**
+     * @memberof FooGallery.Panel.
+     * @class Thumbs
+     * @augments FooGallery.Panel.SideArea
+     */
+    _.Panel.Thumbs = _.Panel.SideArea.extend(/** @lends FooGallery.Panel.Thumbs */{
+        /**
+         * @ignore
+         * @constructs
+         * @param panel
+         */
         construct: function(panel){
             this._super(panel, "thumbs", {
                 icon: "thumbs",
@@ -59,12 +69,14 @@
                 }, { root: self.$inner.get(0), rootMargin: "82px 300px" });
 
                 self.robserver = new ResizeObserver(_fn.throttle(function (entries) {
-                    // only the viewport is being observed so if a change occurs we can safely grab just the first entry
-                    var rect = entries[0].contentRect, viewport = self.info.viewport;
-                    var diffX = Math.floor(Math.abs(rect.width - viewport.width)),
-                        diffY = Math.floor(Math.abs(rect.height - viewport.height));
-                    if (self.isVisible && (diffX > 1 || diffY > 1)){
-                        self.resize();
+                    if (entries.length > 0 && self.panel instanceof _.Panel && !self.panel.destroying && !self.panel.destroyed) {
+                        // only the viewport is being observed so if a change occurs we can safely grab just the first entry
+                        var size = _utils.getResizeObserverSize(entries[0]), viewport = self.info.viewport;
+                        var diffX = Math.floor(Math.abs(size.width - viewport.width)),
+                            diffY = Math.floor(Math.abs(size.height - viewport.height));
+                        if (self.isVisible && (diffX > 1 || diffY > 1)) {
+                            self.resize();
+                        }
                     }
                 }, 50));
 
@@ -160,9 +172,7 @@
             var self = this,
                 $thumb = $(element),
                 item = $thumb.data("item"),
-                $media = $thumb.find(self.sel.thumb.media),
-                $img = $thumb.find(self.sel.thumb.image),
-                img = $img.get(0),
+                img = $thumb.find(self.sel.thumb.image).get(0),
                 states = self.panel.cls.states;
 
             $thumb.removeClass(states.allLoading).addClass(states.loading);
@@ -174,14 +184,15 @@
                 img.onload = img.onerror = null;
                 $thumb.removeClass(states.allLoading).addClass(states.error);
             };
-            img.src = item.getThumbSrc($media.width(), $media.height());
+            img.src = item.src;
+            img.srcset = item.srcset;
             if (img.complete){
                 img.onload();
             }
         },
         goto: function(index, disableTransition){
             var self = this;
-            if (!self.isCreated) return _fn.rejectWith("thumbs not created");
+            if (!self.isCreated) return _fn.reject("thumbs not created");
 
             index = index < 0 ? 0 : (index > self.lastIndex ? self.lastIndex : index);
 

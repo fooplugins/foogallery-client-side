@@ -108,7 +108,8 @@
 				}
 			}
 			// if the current visible range of links has changed
-			if (range.changed = range.start !== self.range.start || range.end !== self.range.end){
+			range.changed = range.start !== self.range.start || range.end !== self.range.end;
+			if (range.changed){
 				// then cache the range for the next time this method is called
 				self.range = range;
 			}
@@ -158,8 +159,8 @@
 			return false;
 		},
 		destroy: function(){
+			this.$buttons = null;
 			this._super();
-			this.$buttons = $();
 		},
 		update: function(range){
 			var self = this, sel = self.pages.sel;

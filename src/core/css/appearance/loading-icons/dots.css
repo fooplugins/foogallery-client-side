@@ -3,9 +3,14 @@
 	font-size: 5px;
 	border-radius: 50%;
 	text-indent: -9999em;
-	-webkit-animation: loading-dots 1.3s infinite linear;
-	animation: loading-dots 1.3s infinite linear;
+	-webkit-animation: loading-dots 1.3s infinite paused linear;
+	animation: loading-dots 1.3s infinite paused linear;
 }
+.fg-loading-dots .fg-loading .fg-loader {
+	-webkit-animation-play-state: running;
+	animation-play-state: running;
+}
+
 @-webkit-keyframes loading-dots {
 	0%,
 	100% {

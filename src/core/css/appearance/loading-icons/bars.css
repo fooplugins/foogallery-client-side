@@ -2,15 +2,23 @@
 .fg-loading-bars .fg-loader:before,
 .fg-loading-bars .fg-loader:after {
 	background: rgba(130, 130, 130, 1);
-	-webkit-animation: loading-bars 1s infinite ease-in-out;
-	animation: loading-bars 1s infinite ease-in-out;
 	width: 1em;
 	height: 4em;
+	-webkit-animation: loading-bars 1s infinite paused ease-in-out;
+	animation: loading-bars 1s infinite paused ease-in-out;
+}
+.fg-loading-bars .fg-loading .fg-loader,
+.fg-loading-bars .fg-loading .fg-loader:before,
+.fg-loading-bars .fg-loading .fg-loader:after {
+	-webkit-animation-play-state: running;
+	animation-play-state: running;
 }
 .fg-loading-bars .fg-loader {
 	color: rgba(130, 130, 130, 1);
 	text-indent: -9999em;
 	font-size: 4px;
+	margin-top: -2em;
+	margin-left: -0.5em;
 	-webkit-animation-delay: -0.16s;
 	animation-delay: -0.16s;
 }

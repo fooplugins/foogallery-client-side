@@ -11,10 +11,10 @@
 			this._count = this.amount;
 		},
 		available: function(){
-			var self = this, items = [], page = self.get(self.current), viewport = _utils.getViewportBounds(), last, first;
+			var self = this, items = [], page = self.get(self.current), last, first;
 			if (!_is.empty(page) && self._created.length !== self.total){
 				last = page[page.length - 1].bounds();
-				if (last.top - viewport.bottom < self.distance){
+				if (last !== null && last.top - window.innerHeight < self.distance){
 					var pageNumber = self.current + 1;
 					if (self.isValid(pageNumber) && self._count < self.amount){
 						self._count++;
@@ -36,7 +36,7 @@
 				if (!_is.empty(page)){
 					first = page[0].bounds();
 					last = page[page.length - 1].bounds();
-					if (first.top - viewport.bottom < self.distance || last.bottom - viewport.top < self.distance){
+					if ((first !== null && first.top - window.innerHeight < self.distance) || (last !== null && last.bottom < self.distance)){
 						items.push.apply(items, page);
 					}
 				}
@@ -53,31 +53,23 @@
 	_.LoadMoreControl = _.PagingControl.extend({
 		construct: function(template, parent, position){
 			this._super(template, parent, position);
-			this.$container = $();
-			this.$button = $();
+			this.$button = null;
 		},
 		create: function(){
 			var self = this;
-			self.$container = $("<nav/>", {"class": self.pages.cls.container}).addClass(self.pages.theme);
-			self.$button = $("<button/>", {"class": self.pages.cls.button, "type": "button"}).html(self.pages.il8n.button)
-				.on("click.foogallery", {self: self}, self.onButtonClick)
-				.appendTo(self.$container);
-			return true;
+			if (self._super()){
+				self.$button = $("<button/>", {"class": self.pages.cls.button, "type": "button"}).html(self.pages.il8n.button)
+					.on("click.foogallery", {self: self}, self.onButtonClick)
+					.appendTo(self.$container);
+				return true;
+			}
+			return false;
 		},
 		destroy: function(){
 			var self = this;
 			self.$button.off("click.foogallery", self.onButtonClick);
-			self.$container.remove();
-			self.$container = $();
-			self.$button = $();
-		},
-		append: function(){
-			var self = this;
-			if (self.position === "top"){
-				self.$container.insertBefore(self.tmpl.$el);
-			} else {
-				self.$container.insertAfter(self.tmpl.$el);
-			}
+			self.$button = null;
+			self._super();
 		},
 		onButtonClick: function(e){
 			e.preventDefault();

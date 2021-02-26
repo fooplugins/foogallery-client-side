@@ -1,6 +1,6 @@
 (function ($, _, _utils, _is, _fn, _obj) {
 
-	_.Items = _.Component.extend(/** @lends FooGallery.Items */{
+	_.Items = _.Component.extend(/** @lends FooGallery.Items.prototype */{
 		/**
 		 * @summary This class controls everything related to items and serves as the base class for the various paging types.
 		 * @memberof FooGallery
@@ -22,9 +22,11 @@
 			 */
 			self._super(template);
 			self.maps = {};
+			self._typeRegex = /(?:^|\s)?fg-type-(.*?)(?:$|\s)/;
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
+			self._unavailable = [];
 			// add the .all caption selector
 			var cls = self.tmpl.cls.item.caption;
 			self.tmpl.sel.item.caption.all = _utils.selectify([cls.elem, cls.inner, cls.title, cls.description]);
@@ -54,7 +56,7 @@
 				 * 	}
 				 * });
 				 */
-				self.tmpl.raise("destroy-items", [items]);
+				self.tmpl.trigger("destroy-items", [items]);
 				destroyed = $.map(items, function (item) {
 					return item.destroy() ? item : null;
 				});
@@ -74,23 +76,25 @@
 				 * 	}
 				 * });
 				 */
-				if (destroyed.length > 0) self.tmpl.raise("destroyed-items", [destroyed]);
+				if (destroyed.length > 0) self.tmpl.trigger("destroyed-items", [destroyed]);
 				// should we handle a case where the destroyed.length != items.length??
 			}
 			self.maps = {};
 			self._fetched = null;
 			self._arr = [];
 			self._available = [];
+			self._unavailable = [];
 			self._super();
 		},
 		fetch: function (refresh) {
 			var self = this;
 			if (!refresh && _is.promise(self._fetched)) return self._fetched;
-			var fg = self.tmpl, selectors = fg.sel,
-					option = fg.opt.items,
-					def = $.Deferred();
+			var itemsId = self.tmpl.id + "_items",
+				selectors = self.tmpl.sel,
+				option = self.tmpl.opt.items,
+				def = $.Deferred();
 
-			var items = self.make(fg.$el.find(selectors.item.elem));
+			var items = self.make(self.tmpl.$el.find(selectors.item.elem));
 
 			if (!_is.empty(option)) {
 				if (_is.array(option)) {
@@ -108,7 +112,9 @@
 					def.resolve(items);
 				}
 			} else {
-				items.push.apply(items, self.make(window[fg.id + "-items"]));
+				if (_is.array(window[itemsId])) {
+					items.push.apply(items, self.make(window[itemsId]));
+				}
 				def.resolve(items);
 			}
 			def.then(function (items) {
@@ -134,6 +140,12 @@
 			}
 			return this._available.slice();
 		},
+		unavailable: function (where) {
+			if (_is.fn(where)){
+				return this._unavailable.filter(where, this);
+			}
+			return this._unavailable.slice();
+		},
 		get: function (idOrIndex) {
 			var map = _is.number(idOrIndex) ? 'index' : 'id';
 			return !!this.maps[map][idOrIndex] ? this.maps[map][idOrIndex] : null;
@@ -142,10 +154,19 @@
 			this._arr = _is.array(items) ? items : [];
 			this.maps = this.createMaps(this._arr);
 			this._available = this.all();
+			this._unavailable = [];
 		},
 		setAvailable: function (items) {
-			this.maps = this.createMaps(this._arr);
-			this._available = _is.array(items) ? items : [];
+			var self = this;
+			self.maps = self.createMaps(self._arr);
+			self._available = _is.array(items) ? items : [];
+			if (self._arr.length !== self._available.length){
+				self._unavailable = self._arr.filter(function(item){
+					return self._available.indexOf(item) === -1;
+				});
+			} else {
+				self._unavailable = [];
+			}
 		},
 		reset: function () {
 			this.setAvailable(this.all());
@@ -160,6 +181,21 @@
 				}
 			}
 			return null;
+		},
+		not: function(items){
+			var all = this.all();
+			if (_is.array(items)){
+				return all.filter(function(item){
+					return items.indexOf(item) === -1;
+				});
+			}
+			return all;
+		},
+		isAll: function(items){
+			if (_is.array(items)){
+				return this._arr.length === items.length;
+			}
+			return false;
 		},
 		first: function(where){
 			return this.find(this._available, where);
@@ -219,13 +255,15 @@
 		 * @returns {FooGallery.Item[]}
 		 */
 		loadable: function (items) {
-			var self = this, opt = self.tmpl.opt, viewport;
-			if (opt.lazy) {
-				viewport = _utils.getViewportBounds(opt.viewport);
+			var self = this, opt = self.tmpl.opt;
+			if (self.ALLOW_LOAD && _is.array(items)) {
+				return $.map(items, function (item) {
+					return item.isCreated && item.isAttached
+						&& !item.isLoading && !item.isLoaded && !item.isError
+						&& (!opt.lazy || (opt.lazy && item.inViewport())) ? item : null;
+				});
 			}
-			return self.ALLOW_LOAD && _is.array(items) ? $.map(items, function (item) {
-						return item.isCreated && item.isAttached && !item.isLoading && !item.isLoaded && !item.isError && (!opt.lazy || (opt.lazy && item.intersects(viewport))) ? item : null;
-					}) : [];
+			return [];
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be created.
@@ -318,7 +356,7 @@
 				 * 	}
 				 * });
 				 */
-				var e = self.tmpl.raise("make-items", [arr]);
+				var e = self.tmpl.trigger("make-items", [arr]);
 				if (!e.isDefaultPrevented()) {
 					made = $.map(arr, function (obj) {
 						var type = self.type(obj), opt = _obj.extend(_is.hash(obj) ? obj : {}, {type: type});
@@ -351,7 +389,7 @@
 				 * 	}
 				 * });
 				 */
-				if (made.length > 0) self.tmpl.raise("made-items", [made]);
+				if (made.length > 0) self.tmpl.trigger("made-items", [made]);
 
 				/**
 				 * @summary Raised after the template has parsed any elements into an array of {@link FooGallery.Item|item} objects.
@@ -369,17 +407,21 @@
 				 * 	}
 				 * });
 				 */
-				if (parsed.length > 0) self.tmpl.raise("parsed-items", [parsed]);
+				if (parsed.length > 0) self.tmpl.trigger("parsed-items", [parsed]);
 			}
 			return made;
 		},
 		type: function (objOrElement) {
-			var type;
+			var self = this, type;
 			if (_is.hash(objOrElement)) {
 				type = objOrElement.type;
 			} else if (_is.element(objOrElement)) {
-				var $el = $(objOrElement), item = this.tmpl.sel.item;
-				type = $el.find(item.anchor).data("type");
+				var match = objOrElement.className.match(self._typeRegex);
+				if (match !== null && match.length === 2){
+					type = match[1];
+				}
+				// var $el = $(objOrElement), item = this.tmpl.sel.item;
+				// type = $el.find(item.anchor).data("type");
 			}
 			return _is.string(type) && _.components.contains(type) ? type : "image";
 		},
@@ -427,7 +469,7 @@
 				 * 	}
 				 * });
 				 */
-				var e = self.tmpl.raise("create-items", [creatable]);
+				var e = self.tmpl.trigger("create-items", [creatable]);
 				if (!e.isDefaultPrevented()) {
 					created = $.map(creatable, function (item) {
 						return item.create() ? item : null;
@@ -449,7 +491,7 @@
 				 * 	}
 				 * });
 				 */
-				if (created.length > 0) self.tmpl.raise("created-items", [created]);
+				if (created.length > 0) self.tmpl.trigger("created-items", [created]);
 			}
 			if (_is.boolean(append) ? append : false) return self.append(items);
 			return created;
@@ -493,7 +535,7 @@
 				 * 	}
 				 * });
 				 */
-				var e = self.tmpl.raise("append-items", [appendable]);
+				var e = self.tmpl.trigger("append-items", [appendable]);
 				if (!e.isDefaultPrevented()) {
 					appended = $.map(appendable, function (item) {
 						return item.append() ? item : null;
@@ -515,7 +557,7 @@
 					 * 	}
 					 * });
 				 */
-				if (appended.length > 0) self.tmpl.raise("appended-items", [appended]);
+				if (appended.length > 0) self.tmpl.trigger("appended-items", [appended]);
 			}
 			return appended;
 		},
@@ -558,7 +600,7 @@
 				 * 	}
 				 * });
 				 */
-				var e = self.tmpl.raise("detach-items", [detachable]);
+				var e = self.tmpl.trigger("detach-items", [detachable]);
 				if (!e.isDefaultPrevented()) {
 					detached = $.map(detachable, function (item) {
 						return item.detach() ? item : null;
@@ -580,7 +622,7 @@
 					 * 	}
 					 * });
 				 */
-				if (detached.length > 0) self.tmpl.raise("detached-items", [detached]);
+				if (detached.length > 0) self.tmpl.trigger("detached-items", [detached]);
 			}
 			return detached;
 		},
@@ -624,12 +666,17 @@
 				 * 	}
 				 * });
 				 */
-				var e = self.tmpl.raise("load-items", [items]);
+				var e = self.tmpl.trigger("load-items", [items]);
 				if (!e.isDefaultPrevented()) {
 					var loading = $.map(items, function (item) {
 						return item.load();
 					});
-					return _fn.when(loading).done(function (loaded) {
+					return _fn.allSettled(loading).then(function (results) {
+						var loaded = results.filter(function(result){
+							return result.status === "fulfilled";
+						}).map(function(result){
+							return result.value;
+						});
 						/**
 						 * @summary Raised after the template has loaded items.
 						 * @event FooGallery.Template~"loaded-items.foogallery"
@@ -646,11 +693,11 @@
 						 * 	}
 						 * });
 						 */
-						self.tmpl.raise("loaded-items", [loaded]);
+						self.tmpl.trigger("loaded-items", [loaded]);
 					});
 				}
 			}
-			return _fn.resolveWith([]);
+			return _fn.resolve([]);
 		}
 	});
 

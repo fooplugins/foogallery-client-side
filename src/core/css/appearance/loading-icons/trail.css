@@ -1,12 +1,19 @@
 .fg-loading-trail .fg-loader {
 	color: #828282;
+	margin-top: 0;
+	margin-left: 0;
 	font-size: 20px;
 	text-indent: -9999em;
 	overflow: hidden;
 	border-radius: 50%;
-	-webkit-animation: loading-trail-1 1.7s infinite ease, loading-trail-2 1.7s infinite ease;
-	animation: loading-trail-1 1.7s infinite ease, loading-trail-2 1.7s infinite ease;
+	-webkit-animation: loading-trail-1 1.7s infinite paused ease, loading-trail-2 1.7s infinite paused ease;
+	animation: loading-trail-1 1.7s infinite paused ease, loading-trail-2 1.7s infinite paused ease;
 }
+.fg-loading-trail .fg-loading .fg-loader {
+	-webkit-animation-play-state: running;
+	animation-play-state: running;
+}
+
 @-webkit-keyframes loading-trail-1 {
 	0% {
 		box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;

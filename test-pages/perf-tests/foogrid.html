@@ -19,15 +19,15 @@
 				"state": {
 					"enabled": true
 				},
-				"template": {
-					"button": "fg-button-blue",
-					"autoProgress": 5,
-					"parser": {
-						"type": {
-							"image": /\.(jpg|jpeg|png|gif|bmp)|dummyimage\.com/i
-						}
-					}
-				}
+				// "template": {
+				// 	"button": "fg-button-blue",
+				// 	"autoProgress": 5,
+				// 	"parser": {
+				// 		"type": {
+				// 			"image": /\.(jpg|jpeg|png|gif|bmp)|dummyimage\.com/i
+				// 		}
+				// 	}
+				// }
 			});
 
 		})(FooGallery);
@@ -38,7 +38,31 @@
 
 	<h3>HTML Items</h3>
 
-	<div id="foogallery-gallery-2" class="foogallery fg-light fg-hover-fade fg-hover-zoom fg-video-default fg-video-sticky foogrid foogrid-cols-5 foogrid-transition-horizontal foogrid-caption-below fg-loading-default">
+	<style>
+
+		.foogrid .foogrid-content {
+			position: relative;
+			display: block;
+			height: 0;
+			width: 100%;
+			padding-top: 0;
+		}
+		.foogrid.fg-16-9 .foogrid-content.foogrid-visible {
+			padding-top: 56.25%;
+		}
+		.foogrid.fg-4-3 .foogrid-content.foogrid-visible {
+			padding-top: 75%;
+		}
+		.foogrid .foogrid-content .fg-panel {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+	</style>
+	<div id="foogallery-gallery-2" class="foogallery fg-16-9 fg-light fg-hover-fade fg-hover-zoom fg-video-default fg-video-sticky foogrid foogrid-cols-5 foogrid-transition-horizontal foogrid-caption-below fg-loading-default">
 
 		<div class="fg-item">
 			<figure class="fg-item-inner">

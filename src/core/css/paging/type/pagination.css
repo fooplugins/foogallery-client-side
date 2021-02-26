@@ -1,3 +1,10 @@
+.fg-ph-pagination:before {
+	display: block;
+	content: '';
+	width: 0;
+	height: 36px;
+}
+
 .fg-paging-container .fg-pages {
 	display: inline-block;
 	margin: 0;

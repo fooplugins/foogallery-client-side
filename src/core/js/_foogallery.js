@@ -1,13 +1,4 @@
-(function ($, _, _utils, _is, _fn) {
-
-	/**
-	 * @summary The url of an empty 1x1 pixel image used as the default value for the `placeholder` and `error` {@link FooGallery.defaults|options}.
-	 * @memberof FooGallery
-	 * @name EMPTY_IMAGE
-	 * @type {string}
-	 * @default "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-	 */
-	_.EMPTY_IMAGE = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+(function ($, _, _utils, _is, _fn, _str) {
 
 	/**
 	 * @summary The name to use when getting or setting an instance of a {@link FooGallery.Template|template} on an element using jQuery's `.data()` method.
@@ -44,12 +35,6 @@
 		}
 		var tmpl = _.template.make(options, element);
 		return tmpl instanceof _.Template ? tmpl.initialize() : _fn.rejected;
-	};
-
-	_.initAll = function (options) {
-		return _fn.when($(".foogallery").map(function (i, element) {
-			return _.init(options, element);
-		}).get());
 	};
 
 	/**
@@ -170,6 +155,62 @@
 			});
 		}
 		return false;
+	};
+
+	/**
+	 * @summary Trims the value if it exceeds the specified length and appends the suffix.
+	 * @memberof FooGallery.utils.str.
+	 * @function trimTo
+	 * @param {string} value - The value to trim if required.
+	 * @param {number} length - The length to trim the string to.
+	 * @param {string} [suffix="&hellip;"] - The suffix to append to a trimmed value.
+	 * @returns {string|null}
+	 */
+	_str.trimTo = function(value, length, suffix){
+		if (_is.string(value) && _is.number(length) && length > 0 && value.length > length) {
+			return value.substr(0, length) + (_is.string(suffix) ? suffix : "&hellip;");
+		}
+		return null;
+	};
+
+	/**
+	 * @typedef {Object} ResizeObserverSize
+	 * @property {number} inlineSize
+	 * @property {number} blockSize
+	 * @property {number} width
+	 * @property {number} height
+	 */
+	/**
+	 * @typedef {Object} ResizeObserverEntry
+	 * @property {ResizeObserverSize|Array<ResizeObserverSize>|undefined} contentBoxSize
+	 * @property {DOMRect} contentRect
+	 */
+	/**
+	 * @summary Gets the width and height from the ResizeObserverEntry
+	 * @memberof FooGallery.utils.
+	 * @function getResizeObserverSize
+	 * @param {ResizeObserverEntry} entry - The entry to retrieve the size from.
+	 * @returns {{width: Number,height: Number}}
+	 */
+	_utils.getResizeObserverSize = function(entry){
+		var width, height;
+		if(entry.contentBoxSize) {
+			// Checking for chrome as using a non-standard array
+			if (entry.contentBoxSize[0]) {
+				width = entry.contentBoxSize[0].inlineSize;
+				height = entry.contentBoxSize[0].blockSize;
+			} else {
+				width = entry.contentBoxSize.inlineSize;
+				height = entry.contentBoxSize.blockSize;
+			}
+		} else {
+			width = entry.contentRect.width;
+			height = entry.contentRect.height;
+		}
+		return {
+			width: width,
+			height: height
+		};
 	};
 
 })(

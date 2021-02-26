@@ -1,3 +1,10 @@
+.fg-ph-dots:after {
+	display: block;
+	content: '';
+	width: 0;
+	height: 22px;
+}
+
 .fg-paging-container .fg-dots,
 .fg-paging-container .fg-dot-item {
 	display: inline-block;

@@ -18,7 +18,7 @@
             return false;
         },
         click: function(){
-            var self = this, pnl = self.panel.$el.get(0);
+            var self = this, pnl = self.panel.el;
             _.fullscreen.toggle(pnl).then(function(){
                 if (_.fullscreen.element() === pnl){
                     _.fullscreen.on("change error", self.onFullscreenChange, self);
@@ -33,7 +33,7 @@
             self._super();
         },
         onFullscreenChange: function(){
-            if (_.fullscreen.element() !== this.panel.$el.get(0)){
+            if (_.fullscreen.element() !== this.panel.el){
                 this.exit();
             }
         },

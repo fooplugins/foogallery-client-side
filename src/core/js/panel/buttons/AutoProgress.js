@@ -24,7 +24,7 @@
                 this.circumference = (radius * 2) * Math.PI;
                 this.$circle.css({
                     "stroke-dasharray": this.circumference + ' ' + this.circumference,
-                    "stroke-dashoffset": this.circumference
+                    "stroke-dashoffset": this.circumference + ''
                 });
                 this.__timer.on({
                     "start resume": this.onStartOrResume,

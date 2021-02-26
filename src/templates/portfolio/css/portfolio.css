@@ -7,10 +7,11 @@
 }
 .fg-simple_portfolio .fg-item {
     position: relative;
-    flex: 1;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
     margin: 10px;
-    min-width: 250px;
-    max-width: 250px;
+    max-width: 100%;
 }
 .fg-simple_portfolio .fg-item-inner {
     display: flex;
@@ -81,6 +82,7 @@
 
 .fg-simple_portfolio .fg-caption-title {
     text-align: left;
+    white-space: normal;
 }
 .fg-simple_portfolio .fg-caption-desc {
     text-align: left;

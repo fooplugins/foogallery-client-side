@@ -36,11 +36,13 @@
 		},
 		setState: function(state){
 			this.rebuild();
+			var shouldScroll = false;
 			if (!!state.item && !this.contains(state.page, state.item)){
 				state.page = this.find(state.item);
 				state.page = state.page !== 0 ? state.page : 1;
+				shouldScroll = true;
 			}
-			this.set(state.page, false, false, true);
+			this.set(state.page, shouldScroll, false, false);
 		},
 		destroy: function () {
 			var self = this;
@@ -110,10 +112,19 @@
 		create: function (pageNumber, isFilter) {
 			var self = this;
 			pageNumber = self.number(pageNumber);
-			var index = pageNumber - 1;
-			self.tmpl.items.detach(self.tmpl.items.all());
+
+			var pageIndex = pageNumber - 1, pageItems = self._arr[pageIndex], detach;
+			if (isFilter){
+				detach = self.tmpl.items.all();
+			} else {
+				detach = self._arr.reduce(function(detach, page, index){
+					return index === pageIndex ? detach : detach.concat(page);
+				}, self.tmpl.items.unavailable());
+			}
+
 			self.current = pageNumber;
-			self.tmpl.items.create(self._arr[index], true);
+			self.tmpl.items.detach(detach);
+			self.tmpl.items.create(pageItems, true);
 		},
 		get: function (pageNumber) {
 			var self = this;
@@ -126,6 +137,7 @@
 		set: function (pageNumber, scroll, updateState, isFilter) {
 			var self = this;
 			if (self.isValid(pageNumber)) {
+				self.controls(pageNumber);
 				var num = self.number(pageNumber), state;
 				if (num !== self.current) {
 					var prev = self.current, setPage = function () {
@@ -135,21 +147,21 @@
 							state = self.tmpl.state.get();
 							self.tmpl.state.update(state, self.pushOrReplace);
 						}
-						self.controls(pageNumber);
 						self.create(num, isFilter);
 						if (updateState) {
 							state = self.tmpl.state.get();
 							self.tmpl.state.update(state, self.pushOrReplace);
 						}
+						self.tmpl.trigger("page-change", [self.current, prev, isFilter]);
 						if (self.scrollToTop && _is.boolean(scroll) ? scroll : false) {
 							var page = self.get(self.current);
 							if (page.length > 0) {
 								page[0].scrollTo("top");
 							}
 						}
-						self.tmpl.raise("after-page-change", [self.current, prev, isFilter]);
+						self.tmpl.trigger("after-page-change", [self.current, prev, isFilter]);
 					};
-					var e = self.tmpl.raise("before-page-change", [self.current, num, setPage, isFilter]);
+					var e = self.tmpl.trigger("before-page-change", [self.current, num, setPage, isFilter]);
 					if (e.isDefaultPrevented()) return false;
 					setPage();
 					return true;
@@ -197,19 +209,37 @@
 			self.pages = parent;
 			self.position = position;
 			self.$container = null;
+			self._containerExisted = false;
+			self._placeholderClasses = [];
 		},
 		create: function () {
 			var self = this;
-			self.$container = $("<nav/>", {"class": self.pages.cls.container}).addClass(self.pages.theme);
+			self.$container = $("#" + self.tmpl.id + "_paging-" + self.position);
+			if (self.$container.length > 0){
+				self._containerExisted = true;
+				self.$container.removeClass(function(i, classNames){
+					self._placeholderClasses = classNames.match(/(^|\s)fg-ph-\S+/g) || [];
+					return self._placeholderClasses.join(' ');
+				}).addClass([self.pages.cls.container, self.pages.theme].join(' '));
+			} else {
+				self.$container = $("<nav/>", {"class": [self.pages.cls.container, self.pages.theme].join(' ')});
+			}
 			return true;
 		},
 		destroy: function () {
 			var self = this;
-			self.$container.remove();
+			if (self._containerExisted){
+				self.$container.empty()
+					.removeClass()
+					.addClass(self._placeholderClasses.join(' '));
+			} else {
+				self.$container.remove();
+			}
 			self.$container = null;
 		},
 		append: function () {
 			var self = this;
+			if (self._containerExisted) return;
 			if (self.position === "top") {
 				self.$container.insertBefore(self.tmpl.$el);
 			} else {

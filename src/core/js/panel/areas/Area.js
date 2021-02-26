@@ -1,6 +1,19 @@
 (function($, _, _utils, _is, _fn, _obj, _str){
 
-    _.Panel.Area = _utils.Class.extend({
+    /**
+     * @memberof FooGallery.Panel.
+     * @class Area
+     * @augments FooGallery.utils.Class
+     */
+    _.Panel.Area = _utils.Class.extend(/** @lends FooGallery.Panel.Area */{
+        /**
+         * @ignore
+         * @constructs
+         * @param panel
+         * @param name
+         * @param options
+         * @param classes
+         */
         construct: function(panel, name, options, classes){
             this.panel = panel;
             this.name = name;
@@ -99,7 +112,7 @@
         },
         load: function(media){
             var self = this;
-            if (!(media instanceof _.Panel.Media)) return _fn.rejectWith("unable to load media");
+            if (!(media instanceof _.Panel.Media)) return _fn.reject("unable to load media");
             return $.Deferred(function(def){
                 var reverseTransition = self.shouldReverseTransition(self.currentMedia, media);
                 var e = self.panel.trigger("area-load", [self, media, reverseTransition]);

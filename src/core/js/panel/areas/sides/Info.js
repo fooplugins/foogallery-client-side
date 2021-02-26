@@ -1,6 +1,16 @@
 (function($, _, _is, _fn){
 
-    _.Panel.Info = _.Panel.SideArea.extend({
+    /**
+     * @memberof FooGallery.Panel.
+     * @class Info
+     * @augments FooGallery.Panel.SideArea
+     */
+    _.Panel.Info = _.Panel.SideArea.extend(/** @lends FooGallery.Panel.Info */{
+        /**
+         * @ignore
+         * @constructs
+         * @param panel
+         */
         construct: function(panel){
             this._super(panel, "info", {
                 icon: "info",

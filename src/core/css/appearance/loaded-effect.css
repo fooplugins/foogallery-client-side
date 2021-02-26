@@ -1,28 +1,28 @@
 /* Loaded Effects */
-.foogallery.fg-loaded-fade-in .fg-item,
-.foogallery.fg-loaded-slide-up .fg-item,
-.foogallery.fg-loaded-slide-down .fg-item,
-.foogallery.fg-loaded-slide-left .fg-item,
-.foogallery.fg-loaded-slide-right .fg-item,
-.foogallery.fg-loaded-scale-up .fg-item,
-.foogallery.fg-loaded-swing-down .fg-item,
-.foogallery.fg-loaded-drop .fg-item,
-.foogallery.fg-loaded-fly .fg-item,
-.foogallery.fg-loaded-flip .fg-item {
+.foogallery.fg-loaded-fade-in .fg-item.fg-loaded,
+.foogallery.fg-loaded-slide-up .fg-item.fg-loaded,
+.foogallery.fg-loaded-slide-down .fg-item.fg-loaded,
+.foogallery.fg-loaded-slide-left .fg-item.fg-loaded,
+.foogallery.fg-loaded-slide-right .fg-item.fg-loaded,
+.foogallery.fg-loaded-scale-up .fg-item.fg-loaded,
+.foogallery.fg-loaded-swing-down .fg-item.fg-loaded,
+.foogallery.fg-loaded-drop .fg-item.fg-loaded,
+.foogallery.fg-loaded-fly .fg-item.fg-loaded,
+.foogallery.fg-loaded-flip .fg-item.fg-loaded {
 	transition-timing-function: ease;
 	transition-duration: 650ms;
 	transition-property: background-color, transform;
 }
-.foogallery.fg-loaded-fade-in .fg-item-inner,
-.foogallery.fg-loaded-slide-up .fg-item-inner,
-.foogallery.fg-loaded-slide-down .fg-item-inner,
-.foogallery.fg-loaded-slide-left .fg-item-inner,
-.foogallery.fg-loaded-slide-right .fg-item-inner,
-.foogallery.fg-loaded-scale-up .fg-item-inner,
-.foogallery.fg-loaded-swing-down .fg-item-inner,
-.foogallery.fg-loaded-drop .fg-item-inner,
-.foogallery.fg-loaded-fly .fg-item-inner,
-.foogallery.fg-loaded-flip .fg-item-inner {
+.foogallery.fg-loaded-fade-in .fg-loaded .fg-item-inner,
+.foogallery.fg-loaded-slide-up .fg-loaded .fg-item-inner,
+.foogallery.fg-loaded-slide-down .fg-loaded .fg-item-inner,
+.foogallery.fg-loaded-slide-left .fg-loaded .fg-item-inner,
+.foogallery.fg-loaded-slide-right .fg-loaded .fg-item-inner,
+.foogallery.fg-loaded-scale-up .fg-loaded .fg-item-inner,
+.foogallery.fg-loaded-swing-down .fg-loaded .fg-item-inner,
+.foogallery.fg-loaded-drop .fg-loaded .fg-item-inner,
+.foogallery.fg-loaded-fly .fg-loaded .fg-item-inner,
+.foogallery.fg-loaded-flip .fg-loaded .fg-item-inner {
 	transition-timing-function: ease;
 	transition-duration: 650ms;
 }
