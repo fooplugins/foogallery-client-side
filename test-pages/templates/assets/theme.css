@@ -1,0 +1,194 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 400;
+    color: inherit;
+    min-height: 2em;
+    box-sizing: border-box;
+}
+header ul,
+header ul li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    line-height: 1.4;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+header ul li:not(:last-child):after {
+    display: inline-block;
+    content: '\a0/';
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+header ul h1 {
+    display: inline-block;
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+}
+header ul a {
+    display: inline-block;
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+}
+header ul a:hover,
+header ul a:focus,
+header ul a:active {
+    color: inherit;
+    text-decoration: underline;
+}
+header button {
+    display: block;
+    font-size: inherit;
+    border: none;
+    border-radius: 4px;
+    padding: 0;
+    margin: 0 0 0 10px;
+    color: inherit;
+    cursor: pointer;
+    width: 2em;
+    min-width: 2em;
+    height: 2em;
+    background-color: transparent;
+    background-size: 2em 2em;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='-2 -2 286 267' xmlns='http://www.w3.org/2000/svg'%3E%3ClinearGradient id='a' gradientTransform='matrix(.5 0 0 -.5 -710 -5458)' gradientUnits='userSpaceOnUse' x1='1766.9' x2='1944' y1='-11285.7' y2='-11462.8'%3E%3Cstop offset='0' stop-color='%23212121' stop-opacity='.2'/%3E%3Cstop offset='1' stop-color='%23212121' stop-opacity='0'/%3E%3C/linearGradient%3E%3CradialGradient id='b' cx='1452.8' cy='-10980.2' gradientTransform='matrix(.5 0 0 -.5 -710 -5458)' gradientUnits='userSpaceOnUse' r='680.4'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.1'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cpath d='M273 37v180a19 19 0 01-19 18H19a19 19 0 01-19-18V37z' fill='%23e1e1e1'/%3E%3Cpath d='M19 0h235a19 19 0 0119 19v18H0V19A19 19 0 0119 0z' fill='%23c2c2c2'/%3E%3Cpath d='M254 0H19A19 19 0 000 19v1A19 19 0 0119 2h235a19 19 0 0119 18v-1a19 19 0 00-19-19z' fill='%23fff' fill-opacity='.2'/%3E%3Cpath d='M0 37h273v2H0z' fill='%23212121' fill-opacity='.1'/%3E%3Cpath d='M136 93a99 99 0 00-99 99v6h44a55 55 0 010-6 56 56 0 0185-47l31-31a99 99 0 00-61-21z' fill='%234285f4'/%3E%3Cpath d='M197 113l-31 32a56 56 0 0126 47 55 55 0 010 6h44v-6a99 99 0 00-39-79z' fill='%23f44336'/%3E%3Ccircle cx='24.9' cy='18.6' fill='%23eee' r='6.2'/%3E%3Ccircle cx='49.6' cy='18.6' fill='%23eee' r='6.2'/%3E%3Cpath d='M254 234H19a19 19 0 01-19-19v2a19 19 0 0019 18h235a19 19 0 0019-18v-2a19 19 0 01-19 19z' fill='%23212121' fill-opacity='.1'/%3E%3Cpath d='M197 117a3 3 0 001-2 3 3 0 00-4-3 3 3 0 00-1 1l-68 52a19 19 0 1027 24l45-72z' fill='%239e9e9e'/%3E%3Cpath d='M125 167l68-52a3 3 0 014 1 3 3 0 001-1 3 3 0 00-4-3 3 3 0 00-1 1l-68 52a19 19 0 00-7 15v1a19 19 0 017-14z' fill='%23fff' opacity='.2'/%3E%3Cpath d='M197 117l-45 72a19 19 0 01-34-8 19 19 0 0034 10l45-72a3 3 0 001-2 3 3 0 000-1 3 3 0 01-1 1z' fill='%23212121' opacity='.2'/%3E%3Cpath d='M206 141a3 3 0 010 4l-44 72a19 19 0 01-28 5l41 41h88a19 19 0 0019-18v-28z' fill='url(%23a)' transform='translate(-9 -28)'/%3E%3Cpath d='M282 46a19 19 0 00-19-18H28A19 19 0 009 46v199a19 19 0 0019 18h235a19 19 0 0019-18z' fill='url(%23b)' transform='translate(-9 -28)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+header button:focus,
+header button:focus-within {
+    outline: none;
+    border: none;
+}
+
+main {
+    display: block;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+main a {
+    text-decoration: none;
+}
+main a:hover,
+main a:focus,
+main a:active {
+    text-decoration: underline;
+}
+main h1,
+main h2,
+main h3,
+main h4,
+main h5 {
+    font-weight: 400;
+}
+main aside {
+    display: block;
+}
+main aside ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+main aside ul li {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 11px;
+    margin: 3px;
+    padding: 0;
+}
+main aside ul li:after {
+    display: block;
+    content: '';
+    margin: 8px 0 0 0;
+}
+main aside ul li h5 {
+    display: block;
+    margin: 8px;
+    padding: 0;
+    font-size: inherit;
+}
+main aside ul li label {
+    display: block;
+    margin: 4px 8px;
+    padding: 0;
+    font-size: inherit;
+}
+
+/* Colors */
+body.dark {
+    background-color: #151515;
+    color: #B5B5B5;
+}
+body.light {
+    background-color: #ececec;
+    color: #2B2B2B;
+}
+.dark header {
+    background-color: #222222;
+    color: #B5B5B5;
+}
+.light header {
+    background-color: #3da0ff;
+    color: #FFFFFF;
+}
+.dark header ul h1 {
+    color: #CA6F2E;
+}
+.light header ul h1 {
+    color: #ff9447;
+}
+.dark main {
+    background-color: #383838;
+}
+.light main {
+    background-color: #FFFFFF;
+}
+.dark main a,
+.light main a {
+    color: #6897BB;
+}
+.dark main h1,
+.dark main h2,
+.dark main h3,
+.dark main h4,
+.dark main h5,
+.light main h1,
+.light main h2,
+.light main h3,
+.light main h4,
+.light main h5 {
+    color: #E7A84B;
+}
+
+.dark main aside ul li {
+    background-color: #222222;
+}
+.light main aside ul li {
+    background-color: #eeeeee;
+}
+
+span.recommended {
+    color: #CA6F2E;
+}

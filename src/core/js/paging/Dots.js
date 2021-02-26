@@ -5,38 +5,32 @@
 	_.DotsControl = _.PagingControl.extend({
 		construct: function(template, parent, position){
 			this._super(template, parent, position);
-			this.$container = $();
-			this.$list = $();
-			this.$items = $();
+			this.$list = null;
+			this.$items = null;
 		},
 		create: function(){
-			var self = this, cls = self.pages.cls, il8n = self.pages.il8n,
-				items = [], $list = $("<ul/>", {"class": cls.list});
-
-			for (var i = 0, l = self.pages.total, $item; i < l; i++){
-				items.push($item = self.createItem(i + 1, il8n.page));
-				$list.append($item);
-			}
-			self.$list = $list;
-			self.$container = $("<nav/>", {"class": cls.container}).addClass(self.pages.theme).append($list);
-			self.$items = $($.map(items, function($item){ return $item.get(); }));
-			return true;
-		},
-		append: function(){
 			var self = this;
-			if (self.position === "top"){
-				self.$container.insertBefore(self.tmpl.$el);
-			} else {
-				self.$container.insertAfter(self.tmpl.$el);
+			if (self._super()){
+				var cls = self.pages.cls, il8n = self.pages.il8n,
+					items = [], $list = $("<ul/>", {"class": cls.list});
+
+				for (var i = 0, l = self.pages.total, $item; i < l; i++){
+					items.push($item = self.createItem(i + 1, il8n.page));
+					$list.append($item);
+				}
+				self.$list = $list;
+				self.$items = $($.map(items, function($item){ return $item.get(); }));
+				self.$container.append($list);
+				return true;
 			}
+			return false;
 		},
 		destroy: function(){
 			var self = this, sel = self.pages.sel;
 			self.$list.find(sel.link).off("click.foogallery", self.onLinkClick);
-			self.$container.remove();
-			self.$container = $();
 			self.$list = $();
 			self.$items = $();
+			self._super();
 		},
 		update: function(pageNumber){
 			this.setSelected(pageNumber - 1);

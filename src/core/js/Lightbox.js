@@ -12,16 +12,16 @@
                 }, self);
             }
         },
-        onAnchorClickItem: function(e, tmpl, item){
+        onAnchorClickItem: function(e, item){
             if (!item.noLightbox){
                 e.preventDefault();
                 this.open(item);
             }
         },
-        onDestroyedTemplate: function(e, tmpl){
+        onDestroyedTemplate: function(){
             this.destroy();
         },
-        onAfterState: function(e, tmpl, state){
+        onAfterState: function(e, state){
             if (state.item instanceof _.Item && !state.item.noLightbox){
                 this.open(state.item);
             }
@@ -37,7 +37,7 @@
     _.Template.override("construct", function(options, element){
         this._super(options, element);
         var data = this.$el.data("foogalleryLightbox"),
-            enabled = this.opt.lightbox.enabled || _is.hash(data) || (this.$el.length > 0 && this.$el.get(0).hasAttribute("data-foogallery-lightbox"));
+            enabled = this.opt.lightbox.enabled || _is.hash(data) || (this.$el.length > 0 && this.el.hasAttribute("data-foogallery-lightbox"));
 
         this.opt.lightbox = _obj.extend({}, this.opt.panel, this.opt.lightbox, { enabled: enabled }, data);
         this.lightbox = enabled ? new _.Lightbox(this, this.opt.lightbox) : null;

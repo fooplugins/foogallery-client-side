@@ -35,7 +35,7 @@
         }
     });
 
-    _.Panel.Video.sources = new _utils.Factory();
+    _.Panel.Video.sources = new _.Factory();
 
 })(
     FooGallery.$,

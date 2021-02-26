@@ -1,12 +1,12 @@
 (function ($, _, _utils, _is, _fn, _obj) {
 
-	_.TemplateFactory = _utils.Factory.extend(/** @lends FooGallery.TemplateFactory */{
+	_.TemplateFactory = _.Factory.extend(/** @lends FooGallery.TemplateFactory */{
 		/**
 		 * @summary A factory for galleries allowing them to be easily registered and created.
 		 * @memberof FooGallery
 		 * @constructs TemplateFactory
 		 * @description The plugin makes use of an instance of this class exposed as {@link FooGallery.template}.
-		 * @augments FooGallery.utils.Factory
+		 * @augments FooGallery.Factory
 		 * @borrows FooGallery.utils.Class.extend as extend
 		 * @borrows FooGallery.utils.Class.override as override
 		 */

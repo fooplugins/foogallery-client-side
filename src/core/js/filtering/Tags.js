@@ -5,19 +5,22 @@
 	_.TagsControl = _.FilteringControl.extend({
 		construct: function(template, parent, position){
 			this._super(template, parent, position);
-			this.$container = $();
+			this.$container = null;
 			this.lists = [];
 		},
 		create: function(){
-			var self = this, cls = self.filter.cls;
-			self.$container = $("<nav/>", {"class": cls.container}).addClass(self.filter.theme);
-			for (var i = 0, l = self.filter.tags.length; i < l; i++){
-				self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
+			var self = this;
+			if (self._super()) {
+				var cls = self.filter.cls;
+				for (var i = 0, l = self.filter.tags.length; i < l; i++) {
+					self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
+				}
+				if (!self.filter.isMultiLevel && self.filter.showCount === true) {
+					self.$container.addClass(cls.showCount);
+				}
+				return true;
 			}
-			if (!self.filter.isMultiLevel && self.filter.showCount === true){
-				self.$container.addClass(cls.showCount);
-			}
-			return true;
+			return false;
 		},
 		createList: function(tags){
 			var self = this, cls = self.filter.cls,
@@ -33,17 +36,8 @@
 			self.lists.forEach(function($list, i){
 				$list.find(sel.link).off("click.foogallery", self.onLinkClick);
 			});
-			self.$container.remove();
-			self.$container = $();
 			self.lists = [];
-		},
-		append: function(){
-			var self = this;
-			if (self.position === "top"){
-				self.$container.insertBefore(self.tmpl.$el);
-			} else {
-				self.$container.insertAfter(self.tmpl.$el);
-			}
+			self._super();
 		},
 		update: function(tags){
 			var self = this, cls = self.filter.cls, sel = self.filter.sel;

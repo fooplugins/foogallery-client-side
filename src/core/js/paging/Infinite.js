@@ -8,14 +8,15 @@
 			self._created = [];
 		},
 		build: function(){
-			this._super();
-			this._created = [];
+			var self = this;
+			self._super();
+			self._created = [];
 		},
 		available: function(){
-			var self = this, items = [], page = self.get(self.current), viewport = _utils.getViewportBounds(), last, first;
+			var self = this, items = [], page = self.get(self.current), last, first;
 			if (!self.tmpl.initializing && !_is.empty(page) && self._created.length < self.total){
 				last = page[page.length - 1].bounds();
-				if (last.top - viewport.bottom < self.distance){
+				if (last !== null && last.top - window.innerHeight < self.distance){
 					self.set(self.current + 1, false);
 					return self.available();
 				}
@@ -26,7 +27,7 @@
 				if (!_is.empty(page)){
 					first = page[0].bounds();
 					last = page[page.length - 1].bounds();
-					if (first.top - viewport.bottom < self.distance || last.bottom - viewport.top < self.distance){
+					if ((first !== null && first.top - window.innerHeight < self.distance) || (last !== null && last.bottom < self.distance)){
 						items.push.apply(items, page);
 					}
 				}
@@ -47,17 +48,24 @@
 		create: function(pageNumber, isFilter){
 			var self = this;
 			pageNumber = self.number(pageNumber);
-			if (isFilter) self.tmpl.items.detach(self.tmpl.items.all());
+			var create = [], detach;
+			if (isFilter){
+				detach = self.tmpl.items.all();
+			} else {
+				detach = self._arr.reduce(function(detach, page, index){
+					return index < pageNumber ? detach : detach.concat(page);
+				}, self.tmpl.items.unavailable());
+			}
+
 			for (var i = 0; i < pageNumber; i++){
-				var exists = _utils.inArray(i, self._created);
-				if (exists === -1){
-					var items = self.tmpl.items.create(self._arr[i], true);
-					if (items.length){
-						self._created.push(i);
-					}
+				if (_utils.inArray(i, self._created) === -1){
+					create.push.apply(create, self._arr[i]);
+					self._created.push(i);
 				}
 			}
 			self.current = pageNumber;
+			self.tmpl.items.detach(detach);
+			self.tmpl.items.create(create, true);
 		}
 	});
 

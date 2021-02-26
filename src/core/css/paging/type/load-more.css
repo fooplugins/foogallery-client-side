@@ -1,3 +1,10 @@
+.fg-ph-load-more:after {
+	display: block;
+	content: '';
+	width: 0;
+	height: 34px;
+}
+
 .fg-paging-container .fg-load-more {
 	display: inline-block;
 	padding: 6px 12px;

@@ -7,13 +7,20 @@
 .fg-loading-partial .fg-loader {
 	font-size: 4px;
 	text-indent: -9999em;
+	margin-top: 0;
+	margin-left: 0;
 	border-top: 1.1em solid rgba(130,130,130, 0.2);
 	border-right: 1.1em solid rgba(130,130,130, 0.2);
 	border-bottom: 1.1em solid rgba(130,130,130, 0.2);
 	border-left: 1.1em solid #828282;
-	-webkit-animation: loading-partial 1.1s infinite linear;
-	animation: loading-partial 1.1s infinite linear;
+	-webkit-animation: loading-partial 1.1s infinite paused linear;
+	animation: loading-partial 1.1s infinite paused linear;
 }
+.fg-loading-partial .fg-loading .fg-loader {
+	-webkit-animation-play-state: running;
+	animation-play-state: running;
+}
+
 @-webkit-keyframes loading-partial {
 	0% {
 		-webkit-transform: translateX(-50%) translateY(-50%) rotate(0deg);

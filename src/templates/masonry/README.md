@@ -82,7 +82,7 @@ The following files for the template must be included after all dependencies are
 ### Standard (Fixed column)
 
 ```html
-<div id="foogallery-gallery-1" class="foogallery foogallery-masonry masonry-layout-4col"
+<div id="foogallery-gallery-1" class="foogallery foogallery-masonry masonry-layout-col4"
 		 data-masonry-options='{ "itemSelector" : ".fg-item", "percentPosition": "true", "columnWidth" : "#foogallery-gallery-1 .masonry-item-width", "gutter" : "#foogallery-gallery-1 .masonry-gutter-width", "isFitWidth" : false }'>
 	<div class="masonry-item-width"></div>
 	<div class="masonry-gutter-width"></div>
@@ -112,7 +112,7 @@ The following files for the template must be included after all dependencies are
 ### Lazy Load (Fixed column)
 
 ```html
-<div id="foogallery-gallery-1" class="foogallery foogallery-masonry masonry-layout-4col"
+<div id="foogallery-gallery-1" class="foogallery foogallery-masonry masonry-layout-col4"
 		 data-masonry-options='{ "itemSelector" : ".fg-item", "percentPosition": "true", "columnWidth" : "#foogallery-gallery-1 .masonry-item-width", "gutter" : "#foogallery-gallery-1 .masonry-gutter-width", "isFitWidth" : false }'
 		 data-loader-options='{"lazy":true}'>
 	<div class="masonry-item-width"></div>
@@ -226,12 +226,11 @@ This template supports the following CSS options by applying the specified CSS c
 
 | Class Name          | Description                                                                                                                                                                                                            |
 |---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `fg-masonry-fixed`  | Applied to fixed item width layouts, removes any CSS width restrictions.                                                                                                                                               |
-| `fg-masonry-2col`   | Applied to fixed column layouts with only two columns.                                                                                                                                                                 |
-| `fg-masonry-3col`   | Applied to fixed column layouts with only three columns.                                                                                                                                                               |
-| `fg-masonry-4col`   | Applied to fixed column layouts with only four columns.                                                                                                                                                                |
-| `fg-masonry-5col`   | Applied to fixed column layouts with only five columns.                                                                                                                                                                |
-| `fg-center`         | By default the gallery items are simply laid out left to right which may result in additional space on the right of the gallery. Applying this class will center align the items evening out the space on either side. |
+| `fg-fixed`          | Applied to fixed item width layouts, removes any CSS width restrictions.                                                                                                                                               |
+| `fg-col2`           | Applied to fixed column layouts with only two columns.                                                                                                                                                                 |
+| `fg-col3`           | Applied to fixed column layouts with only three columns.                                                                                                                                                               |
+| `fg-col4`           | Applied to fixed column layouts with only four columns.                                                                                                                                                                |
+| `fg-col5`           | Applied to fixed column layouts with only five columns.                                                                                                                                                                |
 
 ## Hover Effects
 

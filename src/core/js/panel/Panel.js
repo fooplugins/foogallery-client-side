@@ -2,11 +2,27 @@
 
     var instance_id = 0;
 
-    _.Panel = _.EventComponent.extend({
+    /**
+     * @memberof FooGallery.
+     * @class Panel
+     * @param template
+     * @param options
+     * @param classes
+     * @param il8n
+     * @augments FooGallery.Component
+     */
+    _.Panel = _.Component.extend(/** @lends FooGallery.Panel */{
+        /**
+         * @constructs
+         * @param template
+         * @param options
+         * @param classes
+         * @param il8n
+         */
         construct: function(template, options, classes, il8n){
             var self = this;
             self.instanceId = ++instance_id;
-            self._super(template, "panel-");
+            self._super(template);
 
             self.opt = _obj.extend({}, self.tmpl.opt.panel, options);
 
@@ -23,22 +39,24 @@
 
             self.sel = _utils.selectify(self.cls);
 
-            self.videoSources = _.Panel.Video.sources.load();
+            self.videoSources = !_is.undef(_.Panel.Video) ? _.Panel.Video.sources.load() : [];
 
             self.buttons = new _.Panel.Buttons(self);
 
             self.content = new _.Panel.Content(self);
             self.info = new _.Panel.Info(self);
             self.thumbs = new _.Panel.Thumbs(self);
-            self.cart = new _.Panel.Cart(self);
 
-            self.areas = [self.content, self.info, self.thumbs, self.cart];
+            self.areas = [self.content, self.info, self.thumbs];
 
             self.$el = null;
+
+            self.el = null;
 
             self.isCreated = false;
 
             self.isDestroyed = false;
+
             self.isDestroying = false;
 
             self.isAttached = false;
@@ -63,12 +81,22 @@
 
             self.nextItem = null;
 
-            self.lastResize = {
-                breakpoint: null,
-                orientation: null,
-                prevBreakpoint: null,
-                prevOrientation: null
-            };
+            self.lastBreakpoint = null;
+
+            self.breakpointClassNames = self.opt.breakpoints.map(function(bp){
+                return "fg-" + bp.name + " fg-" + bp.name + "-width" + " fg-" + bp.name + "-height";
+            }).concat(["fg-landscape","fg-portrait"]).join(" ");
+
+            self.robserver = new ResizeObserver(_fn.throttle(function (entries) {
+                if (!self.destroying && !self.destroyed){
+                    entries.forEach(function (entry) {
+                        if (entry.target === self.el){
+                            var size = _utils.getResizeObserverSize(entry);
+                            self.onResize(size.width, size.height);
+                        }
+                    });
+                }
+            }, 50));
 
             self.__media = {};
 
@@ -92,12 +120,12 @@
         create: function(){
             var self = this;
             if (!self.isCreated) {
-                var e = self.trigger("create", [self]);
+                var e = self.trigger("create");
                 if (!e.isDefaultPrevented()) {
                     self.isCreated = self.doCreate();
                 }
                 if (self.isCreated) {
-                    self.trigger("created", [self]);
+                    self.trigger("created");
                 }
             }
             return self.isCreated;
@@ -105,6 +133,7 @@
         doCreate: function(){
             var self = this;
             self.$el = self.createElem();
+            self.el = self.$el.get(0);
             if (self.opt.keyboard){
                 self.$el.attr("tabindex", -1).on("keydown.foogallery", {self: self}, self.onKeyDown);
             }
@@ -147,24 +176,24 @@
             return $.Deferred(function (def) {
                 if (self.isLoading && _is.promise(self.__loading)) {
                     self.__loading.always(function () {
-                        var e = self.trigger("destroy", [self]);
+                        var e = self.trigger("destroy");
                         self.isDestroying = false;
                         if (!e.isDefaultPrevented()) {
                             self.isDestroyed = self.doDestroy();
                         }
                         if (self.isDestroyed) {
-                            self.trigger("destroyed", [self]);
+                            self.trigger("destroyed");
                         }
                         def.resolve();
                     });
                 } else {
-                    var e = self.trigger("destroy", [self]);
+                    var e = self.trigger("destroy");
                     self.isDestroying = false;
                     if (!e.isDefaultPrevented()) {
                         self.isDestroyed = self.doDestroy();
                     }
                     if (self.isDestroyed) {
-                        self.trigger("destroyed", [self]);
+                        self.trigger("destroyed");
                     }
                     def.resolve();
                 }
@@ -188,12 +217,12 @@
         appendTo: function( parent ){
             var self = this;
             if ((self.isCreated || self.create()) && !self.isAttached){
-                var e = self.trigger("append", [self, parent]);
+                var e = self.trigger("append", [parent]);
                 if (!e.isDefaultPrevented()) {
                     self.isAttached = self.doAppendTo( parent );
                 }
                 if (self.isAttached) {
-                    self.trigger("appended", [self, parent]);
+                    self.trigger("appended", [parent]);
                 }
             }
             return self.isAttached;
@@ -205,49 +234,64 @@
 
             maximize.set(!self.isInline, self.isInline && maximize.isEnabled());
 
-            _.breakpoints.register(self.$el, self.opt.breakpoints, function(registered, breakpoint, orientation, prevBreakpoint, prevOrientation){
-                self.lastResize = {
-                    breakpoint: breakpoint,
-                    orientation: orientation,
-                    prevBreakpoint: prevBreakpoint,
-                    prevOrientation: prevOrientation
-                };
-                self.areas.forEach(function (area) {
-                    area.resize();
-                });
-                self.buttons.resize();
-            });
-            _.breakpoints.check( self.$el );
+            self.robserver.observe(self.el);
 
             self.areas.forEach(function (area) {
                 area.listen();
             });
-            return self.$el.parent().length > 0;
+            return self.el.parentNode !== null;
         },
         detach: function(){
             var self = this;
             if (self.isCreated && self.isAttached) {
-                var e = self.trigger("detach", [self]);
+                var e = self.trigger("detach");
                 if (!e.isDefaultPrevented()) {
                     self.isAttached = !self.doDetach();
                 }
                 if (!self.isAttached) {
-                    self.trigger("detached", [self]);
+                    self.trigger("detached");
                 }
             }
             return !self.isAttached;
         },
         doDetach: function(){
             var self = this;
+            self.robserver.unobserve(self.el);
             self.areas.forEach(function (area) {
                 area.stopListening();
             });
-            _.breakpoints.remove(self.$el);
             self.$el.detach();
             return true;
         },
         resize: function(){
-            _.breakpoints.check(this.$el);
+            var self = this;
+            self.$el.removeClass(self.breakpointClassNames).addClass(self.lastBreakpoint);
+            self.areas.forEach(function (area) {
+                area.resize();
+            });
+            self.buttons.resize();
+        },
+        onResize: function(width, height){
+            var self = this, bp = self.getBreakpoint(width, height);
+            if (self.lastBreakpoint !== bp){
+                self.lastBreakpoint = bp;
+                self.resize();
+            }
+        },
+        getBreakpoint: function(width, height){
+            var self = this,
+                result = [];
+
+            self.opt.breakpoints.forEach(function(bp){
+                var w = bp.width <= width, h = bp.height <= height;
+                if (w && h) result.push("fg-" + bp.name);
+                if (w) result.push("fg-" + bp.name + "-width");
+                if (h) result.push("fg-" + bp.name + "-height");
+            });
+
+            result.push(width > height ? "fg-landscape" : "fg-portrait");
+
+            return result.length > 0 ? result.join(" ") : null;
         },
         getMedia: function(item){
             if (!(item instanceof _.Item)) return null;
@@ -271,8 +315,8 @@
 
             item = self.getItem(item);
 
-            if (!(item instanceof _.Item)) return _fn.rejectWith("no item to load");
-            if (item === self.currentItem) return _fn.rejectWith("item is currently loaded");
+            if (!(item instanceof _.Item)) return _fn.reject("no item to load");
+            if (item === self.currentItem) return _fn.reject("item is currently loaded");
 
             self.isLoading = true;
             self.isLoaded = false;
@@ -288,7 +332,7 @@
                     def.rejectWith("no media to load");
                     return;
                 }
-                var e = self.trigger("load", [self, media, item]);
+                var e = self.trigger("load", [media, item]);
                 if (e.isDefaultPrevented()){
                     def.rejectWith("default prevented");
                     return;
@@ -301,11 +345,11 @@
                 self.isLoading = false;
             }).then(function(){
                 self.isLoaded = true;
-                self.trigger("loaded", [self, item]);
+                self.trigger("loaded", [item]);
                 item.updateState();
             }).fail(function(){
                 self.isError = true;
-                self.trigger("error", [self, item]);
+                self.trigger("error", [item]);
             }).promise();
         },
         doLoad: function( media ){
@@ -321,10 +365,10 @@
         open: function( item, parent ){
             var self = this;
             item = self.getItem(item);
-            var e = self.trigger("open", [self, item, parent]);
-            if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+            var e = self.trigger("open", [item, parent]);
+            if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doOpen(item, parent).then(function(){
-                self.trigger("opened", [self, item, parent]);
+                self.trigger("opened", [item, parent]);
             });
         },
         doOpen: function( item, parent ){
@@ -347,11 +391,11 @@
         },
         next: function(){
             var self = this, current = self.currentItem, next = self.nextItem;
-            if (!(next instanceof _.Item)) return _fn.rejectWith("no next item");
-            var e = self.trigger("next", [self, current, next]);
-            if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+            if (!(next instanceof _.Item)) return _fn.reject("no next item");
+            var e = self.trigger("next", [current, next]);
+            if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doNext(next).then(function(){
-                self.trigger("after-next", [self, current, next]);
+                self.trigger("after-next", [current, next]);
             });
         },
         doNext: function(item){
@@ -359,21 +403,21 @@
         },
         prev: function(){
             var self = this, current = self.currentItem, prev = self.prevItem;
-            if (!(prev instanceof _.Item)) return _fn.rejectWith("no prev item");
-            var e = self.trigger("prev", [self, current, prev]);
-            if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+            if (!(prev instanceof _.Item)) return _fn.reject("no prev item");
+            var e = self.trigger("prev", [current, prev]);
+            if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doPrev(prev).then(function(){
-                self.trigger("after-prev", [self, current, prev]);
+                self.trigger("after-prev", [current, prev]);
             });
         },
         doPrev: function(item){
             return this.load( item );
         },
         close: function(immediate){
-            var self = this, e = self.trigger("close", [self, self.currentItem]);
-            if (e.isDefaultPrevented()) return _fn.rejectWith("default prevented");
+            var self = this, e = self.trigger("close", [self.currentItem]);
+            if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doClose(immediate).then(function(){
-                self.trigger("closed", [self]);
+                self.trigger("closed");
             });
         },
         doClose: function(immediate, detach){
@@ -382,9 +426,11 @@
             return $.Deferred(function(def){
                 self.content.close(immediate).then(function(){
                     var wait = [];
-                    wait.push(self.cart.close(immediate));
-                    wait.push(self.thumbs.close(immediate));
-                    wait.push(self.info.close(immediate));
+                    self.areas.forEach(function(area){
+                        if (area !== self.content){
+                            wait.push(area.close(immediate));
+                        }
+                    });
                     $.when.apply($, wait).then(def.resolve).fail(def.reject);
                 });
             }).always(function(){
@@ -503,20 +549,19 @@
                 thumbs: false,
                 cart: false
             },
-            breakpoints: {
-                medium: {
-                    width: 480,
-                    height: 480
-                },
-                large: {
-                    width: 768,
-                    height: 640
-                },
-                "x-large": {
-                    width: 1024,
-                    height: 768
-                }
-            }
+            breakpoints: [{
+                name: "medium",
+                width: 480,
+                height: 480
+            },{
+                name: "large",
+                width: 768,
+                height: 640
+            },{
+                name: "x-large",
+                width: 1024,
+                height: 768
+            }]
         }
     },{
         panel: {

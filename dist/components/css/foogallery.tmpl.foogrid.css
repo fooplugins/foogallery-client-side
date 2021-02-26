@@ -1,0 +1,685 @@
+.foogrid,
+.foogrid.fg-gutter-small {
+	margin: 0 0 -0.5% 0;
+	padding: 0;
+	width: 100%;
+	font-size: 0;
+	line-height: 0;
+}
+.foogrid.fg-gutter-medium {
+	margin: 0 0 -1% 0;
+}
+.foogrid.fg-gutter-large {
+	margin: 0 0 -1.5% 0;
+}
+.foogrid:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+
+.foogrid .fg-item {
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	z-index: 1;
+	font-size: 16px;
+}
+.foogrid .fg-thumb,
+.foogrid .fg-thumb:hover,
+.foogrid .fg-thumb:active,
+.foogrid .fg-thumb:visited {
+	position: relative;
+	display: block;
+	border: none;
+	outline: none;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	box-shadow: none;
+	text-align: center;
+}
+.foogrid .fg-image {
+	display: inline-block;
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	border: none;
+	outline: none;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+}
+
+.foogrid .fg-item:after {
+	display: block;
+	content: '';
+	border-bottom: 45px solid transparent;
+	border-left: 35px solid transparent;
+	border-right: 35px solid transparent;
+	height: 0;
+	width: 0;
+	position: absolute;
+	bottom: -45px;
+	left: 50%;
+	margin-left: -35px;
+	visibility: hidden;
+	opacity: 0;
+}
+.foogrid .fg-item.foogrid-visible:after {
+	visibility: visible;
+	opacity: 1;
+}
+.foogrid.fg-light .fg-item:after {
+	border-bottom-color: #e6e6e6;
+}
+.foogrid.fg-dark .fg-item:after {
+	border-bottom-color: #292929;
+}
+.foogrid-content,
+.fg-gutter-small .foogrid-content {
+	display: block;
+	position: relative;
+	float: left;
+	font-size: 16px;
+	height: 0;
+	width: 100%;
+	padding-top: 0;
+	margin: 0 0 0.5% 0;
+	z-index: 5;
+	opacity: 0;
+	visibility: hidden;
+	outline: 0;
+}
+.fg-gutter-medium .foogrid-content {
+	margin: 0 0 1% 0;
+}
+.fg-gutter-large .foogrid-content {
+	margin: 0 0 1.5% 0;
+}
+.foogrid.fg-light .foogrid-content {
+	background-color: #eee;
+	border: 1px solid #e6e6e6;
+}
+.foogrid.fg-dark .foogrid-content {
+	background-color: #333;
+	border: 1px solid #292929;
+}
+.foogrid-content.foogrid-visible {
+	opacity: 1;
+	visibility: visible;
+	padding-top: 56.25%;
+}
+.foogrid.fg-16-9 .foogrid-content.foogrid-visible {
+	padding-top: 56.25%;
+}
+.foogrid.fg-16-10 .foogrid-content.foogrid-visible {
+	padding-top: 62.5%;
+}
+.foogrid.fg-4-3 .foogrid-content.foogrid-visible {
+	padding-top: 75%;
+}
+
+.foogrid.foogrid-cols-1 .fg-item,
+.foogrid.foogrid-cols-2 .fg-item,
+.foogrid.foogrid-cols-3 .fg-item,
+.foogrid.foogrid-cols-4 .fg-item,
+.foogrid.foogrid-cols-5 .fg-item,
+.foogrid.foogrid-cols-6 .fg-item,
+.foogrid.foogrid-cols-7 .fg-item,
+.foogrid.foogrid-cols-8 .fg-item,
+.foogrid.foogrid-cols-1.fg-gutter-small .fg-item,
+.foogrid.foogrid-cols-2.fg-gutter-small .fg-item,
+.foogrid.foogrid-cols-3.fg-gutter-small .fg-item,
+.foogrid.foogrid-cols-4.fg-gutter-small .fg-item,
+.foogrid.foogrid-cols-5.fg-gutter-small .fg-item,
+.foogrid.foogrid-cols-6.fg-gutter-small .fg-item,
+.foogrid.foogrid-cols-7.fg-gutter-small .fg-item,
+.foogrid.foogrid-cols-8.fg-gutter-small .fg-item {
+	margin-bottom: 0.5%;
+	margin-right: 0.5%;
+}
+.foogrid.foogrid-cols-1.fg-gutter-medium .fg-item,
+.foogrid.foogrid-cols-2.fg-gutter-medium .fg-item,
+.foogrid.foogrid-cols-3.fg-gutter-medium .fg-item,
+.foogrid.foogrid-cols-4.fg-gutter-medium .fg-item,
+.foogrid.foogrid-cols-5.fg-gutter-medium .fg-item,
+.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item,
+.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item,
+.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item {
+	margin-bottom: 1%;
+	margin-right: 1%;
+}
+.foogrid.foogrid-cols-1.fg-gutter-large .fg-item,
+.foogrid.foogrid-cols-2.fg-gutter-large .fg-item,
+.foogrid.foogrid-cols-3.fg-gutter-large .fg-item,
+.foogrid.foogrid-cols-4.fg-gutter-large .fg-item,
+.foogrid.foogrid-cols-5.fg-gutter-large .fg-item,
+.foogrid.foogrid-cols-6.fg-gutter-large .fg-item,
+.foogrid.foogrid-cols-7.fg-gutter-large .fg-item,
+.foogrid.foogrid-cols-8.fg-gutter-large .fg-item {
+	margin-bottom: 1.5%;
+	margin-right: 1.5%;
+}
+.foogallery.foogrid.foogrid-cols-1 .fg-item:nth-of-type(1n),
+.foogallery.foogrid.foogrid-cols-2 .fg-item:nth-of-type(2n),
+.foogallery.foogrid.foogrid-cols-3 .fg-item:nth-of-type(3n),
+.foogallery.foogrid.foogrid-cols-4 .fg-item:nth-of-type(4n),
+.foogallery.foogrid.foogrid-cols-5 .fg-item:nth-of-type(5n),
+.foogallery.foogrid.foogrid-cols-6 .fg-item:nth-of-type(6n),
+.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(7n),
+.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(8n) {
+	margin-right: 0;
+}
+
+.foogrid.foogrid-cols-1 .fg-item,
+.foogrid.foogrid-cols-1.fg-gutter-small .fg-item,
+.foogrid.foogrid-cols-1.fg-gutter-medium .fg-item,
+.foogrid.foogrid-cols-1.fg-gutter-large .fg-item {
+	width: 100%;
+}
+
+.foogrid.foogrid-cols-2 .fg-item,
+.foogrid.foogrid-cols-2.fg-gutter-small .fg-item {
+	width: 49.75%;
+}
+.foogrid.foogrid-cols-2.fg-gutter-medium .fg-item {
+	width: 49.5%;
+}
+.foogrid.foogrid-cols-2.fg-gutter-large .fg-item {
+	width: 49.25%;
+}
+
+.foogrid.foogrid-cols-3 .fg-item,
+.foogrid.foogrid-cols-3.fg-gutter-small .fg-item {
+	width: 33%;
+}
+.foogrid.foogrid-cols-3.fg-gutter-medium .fg-item {
+	width: 32.66%;
+}
+.foogrid.foogrid-cols-3.fg-gutter-large .fg-item {
+	width: 32.33%;
+}
+
+.foogrid.foogrid-cols-4 .fg-item,
+.foogrid.foogrid-cols-4.fg-gutter-small .fg-item {
+	width: 24.62%;
+}
+.foogrid.foogrid-cols-4.fg-gutter-medium .fg-item {
+	width: 24.25%;
+}
+.foogrid.foogrid-cols-4.fg-gutter-large .fg-item {
+	width: 23.87%;
+}
+
+.foogrid.foogrid-cols-5 .fg-item,
+.foogrid.foogrid-cols-5.fg-gutter-small .fg-item {
+	width: 19.6%;
+}
+.foogrid.foogrid-cols-5.fg-gutter-medium .fg-item {
+	width: 19.2%;
+}
+.foogrid.foogrid-cols-5.fg-gutter-large .fg-item {
+	width: 18.8%;
+}
+
+.foogrid.foogrid-cols-6 .fg-item,
+.foogrid.foogrid-cols-6.fg-gutter-small .fg-item {
+	width: 16.25%;
+}
+.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item {
+	width: 15.83%;
+}
+.foogrid.foogrid-cols-6.fg-gutter-large .fg-item {
+	width: 15.41%;
+}
+
+.foogrid.foogrid-cols-7 .fg-item,
+.foogrid.foogrid-cols-7.fg-gutter-small .fg-item {
+	width: 13.85%;
+}
+.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item {
+	width: 13.42%;
+}
+.foogrid.foogrid-cols-7.fg-gutter-large .fg-item {
+	width: 13%;
+}
+
+.foogrid.foogrid-cols-8 .fg-item,
+.foogrid.foogrid-cols-8.fg-gutter-small .fg-item {
+	width: 12.06%;
+}
+.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item {
+	width: 11.62%;
+}
+.foogrid.foogrid-cols-8.fg-gutter-large .fg-item {
+	width: 11.18%;
+}
+
+@media only screen and (min-width: 1441px) and (max-width: 1600px) {
+	/* reset original nth selector by setting a margin */
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(8n),
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item:nth-of-type(8n) {
+		margin-right: 0.5%;
+	}
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item:nth-of-type(8n) {
+		margin-right: 1%;
+	}
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item:nth-of-type(8n) {
+		margin-right: 1.5%;
+	}
+	/* Change the column layout to be 7 columns */
+	.foogrid.foogrid-cols-8 .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item {
+		width: 13.85%;
+	}
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item {
+		width: 13.42%;
+	}
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item {
+		width: 13%;
+	}
+	/* Remove the right margin on every 7th item  */
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(7n) {
+		margin-right: 0;
+	}
+}
+@media only screen and (min-width: 1201px) and (max-width: 1440px) {
+	/* reset original nth selector by setting a margin */
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item:nth-of-type(7n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(8n),
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item:nth-of-type(8n) {
+		margin-right: 0.5%;
+	}
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item:nth-of-type(8n) {
+		margin-right: 1%;
+	}
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item:nth-of-type(8n) {
+		margin-right: 1.5%;
+	}
+	/* Change the column layout to be 6 columns */
+	.foogrid.foogrid-cols-7 .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-8 .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item {
+		width: 16.25%;
+	}
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item {
+		width: 15.83%;
+	}
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item {
+		width: 15.41%;
+	}
+	/* Remove the right margin on every 6th item  */
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(6n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(6n) {
+		margin-right: 0;
+	}
+}
+@media only screen and (min-width: 993px) and (max-width: 1200px) {
+	/* reset original nth selector by setting a margin */
+	.foogallery.foogrid.foogrid-cols-6 .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-6.fg-gutter-small .fg-item:nth-of-type(6n),
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item:nth-of-type(7n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(8n),
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item:nth-of-type(8n) {
+		margin-right: 0.5%;
+	}
+	.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item:nth-of-type(8n) {
+		margin-right: 1%;
+	}
+	.foogrid.foogrid-cols-6.fg-gutter-large .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item:nth-of-type(8n) {
+		margin-right: 1.5%;
+	}
+	/* Change the column layout to be 5 columns */
+	.foogrid.foogrid-cols-6 .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-7 .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-8 .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item {
+		width: 19.6%;
+	}
+	.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item {
+		width: 19.2%;
+	}
+	.foogrid.foogrid-cols-6.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item {
+		width: 18.8%;
+	}
+	/* Remove the right margin on every 5th item  */
+	.foogallery.foogrid.foogrid-cols-6 .fg-item:nth-of-type(5n),
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(5n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(5n) {
+		margin-right: 0;
+	}
+}
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+	/* reset original nth selector by setting a margin */
+	.foogallery.foogrid.foogrid-cols-5 .fg-item:nth-of-type(5n),
+	.foogrid.foogrid-cols-5.fg-gutter-small .fg-item:nth-of-type(5n),
+	.foogallery.foogrid.foogrid-cols-6 .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-6.fg-gutter-small .fg-item:nth-of-type(6n),
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item:nth-of-type(7n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(8n),
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item:nth-of-type(8n) {
+		margin-right: 0.5%;
+	}
+	.foogrid.foogrid-cols-5.fg-gutter-medium .fg-item:nth-of-type(5n),
+	.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item:nth-of-type(8n) {
+		margin-right: 1%;
+	}
+	.foogrid.foogrid-cols-5.fg-gutter-large .fg-item:nth-of-type(5n),
+	.foogrid.foogrid-cols-6.fg-gutter-large .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item:nth-of-type(8n) {
+		margin-right: 1.5%;
+	}
+	/* Change the column layout to be 4 columns */
+	.foogrid.foogrid-cols-5 .fg-item,
+	.foogrid.foogrid-cols-5.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-6 .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-7 .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-8 .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item {
+		width: 24.62%;
+	}
+	.foogrid.foogrid-cols-5.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item {
+		width: 24.25%;
+	}
+	.foogrid.foogrid-cols-5.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item {
+		width: 23.87%;
+	}
+	/* Remove the right margin on every 4th item  */
+	.foogallery.foogrid.foogrid-cols-5 .fg-item:nth-of-type(4n),
+	.foogallery.foogrid.foogrid-cols-6 .fg-item:nth-of-type(4n),
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(4n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(4n) {
+		margin-right: 0;
+	}
+}
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+	/* reset original nth selector by setting a margin */
+	.foogallery.foogrid.foogrid-cols-4 .fg-item:nth-of-type(4n),
+	.foogrid.foogrid-cols-4.fg-gutter-small .fg-item:nth-of-type(4n),
+	.foogallery.foogrid.foogrid-cols-5 .fg-item:nth-of-type(5n),
+	.foogrid.foogrid-cols-5.fg-gutter-small .fg-item:nth-of-type(5n),
+	.foogallery.foogrid.foogrid-cols-6 .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-6.fg-gutter-small .fg-item:nth-of-type(6n),
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item:nth-of-type(7n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(8n),
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item:nth-of-type(8n) {
+		margin-right: 0.5%;
+	}
+	.foogrid.foogrid-cols-4.fg-gutter-medium .fg-item:nth-of-type(4n),
+	.foogrid.foogrid-cols-5.fg-gutter-medium .fg-item:nth-of-type(5n),
+	.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item:nth-of-type(8n) {
+		margin-right: 1%;
+	}
+	.foogrid.foogrid-cols-4.fg-gutter-large .fg-item:nth-of-type(4n),
+	.foogrid.foogrid-cols-5.fg-gutter-large .fg-item:nth-of-type(5n),
+	.foogrid.foogrid-cols-6.fg-gutter-large .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item:nth-of-type(8n) {
+		margin-right: 1.5%;
+	}
+	/* Change the column layout to be 3 columns */
+	.foogrid.foogrid-cols-4 .fg-item,
+	.foogrid.foogrid-cols-4.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-5 .fg-item,
+	.foogrid.foogrid-cols-5.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-6 .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-7 .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-8 .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item {
+		width: 33%;
+	}
+	.foogrid.foogrid-cols-4.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-5.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item {
+		width: 32.66%;
+	}
+	.foogrid.foogrid-cols-4.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-5.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item {
+		width: 32.33%;
+	}
+	/* Remove the right margin on every 3rd item  */
+	.foogallery.foogrid.foogrid-cols-4 .fg-item:nth-of-type(3n),
+	.foogallery.foogrid.foogrid-cols-5 .fg-item:nth-of-type(3n),
+	.foogallery.foogrid.foogrid-cols-6 .fg-item:nth-of-type(3n),
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(3n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(3n) {
+		margin-right: 0;
+	}
+}
+@media only screen and (min-width: 321px) and (max-width: 480px) {
+	/* reset original nth selector by setting a margin */
+	.foogallery.foogrid.foogrid-cols-3 .fg-item:nth-of-type(3n),
+	.foogrid.foogrid-cols-3.fg-gutter-small .fg-item:nth-of-type(3n),
+	.foogallery.foogrid.foogrid-cols-4 .fg-item:nth-of-type(4n),
+	.foogrid.foogrid-cols-4.fg-gutter-small .fg-item:nth-of-type(4n),
+	.foogallery.foogrid.foogrid-cols-5 .fg-item:nth-of-type(5n),
+	.foogrid.foogrid-cols-5.fg-gutter-small .fg-item:nth-of-type(5n),
+	.foogallery.foogrid.foogrid-cols-6 .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-6.fg-gutter-small .fg-item:nth-of-type(6n),
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item:nth-of-type(7n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(8n),
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item:nth-of-type(8n) {
+		margin-right: 0.5%;
+	}
+	.foogrid.foogrid-cols-3.fg-gutter-medium .fg-item:nth-of-type(3n),
+	.foogrid.foogrid-cols-4.fg-gutter-medium .fg-item:nth-of-type(4n),
+	.foogrid.foogrid-cols-5.fg-gutter-medium .fg-item:nth-of-type(5n),
+	.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item:nth-of-type(8n) {
+		margin-right: 1%;
+	}
+	.foogrid.foogrid-cols-3.fg-gutter-large .fg-item:nth-of-type(3n),
+	.foogrid.foogrid-cols-4.fg-gutter-large .fg-item:nth-of-type(4n),
+	.foogrid.foogrid-cols-5.fg-gutter-large .fg-item:nth-of-type(5n),
+	.foogrid.foogrid-cols-6.fg-gutter-large .fg-item:nth-of-type(6n),
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item:nth-of-type(7n),
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item:nth-of-type(8n) {
+		margin-right: 1.5%;
+	}
+	/* Change the column layout to be 2 columns */
+	.foogrid.foogrid-cols-3 .fg-item,
+	.foogrid.foogrid-cols-3.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-4 .fg-item,
+	.foogrid.foogrid-cols-4.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-5 .fg-item,
+	.foogrid.foogrid-cols-5.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-6 .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-7 .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-8 .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item {
+		width: 49.75%;
+	}
+	.foogrid.foogrid-cols-3.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-4.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-5.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item {
+		width: 49.5%;
+	}
+	.foogrid.foogrid-cols-3.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-4.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-5.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item {
+		width: 49.25%;
+	}
+	/* Remove the right margin on every 2nd item  */
+	.foogallery.foogrid.foogrid-cols-3 .fg-item:nth-of-type(2n),
+	.foogallery.foogrid.foogrid-cols-4 .fg-item:nth-of-type(2n),
+	.foogallery.foogrid.foogrid-cols-5 .fg-item:nth-of-type(2n),
+	.foogallery.foogrid.foogrid-cols-6 .fg-item:nth-of-type(2n),
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(2n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(2n) {
+		margin-right: 0;
+	}
+}
+@media only screen and (max-width: 320px) {
+	/* no need to reset original nth selector as all items have no right margin */
+	/* Change the column layout to be 1 column */
+	.foogrid.foogrid-cols-2 .fg-item,
+	.foogrid.foogrid-cols-2.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-3 .fg-item,
+	.foogrid.foogrid-cols-3.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-4 .fg-item,
+	.foogrid.foogrid-cols-4.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-5 .fg-item,
+	.foogrid.foogrid-cols-5.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-6 .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-7 .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-8 .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-small .fg-item,
+	.foogrid.foogrid-cols-2.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-3.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-4.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-5.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-medium .fg-item,
+	.foogrid.foogrid-cols-2.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-3.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-4.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-5.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-6.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-7.fg-gutter-large .fg-item,
+	.foogrid.foogrid-cols-8.fg-gutter-large .fg-item {
+		width: 100%;
+	}
+	/* Remove the right margin on every item  */
+	.foogallery.foogrid.foogrid-cols-2 .fg-item:nth-of-type(1n),
+	.foogallery.foogrid.foogrid-cols-3 .fg-item:nth-of-type(1n),
+	.foogallery.foogrid.foogrid-cols-4 .fg-item:nth-of-type(1n),
+	.foogallery.foogrid.foogrid-cols-5 .fg-item:nth-of-type(1n),
+	.foogallery.foogrid.foogrid-cols-6 .fg-item:nth-of-type(1n),
+	.foogallery.foogrid.foogrid-cols-7 .fg-item:nth-of-type(1n),
+	.foogallery.foogrid.foogrid-cols-8 .fg-item:nth-of-type(1n) {
+		margin-right: 0;
+	}
+}
+.foogrid.foogrid-transition-fade .foogrid-content,
+.foogrid.foogrid-transition-horizontal .foogrid-content,
+.foogrid.foogrid-transition-vertical .foogrid-content {
+	transition-duration: .3s;
+	transition-timing-function: ease-in-out;
+}
+
+/* content container slide up/down */
+.foogrid.foogrid-transition-fade .foogrid-content,
+.foogrid.foogrid-transition-horizontal .foogrid-content,
+.foogrid.foogrid-transition-vertical .foogrid-content {
+	transition-property: padding-top, opacity, visibility;
+}
+.foogrid-panel.fg-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.foogrid-panel.fg-panel.fg-light {
+    background-color: #eee;
+    border: none;
+}
+.foogrid-panel.fg-panel.fg-dark {
+    background-color: #333;
+    border: none;
+}
+.foogrid-panel.fg-panel.fg-light .fg-panel-area .fg-panel-info-inner {
+    background-color: rgba(238, 238, 238, 0.5);
+    border-width: 0;
+}
+.foogrid-panel.fg-panel.fg-dark .fg-panel-area .fg-panel-info-inner {
+    background-color: rgba(51, 51, 51, 0.5);
+    border-width: 0;
+}
+.foogrid-panel.fg-panel.fg-light.fg-panel-info-bottom .fg-panel-area .fg-panel-info-inner {
+    border-color: #e6e6e6;
+    border-top-width: 1px;
+}
+.foogrid-panel.fg-panel.fg-dark.fg-panel-info-bottom .fg-panel-area .fg-panel-info-inner {
+    border-color: #292929;
+    border-top-width: 1px;
+}
+
+.foogrid-panel.fg-panel .fg-media-caption {
+    padding: 20px;
+}
+.foogrid-panel.fg-panel .fg-media-caption-title {
+    font-size: 18px;
+    line-height: 20px;
+}
+.foogrid-panel.fg-panel .fg-media-caption-description {
+    font-size: 12px;
+    line-height: 15px;
+}
+.foogrid-panel.fg-panel.fg-medium .fg-media-caption-title {
+    font-size: 22px;
+    line-height: 24px;
+}
+.foogrid-panel.fg-panel.fg-medium .fg-media-caption-description {
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.foogrid-panel.fg-panel.fg-medium.fg-panel-preserve-button-space .fg-media,
+.foogrid-panel.fg-panel.fg-panel-no-mobile.fg-panel-preserve-button-space .fg-media {
+    overflow: visible;
+    top: 25px;
+    left: 62px;
+    width: calc(100% - 124px);
+    height: calc(100% - 50px);
+}
+.foogrid-panel.fg-panel.fg-medium.fg-panel-preserve-button-space .fg-media-content,
+.foogrid-panel.fg-panel.fg-panel-no-mobile.fg-panel-preserve-button-space .fg-media-content {
+    box-shadow: 0 5px 35px rgba(0,0,0,.65);
+}

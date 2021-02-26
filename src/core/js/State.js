@@ -295,7 +295,7 @@
 			if (_is.hash(state)){
 				var obj = _obj.extend({ filter: [], page: 1, item: null }, state);
 				tmpl.items.reset();
-				var e = tmpl.raise("before-state", [obj]);
+				var e = tmpl.trigger("before-state", [obj]);
 				if (!e.isDefaultPrevented()){
 					if (!!tmpl.filter){
 						tmpl.filter.setState(obj);
@@ -303,8 +303,12 @@
 					if (!!tmpl.pages){
 						tmpl.pages.setState(obj);
 					} else {
-						tmpl.items.detach(tmpl.items.all());
-						tmpl.items.create(tmpl.items.available(), true);
+						var available = tmpl.items.available();
+						if (!tmpl.items.isAll(available)){
+							var notAvailable = tmpl.items.not(available);
+							tmpl.items.detach(notAvailable);
+						}
+						tmpl.items.create(available, true);
 					}
 					if (obj.item){
 						if (self.opt.scrollTo) {
@@ -316,7 +320,7 @@
 						}
 					}
 					self.current = obj;
-					tmpl.raise("after-state", [obj]);
+					tmpl.trigger("after-state", [obj]);
 				}
 			}
 		},

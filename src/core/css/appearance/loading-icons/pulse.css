@@ -4,16 +4,22 @@
 	border-radius: 50%;
 	width: 2.5em;
 	height: 2.5em;
-	-webkit-animation-fill-mode: both;
-	animation-fill-mode: both;
-	-webkit-animation: loading-pulse 1.8s infinite ease-in-out;
-	animation: loading-pulse 1.8s infinite ease-in-out;
+	-webkit-animation: loading-pulse 1.8s infinite both paused ease-in-out;
+	animation: loading-pulse 1.8s infinite both paused ease-in-out;
 }
+.fg-loading-pulse .fg-loading .fg-loader,
+.fg-loading-pulse .fg-loading .fg-loader:before,
+.fg-loading-pulse .fg-loading .fg-loader:after {
+	-webkit-animation-play-state: running;
+	animation-play-state: running;
+}
+
 .fg-loading-pulse .fg-loader {
 	color: #828282;
 	font-size: 4px;
+	margin-top: -3.75em;
+	margin-left: -1.25em;
 	text-indent: -9999em;
-	transform: translateX(-50%) translateY(-150%);
 	-webkit-animation-delay: -0.16s;
 	animation-delay: -0.16s;
 }

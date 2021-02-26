@@ -1,6 +1,16 @@
 (function($, _, _fn, _t){
 
-    _.Panel.Content = _.Panel.Area.extend({
+    /**
+     * @memberof FooGallery.Panel.
+     * @class Content
+     * @augments FooGallery.Panel.Area
+     */
+    _.Panel.Content = _.Panel.Area.extend(/** @lends FooGallery.Panel.Content */{
+        /**
+         * @ignore
+         * @constructs
+         * @param panel
+         */
         construct: function(panel){
             this._super(panel, "content", {
                 waitForUnload: false
@@ -14,8 +24,10 @@
                     self.$inner.fgswipe({data: {self: self}, swipe: self.onSwipe, allowPageScroll: true});
                 }
                 self.robserver = new ResizeObserver(_fn.throttle(function () {
-                    // only the inner is being observed so if a change occurs we can safely just call resize
-                    self.resize();
+                    if (self.panel instanceof _.Panel && !self.panel.destroying && !self.panel.destroyed) {
+                        // only the inner is being observed so if a change occurs we can safely just call resize
+                        self.resize();
+                    }
                 }, 50));
                 self.robserver.observe(self.$inner.get(0));
                 return true;
@@ -37,7 +49,9 @@
                 media.appendTo(self.$inner);
                 var wait = [];
                 if (self.panel.hasTransition){
-                    wait.push(_t.start(media.$el, states.visible, true, 350));
+                    wait.push(_t.start(media.$el, function($el){
+                        $el.addClass(states.visible);
+                    }, null, 350));
                 } else {
                     media.$el.addClass(states.visible);
                 }
@@ -52,7 +66,9 @@
                 if (media.isCreated){
                     media.$el.toggleClass(states.reverse, !reverseTransition);
                     if (self.panel.hasTransition){
-                        wait.push(_t.start(media.$el, states.visible, false, 350));
+                        wait.push(_t.start(media.$el, function($el){
+                            $el.removeClass(states.visible);
+                        }, null, 350));
                     } else {
                         media.$el.removeClass(states.visible);
                     }

@@ -30,12 +30,11 @@
         },
         checkAutoHide: function(enabled, supported){
             if (enabled && supported && this.opt.autoHideArea === true){
-                var last = this.panel.lastResize;
-                if (this.__autoHide == null && _is.empty(last.breakpoint)){
+                if (this.__autoHide == null && _is.empty(this.panel.lastBreakpoint)){
                     this.__autoHide = this.area.isVisible;
                     this.area.toggle(false);
                     this.area.button.toggle(true);
-                } else if (_is.boolean(this.__autoHide) && !_is.empty(last.breakpoint)) {
+                } else if (_is.boolean(this.__autoHide) && !_is.empty(this.panel.lastBreakpoint)) {
                     this.area.button.toggle(this.area.button.isEnabled() && this.area.opt.toggle);
                     this.area.toggle(this.__autoHide);
                     this.__autoHide = null;

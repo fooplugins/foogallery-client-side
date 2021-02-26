@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #image {
+            outline: solid 1px #F00;
+        }
+    </style>
+    <script>
+        window.addEventListener('DOMContentLoaded', function(){
+            const img = document.querySelector('#image'),
+                button = document.querySelector('#button');
+
+            img.addEventListener('load', function(){
+                console.log('loaded');
+            });
+
+            img.addEventListener('error', function(){
+                console.log('loaded');
+            });
+
+            button.addEventListener('click', function(e){
+                e.preventDefault();
+                img.src = img.dataset.src;
+                img.srcset = img.dataset.srcset;
+            });
+        });
+    </script>
+</head>
+<body>
+    <img id="image-default"
+         src="https://dummyimage.com/150x150/f00f00/000000&text=Item+0+(150×150)"
+         srcset="https://dummyimage.com/300x300/f00f00/000000&text=Item+0+(300×300) 2x,https://dummyimage.com/450x450/f00f00/000000&text=Item+0+(450×450) 3x"
+         width="150" height="150" title="Title for 0" alt="This is a short description for item 0.">
+    <img id="image"
+         src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
+         data-src="https://dummyimage.com/150x150/f000ff/000000&text=Item+0+(150×150)"
+         data-srcset="https://dummyimage.com/300x300/f000ff/000000&text=Item+0+(300×300) 2x,https://dummyimage.com/450x450/f000ff/000000&text=Item+0+(450×450) 3x"
+         width="150" height="150" title="Title for 0" alt="This is a short description for item 0.">
+    <hr/>
+    <button id="button">Switch</button>
+</body>
+</html>

@@ -9,5 +9,5 @@
 .foogrid.foogrid-transition-fade .foogrid-content,
 .foogrid.foogrid-transition-horizontal .foogrid-content,
 .foogrid.foogrid-transition-vertical .foogrid-content {
-	transition-property: height, opacity, visibility;
+	transition-property: padding-top, opacity, visibility;
 }

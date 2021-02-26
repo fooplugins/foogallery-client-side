@@ -128,7 +128,7 @@
             }
             _t.start(self.$piles, function($el){
                 $el.css({width: size.width + 'px', height: size.height + 'px'});
-            }, false, 350).then(function(){
+            }, null, 350).then(function(){
                 self.ignoreResize = false;
             });
         },
