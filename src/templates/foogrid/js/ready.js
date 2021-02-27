@@ -63,13 +63,13 @@
 					self.panel.opt.info = "right";
 				}
 			}
-			if (self.panel.thumbs.isEnabled() && self.panel.thumbs.opt.captions && self.panel.thumbs.opt.align === "default"){
+			if (self.panel.info.isEnabled() && self.panel.info.opt.align === "default"){
 				var align = null;
 				if (self.$el.hasClass("fg-c-l")) align = "left";
 				if (self.$el.hasClass("fg-c-c")) align = "center";
 				if (self.$el.hasClass("fg-c-r")) align = "right";
 				if (self.$el.hasClass("fg-c-j")) align = "justified";
-				if (align !== null) self.panel.thumbs.opt.align = align;
+				if (align !== null) self.panel.info.opt.align = align;
 			}
 			if (self.panel.opt.theme === null){
 				self.panel.opt.theme = self.getCSSClass("theme");
