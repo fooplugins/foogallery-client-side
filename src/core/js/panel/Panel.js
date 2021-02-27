@@ -639,10 +639,10 @@
             info: {
                 overlay: "fg-panel-info-overlay",
                 align: {
-                    left: "fg-panel-info-left",
-                    center: "fg-panel-info-center",
-                    right: "fg-panel-info-right",
-                    justified: "fg-panel-info-justified"
+                    left: "fg-panel-media-caption-left",
+                    center: "fg-panel-media-caption-center",
+                    right: "fg-panel-media-caption-right",
+                    justified: "fg-panel-media-caption-justified"
                 }
             },
 

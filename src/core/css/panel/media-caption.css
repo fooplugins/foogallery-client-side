@@ -14,16 +14,16 @@
     display: flex;
     flex-direction: column;
 }
-.fg-panel-info-left .fg-media-caption {
+.fg-panel-media-caption-left .fg-media-caption {
     text-align: left;
 }
-.fg-panel-info-right .fg-media-caption {
+.fg-panel-media-caption-right .fg-media-caption {
     text-align: right;
 }
-.fg-panel-info-center .fg-media-caption {
+.fg-panel-media-caption-center .fg-media-caption {
     text-align: center;
 }
-.fg-panel-info-justify .fg-media-caption {
+.fg-panel-media-caption-justify .fg-media-caption {
     text-align: justify;
 }
 .fg-media-caption-title {
