@@ -18,7 +18,7 @@
 	position: relative;
 	width: 32px;
 	height: 32px;
-	margin: 10px 0 5px 0;
+	margin: 10px auto 5px auto;
 	background-size: 32px 32px;
 	vertical-align: middle;
 	background-position: center center;
@@ -37,7 +37,7 @@
 .foogallery.fg-video-2:not(.fg-preset)                  .fg-caption-inner:before,
 .foogallery.fg-video-3:not(.fg-preset)                  .fg-caption-inner:before,
 .foogallery.fg-video-4:not(.fg-preset)                  .fg-caption-inner:before {
-	display: inline-block;
+	display: block;
 }
 
 .foogallery.fg-hover-zoom:not(.fg-preset) 				.fg-item-inner:hover .fg-image-overlay,

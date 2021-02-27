@@ -248,6 +248,19 @@
 	background-color: transparent;
 	border-style: solid;
 	border-color: transparent;
+	text-align: left;
+}
+.foogallery.fg-masonry.fg-captions-bottom.fg-c-l .fg-item-inner .fg-caption {
+	text-align: left;
+}
+.foogallery.fg-masonry.fg-captions-bottom.fg-c-c .fg-item-inner .fg-caption {
+	text-align: center;
+}
+.foogallery.fg-masonry.fg-captions-bottom.fg-c-r .fg-item-inner .fg-caption {
+	text-align: right;
+}
+.foogallery.fg-masonry.fg-captions-bottom.fg-c-j .fg-item-inner .fg-caption {
+	text-align: justify;
 }
 .foogallery.fg-masonry.fg-captions-bottom .fg-item-inner:hover .fg-caption {
 	transform: none;
@@ -278,10 +291,6 @@
 	opacity: 1;
 }
 
-.fg-masonry.fg-captions-bottom .fg-caption-title,
-.fg-masonry.fg-captions-bottom .fg-caption-desc {
-	text-align: left;
-}
 .fg-masonry.fg-captions-bottom.fg-light .fg-caption,
 .fg-masonry.fg-captions-bottom.fg-dark .fg-caption {
 	color: #828282;
