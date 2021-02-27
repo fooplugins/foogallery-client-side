@@ -14,22 +14,31 @@
             self.panel = new _.Panel(self, self.template);
         },
         preInit: function(){
-            if (this._super()){
-                this.$el.toggleClass(this.cls.fitContainer, this.template.fitContainer);
-                this.template.horizontal = this.$el.hasClass("fgs-horizontal") || this.template.horizontal;
-                if (this.panel.opt.thumbs === null){
-                    this.panel.thumbs.opt.position = this.template.horizontal ? "bottom" : "right";
+            var self = this;
+            if (self._super()){
+                self.$el.toggleClass(self.cls.fitContainer, self.template.fitContainer);
+                self.template.horizontal = self.$el.hasClass("fgs-horizontal") || self.template.horizontal;
+                if (self.panel.opt.thumbs === null){
+                    self.panel.thumbs.opt.position = self.template.horizontal ? "bottom" : "right";
                 }
-                if (this.$el.hasClass("fgs-no-captions")){
-                    this.template.noCaptions = true;
-                    this.panel.thumbs.opt.captions = !this.template.noCaptions;
+                if (self.$el.hasClass("fgs-no-captions")){
+                    self.template.noCaptions = true;
+                    self.panel.thumbs.opt.captions = !self.template.noCaptions;
                 }
-                if (this.$el.hasClass("fgs-content-nav")){
-                    this.template.contentNav = true;
-                    this.panel.opt.buttons.prev = this.panel.opt.buttons.next = this.template.contentNav;
+                if (self.$el.hasClass("fgs-content-nav")){
+                    self.template.contentNav = true;
+                    self.panel.opt.buttons.prev = self.panel.opt.buttons.next = self.template.contentNav;
                 }
-                if (this.panel.opt.button === null){
-                    this.panel.opt.button = this.getPanelButtonClass();
+                if (self.panel.opt.button === null){
+                    self.panel.opt.button = this.getPanelButtonClass();
+                }
+                if (self.panel.thumbs.isEnabled() && self.panel.thumbs.opt.captions && self.panel.thumbs.opt.align === "default"){
+                    var align = null;
+                    if (self.$el.hasClass("fg-c-l")) align = "left";
+                    if (self.$el.hasClass("fg-c-c")) align = "center";
+                    if (self.$el.hasClass("fg-c-r")) align = "right";
+                    if (self.$el.hasClass("fg-c-j")) align = "justified";
+                    if (align !== null) self.panel.thumbs.opt.align = align;
                 }
                 return true;
             }

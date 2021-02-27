@@ -522,6 +522,7 @@
             infoVisible: false,
             infoOverlay: true,
             infoAutoHide: true,
+            infoAlign: "default", // default | left | center | right | justified
             exif: "none", // none | full | partial | minimal
 
             cart: "none", // none | top | bottom | left | right
@@ -530,6 +531,7 @@
             thumbs: "none", // none | top | bottom | left | right
             thumbsVisible: true,
             thumbsCaptions: true,
+            thumbsCaptionsAlign: "default", // default | left | center | right | justified
             thumbsSmall: false,
             thumbsBestFit: true,
 
@@ -635,7 +637,13 @@
             },
 
             info: {
-                overlay: "fg-panel-info-overlay"
+                overlay: "fg-panel-info-overlay",
+                align: {
+                    left: "fg-panel-info-left",
+                    center: "fg-panel-info-center",
+                    right: "fg-panel-info-right",
+                    justified: "fg-panel-info-justified"
+                }
             },
 
             cart: {},
@@ -657,6 +665,12 @@
                     caption: "fg-panel-thumb-caption",
                     title: "fg-panel-thumb-title",
                     description: "fg-panel-thumb-description"
+                },
+                align: {
+                    left: "fg-panel-thumb-caption-left",
+                    center: "fg-panel-thumb-caption-center",
+                    right: "fg-panel-thumb-caption-right",
+                    justified: "fg-panel-thumb-caption-justified"
                 }
             }
         }

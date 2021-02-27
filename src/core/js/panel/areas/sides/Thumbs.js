@@ -17,6 +17,7 @@
                 label: panel.il8n.buttons.thumbs,
                 position: panel.opt.thumbs,
                 captions: panel.opt.thumbsCaptions,
+                align: panel.opt.thumbsCaptionsAlign,
                 small: panel.opt.thumbsSmall,
                 bestFit: panel.opt.thumbsBestFit,
                 toggle: false,
@@ -47,6 +48,8 @@
             if (self.isEnabled() && self._super()){
                 if (!self.opt.captions) self.panel.$el.addClass(self.cls.noCaptions);
                 if (self.opt.small) self.panel.$el.addClass(self.cls.small);
+                if (_is.string(self.opt.align) && self.cls.align.hasOwnProperty(self.opt.align)) self.panel.$el.addClass(self.cls.align[self.opt.align]);
+
                 self.$prev = $('<button/>', {type: 'button'}).addClass(self.cls.prev)
                     .append(_icons.get("arrow-left", self.panel.opt.icons))
                     .on("click.foogallery", {self: self}, self.onPrevClick)
