@@ -940,6 +940,18 @@ html.fg-panel-no-scroll body {
     display: flex;
     flex-direction: column;
 }
+.fg-panel-media-caption-left .fg-media-caption {
+    text-align: left;
+}
+.fg-panel-media-caption-right .fg-media-caption {
+    text-align: right;
+}
+.fg-panel-media-caption-center .fg-media-caption {
+    text-align: center;
+}
+.fg-panel-media-caption-justify .fg-media-caption {
+    text-align: justify;
+}
 .fg-media-caption-title {
     font-weight: 600;
     line-height: 20px;
@@ -979,6 +991,7 @@ html.fg-panel-no-scroll body {
     justify-content: center;
     width: 100%;
     border: none;
+    text-align: left;
 }
 .fg-media-caption-exif.fg-media-caption-exif-auto,
 .fg-media-caption-exif.fg-media-caption-exif-full,
@@ -1836,6 +1849,19 @@ html.fg-panel-no-scroll body {
     overflow: hidden;
     line-height: 1.3;
 }
+.fg-panel-thumb-caption-left .fg-panel-thumb-caption {
+    text-align: left;
+}
+.fg-panel-thumb-caption-right .fg-panel-thumb-caption {
+    text-align: right;
+}
+.fg-panel-thumb-caption-center .fg-panel-thumb-caption {
+    text-align: center;
+}
+.fg-panel-thumb-caption-justify .fg-panel-thumb-caption {
+    text-align: justify;
+}
+
 .fg-panel.fg-medium .fg-panel-thumb-caption {
     max-height: 72px;
 }
