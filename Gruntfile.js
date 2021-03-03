@@ -478,7 +478,7 @@ module.exports = function ( grunt ) {
 				"files": {
 					"./dist/free/js/foogallery.js": [
 						"./dist/components/js/polyfills.js",
-						"./dist/components/js/foogallery.core.free.js",
+						"./dist/components/js/foogallery.core.js",
 						"./dist/components/js/foogallery.paging.js",
 
 						"./dist/components/js/foogallery.tmpl.default.js",
@@ -493,7 +493,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/js/foogallery.ready.js"
 					],
 					"./dist/free/css/foogallery.css": [
-						"./dist/components/css/foogallery.core.free.css",
+						"./dist/components/css/foogallery.core.css",
 						"./dist/components/css/foogallery.paging.css",
 
 						"./dist/components/css/foogallery.tmpl.default.css",

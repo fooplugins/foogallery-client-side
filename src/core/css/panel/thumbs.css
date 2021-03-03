@@ -227,6 +227,19 @@
     overflow: hidden;
     line-height: 1.3;
 }
+.fg-panel-thumb-caption-left .fg-panel-thumb-caption {
+    text-align: left;
+}
+.fg-panel-thumb-caption-right .fg-panel-thumb-caption {
+    text-align: right;
+}
+.fg-panel-thumb-caption-center .fg-panel-thumb-caption {
+    text-align: center;
+}
+.fg-panel-thumb-caption-justify .fg-panel-thumb-caption {
+    text-align: justify;
+}
+
 .fg-panel.fg-medium .fg-panel-thumb-caption {
     max-height: 72px;
 }

@@ -19,9 +19,20 @@
                 overlay: panel.opt.infoOverlay,
                 visible: panel.opt.infoVisible,
                 autoHide: panel.opt.infoAutoHide,
+                align: panel.opt.infoAlign,
                 waitForUnload: false
             }, panel.cls.info);
             this.allPositionClasses += " " + this.cls.overlay;
+        },
+        doCreate: function(){
+            var self = this;
+            if (self.isEnabled() && self._super()) {
+                if (_is.string(self.opt.align) && self.cls.align.hasOwnProperty(self.opt.align)){
+                    self.panel.$el.addClass(self.cls.align[self.opt.align]);
+                }
+                return true;
+            }
+            return false;
         },
         getPosition: function(){
             var result = this._super();

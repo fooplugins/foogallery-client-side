@@ -138,51 +138,11 @@
 	margin: 0 4px;
 }
 
-/*!* Theme - Default (Light) *!*/
-/*.fg-image-viewer .fiv-inner,*/
-/*.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev,*/
-/*.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next {*/
-	/*background-color: #FFFFFF;*/
-	/*color: #1b1b1b;*/
-/*}*/
-/*.fg-image-viewer .fiv-inner,*/
-/*.fg-image-viewer .fiv-inner .fiv-inner-container,*/
-/*.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev,*/
-/*.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next {*/
-	/*border-color: #e6e6e6;*/
-/*}*/
-/*.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:hover,*/
-/*.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:hover {*/
-	/*background-color: #F2F2F2;*/
-/*}*/
-
-/*!* Theme - Dark *!*/
-/*.fg-image-viewer.fiv-dark .fiv-inner,*/
-/*.fg-image-viewer.fiv-dark .fiv-inner .fiv-ctrls .fiv-prev,*/
-/*.fg-image-viewer.fiv-dark .fiv-inner .fiv-ctrls .fiv-next {*/
-	/*background-color: #151515;*/
-	/*color: #FFFFFF;*/
-/*}*/
-/*.fg-image-viewer.fiv-dark .fiv-inner,*/
-/*.fg-image-viewer.fiv-dark .fiv-inner .fiv-inner-container,*/
-/*.fg-image-viewer.fiv-dark .fiv-inner .fiv-ctrls .fiv-prev,*/
-/*.fg-image-viewer.fiv-dark .fiv-inner .fiv-ctrls .fiv-next {*/
-	/*border-color: #2E2E2E;*/
-/*}*/
-/*.fg-image-viewer.fiv-dark .fiv-inner .fiv-ctrls .fiv-prev:hover,*/
-/*.fg-image-viewer.fiv-dark .fiv-inner .fiv-ctrls .fiv-next:hover {*/
-	/*background-color: #000000;*/
-/*}*/
-
 /* Captions */
 
 .foogallery.fg-image-viewer.fg-caption-always .fg-item-inner .fg-caption {
 	padding: 0;
 	border: none;
-	background: #000; /* Old browsers */
-	background: -moz-linear-gradient(left,  rgba(0,0,0,0.8) 0%,  rgba(0,0,0,0.8) 60%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(left,  rgba(0,0,0,0.8) 0%,  rgba(0,0,0,0.8) 60%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to right,  rgba(0,0,0,0.8) 0%,  rgba(0,0,0,0.8) 60%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 .foogallery.fg-image-viewer.fg-caption-always .fg-caption-title {
 	padding: 10px 10px 10px 10px;

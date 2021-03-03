@@ -522,6 +522,7 @@
             infoVisible: false,
             infoOverlay: true,
             infoAutoHide: true,
+            infoAlign: "default", // default | left | center | right | justified
             exif: "none", // none | full | partial | minimal
 
             cart: "none", // none | top | bottom | left | right
@@ -530,6 +531,7 @@
             thumbs: "none", // none | top | bottom | left | right
             thumbsVisible: true,
             thumbsCaptions: true,
+            thumbsCaptionsAlign: "default", // default | left | center | right | justified
             thumbsSmall: false,
             thumbsBestFit: true,
 
@@ -635,7 +637,13 @@
             },
 
             info: {
-                overlay: "fg-panel-info-overlay"
+                overlay: "fg-panel-info-overlay",
+                align: {
+                    left: "fg-panel-media-caption-left",
+                    center: "fg-panel-media-caption-center",
+                    right: "fg-panel-media-caption-right",
+                    justified: "fg-panel-media-caption-justified"
+                }
             },
 
             cart: {},
@@ -657,6 +665,12 @@
                     caption: "fg-panel-thumb-caption",
                     title: "fg-panel-thumb-title",
                     description: "fg-panel-thumb-description"
+                },
+                align: {
+                    left: "fg-panel-thumb-caption-left",
+                    center: "fg-panel-thumb-caption-center",
+                    right: "fg-panel-thumb-caption-right",
+                    justified: "fg-panel-thumb-caption-justified"
                 }
             }
         }
@@ -1741,9 +1755,20 @@
                 overlay: panel.opt.infoOverlay,
                 visible: panel.opt.infoVisible,
                 autoHide: panel.opt.infoAutoHide,
+                align: panel.opt.infoAlign,
                 waitForUnload: false
             }, panel.cls.info);
             this.allPositionClasses += " " + this.cls.overlay;
+        },
+        doCreate: function(){
+            var self = this;
+            if (self.isEnabled() && self._super()) {
+                if (_is.string(self.opt.align) && self.cls.align.hasOwnProperty(self.opt.align)){
+                    self.panel.$el.addClass(self.cls.align[self.opt.align]);
+                }
+                return true;
+            }
+            return false;
         },
         getPosition: function(){
             var result = this._super();
@@ -1795,6 +1820,7 @@
                 label: panel.il8n.buttons.thumbs,
                 position: panel.opt.thumbs,
                 captions: panel.opt.thumbsCaptions,
+                align: panel.opt.thumbsCaptionsAlign,
                 small: panel.opt.thumbsSmall,
                 bestFit: panel.opt.thumbsBestFit,
                 toggle: false,
@@ -1825,6 +1851,8 @@
             if (self.isEnabled() && self._super()){
                 if (!self.opt.captions) self.panel.$el.addClass(self.cls.noCaptions);
                 if (self.opt.small) self.panel.$el.addClass(self.cls.small);
+                if (_is.string(self.opt.align) && self.cls.align.hasOwnProperty(self.opt.align)) self.panel.$el.addClass(self.cls.align[self.opt.align]);
+
                 self.$prev = $('<button/>', {type: 'button'}).addClass(self.cls.prev)
                     .append(_icons.get("arrow-left", self.panel.opt.icons))
                     .on("click.foogallery", {self: self}, self.onPrevClick)

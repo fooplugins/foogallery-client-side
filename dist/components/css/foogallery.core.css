@@ -751,6 +751,8 @@
 	transition-property: visibility, opacity;
 	visibility: visible;
 	opacity: 1;
+}
+.foogallery.fg-caption-always .fg-caption {
 	text-align: left;
 }
 
@@ -765,6 +767,24 @@
 }
 .foogallery.fg-caption-hover .fg-item.fg-loaded .fg-image-overlay {
 	display: none;
+}
+
+/* Alignment */
+.foogallery.fg-c-l .fg-caption,
+.foogallery.fg-caption-always.fg-c-l .fg-caption {
+	text-align: left;
+}
+.foogallery.fg-c-c .fg-caption,
+.foogallery.fg-caption-always.fg-c-c .fg-caption {
+	text-align: center;
+}
+.foogallery.fg-c-r .fg-caption,
+.foogallery.fg-caption-always.fg-c-r .fg-caption {
+	text-align: right;
+}
+.foogallery.fg-c-j .fg-caption,
+.foogallery.fg-caption-always.fg-c-j .fg-caption {
+	text-align: justify;
 }
 /* Icon & Overlay */
 .foogallery .fg-image-overlay:before {
@@ -786,7 +806,7 @@
 	position: relative;
 	width: 32px;
 	height: 32px;
-	margin: 10px 0 5px 0;
+	margin: 10px auto 5px auto;
 	background-size: 32px 32px;
 	vertical-align: middle;
 	background-position: center center;
@@ -805,7 +825,7 @@
 .foogallery.fg-video-2:not(.fg-preset)                  .fg-caption-inner:before,
 .foogallery.fg-video-3:not(.fg-preset)                  .fg-caption-inner:before,
 .foogallery.fg-video-4:not(.fg-preset)                  .fg-caption-inner:before {
-	display: inline-block;
+	display: block;
 }
 
 .foogallery.fg-hover-zoom:not(.fg-preset) 				.fg-item-inner:hover .fg-image-overlay,
