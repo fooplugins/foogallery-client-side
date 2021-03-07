@@ -43,6 +43,7 @@
 .fg-masonry .fg-item {
 	line-height: 0;
 	font-size: 0;
+	vertical-align: top;
 }
 
 /* 2 column layouts */
