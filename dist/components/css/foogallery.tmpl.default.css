@@ -5,10 +5,14 @@
 	clear: both;
 }
 
-.fg-default .fg-item,
+.fg-default .fg-item {
+	display: inline-block;
+	vertical-align: top;
+	max-width: 100%;
+}
 .fg-default .fg-item-inner,
 .fg-default .fg-thumb {
-	display: inline-block;
+	display: block;
 	vertical-align: top;
 	max-width: 100%;
 }
@@ -83,4 +87,92 @@
 .fg-default.fg-gutter-25 .fg-item {
 	margin-right: 25px;
 	margin-bottom: 25px;
+}
+
+
+@media only screen and (max-width: 600px){
+	.fg-default.fg-m-col1 .fg-image,
+	.fg-default.fg-m-col2 .fg-image,
+	.fg-default.fg-m-col3 .fg-image {
+		width: 100%;
+	}
+	.fg-default.fg-m-col1.fg-gutter-5 .fg-item {
+		width: calc(100% - 10px);
+		min-width: calc(100% - 10px);
+		max-width: calc(100% - 10px);
+	}
+	.fg-default.fg-m-col2.fg-gutter-5 .fg-item {
+		width: calc(50% - 10px);
+		min-width: calc(50% - 10px);
+		max-width: calc(50% - 10px);
+	}
+	.fg-default.fg-m-col3.fg-gutter-5 .fg-item {
+		width: calc(33.33% - 10px);
+		min-width: calc(33.33% - 10px);
+		max-width: calc(33.33% - 10px);
+	}
+
+	.fg-default.fg-m-col1.fg-gutter-10 .fg-item {
+		width: calc(100% - 20px);
+		min-width: calc(100% - 20px);
+		max-width: calc(100% - 20px);
+	}
+	.fg-default.fg-m-col2.fg-gutter-10 .fg-item {
+		width: calc(50% - 20px);
+		min-width: calc(50% - 20px);
+		max-width: calc(50% - 20px);
+	}
+	.fg-default.fg-m-col3.fg-gutter-10 .fg-item {
+		width: calc(33.33% - 20px);
+		min-width: calc(33.33% - 20px);
+		max-width: calc(33.33% - 20px);
+	}
+
+	.fg-default.fg-m-col1.fg-gutter-15 .fg-item {
+		width: calc(100% - 30px);
+		min-width: calc(100% - 30px);
+		max-width: calc(100% - 30px);
+	}
+	.fg-default.fg-m-col2.fg-gutter-15 .fg-item {
+		width: calc(50% - 30px);
+		min-width: calc(50% - 30px);
+		max-width: calc(50% - 30px);
+	}
+	.fg-default.fg-m-col3.fg-gutter-15 .fg-item {
+		width: calc(33.33% - 30px);
+		min-width: calc(33.33% - 30px);
+		max-width: calc(33.33% - 30px);
+	}
+
+	.fg-default.fg-m-col1.fg-gutter-20 .fg-item {
+		width: calc(100% - 40px);
+		min-width: calc(100% - 40px);
+		max-width: calc(100% - 40px);
+	}
+	.fg-default.fg-m-col2.fg-gutter-20 .fg-item {
+		width: calc(50% - 40px);
+		min-width: calc(50% - 40px);
+		max-width: calc(50% - 40px);
+	}
+	.fg-default.fg-m-col3.fg-gutter-20 .fg-item {
+		width: calc(33.33% - 40px);
+		min-width: calc(33.33% - 40px);
+		max-width: calc(33.33% - 40px);
+	}
+
+	.fg-default.fg-m-col1.fg-gutter-25 .fg-item {
+		width: calc(100% - 50px);
+		min-width: calc(100% - 50px);
+		max-width: calc(100% - 50px);
+	}
+	.fg-default.fg-m-col2.fg-gutter-25 .fg-item {
+		width: calc(50% - 50px);
+		min-width: calc(50% - 50px);
+		max-width: calc(50% - 50px);
+	}
+	.fg-default.fg-m-col3.fg-gutter-25 .fg-item {
+		width: calc(33.33% - 50px);
+		min-width: calc(33.33% - 50px);
+		max-width: calc(33.33% - 50px);
+	}
 }
