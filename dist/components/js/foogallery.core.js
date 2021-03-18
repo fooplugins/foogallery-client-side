@@ -7635,7 +7635,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 				 */
 				var e = self.tmpl.trigger("detach-item", [self]);
 				if (!e.isDefaultPrevented()) {
-					self.$el.detach();
+					self.$el.detach().removeClass(self.cls.hidden);
 					self.isAttached = false;
 				}
 				if (!self.isAttached) {
@@ -7932,6 +7932,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			loading: "fg-loading",
 			loaded: "fg-loaded",
 			error: "fg-error",
+			hidden: "fg-hidden",
 			noLightbox: "fg-no-lightbox",
 			panelHide: "fg-panel-hide",
 			types: {
