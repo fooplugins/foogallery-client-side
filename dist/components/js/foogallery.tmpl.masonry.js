@@ -66,6 +66,7 @@
 			if (!event.isDefaultPrevented()){
 				event.preventDefault();
 				this.masonry.remove(item.el);
+				item.$el.removeClass(this.cls.hidden);
 				item.isAttached = false;
 			}
 		}
