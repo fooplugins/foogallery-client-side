@@ -959,7 +959,7 @@
 			if (e.isDefaultPrevented()) return _fn.reject("default prevented");
 			var cls = self.cls, img = self.$image.get(0), placeholder = img.src;
 			self.isLoading = true;
-			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
+			self.$el.removeClass(cls.idle).removeClass(cls.hidden).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
 			return self._load = $.Deferred(function (def) {
 				img.onload = function () {
 					img.onload = img.onerror = null;
@@ -1064,10 +1064,10 @@
 			var self = this;
 			if (self.isAttached){
 				var rect = self.bounds();
-				return rect !== null && rect.bottom > 0 &&
-					rect.right > 0 &&
-					rect.left < window.innerWidth &&
-					rect.top < window.innerHeight;
+				return rect !== null && rect.bottom >= 0 &&
+					rect.right >= 0 &&
+					rect.left <= window.innerWidth &&
+					rect.top <= window.innerHeight;
 			}
 			return false;
 		},
