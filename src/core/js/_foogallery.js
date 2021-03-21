@@ -213,6 +213,24 @@
 		};
 	};
 
+	/**
+	 * @summary Whether or not the current browser supports "webp" images.
+	 * @memberof FooGallery
+	 * @name supportsWebP
+	 * @type {boolean}
+	 * @default false
+	 */
+	_.supportsWebP = false;
+
+	var webp = new Image();
+	webp.onload = function(){
+		_.supportsWebP = 0 < webp.width && 0 < webp.height;
+	};
+	webp.onerror=function(){
+		_.supportsWebP = false;
+	};
+	webp.src = 'data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==';
+
 })(
 	FooGallery.$,
 	FooGallery,
