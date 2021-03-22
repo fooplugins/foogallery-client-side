@@ -685,9 +685,9 @@
 		doShortPixel: function(){
 			var self = this;
 			if (self.tmpl.opt.shortpixel && !_.supportsWebP){
-				var regex = /([\/,])to_webp([\/,])/i;
+				var regex = /([\/,+])to_webp([\/,+])/i;
 				function spReplacer(match, $1, $2){
-					return $1 === "/" || $2 === "/" ? "/" : ",";
+					return $1 === "/" || $2 === "/" ? "/" : $1;
 				}
 				self.href = self.href.replace(regex, spReplacer);
 				self.src = self.src.replace(regex, spReplacer);
