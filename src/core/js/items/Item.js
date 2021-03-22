@@ -580,6 +580,9 @@
 			if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError && !self.$el.hasClass(cls.idle)) {
 				self.$el.addClass(cls.idle);
 			}
+
+			self.doShortPixel();
+
 			return true;
 		},
 		/**
@@ -675,6 +678,23 @@
 			});
 		},
 		/**
+		 * @summary Performs some checks for ShortPixel integration and WebP support.
+		 * @memberof FooGallery.Item#
+		 * @function doShortPixel
+		 */
+		doShortPixel: function(){
+			var self = this;
+			if (self.tmpl.opt.shortpixel && !_.supportsWebP){
+				var regex = /([\/,])to_webp([\/,])/i;
+				function spReplacer(match, $1, $2){
+					return $1 === "/" || $2 === "/" ? "/" : ",";
+				}
+				self.href.replace(regex, spReplacer);
+				self.src.replace(regex, spReplacer);
+				self.srcset.replace(regex, spReplacer);
+			}
+		},
+		/**
 		 * @summary Performs the actual create logic for the item.
 		 * @memberof FooGallery.Item#
 		 * @function doCreateItem
@@ -685,6 +705,8 @@
 				cls = self.cls,
 				attr = self.attr,
 				exif = self.hasExif ? cls.exif : "";
+
+			self.doShortPixel();
 
 			var elem = document.createElement("div");
 			self._setAttributes(elem, attr.elem);
@@ -980,13 +1002,6 @@
 					self.tmpl.trigger("error-item", [self]);
 					def.reject(self);
 				};
-				if (self.tmpl.opt.shortpixel && !_.supportsWebP){
-					function spReplacer(match, $1, $2){
-						return $1 === "/" || $2 === "/" ? "/" : ",";
-					}
-					self.src.replace(/([\/,])to_webp([\/,])/i, spReplacer);
-					self.srcset.replace(/([\/,])to_webp([\/,])/i, spReplacer);
-				}
 				// set everything in motion by setting the src
 				img.src = self.src;
 				img.srcset = self.srcset;
