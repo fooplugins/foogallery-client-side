@@ -980,6 +980,13 @@
 					self.tmpl.trigger("error-item", [self]);
 					def.reject(self);
 				};
+				if (self.tmpl.opt.shortpixel && !_.supportsWebP){
+					function spReplacer(match, $1, $2){
+						return $1 === "/" || $2 === "/" ? "/" : ",";
+					}
+					self.src.replace(/([\/,])to_webp([\/,])/i, spReplacer);
+					self.srcset.replace(/([\/,])to_webp([\/,])/i, spReplacer);
+				}
 				// set everything in motion by setting the src
 				img.src = self.src;
 				img.srcset = self.srcset;
