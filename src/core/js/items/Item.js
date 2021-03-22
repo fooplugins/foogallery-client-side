@@ -689,9 +689,9 @@
 				function spReplacer(match, $1, $2){
 					return $1 === "/" || $2 === "/" ? "/" : ",";
 				}
-				self.href.replace(regex, spReplacer);
-				self.src.replace(regex, spReplacer);
-				self.srcset.replace(regex, spReplacer);
+				self.href = self.href.replace(regex, spReplacer);
+				self.src = self.src.replace(regex, spReplacer);
+				self.srcset = self.srcset.replace(regex, spReplacer);
 			}
 		},
 		/**
