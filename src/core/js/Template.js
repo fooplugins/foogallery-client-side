@@ -768,6 +768,7 @@
 		delay: 0,
 		throttle: 50,
 		timeout: 60000,
+		shortpixel: false,
 		srcset: "data-srcset-fg",
 		src: "data-src-fg",
 		template: {},

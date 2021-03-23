@@ -580,6 +580,9 @@
 			if (self.isCreated && self.isAttached && !self.isLoading && !self.isLoaded && !self.isError && !self.$el.hasClass(cls.idle)) {
 				self.$el.addClass(cls.idle);
 			}
+
+			self.doShortPixel();
+
 			return true;
 		},
 		/**
@@ -675,6 +678,23 @@
 			});
 		},
 		/**
+		 * @summary Performs some checks for ShortPixel integration and WebP support.
+		 * @memberof FooGallery.Item#
+		 * @function doShortPixel
+		 */
+		doShortPixel: function(){
+			var self = this;
+			if (self.tmpl.opt.shortpixel && !_.supportsWebP){
+				var regex = /([\/,+])to_webp([\/,+])/i;
+				function spReplacer(match, $1, $2){
+					return $1 === "/" || $2 === "/" ? "/" : $1;
+				}
+				self.href = self.href.replace(regex, spReplacer);
+				self.src = self.src.replace(regex, spReplacer);
+				self.srcset = self.srcset.replace(regex, spReplacer);
+			}
+		},
+		/**
 		 * @summary Performs the actual create logic for the item.
 		 * @memberof FooGallery.Item#
 		 * @function doCreateItem
@@ -685,6 +705,8 @@
 				cls = self.cls,
 				attr = self.attr,
 				exif = self.hasExif ? cls.exif : "";
+
+			self.doShortPixel();
 
 			var elem = document.createElement("div");
 			self._setAttributes(elem, attr.elem);
@@ -959,7 +981,7 @@
 			if (e.isDefaultPrevented()) return _fn.reject("default prevented");
 			var cls = self.cls, img = self.$image.get(0), placeholder = img.src;
 			self.isLoading = true;
-			self.$el.removeClass(cls.idle).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
+			self.$el.removeClass(cls.idle).removeClass(cls.hidden).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
 			return self._load = $.Deferred(function (def) {
 				img.onload = function () {
 					img.onload = img.onerror = null;
@@ -1064,10 +1086,10 @@
 			var self = this;
 			if (self.isAttached){
 				var rect = self.bounds();
-				return rect !== null && rect.bottom > 0 &&
-					rect.right > 0 &&
-					rect.left < window.innerWidth &&
-					rect.top < window.innerHeight;
+				return rect !== null && rect.bottom >= 0 &&
+					rect.right >= 0 &&
+					rect.left <= window.innerWidth &&
+					rect.top <= window.innerHeight;
 			}
 			return false;
 		},
