@@ -81,8 +81,7 @@
     border-width: 1px;
     width: 32px;
     height: 32px;
-    margin-top: 5px;
-    margin-right: 5px;
+    margin: 5px 5px 0 0;
 }
 
 .fg-panel.fg-medium .fg-panel-buttons .fg-panel-button-prev,
