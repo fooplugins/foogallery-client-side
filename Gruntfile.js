@@ -65,7 +65,13 @@ module.exports = function ( grunt ) {
 						"./src/core/css/appearance/loading-icons/partial.css",
 
 						"./src/core/css/appearance/loaded-effect.css",
+						"./src/core/css/appearance/loaded-effects/drop.css",
 						"./src/core/css/appearance/loaded-effects/fade-in.css",
+						"./src/core/css/appearance/loaded-effects/flip.css",
+						"./src/core/css/appearance/loaded-effects/fly.css",
+						"./src/core/css/appearance/loaded-effects/scale-up.css",
+						"./src/core/css/appearance/loaded-effects/slide-up-right-down-left.css",
+						"./src/core/css/appearance/loaded-effects/swing-down.css",
 
 						"./src/core/css/hover-effects/captions.css",
 						"./src/core/css/hover-effects/icons.css",
