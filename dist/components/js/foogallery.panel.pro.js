@@ -3071,7 +3071,7 @@
         doCreateContent: function(){
             this.urls = this.parseHref();
             this.isSelfHosted = $.map(this.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
-            return this.isSelfHosted ? $('<video/>', this.opt.attrs.video) : $('<iframe/>', this.opt.attrs.iframe);
+            return this.isSelfHosted ? $('<video/>', this.opt.attrs.video) : $('<iframe/>', this.opt.attrs.iframe).addClass("fitvidsignore");
         },
         doLoad: function(){
             var self = this;
