@@ -22,8 +22,9 @@
 			self.current = 0;
 			self.total = 0;
 			self.ctrls = [];
-			self._arr = [];
+			self._pages = [];
 		},
+		init: function(){},
 		fromHash: function(hash){
 			var parsed = parseInt(hash);
 			return isNaN(parsed) ? null : parsed;
@@ -46,7 +47,7 @@
 		},
 		destroy: function () {
 			var self = this;
-			self._arr.splice(0, self._arr.length);
+			self._pages.splice(0, self._pages.length);
 			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
@@ -56,7 +57,7 @@
 			var self = this, items = self.tmpl.items.available();
 			self.total = self.size > 0 && items.length > 0 ? Math.ceil(items.length / self.size) : 1;
 			for (var i = 0; i < self.total; i++) {
-				self._arr.push(items.splice(0, self.size));
+				self._pages.push(items.splice(0, self.size));
 			}
 			if (self.total > 1 && _.paging.hasCtrl(self.type)) {
 				var pos = self.position, top, bottom;
@@ -80,19 +81,16 @@
 			var self = this;
 			self.current = 0;
 			self.total = 0;
-			self._arr.splice(0, self._arr.length);
+			self._pages.splice(0, self._pages.length);
 			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
 			self.build();
 		},
 		all: function () {
-			return this._arr.slice();
+			return this._pages.slice();
 		},
 		available: function () {
-			return this.get(this.current);
-		},
-		items: function(){
 			return this.get(this.current);
 		},
 		controls: function (pageNumber) {
@@ -113,11 +111,11 @@
 			var self = this;
 			pageNumber = self.number(pageNumber);
 
-			var pageIndex = pageNumber - 1, pageItems = self._arr[pageIndex], detach;
+			var pageIndex = pageNumber - 1, pageItems = self._pages[pageIndex], detach;
 			if (isFilter){
 				detach = self.tmpl.items.all();
 			} else {
-				detach = self._arr.reduce(function(detach, page, index){
+				detach = self._pages.reduce(function(detach, page, index){
 					return index === pageIndex ? detach : detach.concat(page);
 				}, self.tmpl.items.unavailable());
 			}
@@ -130,7 +128,7 @@
 			var self = this;
 			if (self.isValid(pageNumber)) {
 				pageNumber = self.number(pageNumber);
-				return self._arr[pageNumber - 1];
+				return self._pages[pageNumber - 1];
 			}
 			return [];
 		},
@@ -171,8 +169,8 @@
 		},
 		find: function (item) {
 			var self = this;
-			for (var i = 0, l = self._arr.length; i < l; i++) {
-				if (_utils.inArray(item, self._arr[i]) !== -1) {
+			for (var i = 0, l = self._pages.length; i < l; i++) {
+				if (_utils.inArray(item, self._pages[i]) !== -1) {
 					return i + 1;
 				}
 			}
@@ -186,7 +184,7 @@
 			this.goto(1);
 		},
 		last: function () {
-			this.goto(this._arr.length);
+			this.goto(this._pages.length);
 		},
 		prev: function () {
 			this.goto(this.current - 1);
@@ -195,10 +193,7 @@
 			this.goto(this.current + 1);
 		},
 		goto: function (pageNumber) {
-			var self = this;
-			if (self.set(pageNumber, true)) {
-				self.tmpl.loadAvailable();
-			}
+			this.set(pageNumber, true);
 		}
 	});
 

@@ -101,7 +101,6 @@
 			// this check should not be required as we use the CSS pointer-events: none; property on disabled links but just in case test for the class here
 			if (!$(this).closest(sel.item).is(sel.disabled)){
 				self.pages.set(page, true);
-				self.tmpl.loadAvailable();
 			}
 		}
 	});

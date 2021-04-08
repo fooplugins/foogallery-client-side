@@ -9,7 +9,7 @@
 				"pre-init": self.onPreInit,
 				"init": self.onInit,
 				"destroyed": self.onDestroyed,
-				"first-load layout after-filter-change": self.onLayoutRequired,
+				"layout after-filter-change": self.onLayoutRequired,
 				"page-change": self.onPageChange
 			}, self);
 		},

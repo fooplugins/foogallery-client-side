@@ -390,6 +390,8 @@
 				self.$anchor.add(self.$caption).off("click.foogallery");
 				self.append();
 
+				self.tmpl.items.unobserve(self);
+
 				if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
 				else self.$el.attr("class", self._undo.classes);
 
@@ -464,6 +466,7 @@
 				// We don't load the attributes when parsing as they are only ever used to create an item and if you're parsing it's already created.
 			}
 			if (self.isParsed) {
+				self.tmpl.items.observe(self);
 				/**
 				 * @summary Raised after an item has been parsed from an element.
 				 * @event FooGallery.Template~"parsed-item.foogallery"
@@ -503,7 +506,7 @@
 
 			self.$el = $el.data(_.DATA_ITEM, self);
 			self.el = el;
-			self.$inner = $(el.querySelector(sel.inner));//self.$el.children(sel.inner);
+			self.$inner = $(el.querySelector(sel.inner));
 			self.$anchor = $(el.querySelector(sel.anchor)).on("click.foogallery", {self: self}, self.onAnchorClick);
 			self.$image = $(el.querySelector(sel.image));
 			self.$caption = $(el.querySelector(sel.caption.elem)).on("click.foogallery", {self: self}, self.onCaptionClick);
@@ -869,6 +872,7 @@
 					self.isAttached = true;
 				}
 				if (self.isAttached) {
+					self.tmpl.items.observe(self);
 					/**
 					 * @summary Raised after an item has appended its' elements to the template.
 					 * @event FooGallery.Template~"appended-item.foogallery"
@@ -899,6 +903,7 @@
 		detach: function () {
 			var self = this;
 			if (self.isCreated && self.isAttached) {
+				self.tmpl.items.unobserve(self);
 				/**
 				 * @summary Raised when an item needs to detach its' elements from the template.
 				 * @event FooGallery.Template~"detach-item.foogallery"
@@ -981,6 +986,7 @@
 			if (e.isDefaultPrevented()) return _fn.reject("default prevented");
 			var cls = self.cls, img = self.$image.get(0), placeholder = img.src;
 			self.isLoading = true;
+			self.tmpl.items.unobserve(self);
 			self.$el.removeClass(cls.idle).removeClass(cls.hidden).removeClass(cls.loaded).removeClass(cls.error).addClass(cls.loading);
 			return self._load = $.Deferred(function (def) {
 				img.onload = function () {

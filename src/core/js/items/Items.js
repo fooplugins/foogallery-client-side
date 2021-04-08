@@ -14,31 +14,45 @@
 			var self = this;
 			self.ALLOW_CREATE = true;
 			self.ALLOW_APPEND = true;
-			self.ALLOW_LOAD = true;
 			/**
 			 * @ignore
 			 * @memberof FooGallery.Items#
 			 * @function _super
 			 */
 			self._super(template);
-			self.maps = {};
 			self._typeRegex = /(?:^|\s)?fg-type-(.*?)(?:$|\s)/;
 			self._fetched = null;
-			self._arr = [];
+			self._all = [];
 			self._available = [];
 			self._unavailable = [];
+			self._observed = new Map();
+
 			// add the .all caption selector
 			var cls = self.tmpl.cls.item.caption;
 			self.tmpl.sel.item.caption.all = _utils.selectify([cls.elem, cls.inner, cls.title, cls.description]);
+
+			self.iobserver = new IntersectionObserver(function(entries){
+				if (!self.tmpl.destroying && !self.tmpl.destroyed){
+					entries.forEach(function(entry){
+						if (entry.isIntersecting){
+							var item = self._observed.get(entry.target);
+							if (item instanceof _.Item){
+								item.load();
+							}
+						}
+					});
+				}
+			});
 		},
 		fromHash: function(hash){
-			return this.get(hash);
+			return this.find(this._all, function(item){ return item.id === hash; });
 		},
 		toHash: function(value){
 			return value instanceof _.Item ? value.id : null;
 		},
 		destroy: function () {
 			var self = this, items = self.all(), destroyed = [];
+			self.iobserver.disconnect();
 			if (items.length > 0) {
 				/**
 				 * @summary Raised before the template destroys its' items.
@@ -79,11 +93,11 @@
 				if (destroyed.length > 0) self.tmpl.trigger("destroyed-items", [destroyed]);
 				// should we handle a case where the destroyed.length != items.length??
 			}
-			self.maps = {};
 			self._fetched = null;
-			self._arr = [];
+			self._all = [];
 			self._available = [];
 			self._unavailable = [];
+			self._observed.clear();
 			self._super();
 		},
 		fetch: function (refresh) {
@@ -129,7 +143,7 @@
 			});
 		},
 		all: function () {
-			return this._arr.slice();
+			return this._all.slice();
 		},
 		count: function (all) {
 			return all ? this.all().length : this.available().length;
@@ -146,22 +160,20 @@
 			}
 			return this._unavailable.slice();
 		},
-		get: function (idOrIndex) {
-			var map = _is.number(idOrIndex) ? 'index' : 'id';
-			return !!this.maps[map][idOrIndex] ? this.maps[map][idOrIndex] : null;
-		},
 		setAll: function (items) {
-			this._arr = _is.array(items) ? items : [];
-			this.maps = this.createMaps(this._arr);
+			this._all = _is.array(items) ? items : [];
+			this._all.forEach(function(item, i){
+				item.index = i;
+				if (_is.empty(item.id)) item.id = (i + 1) + "";
+			});
 			this._available = this.all();
 			this._unavailable = [];
 		},
 		setAvailable: function (items) {
 			var self = this;
-			self.maps = self.createMaps(self._arr);
 			self._available = _is.array(items) ? items : [];
-			if (self._arr.length !== self._available.length){
-				self._unavailable = self._arr.filter(function(item){
+			if (self._all.length !== self._available.length){
+				self._unavailable = self._all.filter(function(item){
 					return self._available.indexOf(item) === -1;
 				});
 			} else {
@@ -193,7 +205,7 @@
 		},
 		isAll: function(items){
 			if (_is.array(items)){
-				return this._arr.length === items.length;
+				return this._all.length === items.length;
 			}
 			return false;
 		},
@@ -232,38 +244,6 @@
 				return this.find(items, where);
 			}
 			return null;
-		},
-		createMaps: function(items){
-			items = _is.array(items) ? items : [];
-			var maps = {
-				id: {},
-				index: {}
-			};
-			$.each(items, function (i, item) {
-				if (_is.empty(item.id)) item.id = "" + (i + 1);
-				item.index = i;
-				maps.id[item.id] = item;
-				maps.index[item.index] = item;
-			});
-			return maps;
-		},
-		/**
-		 * @summary Filter the supplied `items` and return only those that can be loaded.
-		 * @memberof FooGallery.Items#
-		 * @function loadable
-		 * @param {FooGallery.Item[]} items - The items to filter.
-		 * @returns {FooGallery.Item[]}
-		 */
-		loadable: function (items) {
-			var self = this, opt = self.tmpl.opt;
-			if (self.ALLOW_LOAD && _is.array(items)) {
-				return $.map(items, function (item) {
-					return item.isCreated && item.isAttached
-						&& !item.isLoading && !item.isLoaded && !item.isError
-						&& (!opt.lazy || (opt.lazy && item.inViewport())) ? item : null;
-				});
-			}
-			return [];
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be created.
@@ -626,78 +606,19 @@
 			}
 			return detached;
 		},
-		/**
-		 * @summary Load each of the supplied `items` images.
-		 * @memberof FooGallery.Items#
-		 * @function load
-		 * @param {FooGallery.Item[]} items - The array of items to load.
-		 * @returns {Promise<FooGallery.Item[]>} Resolved with an array of {@link FooGallery.Item|items} as the first argument. If no items are loaded this array is empty.
-		 * @fires FooGallery.Template~"load-items.foogallery"
-		 * @fires FooGallery.Template~"loaded-items.foogallery"
-		 */
-		load: function (items) {
+		observe: function(item){
 			var self = this;
-			items = self.loadable(items);
-			if (items.length > 0) {
-				/**
-				 * @summary Raised before the template loads any items.
-				 * @event FooGallery.Template~"load-items.foogallery"
-				 * @type {jQuery.Event}
-				 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-				 * @param {FooGallery.Template} template - The template raising the event.
-				 * @param {FooGallery.Item[]} items - The array of items to load.
-				 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"load-items.foogallery": function(event, template, items){
-				 * 			// do something
-				 * 		}
-				 * 	}
-				 * });
-				 * @example {@caption Calling the `preventDefault` method on the `event` object will prevent any `items` being loaded.}
-				 * $(".foogallery").foogallery({
-				 * 	on: {
-				 * 		"load-items.foogallery": function(event, template, items){
-				 * 			if ("some condition"){
-				 * 				// stop any items being loaded
-				 * 				event.preventDefault();
-				 * 			}
-				 * 		}
-				 * 	}
-				 * });
-				 */
-				var e = self.tmpl.trigger("load-items", [items]);
-				if (!e.isDefaultPrevented()) {
-					var loading = $.map(items, function (item) {
-						return item.load();
-					});
-					return _fn.allSettled(loading).then(function (results) {
-						var loaded = results.filter(function(result){
-							return result.status === "fulfilled";
-						}).map(function(result){
-							return result.value;
-						});
-						/**
-						 * @summary Raised after the template has loaded items.
-						 * @event FooGallery.Template~"loaded-items.foogallery"
-						 * @type {jQuery.Event}
-						 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-						 * @param {FooGallery.Template} template - The template raising the event.
-						 * @param {FooGallery.Item[]} items - The array of items that were loaded.
-						 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-						 * $(".foogallery").foogallery({
-						 * 	on: {
-						 * 		"loaded-items.foogallery": function(event, template, items){
-						 * 			// do something
-						 * 		}
-						 * 	}
-						 * });
-						 */
-						self.tmpl.trigger("loaded-items", [loaded]);
-					});
-				}
+			if (self.iobserver && item.isCreated && item.isAttached && (!item.isLoading || !item.isLoaded)){
+				self.iobserver.observe(item.el);
+				self._observed.set(item.el, item);
 			}
-			return _fn.resolve([]);
+		},
+		unobserve: function(item){
+			var self = this;
+			if (self.iobserver) {
+				self.iobserver.unobserve(item.el);
+				self._observed.delete(item.el);
+			}
 		}
 	});
 
