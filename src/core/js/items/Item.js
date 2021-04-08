@@ -1057,49 +1057,6 @@
 			return self;
 		},
 		/**
-		 * @summary Get the bounding rectangle for the item.
-		 * @memberof FooGallery.Item#
-		 * @function bounds
-		 * @returns {?Rect} Returns `null` if the item is not attached to the DOM.
-		 */
-		bounds: function () {
-
-			/**
-			 * @typedef {Object} Rect
-			 * @property {number} x
-			 * @property {number} y
-			 * @property {number} width
-			 * @property {number} height
-			 * @property {number} top
-			 * @property {number} right
-			 * @property {number} bottom
-			 * @property {number} left
-			 */
-
-			if (this.isAttached){
-				var el = this.$el.get(0), rect = el.getBoundingClientRect();
-				return { x: rect.left, y: rect.top, width: rect.width, height: rect.height, top: rect.top, right: rect.right, bottom: rect.bottom, left: rect.left };
-			}
-			return null;
-		},
-		/**
-		 * @summary Checks if the item is within the viewport.
-		 * @memberof FooGallery.Item#
-		 * @function inViewport
-		 * @returns {boolean}
-		 */
-		inViewport: function(){
-			var self = this;
-			if (self.isAttached){
-				var rect = self.bounds();
-				return rect !== null && rect.bottom >= 0 &&
-					rect.right >= 0 &&
-					rect.left <= window.innerWidth &&
-					rect.top <= window.innerHeight;
-			}
-			return false;
-		},
-		/**
 		 * @summary Updates the current state to this item.
 		 * @memberof FooGallery.Item#
 		 * @function updateState
