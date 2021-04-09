@@ -165,8 +165,9 @@
 			self.current = 0;
 			self.total = 0;
 			self.ctrls = [];
-			self._arr = [];
+			self._pages = [];
 		},
+		init: function(){},
 		fromHash: function(hash){
 			var parsed = parseInt(hash);
 			return isNaN(parsed) ? null : parsed;
@@ -189,7 +190,7 @@
 		},
 		destroy: function () {
 			var self = this;
-			self._arr.splice(0, self._arr.length);
+			self._pages.splice(0, self._pages.length);
 			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
@@ -199,7 +200,7 @@
 			var self = this, items = self.tmpl.items.available();
 			self.total = self.size > 0 && items.length > 0 ? Math.ceil(items.length / self.size) : 1;
 			for (var i = 0; i < self.total; i++) {
-				self._arr.push(items.splice(0, self.size));
+				self._pages.push(items.splice(0, self.size));
 			}
 			if (self.total > 1 && _.paging.hasCtrl(self.type)) {
 				var pos = self.position, top, bottom;
@@ -223,19 +224,16 @@
 			var self = this;
 			self.current = 0;
 			self.total = 0;
-			self._arr.splice(0, self._arr.length);
+			self._pages.splice(0, self._pages.length);
 			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
 			self.build();
 		},
 		all: function () {
-			return this._arr.slice();
+			return this._pages.slice();
 		},
 		available: function () {
-			return this.get(this.current);
-		},
-		items: function(){
 			return this.get(this.current);
 		},
 		controls: function (pageNumber) {
@@ -256,11 +254,11 @@
 			var self = this;
 			pageNumber = self.number(pageNumber);
 
-			var pageIndex = pageNumber - 1, pageItems = self._arr[pageIndex], detach;
+			var pageIndex = pageNumber - 1, pageItems = self._pages[pageIndex], detach;
 			if (isFilter){
 				detach = self.tmpl.items.all();
 			} else {
-				detach = self._arr.reduce(function(detach, page, index){
+				detach = self._pages.reduce(function(detach, page, index){
 					return index === pageIndex ? detach : detach.concat(page);
 				}, self.tmpl.items.unavailable());
 			}
@@ -273,7 +271,7 @@
 			var self = this;
 			if (self.isValid(pageNumber)) {
 				pageNumber = self.number(pageNumber);
-				return self._arr[pageNumber - 1];
+				return self._pages[pageNumber - 1];
 			}
 			return [];
 		},
@@ -314,8 +312,8 @@
 		},
 		find: function (item) {
 			var self = this;
-			for (var i = 0, l = self._arr.length; i < l; i++) {
-				if (_utils.inArray(item, self._arr[i]) !== -1) {
+			for (var i = 0, l = self._pages.length; i < l; i++) {
+				if (_utils.inArray(item, self._pages[i]) !== -1) {
 					return i + 1;
 				}
 			}
@@ -329,7 +327,7 @@
 			this.goto(1);
 		},
 		last: function () {
-			this.goto(this._arr.length);
+			this.goto(this._pages.length);
 		},
 		prev: function () {
 			this.goto(this.current - 1);
@@ -338,10 +336,7 @@
 			this.goto(this.current + 1);
 		},
 		goto: function (pageNumber) {
-			var self = this;
-			if (self.set(pageNumber, true)) {
-				self.tmpl.loadAvailable();
-			}
+			this.set(pageNumber, true);
 		}
 	});
 
@@ -410,7 +405,7 @@
 		FooGallery.utils,
 		FooGallery.utils.is
 );
-(function($, _, _utils, _is){
+(function($, _, _utils, _is, _fn){
 
 	_.Infinite = _.Paging.extend({
 		construct: function(template){
@@ -419,34 +414,35 @@
 			self.distance = self.opt.distance;
 			self._created = [];
 		},
+		init: function(){
+			var self = this;
+			self.checkBounds();
+			self.tmpl.$scrollParent.on("scroll" + self.tmpl.namespace, {self: self}, _fn.throttle(function () {
+				if (!self.tmpl.destroying && !self.tmpl.destroyed){
+					self.checkBounds();
+				}
+			}, 50));
+		},
+		destroy: function(){
+			var self = this;
+			self.tmpl.$scrollParent.off(self.tmpl.namespace);
+		},
+		checkBounds: function(){
+			var self = this, page = self.get(self.current), bounds;
+			if (!self.tmpl.initializing && !_is.empty(page) && self._created.length < self.total){
+				bounds = self.tmpl.el.getBoundingClientRect();
+				if (bounds !== null && bounds.bottom - window.innerHeight < self.distance){
+					self.set(self.current + 1, false, true, false);
+					self.checkBounds();
+				}
+			}
+		},
 		build: function(){
 			var self = this;
 			self._super();
 			self._created = [];
 		},
 		available: function(){
-			var self = this, items = [], page = self.get(self.current), last, first;
-			if (!self.tmpl.initializing && !_is.empty(page) && self._created.length < self.total){
-				last = page[page.length - 1].bounds();
-				if (last !== null && last.top - window.innerHeight < self.distance){
-					self.set(self.current + 1, false);
-					return self.available();
-				}
-			}
-			for (var i = 0, l = self._created.length, num; i < l; i++){
-				num = i + 1;
-				page = self.get(num);
-				if (!_is.empty(page)){
-					first = page[0].bounds();
-					last = page[page.length - 1].bounds();
-					if ((first !== null && first.top - window.innerHeight < self.distance) || (last !== null && last.bottom < self.distance)){
-						items.push.apply(items, page);
-					}
-				}
-			}
-			return items;
-		},
-		items: function(){
 			var self = this, items = [];
 			for (var i = 0, l = self._created.length, num, page; i < l; i++){
 				num = i + 1;
@@ -464,14 +460,14 @@
 			if (isFilter){
 				detach = self.tmpl.items.all();
 			} else {
-				detach = self._arr.reduce(function(detach, page, index){
+				detach = self._pages.reduce(function(detach, page, index){
 					return index < pageNumber ? detach : detach.concat(page);
 				}, self.tmpl.items.unavailable());
 			}
 
 			for (var i = 0; i < pageNumber; i++){
 				if (_utils.inArray(i, self._created) === -1){
-					create.push.apply(create, self._arr[i]);
+					create.push.apply(create, self._pages[i]);
 					self._created.push(i);
 				}
 			}
@@ -492,57 +488,67 @@
 	FooGallery.$,
 	FooGallery,
 	FooGallery.utils,
-	FooGallery.utils.is
+	FooGallery.utils.is,
+	FooGallery.utils.fn
 );
 (function($, _, _utils, _is){
 
-	_.LoadMore = _.Infinite.extend({
+	_.LoadMore = _.Paging.extend({
 		construct: function(template){
-			this._super(template);
-			this.amount = this.opt.amount;
-			this._count = this.opt.amount;
+			var self = this;
+			self._super(template);
+			self._created = [];
 		},
 		build: function(){
-			this._super();
-			this._count = this.amount;
+			var self = this;
+			self._super();
+			self._created = [];
 		},
-		available: function(){
-			var self = this, items = [], page = self.get(self.current), last, first;
-			if (!_is.empty(page) && self._created.length !== self.total){
-				last = page[page.length - 1].bounds();
-				if (last !== null && last.top - window.innerHeight < self.distance){
-					var pageNumber = self.current + 1;
-					if (self.isValid(pageNumber) && self._count < self.amount){
-						self._count++;
-						self.set(pageNumber, false);
-						return self.available();
-					}
+		create: function(pageNumber, isFilter){
+			var self = this;
+			pageNumber = self.number(pageNumber);
+			var create = [], detach;
+			if (isFilter){
+				detach = self.tmpl.items.all();
+			} else {
+				detach = self._pages.reduce(function(detach, page, index){
+					return index < pageNumber ? detach : detach.concat(page);
+				}, self.tmpl.items.unavailable());
+			}
+
+			for (var i = 0; i < pageNumber; i++){
+				if (_utils.inArray(i, self._created) === -1){
+					create.push.apply(create, self._pages[i]);
+					self._created.push(i);
 				}
 			}
-			if (self._created.length === self.total){
+			self.current = pageNumber;
+			self.tmpl.items.detach(detach);
+			self.tmpl.items.create(create, true);
+		},
+		available: function(){
+			var self = this, items = [];
+			for (var i = 0, l = self._created.length, num, page; i < l; i++){
+				num = i + 1;
+				page = self.get(num);
+				if (!_is.empty(page)){
+					items.push.apply(items, page);
+				}
+			}
+			return items;
+		},
+		loadMore: function(){
+			var self = this, page = self.get(self.current);
+			if (!_is.empty(page) && self._created.length < self.total){
+				self.set(self.current + 1, false, true, false);
+			}
+			if (self._created.length >= self.total){
 				if (!_is.empty(self.ctrls)){
 					$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
 						control.destroy();
 					});
 				}
 			}
-			for (var i = 0, l = self._created.length, num; i < l; i++){
-				num = i + 1;
-				page = self.get(num);
-				if (!_is.empty(page)){
-					first = page[0].bounds();
-					last = page[page.length - 1].bounds();
-					if ((first !== null && first.top - window.innerHeight < self.distance) || (last !== null && last.bottom < self.distance)){
-						items.push.apply(items, page);
-					}
-				}
-			}
-			return items;
-		},
-		loadMore: function(){
-			var self = this;
-			self._count = 0;
-			self.tmpl.loadAvailable();
 		}
 	});
 
@@ -576,9 +582,7 @@
 	_.paging.register("loadMore", _.LoadMore, _.LoadMoreControl, {
 		type: "loadMore",
 		position: "bottom",
-		pushOrReplace: "replace",
-		amount: 1,
-		distance: 200
+		pushOrReplace: "replace"
 	}, {
 		button: "fg-load-more"
 	}, {
@@ -695,7 +699,6 @@
 			// this check should not be required as we use the CSS pointer-events: none; property on disabled links but just in case test for the class here
 			if (!$(this).closest(sel.item).is(sel.disabled)){
 				self.pages.set(page, true);
-				self.tmpl.loadAvailable();
 			}
 		}
 	});
