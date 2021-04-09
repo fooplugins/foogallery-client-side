@@ -133,7 +133,7 @@
 		createRows: function(maxWidth){
 			var self = this,
 				margin = self.options.margins,
-				items = self.tmpl.getItems(),
+				items = self.tmpl.getAvailable(),
 				rows = [],
 				index = -1;
 
