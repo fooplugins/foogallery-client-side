@@ -1,52 +1,61 @@
 (function($, _, _utils, _is){
 
-	_.LoadMore = _.Infinite.extend({
+	_.LoadMore = _.Paging.extend({
 		construct: function(template){
-			this._super(template);
-			this.amount = this.opt.amount;
-			this._count = this.opt.amount;
+			var self = this;
+			self._super(template);
+			self._created = [];
 		},
 		build: function(){
-			this._super();
-			this._count = this.amount;
+			var self = this;
+			self._super();
+			self._created = [];
 		},
-		available: function(){
-			var self = this, items = [], page = self.get(self.current), last, first;
-			if (!_is.empty(page) && self._created.length !== self.total){
-				last = page[page.length - 1].bounds();
-				if (last !== null && last.top - window.innerHeight < self.distance){
-					var pageNumber = self.current + 1;
-					if (self.isValid(pageNumber) && self._count < self.amount){
-						self._count++;
-						self.set(pageNumber, false);
-						return self.available();
-					}
+		create: function(pageNumber, isFilter){
+			var self = this;
+			pageNumber = self.number(pageNumber);
+			var create = [], detach;
+			if (isFilter){
+				detach = self.tmpl.items.all();
+			} else {
+				detach = self._pages.reduce(function(detach, page, index){
+					return index < pageNumber ? detach : detach.concat(page);
+				}, self.tmpl.items.unavailable());
+			}
+
+			for (var i = 0; i < pageNumber; i++){
+				if (_utils.inArray(i, self._created) === -1){
+					create.push.apply(create, self._pages[i]);
+					self._created.push(i);
 				}
 			}
-			if (self._created.length === self.total){
+			self.current = pageNumber;
+			self.tmpl.items.detach(detach);
+			self.tmpl.items.create(create, true);
+		},
+		available: function(){
+			var self = this, items = [];
+			for (var i = 0, l = self._created.length, num, page; i < l; i++){
+				num = i + 1;
+				page = self.get(num);
+				if (!_is.empty(page)){
+					items.push.apply(items, page);
+				}
+			}
+			return items;
+		},
+		loadMore: function(){
+			var self = this, page = self.get(self.current);
+			if (!_is.empty(page) && self._created.length < self.total){
+				self.set(self.current + 1, false, true, false);
+			}
+			if (self._created.length >= self.total){
 				if (!_is.empty(self.ctrls)){
 					$.each(self.ctrls.splice(0, self.ctrls.length), function(i, control){
 						control.destroy();
 					});
 				}
 			}
-			for (var i = 0, l = self._created.length, num; i < l; i++){
-				num = i + 1;
-				page = self.get(num);
-				if (!_is.empty(page)){
-					first = page[0].bounds();
-					last = page[page.length - 1].bounds();
-					if ((first !== null && first.top - window.innerHeight < self.distance) || (last !== null && last.bottom < self.distance)){
-						items.push.apply(items, page);
-					}
-				}
-			}
-			return items;
-		},
-		loadMore: function(){
-			var self = this;
-			self._count = 0;
-			self.tmpl.loadAvailable();
 		}
 	});
 
@@ -80,9 +89,7 @@
 	_.paging.register("loadMore", _.LoadMore, _.LoadMoreControl, {
 		type: "loadMore",
 		position: "bottom",
-		pushOrReplace: "replace",
-		amount: 1,
-		distance: 200
+		pushOrReplace: "replace"
 	}, {
 		button: "fg-load-more"
 	}, {

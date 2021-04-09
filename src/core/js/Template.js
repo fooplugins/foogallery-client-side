@@ -122,7 +122,7 @@
 			 * @private
 			 */
 			self._initialize = null;
-			self._checkTimeout = null;
+
 			self._layoutTimeout = null;
 			/**
 			 * @memberof FooGallery.Template#
@@ -169,7 +169,6 @@
 		 * @fires FooGallery.Template~"pre-init.foogallery"
 		 * @fires FooGallery.Template~"init.foogallery"
 		 * @fires FooGallery.Template~"post-init.foogallery"
-		 * @fires FooGallery.Template~"first-load.foogallery"
 		 * @fires FooGallery.Template~"ready.foogallery"
 		 */
 		initialize: function (parent) {
@@ -179,10 +178,8 @@
 				if (self.preInit(parent)){
 					self.init().then(function(){
 						if (self.postInit()){
-							self.firstLoad().then(function(){
-								self.ready();
-								def.resolve(self);
-							}).fail(def.reject);
+							self.ready();
+							def.resolve(self);
 						} else {
 							def.reject("post-init failed");
 						}
@@ -192,7 +189,7 @@
 				}
 			}).fail(function (err) {
 				console.log("initialize failed", self, err);
-				self.destroy();
+				return self.destroy();
 			}).promise();
 		},
 		/**
@@ -244,7 +241,6 @@
 			if (selector != null && !self.$el.is(selector)) {
 				self.$el.addClass(self.opt.classes);
 			}
-			self.robserver.observe(self.el);
 
 			// if the container currently has no children make them
 			if (self.$el.children().not(self.sel.item.elem).length === 0) {
@@ -389,42 +385,10 @@
 			var e = self.trigger("post-init");
 			if (e.isDefaultPrevented()) return false;
 			self.state.init();
-			self.$scrollParent.on("scroll" + self.namespace, {self: self}, _fn.throttle(function () {
-				if (!self.destroying && !self.destroyed){
-					self.loadAvailable();
-				}
-			}, 50));
+			if (self.pages) self.pages.init();
 			$(window).on("popstate" + self.namespace, {self: self}, self.onWindowPopState);
+			self.robserver.observe(self.el);
 			return true;
-		},
-		/**
-		 * @summary Occurs after all template initialization work is completed.
-		 * @memberof FooGallery.Template#
-		 * @function firstLoad
-		 * @returns {Promise}
-		 * @fires FooGallery.Template~"first-load.foogallery"
-		 */
-		firstLoad: function(){
-			var self = this;
-            if (self.destroying) return _fn.rejected;
-			/**
-			 * @summary Raised after the template is fully initialized but before the first load occurs.
-			 * @event FooGallery.Template~"first-load.foogallery"
-			 * @type {jQuery.Event}
-			 * @param {jQuery.Event} event - The jQuery.Event object for the current event.
-			 * @param {FooGallery.Template} template - The template raising the event.
-			 * @description This event is raised after all post-initialization work such as setting the initial state is performed but before the first load of items takes place.
-			 * @example {@caption To listen for this event and perform some action when it occurs you would bind to it as follows.}
-			 * $(".foogallery").foogallery({
-			 * 	on: {
-			 * 		"first-load.foogallery": function(event, template){
-			 * 			// do something
-			 * 		}
-			 * 	}
-			 * });
-			 */
-			self.trigger("first-load");
-			return self.loadAvailable();
 		},
 		/**
 		 * @summary Occurs once the template is ready.
@@ -438,8 +402,6 @@
             if (self.destroying) return false;
 			self.initializing = false;
 			self.initialized = true;
-			// performed purely to re-check if any items need to be loaded after content has possibly shifted
-			self._check(1000);
 			/**
 			 * @summary Raised after the template is fully initialized and is ready to be interacted with.
 			 * @event FooGallery.Template~"ready.foogallery"
@@ -537,8 +499,6 @@
              */
             self.trigger("destroy");
 			self.robserver.disconnect();
-			if (self._checkTimeout) clearTimeout(self._checkTimeout);
-            self.$scrollParent.off(self.namespace);
             $(window).off(self.namespace);
             self.state.destroy(preserveState);
             if (self.filter) self.filter.destroy();
@@ -607,38 +567,6 @@
 			return this.pages ? this.pages.available() : this.items.available();
 		},
 
-		/**
-		 * @summary Check if any available items need to be loaded and loads them.
-		 * @memberof FooGallery.Template#
-		 * @function loadAvailable
-		 * @returns {Promise<FooGallery.Item[]>} Resolves with an array of {@link FooGallery.Item|items} as the first argument. If no items are loaded this array is empty.
-		 */
-		loadAvailable: function () {
-			return this.items.load(this.getAvailable());
-		},
-
-		getItems: function(){
-			return this.pages ? this.pages.items() : this.items.available();
-		},
-
-		/**
-		 * @summary Check if any available items need to be loaded and loads them.
-		 * @memberof FooGallery.Template#
-		 * @function _check
-		 * @private
-		 */
-		_check: function (delay) {
-			delay = _is.number(delay) ? delay : 0;
-			var self = this;
-			if (self._checkTimeout) clearTimeout(self._checkTimeout);
-			return self._checkTimeout = setTimeout(function () {
-				self._checkTimeout = null;
-				if (self.initialized && (!self.destroying || !self.destroyed)) {
-					self.loadAvailable();
-				}
-			}, delay);
-		},
-
 		// #############
 		// ## Utility ##
 		// #############
@@ -675,7 +603,6 @@
 			 * });
 			 */
 			self.trigger("layout", [width]);
-			self.loadAvailable();
 		},
 		/**
 		 * @summary This method was added to prevent an infinite loop in the ResizeObserver.
@@ -701,21 +628,6 @@
 				}, 100);
 			}
 			return exists;
-		},
-
-		/**
-		 * @summary Gets the width of the FooGallery container.
-		 * @memberof FooGallery.Template#
-		 * @function
-		 * @name getContainerWidth
-		 * @returns {number}
-		 */
-		getContainerWidth: function(){
-			var self = this, visible = self.$el.is(':visible');
-			if (!visible){
-				return self.$el.parents(':visible:first').innerWidth();
-			}
-			return self.$el.width();
 		},
 
 		/**
@@ -750,7 +662,6 @@
 			var self = e.data.self, state = e.originalEvent.state;
 			if (!_is.empty(state) && state.id === self.id) {
 				self.state.set(state);
-				self.loadAvailable();
 			}
 		}
 	});
@@ -761,13 +672,10 @@
 		classes: "",
 		on: {},
 		lazy: true,
-		viewport: 200,
 		items: [],
-		fixLayout: true,
 		scrollParent: null,
 		delay: 0,
 		throttle: 50,
-		timeout: 60000,
 		shortpixel: false,
 		srcset: "data-srcset-fg",
 		src: "data-src-fg",
@@ -796,13 +704,10 @@
 	 * @property {string} [classes=""] - A space delimited string of any additional CSS classes to append to the container element of the template.
 	 * @property {object} [on={}] - An object containing any template events to bind to.
 	 * @property {boolean} [lazy=true] - Whether or not to enable lazy loading of images.
-	 * @property {number} [viewport=200] - The number of pixels to inflate the viewport by when checking to lazy load items.
 	 * @property {(FooGallery.Item~Options[]|FooGallery.Item[]| string)} [items=[]] - An array of items to load when required. A url can be provided and the items will be fetched using an ajax call, the response should be a properly formatted JSON array of {@link FooGallery.Item~Options|item} object.
-	 * @property {boolean} [fixLayout=true] - Whether or not the items' size should be set with CSS until the image is loaded.
 	 * @property {string} [scrollParent=null] - The selector used to bind to the scroll parent for the gallery. If not supplied the template will attempt to find the element itself.
 	 * @property {number} [delay=0] - The number of milliseconds to delay the initialization of a template.
 	 * @property {number} [throttle=50] - The number of milliseconds to wait once scrolling has stopped before performing any work.
-	 * @property {number} [timeout=60000] - The number of milliseconds to wait before forcing a timeout when loading items.
 	 * @property {string} [src="data-src-fg"] - The name of the attribute to retrieve an images src url from.
 	 * @property {string} [srcset="data-srcset-fg"] - The name of the attribute to retrieve an images srcset url from.
 	 * @property {object} [template={}] - An object containing any additional custom options for the template.

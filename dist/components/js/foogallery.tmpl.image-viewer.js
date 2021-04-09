@@ -63,7 +63,6 @@
 			self.on({
 				"pre-init": self.onPreInit,
 				"init": self.onInit,
-				"first-load": self.onFirstLoad,
 				"destroy": self.onDestroy,
 				"append-item": self.onAppendItem,
 				"after-page-change": self.onAfterPageChange,
@@ -106,9 +105,6 @@
 			}
 			self.$prev.on('click', {self: self}, self.onPrevClick);
 			self.$next.on('click', {self: self}, self.onNextClick);
-		},
-		onFirstLoad: function(event){
-			this.update();
 		},
 		/**
 		 * @summary Destroy the plugin cleaning up any bound events.

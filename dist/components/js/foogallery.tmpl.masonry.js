@@ -21,7 +21,7 @@
 				"destroyed": self.onDestroyed,
 				"appended-items": self.onAppendedItems,
 				"detach-item": self.onDetachItem,
-				"first-load layout after-filter-change": self.onLayoutRequired,
+				"layout after-filter-change": self.onLayoutRequired,
 				"page-change": self.onPageChange
 			}, self);
 		},
@@ -73,7 +73,6 @@
 	});
 
 	_.template.register("masonry", _.MasonryTemplate, {
-		fixLayout: true,
 		template: {}
 	}, {
 		container: "foogallery fg-masonry",
