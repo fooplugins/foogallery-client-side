@@ -10,7 +10,6 @@
             }), element);
             self.items.ALLOW_CREATE = false;
             self.items.ALLOW_APPEND = false;
-            self.items.ALLOW_LOAD = false;
             self.panel = new _.Panel(self, self.template);
         },
         preInit: function(){

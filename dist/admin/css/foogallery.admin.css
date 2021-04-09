@@ -29,15 +29,15 @@
 	box-shadow: none;
 	text-decoration: none;
 	line-height: 18px;
-	color: #0073aa;
+	color: #2271b1;
 	cursor: pointer;
 }
 .foogallery-settings.can-hover .foogallery-vertical-tab:not(.foogallery-tab-active):hover {
-	color: #00a0d2;
+	color: #4f94d4;
 }
 .foogallery-settings .foogallery-vertical-tab.foogallery-tab-active {
 	color: #FFF;
-	background-color: #0073aa;
+	background-color: #2271b1;
 }
 .foogallery-vertical-tab:after {
 	right: -1px;
@@ -64,11 +64,14 @@
 	text-transform: none;
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
-	font-size: 16px;
-	width: 16px;
-	height: 16px;
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
 	vertical-align: middle;
-	margin: 0 3px 3px 8px;
+	margin: 0 3px 0 8px;
+}
+.foogallery-vertical-tab .foogallery-tab-text {
+	vertical-align: middle;
 }
 
 .foogallery-vertical-child-tabs {
@@ -168,7 +171,7 @@
 	display: none;
 }
 .foogallery-settings.is-mobile .foogallery-vertical-tab > .dashicons {
-	margin: 0 3px 2px 4px;
+	margin: 0 3px 0 4px;
 }
 .foogallery-settings.is-mobile .foogallery-tab-contents {
 	width: calc(100% - 36px);

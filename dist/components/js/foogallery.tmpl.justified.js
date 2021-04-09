@@ -133,7 +133,7 @@
 		createRows: function(maxWidth){
 			var self = this,
 				margin = self.options.margins,
-				items = self.tmpl.getItems(),
+				items = self.tmpl.getAvailable(),
 				rows = [],
 				index = -1;
 
@@ -236,7 +236,7 @@
 				"pre-init": self.onPreInit,
 				"init": self.onInit,
 				"destroyed": self.onDestroyed,
-				"first-load layout after-filter-change": self.onLayoutRequired,
+				"layout after-filter-change": self.onLayoutRequired,
 				"page-change": self.onPageChange
 			}, self);
 		},

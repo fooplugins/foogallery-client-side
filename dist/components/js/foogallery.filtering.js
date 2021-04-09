@@ -458,9 +458,7 @@
 		},
 		apply: function (tags) {
 			var self = this;
-			if (self.set(tags, !self.tmpl.pages)) {
-				self.tmpl.loadAvailable();
-			}
+			self.set(tags, !self.tmpl.pages);
 		}
 	});
 
