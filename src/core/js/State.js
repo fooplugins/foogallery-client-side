@@ -310,7 +310,7 @@
 						}
 						tmpl.items.create(available, true);
 					}
-					if (obj.item){
+					if (obj.item instanceof _.Item){
 						if (self.opt.scrollTo) {
 							obj.item.scrollTo();
 						}
