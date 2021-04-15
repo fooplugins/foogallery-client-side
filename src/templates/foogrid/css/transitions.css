@@ -1,6 +1,9 @@
 .foogrid.foogrid-transition-fade .foogrid-content,
 .foogrid.foogrid-transition-horizontal .foogrid-content,
-.foogrid.foogrid-transition-vertical .foogrid-content {
+.foogrid.foogrid-transition-vertical .foogrid-content,
+.foogrid.foogrid-transition-fade .foogrid-content::before,
+.foogrid.foogrid-transition-horizontal .foogrid-content::before,
+.foogrid.foogrid-transition-vertical .foogrid-content::before {
 	transition-duration: .3s;
 	transition-timing-function: ease-in-out;
 }
@@ -8,6 +11,9 @@
 /* content container slide up/down */
 .foogrid.foogrid-transition-fade .foogrid-content,
 .foogrid.foogrid-transition-horizontal .foogrid-content,
-.foogrid.foogrid-transition-vertical .foogrid-content {
-	transition-property: padding-top, opacity, visibility;
+.foogrid.foogrid-transition-vertical .foogrid-content,
+.foogrid.foogrid-transition-fade .foogrid-content::before,
+.foogrid.foogrid-transition-horizontal .foogrid-content::before,
+.foogrid.foogrid-transition-vertical .foogrid-content::before {
+	transition-property: padding-top, opacity, visibility, min-height;
 }
