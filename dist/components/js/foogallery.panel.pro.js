@@ -111,10 +111,11 @@
         isVisible: function(item){
             return item instanceof _.Item && !item.noLightbox && !item.panelHide;
         },
-        onItemsChanged: function(e, tmpl){
-            if (this.thumbs.isCreated && tmpl.initialized){
-                this.thumbs.doCreateThumbs(tmpl.items.available(this.isVisible));
-                if (this.isAttached) this.load(tmpl.items.first(this.isVisible));
+        onItemsChanged: function(e){
+            var self = this;
+            if (self.thumbs.isCreated && self.tmpl.initialized){
+                self.thumbs.doCreateThumbs(self.tmpl.items.available(self.isVisible));
+                if (self.isAttached) self.load(self.tmpl.items.first(self.isVisible));
             }
         },
         create: function(){
