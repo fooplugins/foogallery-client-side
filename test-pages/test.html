@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Image & Picture - Lazy Loading</title>
+    <link href="templates/assets/theme.css" rel="stylesheet"/>
+    <link href="templates/assets/foogallery/css/foogallery.min.css" rel="stylesheet"/>
+    <script src="templates/assets/jquery.min.js" defer></script>
+    <script src="templates/assets/theme.js" defer></script>
+    <script src="templates/assets/foogallery/js/foogallery.js" defer></script>
+</head>
+<body class="dark">
+<header>
+    <ul>
+        <li><a href="../index.html">Templates</a></li>
+        <li><a href="index.html">Default</a></li>
+        <li><h1>Image & Picture - Lazy Loading</h1></li>
+    </ul>
+    <button title="PageSpeed Insights"></button>
+</header>
+<main>
+    <div id="space" style="height: 1400px"></div>
+    <div id="foogallery-gallery-1" class="foogallery fg-loading-default fg-loaded-fade-in fg-default fg-center fg-gutter-10 fg-shadow-outline fg-border-medium fg-hover-fade fg-hover-zoom fg-caption-hover fg-dark"
+         data-foogallery="{&quot;lazy&quot;:true,&quot;state&quot;:{&quot;enabled&quot;:true}}" data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;}">
+
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb"
+                   href="https://fakeimg.pl/1920x1080/624af9/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i1+@+1920×1080"
+                   data-id="1234"
+                   data-type="image"
+                   data-title="Test Item 1"
+                   data-description="Short description for index 0."
+                   data-tags="[&quot;unique&quot;,&quot;150x150&quot;,&quot;tag5&quot;,&quot;tag3&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/697 s&quot;,&quot;focal_length&quot;:&quot;18 mm&quot;,&quot;iso&quot;:&quot;57&quot;,&quot;created_timestamp&quot;:&quot;2/1/2021, 8:53:06 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+        			<span class="fg-image-wrap">
+        				<img class="fg-image"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x150/624af9/FFFFFF/?font_size=24&text=i1+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x300/624af9/FFFFFF/?font_size=24&text=i1+@+2x 2x,https://fakeimg.pl/450x450/624af9/FFFFFF/?font_size=24&text=i1+@+3x 3x"
+                             width="150"
+                             height="150"
+                             title="Test Item 1"
+                             alt="Short description for index 0.">
+        			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Test Item 1</div>
+                        <div class="fg-caption-desc">Short description for index 0.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb"
+                   href="https://fakeimg.pl/1920x1080/624af9/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i1+@+1920×1080"
+                   data-id="2345"
+                   data-type="image"
+                   data-title="Test Item 2"
+                   data-description="Short description for index 1."
+                   data-tags="[&quot;unique&quot;,&quot;150x150&quot;,&quot;tag5&quot;,&quot;tag3&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/697 s&quot;,&quot;focal_length&quot;:&quot;18 mm&quot;,&quot;iso&quot;:&quot;57&quot;,&quot;created_timestamp&quot;:&quot;2/1/2021, 8:53:06 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+        			<span class="fg-image-wrap">
+<picture class="fg-image">
+    <source type="image/webp" data-srcset-fg="webp@1.webp 1x, webp@2.webp 2x, webp@3.webp 3x">
+    <img src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20320%20214%22%3E%3C/svg%3E"
+         data-src-fg="https://fakeimg.pl/320x214/624af9/FFFFFF/?font_size=24&text=img.src"
+         data-srcset-fg="https://fakeimg.pl/320x214/624af9/FFFFFF/?font_size=24&text=img.src@2x 2x, https://fakeimg.pl/320x214/624af9/FFFFFF/?font_size=24&text=img.src@3x 3x"
+         alt="alt text"
+         width="320"
+         height="214">
+</picture>
+        			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Test Item 1</div>
+                        <div class="fg-caption-desc">Short description for index 0.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+    </div>
+    <script>
+        window["foogallery-gallery-1_items"] = [{
+            "type":"image",
+            "href":"https://fakeimg.pl/1920x1080/58b5ce/000000/?font_size=24&text=i51+@+1920×1080",
+            "src":"https://fakeimg.pl/320x214/58b5ce/000000/?font_size=24&text=i51+@+1x",
+            "srcset":"https://fakeimg.pl/640x428/58b5ce/000000/?font_size=24&text=i51+@+2x 2x,https://fakeimg.pl/960x642/58b5ce/000000/?font_size=24&text=i51+@+3x 3x",
+            "sources": [{
+                "type": "image/webp",
+                "srcset": "webp@1.webp 1x, webp@2.webp 2x, webp@3.webp 3x"
+            }],
+            "title":"Test Item 51",
+            "alt":"Long description for index 50 item #51 in the gallery. This is to test what happens to captions with a fair bit of text.",
+            "width":320,
+            "height":214,
+            "tags":["320x214","tag1","tag5","tag2","tag3"],
+            "exif":{"camera":"Samsung Digimax i50","aperture":"f/3.0","shutter_speed":"1/757 s","focal_length":"13 mm","iso":"77","created_timestamp":"2/7/2021, 8:40:32 PM","orientation":"Right Side"}
+        },{
+            "type":"image",
+            "href":"https://fakeimg.pl/1920x1080/e8bb06/000000/?font_size=24&text=i52+@+1920×1080",
+            "src":"https://fakeimg.pl/150x150/e8bb06/000000/?font_size=24&text=i52+@+1x",
+            "srcset":"https://fakeimg.pl/300x300/e8bb06/000000/?font_size=24&text=i52+@+2x 2x,https://fakeimg.pl/450x450/e8bb06/000000/?font_size=24&text=i52+@+3x 3x",
+            "title":"Test Item 52",
+            "alt":"Medium description for index 51 item #52 in the gallery.",
+            "width":150,
+            "height":150,
+            "tags":["150x150","tag5"],
+            "exif":{"camera":"Nikon COOLPIX P1","aperture":"f/2.0","shutter_speed":"1/634 s","focal_length":"27 mm","iso":"52","created_timestamp":"2/6/2021, 8:11:51 PM","orientation":"Bottom"}
+        }];
+    </script>
+
+</main>
+</body>
+</html>
