@@ -215,7 +215,7 @@
 
 	/**
 	 * @summary Whether or not the current browser supports "webp" images.
-	 * @memberof FooGallery
+	 * @memberof FooGallery.
 	 * @name supportsWebP
 	 * @type {boolean}
 	 * @default false
@@ -230,6 +230,14 @@
 		_.supportsWebP = false;
 	};
 	webp.src = 'data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==';
+
+	/**
+	 * @summary Simple test to see if the browser supports the <picture> element.
+	 * @memberof FooGallery.
+	 * @name supportsPicture
+	 * @type {boolean}
+	 */
+	_.supportsPicture = !!window.HTMLPictureElement;
 
 })(
 	FooGallery.$,
