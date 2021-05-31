@@ -249,7 +249,10 @@
 			}
 
 			if (self.opt.protected){
-				self.el.oncontextmenu = function(){ return false; };
+				self.el.oncontextmenu = function(e){
+					e.preventDefault();
+					return false;
+				};
 			}
 
 			/**
