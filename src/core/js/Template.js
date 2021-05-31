@@ -248,6 +248,10 @@
 				self._undo.children = true;
 			}
 
+			if (self.opt.protected){
+				self.el.oncontextmenu = function(){ return false; };
+			}
+
 			/**
 			 * @summary Raised before the template is fully initialized.
 			 * @event FooGallery.Template~"pre-init.foogallery"
