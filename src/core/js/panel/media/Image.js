@@ -45,9 +45,6 @@
                 var img = self.$content.get(0);
                 img.onload = function () {
                     img.onload = img.onerror = null;
-                    if (self.panel.tmpl.opt.protected){
-                        img.oncontextmenu = function(){ return false; };
-                    }
                     def.resolve(self);
                 };
                 img.onerror = function () {
