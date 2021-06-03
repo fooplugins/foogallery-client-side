@@ -135,6 +135,12 @@
             var self = this;
             self.$el = self.createElem();
             self.el = self.$el.get(0);
+            if (self.tmpl.opt.protected){
+                self.el.oncontextmenu = function(e){
+                    e.preventDefault();
+                    return false;
+                };
+            }
             if (self.opt.keyboard){
                 self.$el.attr("tabindex", -1).on("keydown.foogallery", {self: self}, self.onKeyDown);
             }
