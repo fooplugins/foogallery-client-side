@@ -1106,7 +1106,7 @@
 				var ph_src = img.src, ph_srcset = img.srcset;
 				img.onload = function () {
 					img.onload = img.onerror = null;
-					def.resolve();
+					def.resolve(img);
 				};
 				img.onerror = function () {
 					img.onload = img.onerror = null;
@@ -1120,7 +1120,7 @@
 					} else {
 						img.removeAttribute("srcset");
 					}
-					def.reject(self);
+					def.reject(img);
 				};
 				// set everything in motion by setting the src & srcset
 				if (self.isPicture){

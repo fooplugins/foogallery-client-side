@@ -8,7 +8,8 @@
 					// if the gallery is displayed within a FooBox do not trigger the post-load which would cause the lightbox to re-init
 					if (tmpl.$el.parents(".fbx-item").length > 0) return;
 					if (tmpl.$el.hasClass("fbx-instance") && !!window.FOOBOX && !!$.fn.foobox){
-						tmpl.$el.foobox(window.FOOBOX.o);
+						var opts = $.extend({}, window.FOOBOX.o, (tmpl.opt.protected ? { images: { noRightClick: true } } : {}));
+						tmpl.$el.foobox(opts);
 					} else {
 						$("body").trigger("post-load");
 					}
