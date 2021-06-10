@@ -1,0 +1,33 @@
+div.fg-ribbon-4 {
+    display: block;
+    width: calc(100% + 4px);
+    max-width: calc(100% + 4px);
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+    margin-left: -2px;
+    margin-right: -2px;
+    background: #dab500;
+    top: 20px;
+    box-shadow: 0 10px 10px -12px rgba(0, 0, 0, 0.6);
+}
+.fg-ribbon-4:before, .fg-ribbon-4:after {
+    content: "";
+    position: absolute;
+}
+.fg-ribbon-4:before {
+    height: 0;
+    width: 0;
+    bottom: -2px;
+    left: 0;
+    border-top: 2px solid #cd8d11;
+    border-left: 2px solid transparent;
+}
+.fg-ribbon-4:after {
+    height: 0;
+    width: 0;
+    right: 0;
+    bottom: -2px;
+    border-top: 2px solid #cd8d11;
+    border-right: 2px solid transparent;
+}

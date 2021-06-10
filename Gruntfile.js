@@ -123,8 +123,10 @@ module.exports = function ( grunt ) {
 						"./src/core/css/appearance/drop-shadow.css",
 						"./src/core/css/appearance/inset-shadow.css",
 						"./src/core/css/appearance/rounded-corners.css",
+
 						"./src/core/css/appearance/filters.css",
 						"./src/core/css/appearance/filters/*.css",
+
 						"./src/core/css/appearance/loading-icon.css",
 						"./src/core/css/appearance/loading-icons/default.css",
 						"./src/core/css/appearance/loading-icons/bars.css",
@@ -132,6 +134,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/appearance/loading-icons/pulse.css",
 						"./src/core/css/appearance/loading-icons/dots.css",
 						"./src/core/css/appearance/loading-icons/partial.css",
+
 						"./src/core/css/appearance/loaded-effect.css",
 						"./src/core/css/appearance/loaded-effects/drop.css",
 						"./src/core/css/appearance/loaded-effects/fade-in.css",
@@ -140,6 +143,9 @@ module.exports = function ( grunt ) {
 						"./src/core/css/appearance/loaded-effects/scale-up.css",
 						"./src/core/css/appearance/loaded-effects/slide-up-right-down-left.css",
 						"./src/core/css/appearance/loaded-effects/swing-down.css",
+
+						"./src/core/css/appearance/ribbons.css",
+						"./src/core/css/appearance/ribbons/*.css",
 
 						"./src/core/css/hover-effects/captions.css",
 						"./src/core/css/hover-effects/icons.css",

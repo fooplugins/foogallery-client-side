@@ -1,0 +1,39 @@
+div.fg-ribbon-1 {
+    background: #F47530;
+    width: 4em;
+    padding: 0.5em 0;
+    top: -2px;
+    left: 25px;
+    text-align: center;
+    border-top-left-radius: 3px;
+    text-orientation: upright;
+    writing-mode: vertical-rl;
+    line-height: 4em;
+    max-height: calc(100% - 1em);
+    max-width: calc(100% - 25px);
+}
+.fg-ribbon-1:before, .fg-ribbon-1:after {
+    content: "";
+    position: absolute;
+}
+.fg-ribbon-1:before {
+    height: 0;
+    width: 0;
+    right: -2px;
+    top: 0;
+    border-bottom: 2px solid #8D5A20;
+    border-right: 2px solid transparent;
+}
+.fg-ribbon-1:after {
+    height: 0;
+    width: 0;
+    bottom: -1em;
+    left: 0;
+    border-left: 2em solid #F47530;
+    border-right: 2em solid #F47530;
+    border-bottom: 1em solid transparent;
+}
+
+div.fg-ribbon-1 > span {
+    letter-spacing: -0.2em;
+}
