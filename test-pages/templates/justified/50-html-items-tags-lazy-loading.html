@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width">
     <title>50 Html Items + Tags + Lazy Loading</title>
     <link href="../assets/theme.css" rel="stylesheet"/>
-    <link href="../assets/foogallery/css/foogallery.min.css" rel="stylesheet"/>
+    <link href="../assets/css/foogallery.min.css" rel="stylesheet"/>
     <script src="../assets/jquery.min.js" defer></script>
     <script src="../assets/theme.js" defer></script>
-    <script src="../assets/foogallery/js/foogallery.min.js" defer></script>
+    <script src="../assets/js/foogallery.min.js" defer></script>
 </head>
 <body class="dark">
 <header>
@@ -26,34 +26,37 @@
             margin-right: 10px;
             margin-bottom: 10px;
         }
+        #foogallery-gallery-1.fg-justified .fg-image {
+            height: 200px;
+        }
     </style>
-    <div id="foogallery-gallery-1" class="foogallery fg-loading-default fg-loaded-fade-in fg-justified fg-shadow-outline fg-border-medium fg-hover-fade fg-hover-zoom fg-caption-hover fg-dark" data-foogallery="{&quot;lazy&quot;:true,&quot;template&quot;:{&quot;margins&quot;:10,&quot;rowHeight&quot;:150},&quot;filtering&quot;:{&quot;type&quot;:&quot;tags&quot;,&quot;position&quot;:&quot;both&quot;,&quot;theme&quot;:&quot;fg-dark&quot;}}" data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;}">
+    <div id="foogallery-gallery-1" class="foogallery fg-loading-default fg-loaded-fade-in fg-justified fg-shadow-outline fg-border-medium fg-hover-fade fg-hover-zoom fg-caption-hover fg-dark" data-foogallery="{&quot;lazy&quot;:true,&quot;template&quot;:{&quot;margins&quot;:10,&quot;rowHeight&quot;:200,&quot;maxRowHeight&quot;:&quot;150%&quot;},&quot;filtering&quot;:{&quot;type&quot;:&quot;tags&quot;,&quot;position&quot;:&quot;both&quot;,&quot;theme&quot;:&quot;fg-dark&quot;}}" data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;}">
 
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/105ae5/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i1+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/3da5aa/000000/?font_size&#x3D;24&amp;text&#x3D;i1+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 1"
-                   data-description="Long description for index 0 item #1 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;unique&quot;,&quot;225x150&quot;,&quot;tag5&quot;,&quot;tag4&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/58 s&quot;,&quot;focal_length&quot;:&quot;39 mm&quot;,&quot;iso&quot;:&quot;56&quot;,&quot;created_timestamp&quot;:&quot;2/5/2021, 8:13:51 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-description="Medium description for index 0 item #1 in the gallery."
+                   data-tags="[&quot;unique&quot;,&quot;320x250&quot;,&quot;tag3&quot;,&quot;tag1&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/607 s&quot;,&quot;focal_length&quot;:&quot;3 mm&quot;,&quot;iso&quot;:&quot;77&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:35:53 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/105ae5/FFFFFF/?font_size=24&text=i1+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/105ae5/FFFFFF/?font_size=24&text=i1+@+2x 2x,https://fakeimg.pl/675x450/105ae5/FFFFFF/?font_size=24&text=i1+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/3da5aa/000000/?font_size=24&text=i1+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/3da5aa/000000/?font_size=24&text=i1+@+2x 2x,https://fakeimg.pl/960x750/3da5aa/000000/?font_size=24&text=i1+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 1"
-                             alt="Long description for index 0 item #1 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Medium description for index 0 item #1 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 1</div>
-                        <div class="fg-caption-desc">Long description for index 0 item #1 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Medium description for index 0 item #1 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -62,19 +65,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/58b5ce/000000/?font_size&#x3D;24&amp;text&#x3D;i2+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/60e0be/000000/?font_size&#x3D;24&amp;text&#x3D;i2+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 2"
                    data-description="Short description for index 1."
-                   data-tags="[&quot;94x150&quot;,&quot;tag2&quot;,&quot;tag4&quot;,&quot;tag3&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Olympus C8080WZ&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/464 s&quot;,&quot;focal_length&quot;:&quot;27 mm&quot;,&quot;iso&quot;:&quot;81&quot;,&quot;created_timestamp&quot;:&quot;2/7/2021, 8:18:10 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-tags="[&quot;150x250&quot;,&quot;tag3&quot;,&quot;tag1&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Samsung Digimax i50&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/349 s&quot;,&quot;focal_length&quot;:&quot;22 mm&quot;,&quot;iso&quot;:&quot;77&quot;,&quot;created_timestamp&quot;:&quot;6/9/2021, 4:46:38 AM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/58b5ce/000000/?font_size=24&text=i2+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/58b5ce/000000/?font_size=24&text=i2+@+2x 2x,https://fakeimg.pl/282x450/58b5ce/000000/?font_size=24&text=i2+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/60e0be/000000/?font_size=24&text=i2+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/60e0be/000000/?font_size=24&text=i2+@+2x 2x,https://fakeimg.pl/450x750/60e0be/000000/?font_size=24&text=i2+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 2"
                              alt="Short description for index 1.">
         			</span>
@@ -92,28 +95,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/e8bb06/000000/?font_size&#x3D;24&amp;text&#x3D;i3+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/97e3ed/000000/?font_size&#x3D;24&amp;text&#x3D;i3+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 3"
-                   data-description="Short description for index 2."
-                   data-tags="[&quot;150x150&quot;,&quot;tag4&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Pentax K10D&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/305 s&quot;,&quot;focal_length&quot;:&quot;21 mm&quot;,&quot;iso&quot;:&quot;100&quot;,&quot;created_timestamp&quot;:&quot;2/5/2021, 8:15:43 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-description="Medium description for index 2 item #3 in the gallery."
+                   data-tags="[&quot;250x250&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/202 s&quot;,&quot;focal_length&quot;:&quot;38 mm&quot;,&quot;iso&quot;:&quot;89&quot;,&quot;created_timestamp&quot;:&quot;6/6/2021, 4:20:03 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/150x150/e8bb06/000000/?font_size=24&text=i3+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/300x300/e8bb06/000000/?font_size=24&text=i3+@+2x 2x,https://fakeimg.pl/450x450/e8bb06/000000/?font_size=24&text=i3+@+3x 3x"
-                             width="150"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/97e3ed/000000/?font_size=24&text=i3+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/97e3ed/000000/?font_size=24&text=i3+@+2x 2x,https://fakeimg.pl/750x750/97e3ed/000000/?font_size=24&text=i3+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 3"
-                             alt="Short description for index 2.">
+                             alt="Medium description for index 2 item #3 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 3</div>
-                        <div class="fg-caption-desc">Short description for index 2.</div>
+                        <div class="fg-caption-desc">Medium description for index 2 item #3 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -122,19 +125,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/e8bb06/000000/?font_size&#x3D;24&amp;text&#x3D;i4+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/5494dd/000000/?font_size&#x3D;24&amp;text&#x3D;i4+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 4"
                    data-description="Medium description for index 3 item #4 in the gallery."
-                   data-tags="[&quot;250x150&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon DIGITAL IXUS 400&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/386 s&quot;,&quot;focal_length&quot;:&quot;14 mm&quot;,&quot;iso&quot;:&quot;71&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:45:47 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-tags="[&quot;250x250&quot;,&quot;tag1&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Kodak CX7530&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/221 s&quot;,&quot;focal_length&quot;:&quot;1 mm&quot;,&quot;iso&quot;:&quot;92&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:56:06 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/e8bb06/000000/?font_size=24&text=i4+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/e8bb06/000000/?font_size=24&text=i4+@+2x 2x,https://fakeimg.pl/750x450/e8bb06/000000/?font_size=24&text=i4+@+3x 3x"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/5494dd/000000/?font_size=24&text=i4+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/5494dd/000000/?font_size=24&text=i4+@+2x 2x,https://fakeimg.pl/750x750/5494dd/000000/?font_size=24&text=i4+@+3x 3x"
                              width="250"
-                             height="150"
+                             height="250"
                              title="Test Item 4"
                              alt="Medium description for index 3 item #4 in the gallery.">
         			</span>
@@ -152,28 +155,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/e207ff/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i5+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/62fce7/000000/?font_size&#x3D;24&amp;text&#x3D;i5+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 5"
-                   data-description="Long description for index 4 item #5 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;150x150&quot;,&quot;tag2&quot;,&quot;tag1&quot;,&quot;tag4&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon PowerShot S40&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/293 s&quot;,&quot;focal_length&quot;:&quot;28 mm&quot;,&quot;iso&quot;:&quot;51&quot;,&quot;created_timestamp&quot;:&quot;2/4/2021, 8:56:04 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Short description for index 4."
+                   data-tags="[&quot;320x250&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Olympus C8080WZ&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/59 s&quot;,&quot;focal_length&quot;:&quot;24 mm&quot;,&quot;iso&quot;:&quot;79&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:28:59 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/150x150/e207ff/FFFFFF/?font_size=24&text=i5+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/300x300/e207ff/FFFFFF/?font_size=24&text=i5+@+2x 2x,https://fakeimg.pl/450x450/e207ff/FFFFFF/?font_size=24&text=i5+@+3x 3x"
-                             width="150"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/62fce7/000000/?font_size=24&text=i5+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/62fce7/000000/?font_size=24&text=i5+@+2x 2x,https://fakeimg.pl/960x750/62fce7/000000/?font_size=24&text=i5+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 5"
-                             alt="Long description for index 4 item #5 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 4.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 5</div>
-                        <div class="fg-caption-desc">Long description for index 4 item #5 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 4.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -182,19 +185,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/7edefc/000000/?font_size&#x3D;24&amp;text&#x3D;i6+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/d0a1fc/000000/?font_size&#x3D;24&amp;text&#x3D;i6+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 6"
                    data-description="Long description for index 5 item #6 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;225x150&quot;,&quot;tag4&quot;,&quot;tag2&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/181 s&quot;,&quot;focal_length&quot;:&quot;14 mm&quot;,&quot;iso&quot;:&quot;71&quot;,&quot;created_timestamp&quot;:&quot;2/3/2021, 8:23:24 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-tags="[&quot;150x250&quot;,&quot;tag5&quot;,&quot;tag1&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/226 s&quot;,&quot;focal_length&quot;:&quot;23 mm&quot;,&quot;iso&quot;:&quot;91&quot;,&quot;created_timestamp&quot;:&quot;6/10/2021, 4:20:42 AM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/7edefc/000000/?font_size=24&text=i6+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/7edefc/000000/?font_size=24&text=i6+@+2x 2x,https://fakeimg.pl/675x450/7edefc/000000/?font_size=24&text=i6+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/d0a1fc/000000/?font_size=24&text=i6+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/d0a1fc/000000/?font_size=24&text=i6+@+2x 2x,https://fakeimg.pl/450x750/d0a1fc/000000/?font_size=24&text=i6+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 6"
                              alt="Long description for index 5 item #6 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
@@ -212,19 +215,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/106c6d/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i7+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/605ce0/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i7+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 7"
                    data-description="Short description for index 6."
-                   data-tags="[&quot;250x150&quot;,&quot;tag5&quot;,&quot;tag4&quot;,&quot;tag3&quot;,&quot;tag2&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Sony HDR-HC3&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/22 s&quot;,&quot;focal_length&quot;:&quot;34 mm&quot;,&quot;iso&quot;:&quot;60&quot;,&quot;created_timestamp&quot;:&quot;1/31/2021, 8:39:08 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-tags="[&quot;320x250&quot;,&quot;tag1&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/849 s&quot;,&quot;focal_length&quot;:&quot;29 mm&quot;,&quot;iso&quot;:&quot;99&quot;,&quot;created_timestamp&quot;:&quot;6/7/2021, 4:08:23 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/106c6d/FFFFFF/?font_size=24&text=i7+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/106c6d/FFFFFF/?font_size=24&text=i7+@+2x 2x,https://fakeimg.pl/750x450/106c6d/FFFFFF/?font_size=24&text=i7+@+3x 3x"
-                             width="250"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/605ce0/FFFFFF/?font_size=24&text=i7+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/605ce0/FFFFFF/?font_size=24&text=i7+@+2x 2x,https://fakeimg.pl/960x750/605ce0/FFFFFF/?font_size=24&text=i7+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 7"
                              alt="Short description for index 6.">
         			</span>
@@ -242,28 +245,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/106c6d/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i8+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/a777d1/000000/?font_size&#x3D;24&amp;text&#x3D;i8+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 8"
-                   data-description="Short description for index 7."
-                   data-tags="[&quot;150x150&quot;,&quot;tag3&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/811 s&quot;,&quot;focal_length&quot;:&quot;16 mm&quot;,&quot;iso&quot;:&quot;80&quot;,&quot;created_timestamp&quot;:&quot;2/5/2021, 8:10:12 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Medium description for index 7 item #8 in the gallery."
+                   data-tags="[&quot;250x250&quot;,&quot;tag3&quot;,&quot;tag5&quot;,&quot;tag1&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/626 s&quot;,&quot;focal_length&quot;:&quot;23 mm&quot;,&quot;iso&quot;:&quot;69&quot;,&quot;created_timestamp&quot;:&quot;6/6/2021, 4:54:05 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/150x150/106c6d/FFFFFF/?font_size=24&text=i8+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/300x300/106c6d/FFFFFF/?font_size=24&text=i8+@+2x 2x,https://fakeimg.pl/450x450/106c6d/FFFFFF/?font_size=24&text=i8+@+3x 3x"
-                             width="150"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/a777d1/000000/?font_size=24&text=i8+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/a777d1/000000/?font_size=24&text=i8+@+2x 2x,https://fakeimg.pl/750x750/a777d1/000000/?font_size=24&text=i8+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 8"
-                             alt="Short description for index 7.">
+                             alt="Medium description for index 7 item #8 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 8</div>
-                        <div class="fg-caption-desc">Short description for index 7.</div>
+                        <div class="fg-caption-desc">Medium description for index 7 item #8 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -272,28 +275,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/624af9/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i9+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/5494dd/000000/?font_size&#x3D;24&amp;text&#x3D;i9+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 9"
-                   data-description="Long description for index 8 item #9 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;225x150&quot;,&quot;tag2&quot;,&quot;tag4&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Samsung Digimax i50&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/122 s&quot;,&quot;focal_length&quot;:&quot;13 mm&quot;,&quot;iso&quot;:&quot;99&quot;,&quot;created_timestamp&quot;:&quot;2/1/2021, 8:21:55 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-description="Short description for index 8."
+                   data-tags="[&quot;250x250&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/129 s&quot;,&quot;focal_length&quot;:&quot;24 mm&quot;,&quot;iso&quot;:&quot;78&quot;,&quot;created_timestamp&quot;:&quot;6/4/2021, 4:00:04 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/624af9/FFFFFF/?font_size=24&text=i9+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/624af9/FFFFFF/?font_size=24&text=i9+@+2x 2x,https://fakeimg.pl/675x450/624af9/FFFFFF/?font_size=24&text=i9+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/5494dd/000000/?font_size=24&text=i9+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/5494dd/000000/?font_size=24&text=i9+@+2x 2x,https://fakeimg.pl/750x750/5494dd/000000/?font_size=24&text=i9+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 9"
-                             alt="Long description for index 8 item #9 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 8.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 9</div>
-                        <div class="fg-caption-desc">Long description for index 8 item #9 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 8.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -302,28 +305,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/e8bb06/000000/?font_size&#x3D;24&amp;text&#x3D;i10+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/97e3ed/000000/?font_size&#x3D;24&amp;text&#x3D;i10+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 10"
-                   data-description="Long description for index 9 item #10 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;250x150&quot;,&quot;tag1&quot;,&quot;tag4&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/25 s&quot;,&quot;focal_length&quot;:&quot;29 mm&quot;,&quot;iso&quot;:&quot;87&quot;,&quot;created_timestamp&quot;:&quot;2/1/2021, 8:11:54 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-description="Short description for index 9."
+                   data-tags="[&quot;150x250&quot;,&quot;tag4&quot;,&quot;tag3&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Pentax K10D&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/222 s&quot;,&quot;focal_length&quot;:&quot;1 mm&quot;,&quot;iso&quot;:&quot;74&quot;,&quot;created_timestamp&quot;:&quot;6/4/2021, 4:41:33 AM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/e8bb06/000000/?font_size=24&text=i10+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/e8bb06/000000/?font_size=24&text=i10+@+2x 2x,https://fakeimg.pl/750x450/e8bb06/000000/?font_size=24&text=i10+@+3x 3x"
-                             width="250"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/97e3ed/000000/?font_size=24&text=i10+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/97e3ed/000000/?font_size=24&text=i10+@+2x 2x,https://fakeimg.pl/450x750/97e3ed/000000/?font_size=24&text=i10+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 10"
-                             alt="Long description for index 9 item #10 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 9.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 10</div>
-                        <div class="fg-caption-desc">Long description for index 9 item #10 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 9.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -332,19 +335,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/edada3/000000/?font_size&#x3D;24&amp;text&#x3D;i11+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/ffcec4/000000/?font_size&#x3D;24&amp;text&#x3D;i11+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 11"
                    data-description="Medium description for index 10 item #11 in the gallery."
-                   data-tags="[&quot;225x150&quot;,&quot;tag4&quot;,&quot;tag1&quot;,&quot;tag3&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/625 s&quot;,&quot;focal_length&quot;:&quot;20 mm&quot;,&quot;iso&quot;:&quot;78&quot;,&quot;created_timestamp&quot;:&quot;2/3/2021, 8:46:17 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-tags="[&quot;320x250&quot;,&quot;tag3&quot;,&quot;tag4&quot;,&quot;tag1&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Canon PowerShot S40&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/627 s&quot;,&quot;focal_length&quot;:&quot;1 mm&quot;,&quot;iso&quot;:&quot;54&quot;,&quot;created_timestamp&quot;:&quot;6/6/2021, 4:20:47 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/edada3/000000/?font_size=24&text=i11+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/edada3/000000/?font_size=24&text=i11+@+2x 2x,https://fakeimg.pl/675x450/edada3/000000/?font_size=24&text=i11+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/ffcec4/000000/?font_size=24&text=i11+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/ffcec4/000000/?font_size=24&text=i11+@+2x 2x,https://fakeimg.pl/960x750/ffcec4/000000/?font_size=24&text=i11+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 11"
                              alt="Medium description for index 10 item #11 in the gallery.">
         			</span>
@@ -362,28 +365,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/e207ff/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i12+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/2f9cb7/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i12+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 12"
-                   data-description="Short description for index 11."
-                   data-tags="[&quot;94x150&quot;,&quot;tag4&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Panasonic DMC-FZ30&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/743 s&quot;,&quot;focal_length&quot;:&quot;6 mm&quot;,&quot;iso&quot;:&quot;93&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:40:54 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Medium description for index 11 item #12 in the gallery."
+                   data-tags="[&quot;250x250&quot;,&quot;tag3&quot;,&quot;tag5&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Panasonic DMC-FZ30&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/212 s&quot;,&quot;focal_length&quot;:&quot;9 mm&quot;,&quot;iso&quot;:&quot;77&quot;,&quot;created_timestamp&quot;:&quot;6/5/2021, 4:03:13 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/e207ff/FFFFFF/?font_size=24&text=i12+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/e207ff/FFFFFF/?font_size=24&text=i12+@+2x 2x,https://fakeimg.pl/282x450/e207ff/FFFFFF/?font_size=24&text=i12+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/2f9cb7/FFFFFF/?font_size=24&text=i12+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/2f9cb7/FFFFFF/?font_size=24&text=i12+@+2x 2x,https://fakeimg.pl/750x750/2f9cb7/FFFFFF/?font_size=24&text=i12+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 12"
-                             alt="Short description for index 11.">
+                             alt="Medium description for index 11 item #12 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 12</div>
-                        <div class="fg-caption-desc">Short description for index 11.</div>
+                        <div class="fg-caption-desc">Medium description for index 11 item #12 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -392,19 +395,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/bc5016/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i13+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/027ecc/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i13+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 13"
                    data-description="Short description for index 12."
-                   data-tags="[&quot;94x150&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon DIGITAL IXUS 400&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/22 s&quot;,&quot;focal_length&quot;:&quot;33 mm&quot;,&quot;iso&quot;:&quot;53&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:03:27 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-tags="[&quot;250x250&quot;,&quot;tag2&quot;,&quot;tag5&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/155 s&quot;,&quot;focal_length&quot;:&quot;39 mm&quot;,&quot;iso&quot;:&quot;76&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:08:21 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/bc5016/FFFFFF/?font_size=24&text=i13+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/bc5016/FFFFFF/?font_size=24&text=i13+@+2x 2x,https://fakeimg.pl/282x450/bc5016/FFFFFF/?font_size=24&text=i13+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/027ecc/FFFFFF/?font_size=24&text=i13+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/027ecc/FFFFFF/?font_size=24&text=i13+@+2x 2x,https://fakeimg.pl/750x750/027ecc/FFFFFF/?font_size=24&text=i13+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 13"
                              alt="Short description for index 12.">
         			</span>
@@ -422,28 +425,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/4eed83/000000/?font_size&#x3D;24&amp;text&#x3D;i14+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/d0a1fc/000000/?font_size&#x3D;24&amp;text&#x3D;i14+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 14"
-                   data-description="Short description for index 13."
-                   data-tags="[&quot;250x150&quot;,&quot;tag4&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Pentax K10D&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/579 s&quot;,&quot;focal_length&quot;:&quot;11 mm&quot;,&quot;iso&quot;:&quot;65&quot;,&quot;created_timestamp&quot;:&quot;2/3/2021, 8:40:25 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-description="Long description for index 13 item #14 in the gallery. This is to test what happens to captions with a fair bit of text."
+                   data-tags="[&quot;250x250&quot;,&quot;tag2&quot;,&quot;tag4&quot;,&quot;tag1&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Samsung Digimax i50&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/293 s&quot;,&quot;focal_length&quot;:&quot;10 mm&quot;,&quot;iso&quot;:&quot;67&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:52:12 AM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/4eed83/000000/?font_size=24&text=i14+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/4eed83/000000/?font_size=24&text=i14+@+2x 2x,https://fakeimg.pl/750x450/4eed83/000000/?font_size=24&text=i14+@+3x 3x"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/d0a1fc/000000/?font_size=24&text=i14+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/d0a1fc/000000/?font_size=24&text=i14+@+2x 2x,https://fakeimg.pl/750x750/d0a1fc/000000/?font_size=24&text=i14+@+3x 3x"
                              width="250"
-                             height="150"
+                             height="250"
                              title="Test Item 14"
-                             alt="Short description for index 13.">
+                             alt="Long description for index 13 item #14 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 14</div>
-                        <div class="fg-caption-desc">Short description for index 13.</div>
+                        <div class="fg-caption-desc">Long description for index 13 item #14 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -452,28 +455,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/95ed6d/000000/?font_size&#x3D;24&amp;text&#x3D;i15+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/d0a1fc/000000/?font_size&#x3D;24&amp;text&#x3D;i15+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 15"
-                   data-description="Medium description for index 14 item #15 in the gallery."
-                   data-tags="[&quot;94x150&quot;,&quot;tag4&quot;,&quot;tag1&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/6 s&quot;,&quot;focal_length&quot;:&quot;37 mm&quot;,&quot;iso&quot;:&quot;69&quot;,&quot;created_timestamp&quot;:&quot;2/6/2021, 8:24:32 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-description="Long description for index 14 item #15 in the gallery. This is to test what happens to captions with a fair bit of text."
+                   data-tags="[&quot;320x250&quot;,&quot;tag1&quot;,&quot;tag3&quot;,&quot;tag5&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/632 s&quot;,&quot;focal_length&quot;:&quot;1 mm&quot;,&quot;iso&quot;:&quot;71&quot;,&quot;created_timestamp&quot;:&quot;6/11/2021, 4:16:59 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/95ed6d/000000/?font_size=24&text=i15+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/95ed6d/000000/?font_size=24&text=i15+@+2x 2x,https://fakeimg.pl/282x450/95ed6d/000000/?font_size=24&text=i15+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/d0a1fc/000000/?font_size=24&text=i15+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/d0a1fc/000000/?font_size=24&text=i15+@+2x 2x,https://fakeimg.pl/960x750/d0a1fc/000000/?font_size=24&text=i15+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 15"
-                             alt="Medium description for index 14 item #15 in the gallery.">
+                             alt="Long description for index 14 item #15 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 15</div>
-                        <div class="fg-caption-desc">Medium description for index 14 item #15 in the gallery.</div>
+                        <div class="fg-caption-desc">Long description for index 14 item #15 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -482,28 +485,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/645ef9/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i16+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/f954f4/000000/?font_size&#x3D;24&amp;text&#x3D;i16+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 16"
-                   data-description="Medium description for index 15 item #16 in the gallery."
-                   data-tags="[&quot;94x150&quot;,&quot;tag5&quot;,&quot;tag1&quot;,&quot;tag4&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon PowerShot S40&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/555 s&quot;,&quot;focal_length&quot;:&quot;10 mm&quot;,&quot;iso&quot;:&quot;80&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:40:58 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Long description for index 15 item #16 in the gallery. This is to test what happens to captions with a fair bit of text."
+                   data-tags="[&quot;250x250&quot;,&quot;tag2&quot;,&quot;tag5&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Canon DIGITAL IXUS 400&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/861 s&quot;,&quot;focal_length&quot;:&quot;19 mm&quot;,&quot;iso&quot;:&quot;68&quot;,&quot;created_timestamp&quot;:&quot;6/6/2021, 4:35:39 AM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/645ef9/FFFFFF/?font_size=24&text=i16+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/645ef9/FFFFFF/?font_size=24&text=i16+@+2x 2x,https://fakeimg.pl/282x450/645ef9/FFFFFF/?font_size=24&text=i16+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/f954f4/000000/?font_size=24&text=i16+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/f954f4/000000/?font_size=24&text=i16+@+2x 2x,https://fakeimg.pl/750x750/f954f4/000000/?font_size=24&text=i16+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 16"
-                             alt="Medium description for index 15 item #16 in the gallery.">
+                             alt="Long description for index 15 item #16 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 16</div>
-                        <div class="fg-caption-desc">Medium description for index 15 item #16 in the gallery.</div>
+                        <div class="fg-caption-desc">Long description for index 15 item #16 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -512,28 +515,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/5f9ad8/000000/?font_size&#x3D;24&amp;text&#x3D;i17+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/c3a1ea/000000/?font_size&#x3D;24&amp;text&#x3D;i17+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 17"
-                   data-description="Long description for index 16 item #17 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;150x150&quot;,&quot;tag4&quot;,&quot;tag3&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon PowerShot S40&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/280 s&quot;,&quot;focal_length&quot;:&quot;17 mm&quot;,&quot;iso&quot;:&quot;90&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:16:08 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-description="Medium description for index 16 item #17 in the gallery."
+                   data-tags="[&quot;250x250&quot;,&quot;tag1&quot;,&quot;tag4&quot;,&quot;tag5&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Sony HDR-HC3&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/196 s&quot;,&quot;focal_length&quot;:&quot;5 mm&quot;,&quot;iso&quot;:&quot;100&quot;,&quot;created_timestamp&quot;:&quot;6/7/2021, 4:26:17 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/150x150/5f9ad8/000000/?font_size=24&text=i17+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/300x300/5f9ad8/000000/?font_size=24&text=i17+@+2x 2x,https://fakeimg.pl/450x450/5f9ad8/000000/?font_size=24&text=i17+@+3x 3x"
-                             width="150"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/c3a1ea/000000/?font_size=24&text=i17+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/c3a1ea/000000/?font_size=24&text=i17+@+2x 2x,https://fakeimg.pl/750x750/c3a1ea/000000/?font_size=24&text=i17+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 17"
-                             alt="Long description for index 16 item #17 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Medium description for index 16 item #17 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 17</div>
-                        <div class="fg-caption-desc">Long description for index 16 item #17 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Medium description for index 16 item #17 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -542,19 +545,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/89f46e/000000/?font_size&#x3D;24&amp;text&#x3D;i18+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/2f9cb7/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i18+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 18"
                    data-description="Short description for index 17."
-                   data-tags="[&quot;94x150&quot;,&quot;tag4&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon PowerShot S40&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/80 s&quot;,&quot;focal_length&quot;:&quot;2 mm&quot;,&quot;iso&quot;:&quot;59&quot;,&quot;created_timestamp&quot;:&quot;2/6/2021, 8:31:52 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-tags="[&quot;320x250&quot;,&quot;tag2&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Olympus C8080WZ&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/441 s&quot;,&quot;focal_length&quot;:&quot;6 mm&quot;,&quot;iso&quot;:&quot;82&quot;,&quot;created_timestamp&quot;:&quot;6/7/2021, 4:40:46 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/89f46e/000000/?font_size=24&text=i18+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/89f46e/000000/?font_size=24&text=i18+@+2x 2x,https://fakeimg.pl/282x450/89f46e/000000/?font_size=24&text=i18+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/2f9cb7/FFFFFF/?font_size=24&text=i18+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/2f9cb7/FFFFFF/?font_size=24&text=i18+@+2x 2x,https://fakeimg.pl/960x750/2f9cb7/FFFFFF/?font_size=24&text=i18+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 18"
                              alt="Short description for index 17.">
         			</span>
@@ -572,28 +575,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/58b5ce/000000/?font_size&#x3D;24&amp;text&#x3D;i19+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/5494dd/000000/?font_size&#x3D;24&amp;text&#x3D;i19+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 19"
-                   data-description="Short description for index 18."
-                   data-tags="[&quot;250x150&quot;,&quot;tag1&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon 40D&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/242 s&quot;,&quot;focal_length&quot;:&quot;34 mm&quot;,&quot;iso&quot;:&quot;53&quot;,&quot;created_timestamp&quot;:&quot;2/4/2021, 8:01:31 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Medium description for index 18 item #19 in the gallery."
+                   data-tags="[&quot;320x250&quot;,&quot;tag4&quot;,&quot;tag2&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Olympus C8080WZ&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/25 s&quot;,&quot;focal_length&quot;:&quot;23 mm&quot;,&quot;iso&quot;:&quot;60&quot;,&quot;created_timestamp&quot;:&quot;6/10/2021, 4:32:56 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/58b5ce/000000/?font_size=24&text=i19+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/58b5ce/000000/?font_size=24&text=i19+@+2x 2x,https://fakeimg.pl/750x450/58b5ce/000000/?font_size=24&text=i19+@+3x 3x"
-                             width="250"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/5494dd/000000/?font_size=24&text=i19+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/5494dd/000000/?font_size=24&text=i19+@+2x 2x,https://fakeimg.pl/960x750/5494dd/000000/?font_size=24&text=i19+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 19"
-                             alt="Short description for index 18.">
+                             alt="Medium description for index 18 item #19 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 19</div>
-                        <div class="fg-caption-desc">Short description for index 18.</div>
+                        <div class="fg-caption-desc">Medium description for index 18 item #19 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -602,28 +605,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/efb799/000000/?font_size&#x3D;24&amp;text&#x3D;i20+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/c799ef/000000/?font_size&#x3D;24&amp;text&#x3D;i20+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 20"
-                   data-description="Short description for index 19."
-                   data-tags="[&quot;94x150&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Panasonic DMC-FZ30&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/101 s&quot;,&quot;focal_length&quot;:&quot;37 mm&quot;,&quot;iso&quot;:&quot;99&quot;,&quot;created_timestamp&quot;:&quot;2/6/2021, 8:15:10 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-description="Medium description for index 19 item #20 in the gallery."
+                   data-tags="[&quot;320x250&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/711 s&quot;,&quot;focal_length&quot;:&quot;17 mm&quot;,&quot;iso&quot;:&quot;71&quot;,&quot;created_timestamp&quot;:&quot;6/7/2021, 4:30:02 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/efb799/000000/?font_size=24&text=i20+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/efb799/000000/?font_size=24&text=i20+@+2x 2x,https://fakeimg.pl/282x450/efb799/000000/?font_size=24&text=i20+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/c799ef/000000/?font_size=24&text=i20+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/c799ef/000000/?font_size=24&text=i20+@+2x 2x,https://fakeimg.pl/960x750/c799ef/000000/?font_size=24&text=i20+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 20"
-                             alt="Short description for index 19.">
+                             alt="Medium description for index 19 item #20 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 20</div>
-                        <div class="fg-caption-desc">Short description for index 19.</div>
+                        <div class="fg-caption-desc">Medium description for index 19 item #20 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -632,28 +635,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/e207ff/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i21+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/97e3ed/000000/?font_size&#x3D;24&amp;text&#x3D;i21+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 21"
-                   data-description="Long description for index 20 item #21 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;250x150&quot;,&quot;tag3&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/357 s&quot;,&quot;focal_length&quot;:&quot;4 mm&quot;,&quot;iso&quot;:&quot;75&quot;,&quot;created_timestamp&quot;:&quot;2/7/2021, 8:45:47 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Short description for index 20."
+                   data-tags="[&quot;150x250&quot;,&quot;tag2&quot;,&quot;tag1&quot;,&quot;tag3&quot;,&quot;tag5&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/775 s&quot;,&quot;focal_length&quot;:&quot;35 mm&quot;,&quot;iso&quot;:&quot;80&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:03:08 AM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/e207ff/FFFFFF/?font_size=24&text=i21+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/e207ff/FFFFFF/?font_size=24&text=i21+@+2x 2x,https://fakeimg.pl/750x450/e207ff/FFFFFF/?font_size=24&text=i21+@+3x 3x"
-                             width="250"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/97e3ed/000000/?font_size=24&text=i21+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/97e3ed/000000/?font_size=24&text=i21+@+2x 2x,https://fakeimg.pl/450x750/97e3ed/000000/?font_size=24&text=i21+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 21"
-                             alt="Long description for index 20 item #21 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 20.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 21</div>
-                        <div class="fg-caption-desc">Long description for index 20 item #21 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 20.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -662,28 +665,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/dd4db0/000000/?font_size&#x3D;24&amp;text&#x3D;i22+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/62fce7/000000/?font_size&#x3D;24&amp;text&#x3D;i22+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 22"
-                   data-description="Medium description for index 21 item #22 in the gallery."
-                   data-tags="[&quot;225x150&quot;,&quot;tag5&quot;,&quot;tag3&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Samsung Digimax i50&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/401 s&quot;,&quot;focal_length&quot;:&quot;26 mm&quot;,&quot;iso&quot;:&quot;95&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:12:26 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Short description for index 21."
+                   data-tags="[&quot;150x250&quot;,&quot;tag2&quot;,&quot;tag3&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Fujifilm FinePix E500&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/615 s&quot;,&quot;focal_length&quot;:&quot;9 mm&quot;,&quot;iso&quot;:&quot;50&quot;,&quot;created_timestamp&quot;:&quot;6/4/2021, 4:20:44 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/dd4db0/000000/?font_size=24&text=i22+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/dd4db0/000000/?font_size=24&text=i22+@+2x 2x,https://fakeimg.pl/675x450/dd4db0/000000/?font_size=24&text=i22+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/62fce7/000000/?font_size=24&text=i22+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/62fce7/000000/?font_size=24&text=i22+@+2x 2x,https://fakeimg.pl/450x750/62fce7/000000/?font_size=24&text=i22+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 22"
-                             alt="Medium description for index 21 item #22 in the gallery.">
+                             alt="Short description for index 21.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 22</div>
-                        <div class="fg-caption-desc">Medium description for index 21 item #22 in the gallery.</div>
+                        <div class="fg-caption-desc">Short description for index 21.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -692,28 +695,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/5f9ad8/000000/?font_size&#x3D;24&amp;text&#x3D;i23+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/62fce7/000000/?font_size&#x3D;24&amp;text&#x3D;i23+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 23"
-                   data-description="Long description for index 22 item #23 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;225x150&quot;,&quot;tag2&quot;,&quot;tag4&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/926 s&quot;,&quot;focal_length&quot;:&quot;32 mm&quot;,&quot;iso&quot;:&quot;81&quot;,&quot;created_timestamp&quot;:&quot;2/5/2021, 8:23:54 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-description="Short description for index 22."
+                   data-tags="[&quot;150x250&quot;,&quot;tag3&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Samsung Digimax i50&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/643 s&quot;,&quot;focal_length&quot;:&quot;1 mm&quot;,&quot;iso&quot;:&quot;99&quot;,&quot;created_timestamp&quot;:&quot;6/7/2021, 4:49:04 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/5f9ad8/000000/?font_size=24&text=i23+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/5f9ad8/000000/?font_size=24&text=i23+@+2x 2x,https://fakeimg.pl/675x450/5f9ad8/000000/?font_size=24&text=i23+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/62fce7/000000/?font_size=24&text=i23+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/62fce7/000000/?font_size=24&text=i23+@+2x 2x,https://fakeimg.pl/450x750/62fce7/000000/?font_size=24&text=i23+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 23"
-                             alt="Long description for index 22 item #23 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 22.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 23</div>
-                        <div class="fg-caption-desc">Long description for index 22 item #23 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 22.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -722,28 +725,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/f984f5/000000/?font_size&#x3D;24&amp;text&#x3D;i24+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/2d67b7/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i24+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 24"
-                   data-description="Long description for index 23 item #24 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;225x150&quot;,&quot;tag1&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Kodak CX7530&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/877 s&quot;,&quot;focal_length&quot;:&quot;23 mm&quot;,&quot;iso&quot;:&quot;95&quot;,&quot;created_timestamp&quot;:&quot;2/6/2021, 8:37:39 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-description="Short description for index 23."
+                   data-tags="[&quot;250x250&quot;,&quot;tag4&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Olympus C8080WZ&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/304 s&quot;,&quot;focal_length&quot;:&quot;34 mm&quot;,&quot;iso&quot;:&quot;68&quot;,&quot;created_timestamp&quot;:&quot;6/10/2021, 4:25:07 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/f984f5/000000/?font_size=24&text=i24+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/f984f5/000000/?font_size=24&text=i24+@+2x 2x,https://fakeimg.pl/675x450/f984f5/000000/?font_size=24&text=i24+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/2d67b7/FFFFFF/?font_size=24&text=i24+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/2d67b7/FFFFFF/?font_size=24&text=i24+@+2x 2x,https://fakeimg.pl/750x750/2d67b7/FFFFFF/?font_size=24&text=i24+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 24"
-                             alt="Long description for index 23 item #24 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 23.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 24</div>
-                        <div class="fg-caption-desc">Long description for index 23 item #24 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 23.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -752,28 +755,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/624af9/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i25+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/f7d4a0/000000/?font_size&#x3D;24&amp;text&#x3D;i25+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 25"
-                   data-description="Long description for index 24 item #25 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;94x150&quot;,&quot;tag5&quot;,&quot;tag1&quot;,&quot;tag4&quot;,&quot;tag3&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifilm FinePix E500&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/48 s&quot;,&quot;focal_length&quot;:&quot;27 mm&quot;,&quot;iso&quot;:&quot;57&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:17:03 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-description="Short description for index 24."
+                   data-tags="[&quot;250x250&quot;,&quot;tag3&quot;,&quot;tag2&quot;,&quot;tag5&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Panasonic DMC-FZ30&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/461 s&quot;,&quot;focal_length&quot;:&quot;18 mm&quot;,&quot;iso&quot;:&quot;97&quot;,&quot;created_timestamp&quot;:&quot;6/5/2021, 4:59:57 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/624af9/FFFFFF/?font_size=24&text=i25+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/624af9/FFFFFF/?font_size=24&text=i25+@+2x 2x,https://fakeimg.pl/282x450/624af9/FFFFFF/?font_size=24&text=i25+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/f7d4a0/000000/?font_size=24&text=i25+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/f7d4a0/000000/?font_size=24&text=i25+@+2x 2x,https://fakeimg.pl/750x750/f7d4a0/000000/?font_size=24&text=i25+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 25"
-                             alt="Long description for index 24 item #25 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 24.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 25</div>
-                        <div class="fg-caption-desc">Long description for index 24 item #25 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 24.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -782,28 +785,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/74fc86/000000/?font_size&#x3D;24&amp;text&#x3D;i26+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/13961a/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i26+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 26"
-                   data-description="Medium description for index 25 item #26 in the gallery."
-                   data-tags="[&quot;94x150&quot;,&quot;tag5&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/742 s&quot;,&quot;focal_length&quot;:&quot;16 mm&quot;,&quot;iso&quot;:&quot;59&quot;,&quot;created_timestamp&quot;:&quot;2/1/2021, 8:23:17 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Short description for index 25."
+                   data-tags="[&quot;150x250&quot;,&quot;tag3&quot;,&quot;tag2&quot;,&quot;tag1&quot;,&quot;tag5&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Panasonic DMC-FZ30&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/655 s&quot;,&quot;focal_length&quot;:&quot;10 mm&quot;,&quot;iso&quot;:&quot;99&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:41:51 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/74fc86/000000/?font_size=24&text=i26+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/74fc86/000000/?font_size=24&text=i26+@+2x 2x,https://fakeimg.pl/282x450/74fc86/000000/?font_size=24&text=i26+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/13961a/FFFFFF/?font_size=24&text=i26+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/13961a/FFFFFF/?font_size=24&text=i26+@+2x 2x,https://fakeimg.pl/450x750/13961a/FFFFFF/?font_size=24&text=i26+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 26"
-                             alt="Medium description for index 25 item #26 in the gallery.">
+                             alt="Short description for index 25.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 26</div>
-                        <div class="fg-caption-desc">Medium description for index 25 item #26 in the gallery.</div>
+                        <div class="fg-caption-desc">Short description for index 25.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -812,19 +815,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/645ef9/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i27+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/5494dd/000000/?font_size&#x3D;24&amp;text&#x3D;i27+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 27"
                    data-description="Medium description for index 26 item #27 in the gallery."
-                   data-tags="[&quot;225x150&quot;,&quot;tag2&quot;,&quot;tag1&quot;,&quot;tag3&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/92 s&quot;,&quot;focal_length&quot;:&quot;12 mm&quot;,&quot;iso&quot;:&quot;87&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:04:55 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-tags="[&quot;320x250&quot;,&quot;tag5&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/572 s&quot;,&quot;focal_length&quot;:&quot;23 mm&quot;,&quot;iso&quot;:&quot;76&quot;,&quot;created_timestamp&quot;:&quot;6/6/2021, 4:39:31 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/645ef9/FFFFFF/?font_size=24&text=i27+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/645ef9/FFFFFF/?font_size=24&text=i27+@+2x 2x,https://fakeimg.pl/675x450/645ef9/FFFFFF/?font_size=24&text=i27+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/5494dd/000000/?font_size=24&text=i27+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/5494dd/000000/?font_size=24&text=i27+@+2x 2x,https://fakeimg.pl/960x750/5494dd/000000/?font_size=24&text=i27+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 27"
                              alt="Medium description for index 26 item #27 in the gallery.">
         			</span>
@@ -842,19 +845,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/8301bf/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i28+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/c799ef/000000/?font_size&#x3D;24&amp;text&#x3D;i28+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 28"
                    data-description="Long description for index 27 item #28 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;225x150&quot;,&quot;tag5&quot;,&quot;tag3&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon DIGITAL IXUS 400&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/31 s&quot;,&quot;focal_length&quot;:&quot;32 mm&quot;,&quot;iso&quot;:&quot;71&quot;,&quot;created_timestamp&quot;:&quot;2/6/2021, 8:59:24 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-tags="[&quot;320x250&quot;,&quot;tag5&quot;,&quot;tag1&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Panasonic DMC-FZ30&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/604 s&quot;,&quot;focal_length&quot;:&quot;32 mm&quot;,&quot;iso&quot;:&quot;98&quot;,&quot;created_timestamp&quot;:&quot;6/4/2021, 4:40:34 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/8301bf/FFFFFF/?font_size=24&text=i28+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/8301bf/FFFFFF/?font_size=24&text=i28+@+2x 2x,https://fakeimg.pl/675x450/8301bf/FFFFFF/?font_size=24&text=i28+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/c799ef/000000/?font_size=24&text=i28+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/c799ef/000000/?font_size=24&text=i28+@+2x 2x,https://fakeimg.pl/960x750/c799ef/000000/?font_size=24&text=i28+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 28"
                              alt="Long description for index 27 item #28 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
@@ -872,28 +875,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/e8bb06/000000/?font_size&#x3D;24&amp;text&#x3D;i29+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/60e0be/000000/?font_size&#x3D;24&amp;text&#x3D;i29+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 29"
-                   data-description="Medium description for index 28 item #29 in the gallery."
-                   data-tags="[&quot;250x150&quot;,&quot;tag2&quot;,&quot;tag3&quot;,&quot;tag4&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/864 s&quot;,&quot;focal_length&quot;:&quot;4 mm&quot;,&quot;iso&quot;:&quot;97&quot;,&quot;created_timestamp&quot;:&quot;2/7/2021, 8:47:12 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-description="Long description for index 28 item #29 in the gallery. This is to test what happens to captions with a fair bit of text."
+                   data-tags="[&quot;150x250&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Fujifilm FinePix E500&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/50 s&quot;,&quot;focal_length&quot;:&quot;26 mm&quot;,&quot;iso&quot;:&quot;65&quot;,&quot;created_timestamp&quot;:&quot;6/9/2021, 4:26:58 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/e8bb06/000000/?font_size=24&text=i29+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/e8bb06/000000/?font_size=24&text=i29+@+2x 2x,https://fakeimg.pl/750x450/e8bb06/000000/?font_size=24&text=i29+@+3x 3x"
-                             width="250"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/60e0be/000000/?font_size=24&text=i29+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/60e0be/000000/?font_size=24&text=i29+@+2x 2x,https://fakeimg.pl/450x750/60e0be/000000/?font_size=24&text=i29+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 29"
-                             alt="Medium description for index 28 item #29 in the gallery.">
+                             alt="Long description for index 28 item #29 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 29</div>
-                        <div class="fg-caption-desc">Medium description for index 28 item #29 in the gallery.</div>
+                        <div class="fg-caption-desc">Long description for index 28 item #29 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -902,28 +905,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/bf2a22/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i30+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/b1c103/000000/?font_size&#x3D;24&amp;text&#x3D;i30+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 30"
-                   data-description="Short description for index 29."
-                   data-tags="[&quot;150x150&quot;,&quot;tag3&quot;,&quot;tag4&quot;,&quot;tag1&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Olympus C8080WZ&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/661 s&quot;,&quot;focal_length&quot;:&quot;2 mm&quot;,&quot;iso&quot;:&quot;71&quot;,&quot;created_timestamp&quot;:&quot;2/5/2021, 8:52:26 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-description="Long description for index 29 item #30 in the gallery. This is to test what happens to captions with a fair bit of text."
+                   data-tags="[&quot;150x250&quot;,&quot;tag2&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/677 s&quot;,&quot;focal_length&quot;:&quot;9 mm&quot;,&quot;iso&quot;:&quot;60&quot;,&quot;created_timestamp&quot;:&quot;6/7/2021, 4:22:26 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/150x150/bf2a22/FFFFFF/?font_size=24&text=i30+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/300x300/bf2a22/FFFFFF/?font_size=24&text=i30+@+2x 2x,https://fakeimg.pl/450x450/bf2a22/FFFFFF/?font_size=24&text=i30+@+3x 3x"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/b1c103/000000/?font_size=24&text=i30+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/b1c103/000000/?font_size=24&text=i30+@+2x 2x,https://fakeimg.pl/450x750/b1c103/000000/?font_size=24&text=i30+@+3x 3x"
                              width="150"
-                             height="150"
+                             height="250"
                              title="Test Item 30"
-                             alt="Short description for index 29.">
+                             alt="Long description for index 29 item #30 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 30</div>
-                        <div class="fg-caption-desc">Short description for index 29.</div>
+                        <div class="fg-caption-desc">Long description for index 29 item #30 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -932,28 +935,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/4eed83/000000/?font_size&#x3D;24&amp;text&#x3D;i31+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/c053db/000000/?font_size&#x3D;24&amp;text&#x3D;i31+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 31"
-                   data-description="Long description for index 30 item #31 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;225x150&quot;,&quot;tag4&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon 40D&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/122 s&quot;,&quot;focal_length&quot;:&quot;38 mm&quot;,&quot;iso&quot;:&quot;79&quot;,&quot;created_timestamp&quot;:&quot;2/6/2021, 8:14:12 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-description="Short description for index 30."
+                   data-tags="[&quot;150x250&quot;,&quot;tag1&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Canon DIGITAL IXUS 400&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/553 s&quot;,&quot;focal_length&quot;:&quot;12 mm&quot;,&quot;iso&quot;:&quot;96&quot;,&quot;created_timestamp&quot;:&quot;6/7/2021, 4:37:08 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/4eed83/000000/?font_size=24&text=i31+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/4eed83/000000/?font_size=24&text=i31+@+2x 2x,https://fakeimg.pl/675x450/4eed83/000000/?font_size=24&text=i31+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/c053db/000000/?font_size=24&text=i31+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/c053db/000000/?font_size=24&text=i31+@+2x 2x,https://fakeimg.pl/450x750/c053db/000000/?font_size=24&text=i31+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 31"
-                             alt="Long description for index 30 item #31 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 30.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 31</div>
-                        <div class="fg-caption-desc">Long description for index 30 item #31 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 30.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -962,28 +965,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/74fc86/000000/?font_size&#x3D;24&amp;text&#x3D;i32+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/c3a1ea/000000/?font_size&#x3D;24&amp;text&#x3D;i32+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 32"
-                   data-description="Long description for index 31 item #32 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;94x150&quot;,&quot;tag5&quot;,&quot;tag4&quot;,&quot;tag3&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Pentax K10D&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/93 s&quot;,&quot;focal_length&quot;:&quot;28 mm&quot;,&quot;iso&quot;:&quot;54&quot;,&quot;created_timestamp&quot;:&quot;2/6/2021, 8:46:29 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-description="Short description for index 31."
+                   data-tags="[&quot;150x250&quot;,&quot;tag3&quot;,&quot;tag1&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/955 s&quot;,&quot;focal_length&quot;:&quot;40 mm&quot;,&quot;iso&quot;:&quot;64&quot;,&quot;created_timestamp&quot;:&quot;6/11/2021, 4:35:37 AM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/74fc86/000000/?font_size=24&text=i32+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/74fc86/000000/?font_size=24&text=i32+@+2x 2x,https://fakeimg.pl/282x450/74fc86/000000/?font_size=24&text=i32+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/c3a1ea/000000/?font_size=24&text=i32+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/c3a1ea/000000/?font_size=24&text=i32+@+2x 2x,https://fakeimg.pl/450x750/c3a1ea/000000/?font_size=24&text=i32+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 32"
-                             alt="Long description for index 31 item #32 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 31.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 32</div>
-                        <div class="fg-caption-desc">Long description for index 31 item #32 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 31.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -992,28 +995,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/bc5016/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i33+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/2f9cb7/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i33+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 33"
-                   data-description="Medium description for index 32 item #33 in the gallery."
-                   data-tags="[&quot;94x150&quot;,&quot;tag3&quot;,&quot;tag1&quot;,&quot;tag4&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/338 s&quot;,&quot;focal_length&quot;:&quot;4 mm&quot;,&quot;iso&quot;:&quot;60&quot;,&quot;created_timestamp&quot;:&quot;2/7/2021, 8:59:49 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-description="Long description for index 32 item #33 in the gallery. This is to test what happens to captions with a fair bit of text."
+                   data-tags="[&quot;250x250&quot;,&quot;tag5&quot;,&quot;tag3&quot;,&quot;tag1&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/900 s&quot;,&quot;focal_length&quot;:&quot;27 mm&quot;,&quot;iso&quot;:&quot;86&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:22:43 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/bc5016/FFFFFF/?font_size=24&text=i33+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/bc5016/FFFFFF/?font_size=24&text=i33+@+2x 2x,https://fakeimg.pl/282x450/bc5016/FFFFFF/?font_size=24&text=i33+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/2f9cb7/FFFFFF/?font_size=24&text=i33+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/2f9cb7/FFFFFF/?font_size=24&text=i33+@+2x 2x,https://fakeimg.pl/750x750/2f9cb7/FFFFFF/?font_size=24&text=i33+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 33"
-                             alt="Medium description for index 32 item #33 in the gallery.">
+                             alt="Long description for index 32 item #33 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 33</div>
-                        <div class="fg-caption-desc">Medium description for index 32 item #33 in the gallery.</div>
+                        <div class="fg-caption-desc">Long description for index 32 item #33 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1022,28 +1025,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/bf2a22/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i34+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/6db509/000000/?font_size&#x3D;24&amp;text&#x3D;i34+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 34"
-                   data-description="Long description for index 33 item #34 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;250x150&quot;,&quot;tag3&quot;,&quot;tag4&quot;,&quot;tag2&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Olympus C8080WZ&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/808 s&quot;,&quot;focal_length&quot;:&quot;7 mm&quot;,&quot;iso&quot;:&quot;82&quot;,&quot;created_timestamp&quot;:&quot;2/1/2021, 8:41:18 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-description="Short description for index 33."
+                   data-tags="[&quot;250x250&quot;,&quot;tag2&quot;,&quot;tag3&quot;,&quot;tag1&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/283 s&quot;,&quot;focal_length&quot;:&quot;18 mm&quot;,&quot;iso&quot;:&quot;79&quot;,&quot;created_timestamp&quot;:&quot;6/6/2021, 4:47:06 AM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/bf2a22/FFFFFF/?font_size=24&text=i34+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/bf2a22/FFFFFF/?font_size=24&text=i34+@+2x 2x,https://fakeimg.pl/750x450/bf2a22/FFFFFF/?font_size=24&text=i34+@+3x 3x"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/6db509/000000/?font_size=24&text=i34+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/6db509/000000/?font_size=24&text=i34+@+2x 2x,https://fakeimg.pl/750x750/6db509/000000/?font_size=24&text=i34+@+3x 3x"
                              width="250"
-                             height="150"
+                             height="250"
                              title="Test Item 34"
-                             alt="Long description for index 33 item #34 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 33.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 34</div>
-                        <div class="fg-caption-desc">Long description for index 33 item #34 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 33.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1052,19 +1055,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/645ef9/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i35+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/82d7ed/000000/?font_size&#x3D;24&amp;text&#x3D;i35+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 35"
                    data-description="Short description for index 34."
-                   data-tags="[&quot;94x150&quot;,&quot;tag3&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon DIGITAL IXUS 400&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/462 s&quot;,&quot;focal_length&quot;:&quot;18 mm&quot;,&quot;iso&quot;:&quot;73&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:55:00 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-tags="[&quot;150x250&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Canon 40D&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/31 s&quot;,&quot;focal_length&quot;:&quot;37 mm&quot;,&quot;iso&quot;:&quot;96&quot;,&quot;created_timestamp&quot;:&quot;6/4/2021, 4:06:32 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/645ef9/FFFFFF/?font_size=24&text=i35+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/645ef9/FFFFFF/?font_size=24&text=i35+@+2x 2x,https://fakeimg.pl/282x450/645ef9/FFFFFF/?font_size=24&text=i35+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/82d7ed/000000/?font_size=24&text=i35+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/82d7ed/000000/?font_size=24&text=i35+@+2x 2x,https://fakeimg.pl/450x750/82d7ed/000000/?font_size=24&text=i35+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 35"
                              alt="Short description for index 34.">
         			</span>
@@ -1082,28 +1085,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/58b5ce/000000/?font_size&#x3D;24&amp;text&#x3D;i36+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/7054d3/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i36+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 36"
-                   data-description="Long description for index 35 item #36 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;150x150&quot;,&quot;tag1&quot;,&quot;tag2&quot;,&quot;tag3&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/168 s&quot;,&quot;focal_length&quot;:&quot;3 mm&quot;,&quot;iso&quot;:&quot;85&quot;,&quot;created_timestamp&quot;:&quot;1/31/2021, 8:59:05 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Short description for index 35."
+                   data-tags="[&quot;150x250&quot;,&quot;tag4&quot;,&quot;tag3&quot;,&quot;tag1&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Canon PowerShot S40&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/941 s&quot;,&quot;focal_length&quot;:&quot;13 mm&quot;,&quot;iso&quot;:&quot;92&quot;,&quot;created_timestamp&quot;:&quot;6/6/2021, 4:24:49 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/150x150/58b5ce/000000/?font_size=24&text=i36+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/300x300/58b5ce/000000/?font_size=24&text=i36+@+2x 2x,https://fakeimg.pl/450x450/58b5ce/000000/?font_size=24&text=i36+@+3x 3x"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/7054d3/FFFFFF/?font_size=24&text=i36+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/7054d3/FFFFFF/?font_size=24&text=i36+@+2x 2x,https://fakeimg.pl/450x750/7054d3/FFFFFF/?font_size=24&text=i36+@+3x 3x"
                              width="150"
-                             height="150"
+                             height="250"
                              title="Test Item 36"
-                             alt="Long description for index 35 item #36 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 35.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 36</div>
-                        <div class="fg-caption-desc">Long description for index 35 item #36 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 35.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1112,28 +1115,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/8dc6e8/000000/?font_size&#x3D;24&amp;text&#x3D;i37+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/027ecc/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i37+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 37"
-                   data-description="Long description for index 36 item #37 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;150x150&quot;,&quot;tag2&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon DIGITAL IXUS 400&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/597 s&quot;,&quot;focal_length&quot;:&quot;26 mm&quot;,&quot;iso&quot;:&quot;50&quot;,&quot;created_timestamp&quot;:&quot;2/4/2021, 8:00:40 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-description="Short description for index 36."
+                   data-tags="[&quot;150x250&quot;,&quot;tag5&quot;,&quot;tag4&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Panasonic DMC-FZ30&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/588 s&quot;,&quot;focal_length&quot;:&quot;38 mm&quot;,&quot;iso&quot;:&quot;81&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:37:26 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/150x150/8dc6e8/000000/?font_size=24&text=i37+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/300x300/8dc6e8/000000/?font_size=24&text=i37+@+2x 2x,https://fakeimg.pl/450x450/8dc6e8/000000/?font_size=24&text=i37+@+3x 3x"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/027ecc/FFFFFF/?font_size=24&text=i37+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/027ecc/FFFFFF/?font_size=24&text=i37+@+2x 2x,https://fakeimg.pl/450x750/027ecc/FFFFFF/?font_size=24&text=i37+@+3x 3x"
                              width="150"
-                             height="150"
+                             height="250"
                              title="Test Item 37"
-                             alt="Long description for index 36 item #37 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 36.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 37</div>
-                        <div class="fg-caption-desc">Long description for index 36 item #37 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 36.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1142,28 +1145,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/e8bb06/000000/?font_size&#x3D;24&amp;text&#x3D;i38+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/82d7ed/000000/?font_size&#x3D;24&amp;text&#x3D;i38+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 38"
-                   data-description="Medium description for index 37 item #38 in the gallery."
-                   data-tags="[&quot;225x150&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/901 s&quot;,&quot;focal_length&quot;:&quot;31 mm&quot;,&quot;iso&quot;:&quot;81&quot;,&quot;created_timestamp&quot;:&quot;2/4/2021, 8:58:43 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-description="Short description for index 37."
+                   data-tags="[&quot;250x250&quot;,&quot;tag1&quot;,&quot;tag3&quot;,&quot;tag2&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/391 s&quot;,&quot;focal_length&quot;:&quot;27 mm&quot;,&quot;iso&quot;:&quot;87&quot;,&quot;created_timestamp&quot;:&quot;6/9/2021, 4:05:17 AM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/e8bb06/000000/?font_size=24&text=i38+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/e8bb06/000000/?font_size=24&text=i38+@+2x 2x,https://fakeimg.pl/675x450/e8bb06/000000/?font_size=24&text=i38+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/82d7ed/000000/?font_size=24&text=i38+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/82d7ed/000000/?font_size=24&text=i38+@+2x 2x,https://fakeimg.pl/750x750/82d7ed/000000/?font_size=24&text=i38+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 38"
-                             alt="Medium description for index 37 item #38 in the gallery.">
+                             alt="Short description for index 37.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 38</div>
-                        <div class="fg-caption-desc">Medium description for index 37 item #38 in the gallery.</div>
+                        <div class="fg-caption-desc">Short description for index 37.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1172,19 +1175,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/dd4db0/000000/?font_size&#x3D;24&amp;text&#x3D;i39+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/75bbce/000000/?font_size&#x3D;24&amp;text&#x3D;i39+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 39"
                    data-description="Short description for index 38."
-                   data-tags="[&quot;225x150&quot;,&quot;tag5&quot;,&quot;tag2&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/71 s&quot;,&quot;focal_length&quot;:&quot;13 mm&quot;,&quot;iso&quot;:&quot;80&quot;,&quot;created_timestamp&quot;:&quot;2/6/2021, 8:05:38 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-tags="[&quot;320x250&quot;,&quot;tag4&quot;,&quot;tag1&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Pentax K10D&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/490 s&quot;,&quot;focal_length&quot;:&quot;7 mm&quot;,&quot;iso&quot;:&quot;84&quot;,&quot;created_timestamp&quot;:&quot;6/10/2021, 4:52:52 AM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/dd4db0/000000/?font_size=24&text=i39+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/dd4db0/000000/?font_size=24&text=i39+@+2x 2x,https://fakeimg.pl/675x450/dd4db0/000000/?font_size=24&text=i39+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/75bbce/000000/?font_size=24&text=i39+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/75bbce/000000/?font_size=24&text=i39+@+2x 2x,https://fakeimg.pl/960x750/75bbce/000000/?font_size=24&text=i39+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 39"
                              alt="Short description for index 38.">
         			</span>
@@ -1202,28 +1205,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/e8cd7d/000000/?font_size&#x3D;24&amp;text&#x3D;i40+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/7c8bd3/000000/?font_size&#x3D;24&amp;text&#x3D;i40+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 40"
-                   data-description="Long description for index 39 item #40 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;225x150&quot;,&quot;tag4&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Canon 40D&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/363 s&quot;,&quot;focal_length&quot;:&quot;33 mm&quot;,&quot;iso&quot;:&quot;63&quot;,&quot;created_timestamp&quot;:&quot;2/7/2021, 8:22:33 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Medium description for index 39 item #40 in the gallery."
+                   data-tags="[&quot;150x250&quot;,&quot;tag5&quot;,&quot;tag4&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/337 s&quot;,&quot;focal_length&quot;:&quot;11 mm&quot;,&quot;iso&quot;:&quot;72&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:56:35 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/e8cd7d/000000/?font_size=24&text=i40+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/e8cd7d/000000/?font_size=24&text=i40+@+2x 2x,https://fakeimg.pl/675x450/e8cd7d/000000/?font_size=24&text=i40+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/7c8bd3/000000/?font_size=24&text=i40+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/7c8bd3/000000/?font_size=24&text=i40+@+2x 2x,https://fakeimg.pl/450x750/7c8bd3/000000/?font_size=24&text=i40+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 40"
-                             alt="Long description for index 39 item #40 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Medium description for index 39 item #40 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 40</div>
-                        <div class="fg-caption-desc">Long description for index 39 item #40 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Medium description for index 39 item #40 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1232,19 +1235,19 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/f2309b/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i41+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/62fce7/000000/?font_size&#x3D;24&amp;text&#x3D;i41+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 41"
                    data-description="Long description for index 40 item #41 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;94x150&quot;,&quot;tag5&quot;,&quot;tag4&quot;,&quot;tag3&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Sony HDR-HC3&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/2 s&quot;,&quot;focal_length&quot;:&quot;6 mm&quot;,&quot;iso&quot;:&quot;52&quot;,&quot;created_timestamp&quot;:&quot;2/3/2021, 8:35:48 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-tags="[&quot;250x250&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Canon 40D&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/424 s&quot;,&quot;focal_length&quot;:&quot;8 mm&quot;,&quot;iso&quot;:&quot;64&quot;,&quot;created_timestamp&quot;:&quot;6/4/2021, 4:55:23 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/f2309b/FFFFFF/?font_size=24&text=i41+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/f2309b/FFFFFF/?font_size=24&text=i41+@+2x 2x,https://fakeimg.pl/282x450/f2309b/FFFFFF/?font_size=24&text=i41+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/62fce7/000000/?font_size=24&text=i41+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/62fce7/000000/?font_size=24&text=i41+@+2x 2x,https://fakeimg.pl/750x750/62fce7/000000/?font_size=24&text=i41+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 41"
                              alt="Long description for index 40 item #41 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
@@ -1262,28 +1265,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/58b5ce/000000/?font_size&#x3D;24&amp;text&#x3D;i42+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/2f9cb7/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i42+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 42"
-                   data-description="Long description for index 41 item #42 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;250x150&quot;,&quot;tag4&quot;,&quot;tag3&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Nikon D70&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/387 s&quot;,&quot;focal_length&quot;:&quot;8 mm&quot;,&quot;iso&quot;:&quot;77&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:21:58 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-description="Medium description for index 41 item #42 in the gallery."
+                   data-tags="[&quot;150x250&quot;,&quot;tag3&quot;,&quot;tag1&quot;,&quot;tag5&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/730 s&quot;,&quot;focal_length&quot;:&quot;27 mm&quot;,&quot;iso&quot;:&quot;95&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:25:05 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/58b5ce/000000/?font_size=24&text=i42+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/58b5ce/000000/?font_size=24&text=i42+@+2x 2x,https://fakeimg.pl/750x450/58b5ce/000000/?font_size=24&text=i42+@+3x 3x"
-                             width="250"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/2f9cb7/FFFFFF/?font_size=24&text=i42+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/2f9cb7/FFFFFF/?font_size=24&text=i42+@+2x 2x,https://fakeimg.pl/450x750/2f9cb7/FFFFFF/?font_size=24&text=i42+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 42"
-                             alt="Long description for index 41 item #42 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Medium description for index 41 item #42 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 42</div>
-                        <div class="fg-caption-desc">Long description for index 41 item #42 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Medium description for index 41 item #42 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1292,28 +1295,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/d83883/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i43+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/b1c103/000000/?font_size&#x3D;24&amp;text&#x3D;i43+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 43"
-                   data-description="Long description for index 42 item #43 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;250x150&quot;,&quot;tag5&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Pentax K10D&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/907 s&quot;,&quot;focal_length&quot;:&quot;39 mm&quot;,&quot;iso&quot;:&quot;84&quot;,&quot;created_timestamp&quot;:&quot;2/1/2021, 8:30:37 PM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
+                   data-description="Medium description for index 42 item #43 in the gallery."
+                   data-tags="[&quot;250x250&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Canon 40D&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/575 s&quot;,&quot;focal_length&quot;:&quot;17 mm&quot;,&quot;iso&quot;:&quot;82&quot;,&quot;created_timestamp&quot;:&quot;6/9/2021, 4:50:58 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/d83883/FFFFFF/?font_size=24&text=i43+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/d83883/FFFFFF/?font_size=24&text=i43+@+2x 2x,https://fakeimg.pl/750x450/d83883/FFFFFF/?font_size=24&text=i43+@+3x 3x"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/b1c103/000000/?font_size=24&text=i43+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/b1c103/000000/?font_size=24&text=i43+@+2x 2x,https://fakeimg.pl/750x750/b1c103/000000/?font_size=24&text=i43+@+3x 3x"
                              width="250"
-                             height="150"
+                             height="250"
                              title="Test Item 43"
-                             alt="Long description for index 42 item #43 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Medium description for index 42 item #43 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 43</div>
-                        <div class="fg-caption-desc">Long description for index 42 item #43 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Medium description for index 42 item #43 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1322,28 +1325,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/bf2a22/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i44+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/42f471/000000/?font_size&#x3D;24&amp;text&#x3D;i44+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 44"
-                   data-description="Medium description for index 43 item #44 in the gallery."
-                   data-tags="[&quot;225x150&quot;,&quot;tag3&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Panasonic DMC-FZ30&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/36 s&quot;,&quot;focal_length&quot;:&quot;27 mm&quot;,&quot;iso&quot;:&quot;79&quot;,&quot;created_timestamp&quot;:&quot;2/1/2021, 8:55:08 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Short description for index 43."
+                   data-tags="[&quot;320x250&quot;,&quot;tag1&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Canon PowerShot S40&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/973 s&quot;,&quot;focal_length&quot;:&quot;32 mm&quot;,&quot;iso&quot;:&quot;80&quot;,&quot;created_timestamp&quot;:&quot;6/7/2021, 4:24:02 AM&quot;,&quot;orientation&quot;:&quot;Right Side&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20225%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/225x150/bf2a22/FFFFFF/?font_size=24&text=i44+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/450x300/bf2a22/FFFFFF/?font_size=24&text=i44+@+2x 2x,https://fakeimg.pl/675x450/bf2a22/FFFFFF/?font_size=24&text=i44+@+3x 3x"
-                             width="225"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22320%22%20height=%22250%22%20viewBox=%220%200%20320%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/320x250/42f471/000000/?font_size=24&text=i44+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/640x500/42f471/000000/?font_size=24&text=i44+@+2x 2x,https://fakeimg.pl/960x750/42f471/000000/?font_size=24&text=i44+@+3x 3x"
+                             width="320"
+                             height="250"
                              title="Test Item 44"
-                             alt="Medium description for index 43 item #44 in the gallery.">
+                             alt="Short description for index 43.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 44</div>
-                        <div class="fg-caption-desc">Medium description for index 43 item #44 in the gallery.</div>
+                        <div class="fg-caption-desc">Short description for index 43.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1352,28 +1355,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/edada3/000000/?font_size&#x3D;24&amp;text&#x3D;i45+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/3da5aa/000000/?font_size&#x3D;24&amp;text&#x3D;i45+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 45"
-                   data-description="Medium description for index 44 item #45 in the gallery."
-                   data-tags="[&quot;94x150&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifilm FinePix E500&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/522 s&quot;,&quot;focal_length&quot;:&quot;25 mm&quot;,&quot;iso&quot;:&quot;98&quot;,&quot;created_timestamp&quot;:&quot;2/3/2021, 8:17:31 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-description="Long description for index 44 item #45 in the gallery. This is to test what happens to captions with a fair bit of text."
+                   data-tags="[&quot;150x250&quot;,&quot;tag1&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Pentax K10D&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/517 s&quot;,&quot;focal_length&quot;:&quot;26 mm&quot;,&quot;iso&quot;:&quot;55&quot;,&quot;created_timestamp&quot;:&quot;6/5/2021, 4:32:03 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/edada3/000000/?font_size=24&text=i45+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/edada3/000000/?font_size=24&text=i45+@+2x 2x,https://fakeimg.pl/282x450/edada3/000000/?font_size=24&text=i45+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/3da5aa/000000/?font_size=24&text=i45+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/3da5aa/000000/?font_size=24&text=i45+@+2x 2x,https://fakeimg.pl/450x750/3da5aa/000000/?font_size=24&text=i45+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 45"
-                             alt="Medium description for index 44 item #45 in the gallery.">
+                             alt="Long description for index 44 item #45 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 45</div>
-                        <div class="fg-caption-desc">Medium description for index 44 item #45 in the gallery.</div>
+                        <div class="fg-caption-desc">Long description for index 44 item #45 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1382,28 +1385,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/bc5016/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i46+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/bd8ddd/000000/?font_size&#x3D;24&amp;text&#x3D;i46+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 46"
-                   data-description="Medium description for index 45 item #46 in the gallery."
-                   data-tags="[&quot;150x150&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Kodak CX7530&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/606 s&quot;,&quot;focal_length&quot;:&quot;22 mm&quot;,&quot;iso&quot;:&quot;79&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:43:50 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-description="Short description for index 45."
+                   data-tags="[&quot;150x250&quot;,&quot;tag5&quot;,&quot;tag3&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Pentax K10D&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/775 s&quot;,&quot;focal_length&quot;:&quot;16 mm&quot;,&quot;iso&quot;:&quot;52&quot;,&quot;created_timestamp&quot;:&quot;6/7/2021, 4:12:52 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/150x150/bc5016/FFFFFF/?font_size=24&text=i46+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/300x300/bc5016/FFFFFF/?font_size=24&text=i46+@+2x 2x,https://fakeimg.pl/450x450/bc5016/FFFFFF/?font_size=24&text=i46+@+3x 3x"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/bd8ddd/000000/?font_size=24&text=i46+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/bd8ddd/000000/?font_size=24&text=i46+@+2x 2x,https://fakeimg.pl/450x750/bd8ddd/000000/?font_size=24&text=i46+@+3x 3x"
                              width="150"
-                             height="150"
+                             height="250"
                              title="Test Item 46"
-                             alt="Medium description for index 45 item #46 in the gallery.">
+                             alt="Short description for index 45.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 46</div>
-                        <div class="fg-caption-desc">Medium description for index 45 item #46 in the gallery.</div>
+                        <div class="fg-caption-desc">Short description for index 45.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1412,28 +1415,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/624af9/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i47+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/a777d1/000000/?font_size&#x3D;24&amp;text&#x3D;i47+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 47"
-                   data-description="Long description for index 46 item #47 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;94x150&quot;,&quot;tag2&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifile FinePix6900ZOOM&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/834 s&quot;,&quot;focal_length&quot;:&quot;25 mm&quot;,&quot;iso&quot;:&quot;83&quot;,&quot;created_timestamp&quot;:&quot;2/3/2021, 8:24:52 PM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
+                   data-description="Short description for index 46."
+                   data-tags="[&quot;150x250&quot;,&quot;tag1&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Samsung Digimax i50&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/971 s&quot;,&quot;focal_length&quot;:&quot;16 mm&quot;,&quot;iso&quot;:&quot;69&quot;,&quot;created_timestamp&quot;:&quot;6/7/2021, 4:17:12 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/624af9/FFFFFF/?font_size=24&text=i47+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/624af9/FFFFFF/?font_size=24&text=i47+@+2x 2x,https://fakeimg.pl/282x450/624af9/FFFFFF/?font_size=24&text=i47+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22150%22%20height=%22250%22%20viewBox=%220%200%20150%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/150x250/a777d1/000000/?font_size=24&text=i47+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x500/a777d1/000000/?font_size=24&text=i47+@+2x 2x,https://fakeimg.pl/450x750/a777d1/000000/?font_size=24&text=i47+@+3x 3x"
+                             width="150"
+                             height="250"
                              title="Test Item 47"
-                             alt="Long description for index 46 item #47 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 46.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 47</div>
-                        <div class="fg-caption-desc">Long description for index 46 item #47 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 46.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1442,28 +1445,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/b2ffe6/000000/?font_size&#x3D;24&amp;text&#x3D;i48+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/605ce0/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i48+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 48"
-                   data-description="Short description for index 47."
-                   data-tags="[&quot;94x150&quot;,&quot;tag4&quot;,&quot;tag2&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Pentax K10D&quot;,&quot;aperture&quot;:&quot;f/3.0&quot;,&quot;shutter_speed&quot;:&quot;1/683 s&quot;,&quot;focal_length&quot;:&quot;23 mm&quot;,&quot;iso&quot;:&quot;51&quot;,&quot;created_timestamp&quot;:&quot;2/2/2021, 8:42:36 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-description="Medium description for index 47 item #48 in the gallery."
+                   data-tags="[&quot;250x250&quot;,&quot;tag1&quot;,&quot;tag4&quot;,&quot;tag2&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Canon 40D&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/236 s&quot;,&quot;focal_length&quot;:&quot;9 mm&quot;,&quot;iso&quot;:&quot;90&quot;,&quot;created_timestamp&quot;:&quot;6/8/2021, 4:19:09 AM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2094%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/94x150/b2ffe6/000000/?font_size=24&text=i48+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/188x300/b2ffe6/000000/?font_size=24&text=i48+@+2x 2x,https://fakeimg.pl/282x450/b2ffe6/000000/?font_size=24&text=i48+@+3x 3x"
-                             width="94"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/605ce0/FFFFFF/?font_size=24&text=i48+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/605ce0/FFFFFF/?font_size=24&text=i48+@+2x 2x,https://fakeimg.pl/750x750/605ce0/FFFFFF/?font_size=24&text=i48+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 48"
-                             alt="Short description for index 47.">
+                             alt="Medium description for index 47 item #48 in the gallery.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 48</div>
-                        <div class="fg-caption-desc">Short description for index 47.</div>
+                        <div class="fg-caption-desc">Medium description for index 47 item #48 in the gallery.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1472,28 +1475,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/9af9eb/000000/?font_size&#x3D;24&amp;text&#x3D;i49+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/c799ef/000000/?font_size&#x3D;24&amp;text&#x3D;i49+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 49"
-                   data-description="Medium description for index 48 item #49 in the gallery."
-                   data-tags="[&quot;250x150&quot;,&quot;tag3&quot;,&quot;tag2&quot;,&quot;tag1&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Samsung Digimax i50&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/228 s&quot;,&quot;focal_length&quot;:&quot;8 mm&quot;,&quot;iso&quot;:&quot;87&quot;,&quot;created_timestamp&quot;:&quot;2/5/2021, 8:50:48 PM&quot;,&quot;orientation&quot;:&quot;Bottom&quot;}">
+                   data-description="Long description for index 48 item #49 in the gallery. This is to test what happens to captions with a fair bit of text."
+                   data-tags="[&quot;250x250&quot;,&quot;tag3&quot;,&quot;tag4&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Nikon COOLPIX P1&quot;,&quot;aperture&quot;:&quot;f/1.0&quot;,&quot;shutter_speed&quot;:&quot;1/381 s&quot;,&quot;focal_length&quot;:&quot;9 mm&quot;,&quot;iso&quot;:&quot;60&quot;,&quot;created_timestamp&quot;:&quot;6/6/2021, 4:28:32 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20250%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/250x150/9af9eb/000000/?font_size=24&text=i49+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/500x300/9af9eb/000000/?font_size=24&text=i49+@+2x 2x,https://fakeimg.pl/750x450/9af9eb/000000/?font_size=24&text=i49+@+3x 3x"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/c799ef/000000/?font_size=24&text=i49+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/c799ef/000000/?font_size=24&text=i49+@+2x 2x,https://fakeimg.pl/750x750/c799ef/000000/?font_size=24&text=i49+@+3x 3x"
                              width="250"
-                             height="150"
+                             height="250"
                              title="Test Item 49"
-                             alt="Medium description for index 48 item #49 in the gallery.">
+                             alt="Long description for index 48 item #49 in the gallery. This is to test what happens to captions with a fair bit of text.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 49</div>
-                        <div class="fg-caption-desc">Medium description for index 48 item #49 in the gallery.</div>
+                        <div class="fg-caption-desc">Long description for index 48 item #49 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -1502,28 +1505,28 @@
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
-                   href="https://fakeimg.pl/1920x1080/105ae5/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i50+@+1920×1080"
+                   href="https://fakeimg.pl/1920x1080/3da5aa/000000/?font_size&#x3D;24&amp;text&#x3D;i50+@+1920×1080"
                    data-type="image"
                    data-title="Test Item 50"
-                   data-description="Long description for index 49 item #50 in the gallery. This is to test what happens to captions with a fair bit of text."
-                   data-tags="[&quot;150x150&quot;,&quot;tag4&quot;,&quot;tag1&quot;,&quot;tag2&quot;]"
-                   data-exif="{&quot;camera&quot;:&quot;Fujifilm FinePix E500&quot;,&quot;aperture&quot;:&quot;f/2.0&quot;,&quot;shutter_speed&quot;:&quot;1/697 s&quot;,&quot;focal_length&quot;:&quot;26 mm&quot;,&quot;iso&quot;:&quot;78&quot;,&quot;created_timestamp&quot;:&quot;2/5/2021, 8:16:04 PM&quot;,&quot;orientation&quot;:&quot;Left Side&quot;}">
+                   data-description="Short description for index 49."
+                   data-tags="[&quot;250x250&quot;,&quot;tag4&quot;,&quot;tag5&quot;,&quot;tag3&quot;]"
+                   data-exif="{&quot;camera&quot;:&quot;Konica Minolta DiMAGE Z3&quot;,&quot;aperture&quot;:&quot;f/4.0&quot;,&quot;shutter_speed&quot;:&quot;1/285 s&quot;,&quot;focal_length&quot;:&quot;9 mm&quot;,&quot;iso&quot;:&quot;56&quot;,&quot;created_timestamp&quot;:&quot;6/5/2021, 4:10:29 AM&quot;,&quot;orientation&quot;:&quot;Top&quot;}">
         			<span class="fg-image-wrap">
         				<img class="fg-image"
-                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20150%20150%22%3E%3C/svg%3E"
-                             data-src-fg="https://fakeimg.pl/150x150/105ae5/FFFFFF/?font_size=24&text=i50+@+1x"
-                             data-srcset-fg="https://fakeimg.pl/300x300/105ae5/FFFFFF/?font_size=24&text=i50+@+2x 2x,https://fakeimg.pl/450x450/105ae5/FFFFFF/?font_size=24&text=i50+@+3x 3x"
-                             width="150"
-                             height="150"
+                             src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22250%22%20height=%22250%22%20viewBox=%220%200%20250%20250%22%3E%3C/svg%3E"
+                             data-src-fg="https://fakeimg.pl/250x250/3da5aa/000000/?font_size=24&text=i50+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/500x500/3da5aa/000000/?font_size=24&text=i50+@+2x 2x,https://fakeimg.pl/750x750/3da5aa/000000/?font_size=24&text=i50+@+3x 3x"
+                             width="250"
+                             height="250"
                              title="Test Item 50"
-                             alt="Long description for index 49 item #50 in the gallery. This is to test what happens to captions with a fair bit of text.">
+                             alt="Short description for index 49.">
         			</span>
                     <span class="fg-image-overlay"></span>
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
                         <div class="fg-caption-title">Test Item 50</div>
-                        <div class="fg-caption-desc">Long description for index 49 item #50 in the gallery. This is to test what happens to captions with a fair bit of text.</div>
+                        <div class="fg-caption-desc">Short description for index 49.</div>
                     </div>
                 </figcaption>
             </figure>
