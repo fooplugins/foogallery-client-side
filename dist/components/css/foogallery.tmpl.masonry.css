@@ -9,9 +9,6 @@
 .fg-masonry .fg-thumb {
 	display: block;
 }
-.fg-masonry.fg-fixed .fg-thumb {
-	display: inline-block;
-}
 .fg-masonry.fg-fixed .fg-item,
 .fg-masonry.fg-fixed .fg-image,
 .fg-masonry.fg-fixed .fg-column-width {
