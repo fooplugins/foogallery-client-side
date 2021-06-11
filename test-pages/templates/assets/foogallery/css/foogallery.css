@@ -103,7 +103,7 @@
 	max-width: 100%;
 	height: auto;
 	margin: 0;
-	width: 100%;
+	width: auto;
 }
 .foogallery picture.fg-image > img {
 	display: block;
@@ -114,6 +114,7 @@
 	max-width: 100%;
 	height: auto;
 	margin: 0;
+	width: auto;
 }
 .foogallery .fg-loaded .fg-thumb {
 	z-index: 6;
