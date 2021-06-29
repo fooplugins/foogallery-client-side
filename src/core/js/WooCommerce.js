@@ -1,6 +1,6 @@
-window.woocommerce_params = {
-    wc_ajax_url: "https://woocommerce-endpoint/%%endpoint%%"
-};
+// window.woocommerce_params = {
+//     wc_ajax_url: "https://woocommerce-endpoint/%%endpoint%%"
+// };
 (function($, _, _utils, _is, _obj, _wcp){
 
     _.template.configure("core", {}, {
