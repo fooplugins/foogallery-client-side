@@ -11,6 +11,8 @@
 	background-size: 32px 32px;
 	background-position: center center;
 	background-repeat: no-repeat;
+	min-width: 32px;
+	min-height: 32px;
 }
 .foogallery .fg-caption-inner:before {
 	content: "";
@@ -18,11 +20,13 @@
 	position: relative;
 	width: 32px;
 	height: 32px;
-	margin: 10px auto 5px auto;
+	margin: 0.4em;
 	background-size: 32px 32px;
 	vertical-align: middle;
 	background-position: center center;
 	background-repeat: no-repeat;
+	min-width: 32px;
+	min-height: 32px;
 }
 .foogallery.fg-hover-zoom:not(.fg-preset) 				.fg-caption-inner:before,
 .foogallery.fg-hover-zoom2:not(.fg-preset) 				.fg-caption-inner:before,
