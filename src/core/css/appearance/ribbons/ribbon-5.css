@@ -6,7 +6,6 @@ div.fg-ribbon-5 {
     top: -2px;
     left: -2px;
     overflow: hidden;
-    pointer-events: none;
 }
 .fg-ribbon-5:before, .fg-ribbon-5:after {
     content: "";
@@ -28,7 +27,6 @@ div.fg-ribbon-5 {
     border-radius: 0 2px 2px 0;
 }
 div.fg-ribbon-5 > span {
-    pointer-events: auto;
     width: 16em;
     height: 3em;
     line-height: 3em;
