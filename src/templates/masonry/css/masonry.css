@@ -28,11 +28,12 @@
 	pointer-events: none;
 }
 
-.fg-masonry.fg-col6 .fg-image,
-.fg-masonry.fg-col5 .fg-image,
-.fg-masonry.fg-col4 .fg-image,
-.fg-masonry.fg-col3 .fg-image,
-.fg-masonry.fg-col2 .fg-image {
+.fg-masonry.fg-fixed .fg-item .fg-image,
+.fg-masonry.fg-col6 .fg-item .fg-image,
+.fg-masonry.fg-col5 .fg-item .fg-image,
+.fg-masonry.fg-col4 .fg-item .fg-image,
+.fg-masonry.fg-col3 .fg-item .fg-image,
+.fg-masonry.fg-col2 .fg-item .fg-image {
 	width: 100%;
 	height: auto;
 	max-width: 100%;
