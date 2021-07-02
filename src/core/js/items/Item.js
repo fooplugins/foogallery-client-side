@@ -906,6 +906,9 @@
 						if (_is.string(button.classes) && button.classes.length > 0){
 							captionButton.className = button.classes;
 						}
+						if (_is.hash(button.attr)){
+							self._setAttributes(captionButton, button.attr);
+						}
 						captionButtons.appendChild(captionButton);
 					}
 				});
