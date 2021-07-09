@@ -28,7 +28,13 @@ var FooGallery_il8n = {
 					"info": "Toggle Information",
 					"thumbs": "Toggle Thumbnails",
 					"cart": "Toggle Cart"
-				}
+				},
+                "media": {
+                    "product": {
+                        "title": "Product Information",
+                        "button": "Add to Cart"
+                    }
+                }
 			}
 		},
 		"image-viewer": {

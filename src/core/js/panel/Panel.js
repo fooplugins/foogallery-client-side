@@ -46,8 +46,9 @@
             self.content = new _.Panel.Content(self);
             self.info = new _.Panel.Info(self);
             self.thumbs = new _.Panel.Thumbs(self);
+            self.cart = new _.Panel.Cart(self);
 
-            self.areas = [self.content, self.info, self.thumbs];
+            self.areas = [self.content, self.info, self.thumbs, self.cart];
 
             self.$el = null;
 
@@ -534,6 +535,9 @@
 
             cart: "none", // none | top | bottom | left | right
             cartVisible: false,
+            cartAjax: null,
+            cartNonce: null,
+            cartTimeout: null,
 
             thumbs: "none", // none | top | bottom | left | right
             thumbsVisible: true,
@@ -556,7 +560,7 @@
                 autoProgress: true,
                 info: true,
                 thumbs: false,
-                cart: false
+                cart: true
             },
             breakpoints: [{
                 name: "medium",

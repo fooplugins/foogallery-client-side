@@ -14,6 +14,8 @@
 
             self.sel = _obj.extend({}, panel.sel.media);
 
+            self.il8n = _obj.extend({}, panel.il8n.media);
+
             self.caption = new _.Panel.Media.Caption(panel, self);
 
             self.product = new _.Panel.Media.Product(panel, self);
@@ -223,7 +225,17 @@
                     inner: "fg-media-product-inner",
                     header: "fg-media-product-header",
                     body: "fg-media-product-body",
-                    footer: "fg-media-product-footer"
+                    footer: "fg-media-product-footer",
+                    button: "fg-panel-button"
+                }
+            }
+        }
+    }, {
+        panel: {
+            media: {
+                product: {
+                    title: "Product Information",
+                    button: "Add to Cart"
                 }
             }
         }

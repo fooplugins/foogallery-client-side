@@ -20,40 +20,52 @@
         if ($this.hasClass(cls.disabled)){
             return false;
         }
-        var $body = $(document.body),
-            successMsg = $this.attr("data-success") || false,
-            data = [{
-                "name": "product_id",
-                "value": $this.attr("data-variation-id") || self.productId
-            },{
-                "name": "quantity",
-                "value": $this.attr("data-quantity") || 1
-            }];
+        var successMsg = $this.attr("data-success") || false,
+            productId = $this.attr("data-variation-id") || self.productId,
+            quantity = $this.attr("data-quantity") || 1;
 
         $this.removeClass(cls.added)
             .addClass(cls.adding)
             .addClass(cls.disabled);
 
-        $body.trigger('adding_to_cart', [$this, data]);
-        $.ajax({
-            type: 'POST',
-            url: _wcp.wc_ajax_url.toString().replace('%%endpoint%%', 'add_to_cart'),
-            data: data
-        }).then(function(response) {
-            if (response.error && response.product_url) {
-                window.location = response.product_url;
-                return;
-            }
+        self.addToCart($this, productId, quantity).then(function(){
             $this.removeClass(cls.adding).addClass(cls.added);
             if (successMsg){
                 $this.html(successMsg);
             }
-            $body.trigger('added_to_cart', [response.fragments, response.cart_hash, $this]);
-        }, function(response, textStatus, errorThrown) {
-            console.log("FooGallery: Add to cart ajax error.", response, textStatus, errorThrown);
-            window.location = $this.attr("href");
         });
         return false;
+    };
+
+    _.Item.prototype.addToCart = function($button, productId, quantity){
+        var $body = $(document.body),
+            data = [{
+                "name": "product_id",
+                "value": productId
+            },{
+                "name": "quantity",
+                "value": quantity
+            }],
+            fallback = "?add-to-cart=" + productId;
+
+        $body.trigger('adding_to_cart', [$button, data]);
+        return $.ajax({
+            type: 'POST',
+            url: _wcp.wc_ajax_url.toString().replace('%%endpoint%%', 'add_to_cart'),
+            data: data
+        }).then(function(response) {
+            if (response.error) {
+                if (_is.string(response.product_url)){
+                    window.location = response.product_url;
+                }
+                window.location = fallback;
+                return;
+            }
+            $body.trigger('added_to_cart', [response.fragments, response.cart_hash, $button]);
+        }, function(response, textStatus, errorThrown) {
+            console.log("FooGallery: Add to cart ajax error.", response, textStatus, errorThrown);
+            window.location = fallback;
+        });
     };
 
     _.Item.override("doParseItem", function($el){
