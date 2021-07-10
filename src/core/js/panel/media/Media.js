@@ -226,7 +226,8 @@
                     header: "fg-media-product-header",
                     body: "fg-media-product-body",
                     footer: "fg-media-product-footer",
-                    button: "fg-panel-button"
+                    button: "fg-panel-button",
+                    hidden: "fg-hidden"
                 }
             }
         }

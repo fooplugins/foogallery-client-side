@@ -67,7 +67,7 @@
     pointer-events: none;
 }
 .fg-panel-button.fg-hidden {
-    display: none;
+    display: none!important;
 }
 .fg-panel.fg-portrait .fg-panel-buttons .fg-panel-button {
     border-bottom-width: 1px;
