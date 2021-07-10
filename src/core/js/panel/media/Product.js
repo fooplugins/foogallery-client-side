@@ -126,11 +126,13 @@
             if (self.__loaded !== null) return self.__loaded;
             return self.__loaded = $.ajax({
                 type: "POST",
-                action: "foogallery_product_variations",
                 url: self.panel.opt.cartAjax,
-                nonce: self.panel.opt.cartNonce,
-                nonce_time: self.panel.opt.cartTimeout,
-                product_id: self.media.item.productId
+                data: {
+                    action: "foogallery_product_variations",
+                    nonce: self.panel.opt.cartNonce,
+                    nonce_time: self.panel.opt.cartTimeout,
+                    product_id: self.media.item.productId
+                }
             }).then(function(response){
                 if (response.error){
                     console.log("Ajax add to cart error", response.error);
