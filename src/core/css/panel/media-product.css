@@ -59,12 +59,24 @@
 .fg-media-product-body table {
     width: 100%;
     border-collapse: collapse;
+    border-spacing: 0;
+    margin: 0;
+    text-align: center;
 }
-.fg-media-product-body table > thead > tr > th {
-    padding: 2px;
-}
+.fg-media-product-body table > thead > tr > th,
 .fg-media-product-body table > tbody > tr > td {
     padding: 2px;
+    background-color: transparent!important;
+}
+.fg-media-product-body table > tbody > tr > td:last-child {
+    text-align: right;
+}
+
+.fg-media-product-body table > tbody > tr > td del {
+    opacity: 0.5;
+}
+.fg-media-product-body table > tbody > tr > td ins {
+    text-decoration: none;
 }
 .fg-media-product-footer {
     height: 42px;

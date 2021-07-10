@@ -54,6 +54,10 @@
             url: _wcp.wc_ajax_url.toString().replace('%%endpoint%%', 'add_to_cart'),
             data: data
         }).then(function(response) {
+            if (!response){
+                console.log("An unexpected response was returned from the server.");
+                return;
+            }
             if (response.error) {
                 if (_is.string(response.product_url)){
                     window.location = response.product_url;
@@ -61,7 +65,7 @@
                 window.location = fallback;
                 return;
             }
-            $body.trigger('added_to_cart', [response.fragments, response.cart_hash, $button]);
+            $body.trigger('added_to_cart', [response.fragments, response.cart_hash]);
         }, function(response, textStatus, errorThrown) {
             console.log("FooGallery: Add to cart ajax error.", response, textStatus, errorThrown);
             window.location = fallback;
