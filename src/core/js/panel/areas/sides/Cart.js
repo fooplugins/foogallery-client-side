@@ -7,7 +7,8 @@
                 label: panel.il8n.buttons.cart,
                 position: panel.opt.cart,
                 visible: panel.opt.cartVisible,
-                waitForUnload: false
+                waitForUnload: false,
+                toggle: false
             }, panel.cls.cart);
         },
         canLoad: function(media){
