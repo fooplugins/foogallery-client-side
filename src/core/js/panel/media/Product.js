@@ -184,7 +184,7 @@
             e.preventDefault();
             var $this = $(this),
                 self = e.data.self,
-                variation_id = self.$body.find(":radio").val(),
+                variation_id = self.$body.find(":radio:checked").val(),
                 product_id = variation_id || self.media.item.productId;
 
             self.media.item.addToCart($this, product_id, 1).then(function(){
