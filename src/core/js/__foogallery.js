@@ -33,14 +33,6 @@
 	 * @see {@link http://learn.jquery.com/plugins/basic-plugin-creation/|How to Create a Basic Plugin | jQuery Learning Center}
 	 */
 
-	/**
-	 * @summary Whether or not this script is loaded in the WP admin.
-	 * @memberof FooGallery.
-	 * @name isAdmin
-	 * @type {boolean}
-	 */
-	_.isAdmin = $(document.body).hasClass("wp-admin");
-
 })(
 	// dependencies
 	jQuery,
