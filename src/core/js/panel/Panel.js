@@ -525,6 +525,7 @@
             swipe: true,
             stackSideAreas: true,
             preserveButtonSpace: true,
+            admin: false,
 
             info: "bottom", // none | top | bottom | left | right
             infoVisible: false,

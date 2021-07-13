@@ -1,7 +1,7 @@
-.foogallery .fg-caption-buttons > .fg-woo-add-to-cart-ajax.fg-woo-adding {
-    color: transparent;
+.foogallery .fg-caption .fg-caption-buttons > .fg-woo-add-to-cart-ajax.fg-woo-adding {
+    color: transparent!important;
 }
-.foogallery .fg-caption-buttons > .fg-woo-add-to-cart-ajax.fg-woo-adding:before {
+.foogallery .fg-caption .fg-caption-buttons > .fg-woo-add-to-cart-ajax.fg-woo-adding:before {
     content: '';
     display: block;
     position: absolute;
@@ -43,7 +43,4 @@
     100% {
         transform: rotate(360deg);
     }
-}
-.foogallery .fg-caption-buttons > .fg-woo-add-to-cart-ajax.fg-woo-added {
-
 }

@@ -79,19 +79,23 @@
     text-decoration: none;
 }
 .fg-media-product-footer {
-    height: 42px;
     min-height: 42px;
+    padding: 10px;
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-content: center;
     justify-content: center;
 }
 .fg-media-product-footer .fg-panel-button {
-    margin: 10px;
+    margin: 0 0 3px 0;
     border-width: 1px;
     border-radius: 3px;
     height: 32px;
     line-height: 32px;
+    text-align: center;
+}
+.fg-media-product-footer p {
+    margin: 7px 3px 0;
     text-align: center;
 }

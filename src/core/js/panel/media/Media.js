@@ -228,7 +228,8 @@
                     footer: "fg-media-product-footer",
                     button: "fg-panel-button",
                     hidden: "fg-hidden",
-                    disabled: "fg-disabled"
+                    disabled: "fg-disabled",
+                    loading: "fg-loading"
                 }
             }
         }
@@ -237,7 +238,10 @@
             media: {
                 product: {
                     title: "Product Information",
-                    button: "Add to Cart"
+                    addToCart: "Add to Cart",
+                    viewProduct: "View Product",
+                    success: "Successfully added to cart.",
+                    error: "Something went wrong adding to cart."
                 }
             }
         }

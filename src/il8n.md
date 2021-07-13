@@ -32,7 +32,10 @@ var FooGallery_il8n = {
                 "media": {
                     "product": {
                         "title": "Product Information",
-                        "button": "Add to Cart"
+                        "addToCart": "Add to Cart",
+                        "viewProduct": "View Product",
+                        "success": "Successfully added to cart.",
+                        "error": "Something went wrong adding to cart."
                     }
                 }
 			}

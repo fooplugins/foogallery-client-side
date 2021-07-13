@@ -20,24 +20,22 @@
         if ($this.hasClass(cls.disabled)){
             return false;
         }
-        var successMsg = $this.attr("data-success") || false,
-            productId = $this.attr("data-variation-id") || self.productId,
+        var productId = $this.attr("data-variation-id") || self.productId,
             quantity = $this.attr("data-quantity") || 1;
 
         $this.removeClass(cls.added)
             .addClass(cls.adding)
             .addClass(cls.disabled);
 
-        self.addToCart($this, productId, quantity).then(function(){
-            $this.removeClass(cls.adding).addClass(cls.added);
-            if (successMsg){
-                $this.html(successMsg);
-            }
+        self.addToCart($this, productId, quantity, true).then(function(){
+            $this.removeClass(cls.adding)
+                .removeClass(cls.disabled)
+                .addClass(cls.added);
         });
         return false;
     };
 
-    _.Item.prototype.addToCart = function($button, productId, quantity){
+    _.Item.prototype.addToCart = function($button, productId, quantity, redirectOnError){
         var $body = $(document.body),
             data = [{
                 "name": "product_id",
@@ -55,20 +53,22 @@
             data: data
         }).then(function(response) {
             if (!response){
-                console.log("An unexpected response was returned from the server.");
-                return;
-            }
-            if (response.error) {
-                if (_is.string(response.product_url)){
-                    window.location = response.product_url;
+                console.log("An unexpected response was returned from the server.", response);
+            } else if (response.error) {
+                if (redirectOnError){
+                    if (_is.string(response.product_url)){
+                        window.location = response.product_url;
+                    }
+                    window.location = fallback;
                 }
-                window.location = fallback;
-                return;
+            } else {
+                $body.trigger('added_to_cart', [response.fragments, response.cart_hash]);
             }
-            $body.trigger('added_to_cart', [response.fragments, response.cart_hash]);
         }, function(response, textStatus, errorThrown) {
             console.log("FooGallery: Add to cart ajax error.", response, textStatus, errorThrown);
-            window.location = fallback;
+            if (redirectOnError) {
+                window.location = fallback;
+            }
         });
     };
 
