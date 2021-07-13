@@ -64,6 +64,7 @@
             } else {
                 $body.trigger('added_to_cart', [response.fragments, response.cart_hash]);
             }
+            return response;
         }, function(response, textStatus, errorThrown) {
             console.log("FooGallery: Add to cart ajax error.", response, textStatus, errorThrown);
             if (redirectOnError) {

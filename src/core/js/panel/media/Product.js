@@ -226,11 +226,10 @@
                 if (!response || response.error){
                     self.$footer.append("<p>" + self.il8n.error + "</p>");
                 } else {
-                    self.$addToCart.removeClass(self.cls.disabled);
                     self.$footer.append("<p>" + self.il8n.success + "</p>");
                 }
             }).always(function(){
-                self.$addToCart.removeClass(self.cls.loading);
+                self.$addToCart.removeClass(self.cls.disabled).removeClass(self.cls.loading);
             });
         },
         onRowClick: function(e){
