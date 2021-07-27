@@ -138,7 +138,7 @@
             }).then(function(response){
                 if (response.error){
                     console.log("Error fetching product information from server.", response.error);
-                    return;
+                    self.$footer.addClass(self.cls.hidden);
                 }
                 if (self.panel.opt.admin){
                     self.$addToCart.toggleClass(self.cls.disabled, true);
