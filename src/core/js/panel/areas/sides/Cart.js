@@ -8,7 +8,7 @@
                 position: panel.opt.cart,
                 visible: panel.opt.cartVisible,
                 waitForUnload: false,
-                toggle: false
+                toggle: true
             }, panel.cls.cart);
         },
         canLoad: function(media){
