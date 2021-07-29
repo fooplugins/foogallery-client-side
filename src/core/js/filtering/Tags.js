@@ -53,11 +53,12 @@
 		createItem: function(tag){
 			var self = this, cls = self.filter.cls,
 					$li = $("<li/>", {"class": cls.item}).attr("data-tag", tag.value),
+					$span = $("<span/>").addClass(cls.text).html(_is.string(tag.text) ? tag.text : tag.value),
 					$link = $("<a/>", {"href": "#tag-" + tag.value, "class": cls.link})
 							.on("click.foogallery", {self: self, tag: tag}, self.onLinkClick)
 							.css("font-size", tag.size)
 							.css("opacity", tag.opacity)
-							.append($("<span/>", {"text": _is.string(tag.text) ? tag.text : tag.value, "class": cls.text}))
+							.append($span)
 							.appendTo($li);
 
 			if (!self.filter.isMultiLevel && self.filter.showCount === true){
