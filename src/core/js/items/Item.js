@@ -313,12 +313,6 @@
 			 */
 			self.buttons = self.opt.buttons;
 			/**
-			 * @memberof FooGallery.Item#
-			 * @name hasButtons
-			 * @type {boolean}
-			 */
-			self.hasButtons = _is.array(self.buttons) && self.buttons.length > 0;
-			/**
 			 * @summary This property is used to store the promise created when loading an item for the first time.
 			 * @memberof FooGallery.Item#
 			 * @name _load
@@ -874,22 +868,24 @@
 			self._setAttributes(captionInner, attr.caption.inner);
 			captionInner.className = cls.caption.inner;
 
-			var captionTitle = null;
-			if (self.showCaptionTitle && _is.string(self.caption) && self.caption.length > 0) {
+			var captionTitle = null, hasTitle = self.showCaptionTitle && _is.string(self.caption) && self.caption.length > 0;
+			if (hasTitle) {
 				captionTitle = document.createElement("div");
 				self._setAttributes(captionTitle, attr.caption.title);
 				captionTitle.className = cls.caption.title;
 				captionTitle.innerHTML = self.maxCaptionLength > 0 ? _str.trimTo(self.caption, self.maxCaptionLength) : self.caption;
+				captionInner.appendChild(captionTitle);
 			}
-			var captionDesc = null;
-			if (self.showCaptionDescription && _is.string(self.description) && self.description.length > 0) {
+			var captionDesc = null, hasDescription = self.showCaptionDescription && _is.string(self.description) && self.description.length > 0;
+			if (hasDescription) {
 				captionDesc = document.createElement("div");
 				self._setAttributes(captionDesc, attr.caption.description);
 				captionDesc.className = cls.caption.description;
 				captionDesc.innerHTML = self.maxDescriptionLength > 0 ? _str.trimTo(self.description, self.maxDescriptionLength) : self.description;
+				captionInner.appendChild(captionDesc);
 			}
-			var captionButtons = null;
-			if (self.hasButtons){
+			var captionButtons = null, hasButtons = _is.array(self.buttons) && self.buttons.length > 0;
+			if (hasButtons){
 				captionButtons = document.createElement("div");
 				captionButtons.className = cls.caption.buttons;
 				_utils.each(self.buttons, function(button){
@@ -914,13 +910,10 @@
 						captionButtons.appendChild(captionButton);
 					}
 				});
+				captionInner.appendChild(captionButtons);
 			}
-
-			if (captionTitle !== null) captionInner.appendChild(captionTitle);
-			if (captionDesc !== null) captionInner.appendChild(captionDesc);
-			if (self.hasButtons && captionButtons !== null) captionInner.appendChild(captionButtons);
-
 			caption.appendChild(captionInner);
+
 			if (self.isPicture){
 				wrap.appendChild(picture);
 			} else {
@@ -929,7 +922,9 @@
 			anchor.appendChild(overlay);
 			anchor.appendChild(wrap);
 			inner.appendChild(anchor);
-			inner.appendChild(caption);
+			if (hasTitle || hasDescription || hasButtons){
+				inner.appendChild(caption);
+			}
 			if (self.hasRibbon){
 				elem.appendChild(ribbon);
 			}
