@@ -46,14 +46,11 @@
                 "name": "quantity",
                 "value": quantity
             },{
-                "name": "attachment_id",
+                "name": "foogallery_attachment_id",
                 "value": self.id
             },{
-                "name": "gallery_id",
+                "name": "foogallery_gallery_id",
                 "value": self.tmpl.id
-            },{
-                "name": "fallback_url",
-                "value": fallback
             }];
 
         $body.trigger('adding_to_cart', [$button, data]);
