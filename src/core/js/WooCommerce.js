@@ -36,15 +36,25 @@
     };
 
     _.Item.prototype.addToCart = function($button, productId, quantity, redirectOnError){
-        var $body = $(document.body),
+        var self = this,
+            $body = $(document.body),
+            fallback = "?add-to-cart=" + productId,
             data = [{
                 "name": "product_id",
                 "value": productId
             },{
                 "name": "quantity",
                 "value": quantity
-            }],
-            fallback = "?add-to-cart=" + productId;
+            },{
+                "name": "attachment_id",
+                "value": self.id
+            },{
+                "name": "gallery_id",
+                "value": self.tmpl.id
+            },{
+                "name": "fallback_url",
+                "value": fallback
+            }];
 
         $body.trigger('adding_to_cart', [$button, data]);
         return $.ajax({
