@@ -49,7 +49,7 @@
                 "name": "foogallery_attachment_id",
                 "value": self.id
             },{
-                "name": "foogallery_gallery_id",
+                "name": "foogallery_id",
                 "value": self.tmpl.id
             }];
 
