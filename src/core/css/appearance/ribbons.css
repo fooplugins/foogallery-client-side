@@ -1,0 +1,45 @@
+div[class^="fg-ribbon-"] {
+    position: absolute;
+    z-index: 6;
+    color: #39bbac;
+
+    font-size: 14px;
+
+    visibility: hidden;
+    opacity: 0;
+
+    max-height: 100%;
+    max-width: 100%;
+
+    pointer-events: none;
+}
+div[class^="fg-ribbon-"] span {
+    color: #FFF;
+    display: block;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-transform: uppercase;
+    font-size: 1em;
+    position: relative;
+    text-align: center;
+}
+.fg-loaded div[class^="fg-ribbon-"] {
+    visibility: visible;
+    opacity: 1;
+}
+
+.fg-loaded-fade-in .fg-loaded div[class^="fg-ribbon-"],
+.fg-loaded-slide-up .fg-loaded div[class^="fg-ribbon-"],
+.fg-loaded-slide-down .fg-loaded div[class^="fg-ribbon-"],
+.fg-loaded-slide-left .fg-loaded div[class^="fg-ribbon-"],
+.fg-loaded-slide-right .fg-loaded div[class^="fg-ribbon-"],
+.fg-loaded-scale-up .fg-loaded div[class^="fg-ribbon-"],
+.fg-loaded-swing-down .fg-loaded div[class^="fg-ribbon-"],
+.fg-loaded-drop .fg-loaded div[class^="fg-ribbon-"],
+.fg-loaded-fly .fg-loaded div[class^="fg-ribbon-"],
+.fg-loaded-flip .fg-loaded div[class^="fg-ribbon-"] {
+    transition-property: visibility, opacity;
+    transition-duration: 650ms;
+    transition-timing-function: ease;
+}
