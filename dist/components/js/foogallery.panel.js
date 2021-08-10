@@ -46,8 +46,9 @@
             self.content = new _.Panel.Content(self);
             self.info = new _.Panel.Info(self);
             self.thumbs = new _.Panel.Thumbs(self);
+            self.cart = new _.Panel.Cart(self);
 
-            self.areas = [self.content, self.info, self.thumbs];
+            self.areas = [self.content, self.info, self.thumbs, self.cart];
 
             self.$el = null;
 
@@ -524,6 +525,7 @@
             swipe: true,
             stackSideAreas: true,
             preserveButtonSpace: true,
+            admin: false,
 
             info: "bottom", // none | top | bottom | left | right
             infoVisible: false,
@@ -534,6 +536,9 @@
 
             cart: "none", // none | top | bottom | left | right
             cartVisible: false,
+            cartAjax: null,
+            cartNonce: null,
+            cartTimeout: null,
 
             thumbs: "none", // none | top | bottom | left | right
             thumbsVisible: true,
@@ -556,7 +561,7 @@
                 autoProgress: true,
                 info: true,
                 thumbs: false,
-                cart: false
+                cart: true
             },
             breakpoints: [{
                 name: "medium",
@@ -2178,6 +2183,8 @@
 
             self.sel = _obj.extend({}, panel.sel.media);
 
+            self.il8n = _obj.extend({}, panel.il8n.media);
+
             self.caption = new _.Panel.Media.Caption(panel, self);
 
             self.product = new _.Panel.Media.Product(panel, self);
@@ -2387,7 +2394,23 @@
                     inner: "fg-media-product-inner",
                     header: "fg-media-product-header",
                     body: "fg-media-product-body",
-                    footer: "fg-media-product-footer"
+                    footer: "fg-media-product-footer",
+                    button: "fg-panel-button",
+                    hidden: "fg-hidden",
+                    disabled: "fg-disabled",
+                    loading: "fg-loading"
+                }
+            }
+        }
+    }, {
+        panel: {
+            media: {
+                product: {
+                    title: "Product Information",
+                    addToCart: "Add to Cart",
+                    viewProduct: "View Product",
+                    success: "Successfully added to cart.",
+                    error: "Something went wrong adding to cart."
                 }
             }
         }

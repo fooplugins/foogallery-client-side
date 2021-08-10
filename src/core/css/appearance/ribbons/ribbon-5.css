@@ -1,0 +1,46 @@
+div.fg-ribbon-5 {
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    max-width: calc(100% + 4px);
+    max-height: calc(100% + 4px);
+    top: -2px;
+    left: -2px;
+    overflow: hidden;
+}
+.fg-ribbon-5:before, .fg-ribbon-5:after {
+    content: "";
+    position: absolute;
+}
+.fg-ribbon-5:before {
+    width: 3em;
+    height: 2px;
+    right: 6.6em;
+    background: #4D6530;
+    border-radius: 2px 2px 0 0;
+}
+.fg-ribbon-5:after {
+    width: 2px;
+    height: 3em;
+    right: 0;
+    top: 6.6em;
+    background: #4D6530;
+    border-radius: 0 2px 2px 0;
+}
+div.fg-ribbon-5 > span {
+    width: 16em;
+    height: 3em;
+    line-height: 3em;
+    position: absolute;
+    top: -4.1em;
+    right: -5.8em;
+    z-index: 2;
+    overflow: hidden;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    transform-origin: bottom left;
+    outline: 1px dashed;
+    outline-offset: -3px;
+    box-shadow: 0 21px 5px -18px rgba(0, 0, 0, 0.6);
+    background: green;
+    text-align: center;
+}

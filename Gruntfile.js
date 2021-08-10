@@ -123,8 +123,10 @@ module.exports = function ( grunt ) {
 						"./src/core/css/appearance/drop-shadow.css",
 						"./src/core/css/appearance/inset-shadow.css",
 						"./src/core/css/appearance/rounded-corners.css",
+
 						"./src/core/css/appearance/filters.css",
 						"./src/core/css/appearance/filters/*.css",
+
 						"./src/core/css/appearance/loading-icon.css",
 						"./src/core/css/appearance/loading-icons/default.css",
 						"./src/core/css/appearance/loading-icons/bars.css",
@@ -132,6 +134,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/appearance/loading-icons/pulse.css",
 						"./src/core/css/appearance/loading-icons/dots.css",
 						"./src/core/css/appearance/loading-icons/partial.css",
+
 						"./src/core/css/appearance/loaded-effect.css",
 						"./src/core/css/appearance/loaded-effects/drop.css",
 						"./src/core/css/appearance/loaded-effects/fade-in.css",
@@ -140,6 +143,9 @@ module.exports = function ( grunt ) {
 						"./src/core/css/appearance/loaded-effects/scale-up.css",
 						"./src/core/css/appearance/loaded-effects/slide-up-right-down-left.css",
 						"./src/core/css/appearance/loaded-effects/swing-down.css",
+
+						"./src/core/css/appearance/ribbons.css",
+						"./src/core/css/appearance/ribbons/*.css",
 
 						"./src/core/css/hover-effects/captions.css",
 						"./src/core/css/hover-effects/icons.css",
@@ -165,7 +171,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/hover-effects/transitions/push.css",
 						"./src/core/css/hover-effects/transitions/scale.css",
 						"./src/core/css/hover-effects/transitions/zoomed.css",
-						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css",
+						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css"
 					]
 				}
 			},
@@ -173,6 +179,17 @@ module.exports = function ( grunt ) {
 				"files": {
 					"./dist/components/js/foogallery.ready.js": [
 						"./src/core/js/ready.js"
+					]
+				}
+			},
+
+			"woocommerce": {
+				"files": {
+					"./dist/components/js/foogallery.woocommerce.js": [
+						"./src/core/js/WooCommerce.js"
+					],
+					"./dist/components/css/foogallery.woocommerce.css": [
+						"./src/core/css/woocommerce/buttons.css"
 					]
 				}
 			},
@@ -230,6 +247,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/panel/areas/sides/SideArea.js",
 						"./src/core/js/panel/areas/sides/Info.js",
 						"./src/core/js/panel/areas/sides/Thumbs.js",
+						"./src/core/js/panel/areas/sides/Cart.js",
 						"./src/core/js/panel/media/Media.js",
 						"./src/core/js/panel/media/Caption.js",
 						"./src/core/js/panel/media/Product.js",
@@ -257,6 +275,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/panel/icons.css",
 						"./src/core/css/panel/media.css",
 						"./src/core/css/panel/media-caption.css",
+						"./src/core/css/panel/media-product.css",
 						"./src/core/css/panel/themes.css",
 						"./src/core/css/panel/transitions.css",
 						"./src/core/css/panel/auto-progress.css",
@@ -436,6 +455,7 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
+
 			"pro": {
 				"files": {
 					"./dist/pro/js/foogallery.js": [
@@ -444,6 +464,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/js/foogallery.filtering.js",
 						"./dist/components/js/foogallery.paging.pro.js",
 						"./dist/components/js/foogallery.panel.pro.js",
+						"./dist/components/js/foogallery.woocommerce.js",
 
 						"./dist/components/js/foogallery.tmpl.default.js",
 						"./dist/components/js/foogallery.tmpl.masonry.js",
@@ -465,6 +486,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/css/foogallery.filtering.css",
 						"./dist/components/css/foogallery.paging.pro.css",
 						"./dist/components/css/foogallery.panel.pro.css",
+						"./dist/components/css/foogallery.woocommerce.css",
 
 						"./dist/components/css/foogallery.tmpl.default.css",
 						"./dist/components/css/foogallery.tmpl.masonry.css",
@@ -581,13 +603,7 @@ module.exports = function ( grunt ) {
 				"expand": true,
 				"cwd": "dist/pro",
 				"src": ["**"],
-				"dest": "./test-pages/templates/assets/foogallery"
-			},
-			"pagespeed_components": {
-				"expand": true,
-				"cwd": "dist/components",
-				"src": ["**"],
-				"dest": "./test-pages/templates/assets/foogallery/components"
+				"dest": "./test-pages/templates/assets"
 			}
 		},
 		"jsdoc": {
@@ -629,6 +645,7 @@ module.exports = function ( grunt ) {
 
 		"clean:foo-utils", // remove the foogallery.utils.js file as it is now part of the core
 
+		"concat:woocommerce",
 		"concat:panel",
 		"concat:panel_pro",
 		"concat:paging",

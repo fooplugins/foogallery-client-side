@@ -1,0 +1,31 @@
+div.fg-ribbon-2 {
+    height: 3em;
+    line-height: 3em;
+    padding: 0 0.8em 0 1em;
+    left: -2px;
+    top: 20px;
+    max-height: calc(100% - 20px);
+    max-width: calc(100% - 0.4em);
+    background: #c50084;
+}
+.fg-ribbon-2:before, .fg-ribbon-2:after {
+    content: "";
+    position: absolute;
+}
+.fg-ribbon-2:before {
+    height: 0;
+    width: 0;
+    top: -2px;
+    left: 0;
+    border-bottom: 2px solid #860057;
+    border-left: 2px solid transparent;
+}
+.fg-ribbon-2:after {
+    height: 0;
+    width: 0;
+    top: 0;
+    right: -0.4em;
+    border-top: 1.5em solid transparent;
+    border-bottom: 1.5em solid transparent;
+    border-left: 0.4em solid #c50084;
+}
