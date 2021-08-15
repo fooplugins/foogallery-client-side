@@ -63,7 +63,7 @@
 .fg-media-product-body p {
     font-size: inherit;
     font-weight: normal;
-    margin: 10px 0;
+    margin: 0 0 10px;
 }
 .fg-media-product-body table {
     width: 100%;
@@ -108,6 +108,7 @@
     line-height: 28px;
     min-height: fit-content;
     text-align: center;
+    font-size: 14px;
 }
 .fg-media-product-footer .fg-panel-button:last-child {
     margin-bottom: 0;
