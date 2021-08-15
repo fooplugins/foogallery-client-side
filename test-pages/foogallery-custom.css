@@ -1,0 +1,138 @@
+:root {
+    --fg-button-text: #000;
+    --fg-button-text-secondary: #6c757d;
+    --fg-button-background: #FFF;
+    --fg-button-gradient: linear-gradient(to right, #00CFFF, #7d4fff);
+    --fg-panel-text: #FFF;
+    --fg-panel-background: rgba(15, 2, 32, 0.6);
+    --fg-panel-background-image: url(https://staging-fooplugins.kinsta.cloud/wp-content/themes/fooplugins-website/library/svg/bgs/masthead-banner.svg);
+    --fg-panel-border: #0F0220;
+    --fg-panel-button-text: #FFF;
+    --fg-panel-button-background: #0F0220;
+    --fg-panel-button-gradient: var(--fg-button-gradient);
+}
+
+/* Style the filtering & paging to match the theme */
+.fg-custom .fg-load-more,
+.fg-custom .fg-tag-item .fg-tag-link,
+.fg-custom .fg-page-item .fg-page-link {
+    position: relative;
+    box-sizing: border-box;
+    margin: 1px;
+    padding: calc(.4em - 3px) calc(1em - 3px);
+    color: var(--fg-button-text-secondary);
+    background: transparent;
+    border: 6px solid transparent;
+    border-radius: .6rem;
+    font-weight: 500;
+    line-height: 1.5;
+    transition-property: none;
+}
+.fg-custom .fg-load-more {
+    padding: .4em 1em;
+}
+.fg-custom .fg-load-more::before,
+.fg-custom .fg-tag-item .fg-tag-link::before,
+.fg-custom .fg-page-item .fg-page-link::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    left: -3px;
+    right: -3px;
+    border: 6px solid transparent;
+    border-radius: .4em;
+}
+.fg-custom .fg-load-more,
+.fg-custom .fg-tag-item:not(.fg-disabled):hover .fg-tag-link,
+.fg-custom .fg-tag-item.fg-selected .fg-tag-link,
+.fg-custom .fg-page-item:not(.fg-disabled):hover .fg-page-link,
+.fg-custom .fg-page-item.fg-selected .fg-page-link {
+    color: var(--fg-button-text);
+    background: linear-gradient(var(--fg-button-background), var(--fg-button-background)), var(--fg-button-gradient);
+    background-repeat: no-repeat;
+    background-origin: padding-box, border-box;
+}
+.fg-custom .fg-load-more::before,
+.fg-custom .fg-tag-item:not(.fg-disabled):hover .fg-tag-link::before,
+.fg-custom .fg-tag-item.fg-selected .fg-tag-link::before,
+.fg-custom .fg-page-item:not(.fg-disabled):hover .fg-page-link::before,
+.fg-custom .fg-page-item.fg-selected .fg-page-link::before {
+    border-color: var(--fg-button-background);
+}
+
+/* Style the lightbox */
+.fg-panel.fg-custom,
+.fg-panel.fg-custom .fg-panel-thumbs-button,
+.fg-panel.fg-custom .fg-panel-area-toggle {
+    color: var(--fg-panel-text);
+}
+.fg-panel.fg-custom {
+    background: var(--fg-panel-background-image) no-repeat center bottom;
+    background-size: cover;
+}
+.fg-panel.fg-custom,
+.fg-panel.fg-custom .fg-panel-thumb,
+.fg-panel.fg-custom .fg-panel-thumbs-button,
+.fg-panel.fg-custom .fg-panel-info-inner,
+.fg-panel.fg-custom .fg-panel-cart-inner,
+.fg-panel.fg-custom .fg-panel-thumbs-inner,
+.fg-panel.fg-custom.fg-panel-preserve-button-space .fg-media-iframe .fg-media-content,
+.fg-panel.fg-custom .fg-panel-thumb.fg-idle .fg-panel-thumb-media,
+.fg-panel.fg-custom .fg-panel-thumb.fg-loading .fg-panel-thumb-media,
+.fg-panel.fg-custom .fg-panel-thumb.fg-error .fg-panel-thumb-media {
+    border-color: var(--fg-panel-border);
+}
+.fg-panel.fg-custom .fg-media-product-body {
+    border-color: var(--fg-panel-text);
+}
+.fg-panel.fg-custom .fg-panel-cart-inner,
+.fg-panel.fg-custom .fg-panel-info-inner,
+.fg-panel.fg-custom .fg-panel-thumbs-inner,
+.fg-panel.fg-custom .fg-panel-thumb.fg-idle .fg-panel-thumb-media,
+.fg-panel.fg-custom .fg-panel-thumb.fg-loading .fg-panel-thumb-media,
+.fg-panel.fg-custom .fg-panel-thumb.fg-error .fg-panel-thumb-media {
+    background-color: var(--fg-panel-background);
+}
+
+.fg-panel.fg-custom .fg-panel-button {
+    position: relative;
+    box-sizing: border-box;
+    color: var(--fg-panel-button-text);
+    background: transparent;
+    border: 6px solid transparent;
+    border-radius: .6rem;
+    font-weight: 500;
+    line-height: 1.5;
+    font-size: 14px;
+    transition-property: none;
+    overflow: visible;
+    background: linear-gradient(var(--fg-panel-button-background), var(--fg-panel-button-background)), var(--fg-panel-button-gradient);
+    background-repeat: no-repeat;
+    background-origin: padding-box, border-box;
+}
+.fg-panel.fg-custom.fg-medium .fg-panel-buttons .fg-panel-button,
+.fg-panel.fg-custom.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button {
+    border-radius: .5rem;
+    border-width: 6px;
+}
+.fg-panel.fg-custom .fg-panel-button::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    left: -3px;
+    right: -3px;
+    border: 6px solid var(--fg-panel-button-background);
+    border-radius: .4em;
+}
+.fg-panel.fg-custom .fg-panel-button.fg-loading::after {
+    box-shadow: 0 -2.6em 0 0    rgba(255, 255, 255, 1),
+    1.8em -1.8em 0 0            rgba(255, 255, 255, 0.2),
+    2.5em 0 0 0                 rgba(255, 255, 255, 0.2),
+    1.75em 1.75em 0 0           rgba(255, 255, 255, 0.2),
+    0 2.5em 0 0                 rgba(255, 255, 255, 0.2),
+    -1.8em 1.8em 0 0            rgba(255, 255, 255, 0.2),
+    -2.6em 0 0 0                rgba(255, 255, 255, 0.5),
+    -1.8em -1.8em 0 0           rgba(255, 255, 255, 0.7);
+}
