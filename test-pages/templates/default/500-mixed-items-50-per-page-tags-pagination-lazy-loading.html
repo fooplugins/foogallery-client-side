@@ -6,9 +6,14 @@
     <title>500 Mixed Items @ 50 Per Page + Tags + Pagination + Lazy Loading</title>
     <link href="../assets/theme.css" rel="stylesheet"/>
     <link href="../assets/css/foogallery.min.css" rel="stylesheet"/>
-    <script src="../assets/jquery.min.js" defer></script>
-    <script src="../assets/theme.js" defer></script>
-    <script src="../assets/js/foogallery.min.js" defer></script>
+    <link href="../../foogallery-custom.css" rel="stylesheet"/>
+    <script src="../assets/jquery.min.js"></script>
+    <script src="../assets/theme.js"></script>
+    <script>
+        window.woocommerce_params = {};
+    </script>
+    <script src="../assets/js/foogallery.min.js"></script>
+    <script src="../../wc_testing.js"></script>
 </head>
 <body class="dark">
 <header>
@@ -22,13 +27,14 @@
 <main>
     <nav id="foogallery-gallery-1_filtering-top" class="fg-filtering-container fg-ph-tags"></nav>
     <nav id="foogallery-gallery-1_paging-top" class="fg-paging-container fg-ph-pagination"></nav>
-    <div id="foogallery-gallery-1" class="foogallery fg-loading-default fg-loaded-fade-in fg-default fg-center fg-gutter-10 fg-shadow-outline fg-border-medium fg-hover-fade fg-hover-zoom fg-caption-hover fg-dark" data-foogallery="{&quot;lazy&quot;:true,&quot;paging&quot;:{&quot;type&quot;:&quot;pagination&quot;,&quot;position&quot;:&quot;both&quot;,&quot;size&quot;:50,&quot;theme&quot;:&quot;fg-dark&quot;},&quot;filtering&quot;:{&quot;type&quot;:&quot;tags&quot;,&quot;position&quot;:&quot;both&quot;,&quot;theme&quot;:&quot;fg-dark&quot;}}" data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;}">
+    <div id="foogallery-gallery-1" class="foogallery fg-loading-default fg-loaded-fade-in fg-default fg-center fg-gutter-10 fg-shadow-outline fg-border-medium fg-hover-fade fg-hover-zoom fg-caption-hover fg-dark" data-foogallery="{&quot;lazy&quot;:true,&quot;paging&quot;:{&quot;type&quot;:&quot;pagination&quot;,&quot;position&quot;:&quot;both&quot;,&quot;size&quot;:50,&quot;theme&quot;:&quot;fg-custom&quot;},&quot;filtering&quot;:{&quot;type&quot;:&quot;tags&quot;,&quot;position&quot;:&quot;both&quot;,&quot;theme&quot;:&quot;fg-custom&quot;}}" data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;,&quot;theme&quot;:&quot;fg-custom&quot;,&quot;thumbs&quot;:&quot;bottom&quot;}">
 
         <div class="fg-item fg-type-image fg-item-exif fg-idle">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"
                    href="https://fakeimg.pl/1920x1080/75bbce/000000/?font_size&#x3D;24&amp;text&#x3D;i1+@+1920×1080"
                    data-type="image"
+                   data-product-id="1234"
                    data-title="Test Item 1"
                    data-description="Short description for index 0."
                    data-tags="[&quot;unique&quot;,&quot;150x150&quot;,&quot;tag5&quot;,&quot;tag4&quot;,&quot;tag2&quot;]"
