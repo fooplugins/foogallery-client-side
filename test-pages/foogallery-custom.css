@@ -72,6 +72,7 @@
     background-size: cover;
 }
 .fg-panel.fg-custom,
+.fg-panel.fg-custom .fg-panel-button,
 .fg-panel.fg-custom .fg-panel-thumb,
 .fg-panel.fg-custom .fg-panel-thumbs-button,
 .fg-panel.fg-custom .fg-panel-info-inner,
@@ -86,6 +87,7 @@
 .fg-panel.fg-custom .fg-media-product-body {
     border-color: var(--fg-panel-text);
 }
+.fg-panel.fg-custom .fg-panel-button,
 .fg-panel.fg-custom .fg-panel-cart-inner,
 .fg-panel.fg-custom .fg-panel-info-inner,
 .fg-panel.fg-custom .fg-panel-thumbs-inner,
@@ -99,24 +101,25 @@
     position: relative;
     box-sizing: border-box;
     color: var(--fg-panel-button-text);
-    background: transparent;
-    border: 6px solid transparent;
-    border-radius: .6rem;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 0;
+    border-radius: 0;
     font-weight: 500;
     line-height: 1.5;
     font-size: 14px;
     transition-property: none;
     overflow: visible;
-    background: linear-gradient(var(--fg-panel-button-background), var(--fg-panel-button-background)), var(--fg-panel-button-gradient);
-    background-repeat: no-repeat;
-    background-origin: padding-box, border-box;
 }
 .fg-panel.fg-custom.fg-medium .fg-panel-buttons .fg-panel-button,
 .fg-panel.fg-custom.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button {
-    border-radius: .5rem;
+    border-radius: .6em;
     border-width: 6px;
+    background-image: linear-gradient(var(--fg-panel-button-background), var(--fg-panel-button-background)), var(--fg-panel-button-gradient);
+    background-repeat: no-repeat;
+    background-origin: padding-box, border-box;
 }
-.fg-panel.fg-custom .fg-panel-button::before {
+.fg-panel.fg-custom.fg-medium .fg-panel-button::before {
     content: "";
     position: absolute;
     top: -3px;
