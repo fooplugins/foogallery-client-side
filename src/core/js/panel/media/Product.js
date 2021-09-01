@@ -133,7 +133,8 @@
                     nonce: self.panel.opt.cartNonce,
                     nonce_time: self.panel.opt.cartTimeout,
                     product_id: self.media.item.productId,
-                    gallery_id: self.panel.tmpl.id
+                    gallery_id: self.panel.tmpl.id,
+                    attachment_id: self.media.item.id
                 }
             }).then(function(response){
                 if (response.error){
