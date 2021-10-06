@@ -37,6 +37,7 @@
 			self.current = [];
 			self.ctrls = [];
 			self.tags = [];
+			self.search = '';
 			self.isMultiLevel = false;
 		},
 		fromHash: function(hash){
@@ -65,7 +66,7 @@
 		},
 		setState: function(state){
 			this.rebuild();
-			this.set(state.filter, false);
+			this.set(state.filter, "", false);
 		},
 		destroy: function () {
 			var self = this;
@@ -160,12 +161,12 @@
 			return result;
 		},
 		showControl: function(){
-			return !this.tags.every(function (tags) {
+			return this.opt.search || !this.tags.every(function (tags) {
 				return tags.length === 0;
 			});
 		},
-		build: function () {
-			var self = this, items = self.tmpl.items.all();
+		build: function (useAvailable) {
+			var self = this, items = useAvailable ? self.tmpl.items.available() : self.tmpl.items.all();
 			self.isMultiLevel = self.opt.tags.length > 0 && _is.object(self.opt.tags[0]);
 			if (items.length > 0) {
 				if (self.isMultiLevel){
@@ -195,18 +196,18 @@
 				}
 			}
 		},
-		rebuild: function () {
+		rebuild: function (useAvailable) {
 			var self = this;
 			self.tags.splice(0, self.tags.length);
 			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
-			self.build();
+			self.build(useAvailable);
 		},
-		controls: function (tags) {
+		controls: function (tags, search) {
 			var self = this;
 			$.each(self.ctrls, function (i, control) {
-				control.update(tags);
+				control.update(tags, search);
 			});
 		},
 		hasAll: function(item, tags){
@@ -223,11 +224,20 @@
 				}));
 			});
 		},
-		set: function (tags, updateState) {
+		isMatch: function(item, search){
+			return _is.string(item.title) && item.title.indexOf(search) !== -1
+				|| _is.string(item.alt) && item.alt.indexOf(search) !== -1
+				|| _is.string(item.caption) && item.caption.indexOf(search) !== -1
+				|| _is.string(item.description) && item.description.indexOf(search) !== -1
+				|| _is.array(item.tags) && item.tags.some(function(tag){
+					return tag.indexOf(search) !== -1;
+				});
+		},
+		set: function (tags, search, updateState) {
 			if (_is.string(tags)) tags = [[tags]];
 			if (!_is.array(tags)) tags = [];
 			var self = this, state;
-			if (!self.arraysEqual(self.current, tags)) {
+			if (!self.arraysEqual(self.current, tags) || self.search !== search) {
 				var prev = self.current.slice(), setFilter = function () {
 					updateState = _is.boolean(updateState) ? updateState : true;
 					if (updateState && !self.tmpl.state.exists()) {
@@ -235,10 +245,18 @@
 						self.tmpl.state.update(state, self.pushOrReplace);
 					}
 
-					if (_is.empty(tags)) {
+					var searchChanged = self.search !== search,
+						emptySearch = _is.empty(search);
+
+					if (_is.empty(tags) && emptySearch) {
 						self.tmpl.items.reset();
 					} else {
 						var items = self.tmpl.items.all();
+						if (!emptySearch){
+							items = $.map(items, function(item){
+								return self.isMatch(item, search) ? item : null;
+							});
+						}
 						if (self.mode === 'intersect') {
 							items = $.map(items, function (item) {
 								return self.hasAll(item, tags) ? item : null;
@@ -251,7 +269,12 @@
 						self.tmpl.items.setAvailable(items);
 					}
 					self.current = tags.slice();
-					self.controls(tags);
+					self.search = search;
+					if (searchChanged){
+						self.rebuild(!emptySearch);
+					} else {
+						self.controls(self.current, self.search);
+					}
 					if (self.tmpl.pages) {
 						self.tmpl.pages.rebuild();
 						self.tmpl.pages.set(1, null, null, true);
@@ -313,9 +336,9 @@
 
 			});
 		},
-		apply: function (tags) {
+		apply: function (tags, search) {
 			var self = this;
-			self.set(tags, !self.tmpl.pages);
+			self.set(tags, search, !self.tmpl.pages);
 		}
 	});
 
@@ -373,6 +396,7 @@
 		mode: "single",
 		sortBy: "value", // "value", "count", "index", "none"
 		sortInvert: false, // the direction of the sorting
+		search: false,
 		tags: [],
 		min: 0,
 		limit: 0,
