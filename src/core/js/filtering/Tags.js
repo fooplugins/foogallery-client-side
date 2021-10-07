@@ -26,11 +26,15 @@
 						self.$container.addClass("fg-search-" + self.filter.opt.searchPosition);
 					}
 				}
-				for (var i = 0, l = self.filter.tags.length; i < l; i++) {
-					self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
-				}
-				if (!self.filter.isMultiLevel && self.filter.showCount === true) {
-					self.$container.addClass(cls.showCount);
+				if (self.filter.tags.length > 0){
+					for (var i = 0, l = self.filter.tags.length; i < l; i++) {
+						self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
+					}
+					if (!self.filter.isMultiLevel && self.filter.showCount === true) {
+						self.$container.addClass(cls.showCount);
+					}
+				} else {
+					self.$container.addClass(cls.noTags);
 				}
 				return true;
 			}
@@ -180,6 +184,7 @@
 		searchPosition: "above-center"
 	}, {
 		showCount: "fg-show-count",
+		noTags: "fg-no-tags",
 		list: "fg-tag-list",
 		item: "fg-tag-item",
 		link: "fg-tag-link",

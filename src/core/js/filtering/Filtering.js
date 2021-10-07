@@ -1,4 +1,4 @@
-(function ($, _, _utils, _is) {
+(function ($, _, _utils, _is, _str) {
 
 	_.Filtering = _.Component.extend({
 		construct: function (template) {
@@ -228,13 +228,13 @@
 				}));
 			});
 		},
-		isMatch: function(item, search){
-			return _is.string(item.title) && item.title.indexOf(search) !== -1
-				|| _is.string(item.alt) && item.alt.indexOf(search) !== -1
-				|| _is.string(item.caption) && item.caption.indexOf(search) !== -1
-				|| _is.string(item.description) && item.description.indexOf(search) !== -1
+		isMatch: function(item, searchRegex){
+			return _is.string(item.title) && searchRegex.test(item.title)
+				|| _is.string(item.alt) && searchRegex.test(item.alt)
+				|| _is.string(item.caption) && searchRegex.test(item.caption)
+				|| _is.string(item.description) && searchRegex.test(item.description)
 				|| _is.array(item.tags) && item.tags.some(function(tag){
-					return tag.indexOf(search) !== -1;
+					return searchRegex.test(tag);
 				});
 		},
 		set: function (tags, search, updateState) {
@@ -257,8 +257,9 @@
 					} else {
 						var items = self.tmpl.items.all();
 						if (!emptySearch){
+							var regex = new RegExp(_str.escapeRegExp(search), "i");
 							items = $.map(items, function(item){
-								return self.isMatch(item, search) ? item : null;
+								return self.isMatch(item, regex) ? item : null;
 							});
 						}
 						if (self.mode === 'intersect') {
@@ -416,8 +417,9 @@
 	}, null, -100);
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils,
+	FooGallery.utils.is,
+	FooGallery.utils.str
 );
