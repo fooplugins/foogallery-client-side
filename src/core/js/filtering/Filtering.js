@@ -1,4 +1,4 @@
-(function ($, _, _utils, _is) {
+(function ($, _, _utils, _is, _str) {
 
 	_.Filtering = _.Component.extend({
 		construct: function (template) {
@@ -37,6 +37,7 @@
 			self.current = [];
 			self.ctrls = [];
 			self.tags = [];
+			self.search = '';
 			self.isMultiLevel = false;
 		},
 		fromHash: function(hash){
@@ -65,7 +66,7 @@
 		},
 		setState: function(state){
 			this.rebuild();
-			this.set(state.filter, false);
+			this.set(state.filter, "", false);
 		},
 		destroy: function () {
 			var self = this;
@@ -102,6 +103,7 @@
 			var self = this, result = [];
 			// first get a count of the tags
 			var counts = self.count(items, tags), min = Infinity, max = 0, index = -1;
+			if (counts.__ALL__ === 0) return result;
 			for (var prop in counts) {
 				if (counts.hasOwnProperty(prop)) {
 					var count = counts[prop], isAll = prop === "__ALL__";
@@ -160,20 +162,23 @@
 			return result;
 		},
 		showControl: function(){
-			return !this.tags.every(function (tags) {
+			return this.opt.search || !this.tags.every(function (tags) {
 				return tags.length === 0;
 			});
 		},
-		build: function () {
-			var self = this, items = self.tmpl.items.all();
+		build: function (useAvailable) {
+			var self = this, items = useAvailable ? self.tmpl.items.available() : self.tmpl.items.all();
 			self.isMultiLevel = self.opt.tags.length > 0 && _is.object(self.opt.tags[0]);
 			if (items.length > 0) {
+				var tagObjects;
 				if (self.isMultiLevel){
 					$.each(self.opt.tags, function(i, level){
-						self.tags.push(self.createTagObjects(items, level.tags, i, level.all || self.il8n.all));
+						tagObjects = self.createTagObjects(items, level.tags, i, level.all || self.il8n.all);
+						if (!_is.empty(tagObjects)) self.tags.push(tagObjects);
 					});
 				} else {
-					self.tags.push(self.createTagObjects(items, self.opt.tags, 0, self.il8n.all));
+					tagObjects = self.createTagObjects(items, self.opt.tags, 0, self.il8n.all);
+					if (!_is.empty(tagObjects)) self.tags.push(tagObjects);
 				}
 			}
 
@@ -195,18 +200,18 @@
 				}
 			}
 		},
-		rebuild: function () {
+		rebuild: function (useAvailable) {
 			var self = this;
 			self.tags.splice(0, self.tags.length);
 			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
-			self.build();
+			self.build(useAvailable);
 		},
-		controls: function (tags) {
+		controls: function (tags, search) {
 			var self = this;
 			$.each(self.ctrls, function (i, control) {
-				control.update(tags);
+				control.update(tags, search);
 			});
 		},
 		hasAll: function(item, tags){
@@ -223,11 +228,20 @@
 				}));
 			});
 		},
-		set: function (tags, updateState) {
+		isMatch: function(item, searchRegex){
+			return _is.string(item.title) && searchRegex.test(item.title)
+				|| _is.string(item.alt) && searchRegex.test(item.alt)
+				|| _is.string(item.caption) && searchRegex.test(item.caption)
+				|| _is.string(item.description) && searchRegex.test(item.description)
+				|| _is.array(item.tags) && item.tags.some(function(tag){
+					return searchRegex.test(tag);
+				});
+		},
+		set: function (tags, search, updateState) {
 			if (_is.string(tags)) tags = [[tags]];
 			if (!_is.array(tags)) tags = [];
 			var self = this, state;
-			if (!self.arraysEqual(self.current, tags)) {
+			if (!self.arraysEqual(self.current, tags) || self.search !== search) {
 				var prev = self.current.slice(), setFilter = function () {
 					updateState = _is.boolean(updateState) ? updateState : true;
 					if (updateState && !self.tmpl.state.exists()) {
@@ -235,10 +249,19 @@
 						self.tmpl.state.update(state, self.pushOrReplace);
 					}
 
-					if (_is.empty(tags)) {
+					var searchChanged = self.search !== search,
+						emptySearch = _is.empty(search);
+
+					if (_is.empty(tags) && emptySearch) {
 						self.tmpl.items.reset();
 					} else {
 						var items = self.tmpl.items.all();
+						if (!emptySearch){
+							var regex = new RegExp(_str.escapeRegExp(search), "i");
+							items = $.map(items, function(item){
+								return self.isMatch(item, regex) ? item : null;
+							});
+						}
 						if (self.mode === 'intersect') {
 							items = $.map(items, function (item) {
 								return self.hasAll(item, tags) ? item : null;
@@ -251,7 +274,12 @@
 						self.tmpl.items.setAvailable(items);
 					}
 					self.current = tags.slice();
-					self.controls(tags);
+					self.search = search;
+					if (searchChanged){
+						self.rebuild(!emptySearch);
+					} else {
+						self.controls(self.current, self.search);
+					}
 					if (self.tmpl.pages) {
 						self.tmpl.pages.rebuild();
 						self.tmpl.pages.set(1, null, null, true);
@@ -313,9 +341,9 @@
 
 			});
 		},
-		apply: function (tags) {
+		apply: function (tags, search) {
 			var self = this;
-			self.set(tags, !self.tmpl.pages);
+			self.set(tags, search, !self.tmpl.pages);
 		}
 	});
 
@@ -373,6 +401,7 @@
 		mode: "single",
 		sortBy: "value", // "value", "count", "index", "none"
 		sortInvert: false, // the direction of the sorting
+		search: false,
 		tags: [],
 		min: 0,
 		limit: 0,
@@ -388,8 +417,9 @@
 	}, null, -100);
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils,
+	FooGallery.utils.is,
+	FooGallery.utils.str
 );

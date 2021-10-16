@@ -6,21 +6,70 @@
 		construct: function(template, parent, position){
 			this._super(template, parent, position);
 			this.$container = null;
+			this.searchEnabled = this.position === "top" && this.filter.opt.search;
+			this.search = {
+				$wrap: null,
+				$inner: null,
+				$input: null,
+				$clear: null,
+				$submit: null
+			};
 			this.lists = [];
 		},
 		create: function(){
 			var self = this;
 			if (self._super()) {
 				var cls = self.filter.cls;
-				for (var i = 0, l = self.filter.tags.length; i < l; i++) {
-					self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
+				if (self.searchEnabled){
+					self.$container.append(self.createSearch(self.filter.search));
+					if (!_is.empty(self.filter.opt.searchPosition)){
+						self.$container.addClass("fg-search-" + self.filter.opt.searchPosition);
+					}
 				}
-				if (!self.filter.isMultiLevel && self.filter.showCount === true) {
-					self.$container.addClass(cls.showCount);
+				if (self.filter.tags.length > 0){
+					for (var i = 0, l = self.filter.tags.length; i < l; i++) {
+						self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
+					}
+					if (!self.filter.isMultiLevel && self.filter.showCount === true) {
+						self.$container.addClass(cls.showCount);
+					}
+				} else {
+					self.$container.addClass(cls.noTags);
 				}
 				return true;
 			}
 			return false;
+		},
+		createSearch: function(search){
+			var self = this, cls = self.filter.cls.search, il8n = self.filter.il8n;
+
+			self.search.$wrap = $("<div/>", {"class": cls.wrap});
+
+			self.search.$inner = $("<div/>", {"class": cls.inner}).appendTo(self.search.$wrap);
+
+			self.search.$input = $("<input/>", {"type": "text", "class": cls.input, "placeholder": il8n.searchPlaceholder})
+				.on("input.foogallery", {self: self}, self.onSearchInput)
+				.on("keydown.foogallery", {self: self}, self.onSearchKeydown)
+				.appendTo(self.search.$inner);
+
+			self.search.$clear = $("<button/>", {"type": "button","class": cls.clear})
+				.append($("<span/>", {"class": cls.reader, text: il8n.searchClear}))
+				.append(_.icons.get("close"))
+				.on("click.foogallery", {self: self}, self.onSearchClear)
+				.appendTo(self.search.$inner);
+
+			self.search.$submit = $("<button/>", {"type": "button","class": cls.submit})
+				.append($("<span/>", {"class": cls.reader, text: il8n.searchSubmit}))
+				.append(_.icons.get("search"))
+				.on("click.foogallery", {self: self}, self.onSearchSubmit)
+				.appendTo(self.search.$inner);
+
+			if (!_is.empty(search)){
+				self.search.$wrap.addClass(cls.hasValue);
+				self.search.$input.val(search).attr("placeholder", search);
+			}
+
+			return self.search.$wrap;
 		},
 		createList: function(tags){
 			var self = this, cls = self.filter.cls,
@@ -39,14 +88,18 @@
 			self.lists = [];
 			self._super();
 		},
-		update: function(tags){
+		update: function(tags, search){
 			var self = this, cls = self.filter.cls, sel = self.filter.sel;
+			if (self.searchEnabled){
+				self.search.$wrap.toggleClass(cls.search.hasValue, !_is.empty(search));
+				self.search.$input.val(search);
+			}
 			self.lists.forEach(function($list, i){
 				$list.find(sel.item).removeClass(cls.selected).each(function(){
-					var $item = $(this), tag = $item.data("tag");
-					if (!_is.string(tag)) tag += "";
-					var empty = _is.empty(tag);
-					$item.toggleClass(cls.selected, (empty && _is.empty(tags[i])) || (!empty && _utils.inArray(tag, tags[i]) !== -1));
+					var $item = $(this), tag = $item.data("tag") + ""; // force string value
+					var isAll = _is.empty(tag);
+					var isSelected = (isAll && _is.empty(tags[i])) || (!isAll && _utils.inArray(tag, tags[i]) !== -1);
+					$item.toggleClass(cls.selected, isSelected);
 				});
 			});
 		},
@@ -97,25 +150,64 @@
 			if (tags.every(_is.empty)){
 				tags = [];
 			}
-			self.filter.apply(tags);
+			self.filter.apply(tags, self.filter.search);
+		},
+		onSearchInput: function(e){
+			var self = e.data.self, cls = self.filter.cls.search;
+			var hasValue = !_is.empty(self.search.$input.val()) || self.search.$input.attr("placeholder") !== self.filter.il8n.searchPlaceholder;
+			self.search.$wrap.toggleClass(cls.hasValue, hasValue);
+		},
+		onSearchKeydown: function(e){
+			if (e.which === 13){
+				var self = e.data.self;
+				self.filter.apply([], self.search.$input.val());
+			}
+		},
+		onSearchClear: function(e){
+			e.preventDefault();
+			var self = e.data.self;
+			self.search.$wrap.removeClass(self.filter.cls.search.hasValue);
+			self.search.$input.val('');
+			if (self.search.$input.attr("placeholder") !== self.filter.il8n.searchPlaceholder){
+				self.filter.apply([], '');
+			}
+		},
+		onSearchSubmit: function(e){
+			e.preventDefault();
+			var self = e.data.self;
+			self.filter.apply([], self.search.$input.val());
 		}
 	});
 
 	_.filtering.register("tags", _.Tags, _.TagsControl, {
 		type: "tags",
 		position: "top",
-		pushOrReplace: "push"
+		pushOrReplace: "push",
+		searchPosition: "above-center"
 	}, {
 		showCount: "fg-show-count",
+		noTags: "fg-no-tags",
 		list: "fg-tag-list",
 		item: "fg-tag-item",
 		link: "fg-tag-link",
 		text: "fg-tag-text",
 		count: "fg-tag-count",
-		selected: "fg-selected"
+		selected: "fg-selected",
+		search: {
+			wrap: "fg-search-wrap",
+			inner: "fg-search-inner",
+			input: "fg-search-input",
+			clear: "fg-search-clear",
+			submit: "fg-search-submit",
+			hasValue: "fg-search-has-value",
+			reader: "fg-sr-only"
+		}
 	}, {
 		all: "All",
-		none: "No items found."
+		none: "No items found.",
+		searchPlaceholder: "Search gallery...",
+		searchSubmit: "Submit search",
+		searchClear: "Clear search"
 	}, -100);
 
 })(
