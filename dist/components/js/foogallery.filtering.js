@@ -141,7 +141,7 @@
 	FooGallery.utils.fn,
 	FooGallery.utils.obj
 );
-(function ($, _, _utils, _is) {
+(function ($, _, _utils, _is, _str) {
 
 	_.Filtering = _.Component.extend({
 		construct: function (template) {
@@ -180,6 +180,7 @@
 			self.current = [];
 			self.ctrls = [];
 			self.tags = [];
+			self.search = '';
 			self.isMultiLevel = false;
 		},
 		fromHash: function(hash){
@@ -208,7 +209,7 @@
 		},
 		setState: function(state){
 			this.rebuild();
-			this.set(state.filter, false);
+			this.set(state.filter, "", false);
 		},
 		destroy: function () {
 			var self = this;
@@ -245,6 +246,7 @@
 			var self = this, result = [];
 			// first get a count of the tags
 			var counts = self.count(items, tags), min = Infinity, max = 0, index = -1;
+			if (counts.__ALL__ === 0) return result;
 			for (var prop in counts) {
 				if (counts.hasOwnProperty(prop)) {
 					var count = counts[prop], isAll = prop === "__ALL__";
@@ -303,20 +305,23 @@
 			return result;
 		},
 		showControl: function(){
-			return !this.tags.every(function (tags) {
+			return this.opt.search || !this.tags.every(function (tags) {
 				return tags.length === 0;
 			});
 		},
-		build: function () {
-			var self = this, items = self.tmpl.items.all();
+		build: function (useAvailable) {
+			var self = this, items = useAvailable ? self.tmpl.items.available() : self.tmpl.items.all();
 			self.isMultiLevel = self.opt.tags.length > 0 && _is.object(self.opt.tags[0]);
 			if (items.length > 0) {
+				var tagObjects;
 				if (self.isMultiLevel){
 					$.each(self.opt.tags, function(i, level){
-						self.tags.push(self.createTagObjects(items, level.tags, i, level.all || self.il8n.all));
+						tagObjects = self.createTagObjects(items, level.tags, i, level.all || self.il8n.all);
+						if (!_is.empty(tagObjects)) self.tags.push(tagObjects);
 					});
 				} else {
-					self.tags.push(self.createTagObjects(items, self.opt.tags, 0, self.il8n.all));
+					tagObjects = self.createTagObjects(items, self.opt.tags, 0, self.il8n.all);
+					if (!_is.empty(tagObjects)) self.tags.push(tagObjects);
 				}
 			}
 
@@ -338,18 +343,18 @@
 				}
 			}
 		},
-		rebuild: function () {
+		rebuild: function (useAvailable) {
 			var self = this;
 			self.tags.splice(0, self.tags.length);
 			$.each(self.ctrls.splice(0, self.ctrls.length), function (i, control) {
 				control.destroy();
 			});
-			self.build();
+			self.build(useAvailable);
 		},
-		controls: function (tags) {
+		controls: function (tags, search) {
 			var self = this;
 			$.each(self.ctrls, function (i, control) {
-				control.update(tags);
+				control.update(tags, search);
 			});
 		},
 		hasAll: function(item, tags){
@@ -366,11 +371,20 @@
 				}));
 			});
 		},
-		set: function (tags, updateState) {
+		isMatch: function(item, searchRegex){
+			return _is.string(item.title) && searchRegex.test(item.title)
+				|| _is.string(item.alt) && searchRegex.test(item.alt)
+				|| _is.string(item.caption) && searchRegex.test(item.caption)
+				|| _is.string(item.description) && searchRegex.test(item.description)
+				|| _is.array(item.tags) && item.tags.some(function(tag){
+					return searchRegex.test(tag);
+				});
+		},
+		set: function (tags, search, updateState) {
 			if (_is.string(tags)) tags = [[tags]];
 			if (!_is.array(tags)) tags = [];
 			var self = this, state;
-			if (!self.arraysEqual(self.current, tags)) {
+			if (!self.arraysEqual(self.current, tags) || self.search !== search) {
 				var prev = self.current.slice(), setFilter = function () {
 					updateState = _is.boolean(updateState) ? updateState : true;
 					if (updateState && !self.tmpl.state.exists()) {
@@ -378,10 +392,19 @@
 						self.tmpl.state.update(state, self.pushOrReplace);
 					}
 
-					if (_is.empty(tags)) {
+					var searchChanged = self.search !== search,
+						emptySearch = _is.empty(search);
+
+					if (_is.empty(tags) && emptySearch) {
 						self.tmpl.items.reset();
 					} else {
 						var items = self.tmpl.items.all();
+						if (!emptySearch){
+							var regex = new RegExp(_str.escapeRegExp(search), "i");
+							items = $.map(items, function(item){
+								return self.isMatch(item, regex) ? item : null;
+							});
+						}
 						if (self.mode === 'intersect') {
 							items = $.map(items, function (item) {
 								return self.hasAll(item, tags) ? item : null;
@@ -394,7 +417,12 @@
 						self.tmpl.items.setAvailable(items);
 					}
 					self.current = tags.slice();
-					self.controls(tags);
+					self.search = search;
+					if (searchChanged){
+						self.rebuild(!emptySearch);
+					} else {
+						self.controls(self.current, self.search);
+					}
 					if (self.tmpl.pages) {
 						self.tmpl.pages.rebuild();
 						self.tmpl.pages.set(1, null, null, true);
@@ -456,9 +484,9 @@
 
 			});
 		},
-		apply: function (tags) {
+		apply: function (tags, search) {
 			var self = this;
-			self.set(tags, !self.tmpl.pages);
+			self.set(tags, search, !self.tmpl.pages);
 		}
 	});
 
@@ -516,6 +544,7 @@
 		mode: "single",
 		sortBy: "value", // "value", "count", "index", "none"
 		sortInvert: false, // the direction of the sorting
+		search: false,
 		tags: [],
 		min: 0,
 		limit: 0,
@@ -531,10 +560,11 @@
 	}, null, -100);
 
 })(
-		FooGallery.$,
-		FooGallery,
-		FooGallery.utils,
-		FooGallery.utils.is
+	FooGallery.$,
+	FooGallery,
+	FooGallery.utils,
+	FooGallery.utils.is,
+	FooGallery.utils.str
 );
 (function($, _, _utils, _is){
 
@@ -544,21 +574,70 @@
 		construct: function(template, parent, position){
 			this._super(template, parent, position);
 			this.$container = null;
+			this.searchEnabled = this.position === "top" && this.filter.opt.search;
+			this.search = {
+				$wrap: null,
+				$inner: null,
+				$input: null,
+				$clear: null,
+				$submit: null
+			};
 			this.lists = [];
 		},
 		create: function(){
 			var self = this;
 			if (self._super()) {
 				var cls = self.filter.cls;
-				for (var i = 0, l = self.filter.tags.length; i < l; i++) {
-					self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
+				if (self.searchEnabled){
+					self.$container.append(self.createSearch(self.filter.search));
+					if (!_is.empty(self.filter.opt.searchPosition)){
+						self.$container.addClass("fg-search-" + self.filter.opt.searchPosition);
+					}
 				}
-				if (!self.filter.isMultiLevel && self.filter.showCount === true) {
-					self.$container.addClass(cls.showCount);
+				if (self.filter.tags.length > 0){
+					for (var i = 0, l = self.filter.tags.length; i < l; i++) {
+						self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
+					}
+					if (!self.filter.isMultiLevel && self.filter.showCount === true) {
+						self.$container.addClass(cls.showCount);
+					}
+				} else {
+					self.$container.addClass(cls.noTags);
 				}
 				return true;
 			}
 			return false;
+		},
+		createSearch: function(search){
+			var self = this, cls = self.filter.cls.search, il8n = self.filter.il8n;
+
+			self.search.$wrap = $("<div/>", {"class": cls.wrap});
+
+			self.search.$inner = $("<div/>", {"class": cls.inner}).appendTo(self.search.$wrap);
+
+			self.search.$input = $("<input/>", {"type": "text", "class": cls.input, "placeholder": il8n.searchPlaceholder})
+				.on("input.foogallery", {self: self}, self.onSearchInput)
+				.on("keydown.foogallery", {self: self}, self.onSearchKeydown)
+				.appendTo(self.search.$inner);
+
+			self.search.$clear = $("<button/>", {"type": "button","class": cls.clear})
+				.append($("<span/>", {"class": cls.reader, text: il8n.searchClear}))
+				.append(_.icons.get("close"))
+				.on("click.foogallery", {self: self}, self.onSearchClear)
+				.appendTo(self.search.$inner);
+
+			self.search.$submit = $("<button/>", {"type": "button","class": cls.submit})
+				.append($("<span/>", {"class": cls.reader, text: il8n.searchSubmit}))
+				.append(_.icons.get("search"))
+				.on("click.foogallery", {self: self}, self.onSearchSubmit)
+				.appendTo(self.search.$inner);
+
+			if (!_is.empty(search)){
+				self.search.$wrap.addClass(cls.hasValue);
+				self.search.$input.val(search).attr("placeholder", search);
+			}
+
+			return self.search.$wrap;
 		},
 		createList: function(tags){
 			var self = this, cls = self.filter.cls,
@@ -577,14 +656,18 @@
 			self.lists = [];
 			self._super();
 		},
-		update: function(tags){
+		update: function(tags, search){
 			var self = this, cls = self.filter.cls, sel = self.filter.sel;
+			if (self.searchEnabled){
+				self.search.$wrap.toggleClass(cls.search.hasValue, !_is.empty(search));
+				self.search.$input.val(search);
+			}
 			self.lists.forEach(function($list, i){
 				$list.find(sel.item).removeClass(cls.selected).each(function(){
-					var $item = $(this), tag = $item.data("tag");
-					if (!_is.string(tag)) tag += "";
-					var empty = _is.empty(tag);
-					$item.toggleClass(cls.selected, (empty && _is.empty(tags[i])) || (!empty && _utils.inArray(tag, tags[i]) !== -1));
+					var $item = $(this), tag = $item.data("tag") + ""; // force string value
+					var isAll = _is.empty(tag);
+					var isSelected = (isAll && _is.empty(tags[i])) || (!isAll && _utils.inArray(tag, tags[i]) !== -1);
+					$item.toggleClass(cls.selected, isSelected);
 				});
 			});
 		},
@@ -635,25 +718,64 @@
 			if (tags.every(_is.empty)){
 				tags = [];
 			}
-			self.filter.apply(tags);
+			self.filter.apply(tags, self.filter.search);
+		},
+		onSearchInput: function(e){
+			var self = e.data.self, cls = self.filter.cls.search;
+			var hasValue = !_is.empty(self.search.$input.val()) || self.search.$input.attr("placeholder") !== self.filter.il8n.searchPlaceholder;
+			self.search.$wrap.toggleClass(cls.hasValue, hasValue);
+		},
+		onSearchKeydown: function(e){
+			if (e.which === 13){
+				var self = e.data.self;
+				self.filter.apply([], self.search.$input.val());
+			}
+		},
+		onSearchClear: function(e){
+			e.preventDefault();
+			var self = e.data.self;
+			self.search.$wrap.removeClass(self.filter.cls.search.hasValue);
+			self.search.$input.val('');
+			if (self.search.$input.attr("placeholder") !== self.filter.il8n.searchPlaceholder){
+				self.filter.apply([], '');
+			}
+		},
+		onSearchSubmit: function(e){
+			e.preventDefault();
+			var self = e.data.self;
+			self.filter.apply([], self.search.$input.val());
 		}
 	});
 
 	_.filtering.register("tags", _.Tags, _.TagsControl, {
 		type: "tags",
 		position: "top",
-		pushOrReplace: "push"
+		pushOrReplace: "push",
+		searchPosition: "above-center"
 	}, {
 		showCount: "fg-show-count",
+		noTags: "fg-no-tags",
 		list: "fg-tag-list",
 		item: "fg-tag-item",
 		link: "fg-tag-link",
 		text: "fg-tag-text",
 		count: "fg-tag-count",
-		selected: "fg-selected"
+		selected: "fg-selected",
+		search: {
+			wrap: "fg-search-wrap",
+			inner: "fg-search-inner",
+			input: "fg-search-input",
+			clear: "fg-search-clear",
+			submit: "fg-search-submit",
+			hasValue: "fg-search-has-value",
+			reader: "fg-sr-only"
+		}
 	}, {
 		all: "All",
-		none: "No items found."
+		none: "No items found.",
+		searchPlaceholder: "Search gallery...",
+		searchSubmit: "Submit search",
+		searchClear: "Clear search"
 	}, -100);
 
 })(
