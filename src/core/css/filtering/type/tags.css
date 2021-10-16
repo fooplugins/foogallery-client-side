@@ -67,6 +67,7 @@
 
 .fg-search-inner .fg-search-clear,
 .fg-search-inner .fg-search-submit {
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
