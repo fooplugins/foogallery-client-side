@@ -3241,9 +3241,7 @@
                     return $("<source/>", {src: url.embed, mimeType: url.source.mimeType});
                 });
                 self.$content.append(sources);
-                if (self.$content.prop("readyState") > 0){
-                    self.$content.get(0).load();
-                }
+                self.$content.get(0).load();
             }).promise();
         },
         loadIframe: function(){
