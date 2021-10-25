@@ -1,11 +1,12 @@
 {
   "name": "foogallery",
-  "version": "2.0.22",
+  "version": "2.0.23",
   "title": "FooGallery",
   "description": "The Most Intuitive and Extensible Gallery Creation and Management Tool Ever Created for WordPress",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-pages": "ws --directory test-pages/templates"
   },
   "keywords": [
     "responsive",
@@ -24,7 +25,8 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^2.0.0",
     "grunt-contrib-uglify": "^2.0.0",
-    "grunt-jsdoc": "^2.1.0"
+    "grunt-jsdoc": "^2.1.0",
+    "local-web-server": "^5.1.0"
   },
   "dependencies": {
     "jquery": "^3.5.1",

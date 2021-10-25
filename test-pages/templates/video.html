@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Video Test</title>
+    <link href="assets/css/foogallery.min.css" rel="stylesheet"/>
+    <script src="assets/jquery.min.js" defer></script>
+    <script>
+        window.page_log = (...args) => {
+            const el = document.getElementById("page_log");
+            const message = args.map((arg) => {
+                return JSON.stringify(arg, null, 4);
+            }).join(" ");
+            const pre = document.createElement("pre");
+            pre.innerHTML = message;
+            el.appendChild(pre);
+        };
+    </script>
+    <script src="assets/js/foogallery.js" defer></script>
+</head>
+<body>
+<div>
+    <div id="foogallery-gallery-2" class="foogallery fg-light fg-hover-fade fg-hover-zoom fg-video-default fg-video-sticky fg-default fg-loading-default" data-foogallery-lightbox>
+        <div class="fg-item fg-type-video fg-loaded">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" data-type="video" href="https://s3-eu-west-2.amazonaws.com/wildfire-2019/wp-content/uploads/2020/10/12-Second-WIP-10.mp4?autoplay=1" data-title="Test MP4" data-description="Testing that an MP4 loads">
+					<span class="fg-image-wrap">
+                        <img class="fg-image" src="https://fakeimg.pl/320x214/624af9/FFFFFF/?font_size=24&text=img.src" alt="The alt">
+					</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Test MP4</div>
+                        <div class="fg-caption-desc">Testing that an MP4 loads</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+    </div>
+    <div id="page_log">
+
+    </div>
+</div>
+</body>
+</html>
