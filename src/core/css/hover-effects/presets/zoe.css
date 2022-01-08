@@ -6,7 +6,8 @@
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
 }
-.foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-thumb {
+.foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-thumb,
+.foogallery.fg-preset.fg-zoe .fg-item-inner .fg-thumb:focus {
 	-webkit-transform: translateY(-40px);
 	transform: translateY(-40px);
 }
@@ -27,8 +28,10 @@
 	-webkit-transform: translateY(100%) translateY(50px) translateY(-50%);
 	transform: translateY(100%) translateY(50px) translateY(-50%);
 	transition: transform 0.35s;
+	margin: 0 0.4em;
 }
-.foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-caption-title {
+.foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-caption-title,
+.foogallery.fg-preset.fg-zoe .fg-item-inner:focus-within .fg-caption-title {
 	-webkit-transform: translateY(100%) translateY(20px) translateY(-50%);
 	transform: translateY(100%) translateY(20px) translateY(-50%);
 }
@@ -44,7 +47,8 @@
 	transition: opacity 0.35s, transform 0.35s;
 	line-height: 1.2;
 }
-.foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-caption-desc {
+.foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-caption-desc,
+.foogallery.fg-preset.fg-zoe .fg-item-inner:focus-within .fg-caption-desc {
 	opacity: 1;
 	-webkit-transform: translateY(-50%) translateY(0);
 	transform: translateY(-50%) translateY(0);
@@ -55,7 +59,8 @@
 	border: solid 10px transparent;
 	border-bottom-width: 50px;
 }
-.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-item-inner:hover .fg-thumb {
+.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-item-inner:hover .fg-thumb,
+.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-item-inner .fg-thumb:focus {
 	-webkit-transform: translateY(-40px);
 	transform: translateY(-40px);
 }
@@ -64,7 +69,8 @@
 	-webkit-transform: translateY(100%) translateY(50px) translateY(-50%);
 	transform: translateY(100%) translateY(50px) translateY(-50%);
 }
-.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-item-inner:hover .fg-caption-title {
+.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-item-inner:hover .fg-caption-title,
+.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-item-inner:focus-within .fg-caption-title {
 	-webkit-transform: translateY(100%) translateY(20px) translateY(-50%);
 	transform: translateY(100%) translateY(20px) translateY(-50%);
 }
@@ -76,7 +82,8 @@
 	border: solid 15px transparent;
 	border-bottom-width: 75px;
 }
-.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-item-inner:hover .fg-thumb {
+.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-item-inner:hover .fg-thumb,
+.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-item-inner .fg-thumb:focus {
 	-webkit-transform: translateY(-60px);
 	transform: translateY(-60px);
 }
@@ -85,7 +92,8 @@
 	-webkit-transform: translateY(100%) translateY(75px) translateY(-50%);
 	transform: translateY(100%) translateY(75px) translateY(-50%);
 }
-.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-item-inner:hover .fg-caption-title {
+.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-item-inner:hover .fg-caption-title,
+.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-item-inner:focus-within .fg-caption-title {
 	-webkit-transform: translateY(100%) translateY(30px) translateY(-50%);
 	transform: translateY(100%) translateY(30px) translateY(-50%);
 }
@@ -97,7 +105,8 @@
 	border: solid 20px transparent;
 	border-bottom-width: 100px;
 }
-.foogallery.fg-preset.fg-preset-large.fg-zoe .fg-item-inner:hover .fg-thumb {
+.foogallery.fg-preset.fg-preset-large.fg-zoe .fg-item-inner:hover .fg-thumb,
+.foogallery.fg-preset.fg-preset-large.fg-zoe .fg-item-inner .fg-thumb:focus {
 	-webkit-transform: translateY(-80px);
 	transform: translateY(-80px);
 }
@@ -106,7 +115,8 @@
 	-webkit-transform: translateY(100%) translateY(100px) translateY(-50%);
 	transform: translateY(100%) translateY(100px) translateY(-50%);
 }
-.foogallery.fg-preset.fg-preset-large.fg-zoe .fg-item-inner:hover .fg-caption-title {
+.foogallery.fg-preset.fg-preset-large.fg-zoe .fg-item-inner:hover .fg-caption-title,
+.foogallery.fg-preset.fg-preset-large.fg-zoe .fg-item-inner:focus-within .fg-caption-title {
 	-webkit-transform: translateY(100%) translateY(40px) translateY(-50%);
 	transform: translateY(100%) translateY(40px) translateY(-50%);
 }

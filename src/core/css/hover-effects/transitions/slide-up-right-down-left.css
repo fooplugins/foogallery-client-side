@@ -22,7 +22,15 @@
 .foogallery.fg-hover-slide-left .fg-loaded .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-slide-left .fg-loaded .fg-item-inner:hover .fg-caption,
 .foogallery.fg-hover-slide-right .fg-loaded .fg-item-inner:hover .fg-image-overlay,
-.foogallery.fg-caption-hover.fg-hover-slide-right .fg-loaded .fg-item-inner:hover .fg-caption {
+.foogallery.fg-caption-hover.fg-hover-slide-right .fg-loaded .fg-item-inner:hover .fg-caption,
+.foogallery.fg-hover-slide-up .fg-loaded .fg-item-inner:focus-within .fg-image-overlay,
+.foogallery.fg-caption-hover.fg-hover-slide-up .fg-loaded .fg-item-inner:focus-within .fg-caption,
+.foogallery.fg-hover-slide-down .fg-loaded .fg-item-inner:focus-within .fg-image-overlay,
+.foogallery.fg-caption-hover.fg-hover-slide-down .fg-loaded .fg-item-inner:focus-within .fg-caption,
+.foogallery.fg-hover-slide-left .fg-loaded .fg-item-inner:focus-within .fg-image-overlay,
+.foogallery.fg-caption-hover.fg-hover-slide-left .fg-loaded .fg-item-inner:focus-within .fg-caption,
+.foogallery.fg-hover-slide-right .fg-loaded .fg-item-inner:focus-within .fg-image-overlay,
+.foogallery.fg-caption-hover.fg-hover-slide-right .fg-loaded .fg-item-inner:focus-within .fg-caption {
 	transform: translateY(0) translateX(0);
 }
 
