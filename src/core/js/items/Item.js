@@ -1166,6 +1166,8 @@
 				var ph_src = img.src, ph_srcset = img.srcset;
 				img.onload = function () {
 					img.onload = img.onerror = null;
+					img.style.removeProperty("width");
+					img.style.removeProperty("height");
 					def.resolve(img);
 				};
 				img.onerror = function () {
@@ -1191,6 +1193,10 @@
 						}
 					});
 				}
+				var size = img.getBoundingClientRect();
+				img.style.width = size.width;
+				img.style.height = size.height;
+
 				img.src = self.src;
 				if (!_is.empty(self.srcset)){
 					img.srcset = self.srcset;
