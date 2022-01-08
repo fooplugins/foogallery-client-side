@@ -9,7 +9,8 @@
 	transform: scale(1.12) translateX(-10%);
 	transform-origin: 0 50%;
 }
-.foogallery.fg-preset.fg-lily .fg-item-inner:hover .fg-image {
+.foogallery.fg-preset.fg-lily .fg-item-inner:hover .fg-image,
+.foogallery.fg-preset.fg-lily .fg-item-inner:focus-within .fg-image {
 	opacity: 0.8;
 	-webkit-transform: scale(1.12) translateX(0);
 	transform: scale(1.12) translateX(0);
@@ -25,7 +26,8 @@
 	transition: transform 0.35s;
 	transform: translateY(100%) translateY(-10px) translateY(-30px);
 }
-.foogallery.fg-preset.fg-lily .fg-item-inner:hover .fg-caption-inner {
+.foogallery.fg-preset.fg-lily .fg-item-inner:hover .fg-caption-inner,
+.foogallery.fg-preset.fg-lily .fg-item-inner:focus-within .fg-caption-inner {
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
 }
@@ -41,7 +43,8 @@
 	opacity: 0;
 	transition: opacity 0.35s;
 }
-.foogallery.fg-preset.fg-lily .fg-item-inner:hover .fg-caption-desc {
+.foogallery.fg-preset.fg-lily .fg-item-inner:hover .fg-caption-desc,
+.foogallery.fg-preset.fg-lily .fg-item-inner:focus-within .fg-caption-desc {
 	opacity: 1;
 }
 

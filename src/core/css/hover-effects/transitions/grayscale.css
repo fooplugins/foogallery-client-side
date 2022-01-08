@@ -1,19 +1,11 @@
 /* Grayscale */
 .foogallery.fg-hover-grayscale .fg-image {
-	-webkit-filter: none;
-	filter: none;
-	-webkit-transition-property: -webkit-filter;
+	filter: grayscale(0%);
 	transition-property: filter;
 }
-.foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-image {
-	/* For Webkit browsers */
-	-webkit-filter: grayscale(1);
-	-webkit-filter: grayscale(100%);
-	/* Standard */
+.foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-image,
+.foogallery.fg-hover-grayscale .fg-item-inner:focus-within .fg-image {
 	filter: grayscale(100%);
-	/* For IE 6 - 9 */
-	filter: gray;
-	opacity: 1;
 }
 .foogallery.fg-hover-grayscale .fg-image-overlay,
 .foogallery.fg-caption-hover.fg-hover-grayscale .fg-caption {
@@ -24,7 +16,9 @@
 	transition-property: visibility, opacity, background-color;
 }
 .foogallery.fg-hover-grayscale .fg-item-inner:hover .fg-image-overlay,
-.foogallery.fg-caption-hover.fg-hover-grayscale .fg-item-inner:hover .fg-caption {
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-item-inner:hover .fg-caption,
+.foogallery.fg-hover-grayscale .fg-item-inner:focus-within .fg-image-overlay,
+.foogallery.fg-caption-hover.fg-hover-grayscale .fg-item-inner:focus-within .fg-caption {
 	visibility: visible;
 	opacity: 1;
 }

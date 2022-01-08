@@ -15,7 +15,8 @@
 	transition: opacity 0.35s;
 	opacity: 0;
 }
-.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-image-overlay {
+.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-image-overlay,
+.foogallery.fg-preset.fg-steve .fg-item-inner:focus-within .fg-image-overlay {
 	opacity: 1;
 }
 
@@ -25,7 +26,8 @@
 	-webkit-transform: perspective(1000px) translate3d(0,0,0);
 	transform: perspective(1000px) translate3d(0,0,0);
 }
-.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-image {
+.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-image,
+.foogallery.fg-preset.fg-steve .fg-item-inner:focus-within .fg-image {
 	-webkit-transform: perspective(1000px) translate3d(0,0,21px);
 	transform: perspective(1000px) translate3d(0,0,21px);
 }
@@ -52,7 +54,8 @@
 	transform: translateY(-100%) translateY(-10px);
 	box-shadow: 0 1px 10px rgba(0,0,0,0.5);
 }
-.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-caption-title {
+.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-caption-title,
+.foogallery.fg-preset.fg-steve .fg-item-inner:focus-within .fg-caption-title {
 	box-shadow: 0 1px 10px rgba(0,0,0,0);
 }
 
@@ -70,7 +73,8 @@
 	transform: scale(0.9);
 	transform-origin: 50% 50%;
 }
-.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-caption-desc {
+.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-caption-desc,
+.foogallery.fg-preset.fg-steve .fg-item-inner:focus-within .fg-caption-desc {
 	opacity: 1;
 	-webkit-transform: scale(1);
 	transform: scale(1);
@@ -115,7 +119,10 @@
 }
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-small .fg-item-inner:hover .fg-thumb:after,
 .foogallery.fg-preset.fg-steve.fg-shadow-inset-medium .fg-item-inner:hover .fg-thumb:after,
-.foogallery.fg-preset.fg-steve.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after {
+.foogallery.fg-preset.fg-steve.fg-shadow-inset-large .fg-item-inner:hover .fg-thumb:after,
+.foogallery.fg-preset.fg-steve.fg-shadow-inset-small .fg-item-inner .fg-thumb:focus:after,
+.foogallery.fg-preset.fg-steve.fg-shadow-inset-medium .fg-item-inner .fg-thumb:focus:after,
+.foogallery.fg-preset.fg-steve.fg-shadow-inset-large .fg-item-inner .fg-thumb:focus:after {
 	-webkit-transform: perspective(1000px) translate3d(0,0,21px);
 	transform: perspective(1000px) translate3d(0,0,21px);
 	opacity: 0;

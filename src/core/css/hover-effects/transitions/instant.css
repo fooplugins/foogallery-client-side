@@ -8,7 +8,9 @@
 	transition-property: none;
 }
 .foogallery.fg-hover-instant .fg-loaded .fg-item-inner:hover .fg-image-overlay,
-.foogallery.fg-caption-hover.fg-hover-instant .fg-loaded .fg-item-inner:hover .fg-caption {
+.foogallery.fg-caption-hover.fg-hover-instant .fg-loaded .fg-item-inner:hover .fg-caption,
+.foogallery.fg-hover-instant .fg-loaded .fg-item-inner:focus-within .fg-image-overlay,
+.foogallery.fg-caption-hover.fg-hover-instant .fg-loaded .fg-item-inner:focus-within .fg-caption {
 	visibility: visible;
 	opacity: 1;
 }
