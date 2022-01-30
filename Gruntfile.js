@@ -345,6 +345,17 @@ module.exports = function ( grunt ) {
 				}
 			},
 
+			"carousel": {
+				"files": {
+					"./dist/components/js/foogallery.tmpl.carousel.js": [
+						"./src/templates/carousel/js/Carousel.js",
+						"./src/templates/carousel/js/ready.js"
+					],
+					"./dist/components/css/foogallery.tmpl.carousel.css": [
+						"./src/templates/carousel/css/carousel.css"
+					]
+				}
+			},
 			"default": {
 				"files": {
 					"./dist/components/js/foogallery.tmpl.default.js": [
@@ -474,6 +485,8 @@ module.exports = function ( grunt ) {
 						"./dist/components/js/foogallery.tmpl.image-viewer.js",
 						"./dist/components/js/foogallery.tmpl.single-thumbnail.js",
 
+						"./dist/components/js/foogallery.tmpl.carousel.js",
+
 						"./dist/components/js/foogallery.tmpl.foogrid.js",
 						"./dist/components/js/foogallery.tmpl.slider.js",
 
@@ -495,6 +508,9 @@ module.exports = function ( grunt ) {
 						"./dist/components/css/foogallery.tmpl.portfolio.css",
 						"./dist/components/css/foogallery.tmpl.image-viewer.css",
 						"./dist/components/css/foogallery.tmpl.single-thumbnail.css",
+
+						"./dist/components/css/foogallery.tmpl.carousel.css",
+
 						"./dist/components/css/foogallery.tmpl.foogrid.css",
 						"./dist/components/css/foogallery.tmpl.slider.css",
 
@@ -662,6 +678,7 @@ module.exports = function ( grunt ) {
 		"concat:foogrid",
 		"concat:slider",
 		"concat:stack-album",
+		"concat:carousel",
 
 		"concat:ready",
 
