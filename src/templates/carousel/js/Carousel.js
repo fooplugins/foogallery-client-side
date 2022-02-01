@@ -121,7 +121,6 @@
                         }
                     }, { passive: true } );
                     self._listeners.add( self.el, "mouseleave", function( event ){
-                        console.log( "mouseleave:restart==" + ( self._timerRestart !== null ) + ", canResume==" + self._timer.canResume );
                         if ( !self._timer.canResume ) self._timer.restart();
                         else self._timer.resume();
                     }, { passive: true } );
