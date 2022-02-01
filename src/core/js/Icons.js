@@ -51,6 +51,33 @@
                 }).join(" ");
 
             return $(icon).addClass(classNames);
+        },
+        element: function(name, setNameOrObject){
+            const self = this;
+
+            let setName = "default",
+                icons = _obj.extend({}, self.registered.default);
+
+            if (_is.string(setNameOrObject) && setNameOrObject !== "default"){
+                setName = setNameOrObject;
+                icons = _obj.extend(icons, self.registered[setNameOrObject]);
+            } else if (_is.hash(setNameOrObject)){
+                setName = "custom";
+                icons = _obj.extend(icons, setNameOrObject);
+            }
+
+            const iconString = _is.string(name) && icons.hasOwnProperty(name) ? icons[name].replace(/\[ICON_CLASS]/g, self.className + "-" + name) : null;
+            if ( iconString !== null ){
+                const fragment = document.createRange().createContextualFragment(iconString);
+                const svg = fragment.querySelector("svg");
+                if ( svg ){
+                    ["", "-" + name, "-" + setName].forEach(function(suffix){
+                        svg.classList.add(self.className + suffix);
+                    });
+                    return svg;
+                }
+            }
+            return null;
         }
     });
 

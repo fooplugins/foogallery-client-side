@@ -17,6 +17,21 @@
     <script src="../assets/jquery.min.js" defer></script>
     <script src="../assets/theme.js" defer></script>
     <script src="../assets/js/foogallery.js" defer></script>
+    <script>
+
+        (function(){
+
+            const perSide = 3;
+            const n = perSide + 1, x = 1000;
+            let k = ( 2 * x ) / ( n * ( n - 1 ) );
+            // console.log( k );
+            for ( let i = perSide; i > 0; i-- ){
+                console.log( i * k );
+            }
+
+        })();
+
+    </script>
 </head>
 <body class="dark">
 <header>
@@ -28,20 +43,20 @@
     <button title="PageSpeed Insights"></button>
 </header>
 <main>
-<div id="foogallery-gallery-1" class="foogallery fg-carousel"
-     data-foogallery="{&quot;lazy&quot;:true,&quot;template&quot;:{&quot;show&quot;:11,&quot;scale&quot;:0.15}}"
-     data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;}">
-    <div class="fg-carousel-left">
-        <button class="fg-carousel-prev"></button>
-    </div>
-    <div class="fg-carousel-center"></div>
-    <div class="fg-carousel-right">
-        <button class="fg-carousel-next"></button>
-    </div>
-    <div class="fg-carousel-bottom"></div>
+    <div id="foogallery-gallery-1" class="foogallery fg-carousel fg-bullet-medium fg-light fg-loading-default fg-loaded-fade-in fg-border-thick fg-shadow-large fg-round-medium"
+         data-foogallery="{&quot;lazy&quot;:true,&quot;template&quot;:{&quot;show&quot;:7,&quot;scale&quot;:0.12}}"
+         data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;}">
+        <div class="fg-carousel-left">
+            <button class="fg-carousel-prev"></button>
+        </div>
+        <div class="fg-carousel-center">
+            <div class="fg-carousel-progress"></div>
+        </div>
+        <div class="fg-carousel-right">
+            <button class="fg-carousel-next"></button>
+        </div>
+        <div class="fg-carousel-bottom"></div>
 
-    <!-- ITEMS HERE -->
-</div>
         <div class="fg-item fg-type-image fg-item-exif fg-idle fg-item-active">
             <figure class="fg-item-inner">
                 <a class="fg-thumb"

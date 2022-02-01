@@ -43,8 +43,11 @@
     _.template.register("carousel", _.CarouselTemplate, {
         template: {
             show: 5,
-            scale: 0.2,
-            max: 0.8
+            scale: 0.12,
+            max: 0.8,
+            centerOnClick: true,
+            duration: 5,
+            pauseOnHover: true
         }
     }, {
         container: "foogallery fg-carousel",
@@ -59,7 +62,8 @@
             activeBullet: "fg-bullet-active",
             activeItem: "fg-item-active",
             prevItem: "fg-item-prev",
-            nextItem: "fg-item-next"
+            nextItem: "fg-item-next",
+            progress: "fg-carousel-progress"
         }
     });
 

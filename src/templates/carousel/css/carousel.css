@@ -5,6 +5,8 @@
     grid-template-columns: minmax(48px, 1fr) auto minmax(48px, 1fr);
     grid-template-rows: auto 32px;
     padding: 10px 0;
+    transform: translate3d(0, 0, 0);
+    will-change: contents;
 }
 .fg-carousel-left {
     position: relative;
@@ -15,6 +17,15 @@
     position: relative;
     grid-column: 2/3;
     grid-row: 1/2;
+}
+.fg-carousel-progress {
+    display: block;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    transition: width 1s linear;
 }
 .fg-carousel-right {
     position: relative;
@@ -37,10 +48,20 @@
     padding: 0;
     margin: 5px;
     border-radius: 50%;
+    background: none;
     border: none;
-    outline: none;
     box-shadow: none;
+    outline: none;
     opacity: 0.2;
+    cursor: pointer;
+}
+.fg-bullet-medium .fg-carousel-bullet {
+    width: 12px;
+    height: 12px;
+}
+.fg-bullet-large .fg-carousel-bullet {
+    width: 14px;
+    height: 14px;
 }
 .fg-carousel-bullet.fg-bullet-active {
     opacity: 1;
@@ -53,13 +74,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FFF;
     font-size: 48px;
     background: none;
     border: none;
     box-shadow: none;
     outline: none;
     z-index: 11;
+    cursor: pointer;
 }
 .fg-carousel-prev .fg-icon,
 .fg-carousel-next .fg-icon {
@@ -84,13 +105,13 @@
     transform-origin: center center;
     transform: translateX(1000%) scale(0.6);
     transition-timing-function: ease-in-out;
-    transition-duration: 300ms;
+    transition-duration: 650ms;
     transition-property: background-color,transform,transform-origin,opacity,visibility;
 }
 .foogallery.fg-carousel .fg-item.fg-loaded {
     transform: translateX(0) scale(0.6);
     transition-timing-function: ease-in-out;
-    transition-duration: 300ms;
+    transition-duration: 650ms;
     transition-property: background-color,transform,transform-origin,opacity,visibility;
 }
 .foogallery.fg-carousel .fg-item.fg-item-active,
@@ -108,4 +129,22 @@
 }
 .foogallery.fg-carousel .fg-item.fg-item-next {
     transform-origin: right center;
+}
+
+
+.fg-light .fg-carousel-progress,
+.fg-light .fg-carousel-bullet {
+    background-color: #FFF;
+}
+.fg-light .fg-carousel-prev,
+.fg-light .fg-carousel-next {
+    color: #FFF;
+}
+.fg-dark .fg-carousel-progress,
+.fg-dark .fg-carousel-bullet {
+    background-color: #333;
+}
+.fg-dark .fg-carousel-prev,
+.fg-dark .fg-carousel-next {
+    color: #333;
 }
