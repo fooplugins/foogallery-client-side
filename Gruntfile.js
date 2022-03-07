@@ -480,7 +480,6 @@ module.exports = function ( grunt ) {
 						"./dist/components/js/foogallery.tmpl.default.js",
 						"./dist/components/js/foogallery.tmpl.masonry.js",
 						"./dist/components/js/foogallery.tmpl.justified.js",
-						"./dist/components/js/foogallery.tmpl.justified-css.js",
 						"./dist/components/js/foogallery.tmpl.portfolio.js",
 						"./dist/components/js/foogallery.tmpl.image-viewer.js",
 						"./dist/components/js/foogallery.tmpl.single-thumbnail.js",
@@ -504,7 +503,6 @@ module.exports = function ( grunt ) {
 						"./dist/components/css/foogallery.tmpl.default.css",
 						"./dist/components/css/foogallery.tmpl.masonry.css",
 						"./dist/components/css/foogallery.tmpl.justified.css",
-						"./dist/components/css/foogallery.tmpl.justified-css.css",
 						"./dist/components/css/foogallery.tmpl.portfolio.css",
 						"./dist/components/css/foogallery.tmpl.image-viewer.css",
 						"./dist/components/css/foogallery.tmpl.single-thumbnail.css",
@@ -528,11 +526,11 @@ module.exports = function ( grunt ) {
 						"./dist/components/js/foogallery.tmpl.default.js",
 						"./dist/components/js/foogallery.tmpl.masonry.js",
 						"./dist/components/js/foogallery.tmpl.justified.js",
-						"./dist/components/js/foogallery.tmpl.justified-css.js",
 						"./dist/components/js/foogallery.tmpl.portfolio.js",
 						"./dist/components/js/foogallery.tmpl.image-viewer.js",
 						"./dist/components/js/foogallery.tmpl.single-thumbnail.js",
 						"./dist/components/js/foogallery.tmpl.stack-album.js",
+						"./dist/components/js/foogallery.tmpl.carousel.js",
 
 						"./dist/components/js/foogallery.ready.js"
 					],
@@ -543,11 +541,11 @@ module.exports = function ( grunt ) {
 						"./dist/components/css/foogallery.tmpl.default.css",
 						"./dist/components/css/foogallery.tmpl.masonry.css",
 						"./dist/components/css/foogallery.tmpl.justified.css",
-						"./dist/components/css/foogallery.tmpl.justified-css.css",
 						"./dist/components/css/foogallery.tmpl.portfolio.css",
 						"./dist/components/css/foogallery.tmpl.image-viewer.css",
 						"./dist/components/css/foogallery.tmpl.single-thumbnail.css",
-						"./dist/components/css/foogallery.tmpl.stack-album.css"
+						"./dist/components/css/foogallery.tmpl.stack-album.css",
+						"./dist/components/css/foogallery.tmpl.carousel.css",
 					]
 				}
 			}
@@ -672,7 +670,6 @@ module.exports = function ( grunt ) {
 		"concat:masonry",
 		"concat:image-viewer",
 		"concat:justified",
-		"concat:justified-css",
 		"concat:portfolio",
 		"concat:single-thumbnail",
 		"concat:foogrid",

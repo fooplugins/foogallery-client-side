@@ -14,6 +14,7 @@
 			var self = this;
 			self.ALLOW_CREATE = true;
 			self.ALLOW_APPEND = true;
+			self.LAYOUT_AFTER_LOAD = true;
 			/**
 			 * @ignore
 			 * @memberof FooGallery.Items#
@@ -35,7 +36,7 @@
 			self._layoutTimeout = null;
 			self.iobserver = new IntersectionObserver(function(entries){
 				if (!self.tmpl.destroying && !self.tmpl.destroyed){
-					clearTimeout(self._layoutTimeout);
+					if ( self.LAYOUT_AFTER_LOAD ) clearTimeout(self._layoutTimeout);
 					entries.forEach(function(entry){
 						if (entry.isIntersecting){
 							var item = self._observed.get(entry.target);
@@ -44,13 +45,15 @@
 							}
 						}
 					});
-					self._layoutTimeout = setTimeout(function(){
-						if (self._wait.length > 0){
-							_fn.allSettled(self._wait.splice(0)).then(function(){
-								self.tmpl.layout();
-							});
-						}
-					}, 100);
+					if ( self.LAYOUT_AFTER_LOAD ){
+						self._layoutTimeout = setTimeout(function(){
+							if (self._wait.length > 0){
+								_fn.allSettled(self._wait.splice(0)).then(function(){
+									self.tmpl.layout();
+								});
+							}
+						}, 100);
+					}
 				}
 			});
 		},

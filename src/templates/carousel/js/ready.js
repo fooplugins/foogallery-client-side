@@ -1,17 +1,22 @@
-(function($, _){
+(function($, _, _obj){
 
     _.CarouselTemplate = _.Template.extend({
         construct: function(options, element){
             const self = this;
-            self._super(options, element);
+            self._super(_obj.extend({}, options, {
+                paging: {
+                    type: "none"
+                }
+            }), element);
+            self.items.LAYOUT_AFTER_LOAD = false;
             self.carousel = null;
             self.on({
                 "pre-init": self.onPreInit,
                 "init": self.onInit,
                 "post-init": self.onPostInit,
                 "destroyed": self.onDestroyed,
-                "layout after-filter-change": self.onLayoutRequired,
-                "page-change": self.onPageChange
+                "append-item": self.onAppendItem,
+                "layout after-filter-change": self.onLayoutRequired
             }, self);
         },
         onPreInit: function(){
@@ -30,32 +35,43 @@
                 self.carousel.destroy();
             }
         },
-        onLayoutRequired: function(){
-            this.carousel.layout(this.lastWidth);
+        onAppendItem: function (event, item) {
+            event.preventDefault();
+            this.carousel.elem.inner.appendChild(item.el);
+            item.isAttached = true;
         },
-        onPageChange: function(event, current, prev, isFilter){
-            if (!isFilter){
-                this.carousel.layout(this.lastWidth);
+        onLayoutRequired: function(event){
+            if ( event.type === "after-filter-change" ){
+                this.carousel.activeItem = null;
+                this.carousel.cache.delete( "layout" );
             }
+            this.carousel.layout(this.lastWidth);
         }
     });
 
     _.template.register("carousel", _.CarouselTemplate, {
         template: {
-            show: 5,
+            maxItems: 0, // "auto" or 0 will be calculated on the fly.
+            perspective: 150,
             scale: 0.12,
-            max: 0.8,
+            speed: 300,
             centerOnClick: true,
-            duration: 5,
-            pauseOnHover: true
+            gutter: {
+                min: -40,
+                max: -20,
+                unit: "%"
+            },
+            autoplay: {
+                time: 0,
+                interaction: "pause" // "pause" or "disable"
+            }
         }
     }, {
         container: "foogallery fg-carousel",
         carousel: {
+            inner: "fg-carousel-inner",
             center: "fg-carousel-center",
-            right: "fg-carousel-right",
             bottom: "fg-carousel-bottom",
-            left: "fg-carousel-left",
             prev: "fg-carousel-prev",
             next: "fg-carousel-next",
             bullet: "fg-carousel-bullet",
@@ -69,5 +85,6 @@
 
 })(
     FooGallery.$,
-    FooGallery
+    FooGallery,
+    FooGallery.utils.obj
 );

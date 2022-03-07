@@ -34,7 +34,7 @@
 			 * @summary The element for the template container.
 			 * @memberof FooGallery.Template#
 			 * @name el
-			 * @type {?Element}
+			 * @type {?HTMLElement}
 			 */
 			self.el = self.$el.get(0) || null;
 			/**
