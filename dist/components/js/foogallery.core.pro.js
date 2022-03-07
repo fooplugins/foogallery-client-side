@@ -2968,10 +2968,11 @@ FooGallery.utils, FooGallery.utils.is, FooGallery.utils.str);
    * @memberof FooGallery.utils.
    * @class Timer
    * @param {number} [interval=1000] - The internal tick interval of the timer.
+   * @augments FooGallery.utils.EventClass
    */
 
   _.Timer = _.EventClass.extend(
-  /** @lends FooGallery.utils.Timer */
+  /** @lends FooGallery.utils.Timer.prototype */
   {
     /**
      * @ignore
@@ -3258,6 +3259,7 @@ FooGallery.utils, FooGallery.utils.is, FooGallery.utils.str);
       if (self.isRunning) {
         self.isRunning = false;
         self.isPaused = true;
+        self.canResume = self.__remaining > 0;
         self.trigger("pause", self.__eventArgs());
       }
 
@@ -4019,6 +4021,171 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 	 */
 	_.supportsPicture = !!window.HTMLPictureElement;
 
+	/**
+	 * Utility class to make working with anonymous event listeners a bit simpler.
+	 * @memberof FooGallery.utils.
+	 * @class DOMEventListeners
+	 * @augments FooGallery.utils.Class
+	 * @borrows FooGallery.utils.Class.extend as extend
+	 * @borrows FooGallery.utils.Class.override as override
+	 */
+	_utils.DOMEventListeners = _utils.Class.extend( /** @lends FooGallery.utils.DOMEventListeners.prototype */ {
+		/**
+		 * @ignore
+		 * @constructs
+		 **/
+		construct: function(){
+			/**
+			 * A simple object containing the event listener and options.
+			 * @typedef {Object} EventEntry
+			 * @property {EventListener} listener
+			 * @property {EventListenerOptions|boolean} [options]
+			 */
+			/**
+			 * The map object containing all listeners.
+			 * @type {Map<EventTarget, Map<string, EventEntry>>}
+			 */
+			this.eventTargets = new Map();
+		},
+		/**
+		 * Add an event listener to the eventTarget.
+		 * @param {EventTarget} eventTarget
+		 * @param {string} type
+		 * @param {EventListener} listener
+		 * @param {AddEventListenerOptions|boolean} [options]
+		 * @returns {boolean} False if a listener already exists for the element.
+		 */
+		add: function( eventTarget, type, listener, options ){
+			eventTarget.addEventListener( type, listener, options );
+			let listeners = this.eventTargets.get( eventTarget );
+			if ( !listeners ){
+				listeners = new Map();
+				this.eventTargets.set( eventTarget, listeners );
+			}
+			let entry = listeners.get( type );
+			if ( !entry ){
+				listeners.set( type, { listener: listener, options: options } );
+				return true;
+			}
+			return false;
+		},
+		/**
+		 * Remove an event listener from the eventTarget.
+		 * @param {EventTarget} eventTarget
+		 * @param {string} type
+		 */
+		remove: function( eventTarget, type ){
+			let listeners = this.eventTargets.get( eventTarget );
+			if ( !listeners ) return;
+			let entry = listeners.get( type );
+			if ( !entry ) return;
+			eventTarget.removeEventListener( type, entry.listener, entry.options );
+			listeners.delete( type );
+			if ( listeners.size === 0 ) this.eventTargets.delete( eventTarget );
+		},
+		/**
+		 * Removes all event listeners from all eventTargets.
+		 */
+		clear: function(){
+			this.eventTargets.forEach( function( listeners, eventTarget ){
+				listeners.forEach( function( entry, type ){
+					eventTarget.removeEventListener( type, entry.listener, entry.options );
+				} );
+			} );
+			this.eventTargets.clear();
+		}
+	} );
+
+	/**
+	 * Utility class to help with managing timeouts.
+	 * @memberof FooGallery.utils.
+	 * @class Timeouts
+	 * @augments FooGallery.utils.Class
+	 * @borrows FooGallery.utils.Class.extend as extend
+	 * @borrows FooGallery.utils.Class.override as override
+	 */
+	_utils.Timeouts = _utils.Class.extend( /** @lends FooGallery.utils.Timeouts.prototype */ {
+		/**
+		 * @ignore
+		 * @constructs
+		 */
+		construct: function(){
+			const self = this;
+			/**
+			 * @typedef {Object} Timeout
+			 * @property {number} id
+			 * @property {number} delay
+			 * @property {function} fn
+			 */
+			/**
+			 * @type {Map<string, Timeout>}
+			 * @private
+			 */
+			self.instances = new Map();
+		},
+		/**
+		 * Returns a boolean indicating whether a timeout with the specified key exists or not.
+		 * @param {string} key
+		 * @returns {boolean}
+		 */
+		has: function( key ){
+			return this.instances.has( key );
+		},
+		/**
+		 * Returns the specified timeout if it exists.
+		 * @param {string} key
+		 * @returns {Timeout}
+		 */
+		get: function( key ){
+			return this.instances.get( key );
+		},
+		/**
+		 * Adds or updates a specified timeout.
+		 * @param {string} key
+		 * @param {function} callback
+		 * @param {number} delay
+		 * @returns {FooGallery.utils.Timeouts}
+		 */
+		set: function( key, callback, delay ){
+			const self = this;
+			self.delete( key );
+			const timeout = {
+				id: setTimeout( function(){
+					self.instances.delete( key );
+					callback.call( self );
+				}, delay ),
+				delay: delay,
+				fn: callback
+			};
+			this.instances.set( key, timeout );
+			return self;
+		},
+		/**
+		 * Removes the specified timeout if it exists.
+		 * @param {string} key
+		 * @returns {boolean}
+		 */
+		delete: function( key ){
+			const self = this;
+			if ( self.instances.has( key ) ){
+				const timeout = self.instances.get( key );
+				clearTimeout( timeout.id );
+				return self.instances.delete( key );
+			}
+			return false;
+		},
+		/**
+		 * Removes all timeouts.
+		 */
+		clear: function(){
+			const self = this;
+			self.instances.forEach( function( timeout ){
+				clearTimeout( timeout.id );
+			} );
+			self.instances.clear();
+		}
+	} );
+
 })(
 	FooGallery.$,
 	FooGallery,
@@ -4080,6 +4247,33 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 }).join(" ");
 
             return $(icon).addClass(classNames);
+        },
+        element: function(name, setNameOrObject){
+            const self = this;
+
+            let setName = "default",
+                icons = _obj.extend({}, self.registered.default);
+
+            if (_is.string(setNameOrObject) && setNameOrObject !== "default"){
+                setName = setNameOrObject;
+                icons = _obj.extend(icons, self.registered[setNameOrObject]);
+            } else if (_is.hash(setNameOrObject)){
+                setName = "custom";
+                icons = _obj.extend(icons, setNameOrObject);
+            }
+
+            const iconString = _is.string(name) && icons.hasOwnProperty(name) ? icons[name].replace(/\[ICON_CLASS]/g, self.className + "-" + name) : null;
+            if ( iconString !== null ){
+                const fragment = document.createRange().createContextualFragment(iconString);
+                const svg = fragment.querySelector("svg");
+                if ( svg ){
+                    ["", "-" + name, "-" + setName].forEach(function(suffix){
+                        svg.classList.add(self.className + suffix);
+                    });
+                    return svg;
+                }
+            }
+            return null;
         }
     });
 
@@ -4810,7 +5004,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			 * @summary The element for the template container.
 			 * @memberof FooGallery.Template#
 			 * @name el
-			 * @type {?Element}
+			 * @type {?HTMLElement}
 			 */
 			self.el = self.$el.get(0) || null;
 			/**
@@ -5966,6 +6160,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			var self = this;
 			self.ALLOW_CREATE = true;
 			self.ALLOW_APPEND = true;
+			self.LAYOUT_AFTER_LOAD = true;
 			/**
 			 * @ignore
 			 * @memberof FooGallery.Items#
@@ -5987,7 +6182,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			self._layoutTimeout = null;
 			self.iobserver = new IntersectionObserver(function(entries){
 				if (!self.tmpl.destroying && !self.tmpl.destroyed){
-					clearTimeout(self._layoutTimeout);
+					if ( self.LAYOUT_AFTER_LOAD ) clearTimeout(self._layoutTimeout);
 					entries.forEach(function(entry){
 						if (entry.isIntersecting){
 							var item = self._observed.get(entry.target);
@@ -5996,13 +6191,15 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 							}
 						}
 					});
-					self._layoutTimeout = setTimeout(function(){
-						if (self._wait.length > 0){
-							_fn.allSettled(self._wait.splice(0)).then(function(){
-								self.tmpl.layout();
-							});
-						}
-					}, 100);
+					if ( self.LAYOUT_AFTER_LOAD ){
+						self._layoutTimeout = setTimeout(function(){
+							if (self._wait.length > 0){
+								_fn.allSettled(self._wait.splice(0)).then(function(){
+									self.tmpl.layout();
+								});
+							}
+						}, 100);
+					}
 				}
 			});
 		},
@@ -6206,6 +6403,22 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 				return this.find(items, where);
 			}
 			return null;
+		},
+		get: function( indexOrElement, all ){
+			const self = this;
+			const items = all ? self._all : self._available;
+			if ( _is.number( indexOrElement ) ){
+				if ( indexOrElement >= 0 && indexOrElement < self._all.length ){
+					return items[ indexOrElement ];
+				}
+				return null;
+			}
+			return self.find( items, function( item ){
+				return item.el === indexOrElement;
+			} );
+		},
+		indexOf: function( item, all ){
+			return ( all ? this._all : this._available ).indexOf( item );
 		},
 		/**
 		 * @summary Filter the supplied `items` and return only those that can be created.
