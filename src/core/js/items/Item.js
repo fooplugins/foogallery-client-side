@@ -227,13 +227,13 @@
 			 * @name caption
 			 * @type {string}
 			 */
-			self.caption = _is.empty(self.opt.caption) ? self.title : self.opt.caption;
+			self.caption = self.opt.caption;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name description
 			 * @type {string}
 			 */
-			self.description = _is.empty(self.opt.description) ? self.alt : self.opt.description;
+			self.description = self.opt.description;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name attrItem
