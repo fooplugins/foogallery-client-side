@@ -8714,13 +8714,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			 * @name caption
 			 * @type {string}
 			 */
-			self.caption = _is.empty(self.opt.caption) ? self.title : self.opt.caption;
+			self.caption = self.opt.caption;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name description
 			 * @type {string}
 			 */
-			self.description = _is.empty(self.opt.description) ? self.alt : self.opt.description;
+			self.description = self.opt.description;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name attrItem
@@ -10281,6 +10281,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			self.min = self.opt.min;
 			self.limit = self.opt.limit;
 			self.showCount = self.opt.showCount;
+			self.noAll = self.opt.noAll;
 
 			self.adjustSize = self.opt.adjustSize;
 			self.smallest = self.opt.smallest;
@@ -10321,8 +10322,18 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			}) ? this.current.slice() : null;
 		},
 		setState: function(state){
-			this.rebuild();
-			this.set(state.filter, "", false);
+			var self = this;
+			self.rebuild();
+			var toSet = state.filter;
+			if ( self.noAll && ( !_is.array( state.filter ) || state.filter.length === 0 ) && self.tags.length > 0 ){
+				toSet = [];
+				for (var i = 0; i < self.tags.length; i++){
+					if ( !_is.array(self.tags[i]) ) continue;
+					if ( i === 0 ) toSet.push( [ self.tags[i][0].value ] );
+					else toSet.push( [] );
+				}
+			}
+			self.set(toSet, "", false);
 		},
 		destroy: function () {
 			var self = this;
@@ -10363,6 +10374,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			for (var prop in counts) {
 				if (counts.hasOwnProperty(prop)) {
 					var count = counts[prop], isAll = prop === "__ALL__";
+					if ( self.noAll && isAll ) continue;
 					if (self.min <= 0 || count >= self.min) {
 						if (tags.length > 0){
 							index = _utils.inArray(prop, tags);
@@ -10658,6 +10670,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		sortBy: "value", // "value", "count", "index", "none"
 		sortInvert: false, // the direction of the sorting
 		search: false,
+		noAll: false,
 		tags: [],
 		min: 0,
 		limit: 0,
