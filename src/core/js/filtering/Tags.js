@@ -76,7 +76,8 @@
 				$list = $("<ul/>", {"class": cls.list});
 
 			for (var i = 0, l = tags.length; i < l; i++){
-				$list.append(self.createItem(tags[i]).toggleClass(cls.selected, i === 0));
+				var $item = self.createItem(tags[i]);
+				$list.append($item.toggleClass(cls.selected, i === 0 && (self.filter.autoSelected || _is.empty(tags[i].value) )));
 			}
 			return $list;
 		},
