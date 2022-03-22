@@ -26,6 +26,7 @@
 			self.limit = self.opt.limit;
 			self.showCount = self.opt.showCount;
 			self.noAll = self.opt.noAll;
+			self.autoSelected = self.opt.autoSelected;
 
 			self.adjustSize = self.opt.adjustSize;
 			self.smallest = self.opt.smallest;
@@ -69,7 +70,7 @@
 			var self = this;
 			self.rebuild();
 			var toSet = state.filter;
-			if ( self.noAll && ( !_is.array( state.filter ) || state.filter.length === 0 ) && self.tags.length > 0 ){
+			if ( self.autoSelected && ( !_is.array( state.filter ) || state.filter.length === 0 ) && self.tags.length > 0 ){
 				toSet = [];
 				for (var i = 0; i < self.tags.length; i++){
 					if ( !_is.array(self.tags[i]) ) continue;
@@ -415,6 +416,7 @@
 		sortInvert: false, // the direction of the sorting
 		search: false,
 		noAll: false,
+		autoSelected: false,
 		tags: [],
 		min: 0,
 		limit: 0,
