@@ -323,6 +323,9 @@
             }
             self._progress.start( opt.time );
         },
+        getFirst: function(){
+            return this.tmpl.items.first();
+        },
         getNext: function( item ){
             return this.tmpl.items.next( !( item instanceof _.Item ) ? this.activeItem : item, null, true );
         },
@@ -339,13 +342,13 @@
             self.timeouts.delete( "autoplay" );
             self.timeouts.delete( "navigation" );
 
-            self.activeItem = item;
-            self.layout();
-
             const pause = self._progress.isPaused;
             if ( self._progress.isActive ){
                 self._progress.stop();
             }
+
+            self.activeItem = item;
+            self.layout();
 
             self.timeouts.set( "navigation", function(){
                 if ( autoplay.time > 0 && ( autoplay.interaction === "pause" || ( autoplay.interaction === "disable" && !self.interacted ) ) ){
@@ -527,6 +530,7 @@
                         self._centerListeners.add( item.el, "click", function( event ){
                             event.preventDefault();
                             event.stopPropagation();
+                            self.interacted = true;
                             self.goto( item );
                         }, true );
                     }
