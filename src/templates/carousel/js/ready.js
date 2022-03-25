@@ -16,7 +16,8 @@
                 "post-init": self.onPostInit,
                 "destroyed": self.onDestroyed,
                 "append-item": self.onAppendItem,
-                "layout after-filter-change": self.onLayoutRequired
+                "after-filter-change": self.onAfterFilterChange,
+                "layout": self.onLayout
             }, self);
         },
         onPreInit: function(){
@@ -40,11 +41,12 @@
             this.carousel.elem.inner.appendChild(item.el);
             item.isAttached = true;
         },
-        onLayoutRequired: function(event){
-            if ( event.type === "after-filter-change" ){
-                this.carousel.activeItem = null;
-                this.carousel.cache.delete( "layout" );
-            }
+        onAfterFilterChange: function(){
+            this.carousel.cache.delete( "layout" );
+            this.carousel.interacted = true;
+            this.carousel.goto(this.carousel.getFirst());
+        },
+        onLayout: function(){
             this.carousel.layout(this.lastWidth);
         }
     });
