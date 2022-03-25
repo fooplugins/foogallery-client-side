@@ -31,6 +31,10 @@
     backface-visibility: hidden;
     will-change: contents;
 }
+.foogallery_preview_container .fg-carousel-inner {
+    transform-style: unset;
+}
+
 .fg-carousel-center {
     position: relative;
     z-index: -1;
@@ -149,7 +153,7 @@ button.fg-carousel-next:hover {
 .foogallery.fg-carousel .fg-item.fg-loaded {
     transform: translate3d(0, 0, var(--fg-carousel-inverse-perspective));
     transition-timing-function: ease-in-out;
-    transition-duration: var(--fg-carousel-transition-speed);
+    transition-duration: calc( var(--fg-carousel-transition-speed) / 2 );
     transition-property: background-color,transform,transform-origin,opacity,visibility;
 }
 .foogallery.fg-carousel .fg-item.fg-item-active,
