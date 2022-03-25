@@ -442,12 +442,7 @@
                 zIndex: showPerSide + 10,
                 gutter: gutter,
                 perSide: showPerSide,
-                side: [],
-                hidden: {
-                    x: 0,
-                    z: 0,
-                    zIndex: 0
-                }
+                side: []
             };
 
             let offset = itemWidth, zIndex = result.zIndex - 1;
@@ -479,10 +474,6 @@
 
                 result.side.push({x: x, z: z, zIndex: zIndex });
             }
-
-            const z = self.getSequentialZFromScale( showPerSide, self.opt.scale, self.opt.perspective );
-
-            result.hidden.zIndex = --zIndex;
             return result;
         },
         cleanup: function( selector, className, exclude ){

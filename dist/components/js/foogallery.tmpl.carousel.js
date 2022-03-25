@@ -323,6 +323,9 @@
             }
             self._progress.start( opt.time );
         },
+        getFirst: function(){
+            return this.tmpl.items.first();
+        },
         getNext: function( item ){
             return this.tmpl.items.next( !( item instanceof _.Item ) ? this.activeItem : item, null, true );
         },
@@ -339,13 +342,13 @@
             self.timeouts.delete( "autoplay" );
             self.timeouts.delete( "navigation" );
 
-            self.activeItem = item;
-            self.layout();
-
             const pause = self._progress.isPaused;
             if ( self._progress.isActive ){
                 self._progress.stop();
             }
+
+            self.activeItem = item;
+            self.layout();
 
             self.timeouts.set( "navigation", function(){
                 if ( autoplay.time > 0 && ( autoplay.interaction === "pause" || ( autoplay.interaction === "disable" && !self.interacted ) ) ){
@@ -393,7 +396,7 @@
             if ( self._layoutFrame !== null ) _utils.cancelFrame( self._layoutFrame );
             self._layoutFrame = _utils.requestFrame( function(){
                 self._layoutFrame = null;
-                if ( self.renderActive() ){
+                if ( self.renderActive( layout ) ){
                     self.renderSide( "left", self.sel.prevItem, self._leftExclude, self.cls.prevItem, layout );
                     self.renderSide( "right", self.sel.nextItem, self._rightExclude, self.cls.nextItem, layout );
                     self._firstLayout = false;
@@ -427,7 +430,7 @@
             return ( perSide - 1 ) / 2;
         },
         calculate: function( itemWidth, maxOffset, gutter, showPerSide ){
-            const self = this, result = [];
+            const self = this;
             if ( !_is.number( gutter ) ){
                 gutter = self.opt.gutter.max;
             }
@@ -435,8 +438,20 @@
                 showPerSide = self.getShowPerSide();
             }
 
-            let offset = itemWidth;
-            for (let i = 0; i < showPerSide; i++){
+            const result = {
+                zIndex: showPerSide + 10,
+                gutter: gutter,
+                perSide: showPerSide,
+                side: [],
+                hidden: {
+                    x: 0,
+                    z: 0,
+                    zIndex: 0
+                }
+            };
+
+            let offset = itemWidth, zIndex = result.zIndex - 1;
+            for (let i = 0; i < showPerSide; i++, zIndex--){
                 const z = self.getSequentialZFromScale( i, self.opt.scale, self.opt.perspective );
                 const width = self.scaleToZ( itemWidth, z, self.opt.perspective );
                 const diff = ( itemWidth - width ) / 2;
@@ -462,8 +477,12 @@
 
                 offset += width + diff;
 
-                result.push({x: x, z: z});
+                result.side.push({x: x, z: z, zIndex: zIndex });
             }
+
+            const z = self.getSequentialZFromScale( showPerSide, self.opt.scale, self.opt.perspective );
+
+            result.hidden.zIndex = --zIndex;
             return result;
         },
         cleanup: function( selector, className, exclude ){
@@ -483,7 +502,7 @@
                 node.style.removeProperty( "z-index" );
             } );
         },
-        renderActive: function(){
+        renderActive: function( layout ){
             const self = this;
             if ( ! ( self.activeItem instanceof _.Item ) ) return false;
             const el = self.activeItem.el;
@@ -492,7 +511,7 @@
 
             el.classList.add( self.cls.activeItem );
             el.style.setProperty("transition-duration", self.opt.speed + "ms" );
-            el.style.removeProperty( "z-index" );
+            el.style.setProperty( "z-index", layout.zIndex );
             el.style.removeProperty( "transform" );
 
             const ai = self.tmpl.items.indexOf( self.activeItem );
@@ -509,8 +528,8 @@
             self.cleanup( selector, cls, exclude );
 
             let place = self.activeItem;
-            for (let i = 0; i < layout.length; i++ ){
-                const values = layout[i];
+            for (let i = 0; i < layout.side.length; i++ ){
+                const values = layout.side[i];
                 const item = side === "left" ? self.getPrev( place ) : self.getNext( place );
                 if ( item instanceof _.Item ){
                     let transform = "translate3d(" + ( side === "left" ? "-" : "" ) + values.x + "px, 0,-" + values.z + "px)";
@@ -522,11 +541,13 @@
                     }
                     item.el.style.setProperty("transition-duration", ( self._firstLayout ? 0 : self.opt.speed ) + "ms" );
                     item.el.style.setProperty( "transform", transform );
+                    item.el.style.setProperty( "z-index", values.zIndex );
 
                     if ( self.opt.centerOnClick ){
                         self._centerListeners.add( item.el, "click", function( event ){
                             event.preventDefault();
                             event.stopPropagation();
+                            self.interacted = true;
                             self.goto( item );
                         }, true );
                     }
@@ -565,7 +586,8 @@
                 "post-init": self.onPostInit,
                 "destroyed": self.onDestroyed,
                 "append-item": self.onAppendItem,
-                "layout after-filter-change": self.onLayoutRequired
+                "after-filter-change": self.onAfterFilterChange,
+                "layout": self.onLayout
             }, self);
         },
         onPreInit: function(){
@@ -589,11 +611,12 @@
             this.carousel.elem.inner.appendChild(item.el);
             item.isAttached = true;
         },
-        onLayoutRequired: function(event){
-            if ( event.type === "after-filter-change" ){
-                this.carousel.activeItem = null;
-                this.carousel.cache.delete( "layout" );
-            }
+        onAfterFilterChange: function(){
+            this.carousel.cache.delete( "layout" );
+            this.carousel.interacted = true;
+            this.carousel.goto(this.carousel.getFirst());
+        },
+        onLayout: function(){
             this.carousel.layout(this.lastWidth);
         }
     });
