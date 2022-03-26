@@ -38,7 +38,7 @@
         start: function( seconds ){
             const self = this;
             self.stop();
-            if ( !self.isActive ){
+            if ( !self.isActive && _is.number( seconds ) && seconds > 0 ){
                 self._total = seconds * 1000;
                 self._target = Date.now() + self._total;
                 self._intervalId = setInterval( self.onTick, self.tickRate );
@@ -183,6 +183,24 @@
          */
         scaleToZ: function( value, vectorZ, perspective ){
             return value * ( 1 - vectorZ / ( perspective + vectorZ ) );
+        },
+
+        //#endregion
+
+        //#region Autoplay
+
+        pause: function(){
+            this._progress.pause();
+        },
+        resume: function(){
+            this._progress.resume();
+        },
+        start: function(){
+            if ( this.opt.autoplay.interaction === "disable" && this.interacted ) return;
+            this._progress.start( this.opt.autoplay.time );
+        },
+        stop: function(){
+            this._progress.stop();
         },
 
         //#endregion
@@ -366,8 +384,7 @@
             }, self.opt.speed );
         },
         next: function( callback ){
-            const self = this;
-            self.goto( self.getNext(), callback );
+            this.goto( this.getNext(), callback );
         },
         previous: function( callback ){
             this.goto( this.getPrev(), callback );
@@ -442,12 +459,7 @@
                 zIndex: showPerSide + 10,
                 gutter: gutter,
                 perSide: showPerSide,
-                side: [],
-                hidden: {
-                    x: 0,
-                    z: 0,
-                    zIndex: 0
-                }
+                side: []
             };
 
             let offset = itemWidth, zIndex = result.zIndex - 1;
@@ -479,10 +491,6 @@
 
                 result.side.push({x: x, z: z, zIndex: zIndex });
             }
-
-            const z = self.getSequentialZFromScale( showPerSide, self.opt.scale, self.opt.perspective );
-
-            result.hidden.zIndex = --zIndex;
             return result;
         },
         cleanup: function( selector, className, exclude ){
@@ -589,6 +597,14 @@
                 "after-filter-change": self.onAfterFilterChange,
                 "layout": self.onLayout
             }, self);
+            if ( self.lightbox instanceof _.Panel ){
+                self.lightbox.on({
+                    "open": self.onLightboxOpen,
+                    "closed": self.onLightboxClosed,
+                    "next": self.onLightboxNext,
+                    "prev": self.onLightboxPrev
+                }, self);
+            }
         },
         onPreInit: function(){
             const self = this;
@@ -618,6 +634,19 @@
         },
         onLayout: function(){
             this.carousel.layout(this.lastWidth);
+        },
+        onLightboxOpen: function(){
+            this.carousel.interacted = true;
+            this.carousel.stop();
+        },
+        onLightboxClosed: function(){
+            this.carousel.start();
+        },
+        onLightboxNext: function(){
+            this.carousel.next();
+        },
+        onLightboxPrev: function(){
+            this.carousel.previous();
         }
     });
 
