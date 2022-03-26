@@ -19,6 +19,14 @@
                 "after-filter-change": self.onAfterFilterChange,
                 "layout": self.onLayout
             }, self);
+            if ( self.lightbox instanceof _.Panel ){
+                self.lightbox.on({
+                    "open": self.onLightboxOpen,
+                    "closed": self.onLightboxClosed,
+                    "next": self.onLightboxNext,
+                    "prev": self.onLightboxPrev
+                }, self);
+            }
         },
         onPreInit: function(){
             const self = this;
@@ -48,6 +56,19 @@
         },
         onLayout: function(){
             this.carousel.layout(this.lastWidth);
+        },
+        onLightboxOpen: function(){
+            this.carousel.interacted = true;
+            this.carousel.stop();
+        },
+        onLightboxClosed: function(){
+            this.carousel.start();
+        },
+        onLightboxNext: function(){
+            this.carousel.next();
+        },
+        onLightboxPrev: function(){
+            this.carousel.previous();
         }
     });
 

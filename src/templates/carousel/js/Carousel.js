@@ -38,7 +38,7 @@
         start: function( seconds ){
             const self = this;
             self.stop();
-            if ( !self.isActive ){
+            if ( !self.isActive && _is.number( seconds ) && seconds > 0 ){
                 self._total = seconds * 1000;
                 self._target = Date.now() + self._total;
                 self._intervalId = setInterval( self.onTick, self.tickRate );
@@ -183,6 +183,24 @@
          */
         scaleToZ: function( value, vectorZ, perspective ){
             return value * ( 1 - vectorZ / ( perspective + vectorZ ) );
+        },
+
+        //#endregion
+
+        //#region Autoplay
+
+        pause: function(){
+            this._progress.pause();
+        },
+        resume: function(){
+            this._progress.resume();
+        },
+        start: function(){
+            if ( this.opt.autoplay.interaction === "disable" && this.interacted ) return;
+            this._progress.start( this.opt.autoplay.time );
+        },
+        stop: function(){
+            this._progress.stop();
         },
 
         //#endregion
@@ -366,8 +384,7 @@
             }, self.opt.speed );
         },
         next: function( callback ){
-            const self = this;
-            self.goto( self.getNext(), callback );
+            this.goto( this.getNext(), callback );
         },
         previous: function( callback ){
             this.goto( this.getPrev(), callback );
