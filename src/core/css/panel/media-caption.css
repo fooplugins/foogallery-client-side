@@ -67,6 +67,9 @@
     border: none;
     text-align: left;
 }
+[dir="rtl"] .fg-media-caption-exif {
+    text-align: right;
+}
 .fg-media-caption-exif.fg-media-caption-exif-auto,
 .fg-media-caption-exif.fg-media-caption-exif-full,
 .fg-media-caption-exif.fg-media-caption-exif-partial,
@@ -115,6 +118,12 @@
 .fg-media-caption-exif-partial .fg-media-caption-exif-icon,
 .fg-panel.fg-medium .fg-media-caption-exif-auto .fg-media-caption-exif-icon {
     margin-right: 6px;
+}
+[dir="rtl"] .fg-media-caption-exif-full .fg-media-caption-exif-icon,
+[dir="rtl"] .fg-media-caption-exif-partial .fg-media-caption-exif-icon,
+[dir="rtl"] .fg-panel.fg-medium .fg-media-caption-exif-auto .fg-media-caption-exif-icon {
+    margin-left: 6px;
+    margin-right: 0;
 }
 .fg-media-caption-exif-icon .fg-icon {
     position: absolute;

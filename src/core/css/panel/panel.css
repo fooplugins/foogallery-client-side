@@ -20,6 +20,9 @@ html.fg-panel-no-scroll body {
 	outline: none;
 	box-sizing: content-box;
 }
+[dir="rtl"] .fg-panel {
+	text-align: right;
+}
 .fg-panel-maximized {
 	position: fixed;
 	top: 0;
