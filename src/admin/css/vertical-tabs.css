@@ -7,6 +7,9 @@
 	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 	font-size: 13px;
 }
+.rtl .foogallery-settings {
+	direction: rtl;
+}
 .foogallery-settings:after {
 	display: table;
 	content: "";
@@ -53,6 +56,12 @@
 	visibility: hidden;
 	opacity: 0;
 }
+.rtl .foogallery-vertical-tab:after {
+	right: auto;
+	left: -1px;
+	border-right-color: transparent;
+	border-left-color: #fff;
+}
 .foogallery-settings:not(.is-mobile) .foogallery-vertical-tab.foogallery-tab-active:after,
 .foogallery-settings.is-mobile .foogallery-vertical-tab.foogallery-tab-active:not(.foogallery-show-child-menu):after {
 	visibility: visible;
@@ -70,6 +79,9 @@
 	vertical-align: middle;
 	margin: 0 3px 0 8px;
 }
+.rtl .foogallery-vertical-tab .dashicons {
+	margin: 0 8px 0 3px;
+}
 .foogallery-vertical-tab .foogallery-tab-text {
 	vertical-align: middle;
 }
@@ -82,6 +94,9 @@
 	border-top: 1px solid #eee;
 	width: 150px;
 	text-align: left;
+}
+.rtl .foogallery-vertical-child-tabs {
+	text-align: right;
 }
 .foogallery-settings:not(.is-mobile) .foogallery-tab-active .foogallery-vertical-child-tabs {
 	display: block;
@@ -141,7 +156,6 @@
 
 .foogallery-tab-contents {
 	display: inline-block;
-	float: right;
 	width: calc(100% - 150px);
 	background-color: #FFF;
 	min-height: 400px;
@@ -172,6 +186,9 @@
 }
 .foogallery-settings.is-mobile .foogallery-vertical-tab > .dashicons {
 	margin: 0 3px 0 4px;
+}
+.rtl .foogallery-settings.is-mobile .foogallery-vertical-tab > .dashicons {
+	margin: 0 4px 0 3px;
 }
 .foogallery-settings.is-mobile .foogallery-tab-contents {
 	width: calc(100% - 36px);
