@@ -56,7 +56,7 @@
     transition: width 100ms linear;
     opacity: var(--fg-carousel-navigation-opacity);
 }
-[dir="rtl"] .fg-carousel-progress {
+.rtl .fg-carousel-progress {
     left: auto;
     right: 0;
 }
@@ -135,8 +135,8 @@ button.fg-carousel-next:hover {
     width: 1em;
     height: 1em;
 }
-[dir="rtl"] .fg-carousel-prev .fg-icon,
-[dir="rtl"] .fg-carousel-next .fg-icon {
+.rtl .fg-carousel-prev .fg-icon,
+.rtl .fg-carousel-next .fg-icon {
     transform: rotate(180deg);
 }
 .fg-carousel-prev {
