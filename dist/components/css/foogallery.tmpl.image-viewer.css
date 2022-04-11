@@ -137,6 +137,18 @@
 .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-count span {
 	margin: 0 4px;
 }
+.rtl .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev {
+	float: right;
+}
+.rtl .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:before {
+	content: '\2192';
+}
+.rtl .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next {
+	float: left;
+}
+.rtl .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:before {
+	content: '\2190';
+}
 
 /* Captions */
 
