@@ -56,6 +56,10 @@
     transition: width 100ms linear;
     opacity: var(--fg-carousel-navigation-opacity);
 }
+.rtl .fg-carousel-progress {
+    left: auto;
+    right: 0;
+}
 .fg-carousel-bottom {
     display: flex;
     align-items: center;
@@ -130,6 +134,10 @@ button.fg-carousel-next:hover {
 .fg-carousel-next .fg-icon {
     width: 1em;
     height: 1em;
+}
+.rtl .fg-carousel-prev .fg-icon,
+.rtl .fg-carousel-next .fg-icon {
+    transform: rotate(180deg);
 }
 .fg-carousel-prev {
     grid-area: prev;

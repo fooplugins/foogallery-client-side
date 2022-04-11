@@ -138,6 +138,7 @@
             self.cache = new Map();
             self.timeouts = new _utils.Timeouts();
             self.interacted = false;
+            self.isRTL = false;
             self._firstLayout = true;
         },
 
@@ -207,6 +208,8 @@
 
         init: function(){
             const self = this;
+            self.isRTL = window.getComputedStyle(self.el).direction === "rtl";
+
             self.elem = {
                 inner: self.el.querySelector( self.sel.inner ),
                 center: self.el.querySelector( self.sel.center ),
@@ -540,7 +543,7 @@
                 const values = layout.side[i];
                 const item = side === "left" ? self.getPrev( place ) : self.getNext( place );
                 if ( item instanceof _.Item ){
-                    let transform = "translate3d(" + ( side === "left" ? "-" : "" ) + values.x + "px, 0,-" + values.z + "px)";
+                    let transform = "translate3d(" + ( ( side === "left" && !self.isRTL ) || ( side === "right" && self.isRTL ) ? "-" : "" ) + values.x + "px, 0,-" + values.z + "px)";
                     item.el.classList.add( cls );
                     if ( !item.isLoaded ){
                         item.el.style.setProperty("transition-duration", "0ms" );
