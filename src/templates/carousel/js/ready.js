@@ -19,7 +19,7 @@
                 "after-filter-change": self.onAfterFilterChange,
                 "layout": self.onLayout
             }, self);
-            if ( self.lightbox instanceof _.Panel ){
+            if ( !!_.Panel && self.lightbox instanceof _.Panel ){
                 self.lightbox.on({
                     "open": self.onLightboxOpen,
                     "closed": self.onLightboxClosed,
