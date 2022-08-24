@@ -185,6 +185,15 @@
         scaleToZ: function( value, vectorZ, perspective ){
             return value * ( 1 - vectorZ / ( perspective + vectorZ ) );
         },
+        /**
+         * @summary Returns the absolute difference between 2 numbers.
+         * @param {number} num1
+         * @param {number} num2
+         * @returns {number}
+         */
+        getDiff: function( num1, num2 ){
+            return num1 > num2 ? num1 - num2 : num2 - num1;
+        },
 
         //#endregion
 
@@ -267,7 +276,7 @@
         },
         initSwipe: function(){
             const self = this;
-            let startX = 0, endX = 0;
+            let startX = 0, endX = 0, min = 25 * (window.devicePixelRatio || 1);
             self._listeners.add( self.elem.inner, "touchstart", function( event ){
                 self.interacted = true;
                 startX = event.changedTouches[0].screenX;
@@ -275,10 +284,13 @@
 
             self._listeners.add( self.elem.inner, "touchend", function( event ){
                 endX = event.changedTouches[0].screenX;
-                if ( endX < startX ){ // swipe left
-                    self.next();
-                } else { // swipe right
-                    self.previous();
+                const diff = self.getDiff( startX, endX );
+                if ( diff > min ){
+                    if ( endX < startX ){ // swipe left
+                        self.next();
+                    } else { // swipe right
+                        self.previous();
+                    }
                 }
                 endX = 0;
                 startX = 0;

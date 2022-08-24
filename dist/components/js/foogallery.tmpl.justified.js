@@ -209,7 +209,7 @@
 						break;
 					case "hide":
 						height = self.justify(row, top_start, maxWidth, self.maxRowHeight);
-						if (row.width < maxWidth){
+						if (row.width < maxWidth && rows.length > 1){
 							row.visible = false;
 						}
 						break;
