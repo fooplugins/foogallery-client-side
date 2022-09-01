@@ -31,6 +31,6 @@
   "dependencies": {
     "jquery": "3.6.0",
     "masonry-layout": "4.2.2",
-    "npm": "8.4.0"
+    "npm": "8.11.0"
   }
 }
