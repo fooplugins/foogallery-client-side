@@ -2704,7 +2704,7 @@
     FooGallery.utils.str,
     FooGallery.utils.transition
 );
-(function ($, _, _utils, _is, _fn, _obj, _t, _wcp) {
+(function ($, _, _utils, _is, _fn, _obj, _t) {
 
     _.Panel.Media.Product = _utils.Class.extend({
         construct: function (panel, media) {
@@ -2725,8 +2725,11 @@
             self.__loaded = null;
             self.__requestId = null;
         },
+        hasWooCommerce: function(){
+            return !!window.woocommerce_params;
+        },
         canLoad: function(){
-            return !_is.empty(this.media.item.productId) && ((this.panel.opt.admin && !_wcp) || !!_wcp);
+            return !_is.empty(this.media.item.productId) && ((this.panel.opt.admin && !this.hasWooCommerce()) || this.hasWooCommerce());
         },
         create: function(){
             var self = this;
@@ -2850,7 +2853,7 @@
                 if (self.panel.opt.admin){
                     self.$addToCart.toggleClass(self.cls.disabled, true);
                 } else {
-                    self.$addToCart.toggleClass(self.cls.hidden, !_wcp || !response.purchasable);
+                    self.$addToCart.toggleClass(self.cls.hidden, !self.hasWooCommerce() || !response.purchasable);
                 }
                 if (_is.string(response.product_url)){
                     if (self.panel.opt.admin){
@@ -2924,8 +2927,7 @@
     FooGallery.utils.is,
     FooGallery.utils.fn,
     FooGallery.utils.obj,
-    FooGallery.utils.transition,
-    window.woocommerce_params
+    FooGallery.utils.transition
 );
 (function($, _, _utils, _obj){
 
