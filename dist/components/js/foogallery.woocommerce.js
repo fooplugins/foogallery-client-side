@@ -1,4 +1,4 @@
-(function($, _, _utils, _is, _obj, _wcp){
+(function($, _, _is){
 
     _.template.configure("core", {}, {
         woo: {
@@ -9,9 +9,17 @@
         }
     });
 
+    _.Item.prototype.hasWooCommerce = function(){
+        return !!window.woocommerce_params;
+    };
+
+    _.Item.prototype.getWooCommerceEndPoint = function(){
+        return this.hasWooCommerce() ? window.woocommerce_params.wc_ajax_url.toString().replace('%%endpoint%%', 'add_to_cart') : '';
+    };
+
     _.Item.prototype.onAddToCart = function(e){
         var self = e.data.self, $this = $(this);
-        if (!_wcp){
+        if (!self.hasWooCommerce()){
             console.log("woocommerce_params not found!");
             return;
         }
@@ -56,7 +64,7 @@
         $body.trigger('adding_to_cart', [$button, data]);
         return $.ajax({
             type: 'POST',
-            url: _wcp.wc_ajax_url.toString().replace('%%endpoint%%', 'add_to_cart'),
+            url: self.getWooCommerceEndPoint(),
             data: data
         }).then(function(response) {
             if (!response){
@@ -109,8 +117,5 @@
 })(
     FooGallery.$,
     FooGallery,
-    FooGallery.utils,
-    FooGallery.utils.is,
-    FooGallery.utils.obj,
-    window.woocommerce_params
+    FooGallery.utils.is
 );
