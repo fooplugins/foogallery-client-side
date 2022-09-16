@@ -92,23 +92,6 @@
 			}
 			return type;
 		},
-		/**
-		 * @memberof FooGallery.TemplateFactory#
-		 * @function configure
-		 * @param {string} name
-		 * @param {object} options
-		 * @param {object} classes
-		 * @param {object} il8n
-		 */
-		configure: function (name, options, classes, il8n) {
-			var self = this;
-			if (self.contains(name)) {
-				var reg = self.registered;
-				_obj.extend(reg[name].opt, options);
-				_obj.extend(reg[name].cls, classes);
-				_obj.extend(reg[name].il8n, il8n);
-			}
-		},
 		options: function (name, options) {
 			options = _obj.extend({type: name}, options);
 			var self = this, reg = self.registered,
