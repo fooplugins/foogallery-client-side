@@ -2968,11 +2968,10 @@ FooGallery.utils, FooGallery.utils.is, FooGallery.utils.str);
    * @memberof FooGallery.utils.
    * @class Timer
    * @param {number} [interval=1000] - The internal tick interval of the timer.
-   * @augments FooGallery.utils.EventClass
    */
 
   _.Timer = _.EventClass.extend(
-  /** @lends FooGallery.utils.Timer.prototype */
+  /** @lends FooGallery.utils.Timer */
   {
     /**
      * @ignore
@@ -3259,7 +3258,6 @@ FooGallery.utils, FooGallery.utils.is, FooGallery.utils.str);
       if (self.isRunning) {
         self.isRunning = false;
         self.isPaused = true;
-        self.canResume = self.__remaining > 0;
         self.trigger("pause", self.__eventArgs());
       }
 
@@ -4611,7 +4609,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		FooGallery.utils.is,
 		FooGallery.utils.obj
 );
-(function($, _, _utils, _is, _fn){
+(function($, _, _utils, _is, _fn, _obj){
 
     /**
      * @summary A factory for classes allowing them to be registered and created using a friendly name.
@@ -4805,6 +4803,23 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 result.push(self.make(r.name));
             });
             return result;
+        },
+        /**
+         * @memberof FooGallery.Factory#
+         * @function configure
+         * @param {string} name
+         * @param {object} options
+         * @param {object} classes
+         * @param {object} il8n
+         */
+        configure: function(name, options, classes, il8n){
+            var self = this;
+            if (self.contains(name)) {
+                var reg = self.registered;
+                _obj.extend(reg[name].opt, options);
+                _obj.extend(reg[name].cls, classes);
+                _obj.extend(reg[name].il8n, il8n);
+            }
         }
     });
 
@@ -4814,7 +4829,8 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
     FooGallery,
     FooGallery.utils,
     FooGallery.utils.is,
-    FooGallery.utils.fn
+    FooGallery.utils.fn,
+    FooGallery.utils.obj
 );
 (function ($, _, _utils, _is, _fn, _obj) {
 
@@ -4909,23 +4925,6 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 				}
 			}
 			return type;
-		},
-		/**
-		 * @memberof FooGallery.TemplateFactory#
-		 * @function configure
-		 * @param {string} name
-		 * @param {object} options
-		 * @param {object} classes
-		 * @param {object} il8n
-		 */
-		configure: function (name, options, classes, il8n) {
-			var self = this;
-			if (self.contains(name)) {
-				var reg = self.registered;
-				_obj.extend(reg[name].opt, options);
-				_obj.extend(reg[name].cls, classes);
-				_obj.extend(reg[name].il8n, il8n);
-			}
 		},
 		options: function (name, options) {
 			options = _obj.extend({type: name}, options);
