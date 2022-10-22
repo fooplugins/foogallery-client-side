@@ -1,4 +1,4 @@
-(function($, _, _utils, _is, _fn){
+(function($, _, _utils, _is, _fn, _obj){
 
     /**
      * @summary A factory for classes allowing them to be registered and created using a friendly name.
@@ -192,6 +192,23 @@
                 result.push(self.make(r.name));
             });
             return result;
+        },
+        /**
+         * @memberof FooGallery.Factory#
+         * @function configure
+         * @param {string} name
+         * @param {object} options
+         * @param {object} classes
+         * @param {object} il8n
+         */
+        configure: function(name, options, classes, il8n){
+            var self = this;
+            if (self.contains(name)) {
+                var reg = self.registered;
+                _obj.extend(reg[name].opt, options);
+                _obj.extend(reg[name].cls, classes);
+                _obj.extend(reg[name].il8n, il8n);
+            }
         }
     });
 
@@ -201,5 +218,6 @@
     FooGallery,
     FooGallery.utils,
     FooGallery.utils.is,
-    FooGallery.utils.fn
+    FooGallery.utils.fn,
+    FooGallery.utils.obj
 );

@@ -88,15 +88,6 @@
 			}
 			return options;
 		},
-		configure: function(name, options, classes, il8n){
-			var self = this;
-			if (self.contains(name)){
-				var reg = self.registered;
-				_obj.extend(reg[name].opt, options);
-				_obj.extend(reg[name].cls, classes);
-				_obj.extend(reg[name].il8n, il8n);
-			}
-		},
 		/**
 		 * @summary Checks if the factory contains a control registered using the supplied `name`.
 		 * @memberof FooGallery.PagingFactory#
