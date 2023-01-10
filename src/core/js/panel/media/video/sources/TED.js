@@ -1,8 +1,9 @@
 (function(_){
 
     _.Panel.Video.TED = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/ted',
                 /(www.)?ted\.com/i,
                 false,

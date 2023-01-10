@@ -1,8 +1,9 @@
 (function(_){
 
     _.Panel.Video.Vimeo = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/vimeo',
                 /(player.)?vimeo\.com/i,
                 false,

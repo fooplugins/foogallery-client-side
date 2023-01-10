@@ -1,8 +1,9 @@
 (function(_){
 
     _.Panel.Video.YouTube = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/youtube',
                 /(www.)?youtube|youtu\.be/i,
                 false,
@@ -23,7 +24,7 @@
         getEmbedUrl: function(urlParts, autoPlay){
             var id = this.getId(urlParts);
             urlParts.search = this.mergeParams(urlParts, autoPlay);
-            return 'https://www.youtube-nocookie.com/embed/' + id + urlParts.search + urlParts.hash;
+            return 'https://www.youtube' + ( this.panel.opt.video.privacyEnhanced ? '-nocookie' : '' ) + '.com/embed/' + id + urlParts.search + urlParts.hash;
         }
     });
 
