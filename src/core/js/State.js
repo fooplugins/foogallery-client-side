@@ -1,6 +1,6 @@
 (function($, _, _utils, _is, _str, _obj){
 
-	_.State = _.Component.extend(/** @lends FooGallery.State */{
+	_.State = _.Component.extend(/** @lends FooGallery.State.prototype */{
 		/**
 		 * @summary This class manages all the getting and setting of its' parent templates' state.
 		 * @memberof FooGallery
@@ -23,7 +23,6 @@
 			 * @memberof FooGallery.State#
 			 * @name apiEnabled
 			 * @type {boolean}
-			 * @readonly
 			 */
 			self.apiEnabled = !!window.history && !!history.replaceState;
 			/**
@@ -79,6 +78,20 @@
 				masked: new RegExp("^#"+masked+"\\"+values+".+?"),
 				values: new RegExp("(\\w+)"+pair+"([^"+values+"]+)", "g")
 			};
+			/**
+			 * @summary Whether or not the component listens to the popstate event.
+			 * @memberof FooGallery.State#
+			 * @name usePopState
+			 * @type {boolean}
+			 */
+			self.usePopState = self.opt.usePopState;
+			// force context
+			self.onPopState = self.onPopState.bind(self);
+		},
+		init: function(){
+			var self = this;
+			self.set(self.initial());
+			if (self.enabled && self.apiEnabled && self.usePopState) window.addEventListener( 'popstate', self.onPopState );
 		},
 		/**
 		 * @summary Destroy the component clearing any current state from the url and preparing it for garbage collection.
@@ -88,12 +101,10 @@
 		 */
 		destroy: function(preserve){
 			var self = this;
+			if (self.enabled && self.apiEnabled && self.usePopState) window.removeEventListener( 'popstate', self.onPopState );
 			if (!preserve) self.clear();
 			self.opt = self.regex = {};
 			self._super();
-		},
-		init: function(){
-			this.set(this.initial());
 		},
 		getIdNumber: function(){
 			return this.tmpl.id.match(/\d+/g)[0];
@@ -324,6 +335,12 @@
 				}
 			}
 		},
+		onPopState: function(e){
+			var self = this, parsed = self.parse();
+			if ( Object.keys( parsed ).length ){
+				self.set( parsed );
+			}
+		}
 	});
 
 	_.template.configure("core", {
@@ -332,6 +349,7 @@
 			scrollTo: true,
 			pushOrReplace: "replace",
 			mask: "foogallery-gallery-{id}",
+			usePopState: true,
 			values: "/",
 			pair: ":",
 			array: "+",
