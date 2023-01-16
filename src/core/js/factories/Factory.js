@@ -134,8 +134,8 @@
                     reg.push(this.registered[name]);
                 }
                 reg.sort(function(a, b){ return b.priority - a.priority; });
-                $.each(reg, function(i, r){
-                    names.push(r.name);
+                reg.forEach(function(registered){
+                    names.push(registered.name);
                 });
             } else {
                 for (name in this.registered){
@@ -181,15 +181,17 @@
             };
             return true;
         },
-        load: function(){
-            var self = this, result = [], reg = [], name;
+        load: function(arg1, argN){
+            var self = this, args = _fn.arg2arr(arguments), result = [], reg = [], name;
             for (name in self.registered){
                 if (!self.registered.hasOwnProperty(name)) continue;
                 reg.push(self.registered[name]);
             }
             reg.sort(function(a, b){ return b.priority - a.priority; });
-            $.each(reg, function(i, r){
-                result.push(self.make(r.name));
+            reg.forEach(function(registered){
+                var makeArgs = args.slice();
+                makeArgs.unshift(registered.name);
+                result.push(self.make.apply(self, makeArgs));
             });
             return result;
         },

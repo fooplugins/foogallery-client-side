@@ -1,8 +1,9 @@
 (function(_){
 
     _.Panel.Video.Dailymotion = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/daily',
                 /(www.)?dailymotion\.com|dai\.ly/i,
                 false,

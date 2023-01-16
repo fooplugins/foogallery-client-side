@@ -1,8 +1,9 @@
 (function(_, _url){
 
     _.Panel.Video.Facebook = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/facebook',
                 /(www.)?facebook\.com\/.*?\/videos\//i,
                 false,

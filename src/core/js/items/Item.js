@@ -1,6 +1,6 @@
 (function ($, _, _utils, _is, _fn, _obj, _str) {
 
-	_.Item = _.Component.extend(/** @lends FooGallery.Item */{
+	_.Item = _.Component.extend(/** @lends FooGallery.Item.prototype */{
 		/**
 		 * @summary The base class for an item.
 		 * @memberof FooGallery
@@ -727,7 +727,17 @@
 		_setAttributes: function(element, attributes){
 			Object.keys(attributes).forEach(function(key){
 				if (!_is.empty(attributes[key])){
-					element.setAttribute(key, _is.string(attributes[key]) ? attributes[key] : JSON.stringify(attributes[key]));
+					if (key === 'class') {
+						var classes = _is.array( attributes[key] )
+							? attributes[key]
+							: ( _is.string( attributes[key] ) ? attributes[key].split( ' ' ) : [] );
+
+						classes.forEach( function( className ){
+							element.classList.add( className );
+						} );
+					} else {
+						element.setAttribute(key, _is.string(attributes[key]) ? attributes[key] : JSON.stringify(attributes[key]));
+					}
 				}
 			});
 		},
@@ -767,12 +777,15 @@
 
 			var elem = document.createElement("div");
 			self._setAttributes(elem, attr.elem);
-
-			elem.className = [cls.elem, self.getTypeClass(), exif, self.isLoaded ? cls.loaded : cls.idle].join(" ");
+			self._setAttributes(elem, {
+				"class": [cls.elem, self.getTypeClass(), exif, self.isLoaded ? cls.loaded : cls.idle]
+			});
 
 			var inner = document.createElement("figure");
 			self._setAttributes(inner, attr.inner);
-			inner.className = cls.inner;
+			self._setAttributes(inner, {
+				"class": cls.inner
+			});
 
 			var anchorClasses = [cls.anchor];
 			if (self.noLightbox){
@@ -862,11 +875,15 @@
 
 			var caption = document.createElement("figcaption");
 			self._setAttributes(caption, attr.caption.elem);
-			caption.className = cls.caption.elem;
+			self._setAttributes(caption, {
+				"class": cls.caption.elem
+			});
 
 			var captionInner = document.createElement("div");
 			self._setAttributes(captionInner, attr.caption.inner);
-			captionInner.className = cls.caption.inner;
+			self._setAttributes(captionInner, {
+				"class": cls.caption.inner
+			});
 
 			var captionTitle = null, hasTitle = self.showCaptionTitle && _is.string(self.caption) && self.caption.length > 0;
 			if (hasTitle) {

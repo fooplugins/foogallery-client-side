@@ -42,6 +42,13 @@
 			self.search = '';
 			self.isMultiLevel = false;
 		},
+		/**
+		 * @summary Parses the hash string into a value used by the plugin.
+		 * @memberof FooGallery.State#
+		 * @function fromHash
+		 * @param {string} hash
+		 * @return {string[]|string[][]}
+		 */
 		fromHash: function(hash){
 			var self = this, opt = self.tmpl.state.opt;
 			return hash.split(opt.arraySeparator).map(function(arr){
@@ -50,6 +57,13 @@
 				});
 			});
 		},
+		/**
+		 * @summary Converts the supplied value into a hash friendly string.
+		 * @memberof FooGallery.State#
+		 * @function toHash
+		 * @param {array|*} value
+		 * @return {string|null}
+		 */
 		toHash: function(value){
 			var self = this, opt = self.tmpl.state.opt, hash = null;
 			if (_is.array(value)){

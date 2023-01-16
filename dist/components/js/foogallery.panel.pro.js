@@ -39,7 +39,7 @@
 
             self.sel = _utils.selectify(self.cls);
 
-            self.videoSources = !_is.undef(_.Panel.Video) ? _.Panel.Video.sources.load() : [];
+            self.videoSources = !_is.undef(_.Panel.Video) ? _.Panel.Video.sources.load(self) : [];
 
             self.buttons = new _.Panel.Buttons(self);
 
@@ -3274,6 +3274,7 @@
             video: {
                 autoPlay: false,
                 volume: 0.2,
+                privacyEnhanced: true, // specifically for YouTube to switch between the nocookie and standard url
                 attrs: {
                     iframe: {
                         src: '',
@@ -3310,7 +3311,8 @@
     var videoEl = document.createElement("video");
 
     _.Panel.Video.Source = _utils.Class.extend({
-        construct: function(mimeType, regex, selfHosted, embedParams, autoPlayParam){
+        construct: function(panel, mimeType, regex, selfHosted, embedParams, autoPlayParam){
+            this.panel = panel;
             this.mimeType = mimeType;
             this.regex = regex;
             this.selfHosted = _is.boolean(selfHosted) ? selfHosted : false;
@@ -3355,8 +3357,9 @@
 (function(_){
 
     _.Panel.Video.Dailymotion = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/daily',
                 /(www.)?dailymotion\.com|dai\.ly/i,
                 false,
@@ -3389,29 +3392,29 @@
 (function(_){
 
     _.Panel.Video.Mp4 = _.Panel.Video.Source.extend({
-        construct: function(){
-            this._super('video/mp4', /\.mp4/i, true);
+        construct: function(panel){
+            this._super(panel, 'video/mp4', /\.mp4/i, true);
         }
     });
     _.Panel.Video.sources.register('video/mp4', _.Panel.Video.Mp4);
 
     _.Panel.Video.Webm = _.Panel.Video.Source.extend({
-        construct: function(){
-            this._super('video/webm', /\.webm/i, true);
+        construct: function(panel){
+            this._super(panel, 'video/webm', /\.webm/i, true);
         }
     });
     _.Panel.Video.sources.register('video/webm', _.Panel.Video.Webm);
 
     _.Panel.Video.Wmv = _.Panel.Video.Source.extend({
-        construct: function(){
-            this._super('video/wmv', /\.wmv/i, true);
+        construct: function(panel){
+            this._super(panel, 'video/wmv', /\.wmv/i, true);
         }
     });
     _.Panel.Video.sources.register('video/wmv', _.Panel.Video.Wmv);
 
     _.Panel.Video.Ogv = _.Panel.Video.Source.extend({
-        construct: function(){
-            this._super('video/ogg', /\.ogv|\.ogg/i, true);
+        construct: function(panel){
+            this._super(panel, 'video/ogg', /\.ogv|\.ogg/i, true);
         }
     });
     _.Panel.Video.sources.register('video/ogg', _.Panel.Video.Ogv);
@@ -3422,8 +3425,9 @@
 (function(_){
 
     _.Panel.Video.Vimeo = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/vimeo',
                 /(player.)?vimeo\.com/i,
                 false,
@@ -3449,8 +3453,9 @@
 (function(_, _is, _url){
 
     _.Panel.Video.Wistia = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/wistia',
                 /(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
                 false,
@@ -3498,8 +3503,9 @@
 (function(_){
 
     _.Panel.Video.YouTube = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/youtube',
                 /(www.)?youtube|youtu\.be/i,
                 false,
@@ -3520,7 +3526,7 @@
         getEmbedUrl: function(urlParts, autoPlay){
             var id = this.getId(urlParts);
             urlParts.search = this.mergeParams(urlParts, autoPlay);
-            return 'https://www.youtube-nocookie.com/embed/' + id + urlParts.search + urlParts.hash;
+            return 'https://www.youtube' + ( this.panel.opt.video.privacyEnhanced ? '-nocookie' : '' ) + '.com/embed/' + id + urlParts.search + urlParts.hash;
         }
     });
 
@@ -3532,8 +3538,9 @@
 (function(_){
 
     _.Panel.Video.TED = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/ted',
                 /(www.)?ted\.com/i,
                 false,
@@ -3556,8 +3563,9 @@
 (function(_, _url){
 
     _.Panel.Video.Facebook = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/facebook',
                 /(www.)?facebook\.com\/.*?\/videos\//i,
                 false,

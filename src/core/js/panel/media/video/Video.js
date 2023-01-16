@@ -107,6 +107,7 @@
             video: {
                 autoPlay: false,
                 volume: 0.2,
+                privacyEnhanced: true, // specifically for YouTube to switch between the nocookie and standard url
                 attrs: {
                     iframe: {
                         src: '',

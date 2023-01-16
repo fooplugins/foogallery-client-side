@@ -1,8 +1,9 @@
 (function(_, _is, _url){
 
     _.Panel.Video.Wistia = _.Panel.Video.Source.extend({
-        construct: function(){
+        construct: function(panel){
             this._super(
+                panel,
                 'video/wistia',
                 /(.+)?(wistia\.(com|net)|wi\.st)\/.*/i,
                 false,

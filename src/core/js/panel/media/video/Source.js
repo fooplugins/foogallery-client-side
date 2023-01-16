@@ -3,7 +3,8 @@
     var videoEl = document.createElement("video");
 
     _.Panel.Video.Source = _utils.Class.extend({
-        construct: function(mimeType, regex, selfHosted, embedParams, autoPlayParam){
+        construct: function(panel, mimeType, regex, selfHosted, embedParams, autoPlayParam){
+            this.panel = panel;
             this.mimeType = mimeType;
             this.regex = regex;
             this.selfHosted = _is.boolean(selfHosted) ? selfHosted : false;
