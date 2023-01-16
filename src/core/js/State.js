@@ -366,11 +366,15 @@
 	/**
 	 * @summary An object containing the state options for the template.
 	 * @typedef {object} FooGallery.State~Options
-	 * @property {boolean} [enabled=false] - Whether or not state is enabled for the template.
+	 * @property {boolean} [enabled=false] - Whether state is enabled for the template.
+	 * @property {boolean} [scrollTo=true] - Whether the page is scrolled to the current state item.
 	 * @property {string} [pushOrReplace="replace"] - Which method of the history API to use by default when updating the state.
+	 * @property {string} [mask="foogallery-gallery-{id}"] - The mask used to generate the full ID from just the ID number.
+	 * @property {boolean} [usePopState=true] - Whether state listens to the 'popstate' event and updates the gallery.
 	 * @property {string} [values="/"] - The delimiter used between key value pairs in the hash.
 	 * @property {string} [pair=":"] - The delimiter used between a key and a value in the hash.
 	 * @property {string} [array="+"] - The delimiter used for array values in the hash.
+	 * @property {string} [arraySeparator=","] - The delimiter used to separate multiple array values in the hash.
 	 */
 
 	/**
