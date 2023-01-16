@@ -39,7 +39,7 @@
 
             self.sel = _utils.selectify(self.cls);
 
-            self.videoSources = !_is.undef(_.Panel.Video) ? _.Panel.Video.sources.load() : [];
+            self.videoSources = !_is.undef(_.Panel.Video) ? _.Panel.Video.sources.load(self) : [];
 
             self.buttons = new _.Panel.Buttons(self);
 
