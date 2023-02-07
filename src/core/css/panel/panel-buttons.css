@@ -1,29 +1,23 @@
 .fg-panel-buttons {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    align-items: stretch;
+    position: relative;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column-reverse;
     justify-content: flex-end;
+    align-items: stretch;
     pointer-events: none;
 }
-.fg-panel.fg-portrait .fg-panel-buttons {
+.fg-portrait .fg-panel-buttons {
     flex-direction: row;
     height: 37px;
-    bottom: unset;
 }
-.fg-panel.fg-landscape .fg-panel-buttons {
+.fg-landscape .fg-panel-buttons {
     flex-direction: column-reverse;
     width: 37px;
-    left: unset;
 }
-.fg-panel.fg-medium .fg-panel-buttons,
-.fg-panel.fg-panel-no-mobile .fg-panel-buttons {
+.fg-panel:is(.fg-medium, .fg-panel-no-mobile) .fg-panel-buttons {
+    position: absolute;
     flex-direction: column-reverse;
     width: 100%;
     height: 100%;

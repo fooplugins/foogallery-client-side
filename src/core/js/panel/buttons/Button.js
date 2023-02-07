@@ -9,6 +9,9 @@
                 label: null,
                 visible: !!panel.opt.buttons[name],
                 disabled: false,
+                toggle: false,
+                pressed: false,
+                group: null,
                 click: $.noop,
                 beforeLoad: $.noop,
                 afterLoad: $.noop,
@@ -20,8 +23,11 @@
                 states: panel.cls.states
             };
             this.$el = null;
+            this.groupName = this.opt.group;
             this.isVisible = this.opt.visible;
             this.isDisabled = this.opt.disabled;
+            this.isToggle = this.opt.toggle;
+            this.isPressed = this.opt.pressed;
             this.isCreated = false;
             this.isAttached = false;
         },
@@ -50,6 +56,7 @@
                 var enabled = self.isEnabled();
                 self.toggle(enabled);
                 self.disable(!enabled);
+                if (self.isToggle) self.press( self.opt.pressed );
             }
             return self.isCreated;
         },
@@ -84,6 +91,11 @@
                 "aria-disabled": this.isDisabled,
                 "disabled": this.isDisabled
             });
+        },
+        press: function(pressed){
+            if ( !this.isCreated ) return;
+            this.isPressed = pressed;
+            this.$el.attr("aria-pressed", this.isPressed);
         },
         beforeLoad: function(media){
             this.opt.beforeLoad.call(this, media);

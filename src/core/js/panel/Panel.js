@@ -84,6 +84,10 @@
 
             self.lastBreakpoint = null;
 
+            self.isSmallScreen = false;
+            self.isMediumScreen = false;
+            self.isLargeScreen = false;
+
             self.breakpointClassNames = self.opt.breakpoints.map(function(bp){
                 return "fg-" + bp.name + " fg-" + bp.name + "-width" + " fg-" + bp.name + "-height";
             }).concat(["fg-landscape","fg-portrait"]).join(" ");
@@ -157,6 +161,8 @@
             var classes = [
                 self.cls.elem,
                 transition,
+                self.cls.buttons.portrait[self.opt.buttonsPortrait] || "",
+                self.cls.buttons.landscape[self.opt.buttonsLandscape] || "",
                 _is.string(self.opt.theme) ? self.opt.theme : self.tmpl.getCSSClass("theme", "fg-dark"),
                 _is.string(self.opt.loadingIcon) ? self.opt.loadingIcon : self.tmpl.getCSSClass("loadingIcon"),
                 _is.string(self.opt.hoverIcon) ? self.opt.hoverIcon : self.tmpl.getCSSClass("hoverIcon"),
@@ -274,6 +280,10 @@
         resize: function(){
             var self = this;
             self.$el.removeClass(self.breakpointClassNames).addClass(self.lastBreakpoint);
+            self.isMediumScreen = self.$el.hasClass("fg-medium");
+            self.isLargeScreen = self.$el.hasClass("fg-large");
+            self.isXLargeScreen = self.$el.hasClass("fg-x-large");
+            self.isSmallScreen = !self.isMediumScreen && !self.isLargeScreen && !self.isXLargeScreen;
             self.areas.forEach(function (area) {
                 area.resize();
             });
@@ -500,6 +510,12 @@
     _.template.configure("core", {
         panel: {
             classNames: "",
+            noMobile: false,
+            hoverButtons: false,
+            icons: "default",
+            transition: "none", // none | fade | horizontal | vertical
+
+            // the below are CSS class names to use, if not supplied the lightbox will inherit the value from the gallery
             theme: null,
             button: null,
             highlight: null,
@@ -511,10 +527,6 @@
             hoverScale: null,
             insetShadow: null,
             filter: null,
-            noMobile: false,
-            hoverButtons: false,
-            icons: "default",
-            transition: "none", // none | fade | horizontal | vertical
 
             loop: true,
             autoProgress: 0,
@@ -525,6 +537,8 @@
             swipe: true,
             stackSideAreas: true,
             preserveButtonSpace: true,
+            buttonsPortrait: "top", // top | bottom
+            buttonsLandscape: "right", // left | right
             admin: false,
 
             info: "bottom", // none | top | bottom | left | right
@@ -535,7 +549,10 @@
             exif: "none", // none | full | partial | minimal
 
             cart: "none", // none | top | bottom | left | right
+            cartAutoHide: true,
             cartVisible: false,
+            cartOriginal: false,
+            cartOverlay: true,
             cartAjax: null,
             cartNonce: null,
             cartTimeout: null,
@@ -565,16 +582,16 @@
             },
             breakpoints: [{
                 name: "medium",
-                width: 480,
-                height: 480
+                width: 800,
+                height: 800
             },{
                 name: "large",
-                width: 768,
-                height: 640
+                width: 1024,
+                height: 1024
             },{
                 name: "x-large",
-                width: 1024,
-                height: 768
+                width: 1280,
+                height: 1280
             }]
         }
     },{
@@ -601,6 +618,7 @@
                 error: "fg-error",
                 visible: "fg-visible",
                 reverse: "fg-reverse",
+                toggled: "fg-toggled",
                 selected: "fg-selected",
                 disabled: "fg-disabled",
                 hidden: "fg-hidden",
@@ -611,6 +629,14 @@
             },
 
             buttons: {
+                portrait: {
+                    top: "fg-panel-buttons-top",
+                    bottom: "fg-panel-buttons-bottom"
+                },
+                landscape: {
+                    right: "fg-panel-buttons-right",
+                    left: "fg-panel-buttons-left"
+                },
                 container: "fg-panel-buttons",
                 prev: "fg-panel-button fg-panel-button-prev",
                 next: "fg-panel-button fg-panel-button-next",
@@ -658,7 +684,9 @@
                 }
             },
 
-            cart: {},
+            cart: {
+                original: "fg-panel-cart-original"
+            },
 
             thumbs: {
                 prev: "fg-panel-thumbs-button fg-panel-thumbs-prev",

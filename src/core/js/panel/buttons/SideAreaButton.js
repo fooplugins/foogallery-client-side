@@ -6,7 +6,10 @@
                 icon: area.opt.icon,
                 label: area.opt.label,
                 autoHideArea: area.opt.autoHide,
-                click: area.toggle.bind(area)
+                click: area.toggle.bind(area),
+                toggle: true,
+                pressed: area.opt.visible,
+                group: area.opt.group
             });
             this.area = area;
             this.__isVisible = null;
@@ -30,11 +33,11 @@
         },
         checkAutoHide: function(enabled, supported){
             if (enabled && supported && this.opt.autoHideArea === true){
-                if (this.__autoHide == null && _is.empty(this.panel.lastBreakpoint)){
+                if (this.__autoHide == null && this.panel.isSmallScreen) {
                     this.__autoHide = this.area.isVisible;
                     this.area.toggle(false);
                     this.area.button.toggle(true);
-                } else if (_is.boolean(this.__autoHide) && !_is.empty(this.panel.lastBreakpoint)) {
+                } else if (_is.boolean(this.__autoHide) && !this.panel.isSmallScreen) {
                     this.area.button.toggle(this.area.button.isEnabled() && this.area.opt.toggle);
                     this.area.toggle(this.__autoHide);
                     this.__autoHide = null;

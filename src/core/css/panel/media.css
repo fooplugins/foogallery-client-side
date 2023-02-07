@@ -9,14 +9,6 @@
     pointer-events: auto;
     overflow: hidden;
 }
-.fg-panel.fg-landscape .fg-media {
-    width: calc(100% - 37px);
-}
-.fg-panel.fg-portrait .fg-media {
-    top: 37px;
-    height: calc(100% - 37px);
-}
-
 .fg-panel.fg-medium .fg-media,
 .fg-panel.fg-panel-no-mobile .fg-media {
     top: 0;
