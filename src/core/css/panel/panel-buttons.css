@@ -1,29 +1,23 @@
 .fg-panel-buttons {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    align-items: stretch;
+    position: relative;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column-reverse;
     justify-content: flex-end;
+    align-items: stretch;
     pointer-events: none;
 }
-.fg-panel.fg-portrait .fg-panel-buttons {
+.fg-portrait .fg-panel-buttons {
     flex-direction: row;
     height: 37px;
-    bottom: unset;
 }
-.fg-panel.fg-landscape .fg-panel-buttons {
+.fg-landscape .fg-panel-buttons {
     flex-direction: column-reverse;
     width: 37px;
-    left: unset;
 }
-.fg-panel.fg-medium .fg-panel-buttons,
-.fg-panel.fg-panel-no-mobile .fg-panel-buttons {
+.fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-buttons {
+    position: absolute;
     flex-direction: column-reverse;
     width: 100%;
     height: 100%;
@@ -133,29 +127,44 @@
     }
 }
 
-.fg-panel.fg-portrait .fg-panel-buttons .fg-panel-button {
+.fg-panel.fg-portrait.fg-panel-buttons-top .fg-panel-buttons .fg-panel-button {
     border-bottom-width: 1px;
 }
-.fg-panel.fg-landscape .fg-panel-buttons .fg-panel-button {
+.fg-panel.fg-portrait.fg-panel-buttons-bottom .fg-panel-buttons .fg-panel-button {
+    border-top-width: 1px;
+}
+.fg-panel.fg-portrait:is(.fg-panel-buttons-top,.fg-panel-buttons-bottom) .fg-panel-buttons .fg-panel-button {
+    border-right-width: 1px;
+}
+.fg-panel.fg-portrait:is(.fg-panel-buttons-top,.fg-panel-buttons-bottom) .fg-panel-buttons .fg-panel-button:last-child {
+    border-right-width: 0;
+}
+
+.fg-panel.fg-landscape.fg-panel-buttons-right .fg-panel-buttons .fg-panel-button {
     border-left-width: 1px;
 }
-.fg-panel.fg-medium .fg-panel-buttons .fg-panel-button,
-.fg-panel.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button {
+.fg-panel.fg-landscape.fg-panel-buttons-left .fg-panel-buttons .fg-panel-button {
+    border-right-width: 1px;
+}
+.fg-panel.fg-landscape:is(.fg-panel-buttons-left,.fg-panel-buttons-right) .fg-panel-buttons .fg-panel-button {
+    border-top-width: 1px;
+}
+.fg-panel.fg-landscape:is(.fg-panel-buttons-left,.fg-panel-buttons-right) .fg-panel-buttons .fg-panel-button:last-child {
+    border-top-width: 0;
+}
+
+.fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-buttons .fg-panel-button {
     border-radius: 3px;
     border-width: 1px;
     width: 32px;
     height: 32px;
     margin: 5px 5px 0 0;
 }
-.rtl .fg-panel.fg-medium .fg-panel-buttons .fg-panel-button,
-.rtl .fg-panel.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button {
+.rtl .fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-buttons .fg-panel-button {
     margin: 5px 0 0 5px;
 }
 
-.fg-panel.fg-medium .fg-panel-buttons .fg-panel-button-prev,
-.fg-panel.fg-medium .fg-panel-buttons .fg-panel-button-next,
-.fg-panel.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button-prev,
-.fg-panel.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button-next {
+.fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-buttons :is(.fg-panel-button-prev,.fg-panel-button-next) {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -163,39 +172,32 @@
     height: 82px;
     margin: unset !important;
 }
-.fg-panel.fg-medium .fg-panel-buttons .fg-panel-button-prev,
-.fg-panel.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button-prev {
+.fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-buttons .fg-panel-button-prev {
     left: 5px;
 }
-.fg-panel.fg-medium .fg-panel-buttons .fg-panel-button-next,
-.fg-panel.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button-next {
+.fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-buttons .fg-panel-button-next {
     right: 5px;
 }
-.rtl .fg-panel.fg-medium .fg-panel-buttons .fg-panel-button-prev,
-.rtl .fg-panel.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button-prev {
+.rtl .fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-buttons .fg-panel-button-prev {
     right: 5px;
     left: auto;
 }
-.rtl .fg-panel.fg-medium .fg-panel-buttons .fg-panel-button-next,
-.rtl .fg-panel.fg-panel-no-mobile .fg-panel-buttons .fg-panel-button-next {
+.rtl .fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-buttons .fg-panel-button-next {
     left: 5px;
     right: auto;
 }
 
 /* Hover buttons */
 @media (hover: hover) {
-    .fg-medium.fg-panel-hover-buttons .fg-panel-button,
-    .fg-panel-no-mobile.fg-panel-hover-buttons .fg-panel-button {
+    :is(.fg-medium,.fg-panel-no-mobile).fg-panel-hover-buttons .fg-panel-button {
         visibility: hidden;
         opacity: 0;
     }
-    .fg-medium.fg-panel-hover-buttons:hover .fg-panel-button:not(.fg-disabled),
-    .fg-panel-no-mobile.fg-panel-hover-buttons:hover .fg-panel-button:not(.fg-disabled) {
+    :is(.fg-medium,.fg-panel-no-mobile).fg-panel-hover-buttons:hover .fg-panel-button:not(.fg-disabled) {
         visibility: visible;
         opacity: 0.5;
     }
-    .fg-medium.fg-panel-hover-buttons .fg-panel-button:not(.fg-disabled):hover,
-    .fg-panel-no-mobile.fg-panel-hover-buttons .fg-panel-button:not(.fg-disabled):hover {
+    :is(.fg-medium,.fg-panel-no-mobile).fg-panel-hover-buttons .fg-panel-button:not(.fg-disabled):hover {
         opacity: 1;
     }
 }
@@ -222,12 +224,10 @@
     line-height: 27px;
     margin-bottom: 5px;
 }
-.fg-medium.fg-panel-info-overlay .fg-panel-info .fg-panel-area-toggle,
-.fg-panel-no-mobile.fg-panel-info-overlay .fg-panel-info .fg-panel-area-toggle {
+.fg-panel-info-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info .fg-panel-area-toggle {
     right: 42px;
 }
-.rtl .fg-medium.fg-panel-info-overlay .fg-panel-info .fg-panel-area-toggle,
-.rtl .fg-panel-no-mobile.fg-panel-info-overlay .fg-panel-info .fg-panel-area-toggle {
+.rtl .fg-panel-info-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info .fg-panel-area-toggle {
     left: 42px;
     right: auto;
 }

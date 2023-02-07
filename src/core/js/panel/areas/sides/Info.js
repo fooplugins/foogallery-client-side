@@ -20,7 +20,8 @@
                 visible: panel.opt.infoVisible,
                 autoHide: panel.opt.infoAutoHide,
                 align: panel.opt.infoAlign,
-                waitForUnload: false
+                waitForUnload: false,
+                group: "overlay"
             }, panel.cls.info);
             this.allPositionClasses += " " + this.cls.overlay;
         },

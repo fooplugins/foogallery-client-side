@@ -83,6 +83,7 @@
             if (_is.jq(this.panel.$el)) {
                 this.panel.$el.toggleClass(this.cls.visible, this.isVisible);
             }
+            this.panel.buttons.press( this.name, this.isVisible );
         },
         onToggleClick: function(e){
             e.preventDefault();

@@ -7,8 +7,9 @@
                 label: panel.il8n.buttons.cart,
                 position: panel.opt.cart,
                 visible: panel.opt.cartVisible,
+                autoHide: panel.opt.cartAutoHide,
                 waitForUnload: false,
-                toggle: true
+                group: "overlay"
             }, panel.cls.cart);
         },
         canLoad: function(media){

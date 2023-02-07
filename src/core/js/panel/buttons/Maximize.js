@@ -4,17 +4,11 @@
         construct: function(panel){
             this._super(panel, "maximize", {
                 icon: "maximize",
-                label: panel.il8n.buttons.maximize
+                label: panel.il8n.buttons.maximize,
+                toggle: true
             });
             this.scrollPosition = [];
             this.$placeholder = $("<span/>");
-        },
-        create: function(){
-            if (this._super()){
-                this.$el.attr("aria-pressed", false);
-                return true;
-            }
-            return false;
         },
         click: function(){
             this.set(!this.panel.isMaximized);
@@ -38,7 +32,7 @@
                 'role': 'dialog',
                 'aria-modal': true
             }).trigger('focus');
-            if (this.isCreated) this.$el.attr("aria-pressed", true);
+            this.panel.buttons.press('maximize', true);
             this.panel.trapFocus();
             if (this.panel.opt.noScrollbars){
                 this.scrollPosition = [window.scrollX, window.scrollY];
@@ -54,7 +48,7 @@
             }).insertBefore(this.$placeholder);
             if (this.panel.isInline) this.panel.$el.trigger('focus');
             this.$placeholder.detach();
-            if (this.isCreated) this.$el.attr("aria-pressed", false);
+            this.panel.buttons.press('maximize', false);
             this.panel.releaseFocus();
             if (this.panel.opt.noScrollbars){
                 $("html").removeClass(this.panel.cls.noScrollbars)

@@ -7,15 +7,9 @@
             var self = this;
             self._super(panel, "fullscreen", {
                 icon: ["expand", "shrink"],
-                label: panel.il8n.buttons.fullscreen
+                label: panel.il8n.buttons.fullscreen,
+                toggle: true
             });
-        },
-        create: function(){
-            if (this._super()){
-                this.$el.attr("aria-pressed", false);
-                return true;
-            }
-            return false;
         },
         click: function(){
             var self = this, pnl = self.panel.el;
@@ -48,7 +42,7 @@
                 }).trigger('focus');
                 this.panel.trapFocus();
             }
-            if (this.isCreated) this.$el.attr("aria-pressed", true);
+            this.panel.buttons.press('fullscreen', true);
             this.panel.buttons.toggle('maximize', false);
         },
         exit: function(){
@@ -61,7 +55,7 @@
                 }).trigger('focus');
                 this.panel.releaseFocus();
             }
-            if (this.isCreated) this.$el.attr("aria-pressed", false);
+            this.panel.buttons.press('fullscreen', false);
             this.panel.buttons.toggle('maximize', this.panel.isInline && this.panel.buttons.opt.maximize);
             this.panel.isFullscreen = false;
         }
