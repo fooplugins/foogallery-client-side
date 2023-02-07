@@ -1,7 +1,5 @@
 (function($, _, _utils, _is, _fn, _obj, _wcp){
 
-    _wcp = {};
-
     _.Item.prototype.addToCart = function($button, productId, quantity, redirectOnError){
         var self = this,
             data = [{
@@ -69,5 +67,5 @@
     FooGallery.utils.is,
     FooGallery.utils.fn,
     FooGallery.utils.obj,
-    window.woocommerce_params
+    window.woocommerce_params = {}
 );
