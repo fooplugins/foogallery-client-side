@@ -8,9 +8,7 @@
     opacity: 1;
     transition: opacity 0.3s, visibility 0.3s;
 }
-.fg-icon-auto-progress.fg-paused .fg-icon-auto-progress-idle,
-.fg-icon-auto-progress.fg-stopped .fg-icon-auto-progress-idle,
-.fg-icon-auto-progress.fg-started .fg-icon-auto-progress-idle {
+.fg-icon-auto-progress:is(.fg-paused,.fg-stopped,.fg-started) .fg-icon-auto-progress-idle {
     opacity: 0;
     visibility: hidden;
 }
@@ -38,8 +36,7 @@
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
 }
-.fg-icon-auto-progress.fg-paused .fg-icon-auto-progress-play,
-.fg-icon-auto-progress.fg-stopped .fg-icon-auto-progress-play {
+.fg-icon-auto-progress:is(.fg-paused,.fg-stopped) .fg-icon-auto-progress-play {
     opacity: 1;
     visibility: visible;
 }
@@ -49,8 +46,7 @@
         opacity: 0;
         visibility: hidden;
     }
-    *:hover > .fg-icon-auto-progress.fg-paused .fg-icon-auto-progress-play,
-    *:hover > .fg-icon-auto-progress.fg-stopped .fg-icon-auto-progress-play,
+    *:hover > .fg-icon-auto-progress:is(.fg-paused,.fg-stopped) .fg-icon-auto-progress-play,
     *:hover > .fg-icon-auto-progress.fg-started .fg-icon-auto-progress-pause {
         opacity: 1;
         visibility: visible;

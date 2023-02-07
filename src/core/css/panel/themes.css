@@ -61,10 +61,12 @@
 /* Button & Highlight Colors */
 .fg-panel.fg-light :is(.fg-panel-button,.fg-panel-thumbs-button,.fg-panel-thumb,.fg-panel-thumb-spacer),
 .fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay) .fg-panel-info-inner,
-.fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner,
-.fg-panel.fg-dark .fg-panel-button[aria-pressed="true"] {
+.fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner {
     background-color: #FFF;
     border-color: #e2e2e2;
+}
+.fg-panel.fg-dark .fg-panel-button[aria-pressed="true"] {
+    background-color: #FFF;
 }
 .fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay) .fg-panel-info-inner,
 .fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner,
@@ -78,10 +80,12 @@
 
 .fg-panel.fg-dark :is(.fg-panel-button,.fg-panel-thumbs-button,.fg-panel-thumb,.fg-panel-thumb-spacer),
 .fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay) .fg-panel-info-inner,
-.fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner,
+.fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner {
+    background-color: #333;
+    border-color: #222;
+}
 .fg-panel.fg-light .fg-panel-button[aria-pressed="true"] {
     background-color: #333;
-    border-color: #2e2e2e;
 }
 .fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay) .fg-panel-info-inner,
 .fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner,
