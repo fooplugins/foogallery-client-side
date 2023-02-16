@@ -21,7 +21,7 @@ module.exports = function ( grunt ) {
 			},
 			"polyfills": {
 				"files": {
-					"./dist/components/js/polyfills.js": [
+					"./dist/components/js/foogallery.polyfills.js": [
 						"./polyfills/IntersectionObserver.js",
 						"./polyfills/ResizeObserver.js",
 					]
@@ -470,7 +470,6 @@ module.exports = function ( grunt ) {
 			"pro": {
 				"files": {
 					"./dist/pro/js/foogallery.js": [
-						"./dist/components/js/polyfills.js",
 						"./dist/components/js/foogallery.core.pro.js",
 						"./dist/components/js/foogallery.filtering.js",
 						"./dist/components/js/foogallery.paging.pro.js",
@@ -519,7 +518,6 @@ module.exports = function ( grunt ) {
 			"free": {
 				"files": {
 					"./dist/free/js/foogallery.js": [
-						"./dist/components/js/polyfills.js",
 						"./dist/components/js/foogallery.core.js",
 						"./dist/components/js/foogallery.paging.js",
 
