@@ -17,6 +17,9 @@
             );
         },
         getId: function(urlParts){
+            if ( /shorts\//i.test(urlParts.href) ){
+                return urlParts.href.split(/shorts\//i)[1].split(/[?&]/)[0];
+            }
             return /embed\//i.test(urlParts.href)
                 ? urlParts.href.split(/embed\//i)[1].split(/[?&]/)[0]
                 : urlParts.href.split(/v\/|v=|youtu\.be\//i)[1].split(/[?&]/)[0];
