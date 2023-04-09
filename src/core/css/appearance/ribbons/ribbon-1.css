@@ -8,7 +8,6 @@ div.fg-ribbon-1 {
     border-top-left-radius: 3px;
     text-orientation: upright;
     writing-mode: vertical-rl;
-    line-height: 4em;
     max-height: calc(100% - 1em);
     max-width: calc(100% - 25px);
 }
@@ -36,4 +35,9 @@ div.fg-ribbon-1 {
 
 div.fg-ribbon-1 > span {
     letter-spacing: -0.2em;
+}
+
+div.fg-ribbon-1 > span > .dashicons + span {
+    margin-left: 0;
+    margin-top: 0.4em;
 }

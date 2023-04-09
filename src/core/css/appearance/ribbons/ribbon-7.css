@@ -1,4 +1,4 @@
-div.fg-ribbon-4 {
+div.fg-ribbon-7 {
     display: block;
     width: calc(100% + 4px);
     height: calc(100% + 4px);
@@ -8,27 +8,27 @@ div.fg-ribbon-4 {
     left: -2px;
     overflow: hidden;
 }
-.fg-ribbon-4:before, .fg-ribbon-4:after {
+.fg-ribbon-7:before, .fg-ribbon-7:after {
     content: "";
     position: absolute;
 }
-.fg-ribbon-4:before {
+.fg-ribbon-7:before {
     height: 0;
     width: 0;
-    top: 5em;
+    bottom: 5em;
     left: 0;
-    border-top: 2px solid #6c4f0b;
+    border-top: 2px solid #333;
     border-left: 2px solid transparent;
 }
-.fg-ribbon-4:after {
+.fg-ribbon-7:after {
     height: 0;
     width: 0;
     right: 0;
-    top: 5em;
-    border-top: 2px solid #6c4f0b;
+    bottom: 5em;
+    border-top: 2px solid #333;
     border-right: 2px solid transparent;
 }
-div.fg-ribbon-4 > span {
+div.fg-ribbon-7 > span {
     display: flex;
     align-items: center;
     align-content: center;
@@ -36,10 +36,10 @@ div.fg-ribbon-4 > span {
     position: absolute;
     height: 3em;
     line-height: 3em;
-    background: #cc8111;
-    top: 2em;
+    background: #444;
+    bottom: 2em;
     box-shadow: 0 10px 10px -12px rgba(0, 0, 0, 0.6);
-    outline: 1px dashed;
+    outline: 1px dashed #adadad;
     outline-offset: -3px;
     width: calc(100% + 6px);
     left: -3px;

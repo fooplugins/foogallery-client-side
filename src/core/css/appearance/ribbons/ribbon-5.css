@@ -14,6 +14,7 @@ div.fg-ribbon-5 {
 .fg-ribbon-5:before {
     width: 3em;
     height: 2px;
+    top: 0;
     right: 6.6em;
     background: #4D6530;
     border-radius: 2px 2px 0 0;
@@ -27,6 +28,10 @@ div.fg-ribbon-5 {
     border-radius: 0 2px 2px 0;
 }
 div.fg-ribbon-5 > span {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
     width: 16em;
     height: 3em;
     line-height: 3em;
