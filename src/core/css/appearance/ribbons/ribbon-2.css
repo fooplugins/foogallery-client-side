@@ -1,7 +1,7 @@
 div.fg-ribbon-2 {
     height: 3em;
     line-height: 3em;
-    padding: 0 0.8em 0 1em;
+    padding: 0 0.5em 0 1em;
     left: -2px;
     top: 20px;
     max-height: calc(100% - 20px);
@@ -24,8 +24,8 @@ div.fg-ribbon-2 {
     height: 0;
     width: 0;
     top: 0;
-    right: -0.4em;
+    right: -0.75em;
     border-top: 1.5em solid transparent;
     border-bottom: 1.5em solid transparent;
-    border-left: 0.4em solid #c50084;
+    border-left: 0.8em solid #c50084;
 }

@@ -29,6 +29,10 @@ div.fg-ribbon-7 {
     border-right: 2px solid transparent;
 }
 div.fg-ribbon-7 > span {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
     position: absolute;
     height: 3em;
     line-height: 3em;

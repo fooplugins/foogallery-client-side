@@ -28,7 +28,12 @@ div.fg-ribbon-4 {
     border-top: 2px solid #6c4f0b;
     border-right: 2px solid transparent;
 }
-.fg-ribbon-4 > span {
+div.fg-ribbon-4 > span {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    position: absolute;
     height: 3em;
     line-height: 3em;
     background: #cc8111;
