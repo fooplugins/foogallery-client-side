@@ -18,7 +18,9 @@
 
             self.caption = new _.Panel.Media.Caption(panel, self);
 
-            self.product = new _.Panel.Media.Product(panel, self);
+            if ( _.Panel.Media.Product ){
+                self.product = new _.Panel.Media.Product(panel, self);
+            }
 
             self.$el = null;
 
