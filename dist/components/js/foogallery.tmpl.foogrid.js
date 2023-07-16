@@ -302,6 +302,7 @@
 			info: "bottom",
             infoVisible: true,
             infoOverlay: false,
+			infoAutoHide: false,
 			buttons: {
 				fullscreen: false,
 			}

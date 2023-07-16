@@ -46,9 +46,13 @@
             self.content = new _.Panel.Content(self);
             self.info = new _.Panel.Info(self);
             self.thumbs = new _.Panel.Thumbs(self);
-            self.cart = new _.Panel.Cart(self);
 
-            self.areas = [self.content, self.info, self.thumbs, self.cart];
+            self.areas = [self.content, self.info, self.thumbs];
+
+            if ( _.Panel.Cart ){
+                self.cart = new _.Panel.Cart(self);
+                self.areas.push( self.cart );
+            }
 
             self.$el = null;
 
@@ -2232,7 +2236,9 @@
 
             self.caption = new _.Panel.Media.Caption(panel, self);
 
-            self.product = new _.Panel.Media.Product(panel, self);
+            if ( _.Panel.Media.Product ){
+                self.product = new _.Panel.Media.Product(panel, self);
+            }
 
             self.$el = null;
 
@@ -2801,5 +2807,178 @@
     FooGallery.$,
     FooGallery,
     FooGallery.utils,
+    FooGallery.utils.obj
+);
+(function($, _, _utils, _obj){
+
+    _.Panel.Iframe = _.Panel.Media.extend({
+        construct: function(panel, item){
+            this._super(panel, item);
+            _obj.extend(this.opt, panel.opt.iframe);
+            _obj.extend(this.cls, panel.cls.iframe);
+            _obj.extend(this.sel, panel.sel.iframe);
+        },
+        doCreateContent: function(){
+            return $('<iframe/>').attr(this.opt.attrs);
+        },
+        doLoad: function(){
+            var self = this;
+            return $.Deferred(function(def){
+                self.$content.off("load error").on({
+                    'load': function(){
+                        self.$content.off("load error");
+                        def.resolve(self);
+                    },
+                    'error': function(){
+                        self.$content.off("load error");
+                        def.reject(self);
+                    }
+                });
+                self.$content.attr("src", self.item.href);
+            }).promise();
+        }
+    });
+
+    _.Panel.media.register("iframe", _.Panel.Iframe);
+
+    _.template.configure("core", {
+        panel: {
+            iframe: {
+                attrs: {
+                    src: '',
+                    frameborder: 'no',
+                    allow: "autoplay; fullscreen",
+                    allowfullscreen: true
+                }
+            }
+        }
+    },{
+        panel: {
+            iframe: {
+                type: "fg-media-iframe"
+            }
+        }
+    });
+
+})(
+    FooGallery.$,
+    FooGallery,
+    FooGallery.utils,
+    FooGallery.utils.obj
+);
+(function($, _, _utils, _obj, _str){
+
+    _.Panel.Html = _.Panel.Media.extend({
+        construct: function(panel, item){
+            this._super(panel, item);
+            _obj.extend(this.opt, panel.opt.html);
+            _obj.extend(this.cls, panel.cls.html);
+            _obj.extend(this.sel, panel.sel.html);
+            this.$target = null;
+        },
+        doCreate: function(){
+            if (this._super()){
+                if (!_str.startsWith(this.item.href, '#') || (this.$target = $(this.item.href)).length === 0){
+                    this.$target = null;
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        },
+        doCreateContent: function(){
+            return $('<div/>').attr(this.opt.attrs);
+        },
+        doAppendTo: function( parent ){
+            if (this._super( parent )){
+                this.$content.append(this.$target.contents());
+                return true;
+            }
+            return false;
+        },
+        doDetach: function(){
+            this.$target.append(this.$content.contents());
+            return this._super();
+        }
+    });
+
+    _.Panel.media.register("html", _.Panel.Html);
+
+    _.template.configure("core", {
+        panel: {
+            html: {}
+        }
+    },{
+        panel: {
+            html: {
+                type: "fg-media-html"
+            }
+        }
+    });
+
+})(
+    FooGallery.$,
+    FooGallery,
+    FooGallery.utils,
+    FooGallery.utils.obj,
+    FooGallery.utils.str
+);
+(function($, _, _is, _obj){
+
+    _.Lightbox = _.Panel.extend({
+        construct: function (template, options) {
+            var self = this;
+            self._super(template, options);
+            if (self.opt.enabled && (self.tmpl instanceof _.Template) && !(self.tmpl.destroying || self.tmpl.destroyed)) {
+                self.tmpl.on({
+                    "after-state": self.onAfterState,
+                    "anchor-click-item": self.onAnchorClickItem,
+                    "destroyed": self.onDestroyedTemplate
+                }, self);
+            }
+        },
+        onAnchorClickItem: function(e, item){
+            if (!item.noLightbox){
+                e.preventDefault();
+                try {
+                    this.open(item);
+                } catch( err ) {
+                    console.error( err );
+                }
+            }
+        },
+        onDestroyedTemplate: function(){
+            this.destroy();
+        },
+        onAfterState: function(e, state){
+            if (state.item instanceof _.Item && !state.item.noLightbox){
+                try {
+                    this.open(state.item);
+                } catch( err ) {
+                    console.error( err );
+                }
+            }
+        }
+    });
+
+    _.template.configure("core", {
+        lightbox: {
+            enabled: false
+        }
+    }, {});
+
+    _.Template.override("construct", function(options, element){
+        this._super(options, element);
+        var data = this.$el.data("foogalleryLightbox"),
+            enabled = this.opt.lightbox.enabled || _is.hash(data) || (this.$el.length > 0 && this.el.hasAttribute("data-foogallery-lightbox"));
+
+        this.opt.lightbox = _obj.extend({}, this.opt.panel, this.opt.lightbox, { enabled: enabled }, data);
+        this.lightbox = enabled ? new _.Lightbox(this, this.opt.lightbox) : null;
+    });
+
+})(
+    FooGallery.$,
+    FooGallery,
+    FooGallery.utils.is,
     FooGallery.utils.obj
 );
