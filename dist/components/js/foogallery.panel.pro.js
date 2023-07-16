@@ -46,9 +46,13 @@
             self.content = new _.Panel.Content(self);
             self.info = new _.Panel.Info(self);
             self.thumbs = new _.Panel.Thumbs(self);
-            self.cart = new _.Panel.Cart(self);
 
-            self.areas = [self.content, self.info, self.thumbs, self.cart];
+            self.areas = [self.content, self.info, self.thumbs];
+
+            if ( _.Panel.Cart ){
+                self.cart = new _.Panel.Cart(self);
+                self.areas.push( self.cart );
+            }
 
             self.$el = null;
 
@@ -2269,7 +2273,9 @@
 
             self.caption = new _.Panel.Media.Caption(panel, self);
 
-            self.product = new _.Panel.Media.Product(panel, self);
+            if ( _.Panel.Media.Product ){
+                self.product = new _.Panel.Media.Product(panel, self);
+            }
 
             self.$el = null;
 
@@ -3654,7 +3660,11 @@
         onAnchorClickItem: function(e, item){
             if (!item.noLightbox){
                 e.preventDefault();
-                this.open(item);
+                try {
+                    this.open(item);
+                } catch( err ) {
+                    console.error( err );
+                }
             }
         },
         onDestroyedTemplate: function(){
@@ -3662,7 +3672,11 @@
         },
         onAfterState: function(e, state){
             if (state.item instanceof _.Item && !state.item.noLightbox){
-                this.open(state.item);
+                try {
+                    this.open(state.item);
+                } catch( err ) {
+                    console.error( err );
+                }
             }
         }
     });

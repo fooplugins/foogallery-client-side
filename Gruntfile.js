@@ -6,8 +6,7 @@ module.exports = function ( grunt ) {
 		"clean": {
 			"dist": "./dist",
 			"foo-utils": "./dist/foogallery.utils.js",
-			"jsdoc": "./docs/jsdocs",
-			"pagespeed": "./test-pages/templates/assets/foogallery"
+			"jsdoc": "./docs/jsdocs"
 		},
 		"foo-utils": {
 			"options": {
@@ -48,6 +47,7 @@ module.exports = function ( grunt ) {
 					],
 					"./dist/components/css/foogallery.core.css": [
 						"./src/core/css/general/core.css",
+						"./src/core/css/general/icons.css",
 
 						"./src/core/css/appearance/theme.css",
 						"./src/core/css/appearance/exif.css",
@@ -211,7 +211,10 @@ module.exports = function ( grunt ) {
 						"./src/core/js/panel/areas/sides/Thumbs.js",
 						"./src/core/js/panel/media/Media.js",
 						"./src/core/js/panel/media/Caption.js",
-						"./src/core/js/panel/media/Image.js"
+						"./src/core/js/panel/media/Image.js",
+						"./src/core/js/panel/media/Iframe.js",
+						"./src/core/js/panel/media/Html.js",
+						"./src/core/js/Lightbox.js"
 					],
 					"./dist/components/css/foogallery.panel.css": [
 						"./src/core/css/panel/panel.css",
@@ -520,6 +523,7 @@ module.exports = function ( grunt ) {
 					"./dist/free/js/foogallery.js": [
 						"./dist/components/js/foogallery.core.js",
 						"./dist/components/js/foogallery.paging.js",
+						"./dist/components/js/foogallery.panel.js",
 
 						"./dist/components/js/foogallery.tmpl.default.js",
 						"./dist/components/js/foogallery.tmpl.masonry.js",
@@ -535,6 +539,7 @@ module.exports = function ( grunt ) {
 					"./dist/free/css/foogallery.css": [
 						"./dist/components/css/foogallery.core.css",
 						"./dist/components/css/foogallery.paging.css",
+						"./dist/components/css/foogallery.panel.css",
 
 						"./dist/components/css/foogallery.tmpl.default.css",
 						"./dist/components/css/foogallery.tmpl.masonry.css",
@@ -611,11 +616,17 @@ module.exports = function ( grunt ) {
 				"dest": "./dist/components/img",
 				"flatten": true
 			},
-			"pagespeed": {
+			"templates_pro": {
 				"expand": true,
 				"cwd": "dist/pro",
 				"src": ["**"],
 				"dest": "./test-pages/templates/assets"
+			},
+			"templates_free": {
+				"expand": true,
+				"cwd": "dist/free",
+				"src": ["**"],
+				"dest": "./test-pages/templates/assets/free"
 			}
 		},
 		"jsdoc": {
@@ -689,8 +700,8 @@ module.exports = function ( grunt ) {
 		"uglify:dist",
 		"cssmin:dist",
 
-		"clean:pagespeed",
-		"copy:pagespeed"
+		"copy:templates_pro",
+		"copy:templates_free"
 	]);
 
 	grunt.registerTask("docs", [

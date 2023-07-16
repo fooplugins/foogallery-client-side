@@ -15,7 +15,11 @@
         onAnchorClickItem: function(e, item){
             if (!item.noLightbox){
                 e.preventDefault();
-                this.open(item);
+                try {
+                    this.open(item);
+                } catch( err ) {
+                    console.error( err );
+                }
             }
         },
         onDestroyedTemplate: function(){
@@ -23,7 +27,11 @@
         },
         onAfterState: function(e, state){
             if (state.item instanceof _.Item && !state.item.noLightbox){
-                this.open(state.item);
+                try {
+                    this.open(state.item);
+                } catch( err ) {
+                    console.error( err );
+                }
             }
         }
     });

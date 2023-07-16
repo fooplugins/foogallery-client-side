@@ -46,9 +46,13 @@
             self.content = new _.Panel.Content(self);
             self.info = new _.Panel.Info(self);
             self.thumbs = new _.Panel.Thumbs(self);
-            self.cart = new _.Panel.Cart(self);
 
-            self.areas = [self.content, self.info, self.thumbs, self.cart];
+            self.areas = [self.content, self.info, self.thumbs];
+
+            if ( _.Panel.Cart ){
+                self.cart = new _.Panel.Cart(self);
+                self.areas.push( self.cart );
+            }
 
             self.$el = null;
 

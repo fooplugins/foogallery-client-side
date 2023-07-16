@@ -82,6 +82,7 @@
             thumbsSmall: true,
             info: "top",
             infoVisible: true,
+            infoAutoHide: false,
             buttons: {
                 close: false,
                 info: false,

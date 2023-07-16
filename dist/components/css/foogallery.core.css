@@ -134,6 +134,9 @@
 	clip: rect(0,0,0,0);
 	border: 0;
 }
+.fg-icon {
+    fill: currentColor;
+}
 /* Item Style */
 .foogallery.fg-light .fg-item-inner {
 	background-color: #FFF;
