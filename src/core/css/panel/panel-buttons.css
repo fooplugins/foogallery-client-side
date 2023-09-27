@@ -57,6 +57,7 @@
     text-align: center;
     align-items: flex-start;
     text-decoration: none;
+    min-width: unset;
 }
 .fg-panel-button.fg-disabled {
     pointer-events: none;
