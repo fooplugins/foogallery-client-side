@@ -1267,6 +1267,9 @@
                 toggle: true
             });
         },
+        isEnabled: function(){
+            return this._super() && _.fullscreen.supported;
+        },
         click: function(){
             var self = this, pnl = self.panel.el;
             _.fullscreen.toggle(pnl).then(function(){
