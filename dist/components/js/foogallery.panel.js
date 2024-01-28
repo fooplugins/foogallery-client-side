@@ -436,7 +436,9 @@
             return this.load( item );
         },
         close: function(immediate){
-            var self = this, e = self.trigger("close", [self.currentItem]);
+            var self = this;
+            if ( self.isClosing ) return $.Deferred().reject();
+            var e = self.trigger("close", [self.currentItem]);
             if (e.isDefaultPrevented()) return _fn.reject("default prevented");
             return self.doClose(immediate).then(function(){
                 self.trigger("closed");
@@ -445,6 +447,7 @@
         doClose: function(immediate, detach){
             detach = _is.boolean(detach) ? detach : true;
             var self = this;
+            self.isClosing = true;
             return $.Deferred(function(def){
                 self.content.close(immediate).then(function(){
                     var wait = [];
@@ -456,6 +459,7 @@
                     $.when.apply($, wait).then(def.resolve).fail(def.reject);
                 });
             }).always(function(){
+                self.isClosing = false;
                 self.currentItem = null;
                 self.buttons.close();
                 if (detach) self.detach();
