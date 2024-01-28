@@ -10,12 +10,7 @@
             self.items = self.$el.find('.fg-pile-item').map(function(i, el){
                 return new _.StackAlbum.Item(self, el, { index: i });
             }).get();
-            self.$cover = $('<div/>', {'class': 'fg-pile-cover'}).append(
-                $('<div/>', {'class': 'fg-pile-cover-content'}).append(
-                    $('<span/>', {'class': 'fg-pile-cover-title', text: self.opt.title}),
-                    $('<span/>', {'class': 'fg-pile-cover-count', text: self.items.length})
-                )
-            );
+            self.$cover = self.$el.find('.fg-pile-cover').first();
             self.top = 0;
             self.left = 0;
             self.isExpanded = false;
@@ -26,13 +21,20 @@
                 availableAngles = self.getAngles(opt.angleStep),
                 currentAngle = opt.randomAngle ? self.randomAngle(availableAngles) : opt.angleStep;
 
+            if ( self.$cover.length === 0 && self.items.length > 0 ) {
+                self.$cover = $('<div/>', {'class': 'fg-pile-cover'}).append(
+                    $('<div/>', {'class': 'fg-pile-cover-content'}).append(
+                        $('<span/>', {'class': 'fg-pile-cover-title', text: self.opt.title}),
+                        $('<span/>', {'class': 'fg-pile-cover-count', text: self.items.length})
+                    )
+                );
+                self.items[0].$el.addClass('fg-has-cover').append(self.$cover);
+            }
             self.$cover.on('click.foogallery', {self: self}, self.onCoverClick);
             self.items.forEach(function(item, i){
                 item.init();
                 if (i > 3) return; // we only care about the first 4 items after init
-
                 if (i === 0){
-                    item.$el.addClass('fg-has-cover').append(self.$cover);
                     item.load();
                 } else {
                     if (i % 2 === 0){
@@ -80,9 +82,14 @@
             }
         },
         layout: function(){
-            var self = this,
-                info = self.album.getLayoutInfo(),
-                rowWidth = 0, rowCount = 1,
+            const self = this,
+                info = self.album.info;
+
+            if ( !self.isExpanded ) {
+                return self.layoutCollapsed();
+            }
+
+            let rowWidth = 0, rowCount = 1,
                 isNew = false, width = 0;
 
             self.items.forEach(function(item){
@@ -91,6 +98,7 @@
                     rowWidth = info.halfGutter;
                     rowCount++;
                     isNew = true;
+                    console.log("A");
                 }
                 var left = rowWidth;
                 rowWidth += info.itemOuterWidth + info.halfGutter;
@@ -98,6 +106,7 @@
                     left = info.halfGutter;
                     rowWidth = info.blockWidth;
                     rowCount++;
+                    console.log("B");
                 }
                 var top = (info.blockHeight * (rowCount - 1)) + info.halfGutter;
                 isNew = false;
@@ -112,27 +121,32 @@
             };
         },
 
-        expand: function(){
-            var self = this, size;
-            self.$el.removeClass('fg-collapsed').addClass('fg-expanded');
-            size = self.layout();
-            self.setPosition(0, 0, size.width, size.height);
-            self.isExpanded = true;
-            return size;
-        },
-        collapse: function(){
-            var self = this,
-                info = self.album.getLayoutInfo();
-            self.$el.removeClass('fg-expanded').addClass('fg-collapsed');
+        layoutCollapsed: function(){
+            const self = this,
+                info = self.album.info;
             self.items.forEach(function(item){
                 item.setPosition(info.halfGutter, info.halfGutter, info.itemOuterWidth, info.itemOuterHeight);
             });
-            var size = {
+            return {
                 width: info.blockWidth,
                 height: info.blockHeight
             };
+        },
+
+        expand: function(){
+            var self = this, size;
+            self.$el.removeClass('fg-collapsed').addClass('fg-expanded');
+            self.isExpanded = true;
+            size = self.layout();
             self.setPosition(0, 0, size.width, size.height);
+            return size;
+        },
+        collapse: function(){
+            var self = this, size;
+            self.$el.removeClass('fg-expanded').addClass('fg-collapsed');
             self.isExpanded = false;
+            size = self.layout();
+            self.setPosition(0, 0, size.width, size.height);
             return size;
         },
         show: function(){

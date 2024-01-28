@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>50 Html Items + Lazy Loading</title>
+    <link href="../assets/theme.css" rel="stylesheet"/>
+    <link href="../assets/css/foogallery.min.css" rel="stylesheet"/>
+    <style>
+        main img {
+            width: auto;
+        }
+    </style>
+    <script src="../assets/jquery.min.js" defer></script>
+    <script src="../assets/theme.js" defer></script>
+    <script src="../assets/js/foogallery.js" defer></script>
+    <script src="../../wc_testing.js" defer></script>
+</head>
+<body class="dark">
+<header>
+    <ul>
+        <li><a href="../index.html">Templates</a></li>
+        <li><h1>Stack Album</h1></li>
+    </ul>
+    <button title="PageSpeed Insights"></button>
+</header>
+<main>
+    <div id="foogallery-album-503" class="foogallery-container foogallery-stack-album"
+         data-foogallery="{&quot;itemWidth&quot;:150,&quot;itemHeight&quot;:150,&quot;gutter&quot;:50,&quot;angleStep&quot;:1,&quot;randomAngle&quot;:false}">
+        <div class="fg-header">
+            <h2 class="fg-header-title">My Albums</h2>
+            <span class="fg-header-back">&larr;</span>
+            <h3 class="fg-header-active"></h3>
+        </div>
+        <div class="fg-piles">
+            <ul class="fg-pile" data-title="Album 1">
+                <li class="fg-pile-item">
+                    <a class="fg-pile-item-thumb"
+                       href="https://fakeimg.pl/1920x1080/75bbce/000000/?font_size&#x3D;24&amp;text&#x3D;i1+@+1920×1080"
+                       data-type="image">
+                        <img class="skip-lazy fg-pile-item-image"
+                             src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22200%22%20viewBox%3D%220%200%20400%20200%22%3E%3C%2Fsvg%3E"
+                             data-src-fg="https://fakeimg.pl/150x150/75bbce/000000/?font_size=24&text=i1+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x300/75bbce/000000/?font_size=24&text=i1+@+2x 2x,https://fakeimg.pl/450x450/75bbce/000000/?font_size=24&text=i1+@+3x 3x"
+                             width="150" height="150"
+                             loading="eager"
+                             title="Test Item 1"
+                             alt="Short description for index 0.">
+                        <span class="fg-pile-item-caption">
+                            <span class="fg-pile-item-title">Test Item 1</span>
+                            <span class="fg-pile-item-desc">Short description for index 0.</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="fg-pile-item">
+                    <a class="fg-pile-item-thumb"
+                       href="https://fakeimg.pl/1920x1080/f954f4/000000/?font_size&#x3D;24&amp;text&#x3D;i2+@+1920×1080"
+                       data-type="image">
+                        <img class="skip-lazy fg-pile-item-image"
+                             src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22200%22%20viewBox%3D%220%200%20400%20200%22%3E%3C%2Fsvg%3E"
+                             data-src-fg="https://fakeimg.pl/150x150/f954f4/000000/?font_size=24&text=i2+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x300/f954f4/000000/?font_size=24&text=i2+@+2x 2x,https://fakeimg.pl/450x450/f954f4/000000/?font_size=24&text=i2+@+3x 3x"
+                             width="150" height="150"
+                             loading="eager"
+                             title="Test Item 2"
+                             alt="Short description for index 1.">
+                        <span class="fg-pile-item-caption">
+                            <span class="fg-pile-item-title">Test Item 2</span>
+                            <span class="fg-pile-item-desc">Short description for index 1.</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="fg-pile-item">
+                    <a class="fg-pile-item-thumb"
+                       href="https://fakeimg.pl/1920x1080/2d67b7/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i3+@+1920×1080"
+                       data-type="image">
+                        <img class="skip-lazy fg-pile-item-image"
+                             src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22200%22%20viewBox%3D%220%200%20400%20200%22%3E%3C%2Fsvg%3E"
+                             data-src-fg="https://fakeimg.pl/150x150/2d67b7/FFFFFF/?font_size=24&text=i3+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x300/2d67b7/FFFFFF/?font_size=24&text=i3+@+2x 2x,https://fakeimg.pl/450x450/2d67b7/FFFFFF/?font_size=24&text=i3+@+3x 3x"
+                             width="150" height="150"
+                             loading="eager"
+                             title="Test Item 3"
+                             alt="Short description for index 2.">
+                        <span class="fg-pile-item-caption">
+                            <span class="fg-pile-item-title">Test Item 3</span>
+                            <span class="fg-pile-item-desc">Short description for index 2.</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="fg-pile" data-title="Album 2">
+                <li class="fg-pile-item">
+                    <a class="fg-pile-item-thumb"
+                       href="https://fakeimg.pl/1920x1080/75bbce/000000/?font_size&#x3D;24&amp;text&#x3D;i1+@+1920×1080"
+                       data-type="image">
+                        <img class="skip-lazy fg-pile-item-image"
+                             src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22200%22%20viewBox%3D%220%200%20400%20200%22%3E%3C%2Fsvg%3E"
+                             data-src-fg="https://fakeimg.pl/150x150/75bbce/000000/?font_size=24&text=i1+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x300/75bbce/000000/?font_size=24&text=i1+@+2x 2x,https://fakeimg.pl/450x450/75bbce/000000/?font_size=24&text=i1+@+3x 3x"
+                             width="150" height="150"
+                             loading="eager"
+                             title="Test Item 1"
+                             alt="Short description for index 0.">
+                        <span class="fg-pile-item-caption">
+                            <span class="fg-pile-item-title">Test Item 1</span>
+                            <span class="fg-pile-item-desc">Short description for index 0.</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="fg-pile-item">
+                    <a class="fg-pile-item-thumb"
+                       href="https://fakeimg.pl/1920x1080/f954f4/000000/?font_size&#x3D;24&amp;text&#x3D;i2+@+1920×1080"
+                       data-type="image">
+                        <img class="skip-lazy fg-pile-item-image"
+                             src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22200%22%20viewBox%3D%220%200%20400%20200%22%3E%3C%2Fsvg%3E"
+                             data-src-fg="https://fakeimg.pl/150x150/f954f4/000000/?font_size=24&text=i2+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x300/f954f4/000000/?font_size=24&text=i2+@+2x 2x,https://fakeimg.pl/450x450/f954f4/000000/?font_size=24&text=i2+@+3x 3x"
+                             width="150" height="150"
+                             loading="eager"
+                             title="Test Item 2"
+                             alt="Short description for index 1.">
+                        <span class="fg-pile-item-caption">
+                            <span class="fg-pile-item-title">Test Item 2</span>
+                            <span class="fg-pile-item-desc">Short description for index 1.</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="fg-pile-item">
+                    <a class="fg-pile-item-thumb"
+                       href="https://fakeimg.pl/1920x1080/2d67b7/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i3+@+1920×1080"
+                       data-type="image">
+                        <img class="skip-lazy fg-pile-item-image"
+                             src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22200%22%20viewBox%3D%220%200%20400%20200%22%3E%3C%2Fsvg%3E"
+                             data-src-fg="https://fakeimg.pl/150x150/2d67b7/FFFFFF/?font_size=24&text=i3+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x300/2d67b7/FFFFFF/?font_size=24&text=i3+@+2x 2x,https://fakeimg.pl/450x450/2d67b7/FFFFFF/?font_size=24&text=i3+@+3x 3x"
+                             width="150" height="150"
+                             loading="eager"
+                             title="Test Item 3"
+                             alt="Short description for index 2.">
+                        <span class="fg-pile-item-caption">
+                            <span class="fg-pile-item-title">Test Item 3</span>
+                            <span class="fg-pile-item-desc">Short description for index 2.</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="fg-pile" data-title="Album 3">
+                <li class="fg-pile-item">
+                    <a class="fg-pile-item-thumb"
+                       href="https://fakeimg.pl/1920x1080/75bbce/000000/?font_size&#x3D;24&amp;text&#x3D;i1+@+1920×1080"
+                       data-type="image">
+                        <img class="skip-lazy fg-pile-item-image"
+                             src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22200%22%20viewBox%3D%220%200%20400%20200%22%3E%3C%2Fsvg%3E"
+                             data-src-fg="https://fakeimg.pl/150x150/75bbce/000000/?font_size=24&text=i1+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x300/75bbce/000000/?font_size=24&text=i1+@+2x 2x,https://fakeimg.pl/450x450/75bbce/000000/?font_size=24&text=i1+@+3x 3x"
+                             width="150" height="150"
+                             loading="eager"
+                             title="Test Item 1"
+                             alt="Short description for index 0.">
+                        <span class="fg-pile-item-caption">
+                            <span class="fg-pile-item-title">Test Item 1</span>
+                            <span class="fg-pile-item-desc">Short description for index 0.</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="fg-pile-item">
+                    <a class="fg-pile-item-thumb"
+                       href="https://fakeimg.pl/1920x1080/f954f4/000000/?font_size&#x3D;24&amp;text&#x3D;i2+@+1920×1080"
+                       data-type="image">
+                        <img class="skip-lazy fg-pile-item-image"
+                             src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22200%22%20viewBox%3D%220%200%20400%20200%22%3E%3C%2Fsvg%3E"
+                             data-src-fg="https://fakeimg.pl/150x150/f954f4/000000/?font_size=24&text=i2+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x300/f954f4/000000/?font_size=24&text=i2+@+2x 2x,https://fakeimg.pl/450x450/f954f4/000000/?font_size=24&text=i2+@+3x 3x"
+                             width="150" height="150"
+                             loading="eager"
+                             title="Test Item 2"
+                             alt="Short description for index 1.">
+                        <span class="fg-pile-item-caption">
+                            <span class="fg-pile-item-title">Test Item 2</span>
+                            <span class="fg-pile-item-desc">Short description for index 1.</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="fg-pile-item">
+                    <a class="fg-pile-item-thumb"
+                       href="https://fakeimg.pl/1920x1080/2d67b7/FFFFFF/?font_size&#x3D;24&amp;text&#x3D;i3+@+1920×1080"
+                       data-type="image">
+                        <img class="skip-lazy fg-pile-item-image"
+                             src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22400%22%20height%3D%22200%22%20viewBox%3D%220%200%20400%20200%22%3E%3C%2Fsvg%3E"
+                             data-src-fg="https://fakeimg.pl/150x150/2d67b7/FFFFFF/?font_size=24&text=i3+@+1x"
+                             data-srcset-fg="https://fakeimg.pl/300x300/2d67b7/FFFFFF/?font_size=24&text=i3+@+2x 2x,https://fakeimg.pl/450x450/2d67b7/FFFFFF/?font_size=24&text=i3+@+3x 3x"
+                             width="150" height="150"
+                             loading="eager"
+                             title="Test Item 3"
+                             alt="Short description for index 2.">
+                        <span class="fg-pile-item-caption">
+                            <span class="fg-pile-item-title">Test Item 3</span>
+                            <span class="fg-pile-item-desc">Short description for index 2.</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+</body>
+</html>
