@@ -13,16 +13,25 @@
                 return new _.StackAlbum.Pile(self, el, { index: i });
             }).get();
             self.ignoreResize = false;
-            self.robserver = new ResizeObserver(function () {
-                if (!self.ignoreResize && self.$el.is(":visible")) self.layout(true);
+            self.info = self.getLayoutInfo();
+            self.robserver = new ResizeObserver(function (e) {
+                if (!self.ignoreResize && self.$el.is(":visible")){
+                    const width = self.$el.width();
+                    if ( self.info.maxWidth !== width ) {
+                        self.info = self.getLayoutInfo();
+                        self.layout(true);
+                    }
+                }
             });
         },
         init: function(){
             var self = this;
+            self.info = self.getLayoutInfo();
             self.piles.forEach(function(pile){
                 pile.init();
             });
             self.$back.on('click.foogallery', {self: self}, self.onBackClick);
+            self.layout(true);
             self.robserver.observe(self.el);
         },
         destroy: function(){
@@ -33,21 +42,52 @@
                 pile.destroy();
             });
         },
+        // getLayoutInfo: function(){
+        //     var self = this,
+        //         space = self.opt.gutter + (self.opt.border*2);
+        //     return {
+        //         maxWidth: self.$el.width(),
+        //         space: space,
+        //         halfSpace: space/2,
+        //         itemWidth: self.opt.itemWidth,
+        //         itemHeight: self.opt.itemHeight,
+        //         itemOuterWidth: self.opt.itemWidth + (self.opt.border*2),
+        //         itemOuterHeight: self.opt.itemHeight + (self.opt.border*2),
+        //         blockWidth: self.opt.itemWidth + space,
+        //         blockHeight: self.opt.itemHeight + space,
+        //         border: self.opt.border,
+        //         doubleBorder: self.opt.border*2,
+        //         gutter: self.opt.gutter,
+        //         halfGutter: self.opt.gutter/2
+        //     };
+        // },
         getLayoutInfo: function(){
-            var self = this,
-                space = self.opt.gutter + (self.opt.border*2);
+            const self = this,
+                maxWidth = self.$el.width(),
+                doubleBorder = self.opt.border * 2,
+                space = self.opt.gutter + doubleBorder,
+                maxWidthInner = maxWidth - space;
+
+            let ratio = 1;
+            if ( self.opt.itemWidth > maxWidthInner ) {
+                ratio = maxWidthInner / self.opt.itemWidth;
+            }
+
+            const itemWidth = self.opt.itemWidth * ratio,
+                itemHeight = self.opt.itemHeight * ratio;
+
             return {
-                maxWidth: self.$el.width(),
+                maxWidth: maxWidth,
                 space: space,
                 halfSpace: space/2,
-                itemWidth: self.opt.itemWidth,
-                itemHeight: self.opt.itemHeight,
-                itemOuterWidth: self.opt.itemWidth + (self.opt.border*2),
-                itemOuterHeight: self.opt.itemHeight + (self.opt.border*2),
-                blockWidth: self.opt.itemWidth + space,
-                blockHeight: self.opt.itemHeight + space,
+                itemWidth: itemWidth,
+                itemHeight: itemHeight,
+                itemOuterWidth: itemWidth + doubleBorder,
+                itemOuterHeight: itemHeight + doubleBorder,
+                blockWidth: itemWidth + space,
+                blockHeight: itemHeight + space,
                 border: self.opt.border,
-                doubleBorder: self.opt.border*2,
+                doubleBorder: doubleBorder,
                 gutter: self.opt.gutter,
                 halfGutter: self.opt.gutter/2
             };
@@ -67,33 +107,35 @@
                 self.$piles.css({width: size.width + 'px', height: size.height + 'px'});
             }
             if (immediate){
-                self.$el.removeClass('fg-disable-transitions');
+                setTimeout(function(){
+                    self.$el.removeClass('fg-disable-transitions');
+                }, 0);
             }
         },
         layoutPiles: function(callback){
             var self = this,
-                info = self.getLayoutInfo(),
                 rowWidth = 0, rowCount = 1, width = 0;
 
             callback = _is.fn(callback) ? callback : function(){};
 
             self.piles.forEach(function(pile){
                 var left = rowWidth;
-                rowWidth += info.blockWidth;
-                if (rowWidth > info.maxWidth && left > 0){
+                rowWidth += self.info.blockWidth;
+                if (rowWidth > self.info.maxWidth && left > 0){
                     left = 0;
-                    rowWidth = info.blockWidth;
+                    rowWidth = self.info.blockWidth;
                     rowCount++;
                 }
-                var top = info.blockHeight * (rowCount - 1);
-                callback(pile, top, left, info.blockWidth, info.blockHeight);
-                pile.setPosition(top, left, info.blockWidth, info.blockHeight);
+                var top = self.info.blockHeight * (rowCount - 1);
+                callback(pile, self.info);
+                pile.layoutCollapsed();
+                pile.setPosition(top, left, self.info.blockWidth, self.info.blockHeight);
                 // keep track of the max calculated width
                 if (rowWidth > width) width = rowWidth;
             });
             return {
                 width: width,
-                height: info.blockHeight * rowCount
+                height: self.info.blockHeight * rowCount
             };
         },
         setActive: function(pile){

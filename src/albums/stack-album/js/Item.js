@@ -3,6 +3,7 @@
     _.StackAlbum.Item = _utils.Class.extend({
         construct: function(pile, element, options){
             var self = this;
+            self.pile = pile;
             self.$el = _is.jq(element) ? element : $(element);
             self.opt = _obj.extend({}, _.StackAlbum.Item.defaults, options, self.$el.data());
             self.$thumb = self.$el.find('.fg-pile-item-thumb');
@@ -12,10 +13,13 @@
             self._loading = null;
         },
         init: function(){
-
+            const self = this,
+                info = self.pile.album.info;
+            self.$el.css({width: info.itemOuterWidth + 'px', height: info.itemOuterHeight + 'px'});
         },
         destroy: function(){
-
+            const self = this;
+            self.$el.css({top: '', left: '', width: '', height: '', transform: ''});
         },
         setAngle: function(angle){
             var self = this;
