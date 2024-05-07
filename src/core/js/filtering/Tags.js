@@ -1,6 +1,13 @@
 (function($, _, _utils, _is){
 
-	_.Tags = _.Filtering.extend({});
+	_.Tags = _.Filtering.extend({
+		construct: function( template ) {
+			this._super( template );
+			if ( ( this.hideTopTags = this.opt.search && this.position === "bottom" ) ) {
+				this.position = "both";
+			}
+		}
+	});
 
 	_.TagsControl = _.FilteringControl.extend({
 		construct: function(template, parent, position){
@@ -26,7 +33,8 @@
 						self.$container.addClass("fg-search-" + self.filter.opt.searchPosition);
 					}
 				}
-				if (self.filter.tags.length > 0){
+				var renderTags = self.position === "bottom" || (self.position === "top" && !self.filter.hideTopTags )
+				if (renderTags && self.filter.tags.length > 0){
 					for (var i = 0, l = self.filter.tags.length; i < l; i++) {
 						self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
 					}
