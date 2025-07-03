@@ -32,8 +32,8 @@
                 desc = _is.string(data.lightboxDescription);
                 if (title || desc){
                     supplied = true;
-                    self.title = title ? data.lightboxTitle : "";
-                    self.description = desc ? data.lightboxDescription : "";
+                    self.title = _.safeParse( title ? data.lightboxTitle : "" );
+                    self.description = _.safeParse( desc ? data.lightboxDescription : "" );
                 }
             } else {
                 var attr = item.attr.anchor;
@@ -41,8 +41,8 @@
                 desc = _is.string(attr["data-lightbox-description"]);
                 if (title || desc){
                     supplied = true;
-                    self.title = title ? attr["data-lightbox-title"] : "";
-                    self.description = desc ? attr["data-lightbox-description"] : "";
+                    self.title = _.safeParse( title ? attr["data-lightbox-title"] : "" );
+                    self.description = _.safeParse( desc ? attr["data-lightbox-description"] : "" );
                 }
             }
             if (!supplied){

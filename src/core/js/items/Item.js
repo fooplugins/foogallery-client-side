@@ -587,11 +587,11 @@
 			self.srcset = $img.attr(self.tmpl.opt.srcset) || self.srcset;
 			self.width = parseInt($img.attr("width")) || self.width;
 			self.height = parseInt($img.attr("height")) || self.height;
-			self.title = $img.attr("title") || self.title;
-			self.alt = $img.attr("alt") || self.alt;
+			self.title = _.safeParse( $img.attr("title") || self.title );
+			self.alt = _.safeParse( $img.attr("alt") || self.alt );
 
-			self.caption = data.title || data.captionTitle || self.caption;
-			self.description = data.description || data.captionDesc || self.description;
+			self.caption = _.safeParse( data.title || data.captionTitle || self.caption );
+			self.description = _.safeParse( data.description || data.captionDesc || self.description );
 			self.noLightbox = self.$anchor.hasClass(cls.noLightbox);
 			self.panelHide = self.$anchor.hasClass(cls.panelHide);
 			if (_is.exif(data.exif)){
