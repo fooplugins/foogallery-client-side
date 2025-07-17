@@ -1134,7 +1134,18 @@ html.fg-panel-no-scroll body {
     font-weight: 600;
     margin: 10px 0;
 }
-.fg-media-product-body p {
+.fg-media-product-body > label {
+    display: block;
+    font-size: inherit;
+    font-weight: 400;
+    margin: 0 0 10px;
+    border-style: solid;
+    border-width: 0;
+    border-bottom-width: 1px;
+    border-color: inherit;
+    padding: 0 0 10px 0;
+}
+.fg-media-product-body > p {
     font-size: inherit;
     font-weight: normal;
     margin: 0 0 10px;
