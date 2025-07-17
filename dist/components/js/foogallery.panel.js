@@ -2467,6 +2467,7 @@
                     title: "Product Information",
                     addToCart: "Add to Cart",
                     viewProduct: "View Product",
+                    goToCheckout: "Go to Checkout",
                     success: "Successfully added to cart.",
                     error: "Something went wrong adding to cart."
                 }
