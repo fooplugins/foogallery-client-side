@@ -46,9 +46,9 @@
             self.$inner = $("<div/>").addClass(self.cls.inner).appendTo(self.$el);
             self.$header = $("<div/>").addClass(self.cls.header).html(self.il8n.title).appendTo(self.$inner);
             self.$body = $("<div/>").addClass(self.cls.body).appendTo(self.$inner);
-            self.$addToCart = $("<button/>").addClass(self.cls.button).html(self.il8n.addToCart).on("click", {self: self}, self.onAddToCartClick);
-            self.$viewProduct = $("<a/>").addClass(self.cls.button).html(self.il8n.viewProduct);
-            self.$goToCheckout = $("<a/>").addClass(self.cls.button).html(self.il8n.goToCheckout);
+            self.$addToCart = $("<button/>").addClass(self.cls.button).addClass(self.cls.primary).html(self.il8n.addToCart).on("click", {self: self}, self.onAddToCartClick);
+            self.$viewProduct = $("<a/>").addClass(self.cls.button).addClass(self.cls.secondary).html(self.il8n.viewProduct);
+            self.$goToCheckout = $("<a/>").addClass(self.cls.button).addClass(self.cls.secondary).html(self.il8n.goToCheckout);
             self.$footer = $("<div/>").addClass(self.cls.footer).append(self.$addToCart).append(self.$viewProduct).append(self.$goToCheckout).appendTo(self.$inner);
             return true;
         },
