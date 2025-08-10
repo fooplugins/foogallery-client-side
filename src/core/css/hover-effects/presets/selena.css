@@ -8,7 +8,7 @@
 	background-color: #333;
 }
 .foogallery.fg-preset.fg-selena .fg-item-inner:hover .fg-thumb,
-.foogallery.fg-preset.fg-selena .fg-item-inner .fg-thumb:focus {
+.foogallery.fg-preset.fg-selena .fg-item-inner:focus-within .fg-thumb {
 	-webkit-transform: scale(0.92);
 	transform: scale(0.92);
 }
@@ -27,16 +27,17 @@
 }
 
 .foogallery.fg-preset.fg-selena .fg-caption-inner {
-	border: solid 10px transparent;
+	gap: 10px;
+	padding: calc(4% + 10px);
+	clip-path: content-box;
 }
 
 .foogallery.fg-preset.fg-selena .fg-caption-title {
 	position: relative;
-	overflow: hidden;
-	padding: 0.2em 0 0 0;
+	padding: 0;
 	transition: transform 0.35s;
-	-webkit-transform: translateY(50%);
-	transform: translateY(50%);
+	overflow: visible;
+	transform: translateY(1em);
 }
 .foogallery.fg-preset.fg-selena .fg-item-inner:hover .fg-caption-title,
 .foogallery.fg-preset.fg-selena .fg-item-inner:focus-within .fg-caption-title {
@@ -60,11 +61,14 @@
 
 /* Preset Sizes */
 .foogallery.fg-preset.fg-preset-small.fg-selena .fg-caption-inner {
-	border: solid 10px transparent;
+	gap: 10px;
+	padding: calc(4% + 10px);
 }
 .foogallery.fg-preset.fg-preset-medium.fg-selena .fg-caption-inner {
-	border: solid 15px transparent;
+	gap: 15px;
+	padding: calc(4% + 15px);
 }
 .foogallery.fg-preset.fg-preset-large.fg-selena .fg-caption-inner {
-	border: solid 20px transparent;
+	gap: 20px;
+	padding: calc(4% + 20px);
 }

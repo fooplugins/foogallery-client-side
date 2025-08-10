@@ -21,38 +21,38 @@
 }
 
 .foogallery.fg-preset.fg-sarah .fg-caption-inner {
-	border: solid 10px transparent;
+	gap: 10px;
+	padding: 10px;
+	clip-path: content-box;
+}
+.foogallery.fg-preset.fg-sarah .fg-caption-inner:after {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 3px;
+	background: #fff;
+	transition: transform 0.35s;
+	transform: translateX(-101%);
+	order: 2;
+}
+.foogallery.fg-preset.fg-sarah .fg-item-inner:hover .fg-caption-inner:after,
+.foogallery.fg-preset.fg-sarah .fg-item-inner:focus-within .fg-caption-inner:after {
+	transform: translateX(0);
 }
 
 .foogallery.fg-preset.fg-sarah .fg-caption-title {
 	position: relative;
-	overflow: hidden;
-	padding: 0.5em 0;
-}
-.foogallery.fg-preset.fg-sarah .fg-caption-title:after {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 3px;
-	background: #fff;
-	content: '';
-	transition: transform 0.35s;
-	-webkit-transform: translateX(-100%);
-	transform: translateX(-100%);
-}
-.foogallery.fg-preset.fg-sarah .fg-item-inner:hover .fg-caption-title:after,
-.foogallery.fg-preset.fg-sarah .fg-item-inner:focus-within .fg-caption-title:after {
-	-webkit-transform: translateX(0);
-	transform: translateX(0);
+	overflow: visible;
+	order: 1;
 }
 
 .foogallery.fg-preset.fg-sarah .fg-caption-desc {
-	padding: 1em 0;
+	padding: 0;
 	opacity: 0;
 	transition: opacity 0.35s, transform 0.35s;
 	-webkit-transform: translateX(100%);
 	transform: translateX(100%);
+	order: 3;
 }
 .foogallery.fg-preset.fg-sarah .fg-item-inner:hover .fg-caption-desc,
 .foogallery.fg-preset.fg-sarah .fg-item-inner:focus-within .fg-caption-desc {
@@ -63,11 +63,16 @@
 
 /* Preset Sizes */
 .foogallery.fg-preset.fg-preset-small.fg-sarah .fg-caption-inner {
-	border: solid 10px transparent;
+	gap: 10px;
+	padding: 10px;
 }
+
 .foogallery.fg-preset.fg-preset-medium.fg-sarah .fg-caption-inner {
-	border: solid 15px transparent;
+	gap: 15px;
+	padding: 15px;
 }
+
 .foogallery.fg-preset.fg-preset-large.fg-sarah .fg-caption-inner {
-	border: solid 20px transparent;
+	gap: 20px;
+	padding: 20px;
 }

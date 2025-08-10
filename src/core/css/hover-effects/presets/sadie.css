@@ -7,7 +7,7 @@
 }
 .foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-image,
 .foogallery.fg-preset.fg-sadie .fg-item-inner:focus-within .fg-image {
-	opacity: 0.8;
+	opacity: 0.4;
 }
 
 .foogallery.fg-preset.fg-sadie .fg-caption:before {
@@ -31,37 +31,54 @@
 	transform: translateY(0);
 }
 
+.foogallery.fg-preset.fg-sadie .fg-caption-inner {
+	padding: 30px 10px 10px;
+	transform: translateY(50%) translateY(-30px);
+	overflow: visible;
+	transition: transform .35s;
+	gap: 20px;
+}
+.foogallery.fg-preset.fg-sadie .fg-item-inner:focus-within .fg-caption-inner,
+.foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-inner {
+	transform: translateY(0px);
+}
+
 .foogallery.fg-preset.fg-sadie .fg-caption-title {
-	position: absolute;
-	top: 50%;
-	left: 0;
+	position: relative;
 	width: 100%;
 	color: #fff;
 	transition: transform 0.35s;
-	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
 .foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-title,
 .foogallery.fg-preset.fg-sadie .fg-item-inner:focus-within .fg-caption-title {
-	-webkit-transform: translateY(-50%) translateY(-40px);
-	transform: translateY(-50%) translateY(-40px);
+	transform: translateY(0px);
 }
 
 .foogallery.fg-preset.fg-sadie .fg-caption-desc {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	padding: 0.5em;
+	position: relative;
+	padding: 0;
 	width: 100%;
-	max-height: calc(50% + 25px);
 	opacity: 0;
-	-webkit-transform: translateY(-10px);
-	transform: translateY(-10px);
+	transform: translateY(-100%);
 	transition: opacity 0.35s, transform 0.35s;
 }
 .foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-desc,
 .foogallery.fg-preset.fg-sadie .fg-item-inner:focus-within .fg-caption-desc {
 	opacity: 1;
-	-webkit-transform: translateY(0);
 	transform: translateY(0);
+}
+
+
+/* Preset Sizes */
+.foogallery.fg-preset.fg-preset-small.fg-sadie .fg-caption-inner {
+	padding: 30px 10px 10px;
+}
+
+.foogallery.fg-preset.fg-preset-medium.fg-sadie .fg-caption-inner {
+	padding: 30px 15px 15px;
+}
+
+.foogallery.fg-preset.fg-preset-large.fg-sadie .fg-caption-inner {
+	padding: 30px 20px 20px;
 }
