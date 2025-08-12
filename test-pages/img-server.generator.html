@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IMGServer Generator</title>
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --foreground: #FFF;
+            --background: #333;
+            --background-darker: #222;
+            --background-lighter: #444;
+            --highlight: #004d8b;
+        }
+
+        body.dark {
+            color: var(--foreground);
+            background-color: var(--background);
+        }
+
+        .dark .panel {
+            background-color: var(--background-lighter);
+        }
+
+        .dark .panel-primary {
+            border-color: var(--highlight);
+        }
+
+        .dark .panel-primary > .panel-heading {
+            color: var(--foreground);
+            background-color: var(--highlight);
+            border-color: var(--highlight);
+        }
+
+        .dark .panel-default {
+            border-color: var(--background-darker);
+        }
+
+        .dark .panel-default > .panel-heading {
+            color: var(--foreground);
+            background-color: var(--background-darker);
+            border-color: var(--background-darker);
+        }
+
+        .form-control {
+            color: var(--foreground);
+            background-color: var(--background-darker);
+            border-color: var(--background-darker);
+        }
+
+        .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+            background-color: var(--background-darker);
+        }
+    </style>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        /**
+         * @template {any} T
+         * @param {T} value
+         * @returns {T is number}
+         */
+        const isNumber = value => '[object Number]' === Object.prototype.toString.call( value ) && !isNaN( value );
+
+        /**
+         * @template {number|Array|Date} T
+         * @param {T} min
+         * @param {T} [max]
+         * @returns {T|undefined}
+         */
+        const random = ( min, max ) => {
+            if ( Array.isArray( min ) ) {
+                max = min.length > 0 ? min.length - 1 : 0;
+                return min[ Math.floor( Math.random() * ( max + 1 ) ) ];
+            }
+            if ( min instanceof Date ) {
+                max = max instanceof Date ? max : new Date();
+                const date = new Date( +min + Math.random() * ( max - min ) ),
+                    hour = min.getHours() + Math.random() * ( max.getHours() - min.getHours() ) | 0;
+                date.setHours( hour );
+                return date;
+            }
+            if ( isNumber( min ) && isNumber( max ) ) {
+                return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+            }
+        };
+
+        class LoremIpsum {
+
+            static get defaults() {
+                return {
+                    sentenceWordCount: [ 3, 7 ],
+                    sentenceCommaChance: .45,
+                    paragraphSentenceCount: [ 15, 30 ]
+                };
+            }
+
+            /**
+             * @type {Readonly<string[]>}
+             */
+            static WORDS = Object.freeze( [ "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "maecenas", "id", "luctus", "augue", "aliquam", "vitae", "eros", "odio", "fusce", "scelerisque", "sapien", "quis", "auctor", "eu", "eleifend", "dui", "fermentum", "cras", "efficitur", "finibus", "libero", "a", "placerat", "risus", "ornare", "molestie", "nulla", "facilisi", "etiam", "volutpat", "massa", "dictum", "at", "eget", "tincidunt", "arcu", "mollis", "cursus", "nunc", "diam", "euismod", "neque", "ut", "consequat", "ante", "est", "integer", "ligula", "dignissim", "non", "suscipit", "sed", "magna", "aenean", "in", "lobortis", "nisl", "condimentum", "mauris", "hendrerit", "tellus", "vulputate", "semper", "hac", "habitasse", "platea", "dictumst", "rhoncus", "malesuada", "duis", "iaculis", "mi", "varius", "turpis", "ex", "quam", "nam", "velit", "gravida", "ultricies", "donec", "nibh", "pulvinar", "facilisis", "interdum", "sem", "ullamcorper", "nec", "vestibulum", "erat", "leo", "viverra", "felis", "vel", "et", "nisi", "maximus", "orci", "natoque", "penatibus", "magnis", "dis", "parturient", "montes", "nascetur", "ridiculus", "mus", "mattis", "vehicula", "lacus", "pellentesque", "ac", "sagittis", "justo", "congue", "porttitor", "venenatis", "porta", "sollicitudin", "enim", "imperdiet", "urna", "tortor", "pretium", "metus", "laoreet", "convallis", "commodo", "morbi", "sodales", "accumsan", "bibendum", "fames", "primis", "faucibus", "elementum", "praesent", "ultrices", "rutrum", "nullam", "vivamus", "posuere", "curabitur", "tempor", "suspendisse", "lacinia", "feugiat", "tempus", "pharetra", "fringilla", "aliquet", "blandit", "class", "aptent", "taciti", "sociosqu", "ad", "litora", "torquent", "per", "conubia", "nostra", "inceptos", "himenaeos", "proin", "dapibus", "habitant", "tristique", "senectus", "netus", "egestas", "purus", "quisque", "lectus", "phasellus", "cubilia", "curae" ] );
+
+            static getWords( count = [ 3, 7 ] ) {
+                if ( Array.isArray( count ) && count.length === 2 ) {
+                    count = random( count[ 0 ], count[ 1 ] );
+                }
+                const start = random( 0, this.WORDS.length - count );
+                return this.WORDS.slice( start, start + count );
+            }
+
+            static getSentences( count = [ 15, 30 ], wordCount = [ 3, 7 ] ) {
+                if ( Array.isArray( count ) && count.length === 2 ) {
+                    count = random( count[ 0 ], count[ 1 ] );
+                }
+                const sentences = [];
+                for ( let i = 0; i < count; i++ ) {
+                    sentences.push( this.getWords( wordCount ) );
+                }
+                return sentences;
+            }
+
+            static getParagraphs( count = 1, commaChance = .45, sentenceCount = [ 15, 30 ], wordCount = [ 3, 7 ] ) {
+                const paragraphs = [];
+                for ( let i = 0; i < count; i++ ) {
+                    let comma = ( random( 0, 100 ) / 100 ) > commaChance, capitalize = true;
+                    const sentences = this.getSentences( sentenceCount, wordCount );
+                    const result = [];
+                    sentences.forEach( ( s, i ) => {
+                        const isLast = i === sentences.length - 1;
+                        if ( capitalize ) {
+                            let first = s.shift();
+                            first = first.slice( 0, 1 ).toLocaleUpperCase() + first.slice( 1 );
+                            s.unshift( first );
+                        }
+                        let last = s.pop();
+                        last += comma && !isLast ? ',' : '.';
+                        capitalize = !comma;
+                        s.push( last );
+                        result.push( s.join( ' ' ) );
+                        comma = ( random( 0, 100 ) / 100 ) > commaChance;
+                    } );
+                    paragraphs.push( result.join( ' ' ) );
+                }
+                return paragraphs;
+            }
+
+            static getTitle( count = [ 1, 5 ] ) {
+                const words = this.getWords( count );
+                return words.join( ' ' ).replace( /\b\S/g, t => t.toUpperCase() );
+            }
+
+            static getDescription() {
+                const paragraphs = this.getParagraphs( 1, .45, [ 1, 5 ] );
+                return paragraphs.at( 0 );
+            }
+        }
+
+        class IMGServerGenerator {
+
+            static sizes = new Map( [
+                [ 1, [ 1920, 1280 ] ],
+                [ 2, [ 1919, 1281 ] ],
+                [ 3, [ 1280, 1920 ] ],
+                [ 4, [ 1920, 1280 ] ],
+                [ 5, [ 1280, 1920 ] ],
+                [ 6, [ 1920, 1276 ] ],
+                [ 7, [ 1920, 1439 ] ],
+                [ 8, [ 1280, 1920 ] ],
+                [ 9, [ 1280, 1920 ] ],
+                [ 10, [ 1920, 1280 ] ],
+            ] );
+
+            static createItems( width, height ) {
+                const items = [];
+                for ( let i = 1; i < 11; i++ ) {
+                    let w = width, h = height;
+                    const [ fullWidth, fullHeight ] = this.sizes.get( i );
+                    if ( w === 'auto' && isNumber( h ) ) {
+                        w = Math.round( ( h / fullHeight ) * fullWidth  );
+                    }
+                    if ( h === 'auto' && isNumber( w ) ) {
+                        h = Math.round( ( w / fullWidth ) * fullHeight );
+                    }
+                    if ( isNumber( w ) && isNumber( h ) ) {
+                        items.push( this.createItem( `${ i }.jpg`, w, h ) );
+                    }
+                }
+                return items;
+            }
+
+            static createItem( id, width, height ) {
+                const title = LoremIpsum.getTitle(), description = LoremIpsum.getDescription();
+                return {
+                    placeholder: `data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22${ width }%20height=%22${ height }%22%20viewBox=%220%200%20${ width }%20${ height }%22%3E%3C/svg%3E`,
+                    href: `http://localhost:10/${ id }`,
+                    src: `http://localhost:10/${ width }x${ height }/${ id }`,
+                    srcset: `http://localhost:10/${ width * 2 }x${ height * 2 }/${ id } 2x,http://localhost:10/${ id }/${ width * 3 }x${ height * 3 }/${ id } 3x`,
+                    width: width,
+                    height: height,
+                    title: title,
+                    caption: title,
+                    alt: description,
+                    description: description,
+                    tags: this.createTags( width, height ),
+                    exif: this.createEXIF()
+                };
+            }
+
+            static createHTML( items ) {
+                return items.reduce( (accumulator, currentValue) => accumulator + this.toHTML( currentValue ), '' );
+            }
+
+            static toHTML( item, exif = true ) {
+                let html = '';
+                if ( exif ) {
+                    html += '<div class="fg-item fg-type-image fg-item-exif fg-idle">\n';
+                } else {
+                    html += '<div class="fg-item fg-type-image fg-idle">\n';
+                }
+                html += '\t<figure class="fg-item-inner">\n';
+                if ( exif ){
+                    html += '\t\t<a class="fg-thumb" href="'+item.href+'" data-title="'+item.title+'" data-description="'+item.alt+'" data-tags=\'' + JSON.stringify(item.tags) + '\' data-exif=\'' + JSON.stringify(item.exif) + '\'>\n';
+                } else {
+                    html += '\t\t<a class="fg-thumb" href="'+item.href+'" data-title="'+item.title+'" data-description="'+item.alt+'" data-tags=\'' + JSON.stringify(item.tags) + '\'>\n';
+                }
+                html += '\t\t\t<span class="fg-image-wrap">\n';
+                html += '\t\t\t\t<img class="fg-image" src="'+item.placeholder+'" data-src-fg="'+item.src+'" data-srcset-fg="'+item.srcset+'" width="'+item.width+'" height="'+item.height+'" title="'+item.title+'" alt="'+item.alt+'">\n';
+                html += '\t\t\t</span>\n';
+                html += '\t\t\t<span class="fg-image-overlay"></span>\n';
+                html += '\t\t</a>\n';
+                html += '\t\t<figcaption class="fg-caption">\n';
+                html += '\t\t\t<div class="fg-caption-inner">\n';
+                html += '\t\t\t\t<div class="fg-caption-title">'+item.caption+'</div>\n';
+                html += '\t\t\t\t<div class="fg-caption-desc">'+item.description+'</div>\n';
+                html += '\t\t\t</div>\n';
+                html += '\t\t</figcaption>\n';
+                html += '\t</figure>\n';
+                html += '\t<div class="fg-loader"></div>\n';
+                html += '</div>\n';
+
+                return html;
+            }
+
+            static TAGS = Object.freeze( [ "tag1", "tag2", "tag3", "tag4", "tag5" ] );
+
+            static createTags( width, height ) {
+                const tags = [ `${ width }x${ height }` ];
+                const count = random( 1, 5 );
+                for ( let i = 0; i < count; i++ ) {
+                    const tag = random( this.TAGS );
+                    if ( !tags.includes( tag ) ) {
+                        tags.push( tag );
+                    }
+                }
+                return tags;
+            }
+
+            static CAMERAS = [
+                "Canon 40D",
+                "Canon DIGITAL IXUS 400",
+                "Canon PowerShot S40",
+                "Fujifile FinePix6900ZOOM",
+                "Fujifilm FinePix E500",
+                "Kodak CX7530",
+                "Konica Minolta DiMAGE Z3",
+                "Nikon COOLPIX P1",
+                "Nikon D70",
+                "Olympus C8080WZ",
+                "Panasonic DMC-FZ30",
+                "Pentax K10D",
+                "Samsung Digimax i50",
+                "Sony HDR-HC3"
+            ];
+
+            static ORIENTATIONS = [
+                "Top",
+                "Bottom",
+                "Left Side",
+                "Right Side"
+            ];
+
+            static createEXIF() {
+                const aWeekAgo = new Date();
+                aWeekAgo.setDate( aWeekAgo.getDate() - 7 );
+                return {
+                    "camera": random( this.CAMERAS ),
+                    "aperture": "f/" + random( 1, 4 ) + ".0",
+                    "shutter_speed": "1/" + random( 1, 999 ) + " s",
+                    "focal_length": random( 1, 40 ) + " mm",
+                    "iso": random( 50, 100 ) + "",
+                    "created_timestamp": random( aWeekAgo ).toLocaleString(),
+                    "orientation": random( this.ORIENTATIONS )
+                };
+            }
+        }
+
+        window.IMGServer = new IMGServerGenerator();
+
+        document.addEventListener( 'DOMContentLoaded', () => {
+            const generate_button = document.getElementById( 'generate' );
+            const width_input = document.getElementById( 'width' );
+            const height_input = document.getElementById( 'height' );
+            const output = document.getElementById( 'output' );
+            const output_html = document.getElementById( 'output-html' );
+
+            generate_button.addEventListener( 'click', () => {
+                let width = parseInt( width_input.value );
+                if ( isNaN( width ) ) width = 'auto';
+                let height = parseInt( height_input.value );
+                if ( isNaN( height ) ) height = 'auto';
+                const items = IMGServerGenerator.createItems( width, height );
+                output.textContent = JSON.stringify( items, null, 2 );
+                output_html.textContent = IMGServerGenerator.createHTML( items );
+            } );
+        } );
+    </script>
+</head>
+<body class="dark">
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Options
+        </div>
+        <div class="panel-body">
+            <form id="options" class="form-horizontal">
+                <div class="form-group">
+                    <label for="width" class="col-sm-2 control-label">Width</label>
+                    <div class="col-sm-2">
+                        <input id="width" name="width" class="form-control"
+                               title="The thumbnail width." type="number" value="200"/>
+                    </div>
+                    <label for="height" class="col-sm-2 control-label">Height</label>
+                    <div class="col-sm-2">
+                        <input id="height" name="height" class="form-control"
+                               title="The thumbnail height." type="number" value="200"/>
+                    </div>
+                </div>
+                <button type="button" id="generate" class="btn btn-default pull-right">Generate</button>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Output
+        </div>
+        <div class="panel-body">
+            <textarea id="output" name="output" class="form-control"
+                      title="Once generated the JSON output will be displayed in this textarea" rows="30"
+                      readonly></textarea>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Output HTML
+        </div>
+        <div class="panel-body">
+            <textarea id="output-html" name="output" class="form-control"
+                      title="Once generated the HTML output will be displayed in this textarea" rows="30"
+                      readonly></textarea>
+        </div>
+    </div>
+</div>
+</body>
+</html>
