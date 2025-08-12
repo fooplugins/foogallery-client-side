@@ -1181,15 +1181,13 @@
 		loadIMG: function(){
 			var self = this;
 			return new $.Deferred(function(def){
-				var img = self.isPicture ? self.$image.find("img").get(0) : self.$image.get(0);
+				var img = self.getImageElement();
 				if (!img){
 					return def.reject("Unable to find img element.");
 				}
 				var ph_src = img.src, ph_srcset = img.srcset;
 				img.onload = function () {
 					img.onload = img.onerror = null;
-					img.style.removeProperty("width");
-					img.style.removeProperty("height");
 					def.resolve(img);
 				};
 				img.onerror = function () {
@@ -1227,6 +1225,14 @@
 					img.onload();
 				}
 			}).promise();
+		},
+        /**
+         * @summary Utility method for getting the current items' <img/> element.
+         * @returns {HTMLImageElement|undefined}
+         */
+		getImageElement: function(){
+			var self = this;
+			return self.isPicture ? self.$image.find("img").get(0) : self.$image.get(0);
 		},
 		/**
 		 * @summary Create an empty placeholder image using the supplied dimensions.
