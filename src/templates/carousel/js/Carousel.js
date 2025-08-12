@@ -455,7 +455,9 @@
             const maxOffset = ( self.getSize( self.elem.inner, true ).width / 2 ) + ( itemWidth / 2 );
             const layout = self.calculate( itemWidth, maxOffset );
             self.cache.set( "width", width );
-            self.cache.set( "layout", layout );
+            if ( layout?.side?.length > 0 ) {
+                self.cache.set( "layout", layout );
+            }
             return layout;
         },
         round: function( value, precision ){
@@ -487,34 +489,36 @@
                 side: []
             };
 
-            let offset = itemWidth, zIndex = result.zIndex - 1;
-            for (let i = 0; i < showPerSide; i++, zIndex--){
-                const z = self.getSequentialZFromScale( i, self.opt.scale, self.opt.perspective );
-                const width = self.scaleToZ( itemWidth, z, self.opt.perspective );
-                const diff = ( itemWidth - width ) / 2;
+            if ( itemWidth > 0 ) {
+                let offset = itemWidth, zIndex = result.zIndex - 1;
+                for (let i = 0; i < showPerSide; i++, zIndex--){
+                    const z = self.getSequentialZFromScale( i, self.opt.scale, self.opt.perspective );
+                    const width = self.scaleToZ( itemWidth, z, self.opt.perspective );
+                    const diff = ( itemWidth - width ) / 2;
 
-                offset -= diff;
+                    offset -= diff;
 
-                const gutterStep = 1;
-                const gutterValue = self.opt.gutter.unit === "%" ? itemWidth * Math.abs( gutter / 100 ) : Math.abs( gutter );
-                const gutterOffset = self.opt.gutter.unit === "%" ? self.scaleToZ( gutterValue, z, self.opt.perspective ) : gutterValue;
-                if (gutter > 0){
-                    offset += gutterOffset;
-                } else {
-                    offset -= gutterOffset;
-                }
-                if ( offset + width + diff > maxOffset ){
-                    if ( gutter - gutterStep < self.opt.gutter.min ){
-                        return self.calculate( itemWidth, maxOffset, self.opt.gutter.max, showPerSide - 1);
+                    const gutterStep = 1;
+                    const gutterValue = self.opt.gutter.unit === "%" ? itemWidth * Math.abs( gutter / 100 ) : Math.abs( gutter );
+                    const gutterOffset = self.opt.gutter.unit === "%" ? self.scaleToZ( gutterValue, z, self.opt.perspective ) : gutterValue;
+                    if (gutter > 0){
+                        offset += gutterOffset;
+                    } else {
+                        offset -= gutterOffset;
                     }
-                    return self.calculate( itemWidth, maxOffset, gutter - gutterStep, showPerSide);
+                    if ( offset + width + diff > maxOffset ){
+                        if ( gutter - gutterStep < self.opt.gutter.min ){
+                            return self.calculate( itemWidth, maxOffset, self.opt.gutter.max, showPerSide - 1);
+                        }
+                        return self.calculate( itemWidth, maxOffset, gutter - gutterStep, showPerSide);
+                    }
+
+                    const x = self.getVectorX( offset, z, self.opt.perspective );
+
+                    offset += width + diff;
+
+                    result.side.push({x: x, z: z, zIndex: zIndex });
                 }
-
-                const x = self.getVectorX( offset, z, self.opt.perspective );
-
-                offset += width + diff;
-
-                result.side.push({x: x, z: z, zIndex: zIndex });
             }
             return result;
         },
