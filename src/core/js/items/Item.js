@@ -611,6 +611,12 @@
 					self.$caption.find(sel.caption.description).html(desc);
 				}
 			}
+			if (!self.showCaptionTitle) {
+				self.$caption.find(sel.caption.title).remove();
+			}
+			if (!self.showCaptionDescription) {
+				self.$caption.find(sel.caption.description).remove();
+			}
 
 			// if the image has no src url then set the placeholder
 			var img = $img.get(0);
