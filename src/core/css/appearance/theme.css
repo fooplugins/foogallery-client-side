@@ -24,8 +24,11 @@
 }
 /* Caption & Overlay Colors */
 .foogallery .fg-caption {
-	background-color: rgba(0,0,0,0.6);
+	background-color: rgba(0,0,0,0.5);
 	color: #fff;
+}
+.foogallery .fg-caption-desc {
+	color: #d2d2d2;
 }
 .foogallery .fg-caption a {
 	color: #fff;
@@ -49,7 +52,7 @@
 }
 
 .foogallery .fg-image-overlay {
-	background-color: rgba(0,0,0,0.6);
+	background-color: rgba(0,0,0,0.5);
 	color: #fff;
 }
 .foogallery.fg-light-overlays .fg-image-overlay {
