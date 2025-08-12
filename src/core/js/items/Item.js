@@ -1213,10 +1213,10 @@
 						}
 					});
 				}
-				var size = img.getBoundingClientRect();
-				img.style.width = size.width;
-				img.style.height = size.height;
 
+				if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
+					img.crossOrigin = 'anonymous';
+				}
 				img.src = self.src;
 				if (!_is.empty(self.srcset)){
 					img.srcset = self.srcset;
