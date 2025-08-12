@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Preset Testing</title>
+    <link href="assets/theme.css" rel="stylesheet"/>
+    <link href="assets/css/foogallery.min.css" rel="stylesheet"/>
+    <style>
+        /*.foogallery.fg-preset .fg-caption {*/
+        /*    font-size: 13px;*/
+        /*    padding: 0;*/
+        /*}*/
+        /*.foogallery.fg-preset .fg-caption-title {*/
+        /*    box-sizing: border-box;*/
+        /*    word-spacing: unset;*/
+        /*    font-weight: normal;*/
+        /*}*/
+        /*.fg-preset.fg-preset-small .fg-caption-desc {*/
+        /*    font-size: 11px;*/
+        /*}*/
+        /* GOLIATH */
+        /*.foogallery.fg-preset.fg-goliath .fg-caption {*/
+
+        /*}*/
+        /*.foogallery.fg-preset.fg-goliath .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    height: 100%;*/
+        /*    top: 0;*/
+        /*    transform: translateY(40px);*/
+        /*    gap: 0;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-goliath .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-goliath .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-goliath .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    height: 100%;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-goliath .fg-caption-inner {*/
+        /*    transform: translateY(40px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-goliath .fg-caption-inner {*/
+        /*    transform: translateY(60px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-goliath .fg-caption-inner {*/
+        /*    transform: translateY(80px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-goliath .fg-caption-title {*/
+        /*    transform: translateY(0);*/
+        /*    padding: 10px;*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*    max-height: calc(100% - 40px);*/
+        /*    flex: 1;*/
+        /*    display: flex;*/
+        /*    align-items: flex-end;*/
+        /*    justify-content: flex-start;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-goliath .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-goliath .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-goliath .fg-caption-title {*/
+        /*    transform: translateY(0);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-goliath .fg-caption-title {*/
+        /*    max-height: calc(100% - 40px);*/
+        /*    padding: 10px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-goliath .fg-caption-title {*/
+        /*    max-height: calc(100% - 60px);*/
+        /*    padding: 20px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-goliath .fg-caption-title {*/
+        /*    max-height: calc(100% - 80px);*/
+        /*    padding: 30px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-goliath .fg-caption-desc {*/
+        /*    display: -webkit-box;*/
+        /*    -webkit-line-clamp: 2;*/
+        /*    -webkit-box-orient: vertical;*/
+        /*    clip-path: content-box;*/
+        /*    position: relative;*/
+        /*    padding: 4px 10px;*/
+        /*    height: 40px;*/
+        /*    min-height: 40px;*/
+        /*    max-height: 40px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-goliath .fg-caption-desc {*/
+        /*    -webkit-line-clamp: 2;*/
+        /*    padding: 4px 10px;*/
+        /*    height: 40px;*/
+        /*    min-height: 40px;*/
+        /*    max-height: 40px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-goliath .fg-caption-desc {*/
+        /*    -webkit-line-clamp: 3;*/
+        /*    line-height: 1.4;*/
+        /*    padding: 6px 20px;*/
+        /*    height: 60px;*/
+        /*    min-height: 60px;*/
+        /*    max-height: 60px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-goliath .fg-caption-desc {*/
+        /*    -webkit-line-clamp: 4;*/
+        /*    line-height: 1.3;*/
+        /*    padding: 10px 30px;*/
+        /*    height: 80px;*/
+        /*    min-height: 80px;*/
+        /*    max-height: 80px;*/
+        /*}*/
+
+        /* JAZZ */
+        /*.foogallery.fg-preset.fg-jazz .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    top: 0;*/
+        /*    width: 100%;*/
+        /*    height: 100%;*/
+        /*    transform: translateY(-10px) translateY(50%);*/
+        /*    padding: 10px;*/
+        /*    transition: transform .35s,top .35s;*/
+        /*    overflow: visible;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-jazz .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-jazz .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-jazz .fg-caption-inner {*/
+        /*    border: none;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-jazz .fg-caption-title {*/
+        /*    background-color: rgba(0,0,0,0.5);*/
+        /*    transform: scale3d(.8,.8,1) translateY(-50%);*/
+        /*    width: 100%;*/
+        /*    padding: 6px;*/
+        /*    transition: transform .35s,background-color .35s;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-jazz .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-jazz .fg-caption-desc {*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-jazz .fg-item-inner:focus-within .fg-image,*/
+        /*.foogallery.fg-preset.fg-jazz .fg-item-inner:hover .fg-image {*/
+        /*    opacity: .2;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-jazz .fg-item-inner:focus-within .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-jazz .fg-item-inner:hover .fg-caption-inner {*/
+        /*    transform: translateY(0%);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-jazz .fg-item-inner:focus-within .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-jazz .fg-item-inner:hover .fg-caption-title {*/
+        /*    background-color: rgba(0,0,0,0);*/
+        /*    transform: scale3d(1,1,1) translateY(0%);*/
+        /*}*/
+
+
+        /* LAYLA */
+        /*.foogallery.fg-preset.fg-layla .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    padding: 30px 25px 25px;*/
+        /*    clip-path: content-box;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-layla .fg-caption-inner {*/
+        /*    padding: 30px 25px 25px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-layla .fg-caption-inner {*/
+        /*    padding: 40px 35px 35px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-layla .fg-caption-inner {*/
+        /*    padding: 50px 45px 45px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-layla .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-layla .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-layla .fg-caption-inner {*/
+        /*    border: none;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-layla .fg-caption-title {*/
+        /*    transform: translateY(10px);*/
+        /*    top: 0;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-layla .fg-caption-desc {*/
+        /*    padding: 0;*/
+        /*    transform: translateY(-20px);*/
+        /*    top: 0;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-layla .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-layla .fg-caption-desc {*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-layla .fg-item-inner:focus-within .fg-image,*/
+        /*.foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-image {*/
+        /*    opacity: .4;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-layla .fg-item-inner:focus-within .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-caption-title {*/
+        /*    transform: translateY(0px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-layla .fg-item-inner:focus-within .fg-caption-desc,*/
+        /*.foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-caption-desc {*/
+        /*    transform: translateY(0px);*/
+        /*}*/
+
+        /* LILY */
+        /*.foogallery.fg-preset.fg-lily .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    overflow: visible;*/
+        /*    gap: 0;*/
+        /*    transform: translateY(100%);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-lily .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-lily .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-lily .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    transform: translateY(100%);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-lily .fg-caption-title {*/
+        /*    transform: translateY(-100%);*/
+        /*    transition: transform .35s;*/
+        /*    padding: 10px;*/
+        /*    overflow: visible;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-lily .fg-caption-desc {*/
+        /*    padding: 0 10px 10px;*/
+        /*    clip-path: content-box;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-lily .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-lily .fg-caption-desc {*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-lily .fg-item-inner:focus-within .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-lily .fg-item-inner:hover .fg-caption-title {*/
+        /*    transform: translateY(0px);*/
+        /*}*/
+        /* MING */
+        /*.foogallery.fg-preset.fg-ming .fg-caption-inner {*/
+        /*    padding: 20px 10px 10px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-ming .fg-caption-title {*/
+        /*    margin: 0;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-ming .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-ming .fg-caption-desc {*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*}*/
+        /* OSCAR */
+        /*.foogallery.fg-preset.fg-oscar .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    padding: 30px 25px 25px;*/
+        /*    transform: translateY(50%) translateY(-30px);*/
+        /*    overflow: visible;*/
+        /*    transition: transform .35s;*/
+        /*    gap: 10px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-oscar .fg-caption-inner {*/
+        /*    padding: 30px 25px 25px;*/
+        /*    transform: translateY(50%) translateY(-30px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-oscar .fg-caption-inner {*/
+        /*    padding: 40px 35px 35px;*/
+        /*    transform: translateY(50%) translateY(-40px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-oscar .fg-caption-inner {*/
+        /*    padding: 50px 45px 45px;*/
+        /*    transform: translateY(50%) translateY(-50px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-oscar .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-oscar .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-oscar .fg-caption-inner {*/
+        /*    border: none;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-oscar .fg-caption-title {*/
+        /*    transform: translateY(-50%);*/
+        /*    top: 0;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-oscar .fg-caption-desc {*/
+        /*    padding: 0;*/
+        /*    transform: translateY(-20px);*/
+        /*    top: 0;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-oscar .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-oscar .fg-caption-desc {*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-oscar .fg-item-inner:focus-within .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption-inner {*/
+        /*    transform: translateY(0px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-oscar .fg-item-inner:focus-within .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption-title {*/
+        /*    transform: translateY(0px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-oscar .fg-item-inner:focus-within .fg-caption-desc,*/
+        /*.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption-desc {*/
+        /*    transform: translateY(0px);*/
+        /*}*/
+        /* SADIE */
+        /*.foogallery.fg-preset.fg-sadie .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    padding: 30px 10px 10px;*/
+        /*    transform: translateY(50%) translateY(-30px);*/
+        /*    overflow: visible;*/
+        /*    transition: transform .35s;*/
+        /*    gap: 10px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-sadie .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-sadie .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-sadie .fg-caption-inner {*/
+        /*    border: none;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-sadie .fg-caption-title {*/
+        /*    position: relative;*/
+        /*    transform: translateY(-50%);*/
+        /*    top: 0;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-sadie .fg-caption-desc {*/
+        /*    position: relative;*/
+        /*    padding: 0;*/
+        /*    transform: translateY(-100%);*/
+        /*    top: 0;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-sadie .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-sadie .fg-caption-desc {*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-sadie .fg-item-inner:focus-within .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-inner {*/
+        /*    transform: translateY(0px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-sadie .fg-item-inner:focus-within .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-title {*/
+        /*    transform: translateY(0px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-sadie .fg-item-inner:focus-within .fg-caption-desc,*/
+        /*.foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-desc {*/
+        /*    transform: translateY(0px);*/
+        /*}*/
+        /* SARAH */
+        /*.foogallery.fg-preset.fg-sarah .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    gap: 10px;*/
+        /*    padding: 10px;*/
+        /*    clip-path: content-box;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-sarah .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-sarah .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-sarah .fg-caption-inner {*/
+        /*    border: none;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-sarah .fg-caption-inner {*/
+        /*    gap: 10px;*/
+        /*    padding: 10px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-sarah .fg-caption-inner {*/
+        /*    gap: 15px;*/
+        /*    padding: 15px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-sarah .fg-caption-inner {*/
+        /*    gap: 20px;*/
+        /*    padding: 20px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-sarah .fg-caption-title {*/
+        /*    overflow: visible;*/
+        /*    padding: 0 0 10px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-sarah .fg-caption-title:after {*/
+        /*    transform: translateX(-101%);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-sarah .fg-caption-title {*/
+        /*    padding: 0 0 10px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-sarah .fg-caption-title {*/
+        /*    padding: 0 0 15px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-sarah .fg-caption-title {*/
+        /*    padding: 0 0 20px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-sarah .fg-caption-desc {*/
+        /*    padding: 0;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-sarah .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-sarah .fg-caption-desc {*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*}*/
+        /* SELENA */
+        /*.foogallery.fg-preset.fg-selena .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    gap: 10px;*/
+        /*    padding: calc(4% + 10px);*/
+        /*    clip-path: content-box;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-selena .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-selena .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-selena .fg-caption-inner {*/
+        /*    border: none;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-selena .fg-caption-inner {*/
+        /*    gap: 10px;*/
+        /*    padding: calc(4% + 10px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-selena .fg-caption-inner {*/
+        /*    gap: 15px;*/
+        /*    padding: calc(4% + 15px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-selena .fg-caption-inner {*/
+        /*    gap: 20px;*/
+        /*    padding: calc(4% + 20px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-selena .fg-caption-title {*/
+        /*    overflow: visible;*/
+        /*    transform: translateY(1em);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-selena .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-selena .fg-caption-desc {*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*    padding: 0;*/
+        /*}*/
+        /* STEVE */
+        /*.foogallery.fg-preset.fg-steve .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    gap: 10px;*/
+        /*    padding: 20px 10px;*/
+        /*    clip-path: content-box;*/
+        /*    text-shadow: none;*/
+        /*    transition: text-shadow .35s;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-steve .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-steve .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-steve .fg-caption-inner {*/
+        /*    border: none;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-steve .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-steve .fg-caption-desc {*/
+        /*    position: relative;*/
+        /*    padding: 5px 10px;*/
+        /*    transform: translateY(0);*/
+        /*    line-height: 1.4;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-steve .fg-caption-title {*/
+        /*    overflow: visible;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-steve .fg-caption-desc {*/
+        /*    padding-bottom: 0;*/
+        /*    border-bottom: solid 10px #FFF;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-steve.fg-dark .fg-caption-desc {*/
+        /*    border-bottom-color: #555;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-steve.fg-dark .fg-item-inner:focus-within .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-sadie.fg-dark .fg-item-inner:hover .fg-caption-inner {*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*}*/
+        /* ZOE */
+        /*.foogallery.fg-preset.fg-zoe .fg-caption-inner {*/
+        /*    border: none;*/
+        /*    gap: 0;*/
+        /*    padding: 0;*/
+        /*    clip-path: content-box;*/
+        /*    flex-direction: column-reverse;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-caption-inner,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-zoe .fg-caption-inner {*/
+        /*    border: none;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-zoe .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-zoe .fg-caption-desc {*/
+        /*    position: relative;*/
+        /*    padding: 10px;*/
+        /*    clip-path: content-box;*/
+        /*    text-shadow: 0 0 3px #000000;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-zoe .fg-caption-title {*/
+        /*    overflow: hidden;*/
+        /*    bottom: unset;*/
+        /*    margin: 0;*/
+        /*    transform: translateY(100%) translateY(10px);*/
+        /*    height: 40px;*/
+        /*    min-height: 40px;*/
+        /*    line-height: 20px;*/
+        /*    display: -webkit-box;*/
+        /*    -webkit-line-clamp: 1;*/
+        /*    -webkit-box-orient: vertical;*/
+        /*    align-items: center;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-zoe .fg-caption-desc {*/
+        /*    top: unset;*/
+        /*    transform: translateY(100%);*/
+        /*    line-height: 1.2;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-zoe .fg-caption-title {*/
+        /*    bottom: unset;*/
+        /*    transform: translateY(100%) translateY(10px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-caption-title {*/
+        /*    height: 40px;*/
+        /*    min-height: 40px;*/
+        /*    line-height: 20px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-caption-title {*/
+        /*    height: 60px;*/
+        /*    min-height: 60px;*/
+        /*    line-height: 40px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-large.fg-zoe .fg-caption-title {*/
+        /*    height: 80px;*/
+        /*    min-height: 80px;*/
+        /*    line-height: 60px;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-zoe.fg-preset-small .fg-item-inner:focus-within .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-zoe.fg-preset-small .fg-item-inner:hover .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-zoe.fg-preset-medium .fg-item-inner:focus-within .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-zoe.fg-preset-medium .fg-item-inner:hover .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-zoe.fg-preset-large .fg-item-inner:focus-within .fg-caption-title,*/
+        /*.foogallery.fg-preset.fg-zoe.fg-preset-large .fg-item-inner:hover .fg-caption-title {*/
+        /*    transform: translateY(0);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-zoe .fg-item-inner:focus-within .fg-caption-desc,*/
+        /*.foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-caption-desc {*/
+        /*    transform: translateY(0);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-item-inner .fg-thumb {*/
+        /*    background-color: #333;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-item-inner:focus-within .fg-thumb,*/
+        /*.foogallery.fg-preset.fg-preset-small.fg-zoe .fg-item-inner:hover .fg-thumb {*/
+        /*    transform: translateY(-40px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-item-inner:focus-within .fg-thumb,*/
+        /*.foogallery.fg-preset.fg-preset-medium.fg-zoe .fg-item-inner:hover .fg-thumb {*/
+        /*    transform: translateY(-60px);*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-image {*/
+        /*    opacity: 1;*/
+        /*    transition: opacity .35s;*/
+        /*}*/
+        /*.foogallery.fg-preset.fg-zoe .fg-item-inner:focus-within .fg-image,*/
+        /*.foogallery.fg-preset.fg-zoe .fg-item-inner:hover .fg-image {*/
+        /*    opacity: .6;*/
+        /*}*/
+    </style>
+    <script src="assets/jquery.min.js" defer></script>
+    <script src="assets/theme.js" defer></script>
+    <script src="assets/js/foogallery.js" defer></script>
+    <script>
+        document.addEventListener( 'DOMContentLoaded', () => {
+            const s = document.getElementById( 'preset' );
+            const sm = document.getElementById( 'foogallery-gallery-1' );
+            const md = document.getElementById( 'foogallery-gallery-2' );
+            const lg = document.getElementById( 'foogallery-gallery-3' );
+            let current = localStorage.getItem( 'fg-preset' ) ?? 'fg-goliath';
+
+            const update = newValue => {
+                if ( current !== '' ) {
+                    sm.classList.remove( current );
+                    md.classList.remove( current );
+                    lg.classList.remove( current );
+                }
+                if ( newValue !== '' ) {
+                    sm.classList.add( newValue );
+                    md.classList.add( newValue );
+                    lg.classList.add( newValue );
+                }
+                current = newValue;
+                localStorage.setItem( 'fg-preset', newValue );
+            };
+
+            s.addEventListener( 'input', () => update( s.value ) );
+            s.value = current;
+            update( s.value );
+
+            const t = document.getElementById( 'toggle-theme' );
+            t.addEventListener( 'click', () => {
+                sm.classList.toggle( 'fg-dark' );
+                sm.classList.toggle( 'fg-light' );
+
+                md.classList.toggle( 'fg-dark' );
+                md.classList.toggle( 'fg-light' );
+
+                lg.classList.toggle( 'fg-dark' );
+                lg.classList.toggle( 'fg-light' );
+
+                document.body.classList.toggle( 'dark' );
+                document.body.classList.toggle( 'light' );
+            } );
+        } );
+    </script>
+</head>
+<body class="light">
+<header>
+    <ul>
+        <li><h1>Preset</h1></li>
+        <li>
+            <select id="preset">
+                <optgroup label="Free">
+                    <option value="fg-brad">Brad</option>
+                </optgroup>
+                <optgroup label="Pro">
+                    <option value="fg-goliath">Goliath</option>
+                    <option value="fg-jazz">Jazz</option>
+                    <option value="fg-layla">Layla</option>
+                    <option value="fg-lily">Lily</option>
+                    <option value="fg-ming">Ming</option>
+                    <option value="fg-oscar">Oscar</option>
+                    <option value="fg-sadie">Sadie</option>
+                    <option value="fg-sarah">Sarah</option>
+                    <option value="fg-selena">Selena</option>
+                    <option value="fg-steve">Steve</option>
+                    <option value="fg-zoe">Zoe</option>
+                </optgroup>
+            </select>
+        </li>
+    </ul>
+    <button id="toggle-theme">Toggle Theme</button>
+</header>
+<main>
+    <h2>Small</h2>
+    <style>
+        #foogallery-gallery-1 .fg-image { width: 275px; }
+    </style>
+    <div id="foogallery-gallery-1"
+         class="foogallery fg-loading-default fg-loaded-slide-up fg-default fg-center fg-gutter-10 fg-preset fg-preset-small fg-light"
+         data-foogallery="{&quot;lazy&quot;:true}"
+         data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;,&quot;cart&quot;:&quot;right&quot;,&quot;info&quot;:&quot;right&quot;,&quot;infoOverlay&quot;:false}">
+
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Parturient" data-description="Parturient montes nascetur ridiculus mus mattis vehicula, suspendisse lacinia feugiat tempus pharetra fringilla." data-tags='["275x200","tag3"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/1.0","shutter_speed":"1/243 s","focal_length":"17 mm","iso":"71","created_timestamp":"8/6/2025, 2:55:27 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Parturient" alt="Parturient montes nascetur ridiculus mus mattis vehicula, suspendisse lacinia feugiat tempus pharetra fringilla.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Sit Amet Consectetur Adipiscing Elit Libero A Placerat Risus Sit Amet Consectetur Adipiscing Elit Libero A Placerat Risus</div>
+                        <div class="fg-caption-desc">Parturient montes nascetur ridiculus mus mattis vehicula, suspendisse lacinia feugiat tempus pharetra fringilla. Nascetur ridiculus mus mattis vehicula lacus pellentesque. Taciti sociosqu ad litora torquent, netus egestas purus quisque lectus phasellus. Litora torquent per conubia.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/2.jpg" data-title="Libero A Placerat Risus" data-description="Curabitur tempor suspendisse lacinia feugiat tempus." data-tags='["275x200","tag3","tag2","tag5"]' data-exif='{"camera":"Panasonic DMC-FZ30","aperture":"f/4.0","shutter_speed":"1/347 s","focal_length":"23 mm","iso":"98","created_timestamp":"8/7/2025, 2:21:16 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/2.jpg" data-srcset-fg="http://localhost:10/550x400/2.jpg 2x,http://localhost:10/2.jpg/825x600/2.jpg 3x" width="275" height="200" title="Libero A Placerat Risus" alt="Curabitur tempor suspendisse lacinia feugiat tempus.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Libero A Placerat Risus</div>
+                        <div class="fg-caption-desc">Curabitur tempor suspendisse lacinia feugiat tempus.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/3.jpg" data-title="Fusce" data-description="Mus mattis vehicula lacus pellentesque. Mi varius turpis ex quam nam. Molestie nulla facilisi etiam. Praesent ultrices rutrum nullam vivamus." data-tags='["275x200","tag5","tag1","tag4"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/3.0","shutter_speed":"1/546 s","focal_length":"5 mm","iso":"51","created_timestamp":"8/2/2025, 2:58:21 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/3.jpg" data-srcset-fg="http://localhost:10/550x400/3.jpg 2x,http://localhost:10/3.jpg/825x600/3.jpg 3x" width="275" height="200" title="Fusce" alt="Mus mattis vehicula lacus pellentesque. Mi varius turpis ex quam nam. Molestie nulla facilisi etiam. Praesent ultrices rutrum nullam vivamus.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Fusce</div>
+                        <div class="fg-caption-desc">Mus mattis vehicula lacus pellentesque. Mi varius turpis ex quam nam. Molestie nulla facilisi etiam. Praesent ultrices rutrum nullam vivamus.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/4.jpg" data-title="Litora Torquent Per" data-description="Efficitur finibus libero. Sed magna aenean, accumsan bibendum fames, a placerat risus ornare molestie nulla facilisi, molestie nulla facilisi etiam." data-tags='["275x200","tag2","tag5"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/2.0","shutter_speed":"1/682 s","focal_length":"21 mm","iso":"72","created_timestamp":"8/4/2025, 2:22:54 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/4.jpg" data-srcset-fg="http://localhost:10/550x400/4.jpg 2x,http://localhost:10/4.jpg/825x600/4.jpg 3x" width="275" height="200" title="Litora Torquent Per" alt="Efficitur finibus libero. Sed magna aenean, accumsan bibendum fames, a placerat risus ornare molestie nulla facilisi, molestie nulla facilisi etiam.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Litora Torquent Per</div>
+                        <div class="fg-caption-desc">Efficitur finibus libero. Sed magna aenean, accumsan bibendum fames, a placerat risus ornare molestie nulla facilisi, molestie nulla facilisi etiam.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/5.jpg" data-title="Proin Dapibus Habitant Tristique Senectus" data-description="Maximus orci natoque penatibus, quis auctor eu eleifend." data-tags='["275x200","tag1","tag5","tag3","tag4"]' data-exif='{"camera":"Pentax K10D","aperture":"f/3.0","shutter_speed":"1/275 s","focal_length":"32 mm","iso":"58","created_timestamp":"8/1/2025, 2:36:59 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/5.jpg" data-srcset-fg="http://localhost:10/550x400/5.jpg 2x,http://localhost:10/5.jpg/825x600/5.jpg 3x" width="275" height="200" title="Proin Dapibus Habitant Tristique Senectus" alt="Maximus orci natoque penatibus, quis auctor eu eleifend.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Proin Dapibus Habitant Tristique Senectus</div>
+                        <div class="fg-caption-desc">Maximus orci natoque penatibus, quis auctor eu eleifend.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/6.jpg" data-title="Laoreet Convallis Commodo Morbi" data-description="Ligula dignissim non, conubia nostra inceptos himenaeos proin. Turpis ex quam nam. Natoque penatibus magnis dis parturient montes nascetur." data-tags='["275x200","tag5"]' data-exif='{"camera":"Canon DIGITAL IXUS 400","aperture":"f/2.0","shutter_speed":"1/678 s","focal_length":"39 mm","iso":"77","created_timestamp":"8/4/2025, 2:54:30 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/6.jpg" data-srcset-fg="http://localhost:10/550x400/6.jpg 2x,http://localhost:10/6.jpg/825x600/6.jpg 3x" width="275" height="200" title="Laoreet Convallis Commodo Morbi" alt="Ligula dignissim non, conubia nostra inceptos himenaeos proin. Turpis ex quam nam. Natoque penatibus magnis dis parturient montes nascetur.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Laoreet Convallis Commodo Morbi</div>
+                        <div class="fg-caption-desc">Ligula dignissim non, conubia nostra inceptos himenaeos proin. Turpis ex quam nam. Natoque penatibus magnis dis parturient montes nascetur.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/7.jpg" data-title="Sit Amet Consectetur Adipiscing Elit" data-description="Nascetur ridiculus mus mattis vehicula lacus pellentesque. Taciti sociosqu ad litora torquent, netus egestas purus quisque lectus phasellus. Litora torquent per conubia." data-tags='["275x200","tag4"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/4.0","shutter_speed":"1/11 s","focal_length":"37 mm","iso":"91","created_timestamp":"8/2/2025, 2:53:33 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/7.jpg" data-srcset-fg="http://localhost:10/550x400/7.jpg 2x,http://localhost:10/7.jpg/825x600/7.jpg 3x" width="275" height="200" title="Sit Amet Consectetur Adipiscing Elit" alt="Nascetur ridiculus mus mattis vehicula lacus pellentesque. Taciti sociosqu ad litora torquent, netus egestas purus quisque lectus phasellus. Litora torquent per conubia.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Sit Amet Consectetur Adipiscing Elit</div>
+                        <div class="fg-caption-desc">Nascetur ridiculus mus mattis vehicula lacus pellentesque. Taciti sociosqu ad litora torquent, netus egestas purus quisque lectus phasellus. Litora torquent per conubia.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/8.jpg" data-title="Vehicula Lacus" data-description="Parturient montes nascetur ridiculus. Nec vestibulum erat leo viverra, litora torquent per conubia nostra inceptos." data-tags='["275x200","tag3","tag2","tag4"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/327 s","focal_length":"36 mm","iso":"77","created_timestamp":"8/6/2025, 2:28:40 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/8.jpg" data-srcset-fg="http://localhost:10/550x400/8.jpg 2x,http://localhost:10/8.jpg/825x600/8.jpg 3x" width="275" height="200" title="Vehicula Lacus" alt="Parturient montes nascetur ridiculus. Nec vestibulum erat leo viverra, litora torquent per conubia nostra inceptos.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Vehicula Lacus</div>
+                        <div class="fg-caption-desc">Parturient montes nascetur ridiculus. Nec vestibulum erat leo viverra, litora torquent per conubia nostra inceptos.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/9.jpg" data-title="Venenatis" data-description="Maximus orci natoque penatibus magnis, tempor suspendisse lacinia feugiat." data-tags='["275x200","tag5","tag4","tag1"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/2.0","shutter_speed":"1/79 s","focal_length":"24 mm","iso":"96","created_timestamp":"8/7/2025, 2:21:20 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/9.jpg" data-srcset-fg="http://localhost:10/550x400/9.jpg 2x,http://localhost:10/9.jpg/825x600/9.jpg 3x" width="275" height="200" title="Venenatis" alt="Maximus orci natoque penatibus magnis, tempor suspendisse lacinia feugiat.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Venenatis</div>
+                        <div class="fg-caption-desc">Maximus orci natoque penatibus magnis, tempor suspendisse lacinia feugiat.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/10.jpg" data-title="Consectetur Adipiscing Elit Maecenas" data-description="Nullam vivamus posuere, felis vel et nisi maximus orci, placerat risus ornare molestie. Tempor suspendisse lacinia. Blandit class aptent taciti sociosqu ad." data-tags='["275x200","tag3"]' data-exif='{"camera":"Kodak CX7530","aperture":"f/2.0","shutter_speed":"1/101 s","focal_length":"25 mm","iso":"94","created_timestamp":"8/1/2025, 2:40:36 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/10.jpg" data-srcset-fg="http://localhost:10/550x400/10.jpg 2x,http://localhost:10/10.jpg/825x600/10.jpg 3x" width="275" height="200" title="Consectetur Adipiscing Elit Maecenas" alt="Nullam vivamus posuere, felis vel et nisi maximus orci, placerat risus ornare molestie. Tempor suspendisse lacinia. Blandit class aptent taciti sociosqu ad.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Consectetur Adipiscing Elit Maecenas</div>
+                        <div class="fg-caption-desc">Nullam vivamus posuere, felis vel et nisi maximus orci, placerat risus ornare molestie. Tempor suspendisse lacinia. Blandit class aptent taciti sociosqu ad.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+
+    </div>
+
+    <h2>Medium</h2>
+    <style>
+        #foogallery-gallery-2 .fg-image { width: 350px; }
+    </style>
+    <div id="foogallery-gallery-2"
+         class="foogallery fg-loading-default fg-loaded-slide-up fg-default fg-center fg-gutter-10 fg-preset fg-preset-medium fg-light"
+         data-foogallery="{&quot;lazy&quot;:true}"
+         data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;,&quot;cart&quot;:&quot;right&quot;,&quot;info&quot;:&quot;right&quot;,&quot;infoOverlay&quot;:false}">
+
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Rhoncus Malesuada" data-description="Ligula dignissim non suscipit, auctor eu eleifend dui fermentum, maximus orci natoque penatibus magnis dis parturient." data-tags='["350x255","tag2"]' data-exif='{"camera":"Nikon D70","aperture":"f/2.0","shutter_speed":"1/698 s","focal_length":"2 mm","iso":"56","created_timestamp":"8/5/2025, 4:11:13 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22350%20height=%22255%22%20viewBox=%220%200%20350%20255%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/350x255/1.jpg" data-srcset-fg="http://localhost:10/700x510/1.jpg 2x,http://localhost:10/1.jpg/1050x765/1.jpg 3x" width="350" height="255" title="Rhoncus Malesuada" alt="Ligula dignissim non suscipit, auctor eu eleifend dui fermentum, maximus orci natoque penatibus magnis dis parturient.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Sit Amet Consectetur Adipiscing Elit Libero A Placerat Risus Sit Amet Consectetur Adipiscing Elit Libero A Placerat Risus</div>
+                        <div class="fg-caption-desc">Parturient montes nascetur ridiculus mus mattis vehicula, suspendisse lacinia feugiat tempus pharetra fringilla. Nascetur ridiculus mus mattis vehicula lacus pellentesque. Taciti sociosqu ad litora torquent, netus egestas purus quisque lectus phasellus. Litora torquent per conubia.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/2.jpg" data-title="Dui Fermentum Cras" data-description="Duis iaculis mi varius turpis ex quam. Vivamus posuere curabitur, ridiculus mus mattis, litora torquent per conubia. Dis parturient montes nascetur ridiculus." data-tags='["350x255","tag4","tag1"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/1.0","shutter_speed":"1/938 s","focal_length":"2 mm","iso":"65","created_timestamp":"8/3/2025, 4:58:23 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22350%20height=%22255%22%20viewBox=%220%200%20350%20255%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/350x255/2.jpg" data-srcset-fg="http://localhost:10/700x510/2.jpg 2x,http://localhost:10/2.jpg/1050x765/2.jpg 3x" width="350" height="255" title="Dui Fermentum Cras" alt="Duis iaculis mi varius turpis ex quam. Vivamus posuere curabitur, ridiculus mus mattis, litora torquent per conubia. Dis parturient montes nascetur ridiculus.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Dui Fermentum Cras</div>
+                        <div class="fg-caption-desc">Duis iaculis mi varius turpis ex quam. Vivamus posuere curabitur, ridiculus mus mattis, litora torquent per conubia. Dis parturient montes nascetur ridiculus.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/3.jpg" data-title="Iaculis Mi" data-description="Sapien quis auctor. Sodales accumsan bibendum." data-tags='["350x255","tag3","tag2"]' data-exif='{"camera":"Olympus C8080WZ","aperture":"f/2.0","shutter_speed":"1/835 s","focal_length":"3 mm","iso":"97","created_timestamp":"8/6/2025, 4:40:53 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22350%20height=%22255%22%20viewBox=%220%200%20350%20255%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/350x255/3.jpg" data-srcset-fg="http://localhost:10/700x510/3.jpg 2x,http://localhost:10/3.jpg/1050x765/3.jpg 3x" width="350" height="255" title="Iaculis Mi" alt="Sapien quis auctor. Sodales accumsan bibendum.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Iaculis Mi</div>
+                        <div class="fg-caption-desc">Sapien quis auctor. Sodales accumsan bibendum.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/4.jpg" data-title="Sodales" data-description="Adipiscing elit maecenas id luctus." data-tags='["350x255","tag3"]' data-exif='{"camera":"Nikon COOLPIX P1","aperture":"f/2.0","shutter_speed":"1/263 s","focal_length":"35 mm","iso":"86","created_timestamp":"8/1/2025, 4:06:11 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22350%20height=%22255%22%20viewBox=%220%200%20350%20255%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/350x255/4.jpg" data-srcset-fg="http://localhost:10/700x510/4.jpg 2x,http://localhost:10/4.jpg/1050x765/4.jpg 3x" width="350" height="255" title="Sodales" alt="Adipiscing elit maecenas id luctus.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Sodales</div>
+                        <div class="fg-caption-desc">Adipiscing elit maecenas id luctus.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/5.jpg" data-title="Dignissim" data-description="Diam euismod neque ut, scelerisque sapien quis. Elit maecenas id luctus augue aliquam vitae." data-tags='["350x255","tag1","tag2","tag3"]' data-exif='{"camera":"Nikon D70","aperture":"f/4.0","shutter_speed":"1/141 s","focal_length":"27 mm","iso":"77","created_timestamp":"8/4/2025, 4:46:27 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22350%20height=%22255%22%20viewBox=%220%200%20350%20255%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/350x255/5.jpg" data-srcset-fg="http://localhost:10/700x510/5.jpg 2x,http://localhost:10/5.jpg/1050x765/5.jpg 3x" width="350" height="255" title="Dignissim" alt="Diam euismod neque ut, scelerisque sapien quis. Elit maecenas id luctus augue aliquam vitae.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Dignissim</div>
+                        <div class="fg-caption-desc">Diam euismod neque ut, scelerisque sapien quis. Elit maecenas id luctus augue aliquam vitae.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/6.jpg" data-title="Pellentesque Ac Sagittis Justo" data-description="Placerat risus ornare molestie, finibus libero a placerat, ultrices rutrum nullam. Suscipit sed magna, lorem ipsum dolor sit." data-tags='["350x255","tag5","tag1"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/2.0","shutter_speed":"1/777 s","focal_length":"36 mm","iso":"79","created_timestamp":"8/5/2025, 4:33:18 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22350%20height=%22255%22%20viewBox=%220%200%20350%20255%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/350x255/6.jpg" data-srcset-fg="http://localhost:10/700x510/6.jpg 2x,http://localhost:10/6.jpg/1050x765/6.jpg 3x" width="350" height="255" title="Pellentesque Ac Sagittis Justo" alt="Placerat risus ornare molestie, finibus libero a placerat, ultrices rutrum nullam. Suscipit sed magna, lorem ipsum dolor sit.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Pellentesque Ac Sagittis Justo</div>
+                        <div class="fg-caption-desc">Placerat risus ornare molestie, finibus libero a placerat, ultrices rutrum nullam. Suscipit sed magna, lorem ipsum dolor sit.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/7.jpg" data-title="Gravida Ultricies Donec Nibh" data-description="Aliquet blandit class aptent taciti sociosqu ad. Per conubia nostra inceptos himenaeos proin." data-tags='["350x255","tag2"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/311 s","focal_length":"16 mm","iso":"62","created_timestamp":"8/4/2025, 4:54:35 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22350%20height=%22255%22%20viewBox=%220%200%20350%20255%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/350x255/7.jpg" data-srcset-fg="http://localhost:10/700x510/7.jpg 2x,http://localhost:10/7.jpg/1050x765/7.jpg 3x" width="350" height="255" title="Gravida Ultricies Donec Nibh" alt="Aliquet blandit class aptent taciti sociosqu ad. Per conubia nostra inceptos himenaeos proin.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Gravida Ultricies Donec Nibh</div>
+                        <div class="fg-caption-desc">Aliquet blandit class aptent taciti sociosqu ad. Per conubia nostra inceptos himenaeos proin.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/8.jpg" data-title="Dolor Sit Amet Consectetur Adipiscing" data-description="Nibh pulvinar facilisis interdum, diam euismod neque ut." data-tags='["350x255","tag4","tag1","tag3","tag2"]' data-exif='{"camera":"Sony HDR-HC3","aperture":"f/3.0","shutter_speed":"1/216 s","focal_length":"31 mm","iso":"52","created_timestamp":"8/4/2025, 4:00:13 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22350%20height=%22255%22%20viewBox=%220%200%20350%20255%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/350x255/8.jpg" data-srcset-fg="http://localhost:10/700x510/8.jpg 2x,http://localhost:10/8.jpg/1050x765/8.jpg 3x" width="350" height="255" title="Dolor Sit Amet Consectetur Adipiscing" alt="Nibh pulvinar facilisis interdum, diam euismod neque ut.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Dolor Sit Amet Consectetur Adipiscing</div>
+                        <div class="fg-caption-desc">Nibh pulvinar facilisis interdum, diam euismod neque ut.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/9.jpg" data-title="Rhoncus" data-description="Montes nascetur ridiculus mus mattis. In lobortis nisl." data-tags='["350x255","tag5"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/2.0","shutter_speed":"1/593 s","focal_length":"36 mm","iso":"91","created_timestamp":"8/6/2025, 4:25:59 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22350%20height=%22255%22%20viewBox=%220%200%20350%20255%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/350x255/9.jpg" data-srcset-fg="http://localhost:10/700x510/9.jpg 2x,http://localhost:10/9.jpg/1050x765/9.jpg 3x" width="350" height="255" title="Rhoncus" alt="Montes nascetur ridiculus mus mattis. In lobortis nisl.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Rhoncus</div>
+                        <div class="fg-caption-desc">Montes nascetur ridiculus mus mattis. In lobortis nisl.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/10.jpg" data-title="Leo Viverra Felis Vel Et" data-description="Vivamus posuere curabitur tempor suspendisse." data-tags='["350x255","tag5"]' data-exif='{"camera":"Olympus C8080WZ","aperture":"f/1.0","shutter_speed":"1/867 s","focal_length":"3 mm","iso":"91","created_timestamp":"8/4/2025, 4:16:22 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22350%20height=%22255%22%20viewBox=%220%200%20350%20255%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/350x255/10.jpg" data-srcset-fg="http://localhost:10/700x510/10.jpg 2x,http://localhost:10/10.jpg/1050x765/10.jpg 3x" width="350" height="255" title="Leo Viverra Felis Vel Et" alt="Vivamus posuere curabitur tempor suspendisse.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Leo Viverra Felis Vel Et</div>
+                        <div class="fg-caption-desc">Vivamus posuere curabitur tempor suspendisse.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+
+    </div>
+
+    <h2>Large</h2>
+    <style>
+        #foogallery-gallery-3 .fg-image { width: 450px; }
+    </style>
+    <div id="foogallery-gallery-3"
+         class="foogallery fg-loading-default fg-loaded-slide-up fg-default fg-center fg-gutter-10 fg-preset fg-preset-large fg-light"
+         data-foogallery="{&quot;lazy&quot;:true}"
+         data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;,&quot;cart&quot;:&quot;right&quot;,&quot;info&quot;:&quot;right&quot;,&quot;infoOverlay&quot;:false}">
+
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Primis Faucibus" data-description="Sociosqu ad litora torquent per conubia nostra, penatibus magnis dis parturient montes. Nec vestibulum erat leo viverra." data-tags='["450x327","tag2","tag4"]' data-exif='{"camera":"Panasonic DMC-FZ30","aperture":"f/2.0","shutter_speed":"1/706 s","focal_length":"26 mm","iso":"84","created_timestamp":"8/6/2025, 4:45:19 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22450%20height=%22327%22%20viewBox=%220%200%20450%20327%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/450x327/1.jpg" data-srcset-fg="http://localhost:10/900x654/1.jpg 2x,http://localhost:10/1.jpg/1350x981/1.jpg 3x" width="450" height="327" title="Primis Faucibus" alt="Sociosqu ad litora torquent per conubia nostra, penatibus magnis dis parturient montes. Nec vestibulum erat leo viverra.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Sit Amet Consectetur Adipiscing Elit Libero A Placerat Risus Sit Amet Consectetur Adipiscing Elit Libero A Placerat Risus</div>
+                        <div class="fg-caption-desc">Parturient montes nascetur ridiculus mus mattis vehicula, suspendisse lacinia feugiat tempus pharetra fringilla. Nascetur ridiculus mus mattis vehicula lacus pellentesque. Taciti sociosqu ad litora torquent, netus egestas purus quisque lectus phasellus. Litora torquent per conubia.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/2.jpg" data-title="Natoque Penatibus Magnis Dis Parturient" data-description="Donec nibh pulvinar facilisis." data-tags='["450x327","tag1","tag2","tag3"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/2.0","shutter_speed":"1/790 s","focal_length":"24 mm","iso":"89","created_timestamp":"8/7/2025, 4:30:54 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22450%20height=%22327%22%20viewBox=%220%200%20450%20327%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/450x327/2.jpg" data-srcset-fg="http://localhost:10/900x654/2.jpg 2x,http://localhost:10/2.jpg/1350x981/2.jpg 3x" width="450" height="327" title="Natoque Penatibus Magnis Dis Parturient" alt="Donec nibh pulvinar facilisis.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Natoque Penatibus Magnis Dis Parturient</div>
+                        <div class="fg-caption-desc">Donec nibh pulvinar facilisis.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/3.jpg" data-title="Massa Dictum At Eget Tincidunt" data-description="Suscipit sed magna aenean in lobortis. Eu eleifend dui fermentum cras efficitur. Massa dictum at. Praesent ultrices rutrum nullam vivamus." data-tags='["450x327","tag3","tag5"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/2.0","shutter_speed":"1/8 s","focal_length":"40 mm","iso":"73","created_timestamp":"8/5/2025, 4:28:50 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22450%20height=%22327%22%20viewBox=%220%200%20450%20327%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/450x327/3.jpg" data-srcset-fg="http://localhost:10/900x654/3.jpg 2x,http://localhost:10/3.jpg/1350x981/3.jpg 3x" width="450" height="327" title="Massa Dictum At Eget Tincidunt" alt="Suscipit sed magna aenean in lobortis. Eu eleifend dui fermentum cras efficitur. Massa dictum at. Praesent ultrices rutrum nullam vivamus.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Massa Dictum At Eget Tincidunt</div>
+                        <div class="fg-caption-desc">Suscipit sed magna aenean in lobortis. Eu eleifend dui fermentum cras efficitur. Massa dictum at. Praesent ultrices rutrum nullam vivamus.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/4.jpg" data-title="Tellus" data-description="Consectetur adipiscing elit, sed magna aenean in lobortis, primis faucibus elementum, eu eleifend dui fermentum cras efficitur." data-tags='["450x327","tag4","tag1","tag5"]' data-exif='{"camera":"Nikon D70","aperture":"f/4.0","shutter_speed":"1/713 s","focal_length":"25 mm","iso":"83","created_timestamp":"8/7/2025, 4:36:32 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22450%20height=%22327%22%20viewBox=%220%200%20450%20327%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/450x327/4.jpg" data-srcset-fg="http://localhost:10/900x654/4.jpg 2x,http://localhost:10/4.jpg/1350x981/4.jpg 3x" width="450" height="327" title="Tellus" alt="Consectetur adipiscing elit, sed magna aenean in lobortis, primis faucibus elementum, eu eleifend dui fermentum cras efficitur.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Tellus</div>
+                        <div class="fg-caption-desc">Consectetur adipiscing elit, sed magna aenean in lobortis, primis faucibus elementum, eu eleifend dui fermentum cras efficitur.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/5.jpg" data-title="Adipiscing Elit Maecenas Id Luctus" data-description="Urna tortor pretium metus, ex quam nam velit gravida ultricies donec. Nam velit gravida ultricies donec." data-tags='["450x327","tag3","tag1"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/4.0","shutter_speed":"1/459 s","focal_length":"27 mm","iso":"60","created_timestamp":"8/7/2025, 4:33:07 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22450%20height=%22327%22%20viewBox=%220%200%20450%20327%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/450x327/5.jpg" data-srcset-fg="http://localhost:10/900x654/5.jpg 2x,http://localhost:10/5.jpg/1350x981/5.jpg 3x" width="450" height="327" title="Adipiscing Elit Maecenas Id Luctus" alt="Urna tortor pretium metus, ex quam nam velit gravida ultricies donec. Nam velit gravida ultricies donec.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Adipiscing Elit Maecenas Id Luctus</div>
+                        <div class="fg-caption-desc">Urna tortor pretium metus, ex quam nam velit gravida ultricies donec. Nam velit gravida ultricies donec.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/6.jpg" data-title="Porta Sollicitudin" data-description="Congue porttitor venenatis porta sollicitudin, lacinia feugiat tempus pharetra fringilla aliquet." data-tags='["450x327","tag4","tag2"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/2.0","shutter_speed":"1/123 s","focal_length":"38 mm","iso":"99","created_timestamp":"8/2/2025, 4:31:22 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22450%20height=%22327%22%20viewBox=%220%200%20450%20327%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/450x327/6.jpg" data-srcset-fg="http://localhost:10/900x654/6.jpg 2x,http://localhost:10/6.jpg/1350x981/6.jpg 3x" width="450" height="327" title="Porta Sollicitudin" alt="Congue porttitor venenatis porta sollicitudin, lacinia feugiat tempus pharetra fringilla aliquet.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Porta Sollicitudin</div>
+                        <div class="fg-caption-desc">Congue porttitor venenatis porta sollicitudin, lacinia feugiat tempus pharetra fringilla aliquet.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/7.jpg" data-title="Vulputate Semper Hac Habitasse" data-description="Sodales accumsan bibendum fames primis faucibus, lorem ipsum dolor sit amet consectetur. Dictumst rhoncus malesuada duis." data-tags='["450x327","tag4","tag3"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/2.0","shutter_speed":"1/352 s","focal_length":"26 mm","iso":"69","created_timestamp":"8/6/2025, 4:25:11 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22450%20height=%22327%22%20viewBox=%220%200%20450%20327%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/450x327/7.jpg" data-srcset-fg="http://localhost:10/900x654/7.jpg 2x,http://localhost:10/7.jpg/1350x981/7.jpg 3x" width="450" height="327" title="Vulputate Semper Hac Habitasse" alt="Sodales accumsan bibendum fames primis faucibus, lorem ipsum dolor sit amet consectetur. Dictumst rhoncus malesuada duis.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Vulputate Semper Hac Habitasse</div>
+                        <div class="fg-caption-desc">Sodales accumsan bibendum fames primis faucibus, lorem ipsum dolor sit amet consectetur. Dictumst rhoncus malesuada duis.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/8.jpg" data-title="Sed Magna" data-description="Ipsum dolor sit amet consectetur. Lacinia feugiat tempus pharetra fringilla. Fringilla aliquet blandit class aptent taciti sociosqu, pulvinar facilisis interdum sem ullamcorper nec vestibulum." data-tags='["450x327","tag2"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/2.0","shutter_speed":"1/738 s","focal_length":"3 mm","iso":"82","created_timestamp":"8/4/2025, 4:38:02 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22450%20height=%22327%22%20viewBox=%220%200%20450%20327%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/450x327/8.jpg" data-srcset-fg="http://localhost:10/900x654/8.jpg 2x,http://localhost:10/8.jpg/1350x981/8.jpg 3x" width="450" height="327" title="Sed Magna" alt="Ipsum dolor sit amet consectetur. Lacinia feugiat tempus pharetra fringilla. Fringilla aliquet blandit class aptent taciti sociosqu, pulvinar facilisis interdum sem ullamcorper nec vestibulum.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Sed Magna</div>
+                        <div class="fg-caption-desc">Ipsum dolor sit amet consectetur. Lacinia feugiat tempus pharetra fringilla. Fringilla aliquet blandit class aptent taciti sociosqu, pulvinar facilisis interdum sem ullamcorper nec vestibulum.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/9.jpg" data-title="Maecenas" data-description="Velit gravida ultricies donec nibh." data-tags='["450x327","tag1"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/4.0","shutter_speed":"1/398 s","focal_length":"17 mm","iso":"77","created_timestamp":"8/6/2025, 4:44:21 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22450%20height=%22327%22%20viewBox=%220%200%20450%20327%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/450x327/9.jpg" data-srcset-fg="http://localhost:10/900x654/9.jpg 2x,http://localhost:10/9.jpg/1350x981/9.jpg 3x" width="450" height="327" title="Maecenas" alt="Velit gravida ultricies donec nibh.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Maecenas</div>
+                        <div class="fg-caption-desc">Velit gravida ultricies donec nibh.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/10.jpg" data-title="Euismod Neque Ut Consequat Ante" data-description="Vivamus posuere curabitur tempor suspendisse lacinia feugiat. Netus egestas purus quisque lectus. Nibh pulvinar facilisis, suspendisse lacinia feugiat tempus pharetra, sodales accumsan bibendum fames primis." data-tags='["450x327","tag4","tag1","tag2","tag5"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/1.0","shutter_speed":"1/232 s","focal_length":"11 mm","iso":"97","created_timestamp":"8/2/2025, 4:49:55 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22450%20height=%22327%22%20viewBox=%220%200%20450%20327%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/450x327/10.jpg" data-srcset-fg="http://localhost:10/900x654/10.jpg 2x,http://localhost:10/10.jpg/1350x981/10.jpg 3x" width="450" height="327" title="Euismod Neque Ut Consequat Ante" alt="Vivamus posuere curabitur tempor suspendisse lacinia feugiat. Netus egestas purus quisque lectus. Nibh pulvinar facilisis, suspendisse lacinia feugiat tempus pharetra, sodales accumsan bibendum fames primis.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Euismod Neque Ut Consequat Ante</div>
+                        <div class="fg-caption-desc">Vivamus posuere curabitur tempor suspendisse lacinia feugiat. Netus egestas purus quisque lectus. Nibh pulvinar facilisis, suspendisse lacinia feugiat tempus pharetra, sodales accumsan bibendum fames primis.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+
+    </div>
+</main>
+</body>
+</html>

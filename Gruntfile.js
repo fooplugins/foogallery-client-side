@@ -153,6 +153,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/hover-effects/icons.css",
 
 						"./src/core/css/hover-effects/preset.css",
+						"./src/core/css/hover-effects/presets/brad.css",
 						"./src/core/css/hover-effects/presets/goliath.css",
 						"./src/core/css/hover-effects/presets/jazz.css",
 						"./src/core/css/hover-effects/presets/layla.css",
@@ -629,6 +630,18 @@ module.exports = function ( grunt ) {
 				"cwd": "dist/free",
 				"src": ["**"],
 				"dest": "./test-pages/templates/assets/free"
+			},
+			"defaults_pro": {
+				"expand": true,
+				"cwd": "dist/pro",
+				"src": ["**"],
+				"dest": "./test-pages/defaults/assets"
+			},
+			"defaults_free": {
+				"expand": true,
+				"cwd": "dist/free",
+				"src": ["**"],
+				"dest": "./test-pages/defaults/assets/free"
 			}
 		},
 		"jsdoc": {
@@ -702,8 +715,11 @@ module.exports = function ( grunt ) {
 		"uglify:dist",
 		"cssmin:dist",
 
+		"copy:defaults_pro",
+		"copy:defaults_free",
+
 		"copy:templates_pro",
-		"copy:templates_free"
+		"copy:templates_free",
 	]);
 
 	grunt.registerTask("docs", [

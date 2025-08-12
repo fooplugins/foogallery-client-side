@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Carousel</title>
+    <link href="../assets/theme.css" rel="stylesheet"/>
+    <link href="../assets/css/foogallery.min.css" rel="stylesheet"/>
+    <style>
+        /*main {*/
+        /*    max-width: none;*/
+        /*}*/
+
+        main img {
+            width: auto;
+        }
+    </style>
+    <script src="../assets/jquery.min.js" defer></script>
+    <script src="../assets/theme.js" defer></script>
+    <script src="../assets/js/foogallery.js" defer></script>
+    <script>
+
+        ( function() {
+
+            // const perSide = 3;
+            // const n = perSide + 1, x = 922;
+            // let k = ( 2 * x ) / ( n * ( n - 1 ) );
+            // // console.log( k );
+            // for ( let i = perSide; i > 0; i-- ){
+            //     console.log( i * k );
+            // }
+
+            document.addEventListener( "DOMContentLoaded", () => {
+
+                const galleryEl = document.getElementById( "foogallery-gallery-1" );
+                const options = JSON.parse( galleryEl?.dataset?.foogallery || '{}' ) || {
+                    template: {
+                        scale: 0.12,
+                        min: 0.2,
+                        max: 0.8
+                    }
+                };
+                let gallery = null;
+                const getGallery = () => {
+                    if ( gallery === null ) {
+                        gallery = FooGallery.get( "#foogallery-gallery-1" );
+                    }
+                    return gallery;
+                };
+
+                const max_items_value = document.getElementById( "max_items_value" ),
+                    max_items_range = document.getElementById( "max_items_range" );
+
+                max_items_value.value = max_items_range.value = options.template.maxItems;
+
+                const updateMaxItems = () => {
+                    const gallery = getGallery();
+                    gallery.carousel.opt.maxItems = parseFloat( max_items_value.value );
+                    gallery.carousel.cache.delete( "layout" );
+                    gallery.carousel.layout();
+                };
+
+                max_items_value.addEventListener( "input", () => {
+                    max_items_range.value = max_items_value.value;
+                    updateMaxItems();
+                } );
+                max_items_range.addEventListener( "input", () => {
+                    max_items_value.value = max_items_range.value;
+                    updateMaxItems();
+                } );
+
+                const scale_value = document.getElementById( "scale_value" ),
+                    scale_range = document.getElementById( "scale_range" );
+
+                scale_value.value = scale_range.value = options.template.scale;
+
+                const updateScale = () => {
+                    const gallery = getGallery();
+                    gallery.carousel.opt.scale = parseFloat( scale_value.value );
+                    gallery.carousel.cache.delete( "layout" );
+                    gallery.carousel.layout();
+                };
+
+                scale_value.addEventListener( "input", () => {
+                    scale_range.value = scale_value.value;
+                    updateScale();
+                } );
+                scale_range.addEventListener( "input", () => {
+                    scale_value.value = scale_range.value;
+                    updateScale();
+                } );
+
+                const gutter_min_value = document.getElementById( "gutter_min_value" ),
+                    gutter_min_range = document.getElementById( "gutter_min_range" );
+
+                const updateMinGutter = () => {
+                    const gallery = getGallery();
+                    gallery.carousel.opt.gutter.min = parseFloat( gutter_min_value.value );
+                    gallery.carousel.cache.delete( "layout" );
+                    gallery.carousel.layout();
+                };
+
+                gutter_min_value.value = gutter_min_range.value = options.template.gutter.min;
+
+                gutter_min_value.addEventListener( "input", () => {
+                    gutter_min_range.value = gutter_min_value.value;
+                    updateMinGutter();
+                } );
+                gutter_min_range.addEventListener( "input", () => {
+                    gutter_min_value.value = gutter_min_range.value;
+                    updateMinGutter();
+                } );
+
+
+                const gutter_max_value = document.getElementById( "gutter_max_value" ),
+                    gutter_max_range = document.getElementById( "gutter_max_range" );
+
+                gutter_max_value.value = gutter_max_range.value = options.template.gutter.max;
+
+                const updateMaxGutter = () => {
+                    const gallery = getGallery();
+                    gallery.carousel.opt.gutter.max = parseFloat( gutter_max_value.value );
+                    gallery.carousel.cache.delete( "layout" );
+                    gallery.carousel.layout();
+                };
+
+                gutter_max_value.addEventListener( "input", () => {
+                    gutter_max_range.value = gutter_max_value.value;
+                    updateMaxGutter();
+                } );
+                gutter_max_range.addEventListener( "input", () => {
+                    gutter_max_value.value = gutter_max_range.value;
+                    updateMaxGutter();
+                } );
+
+                const gutter_unit_value = document.getElementById( "gutter_unit_value" );
+
+                const updateGutterUnit = () => {
+                    const gallery = getGallery();
+                    gallery.carousel.opt.gutter.unit = gutter_unit_value.value;
+                    gallery.carousel.cache.delete( "layout" );
+                    gallery.carousel.layout();
+                };
+
+                gutter_unit_value.addEventListener( "change", () => {
+                    updateGutterUnit();
+                } );
+            } );
+
+        } )();
+
+    </script>
+    <style>
+        .option {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .option-label {
+            min-width: 120px;
+        }
+
+        .option-inputs {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .option-inputs > input[type="number"],
+        .option-inputs > select {
+            width: 4em;
+            text-align: center;
+        }
+
+        .option-inputs > input[type="range"],
+        .option-inputs > .spacer {
+            width: 400px;
+        }
+    </style>
+</head>
+<body class="light">
+<header>
+    <ul class="header-left">
+        <li><a href="../index.html">Templates</a></li>
+        <li><h1>Carousel</h1></li>
+    </ul>
+    <div class="header-right">
+        <button title="Toggle Theme">
+            <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                <path d="M48 72q9.938 0 16.969-7.031t7.031-16.969-7.031-16.969-16.969-7.031v48zM80.063 61.313v18.75h-18.75l-13.313 13.125-13.313-13.125h-18.75v-18.75l-13.125-13.313 13.125-13.313v-18.75h18.75l13.313-13.125 13.313 13.125h18.75v18.75l13.125 13.313z"></path>
+            </svg>
+        </button>
+        <button title="PageSpeed Insights"></button>
+    </div>
+</header>
+<main>
+    <style>
+        #foogallery-gallery-1 .fg-image { width: 360px; }
+    </style>
+    <div id="foogallery-gallery-1"
+         class="foogallery fg-carousel fg-loading-default fg-loaded-fade-in fg-shadow-medium fg-hover-fade fg-hover-zoom fg-light"
+         data-foogallery="{&quot;lazy&quot;:true,&quot;template&quot;:{&quot;maxItems&quot;:11,&quot;scale&quot;:0.12,&quot;gutter&quot;:{&quot;min&quot;:-40,&quot;max&quot;:-20,&quot;unit&quot;:&quot;%&quot;},&quot;autoplay&quot;:{&quot;time&quot;:0,&quot;interaction&quot;:&quot;pause&quot;}}}"
+         data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;}">
+        <button type="button" class="fg-carousel-prev"></button>
+        <div class="fg-carousel-inner">
+            <div class="fg-carousel-center"></div>
+
+            <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <figure class="fg-item-inner">
+                    <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Diam Euismod Neque Ut" data-description="Dictum at eget tincidunt. Quis auctor eu eleifend." data-tags='["360x240","tag5","tag2","tag3"]' data-exif='{"camera":"Fujifile FinePix6900ZOOM","aperture":"f/2.0","shutter_speed":"1/949 s","focal_length":"9 mm","iso":"64","created_timestamp":"8/6/2025, 2:13:03 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22360%20height=%22240%22%20viewBox=%220%200%20360%20240%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/360x240/1.jpg" data-srcset-fg="http://localhost:10/720x480/1.jpg 2x,http://localhost:10/1.jpg/1080x720/1.jpg 3x" width="360" height="240" title="Diam Euismod Neque Ut" alt="Dictum at eget tincidunt. Quis auctor eu eleifend.">
+			</span>
+                        <span class="fg-image-overlay"></span>
+                    </a>
+                    <figcaption class="fg-caption">
+                        <div class="fg-caption-inner">
+                            <div class="fg-caption-title">Sit Amet Consectetur Adipiscing Elit Libero A Placerat Risus Sit Amet Consectetur Adipiscing Elit Libero A Placerat Risus</div>
+                            <div class="fg-caption-desc">Parturient montes nascetur ridiculus mus mattis vehicula, suspendisse lacinia feugiat tempus pharetra fringilla. Nascetur ridiculus mus mattis vehicula lacus pellentesque. Taciti sociosqu ad litora torquent, netus egestas purus quisque lectus phasellus. Litora torquent per conubia.</div>
+                        </div>
+                    </figcaption>
+                </figure>
+                <div class="fg-loader"></div>
+            </div>
+            <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <figure class="fg-item-inner">
+                    <a class="fg-thumb" href="http://localhost:10/2.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Aliquam vitae eros odio fusce, viverra felis vel et nisi. Diam euismod neque." data-tags='["360x240","tag3","tag2"]' data-exif='{"camera":"Panasonic DMC-FZ30","aperture":"f/4.0","shutter_speed":"1/105 s","focal_length":"2 mm","iso":"64","created_timestamp":"8/4/2025, 2:00:38 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22360%20height=%22240%22%20viewBox=%220%200%20360%20240%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/360x240/2.jpg" data-srcset-fg="http://localhost:10/720x480/2.jpg 2x,http://localhost:10/2.jpg/1080x720/2.jpg 3x" width="360" height="240" title="Volutpat Massa Dictum At Eget" alt="Aliquam vitae eros odio fusce, viverra felis vel et nisi. Diam euismod neque.">
+			</span>
+                        <span class="fg-image-overlay"></span>
+                    </a>
+                    <figcaption class="fg-caption">
+                        <div class="fg-caption-inner">
+                            <div class="fg-caption-title">Volutpat Massa Dictum At Eget</div>
+                            <div class="fg-caption-desc">Aliquam vitae eros odio fusce, viverra felis vel et nisi. Diam euismod neque.</div>
+                        </div>
+                    </figcaption>
+                </figure>
+                <div class="fg-loader"></div>
+            </div>
+            <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <figure class="fg-item-inner">
+                    <a class="fg-thumb" href="http://localhost:10/3.jpg" data-title="Lacinia Feugiat Tempus" data-description="Tortor pretium metus laoreet. Elementum praesent ultrices rutrum nullam vivamus posuere. Volutpat massa dictum at eget." data-tags='["360x240","tag3","tag1","tag2"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/3.0","shutter_speed":"1/960 s","focal_length":"8 mm","iso":"61","created_timestamp":"8/7/2025, 2:09:33 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22360%20height=%22240%22%20viewBox=%220%200%20360%20240%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/360x240/3.jpg" data-srcset-fg="http://localhost:10/720x480/3.jpg 2x,http://localhost:10/3.jpg/1080x720/3.jpg 3x" width="360" height="240" title="Lacinia Feugiat Tempus" alt="Tortor pretium metus laoreet. Elementum praesent ultrices rutrum nullam vivamus posuere. Volutpat massa dictum at eget.">
+			</span>
+                        <span class="fg-image-overlay"></span>
+                    </a>
+                    <figcaption class="fg-caption">
+                        <div class="fg-caption-inner">
+                            <div class="fg-caption-title">Lacinia Feugiat Tempus</div>
+                            <div class="fg-caption-desc">Tortor pretium metus laoreet. Elementum praesent ultrices rutrum nullam vivamus posuere. Volutpat massa dictum at eget.</div>
+                        </div>
+                    </figcaption>
+                </figure>
+                <div class="fg-loader"></div>
+            </div>
+            <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <figure class="fg-item-inner">
+                    <a class="fg-thumb" href="http://localhost:10/4.jpg" data-title="Luctus" data-description="Odio fusce scelerisque sapien." data-tags='["360x240","tag3","tag1","tag2"]' data-exif='{"camera":"Sony HDR-HC3","aperture":"f/4.0","shutter_speed":"1/538 s","focal_length":"33 mm","iso":"75","created_timestamp":"8/6/2025, 2:06:39 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22360%20height=%22240%22%20viewBox=%220%200%20360%20240%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/360x240/4.jpg" data-srcset-fg="http://localhost:10/720x480/4.jpg 2x,http://localhost:10/4.jpg/1080x720/4.jpg 3x" width="360" height="240" title="Luctus" alt="Odio fusce scelerisque sapien.">
+			</span>
+                        <span class="fg-image-overlay"></span>
+                    </a>
+                    <figcaption class="fg-caption">
+                        <div class="fg-caption-inner">
+                            <div class="fg-caption-title">Luctus</div>
+                            <div class="fg-caption-desc">Odio fusce scelerisque sapien.</div>
+                        </div>
+                    </figcaption>
+                </figure>
+                <div class="fg-loader"></div>
+            </div>
+            <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <figure class="fg-item-inner">
+                    <a class="fg-thumb" href="http://localhost:10/5.jpg" data-title="Dignissim Non" data-description="Velit gravida ultricies donec nibh pulvinar facilisis, nostra inceptos himenaeos proin dapibus habitant." data-tags='["360x240","tag2"]' data-exif='{"camera":"Pentax K10D","aperture":"f/4.0","shutter_speed":"1/664 s","focal_length":"29 mm","iso":"99","created_timestamp":"8/7/2025, 2:34:10 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22360%20height=%22240%22%20viewBox=%220%200%20360%20240%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/360x240/5.jpg" data-srcset-fg="http://localhost:10/720x480/5.jpg 2x,http://localhost:10/5.jpg/1080x720/5.jpg 3x" width="360" height="240" title="Dignissim Non" alt="Velit gravida ultricies donec nibh pulvinar facilisis, nostra inceptos himenaeos proin dapibus habitant.">
+			</span>
+                        <span class="fg-image-overlay"></span>
+                    </a>
+                    <figcaption class="fg-caption">
+                        <div class="fg-caption-inner">
+                            <div class="fg-caption-title">Dignissim Non</div>
+                            <div class="fg-caption-desc">Velit gravida ultricies donec nibh pulvinar facilisis, nostra inceptos himenaeos proin dapibus habitant.</div>
+                        </div>
+                    </figcaption>
+                </figure>
+                <div class="fg-loader"></div>
+            </div>
+            <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <figure class="fg-item-inner">
+                    <a class="fg-thumb" href="http://localhost:10/6.jpg" data-title="Feugiat" data-description="Vestibulum erat leo viverra felis vel, vivamus posuere curabitur tempor." data-tags='["360x240","tag1"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/1.0","shutter_speed":"1/546 s","focal_length":"6 mm","iso":"59","created_timestamp":"8/6/2025, 2:38:47 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22360%20height=%22240%22%20viewBox=%220%200%20360%20240%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/360x240/6.jpg" data-srcset-fg="http://localhost:10/720x480/6.jpg 2x,http://localhost:10/6.jpg/1080x720/6.jpg 3x" width="360" height="240" title="Feugiat" alt="Vestibulum erat leo viverra felis vel, vivamus posuere curabitur tempor.">
+			</span>
+                        <span class="fg-image-overlay"></span>
+                    </a>
+                    <figcaption class="fg-caption">
+                        <div class="fg-caption-inner">
+                            <div class="fg-caption-title">Feugiat</div>
+                            <div class="fg-caption-desc">Vestibulum erat leo viverra felis vel, vivamus posuere curabitur tempor.</div>
+                        </div>
+                    </figcaption>
+                </figure>
+                <div class="fg-loader"></div>
+            </div>
+            <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <figure class="fg-item-inner">
+                    <a class="fg-thumb" href="http://localhost:10/7.jpg" data-title="Tristique Senectus Netus Egestas" data-description="Primis faucibus elementum praesent. Ante est integer ligula dignissim non suscipit. Vel et nisi maximus orci." data-tags='["360x240","tag3","tag1"]' data-exif='{"camera":"Nikon D70","aperture":"f/4.0","shutter_speed":"1/29 s","focal_length":"1 mm","iso":"60","created_timestamp":"8/4/2025, 2:30:25 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22360%20height=%22240%22%20viewBox=%220%200%20360%20240%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/360x240/7.jpg" data-srcset-fg="http://localhost:10/720x480/7.jpg 2x,http://localhost:10/7.jpg/1080x720/7.jpg 3x" width="360" height="240" title="Tristique Senectus Netus Egestas" alt="Primis faucibus elementum praesent. Ante est integer ligula dignissim non suscipit. Vel et nisi maximus orci.">
+			</span>
+                        <span class="fg-image-overlay"></span>
+                    </a>
+                    <figcaption class="fg-caption">
+                        <div class="fg-caption-inner">
+                            <div class="fg-caption-title">Tristique Senectus Netus Egestas</div>
+                            <div class="fg-caption-desc">Primis faucibus elementum praesent. Ante est integer ligula dignissim non suscipit. Vel et nisi maximus orci.</div>
+                        </div>
+                    </figcaption>
+                </figure>
+                <div class="fg-loader"></div>
+            </div>
+            <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <figure class="fg-item-inner">
+                    <a class="fg-thumb" href="http://localhost:10/8.jpg" data-title="Dui Fermentum" data-description="Nibh pulvinar facilisis interdum sem ullamcorper nec. Fames primis faucibus elementum praesent. Fringilla aliquet blandit class aptent." data-tags='["360x240","tag4","tag3","tag2"]' data-exif='{"camera":"Pentax K10D","aperture":"f/1.0","shutter_speed":"1/689 s","focal_length":"29 mm","iso":"56","created_timestamp":"8/6/2025, 2:40:31 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22360%20height=%22240%22%20viewBox=%220%200%20360%20240%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/360x240/8.jpg" data-srcset-fg="http://localhost:10/720x480/8.jpg 2x,http://localhost:10/8.jpg/1080x720/8.jpg 3x" width="360" height="240" title="Dui Fermentum" alt="Nibh pulvinar facilisis interdum sem ullamcorper nec. Fames primis faucibus elementum praesent. Fringilla aliquet blandit class aptent.">
+			</span>
+                        <span class="fg-image-overlay"></span>
+                    </a>
+                    <figcaption class="fg-caption">
+                        <div class="fg-caption-inner">
+                            <div class="fg-caption-title">Dui Fermentum</div>
+                            <div class="fg-caption-desc">Nibh pulvinar facilisis interdum sem ullamcorper nec. Fames primis faucibus elementum praesent. Fringilla aliquet blandit class aptent.</div>
+                        </div>
+                    </figcaption>
+                </figure>
+                <div class="fg-loader"></div>
+            </div>
+            <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <figure class="fg-item-inner">
+                    <a class="fg-thumb" href="http://localhost:10/9.jpg" data-title="Quam Nam Velit Gravida Ultricies" data-description="Finibus libero a. Fusce scelerisque sapien quis auctor eu. Accumsan bibendum fames primis faucibus elementum praesent, pretium metus laoreet convallis commodo morbi. Molestie nulla facilisi etiam." data-tags='["360x240","tag2","tag3"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/3.0","shutter_speed":"1/947 s","focal_length":"2 mm","iso":"52","created_timestamp":"8/4/2025, 2:15:19 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22360%20height=%22240%22%20viewBox=%220%200%20360%20240%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/360x240/9.jpg" data-srcset-fg="http://localhost:10/720x480/9.jpg 2x,http://localhost:10/9.jpg/1080x720/9.jpg 3x" width="360" height="240" title="Quam Nam Velit Gravida Ultricies" alt="Finibus libero a. Fusce scelerisque sapien quis auctor eu. Accumsan bibendum fames primis faucibus elementum praesent, pretium metus laoreet convallis commodo morbi. Molestie nulla facilisi etiam.">
+			</span>
+                        <span class="fg-image-overlay"></span>
+                    </a>
+                    <figcaption class="fg-caption">
+                        <div class="fg-caption-inner">
+                            <div class="fg-caption-title">Quam Nam Velit Gravida Ultricies</div>
+                            <div class="fg-caption-desc">Finibus libero a. Fusce scelerisque sapien quis auctor eu. Accumsan bibendum fames primis faucibus elementum praesent, pretium metus laoreet convallis commodo morbi. Molestie nulla facilisi etiam.</div>
+                        </div>
+                    </figcaption>
+                </figure>
+                <div class="fg-loader"></div>
+            </div>
+            <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <figure class="fg-item-inner">
+                    <a class="fg-thumb" href="http://localhost:10/10.jpg" data-title="Hendrerit Tellus Vulputate Semper Hac" data-description="Himenaeos proin dapibus habitant tristique senectus netus, porttitor venenatis porta sollicitudin enim imperdiet urna, sollicitudin enim imperdiet urna tortor pretium metus." data-tags='["360x240","tag4"]' data-exif='{"camera":"Kodak CX7530","aperture":"f/4.0","shutter_speed":"1/230 s","focal_length":"16 mm","iso":"74","created_timestamp":"8/5/2025, 2:41:24 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22360%20height=%22240%22%20viewBox=%220%200%20360%20240%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/360x240/10.jpg" data-srcset-fg="http://localhost:10/720x480/10.jpg 2x,http://localhost:10/10.jpg/1080x720/10.jpg 3x" width="360" height="240" title="Hendrerit Tellus Vulputate Semper Hac" alt="Himenaeos proin dapibus habitant tristique senectus netus, porttitor venenatis porta sollicitudin enim imperdiet urna, sollicitudin enim imperdiet urna tortor pretium metus.">
+			</span>
+                        <span class="fg-image-overlay"></span>
+                    </a>
+                    <figcaption class="fg-caption">
+                        <div class="fg-caption-inner">
+                            <div class="fg-caption-title">Hendrerit Tellus Vulputate Semper Hac</div>
+                            <div class="fg-caption-desc">Himenaeos proin dapibus habitant tristique senectus netus, porttitor venenatis porta sollicitudin enim imperdiet urna, sollicitudin enim imperdiet urna tortor pretium metus.</div>
+                        </div>
+                    </figcaption>
+                </figure>
+                <div class="fg-loader"></div>
+            </div>
+
+
+        </div>
+        <div class="fg-carousel-bottom"></div>
+        <div class="fg-carousel-progress"></div>
+        <button type="button" class="fg-carousel-next"></button>
+    </div>
+    <hr/>
+    <div class="option">
+        <label class="option-label" for="max_items_value">Max Items:</label>
+        <label class="option-inputs" for="max_items_range">
+            <input type="number" id="max_items_value" min="1" max="19" step="2" value="11"/>
+            <input type="range" id="max_items_range" min="1" max="19" step="2" value="11"/>
+        </label>
+    </div>
+    <div class="option">
+        <label class="option-label" for="scale_value">Scale:</label>
+        <label class="option-inputs" for="scale_range">
+            <input type="number" id="scale_value" min="0" max="1" step="0.01" value="0.12"/>
+            <input type="range" id="scale_range" min="0" max="1" step="0.01" value="0.12"/>
+        </label>
+    </div>
+    <div class="option">
+        <label class="option-label" for="gutter_min_value">Gutter Min:</label>
+        <label class="option-inputs" for="gutter_min_range">
+            <input type="number" id="gutter_min_value" min="-100" max="100" step="1" value="-40"/>
+            <input type="range" id="gutter_min_range" min="-100" max="100" step="1" value="-40"/>
+        </label>
+    </div>
+    <div class="option">
+        <label class="option-label" for="gutter_max_value">Gutter Max:</label>
+        <label class="option-inputs" for="gutter_max_range">
+            <input type="number" id="gutter_max_value" min="-100" max="100" step="1" value="-20"/>
+            <input type="range" id="gutter_max_range" min="-100" max="100" step="1" value="-20"/>
+        </label>
+    </div>
+    <div class="option">
+        <label class="option-label" for="gutter_unit_value">Gutter Unit:</label>
+        <div class="option-inputs">
+            <select id="gutter_unit_value">
+                <option value="%" selected>%</option>
+                <option value="px">px</option>
+            </select>
+            <div class="spacer"></div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
