@@ -153,17 +153,7 @@
 /* Captions */
 
 .foogallery.fg-image-viewer.fg-caption-always .fg-item-inner .fg-caption {
-	padding: 0;
 	border: none;
-}
-.foogallery.fg-image-viewer.fg-caption-always .fg-caption-title {
-	padding: 10px 10px 10px 10px;
-}
-.foogallery.fg-image-viewer.fg-caption-always .fg-caption-desc {
-	padding: 10px 10px 10px 10px;
-}
-.foogallery.fg-image-viewer.fg-caption-always .fg-caption-title+.fg-caption-desc {
-	padding: 0 10px 10px 10px;
 }
 
 /* Theme - Default (Light) */
