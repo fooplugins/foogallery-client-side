@@ -77,6 +77,9 @@ module.exports = function ( grunt ) {
 						"./src/core/css/hover-effects/captions.css",
 						"./src/core/css/hover-effects/icons.css",
 
+                        "./src/core/css/hover-effects/preset.css",
+                        "./src/core/css/hover-effects/presets/brad.css",
+
 						"./src/core/css/hover-effects/transition.css",
 						"./src/core/css/hover-effects/transitions/colorize.css",
 						"./src/core/css/hover-effects/transitions/fade.css",
