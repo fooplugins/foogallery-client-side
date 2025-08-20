@@ -158,23 +158,23 @@
         class IMGServerGenerator {
 
             static sizes = new Map( [
-                [ 1, [ 1920, 1280 ] ],
-                [ 2, [ 1919, 1281 ] ],
-                [ 3, [ 1280, 1920 ] ],
-                [ 4, [ 1920, 1280 ] ],
-                [ 5, [ 1280, 1920 ] ],
-                [ 6, [ 1920, 1276 ] ],
-                [ 7, [ 1920, 1439 ] ],
-                [ 8, [ 1280, 1920 ] ],
-                [ 9, [ 1280, 1920 ] ],
-                [ 10, [ 1920, 1280 ] ],
+                [ 1, [ 1920, 1280, 'rgb(77, 127, 154)' ] ],
+                [ 2, [ 1919, 1281, 'rgb(34, 48, 41)' ] ],
+                [ 3, [ 1280, 1920, 'rgb(76, 84, 85)' ] ],
+                [ 4, [ 1920, 1280, 'rgb(53, 61, 23)' ] ],
+                [ 5, [ 1280, 1920, 'rgb(23, 65, 24)' ] ],
+                [ 6, [ 1920, 1276, 'rgb(221, 193, 115)' ] ],
+                [ 7, [ 1920, 1439, 'rgb(226, 170, 207)' ] ],
+                [ 8, [ 1280, 1920, 'rgb(21, 26, 33)' ] ],
+                [ 9, [ 1280, 1920, 'rgb(185, 76, 37)' ] ],
+                [ 10, [ 1920, 1280, 'rgb(80, 96, 51)' ] ],
             ] );
 
             static createItems( width, height ) {
                 const items = [];
                 for ( let i = 1; i < 11; i++ ) {
                     let w = width, h = height;
-                    const [ fullWidth, fullHeight ] = this.sizes.get( i );
+                    const [ fullWidth, fullHeight, dominantColor ] = this.sizes.get( i );
                     if ( w === 'auto' && isNumber( h ) ) {
                         w = Math.round( ( h / fullHeight ) * fullWidth  );
                     }
@@ -182,13 +182,13 @@
                         h = Math.round( ( w / fullWidth ) * fullHeight );
                     }
                     if ( isNumber( w ) && isNumber( h ) ) {
-                        items.push( this.createItem( `${ i }.jpg`, w, h ) );
+                        items.push( this.createItem( `${ i }.jpg`, w, h, dominantColor ) );
                     }
                 }
                 return items;
             }
 
-            static createItem( id, width, height ) {
+            static createItem( id, width, height, dominantColor ) {
                 const title = LoremIpsum.getTitle(), description = LoremIpsum.getDescription();
                 return {
                     placeholder: `data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22${ width }%20height=%22${ height }%22%20viewBox=%220%200%20${ width }%20${ height }%22%3E%3C/svg%3E`,
@@ -197,6 +197,7 @@
                     srcset: `http://localhost:10/${ width * 2 }x${ height * 2 }/${ id } 2x,http://localhost:10/${ id }/${ width * 3 }x${ height * 3 }/${ id } 3x`,
                     width: width,
                     height: height,
+                    dominantColor: dominantColor,
                     title: title,
                     caption: title,
                     alt: description,
@@ -213,9 +214,9 @@
             static toHTML( item, exif = true ) {
                 let html = '';
                 if ( exif ) {
-                    html += '<div class="fg-item fg-type-image fg-item-exif fg-idle">\n';
+                    html += '<div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:' + item.dominantColor + '">\n';
                 } else {
-                    html += '<div class="fg-item fg-type-image fg-idle">\n';
+                    html += '<div class="fg-item fg-type-image fg-idle" style="--fg-dominant-color:' + item.dominantColor + '">\n';
                 }
                 html += '\t<figure class="fg-item-inner">\n';
                 if ( exif ){

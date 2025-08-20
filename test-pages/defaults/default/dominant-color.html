@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Dominant Color</title>
+    <link href="../assets/theme.css" rel="stylesheet"/>
+    <link href="../assets/css/foogallery.min.css" rel="stylesheet"/>
+    <style>
+        .foogallery.fg-dominant-color {
+            --fg-dominant-color: #FFF;
+        }
+        .foogallery.fg-dominant-color .fg-item {
+            --fg-dominant-color-alt: hsl(from var(--fg-dominant-color, #EEE) H S var(--lightness, 90%));
+            --fg-dominant-color-text: hsl(from var(--fg-dominant-color, #333) 0 0% calc((l - 60) * -100%));
+        }
+
+        /* Item Style */
+        .foogallery.fg-dominant-color .fg-item-inner {
+            background-color: var(--fg-dominant-color, #FFF);
+            color: var(--fg-dominant-color-text, #333);
+            border-color: var(--fg-dominant-color, #FFF);
+        }
+        /* Idle / Loading / Error Style */
+        .foogallery.fg-dominant-color .fg-item.fg-idle,
+        .foogallery.fg-dominant-color .fg-item.fg-loading,
+        .foogallery.fg-dominant-color .fg-item.fg-error {
+            background-color: var(--fg-dominant-color, #EEE);;
+            box-shadow: inset 0 0 0 1px var(--fg-dominant-color-alt, #DDD);
+        }
+        /* Loading Styles */
+        .fg-dominant-color.fg-loading-default .fg-loader {
+            color: var(--fg-dominant-color-alt, #828282);
+            box-shadow: 0 -2.6em 0 0 currentColor,
+            1.8em -1.8em 0 0 hsl(from currentColor h s l / 20%),
+            2.5em 0 0 0 hsl(from currentColor h s l / 20%),
+            1.75em 1.75em 0 0 hsl(from currentColor h s l / 20%),
+            0 2.5em 0 0 hsl(from currentColor h s l / 20%),
+            -1.8em 1.8em 0 0 hsl(from currentColor h s l / 20%),
+            -2.6em 0 0 0 hsl(from currentColor h s l / 50%),
+            -1.8em -1.8em 0 0 hsl(from currentColor h s l / 70%);
+        }
+        .fg-dominant-color.fg-loading-bars .fg-loader,
+        .fg-dominant-color.fg-loading-bars .fg-loader:before,
+        .fg-dominant-color.fg-loading-bars .fg-loader:after {
+            color: var(--fg-dominant-color-alt, #828282);
+            background: var(--fg-dominant-color-alt, #828282);
+        }
+        .fg-dominant-color.fg-loading-dots .fg-loader {
+            color: var(--fg-dominant-color-alt, #828282);
+        }
+        .fg-dominant-color.fg-loading-partial .fg-loader {
+            color: var(--fg-dominant-color-alt, #828282);
+            border-top: 1.1em solid hsl(from currentColor h s l / 20%);
+            border-right: 1.1em solid hsl(from currentColor h s l / 20%);
+            border-bottom: 1.1em solid hsl(from currentColor h s l / 20%);
+            border-left: 1.1em solid currentColor;
+        }
+        .fg-dominant-color.fg-loading-pulse .fg-loader {
+            color: var(--fg-dominant-color-alt, #828282);
+        }
+        .fg-dominant-color.fg-loading-trail .fg-loader {
+            color: var(--fg-dominant-color-alt, #828282);
+        }
+        /* Drop Shadow */
+        .foogallery.fg-dominant-color.fg-shadow-outline .fg-item-inner {
+            box-shadow: 0 0 0 1px var(--fg-dominant-color-alt, #ddd);
+        }
+        /* Inset Shadow */
+        .foogallery.fg-dominant-color.fg-shadow-inset-outline .fg-thumb:after {
+            box-shadow: inset 0 0 0 1px var(--fg-dominant-color-alt, #ddd);
+        }
+        /* Presets */
+        .foogallery.fg-dominant-color.fg-preset.fg-goliath .fg-caption-desc {
+            color: var(--fg-dominant-color-text, #333);
+        }
+
+    </style>
+    <script src="../assets/jquery.min.js" defer></script>
+    <script src="../assets/theme.js" defer></script>
+    <script src="../assets/js/foogallery.min.js" defer></script>
+<!--    <style>-->
+<!--        .foogallery.fg-dominant-color .fg-item {-->
+<!--            background: linear-gradient(to right, var(&#45;&#45;fg-dominant-color) 80%, var(&#45;&#45;fg-dominant-color-alt) 80% 100%);-->
+<!--        }-->
+<!--        .foogallery.fg-dominant-color .fg-item:after {-->
+<!--            content: 'Example Text';-->
+<!--            display: block;-->
+<!--            position: absolute;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            padding: 10px;-->
+<!--            font-size: 16px;-->
+<!--            line-height: 1.4;-->
+<!--            color: var(&#45;&#45;fg-dominant-color-text);-->
+<!--        }-->
+<!--    </style>-->
+    <style>
+        .header-right label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1em;
+        }
+        .header-right label+label {
+            margin-left: 1em;
+        }
+        .slider-controls {
+            display: flex;
+            gap: .4em;
+        }
+        .slider-controls input[type=text],
+        .color-picker input[type=color] {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            padding: 0;
+            font-size: inherit;
+            width: 3em;
+            height: 2em;
+            border-radius: 3px;
+            text-align: center;
+        }
+        .color-picker input[type=color] {
+            width: 2em;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleries = document.querySelectorAll('.foogallery');
+
+            const setDominantColor = value => {
+                galleries.forEach(gallery => {
+                    gallery.style.setProperty('--fg-dominant-color', value );
+                });
+            };
+            const colorInput = document.getElementById('color-input');
+            colorInput?.addEventListener('input', event => setDominantColor(event.target.value));
+
+            const lightnessInput = document.getElementById('lightness-input');
+            const lightnessValue = document.getElementById('lightness-value');
+            const setLightness = value => {
+                lightnessValue.value = value;
+                galleries.forEach(gallery => {
+                    gallery.style.setProperty('--lightness', value );
+                });
+            };
+            lightnessInput?.addEventListener('input', event => setLightness(`${event.target.value}%`));
+
+            const setSaturation = value => {
+                galleries.forEach(gallery => {
+                    gallery.style.setProperty('--saturation', value );
+                });
+            };
+            const saturationInput = document.getElementById('saturation-input');
+            saturationInput?.addEventListener('input', event => setSaturation(`${event.target.value}%`));
+
+            const titleLineClampInput = document.getElementById('title-line-clamp-input');
+            const titleLineClampValue = document.getElementById('title-line-clamp-value');
+            const setTitleLineClamp = value => {
+                titleLineClampValue.value = value;
+                galleries.forEach(gallery => {
+                    gallery.style.setProperty('--fg-title-line-clamp', value );
+                });
+            };
+            titleLineClampInput?.addEventListener('input', event => setTitleLineClamp(event.target.value));
+
+            const descriptionLineClampInput = document.getElementById('description-line-clamp-input');
+            const descriptionLineClampValue = document.getElementById('description-line-clamp-value');
+            const setDescriptionLineClamp = value => {
+                descriptionLineClampValue.value = value;
+                galleries.forEach(gallery => {
+                    gallery.style.setProperty('--fg-description-line-clamp', value );
+                });
+            };
+            descriptionLineClampInput?.addEventListener('input', event => setDescriptionLineClamp(event.target.value));
+
+        });
+    </script>
+</head>
+<body class="light">
+<header>
+    <ul class="header-left">
+        <li><a href="../index.html">Templates</a></li>
+        <li><h1>TEST (Default)</h1></li>
+    </ul>
+    <div class="header-right">
+<!--        <label>-->
+<!--            <span>Saturation</span>-->
+<!--            <input type="range" id="saturation-input" min="0" max="100" step="1" value="100" />-->
+<!--        </label>-->
+        <label for="title-line-clamp-input" class="slider">
+            <span>Title Line Clamp</span>
+            <span class="slider-controls">
+                <input type="range" id="title-line-clamp-input" min="0" max="20" step="1" value="2" />
+                <input type="text" id="title-line-clamp-value" value="2" readonly/>
+            </span>
+        </label>
+        <label for="description-line-clamp-input" class="slider">
+            <span>Description Line Clamp</span>
+            <span class="slider-controls">
+                <input type="range" id="description-line-clamp-input" min="0" max="20" step="1" value="4" />
+                <input type="text" id="description-line-clamp-value" value="4" readonly/>
+            </span>
+        </label>
+        <label for="lightness-input" class="slider">
+            <span>Lightness</span>
+            <span class="slider-controls">
+                <input type="range" id="lightness-input" min="0" max="100" step="1" value="90" />
+                <input type="text" id="lightness-value" value="90%" readonly/>
+            </span>
+        </label>
+        <label for="color-input" class="color-picker">
+            <span>Color</span>
+            <input type="color" id="color-input" value="#ffffff" />
+        </label>
+        <button title="Toggle Theme">
+            <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                <path d="M48 72q9.938 0 16.969-7.031t7.031-16.969-7.031-16.969-16.969-7.031v48zM80.063 61.313v18.75h-18.75l-13.313 13.125-13.313-13.125h-18.75v-18.75l-13.125-13.313 13.125-13.313v-18.75h18.75l13.313-13.125 13.313 13.125h18.75v18.75l13.125 13.313z"></path>
+            </svg>
+        </button>
+        <button title="PageSpeed Insights"></button>
+    </div>
+</header>
+<main>
+    <h2>Gallery 1</h2>
+    <style>
+        #foogallery-gallery-1 .fg-image { width: 275px; }
+    </style>
+    <div id="foogallery-gallery-1"
+         class="foogallery fg-loading-bars fg-loaded-slide-up fg-default fg-center fg-gutter-10 fg-hover-fade fg-caption-hover fg-border-thick fg-light fg-dominant-color"
+         data-foogallery="{&quot;lazy&quot;:true}"
+         data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;,&quot;cart&quot;:&quot;right&quot;,&quot;info&quot;:&quot;right&quot;,&quot;infoOverlay&quot;:false}">
+
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-item-r: 255; --fg-item-g: 0; --fg-item-b: 0; --fg-item-a: 0;">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(0, 0, 0)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(255, 255, 255)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(77, 127, 154)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(34, 48, 41)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/2.jpg" data-title="Egestas" data-description="Per conubia nostra." data-tags='["275x200","tag2","tag4","tag3","tag1"]' data-exif='{"camera":"Pentax K10D","aperture":"f/3.0","shutter_speed":"1/118 s","focal_length":"37 mm","iso":"80","created_timestamp":"8/9/2025, 4:53:20 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/2.jpg" data-srcset-fg="http://localhost:10/550x400/2.jpg 2x,http://localhost:10/2.jpg/825x600/2.jpg 3x" width="275" height="200" title="Egestas" alt="Per conubia nostra.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Egestas</div>
+                        <div class="fg-caption-desc">Per conubia nostra.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(76, 84, 85)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/3.jpg" data-title="Dapibus Habitant" data-description="Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id." data-tags='["275x200","tag2","tag4","tag5"]' data-exif='{"camera":"Sony HDR-HC3","aperture":"f/3.0","shutter_speed":"1/736 s","focal_length":"3 mm","iso":"99","created_timestamp":"8/5/2025, 4:04:11 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/3.jpg" data-srcset-fg="http://localhost:10/550x400/3.jpg 2x,http://localhost:10/3.jpg/825x600/3.jpg 3x" width="275" height="200" title="Dapibus Habitant" alt="Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Dapibus Habitant</div>
+                        <div class="fg-caption-desc">Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(53, 61, 23)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/4.jpg" data-title="Ornare" data-description="Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada." data-tags='["275x200","tag3","tag2","tag1"]' data-exif='{"camera":"Canon 40D","aperture":"f/4.0","shutter_speed":"1/461 s","focal_length":"30 mm","iso":"79","created_timestamp":"8/5/2025, 4:18:30 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/4.jpg" data-srcset-fg="http://localhost:10/550x400/4.jpg 2x,http://localhost:10/4.jpg/825x600/4.jpg 3x" width="275" height="200" title="Ornare" alt="Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Ornare</div>
+                        <div class="fg-caption-desc">Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(23, 65, 24)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/5.jpg" data-title="Taciti Sociosqu Ad" data-description="Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra." data-tags='["275x200","tag4","tag1"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/4.0","shutter_speed":"1/421 s","focal_length":"37 mm","iso":"93","created_timestamp":"8/8/2025, 4:20:49 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/5.jpg" data-srcset-fg="http://localhost:10/550x400/5.jpg 2x,http://localhost:10/5.jpg/825x600/5.jpg 3x" width="275" height="200" title="Taciti Sociosqu Ad" alt="Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(221, 193, 115)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/6.jpg" data-title="Varius Turpis Ex Quam" data-description="Fusce scelerisque sapien quis." data-tags='["275x200","tag1","tag5"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/2.0","shutter_speed":"1/793 s","focal_length":"33 mm","iso":"58","created_timestamp":"8/11/2025, 4:53:35 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/6.jpg" data-srcset-fg="http://localhost:10/550x400/6.jpg 2x,http://localhost:10/6.jpg/825x600/6.jpg 3x" width="275" height="200" title="Varius Turpis Ex Quam" alt="Fusce scelerisque sapien quis.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Varius Turpis Ex Quam</div>
+                        <div class="fg-caption-desc">Fusce scelerisque sapien quis.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(226, 170, 207)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/7.jpg" data-title="Vivamus" data-description="Ex quam nam velit gravida." data-tags='["275x200","tag3","tag4"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/4.0","shutter_speed":"1/201 s","focal_length":"8 mm","iso":"57","created_timestamp":"8/8/2025, 4:12:00 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/7.jpg" data-srcset-fg="http://localhost:10/550x400/7.jpg 2x,http://localhost:10/7.jpg/825x600/7.jpg 3x" width="275" height="200" title="Vivamus" alt="Ex quam nam velit gravida.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Vivamus</div>
+                        <div class="fg-caption-desc">Ex quam nam velit gravida.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(21, 26, 33)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/8.jpg" data-title="Etiam Volutpat" data-description="Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh." data-tags='["275x200","tag2"]' data-exif='{"camera":"Canon DIGITAL IXUS 400","aperture":"f/2.0","shutter_speed":"1/283 s","focal_length":"30 mm","iso":"98","created_timestamp":"8/8/2025, 4:49:39 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/8.jpg" data-srcset-fg="http://localhost:10/550x400/8.jpg 2x,http://localhost:10/8.jpg/825x600/8.jpg 3x" width="275" height="200" title="Etiam Volutpat" alt="Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Etiam Volutpat</div>
+                        <div class="fg-caption-desc">Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(185, 76, 37)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/9.jpg" data-title="Venenatis" data-description="Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti." data-tags='["275x200","tag4","tag2"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/2.0","shutter_speed":"1/950 s","focal_length":"31 mm","iso":"62","created_timestamp":"8/7/2025, 4:24:10 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/9.jpg" data-srcset-fg="http://localhost:10/550x400/9.jpg 2x,http://localhost:10/9.jpg/825x600/9.jpg 3x" width="275" height="200" title="Venenatis" alt="Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Venenatis</div>
+                        <div class="fg-caption-desc">Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(80, 96, 51)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/10.jpg" data-title="Nostra Inceptos Himenaeos" data-description="Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit." data-tags='["275x200","tag1","tag4","tag5","tag2"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/4.0","shutter_speed":"1/79 s","focal_length":"35 mm","iso":"78","created_timestamp":"8/5/2025, 4:24:40 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/10.jpg" data-srcset-fg="http://localhost:10/550x400/10.jpg 2x,http://localhost:10/10.jpg/825x600/10.jpg 3x" width="275" height="200" title="Nostra Inceptos Himenaeos" alt="Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Nostra Inceptos Himenaeos</div>
+                        <div class="fg-caption-desc">Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+
+
+    </div>
+
+    <br/>
+    <h2>Gallery 2</h2>
+    <style>
+        #foogallery-gallery-2 .fg-image { width: 275px; }
+    </style>
+    <div id="foogallery-gallery-2"
+         class="foogallery fg-loading-bars fg-loaded-slide-up fg-default fg-center fg-gutter-10 fg-preset fg-preset-small fg-goliath fg-light fg-dominant-color"
+         data-foogallery="{&quot;lazy&quot;:true}"
+         data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;,&quot;cart&quot;:&quot;right&quot;,&quot;info&quot;:&quot;right&quot;,&quot;infoOverlay&quot;:false}">
+
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(0, 0, 0)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(255, 255, 255)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(77, 127, 154)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(34, 48, 41)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/2.jpg" data-title="Egestas" data-description="Per conubia nostra." data-tags='["275x200","tag2","tag4","tag3","tag1"]' data-exif='{"camera":"Pentax K10D","aperture":"f/3.0","shutter_speed":"1/118 s","focal_length":"37 mm","iso":"80","created_timestamp":"8/9/2025, 4:53:20 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/2.jpg" data-srcset-fg="http://localhost:10/550x400/2.jpg 2x,http://localhost:10/2.jpg/825x600/2.jpg 3x" width="275" height="200" title="Egestas" alt="Per conubia nostra.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Egestas</div>
+                        <div class="fg-caption-desc">Per conubia nostra.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(76, 84, 85)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/3.jpg" data-title="Dapibus Habitant" data-description="Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id." data-tags='["275x200","tag2","tag4","tag5"]' data-exif='{"camera":"Sony HDR-HC3","aperture":"f/3.0","shutter_speed":"1/736 s","focal_length":"3 mm","iso":"99","created_timestamp":"8/5/2025, 4:04:11 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/3.jpg" data-srcset-fg="http://localhost:10/550x400/3.jpg 2x,http://localhost:10/3.jpg/825x600/3.jpg 3x" width="275" height="200" title="Dapibus Habitant" alt="Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Dapibus Habitant</div>
+                        <div class="fg-caption-desc">Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(53, 61, 23)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/4.jpg" data-title="Ornare" data-description="Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada." data-tags='["275x200","tag3","tag2","tag1"]' data-exif='{"camera":"Canon 40D","aperture":"f/4.0","shutter_speed":"1/461 s","focal_length":"30 mm","iso":"79","created_timestamp":"8/5/2025, 4:18:30 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/4.jpg" data-srcset-fg="http://localhost:10/550x400/4.jpg 2x,http://localhost:10/4.jpg/825x600/4.jpg 3x" width="275" height="200" title="Ornare" alt="Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Ornare</div>
+                        <div class="fg-caption-desc">Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(23, 65, 24)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/5.jpg" data-title="Taciti Sociosqu Ad" data-description="Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra." data-tags='["275x200","tag4","tag1"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/4.0","shutter_speed":"1/421 s","focal_length":"37 mm","iso":"93","created_timestamp":"8/8/2025, 4:20:49 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/5.jpg" data-srcset-fg="http://localhost:10/550x400/5.jpg 2x,http://localhost:10/5.jpg/825x600/5.jpg 3x" width="275" height="200" title="Taciti Sociosqu Ad" alt="Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(221, 193, 115)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/6.jpg" data-title="Varius Turpis Ex Quam" data-description="Fusce scelerisque sapien quis." data-tags='["275x200","tag1","tag5"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/2.0","shutter_speed":"1/793 s","focal_length":"33 mm","iso":"58","created_timestamp":"8/11/2025, 4:53:35 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/6.jpg" data-srcset-fg="http://localhost:10/550x400/6.jpg 2x,http://localhost:10/6.jpg/825x600/6.jpg 3x" width="275" height="200" title="Varius Turpis Ex Quam" alt="Fusce scelerisque sapien quis.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Varius Turpis Ex Quam</div>
+                        <div class="fg-caption-desc">Fusce scelerisque sapien quis.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(226, 170, 207)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/7.jpg" data-title="Vivamus" data-description="Ex quam nam velit gravida." data-tags='["275x200","tag3","tag4"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/4.0","shutter_speed":"1/201 s","focal_length":"8 mm","iso":"57","created_timestamp":"8/8/2025, 4:12:00 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/7.jpg" data-srcset-fg="http://localhost:10/550x400/7.jpg 2x,http://localhost:10/7.jpg/825x600/7.jpg 3x" width="275" height="200" title="Vivamus" alt="Ex quam nam velit gravida.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Vivamus</div>
+                        <div class="fg-caption-desc">Ex quam nam velit gravida.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(21, 26, 33)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/8.jpg" data-title="Etiam Volutpat" data-description="Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh." data-tags='["275x200","tag2"]' data-exif='{"camera":"Canon DIGITAL IXUS 400","aperture":"f/2.0","shutter_speed":"1/283 s","focal_length":"30 mm","iso":"98","created_timestamp":"8/8/2025, 4:49:39 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/8.jpg" data-srcset-fg="http://localhost:10/550x400/8.jpg 2x,http://localhost:10/8.jpg/825x600/8.jpg 3x" width="275" height="200" title="Etiam Volutpat" alt="Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Etiam Volutpat</div>
+                        <div class="fg-caption-desc">Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(185, 76, 37)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/9.jpg" data-title="Venenatis" data-description="Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti." data-tags='["275x200","tag4","tag2"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/2.0","shutter_speed":"1/950 s","focal_length":"31 mm","iso":"62","created_timestamp":"8/7/2025, 4:24:10 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/9.jpg" data-srcset-fg="http://localhost:10/550x400/9.jpg 2x,http://localhost:10/9.jpg/825x600/9.jpg 3x" width="275" height="200" title="Venenatis" alt="Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Venenatis</div>
+                        <div class="fg-caption-desc">Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(80, 96, 51)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/10.jpg" data-title="Nostra Inceptos Himenaeos" data-description="Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit." data-tags='["275x200","tag1","tag4","tag5","tag2"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/4.0","shutter_speed":"1/79 s","focal_length":"35 mm","iso":"78","created_timestamp":"8/5/2025, 4:24:40 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/10.jpg" data-srcset-fg="http://localhost:10/550x400/10.jpg 2x,http://localhost:10/10.jpg/825x600/10.jpg 3x" width="275" height="200" title="Nostra Inceptos Himenaeos" alt="Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Nostra Inceptos Himenaeos</div>
+                        <div class="fg-caption-desc">Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+
+
+    </div>
+
+    <h2>Gallery 3</h2>
+    <style>
+        #foogallery-gallery-3 .fg-image { width: 275px; }
+    </style>
+    <div id="foogallery-gallery-3"
+         class="foogallery fg-loading-bars fg-loaded-slide-up fg-default fg-center fg-gutter-10 fg-caption-always fg-border-thick fg-light fg-dominant-color"
+         data-foogallery="{&quot;lazy&quot;:true}"
+         data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;,&quot;cart&quot;:&quot;right&quot;,&quot;info&quot;:&quot;right&quot;,&quot;infoOverlay&quot;:false}">
+
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(0, 0, 0)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(255, 255, 255)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(77, 127, 154)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(34, 48, 41)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/2.jpg" data-title="Egestas" data-description="Per conubia nostra." data-tags='["275x200","tag2","tag4","tag3","tag1"]' data-exif='{"camera":"Pentax K10D","aperture":"f/3.0","shutter_speed":"1/118 s","focal_length":"37 mm","iso":"80","created_timestamp":"8/9/2025, 4:53:20 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/2.jpg" data-srcset-fg="http://localhost:10/550x400/2.jpg 2x,http://localhost:10/2.jpg/825x600/2.jpg 3x" width="275" height="200" title="Egestas" alt="Per conubia nostra.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Egestas</div>
+                        <div class="fg-caption-desc">Per conubia nostra.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(76, 84, 85)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/3.jpg" data-title="Dapibus Habitant" data-description="Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id." data-tags='["275x200","tag2","tag4","tag5"]' data-exif='{"camera":"Sony HDR-HC3","aperture":"f/3.0","shutter_speed":"1/736 s","focal_length":"3 mm","iso":"99","created_timestamp":"8/5/2025, 4:04:11 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/3.jpg" data-srcset-fg="http://localhost:10/550x400/3.jpg 2x,http://localhost:10/3.jpg/825x600/3.jpg 3x" width="275" height="200" title="Dapibus Habitant" alt="Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Dapibus Habitant</div>
+                        <div class="fg-caption-desc">Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(53, 61, 23)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/4.jpg" data-title="Ornare" data-description="Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada." data-tags='["275x200","tag3","tag2","tag1"]' data-exif='{"camera":"Canon 40D","aperture":"f/4.0","shutter_speed":"1/461 s","focal_length":"30 mm","iso":"79","created_timestamp":"8/5/2025, 4:18:30 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/4.jpg" data-srcset-fg="http://localhost:10/550x400/4.jpg 2x,http://localhost:10/4.jpg/825x600/4.jpg 3x" width="275" height="200" title="Ornare" alt="Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Ornare</div>
+                        <div class="fg-caption-desc">Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(23, 65, 24)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/5.jpg" data-title="Taciti Sociosqu Ad" data-description="Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra." data-tags='["275x200","tag4","tag1"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/4.0","shutter_speed":"1/421 s","focal_length":"37 mm","iso":"93","created_timestamp":"8/8/2025, 4:20:49 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/5.jpg" data-srcset-fg="http://localhost:10/550x400/5.jpg 2x,http://localhost:10/5.jpg/825x600/5.jpg 3x" width="275" height="200" title="Taciti Sociosqu Ad" alt="Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(221, 193, 115)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/6.jpg" data-title="Varius Turpis Ex Quam" data-description="Fusce scelerisque sapien quis." data-tags='["275x200","tag1","tag5"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/2.0","shutter_speed":"1/793 s","focal_length":"33 mm","iso":"58","created_timestamp":"8/11/2025, 4:53:35 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/6.jpg" data-srcset-fg="http://localhost:10/550x400/6.jpg 2x,http://localhost:10/6.jpg/825x600/6.jpg 3x" width="275" height="200" title="Varius Turpis Ex Quam" alt="Fusce scelerisque sapien quis.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Varius Turpis Ex Quam</div>
+                        <div class="fg-caption-desc">Fusce scelerisque sapien quis.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(226, 170, 207)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/7.jpg" data-title="Vivamus" data-description="Ex quam nam velit gravida." data-tags='["275x200","tag3","tag4"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/4.0","shutter_speed":"1/201 s","focal_length":"8 mm","iso":"57","created_timestamp":"8/8/2025, 4:12:00 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/7.jpg" data-srcset-fg="http://localhost:10/550x400/7.jpg 2x,http://localhost:10/7.jpg/825x600/7.jpg 3x" width="275" height="200" title="Vivamus" alt="Ex quam nam velit gravida.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Vivamus</div>
+                        <div class="fg-caption-desc">Ex quam nam velit gravida.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(21, 26, 33)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/8.jpg" data-title="Etiam Volutpat" data-description="Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh." data-tags='["275x200","tag2"]' data-exif='{"camera":"Canon DIGITAL IXUS 400","aperture":"f/2.0","shutter_speed":"1/283 s","focal_length":"30 mm","iso":"98","created_timestamp":"8/8/2025, 4:49:39 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/8.jpg" data-srcset-fg="http://localhost:10/550x400/8.jpg 2x,http://localhost:10/8.jpg/825x600/8.jpg 3x" width="275" height="200" title="Etiam Volutpat" alt="Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Etiam Volutpat</div>
+                        <div class="fg-caption-desc">Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(185, 76, 37)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/9.jpg" data-title="Venenatis" data-description="Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti." data-tags='["275x200","tag4","tag2"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/2.0","shutter_speed":"1/950 s","focal_length":"31 mm","iso":"62","created_timestamp":"8/7/2025, 4:24:10 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/9.jpg" data-srcset-fg="http://localhost:10/550x400/9.jpg 2x,http://localhost:10/9.jpg/825x600/9.jpg 3x" width="275" height="200" title="Venenatis" alt="Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Venenatis</div>
+                        <div class="fg-caption-desc">Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading" style="--fg-dominant-color:rgb(80, 96, 51)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/10.jpg" data-title="Nostra Inceptos Himenaeos" data-description="Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit." data-tags='["275x200","tag1","tag4","tag5","tag2"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/4.0","shutter_speed":"1/79 s","focal_length":"35 mm","iso":"78","created_timestamp":"8/5/2025, 4:24:40 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/10.jpg" data-srcset-fg="http://localhost:10/550x400/10.jpg 2x,http://localhost:10/10.jpg/825x600/10.jpg 3x" width="275" height="200" title="Nostra Inceptos Himenaeos" alt="Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Nostra Inceptos Himenaeos</div>
+                        <div class="fg-caption-desc">Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+
+
+    </div>
+
+    <h2>Gallery 4</h2>
+    <style>
+        #foogallery-gallery-4 .fg-image { width: 275px; }
+    </style>
+    <div id="foogallery-gallery-4"
+         class="foogallery fg-loading-bars fg-loaded-slide-up fg-default fg-center fg-gutter-10 fg-hover-fade fg-caption-hover fg-light fg-border-thick fg-shadow-outline fg-shadow-inset-outline fg-dominant-color"
+         data-foogallery="{&quot;lazy&quot;:true}"
+         data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;,&quot;cart&quot;:&quot;right&quot;,&quot;info&quot;:&quot;right&quot;,&quot;infoOverlay&quot;:false}">
+
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="Volutpat Massa Dictum At Eget" data-description="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien." data-tags='["275x200","tag3","tag1"]' data-exif='{"camera":"Canon PowerShot S40","aperture":"f/4.0","shutter_speed":"1/195 s","focal_length":"20 mm","iso":"73","created_timestamp":"8/11/2025, 4:58:50 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/1.jpg" data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/1.jpg/825x600/1.jpg 3x" width="275" height="200" title="Volutpat Massa Dictum At Eget" alt="Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad Volutpat Massa Dictum At Eget Nostra Inceptos Himenaeos Dapibus Habitant Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien. Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id. Felis vel et nisi maximus orci natoque, tortor pretium metus laoreet convallis commodo morbi, senectus netus egestas. Fusce scelerisque sapien.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/2.jpg" data-title="Egestas" data-description="Per conubia nostra." data-tags='["275x200","tag2","tag4","tag3","tag1"]' data-exif='{"camera":"Pentax K10D","aperture":"f/3.0","shutter_speed":"1/118 s","focal_length":"37 mm","iso":"80","created_timestamp":"8/9/2025, 4:53:20 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/2.jpg" data-srcset-fg="http://localhost:10/550x400/2.jpg 2x,http://localhost:10/2.jpg/825x600/2.jpg 3x" width="275" height="200" title="Egestas" alt="Per conubia nostra.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Egestas</div>
+                        <div class="fg-caption-desc">Per conubia nostra.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/3.jpg" data-title="Dapibus Habitant" data-description="Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id." data-tags='["275x200","tag2","tag4","tag5"]' data-exif='{"camera":"Sony HDR-HC3","aperture":"f/3.0","shutter_speed":"1/736 s","focal_length":"3 mm","iso":"99","created_timestamp":"8/5/2025, 4:04:11 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/3.jpg" data-srcset-fg="http://localhost:10/550x400/3.jpg 2x,http://localhost:10/3.jpg/825x600/3.jpg 3x" width="275" height="200" title="Dapibus Habitant" alt="Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Dapibus Habitant</div>
+                        <div class="fg-caption-desc">Ut consequat ante est integer ligula, rhoncus malesuada duis iaculis mi. Iaculis mi varius turpis ex quam. Elit maecenas id.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/4.jpg" data-title="Ornare" data-description="Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada." data-tags='["275x200","tag3","tag2","tag1"]' data-exif='{"camera":"Canon 40D","aperture":"f/4.0","shutter_speed":"1/461 s","focal_length":"30 mm","iso":"79","created_timestamp":"8/5/2025, 4:18:30 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/4.jpg" data-srcset-fg="http://localhost:10/550x400/4.jpg 2x,http://localhost:10/4.jpg/825x600/4.jpg 3x" width="275" height="200" title="Ornare" alt="Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Ornare</div>
+                        <div class="fg-caption-desc">Lacus pellentesque ac sagittis justo congue. Posuere curabitur tempor suspendisse lacinia feugiat tempus, dui fermentum cras efficitur, dictumst rhoncus malesuada.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/5.jpg" data-title="Taciti Sociosqu Ad" data-description="Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra." data-tags='["275x200","tag4","tag1"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/4.0","shutter_speed":"1/421 s","focal_length":"37 mm","iso":"93","created_timestamp":"8/8/2025, 4:20:49 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/5.jpg" data-srcset-fg="http://localhost:10/550x400/5.jpg 2x,http://localhost:10/5.jpg/825x600/5.jpg 3x" width="275" height="200" title="Taciti Sociosqu Ad" alt="Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Taciti Sociosqu Ad</div>
+                        <div class="fg-caption-desc">Litora torquent per conubia nostra inceptos himenaeos, ex quam nam velit gravida ultricies, feugiat tempus pharetra.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/6.jpg" data-title="Varius Turpis Ex Quam" data-description="Fusce scelerisque sapien quis." data-tags='["275x200","tag1","tag5"]' data-exif='{"camera":"Samsung Digimax i50","aperture":"f/2.0","shutter_speed":"1/793 s","focal_length":"33 mm","iso":"58","created_timestamp":"8/11/2025, 4:53:35 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/6.jpg" data-srcset-fg="http://localhost:10/550x400/6.jpg 2x,http://localhost:10/6.jpg/825x600/6.jpg 3x" width="275" height="200" title="Varius Turpis Ex Quam" alt="Fusce scelerisque sapien quis.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Varius Turpis Ex Quam</div>
+                        <div class="fg-caption-desc">Fusce scelerisque sapien quis.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/7.jpg" data-title="Vivamus" data-description="Ex quam nam velit gravida." data-tags='["275x200","tag3","tag4"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/4.0","shutter_speed":"1/201 s","focal_length":"8 mm","iso":"57","created_timestamp":"8/8/2025, 4:12:00 AM","orientation":"Bottom"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/7.jpg" data-srcset-fg="http://localhost:10/550x400/7.jpg 2x,http://localhost:10/7.jpg/825x600/7.jpg 3x" width="275" height="200" title="Vivamus" alt="Ex quam nam velit gravida.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Vivamus</div>
+                        <div class="fg-caption-desc">Ex quam nam velit gravida.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/8.jpg" data-title="Etiam Volutpat" data-description="Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh." data-tags='["275x200","tag2"]' data-exif='{"camera":"Canon DIGITAL IXUS 400","aperture":"f/2.0","shutter_speed":"1/283 s","focal_length":"30 mm","iso":"98","created_timestamp":"8/8/2025, 4:49:39 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/8.jpg" data-srcset-fg="http://localhost:10/550x400/8.jpg 2x,http://localhost:10/8.jpg/825x600/8.jpg 3x" width="275" height="200" title="Etiam Volutpat" alt="Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Etiam Volutpat</div>
+                        <div class="fg-caption-desc">Fames primis faucibus elementum praesent. Quam nam velit gravida ultricies donec nibh.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/9.jpg" data-title="Venenatis" data-description="Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti." data-tags='["275x200","tag4","tag2"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/2.0","shutter_speed":"1/950 s","focal_length":"31 mm","iso":"62","created_timestamp":"8/7/2025, 4:24:10 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/9.jpg" data-srcset-fg="http://localhost:10/550x400/9.jpg 2x,http://localhost:10/9.jpg/825x600/9.jpg 3x" width="275" height="200" title="Venenatis" alt="Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Venenatis</div>
+                        <div class="fg-caption-desc">Nisi maximus orci natoque penatibus magnis dis. Magnis dis parturient, tempor suspendisse lacinia feugiat tempus pharetra, lectus phasellus cubilia curae, class aptent taciti.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-loading">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/10.jpg" data-title="Nostra Inceptos Himenaeos" data-description="Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit." data-tags='["275x200","tag1","tag4","tag5","tag2"]' data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/4.0","shutter_speed":"1/79 s","focal_length":"35 mm","iso":"78","created_timestamp":"8/5/2025, 4:24:40 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E" data-src-fg="http://localhost:10/275x200/10.jpg" data-srcset-fg="http://localhost:10/550x400/10.jpg 2x,http://localhost:10/10.jpg/825x600/10.jpg 3x" width="275" height="200" title="Nostra Inceptos Himenaeos" alt="Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Nostra Inceptos Himenaeos</div>
+                        <div class="fg-caption-desc">Consectetur adipiscing elit maecenas id luctus augue, augue aliquam vitae eros odio fusce. Per conubia nostra inceptos himenaeos proin dapibus, venenatis porta sollicitudin enim imperdiet urna tortor. Pharetra fringilla aliquet blandit.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+
+
+    </div>
+
+</main>
+</body>
+</html>
