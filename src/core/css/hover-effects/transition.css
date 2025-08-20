@@ -21,6 +21,7 @@
 .foogallery.fg-hover-scale .fg-item.fg-loaded,
 .foogallery.fg-hover-scale .fg-loaded .fg-image-overlay,
 .foogallery.fg-hover-zoomed .fg-loaded .fg-image,
+.foogallery.fg-hover-semi-zoomed .fg-loaded .fg-image,
 .foogallery.fg-hover-colorize .fg-loaded .fg-image,
 .foogallery.fg-hover-grayscale .fg-loaded .fg-image {
 	transition-timing-function: ease;
