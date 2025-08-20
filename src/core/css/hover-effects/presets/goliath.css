@@ -36,6 +36,8 @@
 	-webkit-transform: translateY(40px);
 	transform: translateY(40px);
 	transition: transform 0.35s;
+    align-items: flex-start;
+    justify-content: flex-end;
 }
 .foogallery.fg-preset.fg-goliath .fg-item-inner:hover .fg-caption-inner,
 .foogallery.fg-preset.fg-goliath .fg-item-inner:focus-within .fg-caption-inner {
@@ -46,18 +48,11 @@
 .foogallery.fg-preset.fg-goliath .fg-caption-title {
 	padding: 10px;
 	max-height: calc(100% - 40px);
-	flex: 1;
-	display: flex;
-	align-items: flex-end;
-	justify-content: flex-start;
 	clip-path: content-box;
 }
 
 .foogallery.fg-preset.fg-goliath .fg-caption-desc {
-	display: -webkit-box;
 	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	clip-path: content-box;
 	position: relative;
 	padding: 4px 10px;
 	height: 40px;
