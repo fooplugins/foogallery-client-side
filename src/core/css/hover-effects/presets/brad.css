@@ -27,6 +27,7 @@
     width: 30%;
     border-bottom: 1px solid currentColor;
     order: 2;
+    margin: 0 10px;
 }
 .foogallery.fg-preset.fg-brad .fg-item-inner:hover .fg-caption-inner,
 .foogallery.fg-preset.fg-brad .fg-item-inner:focus-within .fg-caption-inner {
@@ -46,4 +47,12 @@
     height: auto;
     text-transform: none;
     order: 3;
+}
+
+/* Text Align */
+.foogallery.fg-preset.fg-brad.fg-c-l .fg-caption-inner {
+    align-items: flex-start;
+}
+.foogallery.fg-preset.fg-brad.fg-c-r .fg-caption-inner {
+    align-items: flex-end;
 }
