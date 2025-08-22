@@ -64,6 +64,13 @@
 .fg-panel-info-overlay.fg-panel-info-right:is(.fg-medium,.fg-panel-no-mobile) .fg-media-caption {
     padding-left: 10px;
 }
+.fg-panel-info-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-media-caption-title {
+    padding-bottom: 0;
+    border-bottom-width: 0;
+}
+.fg-panel-info-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-media-caption-description {
+    padding: 0;
+}
 
 
 
@@ -209,4 +216,8 @@
     .fg-media-caption-exif-prop:hover .fg-media-caption-exif-tooltip {
         display: inline-block;
     }
+}
+
+.fg-panel-info-overlay .fg-media-caption-exif {
+    margin-top: 10px;
 }
