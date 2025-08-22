@@ -44,6 +44,14 @@
                 }
             }
         },
+        isTargetingSamePosition: function( button ) {
+            if ( button instanceof _.Panel.SideAreaButton ) {
+                const pos1 = this?.area?.opt?.position,
+                    pos2 = button?.area?.opt?.position;
+                return _is.string( pos1 ) && _is.string( pos2 ) && pos1 === pos2;
+            }
+            return false;
+        },
         resize: function(){
             var enabled = this.area.isEnabled(), supported = enabled && this.area.canLoad(this.area.currentMedia);
             this.checkAutoHide(enabled, supported);

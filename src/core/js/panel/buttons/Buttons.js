@@ -100,10 +100,12 @@
 
         press: function( name, pressed ){
             var self = this, button = self.get(name);
-            if ( self.panel.isSmallScreen && pressed && _is.string(button.groupName) ){
+            if ( pressed && _is.string(button.groupName) ){
                 self.each(function(btn){
                     if ( button !== btn && btn instanceof _.Panel.SideAreaButton && button.groupName === btn.groupName ){
-                        btn.area.toggle( false );
+                        if ( self.panel.isSmallScreen || btn.isTargetingSamePosition( button ) ) {
+                            btn.area.toggle( false );
+                        }
                     }
                 });
             }
