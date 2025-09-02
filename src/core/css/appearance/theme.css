@@ -42,6 +42,9 @@
 	color: #333;
 	border-bottom-color: #333;
 }
+.foogallery.fg-light-overlays .fg-caption-desc {
+    color: #333;
+}
 .foogallery.fg-transparent-overlays .fg-caption {
 	background-color: transparent;
 	color: #fff;
@@ -49,6 +52,9 @@
 .foogallery.fg-transparent-overlays .fg-caption a {
 	color: #fff;
 	border-bottom-color: #fff;
+}
+.foogallery.fg-transparent-overlays .fg-caption-desc {
+    color: #d2d2d2;
 }
 
 .foogallery .fg-image-overlay {
