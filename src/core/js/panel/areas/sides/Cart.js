@@ -6,6 +6,7 @@
                 icon: "cart",
                 label: panel.il8n.buttons.cart,
                 position: panel.opt.cart,
+                overlay: panel.opt.cartOverlay,
                 visible: panel.opt.cartVisible,
                 autoHide: panel.opt.cartAutoHide,
                 waitForUnload: false,

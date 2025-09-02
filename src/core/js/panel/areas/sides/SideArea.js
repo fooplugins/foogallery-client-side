@@ -20,12 +20,14 @@
                 icon: null,
                 label: null,
                 position: null,
+                overlay: false,
                 visible: true,
                 autoHide: false,
                 toggle: !!panel.opt.buttons[name]
             }, options), _obj.extend({
                 toggle: this.__cls(cls.toggle, name, true),
                 visible: this.__cls(cls.visible, name),
+                overlay: this.__cls(cls.overlay, name),
                 position: {
                     top: this.__cls(cls.position.top, name),
                     right: this.__cls(cls.position.right, name),
@@ -36,7 +38,7 @@
             self.isVisible = self.opt.visible;
             self.allPositionClasses = Object.keys(self.cls.position).map(function (key) {
                 return self.cls.position[key];
-            }).join(" ");
+            }).join(" ") + " " + self.cls.overlay;
             self.button = self.registerButton();
         },
         registerButton: function(){
@@ -46,12 +48,6 @@
         },
         doCreate: function(){
             if (this._super()){
-                if (this.opt.toggle){
-                    $('<button/>', {type: 'button'}).addClass(this.cls.toggle)
-                        .append(_icons.get("circle-close", this.panel.opt.icons))
-                        .on("click.foogallery", {self: this}, this.onToggleClick)
-                        .appendTo(this.$inner);
-                }
                 if (this.isEnabled()){
                     this.panel.$el.toggleClass(this.cls.visible, this.isVisible);
                     this.setPosition( this.opt.position );
@@ -68,12 +64,19 @@
         },
         getPosition: function(){
             if (this.isEnabled()){
-                return this.cls.position[this.opt.position];
+                const position = this.cls.position[this.opt.position];
+                return this.opt.overlay ? position + " " + this.cls.overlay : position;
             }
             return null;
         },
-        setPosition: function( position ){
+        /**
+         *
+         * @param {string} position
+         * @param {?boolean} [overlay]
+         */
+        setPosition: function( position, overlay = null ){
             this.opt.position = this.cls.position.hasOwnProperty(position) ? position : null;
+            if (_is.boolean(overlay)) this.opt.overlay = overlay;
             if (_is.jq(this.panel.$el)){
                 this.panel.$el.removeClass(this.allPositionClasses).addClass(this.getPosition());
             }

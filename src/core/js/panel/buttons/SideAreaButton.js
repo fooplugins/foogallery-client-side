@@ -46,9 +46,19 @@
         },
         isTargetingSamePosition: function( button ) {
             if ( button instanceof _.Panel.SideAreaButton ) {
-                const pos1 = this?.area?.opt?.position,
-                    pos2 = button?.area?.opt?.position;
-                return _is.string( pos1 ) && _is.string( pos2 ) && pos1 === pos2;
+                const ov1 = this?.area?.opt?.overlay,
+                    ov2 = button?.area?.opt?.overlay;
+                // check if the overlay state is the same
+                if ( ov1 === ov2 ) {
+                    if ( ov1 === true ) {
+                        // all overlays are counted as the same position as they overlap
+                        return true;
+                    }
+                    // overlay state is the same so check the position
+                    const pos1 = this?.area?.opt?.position,
+                        pos2 = button?.area?.opt?.position;
+                    return _is.string( pos1 ) && _is.string( pos2 ) && pos1 === pos2;
+                }
             }
             return false;
         },
