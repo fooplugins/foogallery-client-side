@@ -691,7 +691,7 @@
 		regex: {
 			theme: /(?:\s|^)(fg-(?:light|dark|custom))(?:\s|$)/,
 			loadingIcon: /(?:\s|^)(fg-loading-(?:default|bars|dots|partial|pulse|trail))(?:\s|$)/,
-			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|plus|circle-plus|eye|external|tint))(?:\s|$)/,
+			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|zoom4|zoom5|plus|plus2|plus3|circle-plus|circle-plus2|square-plus|eye|external|tint))(?:\s|$)/,
 			videoIcon: /(?:\s|^)(fg-video-(?:default|1|2|3|4))(?:\s|$)/,
 			border: /(?:\s|^)(fg-border-(?:thin|medium|thick))(?:\s|$)/,
 			hoverColor: /(?:\s|^)(fg-hover-(?:colorize|grayscale))(?:\s|$)/,
