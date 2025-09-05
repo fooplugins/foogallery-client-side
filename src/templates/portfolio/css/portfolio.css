@@ -94,6 +94,9 @@
     white-space: normal;
     height: auto;
 }
+.fg-simple_portfolio .fg-caption-desc {
+    flex: unset;
+}
 .fg-simple_portfolio .fg-caption-desc,
 .fg-simple_portfolio .fg-caption-desc a {
     transition-property: color;
