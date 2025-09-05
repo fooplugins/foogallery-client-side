@@ -5,15 +5,16 @@
      * @type {CSSStyleSheet}
      */
     const styleSheet = new CSSStyleSheet();
-    styleSheet.replaceSync(`:host{display:inline-flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:10px;font-family:inherit;font-size:16px;width:fit-content;accent-color:#2271b1}:host,:host *{box-sizing:border-box}:host output{display:inline-flex;flex-direction:row;align-items:center;justify-content:center;box-shadow:0 0 0 rgba(0,0,0,0);border-radius:4px;border:1px solid #8c8f94;background-color:#fff;color:#2c3338;padding:0 8px;line-height:2;min-height:30px;min-width:30px;font-size:14px}`);
+    styleSheet.replaceSync(`:host{display:inline-flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:10px;font-family:inherit;font-size:16px;width:fit-content;accent-color:#2271b1}:host,:host *{box-sizing:border-box}:host output{display:inline-flex;flex-direction:row;align-items:center;justify-content:center;box-shadow:0 0 0 rgba(0,0,0,0);border-radius:4px;border:1px solid #8c8f94;background-color:#fff;color:#2c3338;padding:0 8px;line-height:2;min-height:30px;min-width:30px;font-size:14px}:host(:disabled) output{background-color:hsla(0,0%,100%,.5);border-color:rgba(220,220,222,.75);box-shadow:inset 0 1px 2px rgba(0,0,0,.04);color:rgba(44,51,56,.5)}`);
 
     /**
      * The template for the shadow DOM.
      * @type {HTMLTemplateElement}
      */
     const template = document.createElement( "template" );
-    template.innerHTML = `<input part="input" type="range"/>
-<output part="output"></output>`;
+    template.innerHTML = `<input id="range-input" part="input" type="range"/>
+<output id="range-output" for="range-input" part="output"></output>`;
+
     //endregion
 
     /**
