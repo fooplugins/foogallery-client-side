@@ -87,6 +87,7 @@
             this.attachShadow( { mode: 'open' } ).append( template.content.cloneNode( true ) );
             this.shadowRoot.adoptedStyleSheets.push( styleSheet );
             this.onInputListener = this.onInputListener.bind( this );
+            this.onChangeListener = this.onChangeListener.bind( this );
         }
 
         //region Child Elements
@@ -130,7 +131,6 @@
 
         #value;
         get value() {
-            this.input.name;
             if ( typeof this.#value !== 'number' ) {
                 this.#value = this.defaultValue;
             }
@@ -317,8 +317,18 @@
         /**
          * Handles the oninput event for the internal input element.
          */
-        onInputListener() {
+        onInputListener( event ) {
+            event.stopPropagation();
             this.value = this.input.value;
+            this.dispatchEvent(new Event('input'));
+        }
+
+        /**
+         * Handles the onchange event for the internal input element.
+         */
+        onChangeListener( event ) {
+            event.stopPropagation();
+            this.dispatchEvent(new Event('change'));
         }
 
         //endregion
@@ -331,10 +341,12 @@
                 this.value = this.defaultValue;
             }
             this.input.addEventListener( 'input', this.onInputListener );
+            this.input.addEventListener( 'change', this.onChangeListener );
         }
 
         disconnectedCallback() {
             this.input.removeEventListener( 'input', this.onInputListener );
+            this.input.removeEventListener( 'change', this.onChangeListener );
         }
 
         attributeChangedCallback( name, oldValue, newValue ) {
