@@ -41,13 +41,11 @@
 .fg-media-caption-title {
     font-weight: 600;
     border: none;
+}
+:is(.fg-panel-info-left,.fg-panel-info-right):is(.fg-medium,.fg-panel-no-mobile) .fg-media-caption-title {
     padding-bottom: 10px;
     border-bottom-style: solid;
     border-bottom-width: 1px;
-}
-:is(.fg-panel-info-top,.fg-panel-info-bottom):is(.fg-medium,.fg-panel-no-mobile) .fg-media-caption-title {
-    padding-bottom: 0;
-    border-bottom-width: 0;
 }
 
 .fg-media-caption-description {
