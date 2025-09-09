@@ -1,10 +1,12 @@
 .fg-simple_portfolio {
+    --fg-gutter: 10px;
+
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
     align-content: center;
-    gap: 10px;
+    gap: var(--fg-gutter);
 }
 .fg-simple_portfolio .fg-item {
     position: relative;
