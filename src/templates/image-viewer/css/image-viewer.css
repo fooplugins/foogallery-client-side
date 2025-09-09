@@ -18,12 +18,10 @@
 	position: relative;
 	display: inline-block;
 	max-width: 100%;
-	overflow: hidden;
 	z-index: 6;
 }
 .fiv-inner .fiv-inner-container {
 	position: relative;
-	overflow: hidden;
 	max-width: 100%;
 	border-style: solid;
 	border-width: 0;
