@@ -29,7 +29,7 @@
 .foogallery.fg-preset.fg-polaroid .fg-caption {
 	position: relative;
 	width: auto;
-	font-family: "Segoe Print Regular",-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	font-family: "Segoe Print Regular","Comic Sans MS",-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 
 .foogallery.fg-preset.fg-polaroid .fg-caption-inner {
