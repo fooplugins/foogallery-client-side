@@ -446,12 +446,7 @@ module.exports = function ( grunt ) {
 						"./src/templates/foogrid/js/ready.js"
 					],
 					"./dist/components/css/foogallery.tmpl.foogrid.css": [
-						"./src/templates/foogrid/css/_foogrid.css",
-						"./src/templates/foogrid/css/item.css",
-						"./src/templates/foogrid/css/content.css",
-						"./src/templates/foogrid/css/columns.css",
-						"./src/templates/foogrid/css/transitions.css",
-						"./src/templates/foogrid/css/panel.css"
+                        "./src/templates/foogrid/css/foogrid.css"
 					]
 				}
 			},
