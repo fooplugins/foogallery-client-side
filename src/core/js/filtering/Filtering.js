@@ -15,7 +15,7 @@
 			self.sel = self.tmpl.sel.filtering;
 			self.pushOrReplace = self.opt.pushOrReplace;
 			self.type = self.opt.type;
-			self.theme = self.opt.theme;
+			self.theme = self.opt.theme ?? template.getCSSClass('theme');
 			self.position = self.opt.position;
 
 			self.mode = self.opt.mode;
@@ -422,7 +422,7 @@
 
 	_.filtering.register("default", _.Filtering, null, {
 		type: "none",
-		theme: "fg-light",
+		theme: null, // fg-light, fg-dark, fg-custom
 		pushOrReplace: "push",
 		position: "none",
 		mode: "single",
