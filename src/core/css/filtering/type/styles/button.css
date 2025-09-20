@@ -1,0 +1,55 @@
+/* Light */
+.fg-style-button.fg-light .fg-tag-link {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.fg-style-button.fg-light .fg-tag-link:hover {
+    color: #333;
+    background-color: #efefef;
+    border-color: #adadad;
+}
+.fg-style-button.fg-light .fg-tag-item .fg-tag-link .fg-tag-count {
+    color: #888888;
+    background-color: #efefef;
+    border-color: inherit;
+}
+.fg-style-button.fg-light .fg-tag-item .fg-tag-link:hover .fg-tag-count {
+    background-color: #FFF;
+}
+.fg-style-button.fg-light .fg-tag-item.fg-selected .fg-tag-link {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+.fg-style-button.fg-light .fg-tag-item.fg-selected .fg-tag-link .fg-tag-count {
+    color: #FFF;
+    background-color: #555;
+    border-color: inherit;
+}
+
+/* Dark */
+.fg-style-button.fg-dark .fg-tag-link {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+.fg-style-button.fg-dark .fg-tag-link:hover {
+    color: #FFF;
+    background-color: #666;
+    border-color: #444;
+}
+.fg-style-button.fg-dark .fg-tag-item .fg-tag-link .fg-tag-count {
+    color: #ccc;
+    background-color: #555;
+    border-color: inherit;
+}
+.fg-style-button.fg-dark .fg-tag-item.fg-selected .fg-tag-link {
+    color: #333;
+    background-color: #fff;
+    border-color: #444;
+}
+.fg-style-button.fg-dark .fg-tag-item.fg-selected .fg-tag-link .fg-tag-count {
+    background-color: #333;
+    border-color: #222;
+}

@@ -306,7 +306,8 @@ module.exports = function ( grunt ) {
 					],
 					"./dist/components/css/foogallery.filtering.css": [
 						"./src/core/css/filtering/filtering.css",
-						"./src/core/css/filtering/type/tags.css"
+                        "./src/core/css/filtering/type/tags.css",
+                        "./src/core/css/filtering/type/styles/*.css"
 					]
 				}
 			},

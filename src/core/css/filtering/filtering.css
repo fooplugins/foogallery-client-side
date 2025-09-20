@@ -1,8 +1,20 @@
 .fg-filtering-container, .fg-filtering-container *, .fg-filtering-container *:before, .fg-filtering-container *:after {
 	box-sizing: border-box;
 }
+
 .fg-filtering-container {
-	display: block;
+    --fg-base-size: 16px;
+    --fg-search-width: calc( var( --fg-base-size ) * 14 );
+    --fg-height: calc( var( --fg-base-size ) * 2.2 );
+    --fg-base-25: calc( var( --fg-base-size ) / 4 );
+    --fg-base-33: calc( var( --fg-base-size ) / 3 );
+    --fg-base-50: calc( var( --fg-base-size ) / 2 );
+    --fg-base-66: calc( var( --fg-base-33 ) * 2 );
+    --fg-base-75: calc( var( --fg-base-25 ) * 3 );
+    --fg-base-100: var( --fg-base-size );
+    --fg-base-125: calc( var( --fg-base-size ) + var( --fg-base-25 ) );
+
+	display: flex;
 	padding: 15px;
 	margin-top: 0!important;
 	margin-bottom: 0!important;
@@ -10,6 +22,11 @@
 	margin-right: auto;
 	text-align: center;
 	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size: var(--fg-base-size);
+    gap: var(--fg-base-25);
+    height: fit-content;
+    min-height: var(--fg-height);
+
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;

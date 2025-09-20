@@ -16,6 +16,7 @@
 			self.pushOrReplace = self.opt.pushOrReplace;
 			self.type = self.opt.type;
 			self.theme = self.opt.theme ?? template.getCSSClass('theme');
+            self.style = self.opt.style ?? "fg-style-default";
 			self.position = self.opt.position;
 
 			self.mode = self.opt.mode;
@@ -349,13 +350,11 @@
 
 				if (a.hasOwnProperty(prop) && b.hasOwnProperty(prop)){
 					if (_is.string(a[prop]) && _is.string(b[prop])){
-						var s1 = a[prop].toUpperCase(), s2 = b[prop].toUpperCase();
+						var s1 = a[prop], s2 = b[prop];
 						if (invert){
-							if (s2 < s1) return -1;
-							if (s2 > s1) return 1;
+                            return s2.localeCompare(s1);
 						} else {
-							if (s1 < s2) return -1;
-							if (s1 > s2) return 1;
+                            return s1.localeCompare(s2);
 						}
 					} else {
 						if (invert){
@@ -390,10 +389,11 @@
 				self.$container.removeClass(function(i, classNames){
 					self._placeholderClasses = classNames.match(/(^|\s)fg-ph-\S+/g) || [];
 					return self._placeholderClasses.join(' ');
-				}).addClass([self.filter.cls.container, self.filter.theme].join(' '));
+				}).addClass([self.filter.cls.container, self.filter.theme, self.filter.style].join(' '));
 			} else {
-				self.$container = $("<nav/>", {"class": [self.filter.cls.container, self.filter.theme].join(' ')});
+				self.$container = $("<nav/>", {"class": [self.filter.cls.container, self.filter.theme, self.filter.style].join(' ')});
 			}
+            self.$container.css("--fg-base-size", `${ self.filter.largest }px`).toggleClass('fg-multi-level', self.filter.isMultiLevel);
 			return true;
 		},
 		destroy: function () {
@@ -423,6 +423,7 @@
 	_.filtering.register("default", _.Filtering, null, {
 		type: "none",
 		theme: null, // fg-light, fg-dark, fg-custom
+        style: null,
 		pushOrReplace: "push",
 		position: "none",
 		mode: "single",
