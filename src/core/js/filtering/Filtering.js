@@ -16,7 +16,6 @@
 			self.pushOrReplace = self.opt.pushOrReplace;
 			self.type = self.opt.type;
 			self.theme = self.opt.theme ?? template.getCSSClass('theme');
-            self.style = self.opt.style ?? "fg-style-default";
 			self.position = self.opt.position;
 
 			self.mode = self.opt.mode;
@@ -389,9 +388,9 @@
 				self.$container.removeClass(function(i, classNames){
 					self._placeholderClasses = classNames.match(/(^|\s)fg-ph-\S+/g) || [];
 					return self._placeholderClasses.join(' ');
-				}).addClass([self.filter.cls.container, self.filter.theme, self.filter.style].join(' '));
+				}).addClass([self.filter.cls.container, self.filter.theme].join(' '));
 			} else {
-				self.$container = $("<nav/>", {"class": [self.filter.cls.container, self.filter.theme, self.filter.style].join(' ')});
+				self.$container = $("<nav/>", {"class": [self.filter.cls.container, self.filter.theme].join(' ')});
 			}
             self.$container.css("--fg-base-size", `${ self.filter.largest }px`).toggleClass('fg-multi-level', self.filter.isMultiLevel);
 			return true;
@@ -423,7 +422,6 @@
 	_.filtering.register("default", _.Filtering, null, {
 		type: "none",
 		theme: null, // fg-light, fg-dark, fg-custom
-        style: null,
 		pushOrReplace: "push",
 		position: "none",
 		mode: "single",

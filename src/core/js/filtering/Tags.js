@@ -24,14 +24,14 @@
 			};
 			this.lists = [];
             this.dropdownEnabled = this.isDropdownStyle();
-            this.collapseEnabled = this.filter.opt.collapse > 0;
+            this.collapseEnabled = this.filter.opt.collapse;
             this.collapse = null;
             this.onCollapseChange = this.onCollapseChange.bind( this );
             this._wrappedAt = 0;
             this.onLayout = this.onLayout.bind( this );
 		},
         isDropdownStyle: function() {
-            return ['fg-style-dropdown','fg-style-dropdown-block'].includes(this?.filter?.style);
+            return ['dropdown','dropdown-block'].includes(this?.filter?.opt?.style);
         },
         shouldRenderTags: function() {
             return ( this.position === "bottom" || (this.position === "top" && !this.filter.hideTopTags ) )
@@ -56,10 +56,13 @@
                     }
                 }
                 this.$container.addClass("fg-tags-" + opt.align);
+                if ( _is.string( opt.style ) ) {
+                    this.$container.addClass("fg-style-" + opt.style);
+                }
 
                 if (this.shouldRenderTags()){
                     if (this.collapseEnabled) {
-                        this.collapse = matchMedia(`(max-width: ${ opt.collapse }px)`);
+                        this.collapse = matchMedia(`(max-width: 600px)`);
                         this.collapse.addEventListener('change', this.onCollapseChange);
                         this.dropdownEnabled = this.isDropdownStyle() || this.collapse.matches;
                     }
@@ -325,16 +328,15 @@
 	_.filtering.register("tags", _.Tags, _.TagsControl, {
 		type: "tags",
 		position: "top",
+        style: null, // button, button-block, pill, pill-block, dropdown, dropdown-block
         align: "center",
 		pushOrReplace: "push",
 		searchPosition: "above-center",
-        collapse: 0
+        collapse: false
 	}, {
 		showCount: "fg-show-count",
 		noTags: "fg-no-tags",
         wrap: "fg-tag-wrap",
-        dropdownWrap: "fg-tag-dropdown-wrap",
-        dropdown: "fg-tag-dropdown",
 		list: "fg-tag-list",
 		item: "fg-tag-item",
 		link: "fg-tag-link",
