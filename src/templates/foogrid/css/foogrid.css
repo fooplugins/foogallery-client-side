@@ -64,6 +64,10 @@
     margin-right: 0;
 }
 
+.foogrid .fg-image {
+    width: 100%;
+}
+
 /* Force 7 column layout */
 @media only screen and (min-width: 1441px) and (max-width: 1600px) {
     .foogrid.foogrid-cols-8 {
