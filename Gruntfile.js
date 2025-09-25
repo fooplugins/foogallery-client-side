@@ -395,7 +395,8 @@ module.exports = function ( grunt ) {
 						"./src/templates/image-viewer/js/ready.js"
 					],
 					"./dist/components/css/foogallery.tmpl.image-viewer.css": [
-						"./src/templates/image-viewer/css/image-viewer.css"
+						"./src/templates/image-viewer/css/image-viewer.css",
+                        "./src/templates/image-viewer/css/overlay-controls.css"
 					]
 				}
 			},
