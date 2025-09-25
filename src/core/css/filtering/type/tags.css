@@ -172,7 +172,7 @@
     transition-property: color, opacity, border-color, background-color;
 }
 
-.fg-tag-dropdown-select {
+.fg-tag-dropdown-wrap .fg-tag-dropdown .fg-tag-dropdown-select {
     appearance: none;
     display: inline-flex;
     height: 100%;
@@ -191,6 +191,10 @@
     line-height: inherit;
     outline: none;
     box-shadow: none;
+    border-radius: 0;
+    min-height: unset;
+    max-width: unset;
+    vertical-align: unset;
 }
 
 .fg-tag-dropdown-icon {
