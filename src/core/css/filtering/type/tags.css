@@ -60,6 +60,16 @@
         justify-content: center;
         align-items: stretch;
     }
+
+    .fg-tags-left .fg-tag-list {
+        justify-content: flex-start;
+    }
+    .fg-tags-center .fg-tag-list {
+        justify-content: center;
+    }
+    .fg-tags-right .fg-tag-list {
+        justify-content: flex-end;
+    }
 }
 
 .fg-tag-list {

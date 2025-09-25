@@ -34,6 +34,11 @@
 }
 @media (min-width: 600px) {
     /* Search Merged */
+    .fg-style-pill-block:is(.fg-tags-left,.fg-tags-center,.fg-tags-right) .fg-tag-list {
+        justify-content: flex-start;
+        width: fit-content;
+    }
+
     .fg-style-pill-block:is(.fg-search-after-merged,.fg-search-before-merged):not(.fg-has-wrapped) {
         gap: 0;
     }
