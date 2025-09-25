@@ -106,6 +106,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
+    line-height: 1;
 }
 .fg-image-viewer.fg-overlay-controls.fg-dots-left .fg-paging-container {
     text-align: left;
