@@ -547,7 +547,7 @@
             self.cleanup( self.sel.activeItem, self.cls.activeItem );
 
             el.classList.add( self.cls.activeItem );
-            el.style.setProperty("transition-duration", self.opt.speed + "ms" );
+            el.style.setProperty("transition-duration", ( self._firstLayout ? 0 : self.opt.speed ) + "ms" );
             el.style.setProperty( "z-index", layout.zIndex );
             el.style.removeProperty( "transform" );
 
