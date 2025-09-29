@@ -71,6 +71,7 @@
 	text-decoration: none;
 	z-index: 4;
 	box-shadow: none;
+    border-radius: inherit;
 }
 .foogallery .fg-thumb:hover,
 .foogallery .fg-thumb:focus {
