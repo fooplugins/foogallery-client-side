@@ -8,6 +8,13 @@
     z-index: 6;
     background: none;
     pointer-events: none;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility .3s ease, opacity .3s ease;
+}
+.fg-image-viewer.fg-overlay-controls.fg-not-ready .fiv-inner .fiv-ctrls {
+    visibility: hidden;
+    opacity: 0;
 }
 .fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-prev,
 .fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-next {
