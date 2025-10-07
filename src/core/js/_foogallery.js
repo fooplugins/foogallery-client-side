@@ -404,6 +404,19 @@
 		}
 	} );
 
+    /**
+     * Checks if the supplied URL is cross-origin.
+     * @param {string} url
+     * @returns {boolean} True if the URL is cross-origin, otherwise False.
+     */
+	_.isCrossOrigin = function(url) {
+		const parsed = URL.parse(url);
+		if ( parsed !== null ) {
+			return parsed.origin !== window.location.origin;
+		}
+		return false;
+	};
+
 })(
 	FooGallery.$,
 	FooGallery,

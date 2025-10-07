@@ -23,7 +23,6 @@
                 waitForUnload: false,
                 group: "overlay"
             }, panel.cls.info);
-            this.allPositionClasses += " " + this.cls.overlay;
         },
         doCreate: function(){
             var self = this;
@@ -34,14 +33,6 @@
                 return true;
             }
             return false;
-        },
-        getPosition: function(){
-            var result = this._super();
-            return result != null && this.opt.overlay ? result + " " + this.cls.overlay : result;
-        },
-        setPosition: function( position, overlay ){
-            if (_is.boolean(overlay)) this.opt.overlay = overlay;
-            this._super( position );
         },
         canLoad: function(media){
             return this._super(media) && media.caption.canLoad();

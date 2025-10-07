@@ -32,27 +32,25 @@
 	transform: perspective(1000px) translate3d(0,0,21px);
 }
 
-.foogallery.fg-preset.fg-steve .fg-caption {
-	text-align: center;
-}
-
 .foogallery.fg-preset.fg-steve .fg-caption-inner {
-	border: solid 10px transparent;
-	border-top-width: 60px;
+	gap: 10px;
+	padding: 20px 10px;
+	clip-path: content-box;
+	text-shadow: none;
+	transition: text-shadow .35s;
 	overflow: visible;
 }
 
 .foogallery.fg-preset.fg-steve .fg-caption-title {
-	position: absolute;
-	top: 0;
-	left: 0;
+	overflow: visible;
+	position: relative;
+	padding: 5px 10px;
+	line-height: 1.4;
 	width: 100%;
 	margin: 0;
-	padding: 0.2em;
 	transition: box-shadow 0.35s;
-	-webkit-transform: translateY(-100%) translateY(-10px);
-	transform: translateY(-100%) translateY(-10px);
 	box-shadow: 0 1px 10px rgba(0,0,0,0.5);
+	clip-path: border-box;
 }
 .foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-caption-title,
 .foogallery.fg-preset.fg-steve .fg-item-inner:focus-within .fg-caption-title {
@@ -60,52 +58,71 @@
 }
 
 .foogallery.fg-preset.fg-steve .fg-caption-desc {
-	position: absolute;
-	top: 0;
-	left: 0;
+	position: relative;
+	padding: 5px 10px 0;
+	border-bottom: solid 5px #FFF;
+	line-height: 1.4;
 	width: 100%;
 	height: auto;
-	padding: 0.2em;
 	opacity: 0;
 	background-color: #FFF;
 	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transform: scale(0.9);
 	transform: scale(0.9);
 	transform-origin: 50% 50%;
+	clip-path: border-box;
 }
 .foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-caption-desc,
 .foogallery.fg-preset.fg-steve .fg-item-inner:focus-within .fg-caption-desc {
 	opacity: 1;
-	-webkit-transform: scale(1);
 	transform: scale(1);
+}
+
+.foogallery.fg-preset.fg-steve .fg-caption-buttons {
+    opacity: 0;
+    padding: 5px 10px;
+    background-color: #FFF;
+    transition: opacity 0.35s, transform 0.35s;
+    transform: scale(0.9);
+    transform-origin: 50% 50%;
+}
+.foogallery.fg-preset.fg-steve .fg-item-inner:hover .fg-caption-buttons,
+.foogallery.fg-preset.fg-steve .fg-item-inner:focus-within .fg-caption-buttons {
+    opacity: 1;
+    transform: scale(1);
 }
 
 /* Preset Sizes */
 .foogallery.fg-preset.fg-preset-small.fg-steve .fg-caption-inner {
-	border: solid 10px transparent;
-	border-top-width: 60px;
+	padding: 20px 10px;
 }
 .foogallery.fg-preset.fg-preset-medium.fg-steve .fg-caption-inner {
-	border: solid 20px transparent;
-	border-top-width: 80px;
+	padding: 30px 20px;
 }
 .foogallery.fg-preset.fg-preset-large.fg-steve .fg-caption-inner {
-	border: solid 30px transparent;
-	border-top-width: 100px;
+	padding: 40px 30px;
 }
 
 /* Themes */
 .foogallery.fg-preset.fg-steve .fg-caption-title,
 .foogallery.fg-preset.fg-steve .fg-caption-desc,
+.foogallery.fg-preset.fg-steve .fg-caption-buttons,
 .foogallery.fg-light.fg-preset.fg-steve .fg-caption-title,
-.foogallery.fg-light.fg-preset.fg-steve .fg-caption-desc {
+.foogallery.fg-light.fg-preset.fg-steve .fg-caption-desc,
+.foogallery.fg-light.fg-preset.fg-steve .fg-caption-buttons {
 	background-color: #FFF;
 	color: #333;
 }
+.foogallery.fg-light.fg-preset.fg-steve .fg-caption-desc {
+	border-bottom-color: #FFF;
+}
 .foogallery.fg-dark.fg-preset.fg-steve .fg-caption-title,
-.foogallery.fg-dark.fg-preset.fg-steve .fg-caption-desc {
+.foogallery.fg-dark.fg-preset.fg-steve .fg-caption-desc,
+.foogallery.fg-dark.fg-preset.fg-steve .fg-caption-buttons {
 	background-color: #555;
 	color: #FFF;
+}
+.foogallery.fg-dark.fg-preset.fg-steve .fg-caption-desc {
+	border-bottom-color: #555;
 }
 
 /* Inset Shadows */

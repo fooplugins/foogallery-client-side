@@ -4186,6 +4186,19 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		}
 	} );
 
+    /**
+     * Checks if the supplied URL is cross-origin.
+     * @param {string} url
+     * @returns {boolean} True if the URL is cross-origin, otherwise False.
+     */
+	_.isCrossOrigin = function(url) {
+		const parsed = URL.parse(url);
+		if ( parsed !== null ) {
+			return parsed.origin !== window.location.origin;
+		}
+		return false;
+	};
+
 })(
 	FooGallery.$,
 	FooGallery,
@@ -4335,6 +4348,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                     "close": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M13.957 3.457l-1.414-1.414-4.543 4.543-4.543-4.543-1.414 1.414 4.543 4.543-4.543 4.543 1.414 1.414 4.543-4.543 4.543 4.543 1.414-1.414-4.543-4.543z"></path></svg>',
                     "arrow-left": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M10.5 16l1.5-1.5-6.5-6.5 6.5-6.5-1.5-1.5-8 8 8 8z"></path></svg>',
                     "arrow-right": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M5.5 0l-1.5 1.5 6.5 6.5-6.5 6.5 1.5 1.5 8-8-8-8z"></path></svg>',
+                    "arrow-down": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3.5 6l4.5 4.5 4.5-4.5h-9z"></path></svg>',
                     "maximize": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2v4h-2v-5c0-0.552 0.448-1 1-1h14c0.552 0 1 0.448 1 1v14c0 0.552-0.448 1-1 1h-14c-0.552 0-1-0.448-1-1v-9h9c0.552 0 1 0.448 1 1v7h4v-12h-12z"/></svg>',
                     "expand": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 5h-2v-4c0-0.552 0.448-1 1-1h4v2h-3v3z"></path><path d="M16 5h-2v-3h-3v-2h4c0.552 0 1 0.448 1 1v4z"></path><path d="M15 16h-4v-2h3v-3h2v4c0 0.552-0.448 1-1 1z"></path><path d="M5 16h-4c-0.552 0-1-0.448-1-1v-4h2v3h3v2z"></path></svg>',
                     "shrink": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3 0h2v4c0 0.552-0.448 1-1 1h-4v-2h3v-3z"></path><path d="M11 0h2v3h3v2h-4c-0.552 0-1-0.448-1-1v-4z"></path><path d="M12 11h4v2h-3v3h-2v-4c0-0.552 0.448-1 1-1z"></path><path d="M0 11h4c0.552 0 1 0.448 1 1v4h-2v-3h-3v-2z"></path></svg>',
@@ -5795,7 +5809,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		regex: {
 			theme: /(?:\s|^)(fg-(?:light|dark|custom))(?:\s|$)/,
 			loadingIcon: /(?:\s|^)(fg-loading-(?:default|bars|dots|partial|pulse|trail))(?:\s|$)/,
-			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|plus|circle-plus|eye|external|tint))(?:\s|$)/,
+			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|zoom4|zoom5|plus|plus2|plus3|circle-plus|circle-plus2|square-plus|eye|external|tint))(?:\s|$)/,
 			videoIcon: /(?:\s|^)(fg-video-(?:default|1|2|3|4))(?:\s|$)/,
 			border: /(?:\s|^)(fg-border-(?:thin|medium|thick))(?:\s|$)/,
 			hoverColor: /(?:\s|^)(fg-hover-(?:colorize|grayscale))(?:\s|$)/,
@@ -7527,7 +7541,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			self.isError = self.$el.hasClass(cls.error);
 
 			var data = self.$anchor.data();
-			self.id = data.id || self.id;
+			self.id = data.id || data.attachmentId || self.id;
 			self.productId = data.productId || self.productId;
 			self.tags = data.tags || self.tags;
 			self.href = data.href || self.$anchor.attr('href') || self.href;
@@ -7575,6 +7589,12 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 				if (desc !== self.description) {
 					self.$caption.find(sel.caption.description).html(desc);
 				}
+			}
+			if (!self.showCaptionTitle) {
+				self.$caption.find(sel.caption.title).remove();
+			}
+			if (!self.showCaptionDescription) {
+				self.$caption.find(sel.caption.description).remove();
 			}
 
 			// if the image has no src url then set the placeholder
@@ -8140,15 +8160,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		loadIMG: function(){
 			var self = this;
 			return new $.Deferred(function(def){
-				var img = self.isPicture ? self.$image.find("img").get(0) : self.$image.get(0);
+				var img = self.getImageElement();
 				if (!img){
 					return def.reject("Unable to find img element.");
 				}
 				var ph_src = img.src, ph_srcset = img.srcset;
 				img.onload = function () {
 					img.onload = img.onerror = null;
-					img.style.removeProperty("width");
-					img.style.removeProperty("height");
 					def.resolve(img);
 				};
 				img.onerror = function () {
@@ -8174,10 +8192,10 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 						}
 					});
 				}
-				var size = img.getBoundingClientRect();
-				img.style.width = size.width;
-				img.style.height = size.height;
 
+				if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
+					img.crossOrigin = 'anonymous';
+				}
 				img.src = self.src;
 				if (!_is.empty(self.srcset)){
 					img.srcset = self.srcset;
@@ -8186,6 +8204,14 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 					img.onload();
 				}
 			}).promise();
+		},
+        /**
+         * @summary Utility method for getting the current items' <img/> element.
+         * @returns {HTMLImageElement|undefined}
+         */
+		getImageElement: function(){
+			var self = this;
+			return self.isPicture ? self.$image.find("img").get(0) : self.$image.get(0);
 		},
 		/**
 		 * @summary Create an empty placeholder image using the supplied dimensions.

@@ -32,7 +32,7 @@
         },
         getEmbedUrl: function(urlParts, autoPlay){
             urlParts.search = this.mergeParams(urlParts, autoPlay);
-            return _str.join('/', location.protocol, '//', urlParts.hostname, urlParts.pathname) + urlParts.search + urlParts.hash;
+            return _str.join('/', location.protocol, '//', urlParts.host, urlParts.pathname) + urlParts.search + urlParts.hash;
         }
     });
 

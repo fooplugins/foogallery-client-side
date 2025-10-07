@@ -562,7 +562,7 @@
 			self.isError = self.$el.hasClass(cls.error);
 
 			var data = self.$anchor.data();
-			self.id = data.id || self.id;
+			self.id = data.id || data.attachmentId || self.id;
 			self.productId = data.productId || self.productId;
 			self.tags = data.tags || self.tags;
 			self.href = data.href || self.$anchor.attr('href') || self.href;
@@ -610,6 +610,12 @@
 				if (desc !== self.description) {
 					self.$caption.find(sel.caption.description).html(desc);
 				}
+			}
+			if (!self.showCaptionTitle) {
+				self.$caption.find(sel.caption.title).remove();
+			}
+			if (!self.showCaptionDescription) {
+				self.$caption.find(sel.caption.description).remove();
 			}
 
 			// if the image has no src url then set the placeholder
@@ -1175,15 +1181,13 @@
 		loadIMG: function(){
 			var self = this;
 			return new $.Deferred(function(def){
-				var img = self.isPicture ? self.$image.find("img").get(0) : self.$image.get(0);
+				var img = self.getImageElement();
 				if (!img){
 					return def.reject("Unable to find img element.");
 				}
 				var ph_src = img.src, ph_srcset = img.srcset;
 				img.onload = function () {
 					img.onload = img.onerror = null;
-					img.style.removeProperty("width");
-					img.style.removeProperty("height");
 					def.resolve(img);
 				};
 				img.onerror = function () {
@@ -1209,10 +1213,10 @@
 						}
 					});
 				}
-				var size = img.getBoundingClientRect();
-				img.style.width = size.width;
-				img.style.height = size.height;
 
+				if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
+					img.crossOrigin = 'anonymous';
+				}
 				img.src = self.src;
 				if (!_is.empty(self.srcset)){
 					img.srcset = self.srcset;
@@ -1221,6 +1225,14 @@
 					img.onload();
 				}
 			}).promise();
+		},
+        /**
+         * @summary Utility method for getting the current items' <img/> element.
+         * @returns {HTMLImageElement|undefined}
+         */
+		getImageElement: function(){
+			var self = this;
+			return self.isPicture ? self.$image.find("img").get(0) : self.$image.get(0);
 		},
 		/**
 		 * @summary Create an empty placeholder image using the supplied dimensions.

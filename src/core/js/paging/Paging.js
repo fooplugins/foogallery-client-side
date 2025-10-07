@@ -15,7 +15,7 @@
 			self.sel = self.tmpl.sel.paging;
 			self.pushOrReplace = self.opt.pushOrReplace;
 			self.type = self.opt.type;
-			self.theme = self.opt.theme;
+			self.theme = self.opt.theme ?? template.getCSSClass('theme');
 			self.size = self.opt.size;
 			self.position = self.opt.position;
 			self.scrollToTop = self.opt.scrollToTop;
@@ -247,7 +247,7 @@
 
 	_.paging.register("default", _.Paging, null, {
 		type: "none",
-		theme: "fg-light",
+		theme: null,
 		size: 30,
 		pushOrReplace: "push",
 		position: "none",

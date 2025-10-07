@@ -1,0 +1,28 @@
+/* Zoomed */
+.foogallery.fg-hover-semi-zoomed .fg-image {
+    transition-property: transform;
+    z-index: 4;
+}
+.foogallery.fg-hover-semi-zoomed .fg-item:hover .fg-image,
+.foogallery.fg-hover-semi-zoomed .fg-item:focus-within .fg-image {
+    transform: scale(1.05);
+}
+.foogallery.fg-hover-semi-zoomed .fg-image-wrap {
+    overflow: hidden;
+}
+
+.foogallery.fg-hover-semi-zoomed .fg-image-overlay,
+.foogallery.fg-caption-hover.fg-hover-semi-zoomed .fg-caption {
+    display: block;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transition-property: visibility, opacity, background-color;
+}
+.foogallery.fg-hover-semi-zoomed .fg-item-inner:hover .fg-image-overlay,
+.foogallery.fg-caption-hover.fg-hover-semi-zoomed .fg-item-inner:hover .fg-caption,
+.foogallery.fg-hover-semi-zoomed .fg-item-inner:focus-within .fg-image-overlay,
+.foogallery.fg-caption-hover.fg-hover-semi-zoomed .fg-item-inner:focus-within .fg-caption {
+    visibility: visible;
+    opacity: 1;
+}

@@ -77,6 +77,9 @@ module.exports = function ( grunt ) {
 						"./src/core/css/hover-effects/captions.css",
 						"./src/core/css/hover-effects/icons.css",
 
+                        "./src/core/css/hover-effects/preset.css",
+                        "./src/core/css/hover-effects/presets/brad.css",
+
 						"./src/core/css/hover-effects/transition.css",
 						"./src/core/css/hover-effects/transitions/colorize.css",
 						"./src/core/css/hover-effects/transitions/fade.css",
@@ -85,6 +88,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/hover-effects/transitions/push.css",
 						"./src/core/css/hover-effects/transitions/scale.css",
 						"./src/core/css/hover-effects/transitions/zoomed.css",
+                        "./src/core/css/hover-effects/transitions/semi-zoomed.css",
 						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css",
 
 						"./src/core/css/paging/paging.css",
@@ -153,6 +157,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/hover-effects/icons.css",
 
 						"./src/core/css/hover-effects/preset.css",
+						"./src/core/css/hover-effects/presets/brad.css",
 						"./src/core/css/hover-effects/presets/goliath.css",
 						"./src/core/css/hover-effects/presets/jazz.css",
 						"./src/core/css/hover-effects/presets/layla.css",
@@ -173,6 +178,7 @@ module.exports = function ( grunt ) {
 						"./src/core/css/hover-effects/transitions/push.css",
 						"./src/core/css/hover-effects/transitions/scale.css",
 						"./src/core/css/hover-effects/transitions/zoomed.css",
+                        "./src/core/css/hover-effects/transitions/semi-zoomed.css",
 						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css"
 					]
 				}
@@ -300,7 +306,8 @@ module.exports = function ( grunt ) {
 					],
 					"./dist/components/css/foogallery.filtering.css": [
 						"./src/core/css/filtering/filtering.css",
-						"./src/core/css/filtering/type/tags.css"
+                        "./src/core/css/filtering/type/tags.css",
+                        "./src/core/css/filtering/type/styles/*.css"
 					]
 				}
 			},
@@ -341,6 +348,7 @@ module.exports = function ( grunt ) {
 			"admin": {
 				"files": {
 					"./dist/admin/js/foogallery.admin.js": [
+                        "./src/admin/js/range-input.js",
 						"./src/admin/js/settings.js",
 						"./src/admin/js/vertical-tabs.js"
 					],
@@ -387,7 +395,8 @@ module.exports = function ( grunt ) {
 						"./src/templates/image-viewer/js/ready.js"
 					],
 					"./dist/components/css/foogallery.tmpl.image-viewer.css": [
-						"./src/templates/image-viewer/css/image-viewer.css"
+						"./src/templates/image-viewer/css/image-viewer.css",
+                        "./src/templates/image-viewer/css/overlay-controls.css"
 					]
 				}
 			},
@@ -439,12 +448,7 @@ module.exports = function ( grunt ) {
 						"./src/templates/foogrid/js/ready.js"
 					],
 					"./dist/components/css/foogallery.tmpl.foogrid.css": [
-						"./src/templates/foogrid/css/_foogrid.css",
-						"./src/templates/foogrid/css/item.css",
-						"./src/templates/foogrid/css/content.css",
-						"./src/templates/foogrid/css/columns.css",
-						"./src/templates/foogrid/css/transitions.css",
-						"./src/templates/foogrid/css/panel.css"
+                        "./src/templates/foogrid/css/foogrid.css"
 					]
 				}
 			},
@@ -629,6 +633,18 @@ module.exports = function ( grunt ) {
 				"cwd": "dist/free",
 				"src": ["**"],
 				"dest": "./test-pages/templates/assets/free"
+			},
+			"defaults_pro": {
+				"expand": true,
+				"cwd": "dist/pro",
+				"src": ["**"],
+				"dest": "./test-pages/defaults/assets"
+			},
+			"defaults_free": {
+				"expand": true,
+				"cwd": "dist/free",
+				"src": ["**"],
+				"dest": "./test-pages/defaults/assets/free"
 			}
 		},
 		"jsdoc": {
@@ -702,8 +718,11 @@ module.exports = function ( grunt ) {
 		"uglify:dist",
 		"cssmin:dist",
 
+		"copy:defaults_pro",
+		"copy:defaults_free",
+
 		"copy:templates_pro",
-		"copy:templates_free"
+		"copy:templates_free",
 	]);
 
 	grunt.registerTask("docs", [

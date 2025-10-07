@@ -13,6 +13,7 @@
 		construct: function(template, parent, position){
 			this._super(template, parent, position);
 			this.$container = null;
+            this.$wrap = null;
 			this.searchEnabled = this.position === "top" && this.filter.opt.search;
 			this.search = {
 				$wrap: null,
@@ -22,31 +23,65 @@
 				$submit: null
 			};
 			this.lists = [];
+            this.dropdownEnabled = this.isDropdownStyle();
+            this.collapseEnabled = this.filter.opt.collapse;
+            this.collapse = null;
+            this.onCollapseChange = this.onCollapseChange.bind( this );
+            this._wrappedAt = 0;
+            this.onLayout = this.onLayout.bind( this );
 		},
+        isDropdownStyle: function() {
+            return ['dropdown','dropdown-block'].includes(this?.filter?.opt?.style);
+        },
+        shouldRenderTags: function() {
+            return ( this.position === "bottom" || (this.position === "top" && !this.filter.hideTopTags ) )
+                && this.filter.tags.length > 0;
+        },
 		create: function(){
-			var self = this;
-			if (self._super()) {
-				var cls = self.filter.cls;
-				if (self.searchEnabled){
-					self.$container.append(self.createSearch(self.filter.search));
-					if (!_is.empty(self.filter.opt.searchPosition)){
-						self.$container.addClass("fg-search-" + self.filter.opt.searchPosition);
-					}
-				}
-				var renderTags = self.position === "bottom" || (self.position === "top" && !self.filter.hideTopTags )
-				if (renderTags && self.filter.tags.length > 0){
-					for (var i = 0, l = self.filter.tags.length; i < l; i++) {
-						self.lists.push(self.createList(self.filter.tags[i]).appendTo(self.$container));
-					}
-					if (!self.filter.isMultiLevel && self.filter.showCount === true) {
-						self.$container.addClass(cls.showCount);
-					}
-				} else {
-					self.$container.addClass(cls.noTags);
-				}
-				return true;
-			}
-			return false;
+            if (this._super()) {
+                const {
+                    filter: {
+                        cls,
+                        opt,
+                        search,
+                        tags,
+                        isMultiLevel,
+                        showCount
+                    }
+                } = this;
+                if (this.searchEnabled){
+                    this.$container.append(this.createSearch(search));
+                    if (!_is.empty(opt.searchPosition)){
+                        this.$container.addClass("fg-search-" + opt.searchPosition);
+                    }
+                }
+                this.$container.addClass("fg-tags-" + opt.align);
+                if ( _is.string( opt.style ) ) {
+                    this.$container.addClass("fg-style-" + opt.style);
+                }
+
+                if (this.shouldRenderTags()){
+                    if (this.collapseEnabled) {
+                        this.collapse = matchMedia(`(max-width: 600px)`);
+                        this.collapse.addEventListener('change', this.onCollapseChange);
+                        this.dropdownEnabled = this.isDropdownStyle() || this.collapse.matches;
+                    }
+                    this.$wrap = this.createWrap().appendTo(this.$container);
+                    let $wrap = this.$wrap;
+                    if ( this.dropdownEnabled ) {
+                        $wrap = $( "<div/>", { "class": cls.dropdown.wrap } ).appendTo( this.$wrap );
+                    }
+                    tags.forEach( (tagsGroup, i) => this.lists.push( this.createList( tagsGroup, i ).appendTo( $wrap ) ) );
+                    if (!isMultiLevel && showCount === true) {
+                        this.$container.addClass(cls.showCount);
+                    }
+                    this.tmpl.on("layout", this.onLayout);
+                } else {
+                    this.$container.addClass(cls.noTags);
+                }
+                return true;
+            }
+            return false;
 		},
 		createSearch: function(search){
 			var self = this, cls = self.filter.cls.search, il8n = self.filter.il8n;
@@ -55,7 +90,7 @@
 
 			self.search.$inner = $("<div/>", {"class": cls.inner}).appendTo(self.search.$wrap);
 
-			self.search.$input = $("<input/>", {"type": "text", "class": cls.input, "placeholder": il8n.searchPlaceholder})
+			self.search.$input = $("<input/>", {"type": "text", "class": cls.input, "placeholder": il8n.searchPlaceholder, "name":`${self.tmpl.id}__search`})
 				.on("input.foogallery", {self: self}, self.onSearchInput)
 				.on("keydown.foogallery", {self: self}, self.onSearchKeydown)
 				.appendTo(self.search.$inner);
@@ -79,23 +114,65 @@
 
 			return self.search.$wrap;
 		},
-		createList: function(tags){
-			var self = this, cls = self.filter.cls,
-				$list = $("<ul/>", {"class": cls.list});
+        createWrap: function(){
+            return $("<div/>", {"class": this.filter.cls.wrap});
+        },
+        createList: function( tags, level ) {
+            const self = this;
+            let $list, $appendItems;
+            let cls = self.filter.cls;
+            const selected = ( tag, i ) => i === 0 && ( self.filter.autoSelected || _is.empty( tag?.value ) );
+            if ( self.dropdownEnabled ) {
+                $list = $( "<label/>", { "class": cls.dropdown.item } ).append(
+                    $( "<span/>" ).addClass( cls.dropdown.icon ).append( _.icons.get( 'arrow-down' ) )
+                );
+                $appendItems = $( "<select/>", {
+                    "class": cls.dropdown.select,
+                    "name": `${ self.tmpl.id }__tags-${ level }`
+                } )
+                    .on( 'change.foogallery', { self }, self.onDropdownChange )
+                    .prependTo( $list );
+            } else {
+                $list = $appendItems = $( "<ul/>", { "class": cls.list } );
+            }
+            tags.forEach( ( tag, i ) => $appendItems.append( self.createItem( tag, selected( tag, i ) ) ) );
 
-			for (var i = 0, l = tags.length; i < l; i++){
-				var $item = self.createItem(tags[i]);
-				$list.append($item.toggleClass(cls.selected, i === 0 && (self.filter.autoSelected || _is.empty(tags[i].value) )));
-			}
-			return $list;
-		},
+            return $list;
+        },
+        onCollapseChange: function() {
+            const prev = this.dropdownEnabled;
+            this.dropdownEnabled = this.isDropdownStyle() || this.collapse.matches;
+            if ( this.dropdownEnabled !== prev ) {
+                this.recreateLists( prev );
+            }
+        },
+        destroyLists: function( wasDropdown ) {
+            const { sel } = this.filter;
+            this.lists.forEach( $list => {
+                if ( wasDropdown ) {
+                    $list.find(sel.dropdown.select).off("change.foogallery", this.onDropdownChange);
+                } else {
+                    $list.find(sel.link).off("click.foogallery", this.onLinkClick);
+                }
+                $list.remove();
+            } );
+            this.$wrap?.empty();
+            this.lists = [];
+        },
+        recreateLists: function( wasDropdown ) {
+            const { cls } = this.filter;
+            this.destroyLists( wasDropdown );
+            let $wrap = this.$wrap;
+            if ( this.dropdownEnabled ) {
+                $wrap = $( "<div/>", { "class": cls.dropdown.wrap } ).appendTo( this.$wrap );
+            }
+            this.filter.tags.forEach( (tagsGroup, i) => this.lists.push( this.createList( tagsGroup, i ).appendTo( $wrap ) ) );
+            this.update(this.filter.current, this.filter.search);
+        },
 		destroy: function(){
-			var self = this, sel = self.filter.sel;
-			self.lists.forEach(function($list, i){
-				$list.find(sel.link).off("click.foogallery", self.onLinkClick);
-			});
-			self.lists = [];
-			self._super();
+            this.destroyLists( this.dropdownEnabled );
+            this.tmpl.off("layout", this.onLayout);
+            this._super();
 		},
 		update: function(tags, search){
 			var self = this, cls = self.filter.cls, sel = self.filter.sel;
@@ -104,63 +181,123 @@
 				self.search.$input.val(search);
 			}
 			self.lists.forEach(function($list, i){
-				$list.find(sel.item).removeClass(cls.selected).each(function(){
-					var $item = $(this), tag = $item.data("tag") + ""; // force string value
-					var isAll = _is.empty(tag);
-					var isSelected = (isAll && _is.empty(tags[i])) || (!isAll && _utils.inArray(tag, tags[i]) !== -1);
-					$item.toggleClass(cls.selected, isSelected);
-				});
+                if (self.dropdownEnabled) {
+                    if ( !_is.empty( tags[i] ) ) {
+                        $list.find(sel.dropdown.select).val( tags[i].length === 1 ? tags[i][0] : tags[i] );
+                    } else {
+                        $list.find(sel.dropdown.select).val('');
+                    }
+                } else {
+                    $list.find(sel.item).removeClass(cls.selected).each(function(){
+                        var $item = $(this), tag = $item.data("tag") + ""; // force string value
+                        var isAll = _is.empty(tag);
+                        var isSelected = (isAll && _is.empty(tags[i])) || (!isAll && _utils.inArray(tag, tags[i]) !== -1);
+                        $item.toggleClass(cls.selected, isSelected);
+                    });
+                }
 			});
 		},
-		createItem: function(tag){
-			var self = this, cls = self.filter.cls,
-					$li = $("<li/>", {"class": cls.item}).attr("data-tag", tag.value),
-					$span = $("<span/>").addClass(cls.text).html(_is.string(tag.text) ? tag.text : tag.value),
-					$link = $("<a/>", {"href": "#tag-" + tag.value, "class": cls.link})
-							.on("click.foogallery", {self: self, tag: tag}, self.onLinkClick)
-							.css("font-size", tag.size)
-							.css("opacity", tag.opacity)
-							.append($span)
-							.appendTo($li);
+		createItem: function( tag, selected ){
+            const {
+                dropdownEnabled,
+                filter: {
+                    cls,
+                    isMultiLevel,
+                    showCount
+                }
+            } = this;
+            if ( dropdownEnabled ) {
+                const $option = $( "<option/>", {
+                    value: tag.value,
+                    text: _is.string(tag.text) ? tag.text : tag.value
+                } ).data( 'tagObject', tag );
 
-			if (!self.filter.isMultiLevel && self.filter.showCount === true){
-				$link.append($("<span/>", {"text": tag.count, "class": cls.count}));
-			}
-			return $li;
+                if ( selected ) {
+                    $option.attr( 'selected', '' );
+                }
+                return $option;
+            } else {
+                const $li = $("<li/>", {"class": cls.item}).attr("data-tag", tag.value),
+                    $span = $("<span/>", {"class": cls.text}).html(_is.string(tag.text) ? tag.text : tag.value),
+                    $link = $("<a/>", {"href": "#tag-" + tag.value, "class": cls.link})
+                        .on("click.foogallery", {self: this, tag: tag}, this.onLinkClick)
+                        .css("font-size", tag.size)
+                        .css("opacity", tag.opacity)
+                        .append($span)
+                        .appendTo($li);
+
+                if ( selected ) {
+                    $li.addClass( cls.selected );
+                }
+                if (!isMultiLevel && showCount === true){
+                    $link.append($("<span/>", {"text": tag.count, "class": cls.count}));
+                }
+                return $li;
+            }
 		},
+        toggleTag: function( tag ) {
+            if ( !_is.object( tag ) ) {
+                return;
+            }
+            const self = this;
+            const { current, mode, search } = self.filter;
+            // get the currently applied filter tags
+            let tags = current.map( obj => _is.array( obj ) ? obj.slice() : obj );
+            if ( !_is.empty( tag.value ) ) {
+                switch ( mode ) {
+                    case "union":
+                    case "intersect":
+                        if ( !_is.array( tags[ tag.level ] ) ) {
+                            tags[ tag.level ] = [];
+                        }
+                        let i = _utils.inArray( tag.value, tags[ tag.level ] );
+                        if ( i === -1 ) {
+                            tags[ tag.level ].push( tag.value );
+                        } else {
+                            tags[ tag.level ].splice( i, 1 );
+                        }
+                        break;
+                    case "single":
+                    default:
+                        tags[ tag.level ] = [ tag.value ];
+                        break;
+                }
+            } else {
+                tags[ tag.level ] = [];
+            }
+            if ( tags.every( _is.empty ) ) {
+                tags = [];
+            }
+            self.filter.apply( tags, search );
+        },
+        onDropdownChange: function(e) {
+            let selected = e.target.querySelector(`[value="${ e.target.value }"]`);
+            e.data.self.toggleTag($(selected).data('tagObject'));
+        },
 		onLinkClick: function(e){
 			e.preventDefault();
-			var self = e.data.self, tag = e.data.tag, tags = self.filter.current.map(function(obj){
-				if (_is.array(obj)) return obj.slice();
-				return obj;
-			}), i;
-			if (!_is.empty(tag.value)){
-				switch (self.filter.mode){
-					case "union":
-					case "intersect":
-						if (!_is.array(tags[tag.level])){
-							tags[tag.level] = [];
-						}
-						i = _utils.inArray(tag.value, tags[tag.level]);
-						if (i === -1){
-							tags[tag.level].push(tag.value);
-						} else {
-							tags[tag.level].splice(i, 1);
-						}
-						break;
-					case "single":
-					default:
-						tags[tag.level] = [tag.value];
-						break;
-				}
-			} else {
-				tags[tag.level] = [];
-			}
-			if (tags.every(_is.empty)){
-				tags = [];
-			}
-			self.filter.apply(tags, self.filter.search);
+            e.data.self.toggleTag(e.data.tag);
 		},
+        onLayout: function( e, width ){
+            const self = this;
+            if (self.dropdownEnabled) {
+                self.lists.forEach( $list => $list.removeClass( 'fg-wrapped' ) );
+                self.$container.removeClass( 'fg-has-wrapped' );
+                self._wrappedAt = 0;
+            } else {
+                let hasWrapped = false;
+                self.lists.forEach( $list => {
+                    const list = $list.get(0);
+                    const wrapped = list?.lastElementChild?.offsetTop !== list?.firstElementChild?.offsetTop;
+                    $list.toggleClass( 'fg-wrapped', wrapped );
+                    if ( !hasWrapped && wrapped ) hasWrapped = true;
+                } );
+                if ( width >= self._wrappedAt ) {
+                    self.$container.toggleClass( 'fg-has-wrapped', hasWrapped );
+                    self._wrappedAt = hasWrapped ? width : 0;
+                }
+            }
+        },
 		onSearchInput: function(e){
 			var self = e.data.self, cls = self.filter.cls.search;
 			var hasValue = !_is.empty(self.search.$input.val()) || self.search.$input.attr("placeholder") !== self.filter.il8n.searchPlaceholder;
@@ -191,17 +328,22 @@
 	_.filtering.register("tags", _.Tags, _.TagsControl, {
 		type: "tags",
 		position: "top",
+        style: null, // button, button-block, pill, pill-block, dropdown, dropdown-block
+        align: "center",
 		pushOrReplace: "push",
-		searchPosition: "above-center"
+		searchPosition: "above-center",
+        collapse: false
 	}, {
 		showCount: "fg-show-count",
 		noTags: "fg-no-tags",
+        wrap: "fg-tag-wrap",
 		list: "fg-tag-list",
 		item: "fg-tag-item",
 		link: "fg-tag-link",
 		text: "fg-tag-text",
 		count: "fg-tag-count",
 		selected: "fg-selected",
+        wrapped: "fg-wrapped",
 		search: {
 			wrap: "fg-search-wrap",
 			inner: "fg-search-inner",
@@ -210,7 +352,14 @@
 			submit: "fg-search-submit",
 			hasValue: "fg-search-has-value",
 			reader: "fg-sr-only"
-		}
+		},
+        dropdown: {
+            wrap: "fg-tag-dropdown-wrap",
+            list: "fg-tag-dropdown-list",
+            item: "fg-tag-dropdown",
+            select: "fg-tag-dropdown-select",
+            icon: "fg-tag-dropdown-icon"
+        }
 	}, {
 		all: "All",
 		none: "No items found.",

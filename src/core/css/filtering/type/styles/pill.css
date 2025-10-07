@@ -1,0 +1,66 @@
+/* Pill Style (Essentially clone of button but rounded into pills */
+.fg-style-pill {
+    --fg-border-radius: calc(var(--fg-height) / 2);
+    --fg-padding-x: calc(var(--fg-base-50) + calc(var(--fg-border-radius) / 2));
+}
+.fg-style-pill.fg-show-count .fg-tag-item .fg-tag-link {
+    padding-right: calc(var(--fg-padding-x) - calc(var(--fg-border-radius) / 2));
+}
+.fg-style-pill .fg-search-submit .fg-icon-search {
+    margin-right: var(--fg-base-25);
+}
+/* Light */
+.fg-style-pill.fg-light .fg-tag-link {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.fg-style-pill.fg-light .fg-tag-link:hover {
+    color: #333;
+    background-color: #efefef;
+    border-color: #adadad;
+}
+.fg-style-pill.fg-light .fg-tag-item .fg-tag-link .fg-tag-count {
+    color: #888888;
+    background-color: #efefef;
+    border-color: inherit;
+}
+.fg-style-pill.fg-light .fg-tag-item .fg-tag-link:hover .fg-tag-count {
+    background-color: #FFF;
+}
+.fg-style-pill.fg-light .fg-tag-item.fg-selected .fg-tag-link {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+.fg-style-pill.fg-light .fg-tag-item.fg-selected .fg-tag-link .fg-tag-count {
+    color: #FFF;
+    background-color: #555;
+    border-color: inherit;
+}
+
+/* Dark */
+.fg-style-pill.fg-dark .fg-tag-link {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+.fg-style-pill.fg-dark .fg-tag-link:hover {
+    color: #FFF;
+    background-color: #666;
+    border-color: #444;
+}
+.fg-style-pill.fg-dark .fg-tag-item .fg-tag-link .fg-tag-count {
+    color: #ccc;
+    background-color: #555;
+    border-color: inherit;
+}
+.fg-style-pill.fg-dark .fg-tag-item.fg-selected .fg-tag-link {
+    color: #333;
+    background-color: #fff;
+    border-color: #444;
+}
+.fg-style-pill.fg-dark .fg-tag-item.fg-selected .fg-tag-link .fg-tag-count {
+    background-color: #333;
+    border-color: #222;
+}

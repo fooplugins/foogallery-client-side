@@ -674,6 +674,7 @@
                 toggle: "fg-panel-area-toggle",
                 button: "fg-panel-area-button",
                 visible: "fg-panel-area-visible",
+                overlay: "fg-panel-area-overlay",
                 position: {
                     top: "fg-panel-area-top",
                     right: "fg-panel-area-right",

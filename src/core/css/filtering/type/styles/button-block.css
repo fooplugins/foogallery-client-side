@@ -1,0 +1,170 @@
+.fg-style-button-block {
+    --fg-height: calc( var(--fg-base-size) * 2.4 );
+    --fg-border-radius: var(--fg-base-25);
+    --fg-padding-x: var(--fg-base-100);
+    --fg-padding-y: var(--fg-base-25);
+    --fg-count-border-radius: var(--fg-base-25);
+    --fg-block-padding: var(--fg-base-25);
+    --fg-block-border-width: var(--fg-border-width);
+    --fg-block-border-radius: max(0px, calc(var(--fg-border-radius) + var(--fg-block-padding)));
+}
+.fg-style-button-block .fg-tag-dropdown {
+    height: var(--fg-block-height);
+    border-radius: var(--fg-block-border-radius);
+    border-width: var(--fg-block-border-width);
+}
+.fg-style-button-block .fg-search-inner {
+    height: var(--fg-block-height);
+    padding: var(--fg-block-padding);
+    gap: var(--fg-block-padding);
+    border-radius: var(--fg-block-border-radius);
+    border-width: var(--fg-block-border-width);
+}
+.fg-style-button-block .fg-search-inner .fg-search-input {
+    padding: max(0px, calc(var(--fg-padding-y) - var(--fg-block-padding))) max(0px, calc(var(--fg-padding-x) - var(--fg-block-padding)));
+}
+.fg-style-button-block .fg-search-inner .fg-search-clear,
+.fg-style-button-block .fg-search-inner .fg-search-submit {
+    border-width: var(--fg-border-width);
+    border-style: solid;
+    border-radius: var(--fg-border-radius);
+}
+@media (min-width: 600px) {
+    /* Search Merged */
+    .fg-style-button-block:is(.fg-tags-left,.fg-tags-center,.fg-tags-right) .fg-tag-list {
+        justify-content: flex-start;
+        width: fit-content;
+    }
+
+    .fg-style-button-block:is(.fg-search-after-merged,.fg-search-before-merged):not(.fg-has-wrapped) {
+        gap: 0;
+    }
+
+    .fg-style-button-block.fg-search-after-merged:not(.fg-multi-level,.fg-has-wrapped) .fg-tag-list {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right: none;
+    }
+
+    .fg-style-button-block.fg-search-before-merged:not(.fg-multi-level,.fg-has-wrapped) .fg-tag-list {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: none;
+    }
+
+    .fg-style-button-block:is(.fg-search-after-merged,.fg-search-before-merged):not(.fg-has-wrapped) .fg-search-wrap {
+        height: -webkit-fill-available;
+    }
+
+    .fg-style-button-block:is(.fg-search-after-merged,.fg-search-before-merged):not(.fg-multi-level,.fg-has-wrapped) .fg-search-inner {
+        height: 100%;
+    }
+
+    .fg-style-button-block.fg-search-after-merged:not(.fg-multi-level,.fg-has-wrapped) .fg-search-inner {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .fg-style-button-block.fg-search-before-merged:not(.fg-multi-level,.fg-has-wrapped) .fg-search-inner {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+/* Themes */
+.fg-style-button-block.fg-light .fg-tag-list,
+.fg-style-button-block.fg-light .fg-search-inner {
+    background-color: #FFF;
+    border-color: #ccc;
+}
+.fg-style-button-block.fg-light .fg-tag-item .fg-tag-link .fg-tag-count {
+    color: #888888;
+    background-color: #efefef;
+    border-color: inherit;
+}
+.fg-style-button-block.fg-light .fg-tag-item .fg-tag-link:hover .fg-tag-count {
+    background-color: #FFF;
+}
+.fg-style-button-block.fg-light .fg-tag-item.fg-selected .fg-tag-link {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+.fg-style-button-block.fg-light .fg-tag-item.fg-selected .fg-tag-link .fg-tag-count {
+    color: #FFF;
+    background-color: #555;
+    border-color: inherit;
+}
+.fg-style-button-block.fg-light :is(.fg-search-clear,.fg-search-submit):hover {
+    color: #333;
+    background-color: #efefef;
+    border-color: #adadad;
+}
+
+/* Dark */
+.fg-style-button-block.fg-dark .fg-tag-list {
+    background-color: #444;
+    border-color: #222;
+}
+.fg-style-button-block.fg-dark .fg-search-inner:focus-within,
+.fg-style-button-block.fg-dark .fg-search-inner:focus-within :is(.fg-search-clear,.fg-search-submit) {
+    border-color: #222;
+}
+.fg-style-button-block.fg-dark .fg-tag-link:hover {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+.fg-style-button-block.fg-dark .fg-tag-item .fg-tag-link .fg-tag-count {
+    color: #ccc;
+    background-color: #555;
+    border-color: inherit;
+}
+.fg-style-button-block.fg-dark .fg-tag-item.fg-selected .fg-tag-link {
+    color: #333;
+    background-color: #fff;
+    border-color: #444;
+}
+.fg-style-button-block.fg-dark .fg-tag-item.fg-selected .fg-tag-link .fg-tag-count {
+    background-color: #333;
+    border-color: #222;
+}
+
+/* Multi Level Styling */
+@media (min-width: 600px) {
+    .fg-style-button-block.fg-multi-level:is(.fg-search-after-merged,.fg-search-before-merged) {
+        gap: 0;
+    }
+    /* Search Merged */
+    .fg-style-button-block.fg-multi-level:is(.fg-search-after-merged,.fg-search-before-merged) :is(.fg-tag-wrap,.fg-search-wrap) {
+        padding: var(--fg-block-padding);
+        gap: var(--fg-block-padding);
+        border: var(--fg-block-border-width) solid transparent;
+        border-radius: var(--fg-block-border-radius);
+    }
+    .fg-style-button-block.fg-multi-level.fg-search-after-merged .fg-tag-wrap,
+    .fg-style-button-block.fg-multi-level.fg-search-before-merged .fg-search-wrap {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .fg-style-button-block.fg-multi-level.fg-search-after-merged .fg-tag-wrap {
+        border-right: none;
+    }
+    .fg-style-button-block.fg-multi-level.fg-search-before-merged .fg-tag-wrap,
+    .fg-style-button-block.fg-multi-level.fg-search-after-merged .fg-search-wrap {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .fg-style-button-block.fg-multi-level.fg-search-before-merged .fg-tag-wrap {
+        border-left: none;
+    }
+
+    .fg-style-button-block.fg-light.fg-multi-level:is(.fg-search-after-merged,.fg-search-before-merged) :is(.fg-tag-wrap,.fg-search-wrap) {
+        background-color: #efefef;
+        border-color: #ccc;
+    }
+    .fg-style-button-block.fg-dark.fg-multi-level:is(.fg-search-after-merged,.fg-search-before-merged) :is(.fg-tag-wrap,.fg-search-wrap) {
+        background-color: #333;
+        border-color: #222;
+    }
+}

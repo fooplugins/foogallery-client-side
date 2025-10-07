@@ -10,7 +10,7 @@
 					pushOrReplace: "replace",
 					theme: "fg-light",
 					type: "default",
-					size: 1,
+					size: $(element).hasClass((options.cls.stacked)) ? 3 : 1,
 					position: "none",
 					scrollToTop: false
 				}
@@ -18,8 +18,11 @@
 		}
 	});
 
-	_.template.register("thumbnail", _.ThumbnailTemplate, null, {
-		container: "foogallery fg-thumbnail"
+	_.template.register("thumbnail", _.ThumbnailTemplate, {
+        template: {}
+    }, {
+		container: "foogallery fg-thumbnail",
+        stacked: "fg-stacked"
 	});
 
 })(

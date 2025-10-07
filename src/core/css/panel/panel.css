@@ -35,9 +35,9 @@ html.fg-panel-no-scroll body {
 .fg-panel-buttons {
 	z-index: 1;
 }
-.fg-panel-cart {
-	z-index: 2;
-}
+/*.fg-panel-cart {*/
+/*	z-index: 2;*/
+/*}*/
 
 /* Loader Styles */
 .fg-panel .fg-loader {

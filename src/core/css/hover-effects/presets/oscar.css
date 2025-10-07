@@ -42,24 +42,31 @@
 }
 
 .foogallery.fg-preset.fg-oscar .fg-caption-inner {
-	border: solid 15px transparent;
+	padding: 30px 25px 25px;
+	transform: translateY(50%) translateY(-30px);
+	overflow: visible;
+	transition: transform .35s;
+	gap: 10px;
+}
+.foogallery.fg-preset.fg-oscar .fg-item-inner:focus-within .fg-caption-inner,
+.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption-inner {
+    transform: translateY(0);
 }
 
 .foogallery.fg-preset.fg-oscar .fg-caption-title {
 	position: relative;
-	top: 50%;
 	transition: transform 0.35s;
 	transform: translateY(-50%);
+	overflow: clip;
 }
 .foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption-title,
 .foogallery.fg-preset.fg-oscar .fg-item-inner:focus-within .fg-caption-title {
-	transform: translateY(-50%) translateY(-45px);
+	transform: translateY(0);
 }
 
 .foogallery.fg-preset.fg-oscar .fg-caption-desc {
 	position: relative;
-	top: 50%;
-	padding: 0.5em;
+	padding: 0;
 	text-transform: none;
 	transition: opacity 0.35s, transform 0.35s;
 	opacity: 0;
@@ -68,13 +75,24 @@
 .foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption-desc,
 .foogallery.fg-preset.fg-oscar .fg-item-inner:focus-within .fg-caption-desc {
 	opacity: 1;
-	-webkit-transform: scale(1) translateY(-60px);
-	transform: scale(1) translateY(-60px);
+	transform: scale(1) translateY(0);
+}
+
+.foogallery.fg-preset.fg-oscar .fg-caption-buttons {
+    opacity: 0;
+    transform: scale(0) translateY(-60px);
+    transition: opacity 0.35s, transform 0.35s;
+}
+.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption-buttons,
+.foogallery.fg-preset.fg-oscar .fg-item-inner:focus-within .fg-caption-buttons {
+    opacity: 1;
+    transform: scale(1) translateY(0px);
 }
 
 /* Preset Sizes */
 .foogallery.fg-preset.fg-preset-small.fg-oscar .fg-caption-inner {
-	border: solid 15px transparent;
+	padding: 30px 25px 25px;
+	transform: translateY(50%) translateY(-30px);
 }
 .foogallery.fg-preset.fg-preset-small.fg-oscar .fg-caption:before {
 	top: 10px;
@@ -84,7 +102,8 @@
 }
 
 .foogallery.fg-preset.fg-preset-medium.fg-oscar .fg-caption-inner {
-	border: solid 25px transparent;
+	padding: 40px 35px 35px;
+	transform: translateY(50%) translateY(-40px);
 }
 .foogallery.fg-preset.fg-preset-medium.fg-oscar .fg-caption:before {
 	top: 20px;
@@ -94,7 +113,8 @@
 }
 
 .foogallery.fg-preset.fg-preset-large.fg-oscar .fg-caption-inner {
-	border: solid 35px transparent;
+	padding: 50px 45px 45px;
+	transform: translateY(50%) translateY(-50px);
 }
 .foogallery.fg-preset.fg-preset-large.fg-oscar .fg-caption:before {
 	top: 30px;

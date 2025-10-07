@@ -37,6 +37,14 @@
 .foogallery.fg-hover-external:not(.fg-preset) 		    .fg-caption-inner:before,
 .foogallery.fg-hover-tint:not(.fg-preset) 				.fg-caption-inner:before,
 .foogallery.fg-hover-cart:not(.fg-preset)               .fg-caption-inner:before,
+
+.foogallery.fg-hover-plus2:not(.fg-preset) 				.fg-caption-inner:before,
+.foogallery.fg-hover-plus3:not(.fg-preset) 				.fg-caption-inner:before,
+.foogallery.fg-hover-square-plus:not(.fg-preset) 		.fg-caption-inner:before,
+.foogallery.fg-hover-circle-plus2:not(.fg-preset) 		.fg-caption-inner:before,
+.foogallery.fg-hover-zoom4:not(.fg-preset) 				.fg-caption-inner:before,
+.foogallery.fg-hover-zoom5:not(.fg-preset) 				.fg-caption-inner:before,
+
 .foogallery.fg-video-default:not(.fg-preset)            .fg-caption-inner:before,
 .foogallery.fg-video-1:not(.fg-preset)                  .fg-caption-inner:before,
 .foogallery.fg-video-2:not(.fg-preset)                  .fg-caption-inner:before,
@@ -54,6 +62,14 @@
 .foogallery.fg-hover-external:not(.fg-preset) 		    .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-hover-tint:not(.fg-preset) 				.fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-hover-cart:not(.fg-preset)               .fg-item-inner:hover .fg-image-overlay,
+
+.foogallery.fg-hover-plus2:not(.fg-preset) 				.fg-item-inner:hover .fg-image-overlay,
+.foogallery.fg-hover-plus3:not(.fg-preset) 				.fg-item-inner:hover .fg-image-overlay,
+.foogallery.fg-hover-square-plus:not(.fg-preset) 		.fg-item-inner:hover .fg-image-overlay,
+.foogallery.fg-hover-circle-plus2:not(.fg-preset) 		.fg-item-inner:hover .fg-image-overlay,
+.foogallery.fg-hover-zoom4:not(.fg-preset) 				.fg-item-inner:hover .fg-image-overlay,
+.foogallery.fg-hover-zoom5:not(.fg-preset) 				.fg-item-inner:hover .fg-image-overlay,
+
 .foogallery.fg-video-default:not(.fg-preset)            .fg-type-video .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-video-1:not(.fg-preset)                  .fg-type-video .fg-item-inner:hover .fg-image-overlay,
 .foogallery.fg-video-2:not(.fg-preset)                  .fg-type-video .fg-item-inner:hover .fg-image-overlay,
@@ -143,6 +159,64 @@
 .foogallery.fg-light-overlays.fg-hover-cart .fg-caption-inner:before {
 	background-image: url('../img/icons.svg#cart-dark');
 }
+
+
+
+.foogallery.fg-hover-plus2 .fg-image-overlay:before,
+.foogallery.fg-hover-plus2 .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#plus2-light');
+}
+.foogallery.fg-light-overlays.fg-hover-plus2 .fg-image-overlay:before,
+.foogallery.fg-light-overlays.fg-hover-plus2 .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#plus2-dark');
+}
+
+.foogallery.fg-hover-plus3 .fg-image-overlay:before,
+.foogallery.fg-hover-plus3 .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#plus3-light');
+}
+.foogallery.fg-light-overlays.fg-hover-plus3 .fg-image-overlay:before,
+.foogallery.fg-light-overlays.fg-hover-plus3 .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#plus3-dark');
+}
+
+.foogallery.fg-hover-square-plus .fg-image-overlay:before,
+.foogallery.fg-hover-square-plus .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#square-plus-light');
+}
+.foogallery.fg-light-overlays.fg-hover-square-plus .fg-image-overlay:before,
+.foogallery.fg-light-overlays.fg-hover-square-plus .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#square-plus-dark');
+}
+
+.foogallery.fg-hover-circle-plus2 .fg-image-overlay:before,
+.foogallery.fg-hover-circle-plus2 .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#circle-plus2-light');
+}
+.foogallery.fg-light-overlays.fg-hover-circle-plus2 .fg-image-overlay:before,
+.foogallery.fg-light-overlays.fg-hover-circle-plus2 .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#circle-plus2-dark');
+}
+
+.foogallery.fg-hover-zoom4 .fg-image-overlay:before,
+.foogallery.fg-hover-zoom4 .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#zoom4-light');
+}
+.foogallery.fg-light-overlays.fg-hover-zoom4 .fg-image-overlay:before,
+.foogallery.fg-light-overlays.fg-hover-zoom4 .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#zoom4-dark');
+}
+
+.foogallery.fg-hover-zoom5 .fg-image-overlay:before,
+.foogallery.fg-hover-zoom5 .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#zoom5-light');
+}
+.foogallery.fg-light-overlays.fg-hover-zoom5 .fg-image-overlay:before,
+.foogallery.fg-light-overlays.fg-hover-zoom5 .fg-caption-inner:before {
+    background-image: url('../img/icons.svg#zoom5-dark');
+}
+
+
 
 .foogallery.fg-video-default .fg-type-video .fg-image-overlay:before,
 .foogallery.fg-video-default .fg-type-video .fg-caption-inner:before {

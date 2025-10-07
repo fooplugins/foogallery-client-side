@@ -14,49 +14,66 @@
 	border: none;
 	color: #fff;
 	text-transform: uppercase;
-	font-size: 1.25em;
+	font-size: 13px;
+	padding: 0;
+	line-height: 1.2;
+	letter-spacing: 1px;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 }
+/*.foogallery.fg-preset .fg-item:not(.fg-image-dark) .fg-caption {*/
+/*	color: #000000;*/
+/*}*/
 .foogallery.fg-preset .fg-caption-inner {
 	position: relative;
-	border: solid 10px transparent;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+	line-height: inherit;
+	letter-spacing: inherit;
+	text-shadow: 0 0 3px #000000;
 }
 .foogallery.fg-preset .fg-caption-title {
-	word-spacing: -0.15em;
-	font-weight: 300;
-	font-size: 18px;
+	box-sizing: border-box;
+	font-size: 16px;
+	line-height: inherit;
+	letter-spacing: inherit;
 }
 .foogallery.fg-preset .fg-caption-desc {
-	letter-spacing: 1px;
-	font-size: 10px;
+	font-size: 11px;
 	max-height: 100%;
 	overflow: hidden;
+	line-height: inherit;
+	letter-spacing: inherit;
+	color: inherit;
+	flex: unset;
 }
 .foogallery.fg-preset .fg-caption-title+.fg-caption-desc {
 	padding: 0;
 }
 
+.foogallery.fg-preset .fg-caption-buttons {
+    text-transform: none;
+    letter-spacing: normal;
+}
+
 /* Preset Sizes */
 .fg-preset.fg-preset-small .fg-caption-title {
-	font-size: 18px;
+	font-size: 16px;
 }
 .fg-preset.fg-preset-small .fg-caption-desc {
-	font-size: 10px;
+	font-size: 11px;
 }
 
 .fg-preset.fg-preset-medium .fg-caption-title {
-	font-size: 24px;
+	font-size: 20px;
 }
 .fg-preset.fg-preset-medium .fg-caption-desc {
 	font-size: 12px;
 }
 
 .fg-preset.fg-preset-large .fg-caption-title {
-	font-size: 30px;
+	font-size: 24px;
 }
 .fg-preset.fg-preset-large .fg-caption-desc {
 	font-size: 14px;

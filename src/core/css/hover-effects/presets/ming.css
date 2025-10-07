@@ -4,7 +4,7 @@
 	transition: background-color 0.35s;
 }
 .foogallery.fg-preset.fg-ming .fg-item-inner:hover .fg-thumb,
-.foogallery.fg-preset.fg-ming .fg-item-inner .fg-thumb:focus {
+.foogallery.fg-preset.fg-ming .fg-item-inner:focus-within .fg-thumb {
 	background-color: #3A342A;
 }
 .foogallery.fg-preset.fg-ming .fg-image {
@@ -39,10 +39,11 @@
 
 .foogallery.fg-preset.fg-ming .fg-caption-inner {
 	border: solid 10px transparent;
+	padding: 20px 10px 10px;
 }
 
 .foogallery.fg-preset.fg-ming .fg-caption-title {
-	margin: 20px 0 0 0;
+	margin: 0;
 	transition: transform 0.35s;
 	-webkit-transform: scale(1);
 	transform: scale(1);
@@ -59,6 +60,7 @@
 	-webkit-transform: scale(1.5);
 	transform: scale(1.5);
 	transition: opacity 0.35s, transform 0.35s;
+	text-transform: none;
 }
 .foogallery.fg-preset.fg-ming .fg-item-inner:hover .fg-caption-desc,
 .foogallery.fg-preset.fg-ming .fg-item-inner:focus-within .fg-caption-desc {
@@ -69,6 +71,17 @@
 
 .foogallery.fg-preset.fg-ming .fg-caption-title+.fg-caption-desc {
 	margin: 0;
+}
+
+.foogallery.fg-preset.fg-ming .fg-caption-buttons {
+    opacity: 0;
+    transform: scale(1.5);
+    transition: opacity 0.35s, transform 0.35s;
+}
+.foogallery.fg-preset.fg-ming .fg-item-inner:hover .fg-caption-buttons,
+.foogallery.fg-preset.fg-ming .fg-item-inner:focus-within .fg-caption-buttons {
+    opacity: 1;
+    transform: scale(1);
 }
 
 /* Preset Sizes */

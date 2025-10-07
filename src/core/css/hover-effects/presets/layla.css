@@ -12,7 +12,7 @@
 }
 .foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-image,
 .foogallery.fg-preset.fg-layla .fg-item-inner:focus-within .fg-image {
-	opacity: 0.7;
+	opacity: 0.4;
 	-webkit-transform: scale(1.12) translateY(0);
 	transform: scale(1.12) translateY(0);
 }
@@ -61,42 +61,52 @@
 }
 
 .foogallery.fg-preset.fg-layla .fg-caption-inner {
-	border: solid 15px transparent;
+	padding: 30px 25px 25px;
+	clip-path: content-box;
+	gap: 10px;
 }
 .foogallery.fg-preset.fg-layla .fg-caption-title {
 	position: relative;
-	top: 50%;
-	transform: translateY(-50%) translateY(-45px);
+	transform: translateY(10px);
 	transition: transform 0.35s;
 	transition-delay: 0.15s;
 }
 .foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-caption-title,
 .foogallery.fg-preset.fg-layla .fg-item-inner:focus-within .fg-caption-title {
 	opacity: 1;
-	transform: translateY(-50%) translateY(-15px);
+	transform: translateY(0px);
 }
 
 .foogallery.fg-preset.fg-layla .fg-caption-desc {
 	position: relative;
-	top: 50%;
-	padding: 0.5em;
+	padding: 0;
 	text-transform: none;
 	opacity: 0;
-	transform: translateY(-50%) translateY(-10px);
+	transform: translateY(-20px);
 	transition: opacity 0.35s, transform 0.35s;
 	transition-delay: 0.15s;
 }
 .foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-caption-desc,
 .foogallery.fg-preset.fg-layla .fg-item-inner:focus-within .fg-caption-desc {
 	opacity: 1;
-	transform: translateY(-40px);
+	transform: translateY(0px);
 }
 
-
+.foogallery.fg-preset.fg-layla .fg-caption-buttons {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.35s, transform 0.35s;
+    transition-delay: 0.15s;
+}
+.foogallery.fg-preset.fg-layla .fg-item-inner:hover .fg-caption-buttons,
+.foogallery.fg-preset.fg-layla .fg-item-inner:focus-within .fg-caption-buttons {
+    opacity: 1;
+    transform: translateY(0px);
+}
 
 /* Preset Sizes */
 .foogallery.fg-preset.fg-preset-small.fg-layla .fg-caption-inner {
-	border: solid 15px transparent;
+	padding: 30px 25px 25px;
 }
 .foogallery.fg-preset.fg-preset-small.fg-layla .fg-caption:before {
 	top: 15px;
@@ -112,7 +122,7 @@
 }
 
 .foogallery.fg-preset.fg-preset-medium.fg-layla .fg-caption-inner {
-	border: solid 25px transparent;
+	padding: 40px 35px 35px;
 }
 .foogallery.fg-preset.fg-preset-medium.fg-layla .fg-caption:before {
 	top: 25px;
@@ -128,7 +138,7 @@
 }
 
 .foogallery.fg-preset.fg-preset-large.fg-layla .fg-caption-inner {
-	border: solid 35px transparent;
+	padding: 50px 45px 45px;
 }
 .foogallery.fg-preset.fg-preset-large.fg-layla .fg-caption:before {
 	top: 35px;
