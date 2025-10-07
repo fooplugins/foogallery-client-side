@@ -125,10 +125,13 @@
 		// if this has already been done, don't do it again
 		if ( _.globalsMerged === true ) return;
 
+        if ( _is.object( window[ 'FooGallery_auto' ] ) ) {
+            _.auto( window[ 'FooGallery_auto' ] );
+        }
 		if ( _is.object( window[ 'FooGallery_il8n' ] ) ){
 			_.merge_il8n( window[ 'FooGallery_il8n' ] );
-			_.globalsMerged = true;
 		}
+        _.globalsMerged = true;
 	};
 
 	/**

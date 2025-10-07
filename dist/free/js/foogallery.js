@@ -4186,6 +4186,19 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		}
 	} );
 
+    /**
+     * Checks if the supplied URL is cross-origin.
+     * @param {string} url
+     * @returns {boolean} True if the URL is cross-origin, otherwise False.
+     */
+	_.isCrossOrigin = function(url) {
+		const parsed = URL.parse(url);
+		if ( parsed !== null ) {
+			return parsed.origin !== window.location.origin;
+		}
+		return false;
+	};
+
 })(
 	FooGallery.$,
 	FooGallery,
@@ -4335,6 +4348,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                     "close": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M13.957 3.457l-1.414-1.414-4.543 4.543-4.543-4.543-1.414 1.414 4.543 4.543-4.543 4.543 1.414 1.414 4.543-4.543 4.543 4.543 1.414-1.414-4.543-4.543z"></path></svg>',
                     "arrow-left": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M10.5 16l1.5-1.5-6.5-6.5 6.5-6.5-1.5-1.5-8 8 8 8z"></path></svg>',
                     "arrow-right": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M5.5 0l-1.5 1.5 6.5 6.5-6.5 6.5 1.5 1.5 8-8-8-8z"></path></svg>',
+                    "arrow-down": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3.5 6l4.5 4.5 4.5-4.5h-9z"></path></svg>',
                     "maximize": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2v4h-2v-5c0-0.552 0.448-1 1-1h14c0.552 0 1 0.448 1 1v14c0 0.552-0.448 1-1 1h-14c-0.552 0-1-0.448-1-1v-9h9c0.552 0 1 0.448 1 1v7h4v-12h-12z"/></svg>',
                     "expand": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 5h-2v-4c0-0.552 0.448-1 1-1h4v2h-3v3z"></path><path d="M16 5h-2v-3h-3v-2h4c0.552 0 1 0.448 1 1v4z"></path><path d="M15 16h-4v-2h3v-3h2v4c0 0.552-0.448 1-1 1z"></path><path d="M5 16h-4c-0.552 0-1-0.448-1-1v-4h2v3h3v2z"></path></svg>',
                     "shrink": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3 0h2v4c0 0.552-0.448 1-1 1h-4v-2h3v-3z"></path><path d="M11 0h2v3h3v2h-4c-0.552 0-1-0.448-1-1v-4z"></path><path d="M12 11h4v2h-3v3h-2v-4c0-0.552 0.448-1 1-1z"></path><path d="M0 11h4c0.552 0 1 0.448 1 1v4h-2v-3h-3v-2z"></path></svg>',
@@ -5795,7 +5809,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		regex: {
 			theme: /(?:\s|^)(fg-(?:light|dark|custom))(?:\s|$)/,
 			loadingIcon: /(?:\s|^)(fg-loading-(?:default|bars|dots|partial|pulse|trail))(?:\s|$)/,
-			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|plus|circle-plus|eye|external|tint))(?:\s|$)/,
+			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|zoom4|zoom5|plus|plus2|plus3|circle-plus|circle-plus2|square-plus|eye|external|tint))(?:\s|$)/,
 			videoIcon: /(?:\s|^)(fg-video-(?:default|1|2|3|4))(?:\s|$)/,
 			border: /(?:\s|^)(fg-border-(?:thin|medium|thick))(?:\s|$)/,
 			hoverColor: /(?:\s|^)(fg-hover-(?:colorize|grayscale))(?:\s|$)/,
@@ -7527,7 +7541,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			self.isError = self.$el.hasClass(cls.error);
 
 			var data = self.$anchor.data();
-			self.id = data.id || self.id;
+			self.id = data.id || data.attachmentId || self.id;
 			self.productId = data.productId || self.productId;
 			self.tags = data.tags || self.tags;
 			self.href = data.href || self.$anchor.attr('href') || self.href;
@@ -7575,6 +7589,12 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 				if (desc !== self.description) {
 					self.$caption.find(sel.caption.description).html(desc);
 				}
+			}
+			if (!self.showCaptionTitle) {
+				self.$caption.find(sel.caption.title).remove();
+			}
+			if (!self.showCaptionDescription) {
+				self.$caption.find(sel.caption.description).remove();
 			}
 
 			// if the image has no src url then set the placeholder
@@ -8140,15 +8160,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		loadIMG: function(){
 			var self = this;
 			return new $.Deferred(function(def){
-				var img = self.isPicture ? self.$image.find("img").get(0) : self.$image.get(0);
+				var img = self.getImageElement();
 				if (!img){
 					return def.reject("Unable to find img element.");
 				}
 				var ph_src = img.src, ph_srcset = img.srcset;
 				img.onload = function () {
 					img.onload = img.onerror = null;
-					img.style.removeProperty("width");
-					img.style.removeProperty("height");
 					def.resolve(img);
 				};
 				img.onerror = function () {
@@ -8174,10 +8192,10 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 						}
 					});
 				}
-				var size = img.getBoundingClientRect();
-				img.style.width = size.width;
-				img.style.height = size.height;
 
+				if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
+					img.crossOrigin = 'anonymous';
+				}
 				img.src = self.src;
 				if (!_is.empty(self.srcset)){
 					img.srcset = self.srcset;
@@ -8186,6 +8204,14 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 					img.onload();
 				}
 			}).promise();
+		},
+        /**
+         * @summary Utility method for getting the current items' <img/> element.
+         * @returns {HTMLImageElement|undefined}
+         */
+		getImageElement: function(){
+			var self = this;
+			return self.isPicture ? self.$image.find("img").get(0) : self.$image.get(0);
 		},
 		/**
 		 * @summary Create an empty placeholder image using the supplied dimensions.
@@ -8645,7 +8671,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			self.sel = self.tmpl.sel.paging;
 			self.pushOrReplace = self.opt.pushOrReplace;
 			self.type = self.opt.type;
-			self.theme = self.opt.theme;
+			self.theme = self.opt.theme ?? template.getCSSClass('theme');
 			self.size = self.opt.size;
 			self.position = self.opt.position;
 			self.scrollToTop = self.opt.scrollToTop;
@@ -8877,7 +8903,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 
 	_.paging.register("default", _.Paging, null, {
 		type: "none",
-		theme: "fg-light",
+		theme: null,
 		size: 30,
 		pushOrReplace: "push",
 		position: "none",
@@ -9698,6 +9724,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 toggle: "fg-panel-area-toggle",
                 button: "fg-panel-area-button",
                 visible: "fg-panel-area-visible",
+                overlay: "fg-panel-area-overlay",
                 position: {
                     top: "fg-panel-area-top",
                     right: "fg-panel-area-right",
@@ -9873,10 +9900,12 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 
         press: function( name, pressed ){
             var self = this, button = self.get(name);
-            if ( self.panel.isSmallScreen && pressed && _is.string(button.groupName) ){
+            if ( pressed && _is.string(button.groupName) ){
                 self.each(function(btn){
                     if ( button !== btn && btn instanceof _.Panel.SideAreaButton && button.groupName === btn.groupName ){
-                        btn.area.toggle( false );
+                        if ( self.panel.isSmallScreen || btn.isTargetingSamePosition( button ) ) {
+                            btn.area.toggle( false );
+                        }
                     }
                 });
             }
@@ -10171,6 +10200,24 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                     this.__autoHide = null;
                 }
             }
+        },
+        isTargetingSamePosition: function( button ) {
+            if ( button instanceof _.Panel.SideAreaButton ) {
+                const ov1 = this?.area?.opt?.overlay,
+                    ov2 = button?.area?.opt?.overlay;
+                // check if the overlay state is the same
+                if ( ov1 === ov2 ) {
+                    if ( ov1 === true ) {
+                        // all overlays are counted as the same position as they overlap
+                        return true;
+                    }
+                    // overlay state is the same so check the position
+                    const pos1 = this?.area?.opt?.position,
+                        pos2 = button?.area?.opt?.position;
+                    return _is.string( pos1 ) && _is.string( pos2 ) && pos1 === pos2;
+                }
+            }
+            return false;
         },
         resize: function(){
             var enabled = this.area.isEnabled(), supported = enabled && this.area.canLoad(this.area.currentMedia);
@@ -10745,12 +10792,14 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 icon: null,
                 label: null,
                 position: null,
+                overlay: false,
                 visible: true,
                 autoHide: false,
                 toggle: !!panel.opt.buttons[name]
             }, options), _obj.extend({
                 toggle: this.__cls(cls.toggle, name, true),
                 visible: this.__cls(cls.visible, name),
+                overlay: this.__cls(cls.overlay, name),
                 position: {
                     top: this.__cls(cls.position.top, name),
                     right: this.__cls(cls.position.right, name),
@@ -10761,7 +10810,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             self.isVisible = self.opt.visible;
             self.allPositionClasses = Object.keys(self.cls.position).map(function (key) {
                 return self.cls.position[key];
-            }).join(" ");
+            }).join(" ") + " " + self.cls.overlay;
             self.button = self.registerButton();
         },
         registerButton: function(){
@@ -10771,12 +10820,6 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         },
         doCreate: function(){
             if (this._super()){
-                if (this.opt.toggle){
-                    $('<button/>', {type: 'button'}).addClass(this.cls.toggle)
-                        .append(_icons.get("circle-close", this.panel.opt.icons))
-                        .on("click.foogallery", {self: this}, this.onToggleClick)
-                        .appendTo(this.$inner);
-                }
                 if (this.isEnabled()){
                     this.panel.$el.toggleClass(this.cls.visible, this.isVisible);
                     this.setPosition( this.opt.position );
@@ -10793,12 +10836,19 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         },
         getPosition: function(){
             if (this.isEnabled()){
-                return this.cls.position[this.opt.position];
+                const position = this.cls.position[this.opt.position];
+                return this.opt.overlay ? position + " " + this.cls.overlay : position;
             }
             return null;
         },
-        setPosition: function( position ){
+        /**
+         *
+         * @param {string} position
+         * @param {?boolean} [overlay]
+         */
+        setPosition: function( position, overlay = null ){
             this.opt.position = this.cls.position.hasOwnProperty(position) ? position : null;
+            if (_is.boolean(overlay)) this.opt.overlay = overlay;
             if (_is.jq(this.panel.$el)){
                 this.panel.$el.removeClass(this.allPositionClasses).addClass(this.getPosition());
             }
@@ -10850,7 +10900,6 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 waitForUnload: false,
                 group: "overlay"
             }, panel.cls.info);
-            this.allPositionClasses += " " + this.cls.overlay;
         },
         doCreate: function(){
             var self = this;
@@ -10861,14 +10910,6 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 return true;
             }
             return false;
-        },
-        getPosition: function(){
-            var result = this._super();
-            return result != null && this.opt.overlay ? result + " " + this.cls.overlay : result;
-        },
-        setPosition: function( position, overlay ){
-            if (_is.boolean(overlay)) this.opt.overlay = overlay;
-            this._super( position );
         },
         canLoad: function(media){
             return this._super(media) && media.caption.canLoad();
@@ -12425,17 +12466,38 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 
 	_.ImageViewerTemplate = _.Template.extend({
 		construct: function (options, element) {
-			var self = this;
-			self._super(_obj.extend({}, options, {
-				paging: {
-					pushOrReplace: "replace",
-					theme: "fg-light",
-					type: "default",
-					size: 1,
-					position: "none",
-					scrollToTop: false
-				}
-			}), element);
+			var self = this,
+                overlay = element.hasClass('fg-overlay-controls');
+            if ( overlay && _.paging?.contains('dots') ) {
+                var reg = _.paging.registered['dots'];
+                options = _obj.extend({
+                    cls: {
+                        paging: reg.cls
+                    },
+                    il8n: {
+                        paging: reg.il8n
+                    }
+                }, options, {
+                    paging: {
+                        pushOrReplace: "replace",
+                        type: "dots",
+                        size: 1,
+                        position: element.hasClass('fg-dots-none') ? "none" : "bottom",
+                        scrollToTop: false
+                    }
+                })
+            } else {
+                options = _obj.extend({}, options, {
+                    paging: {
+                        pushOrReplace: "replace",
+                        type: "default",
+                        size: 1,
+                        position: "none",
+                        scrollToTop: false
+                    }
+                });
+            }
+			self._super(options, element);
 			/**
 			 * @summary The jQuery object containing the inner element that wraps all items.
 			 * @memberof FooGallery.ImageViewerTemplate#
@@ -12484,8 +12546,9 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			 * @type {FooGallery.ImageViewerTemplate~CSSSelectors}
 			 */
 			self.on({
+                "loaded-item error-item": self.onFirstItemReady,
 				"pre-init": self.onPreInit,
-				"init": self.onInit,
+                "init": self.onInit,
 				"destroy": self.onDestroy,
 				"append-item": self.onAppendItem,
 				"after-page-change": self.onAfterPageChange,
@@ -12511,9 +12574,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			var self = this;
 			self.$el.find(self.sel.inner).remove();
 		},
+        onFirstItemReady: function(event) {
+            this.$el.removeClass("fg-not-ready");
+        },
 
 		onPreInit: function(event){
 			var self = this;
+            self.$el.addClass("fg-not-ready");
 			self.$inner = self.$el.find(self.sel.innerContainer);
 			self.$current = self.$el.find(self.sel.countCurrent);
 			self.$total = self.$el.find(self.sel.countTotal);
@@ -12678,7 +12745,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 					pushOrReplace: "replace",
 					theme: "fg-light",
 					type: "default",
-					size: 1,
+					size: $(element).hasClass((options.cls.stacked)) ? 3 : 1,
 					position: "none",
 					scrollToTop: false
 				}
@@ -12686,8 +12753,11 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		}
 	});
 
-	_.template.register("thumbnail", _.ThumbnailTemplate, null, {
-		container: "foogallery fg-thumbnail"
+	_.template.register("thumbnail", _.ThumbnailTemplate, {
+        template: {}
+    }, {
+		container: "foogallery fg-thumbnail",
+        stacked: "fg-stacked"
 	});
 
 })(
@@ -13637,7 +13707,9 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             const maxOffset = ( self.getSize( self.elem.inner, true ).width / 2 ) + ( itemWidth / 2 );
             const layout = self.calculate( itemWidth, maxOffset );
             self.cache.set( "width", width );
-            self.cache.set( "layout", layout );
+            if ( layout?.side?.length > 0 ) {
+                self.cache.set( "layout", layout );
+            }
             return layout;
         },
         round: function( value, precision ){
@@ -13669,34 +13741,36 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 side: []
             };
 
-            let offset = itemWidth, zIndex = result.zIndex - 1;
-            for (let i = 0; i < showPerSide; i++, zIndex--){
-                const z = self.getSequentialZFromScale( i, self.opt.scale, self.opt.perspective );
-                const width = self.scaleToZ( itemWidth, z, self.opt.perspective );
-                const diff = ( itemWidth - width ) / 2;
+            if ( itemWidth > 0 ) {
+                let offset = itemWidth, zIndex = result.zIndex - 1;
+                for (let i = 0; i < showPerSide; i++, zIndex--){
+                    const z = self.getSequentialZFromScale( i, self.opt.scale, self.opt.perspective );
+                    const width = self.scaleToZ( itemWidth, z, self.opt.perspective );
+                    const diff = ( itemWidth - width ) / 2;
 
-                offset -= diff;
+                    offset -= diff;
 
-                const gutterStep = 1;
-                const gutterValue = self.opt.gutter.unit === "%" ? itemWidth * Math.abs( gutter / 100 ) : Math.abs( gutter );
-                const gutterOffset = self.opt.gutter.unit === "%" ? self.scaleToZ( gutterValue, z, self.opt.perspective ) : gutterValue;
-                if (gutter > 0){
-                    offset += gutterOffset;
-                } else {
-                    offset -= gutterOffset;
-                }
-                if ( offset + width + diff > maxOffset ){
-                    if ( gutter - gutterStep < self.opt.gutter.min ){
-                        return self.calculate( itemWidth, maxOffset, self.opt.gutter.max, showPerSide - 1);
+                    const gutterStep = 1;
+                    const gutterValue = self.opt.gutter.unit === "%" ? itemWidth * Math.abs( gutter / 100 ) : Math.abs( gutter );
+                    const gutterOffset = self.opt.gutter.unit === "%" ? self.scaleToZ( gutterValue, z, self.opt.perspective ) : gutterValue;
+                    if (gutter > 0){
+                        offset += gutterOffset;
+                    } else {
+                        offset -= gutterOffset;
                     }
-                    return self.calculate( itemWidth, maxOffset, gutter - gutterStep, showPerSide);
+                    if ( offset + width + diff > maxOffset ){
+                        if ( gutter - gutterStep < self.opt.gutter.min ){
+                            return self.calculate( itemWidth, maxOffset, self.opt.gutter.max, showPerSide - 1);
+                        }
+                        return self.calculate( itemWidth, maxOffset, gutter - gutterStep, showPerSide);
+                    }
+
+                    const x = self.getVectorX( offset, z, self.opt.perspective );
+
+                    offset += width + diff;
+
+                    result.side.push({x: x, z: z, zIndex: zIndex });
                 }
-
-                const x = self.getVectorX( offset, z, self.opt.perspective );
-
-                offset += width + diff;
-
-                result.side.push({x: x, z: z, zIndex: zIndex });
             }
             return result;
         },
@@ -13725,7 +13799,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             self.cleanup( self.sel.activeItem, self.cls.activeItem );
 
             el.classList.add( self.cls.activeItem );
-            el.style.setProperty("transition-duration", self.opt.speed + "ms" );
+            el.style.setProperty("transition-duration", ( self._firstLayout ? 0 : self.opt.speed ) + "ms" );
             el.style.setProperty( "z-index", layout.zIndex );
             el.style.removeProperty( "transform" );
 
@@ -14023,10 +14097,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		// if this has already been done, don't do it again
 		if ( _.globalsMerged === true ) return;
 
+        if ( _is.object( window[ 'FooGallery_auto' ] ) ) {
+            _.auto( window[ 'FooGallery_auto' ] );
+        }
 		if ( _is.object( window[ 'FooGallery_il8n' ] ) ){
 			_.merge_il8n( window[ 'FooGallery_il8n' ] );
-			_.globalsMerged = true;
 		}
+        _.globalsMerged = true;
 	};
 
 	/**
