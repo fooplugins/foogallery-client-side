@@ -4186,53 +4186,17 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		}
 	} );
 
-	_.isCrossOrigin = function(src) {
-		const url = URL.parse(src);
-		if ( url !== null ) {
-			return url.origin !== window.location.origin;
+    /**
+     * Checks if the supplied URL is cross-origin.
+     * @param {string} url
+     * @returns {boolean} True if the URL is cross-origin, otherwise False.
+     */
+	_.isCrossOrigin = function(url) {
+		const parsed = URL.parse(url);
+		if ( parsed !== null ) {
+			return parsed.origin !== window.location.origin;
 		}
 		return false;
-	};
-
-	/**
-	 *
-	 * @param {HTMLImageElement} img
-	 * @returns {boolean}
-	 */
-	_.isDarkImage = function(img) {
-		try {
-			var fuzzy = 0.1;
-			// create canvas
-			var canvas = document.createElement("canvas");
-			canvas.width = img.width;
-			canvas.height = img.height;
-
-			var ctx = canvas.getContext("2d");
-			ctx.drawImage(img,0,0);
-
-			var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
-			var data = imageData.data;
-			var r,g,b, max_rgb;
-			var light = 0, dark = 0;
-
-			for(var x = 0, len = data.length; x < len; x+=4) {
-				r = data[x];
-				g = data[x+1];
-				b = data[x+2];
-
-				max_rgb = Math.max(Math.max(r, g), b);
-				if (max_rgb < 128)
-					dark++;
-				else
-					light++;
-			}
-
-			var dl_diff = ((light - dark) / (img.width*img.height));
-			return (dl_diff + fuzzy < 0);
-		} catch ( e ) {
-			console.error('FooGallery: Error determining image brightness.', e);
-			return false;
-		}
 	};
 
 })(
@@ -4384,6 +4348,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                     "close": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M13.957 3.457l-1.414-1.414-4.543 4.543-4.543-4.543-1.414 1.414 4.543 4.543-4.543 4.543 1.414 1.414 4.543-4.543 4.543 4.543 1.414-1.414-4.543-4.543z"></path></svg>',
                     "arrow-left": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M10.5 16l1.5-1.5-6.5-6.5 6.5-6.5-1.5-1.5-8 8 8 8z"></path></svg>',
                     "arrow-right": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M5.5 0l-1.5 1.5 6.5 6.5-6.5 6.5 1.5 1.5 8-8-8-8z"></path></svg>',
+                    "arrow-down": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3.5 6l4.5 4.5 4.5-4.5h-9z"></path></svg>',
                     "maximize": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2v4h-2v-5c0-0.552 0.448-1 1-1h14c0.552 0 1 0.448 1 1v14c0 0.552-0.448 1-1 1h-14c-0.552 0-1-0.448-1-1v-9h9c0.552 0 1 0.448 1 1v7h4v-12h-12z"/></svg>',
                     "expand": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2 5h-2v-4c0-0.552 0.448-1 1-1h4v2h-3v3z"></path><path d="M16 5h-2v-3h-3v-2h4c0.552 0 1 0.448 1 1v4z"></path><path d="M15 16h-4v-2h3v-3h2v4c0 0.552-0.448 1-1 1z"></path><path d="M5 16h-4c-0.552 0-1-0.448-1-1v-4h2v3h3v2z"></path></svg>',
                     "shrink": '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3 0h2v4c0 0.552-0.448 1-1 1h-4v-2h3v-3z"></path><path d="M11 0h2v3h3v2h-4c-0.552 0-1-0.448-1-1v-4z"></path><path d="M12 11h4v2h-3v3h-2v-4c0-0.552 0.448-1 1-1z"></path><path d="M0 11h4c0.552 0 1 0.448 1 1v4h-2v-3h-3v-2z"></path></svg>',
@@ -5844,7 +5809,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		regex: {
 			theme: /(?:\s|^)(fg-(?:light|dark|custom))(?:\s|$)/,
 			loadingIcon: /(?:\s|^)(fg-loading-(?:default|bars|dots|partial|pulse|trail))(?:\s|$)/,
-			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|plus|circle-plus|eye|external|tint))(?:\s|$)/,
+			hoverIcon: /(?:\s|^)(fg-hover-(?:zoom|zoom2|zoom3|zoom4|zoom5|plus|plus2|plus3|circle-plus|circle-plus2|square-plus|eye|external|tint))(?:\s|$)/,
 			videoIcon: /(?:\s|^)(fg-video-(?:default|1|2|3|4))(?:\s|$)/,
 			border: /(?:\s|^)(fg-border-(?:thin|medium|thick))(?:\s|$)/,
 			hoverColor: /(?:\s|^)(fg-hover-(?:colorize|grayscale))(?:\s|$)/,
@@ -7576,7 +7541,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			self.isError = self.$el.hasClass(cls.error);
 
 			var data = self.$anchor.data();
-			self.id = data.id || self.id;
+			self.id = data.id || data.attachmentId || self.id;
 			self.productId = data.productId || self.productId;
 			self.tags = data.tags || self.tags;
 			self.href = data.href || self.$anchor.attr('href') || self.href;
@@ -8171,7 +8136,6 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 					.addClass(self.cls.loading);
 
 				self.loadIMG().then(function(){
-					self.$el.toggleClass(self.cls.dark, self.isDark());
 					self.isLoading = false;
 					self.isLoaded = true;
 					self.$el.removeClass(self.cls.loading).addClass(self.cls.loaded);
@@ -8241,55 +8205,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 				}
 			}).promise();
 		},
+        /**
+         * @summary Utility method for getting the current items' <img/> element.
+         * @returns {HTMLImageElement|undefined}
+         */
 		getImageElement: function(){
 			var self = this;
 			return self.isPicture ? self.$image.find("img").get(0) : self.$image.get(0);
-		},
-		getImageSize: function(img) {
-			const { width, height } = img?.attributes ?? {};
-			if ( width?.value && height?.value ) {
-				return { width: `${ width.value }px`, height: `${ height.value }px`, aspectRatio: `${ width.value } / ${ height.value }` };
-			}
-			return false;
-		},
-		setInlineSize: function() {
-			var self = this;
-			var img = self.getImageElement();
-			if ( img ) {
-				var size = self.getImageSize(img);
-				if ( size !== false ) {
-					img.style.width = size.width;
-					img.style.height = size.height;
-					return true;
-				}
-			}
-			return false;
-		},
-		setInlineAspectRatio: function() {
-			var self = this;
-			var img = self.getImageElement();
-			if ( img ) {
-				var size = self.getImageSize(img);
-				if ( size !== false ) {
-					img.style.aspectRatio = size.aspectRatio;
-					return true;
-				}
-			}
-			return false;
-		},
-		/**
-		 *
-		 * @returns {boolean}
-		 * @see https://stackoverflow.com/questions/13762864/image-brightness-detection-in-client-side-script
-		 * @see https://jsfiddle.net/s7Wx2/328/
-		 */
-		isDark: function() {
-			var self = this;
-			var img = self.getImageElement();
-			if ( !img ) {
-				return false;
-			}
-			return _.isDarkImage(img);
 		},
 		/**
 		 * @summary Create an empty placeholder image using the supplied dimensions.
@@ -8489,7 +8411,6 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			hidden: "fg-hidden",
 			noLightbox: "fg-no-lightbox",
 			panelHide: "fg-panel-hide",
-			dark: "fg-image-dark",
 			types: {
 				item: "fg-type-unknown"
 			},
@@ -8750,7 +8671,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			self.sel = self.tmpl.sel.paging;
 			self.pushOrReplace = self.opt.pushOrReplace;
 			self.type = self.opt.type;
-			self.theme = self.opt.theme;
+			self.theme = self.opt.theme ?? template.getCSSClass('theme');
 			self.size = self.opt.size;
 			self.position = self.opt.position;
 			self.scrollToTop = self.opt.scrollToTop;
@@ -8982,7 +8903,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 
 	_.paging.register("default", _.Paging, null, {
 		type: "none",
-		theme: "fg-light",
+		theme: null,
 		size: 30,
 		pushOrReplace: "push",
 		position: "none",
@@ -9803,6 +9724,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 toggle: "fg-panel-area-toggle",
                 button: "fg-panel-area-button",
                 visible: "fg-panel-area-visible",
+                overlay: "fg-panel-area-overlay",
                 position: {
                     top: "fg-panel-area-top",
                     right: "fg-panel-area-right",
@@ -9978,10 +9900,12 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 
         press: function( name, pressed ){
             var self = this, button = self.get(name);
-            if ( self.panel.isSmallScreen && pressed && _is.string(button.groupName) ){
+            if ( pressed && _is.string(button.groupName) ){
                 self.each(function(btn){
                     if ( button !== btn && btn instanceof _.Panel.SideAreaButton && button.groupName === btn.groupName ){
-                        btn.area.toggle( false );
+                        if ( self.panel.isSmallScreen || btn.isTargetingSamePosition( button ) ) {
+                            btn.area.toggle( false );
+                        }
                     }
                 });
             }
@@ -10276,6 +10200,24 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                     this.__autoHide = null;
                 }
             }
+        },
+        isTargetingSamePosition: function( button ) {
+            if ( button instanceof _.Panel.SideAreaButton ) {
+                const ov1 = this?.area?.opt?.overlay,
+                    ov2 = button?.area?.opt?.overlay;
+                // check if the overlay state is the same
+                if ( ov1 === ov2 ) {
+                    if ( ov1 === true ) {
+                        // all overlays are counted as the same position as they overlap
+                        return true;
+                    }
+                    // overlay state is the same so check the position
+                    const pos1 = this?.area?.opt?.position,
+                        pos2 = button?.area?.opt?.position;
+                    return _is.string( pos1 ) && _is.string( pos2 ) && pos1 === pos2;
+                }
+            }
+            return false;
         },
         resize: function(){
             var enabled = this.area.isEnabled(), supported = enabled && this.area.canLoad(this.area.currentMedia);
@@ -10850,12 +10792,14 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 icon: null,
                 label: null,
                 position: null,
+                overlay: false,
                 visible: true,
                 autoHide: false,
                 toggle: !!panel.opt.buttons[name]
             }, options), _obj.extend({
                 toggle: this.__cls(cls.toggle, name, true),
                 visible: this.__cls(cls.visible, name),
+                overlay: this.__cls(cls.overlay, name),
                 position: {
                     top: this.__cls(cls.position.top, name),
                     right: this.__cls(cls.position.right, name),
@@ -10866,7 +10810,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             self.isVisible = self.opt.visible;
             self.allPositionClasses = Object.keys(self.cls.position).map(function (key) {
                 return self.cls.position[key];
-            }).join(" ");
+            }).join(" ") + " " + self.cls.overlay;
             self.button = self.registerButton();
         },
         registerButton: function(){
@@ -10876,12 +10820,6 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         },
         doCreate: function(){
             if (this._super()){
-                if (this.opt.toggle){
-                    $('<button/>', {type: 'button'}).addClass(this.cls.toggle)
-                        .append(_icons.get("circle-close", this.panel.opt.icons))
-                        .on("click.foogallery", {self: this}, this.onToggleClick)
-                        .appendTo(this.$inner);
-                }
                 if (this.isEnabled()){
                     this.panel.$el.toggleClass(this.cls.visible, this.isVisible);
                     this.setPosition( this.opt.position );
@@ -10898,12 +10836,19 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         },
         getPosition: function(){
             if (this.isEnabled()){
-                return this.cls.position[this.opt.position];
+                const position = this.cls.position[this.opt.position];
+                return this.opt.overlay ? position + " " + this.cls.overlay : position;
             }
             return null;
         },
-        setPosition: function( position ){
+        /**
+         *
+         * @param {string} position
+         * @param {?boolean} [overlay]
+         */
+        setPosition: function( position, overlay = null ){
             this.opt.position = this.cls.position.hasOwnProperty(position) ? position : null;
+            if (_is.boolean(overlay)) this.opt.overlay = overlay;
             if (_is.jq(this.panel.$el)){
                 this.panel.$el.removeClass(this.allPositionClasses).addClass(this.getPosition());
             }
@@ -10955,7 +10900,6 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 waitForUnload: false,
                 group: "overlay"
             }, panel.cls.info);
-            this.allPositionClasses += " " + this.cls.overlay;
         },
         doCreate: function(){
             var self = this;
@@ -10966,14 +10910,6 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 return true;
             }
             return false;
-        },
-        getPosition: function(){
-            var result = this._super();
-            return result != null && this.opt.overlay ? result + " " + this.cls.overlay : result;
-        },
-        setPosition: function( position, overlay ){
-            if (_is.boolean(overlay)) this.opt.overlay = overlay;
-            this._super( position );
         },
         canLoad: function(media){
             return this._super(media) && media.caption.canLoad();
@@ -12530,17 +12466,38 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 
 	_.ImageViewerTemplate = _.Template.extend({
 		construct: function (options, element) {
-			var self = this;
-			self._super(_obj.extend({}, options, {
-				paging: {
-					pushOrReplace: "replace",
-					theme: "fg-light",
-					type: "default",
-					size: 1,
-					position: "none",
-					scrollToTop: false
-				}
-			}), element);
+			var self = this,
+                overlay = element.hasClass('fg-overlay-controls');
+            if ( overlay && _.paging?.contains('dots') ) {
+                var reg = _.paging.registered['dots'];
+                options = _obj.extend({
+                    cls: {
+                        paging: reg.cls
+                    },
+                    il8n: {
+                        paging: reg.il8n
+                    }
+                }, options, {
+                    paging: {
+                        pushOrReplace: "replace",
+                        type: "dots",
+                        size: 1,
+                        position: element.hasClass('fg-dots-none') ? "none" : "bottom",
+                        scrollToTop: false
+                    }
+                })
+            } else {
+                options = _obj.extend({}, options, {
+                    paging: {
+                        pushOrReplace: "replace",
+                        type: "default",
+                        size: 1,
+                        position: "none",
+                        scrollToTop: false
+                    }
+                });
+            }
+			self._super(options, element);
 			/**
 			 * @summary The jQuery object containing the inner element that wraps all items.
 			 * @memberof FooGallery.ImageViewerTemplate#
@@ -12589,14 +12546,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			 * @type {FooGallery.ImageViewerTemplate~CSSSelectors}
 			 */
 			self.on({
+                "loaded-item error-item": self.onFirstItemReady,
 				"pre-init": self.onPreInit,
-				"init": self.onInit,
+                "init": self.onInit,
 				"destroy": self.onDestroy,
 				"append-item": self.onAppendItem,
 				"after-page-change": self.onAfterPageChange,
-				"after-filter-change": self.onAfterFilterChange,
-				"parsed-item": self.onParsedOrCreatedItem,
-				"created-item": self.onParsedOrCreatedItem
+				"after-filter-change": self.onAfterFilterChange
 			}, self);
 		},
 		createChildren: function(){
@@ -12618,9 +12574,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			var self = this;
 			self.$el.find(self.sel.inner).remove();
 		},
+        onFirstItemReady: function(event) {
+            this.$el.removeClass("fg-not-ready");
+        },
 
 		onPreInit: function(event){
 			var self = this;
+            self.$el.addClass("fg-not-ready");
 			self.$inner = self.$el.find(self.sel.innerContainer);
 			self.$current = self.$el.find(self.sel.countCurrent);
 			self.$total = self.$el.find(self.sel.countTotal);
@@ -12651,10 +12611,6 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			}
 			self.$prev.off('click', self.onPrevClick);
 			self.$next.off('click', self.onNextClick);
-		},
-		onParsedOrCreatedItem: function(event, item){
-			if (item.isError) return;
-			item.setInlineSize();
 		},
 		onAppendItem: function (event, item) {
 			event.preventDefault();
@@ -12789,7 +12745,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 					pushOrReplace: "replace",
 					theme: "fg-light",
 					type: "default",
-					size: 1,
+					size: $(element).hasClass((options.cls.stacked)) ? 3 : 1,
 					position: "none",
 					scrollToTop: false
 				}
@@ -12797,8 +12753,11 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		}
 	});
 
-	_.template.register("thumbnail", _.ThumbnailTemplate, null, {
-		container: "foogallery fg-thumbnail"
+	_.template.register("thumbnail", _.ThumbnailTemplate, {
+        template: {}
+    }, {
+		container: "foogallery fg-thumbnail",
+        stacked: "fg-stacked"
 	});
 
 })(
@@ -13840,7 +13799,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             self.cleanup( self.sel.activeItem, self.cls.activeItem );
 
             el.classList.add( self.cls.activeItem );
-            el.style.setProperty("transition-duration", self.opt.speed + "ms" );
+            el.style.setProperty("transition-duration", ( self._firstLayout ? 0 : self.opt.speed ) + "ms" );
             el.style.setProperty( "z-index", layout.zIndex );
             el.style.removeProperty( "transform" );
 
@@ -14138,10 +14097,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		// if this has already been done, don't do it again
 		if ( _.globalsMerged === true ) return;
 
+        if ( _is.object( window[ 'FooGallery_auto' ] ) ) {
+            _.auto( window[ 'FooGallery_auto' ] );
+        }
 		if ( _is.object( window[ 'FooGallery_il8n' ] ) ){
 			_.merge_il8n( window[ 'FooGallery_il8n' ] );
-			_.globalsMerged = true;
 		}
+        _.globalsMerged = true;
 	};
 
 	/**

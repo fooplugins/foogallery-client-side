@@ -34,26 +34,70 @@
     <script src="../assets/js/foogallery.js" defer></script>
     <script src="../../wc_testing.js" defer></script>
     <script>
-        const CAPTION_BUTTONS_STYLE = localStorage.getItem( 'caption-buttons-style' ) ?? "";
+        const SHOW_COUNT = localStorage.getItem( 'show-count' ) ?? "no";
+        const MULTI_LEVEL = localStorage.getItem( 'multi-level' ) ?? "no";
+        const SEARCH_POSITION = localStorage.getItem( 'search-position' ) ?? 'above-center';
+        const TAGS_ALIGN = localStorage.getItem( 'tags-align' ) ?? 'center';
+        const TAGS_STYLE = localStorage.getItem( 'tags-style' ) ?? "";
 
         document.addEventListener( 'DOMContentLoaded', () => {
-            const captionButtonsStyle = document.getElementById( 'caption-buttons-style' );
-            const galleryContainer = document.querySelector( '.foogallery' );
-            captionButtonsStyle.value = CAPTION_BUTTONS_STYLE;
-            const allStyleClasses = Array.from( captionButtonsStyle?.options ).filter( o => o.value.length > 0 ).map( o => `fg-cb-${o.value}` );
-            captionButtonsStyle?.addEventListener( 'change', () => {
-                const style = captionButtonsStyle.value;
-                galleryContainer?.classList?.remove( ...allStyleClasses );
-                if ( style !== '' ) {
-                    localStorage.setItem( 'caption-buttons-style', style );
-                    galleryContainer?.classList?.add( `fg-cb-${style}` );
+
+            const showCount = document.getElementById( 'show-count' );
+            showCount.checked = SHOW_COUNT === showCount.value;
+            showCount.addEventListener( 'change', () => {
+                if ( showCount.checked ) {
+                    localStorage.setItem( 'show-count', showCount.value );
                 } else {
-                    localStorage.removeItem( 'caption-buttons-style' );
+                    localStorage.removeItem( 'show-count' );
                 }
             } );
-            if ( CAPTION_BUTTONS_STYLE !== '' ) {
-                galleryContainer?.classList?.add( `fg-cb-${CAPTION_BUTTONS_STYLE}` );
-            }
+
+            const multiLevel = document.getElementById( 'multi-level' );
+            multiLevel.checked = MULTI_LEVEL === multiLevel.value;
+            multiLevel.addEventListener( 'change', () => {
+                if ( multiLevel.checked ) {
+                    localStorage.setItem( 'multi-level', multiLevel.value );
+                } else {
+                    localStorage.removeItem( 'multi-level' );
+                }
+            } );
+
+            const searchPosition = document.getElementById( 'search-position' );
+            searchPosition.value = SEARCH_POSITION;
+            const allPositionClasses = Array.from( searchPosition?.options ).map( o => `fg-search-${ o.value }` );
+            searchPosition?.addEventListener( 'change', () => {
+                const position = searchPosition.value;
+                localStorage.setItem( 'search-position', position );
+                const filteringContainer = document.querySelector( '.fg-filtering-container' );
+                filteringContainer?.classList?.remove( ...allPositionClasses );
+                filteringContainer?.classList?.add( `fg-search-${ position }` );
+            } );
+
+            const tagsAlign = document.getElementById( 'tags-align' );
+            tagsAlign.value = TAGS_ALIGN;
+            const allAlignClasses = Array.from( tagsAlign?.options ).map( o => `fg-tags-${ o.value }` );
+            tagsAlign?.addEventListener( 'change', () => {
+                const align = tagsAlign.value;
+                localStorage.setItem( 'tags-align', align );
+                const filteringContainer = document.querySelector( '.fg-filtering-container' );
+                filteringContainer?.classList?.remove( ...allAlignClasses );
+                filteringContainer?.classList?.add( `fg-tags-${ align }` );
+            } );
+
+            const tagsStyle = document.getElementById( 'tags-style' );
+            tagsStyle.value = TAGS_STYLE;
+            const allStyleClasses = Array.from( tagsStyle?.options ).filter( o => o.value.length > 0 ).map( o => `fg-style-${o.value}` );
+            tagsStyle?.addEventListener( 'change', () => {
+                const style = tagsStyle.value;
+                const filteringContainer = document.querySelector( '.fg-filtering-container' );
+                filteringContainer?.classList?.remove( ...allStyleClasses );
+                if ( style !== '' ) {
+                    localStorage.setItem( 'tags-style', style );
+                    filteringContainer?.classList?.add( `fg-style-${style}` );
+                } else {
+                    localStorage.removeItem( 'tags-style' );
+                }
+            } );
         } );
     </script>
 </head>
@@ -64,13 +108,48 @@
         <li><h1>Responsive (Default)</h1></li>
     </ul>
     <div class="header-right">
-        <label for="caption-buttons-style">
+        <label for="show-count">
+            <span>Show count</span>
+            <input id="show-count" type="checkbox" value="yes"/>
+        </label>
+        <label for="multi-level">
+            <span>Multi-level</span>
+            <input id="multi-level" type="checkbox" value="yes"/>
+        </label>
+        <label for="search-position">
+            <span>Search</span>
+            <select id="search-position">
+                <option value="">None</option>
+                <option value="before">before</option>
+                <option value="before-merged">before-merged</option>
+                <option value="after">after</option>
+                <option value="after-merged">after-merged</option>
+                <option value="above-left">above-left</option>
+                <option value="above-center" selected>above-center</option>
+                <option value="above-right">above-right</option>
+                <option value="below-left">below-left</option>
+                <option value="below-center">below-center</option>
+                <option value="below-right">below-right</option>
+            </select>
+        </label>
+        <label for="tags-align">
+            <span>Align</span>
+            <select id="tags-align">
+                <option value="left">left</option>
+                <option value="center" selected>center</option>
+                <option value="right">right</option>
+            </select>
+        </label>
+        <label for="tags-style">
             <span>Style</span>
-            <select id="caption-buttons-style">
+            <select id="tags-style">
                 <option value="" selected>None</option>
-                <option value="outline">Outline</option>
+                <option value="button">Button</option>
+                <option value="button-block">Button Block</option>
                 <option value="pill">Pill</option>
-                <option value="pill-outline">Pill Outline</option>
+                <option value="pill-block">Pill Block</option>
+                <option value="dropdown">Dropdown</option>
+                <option value="dropdown-block">Dropdown Block</option>
             </select>
         </label>
         <button title="Toggle Theme">
@@ -84,7 +163,36 @@
 <main>
     <script>
         window[ 'FooGallery_auto' ] = {
-            lazy: true
+            lazy: true,
+            filtering: {
+                type: "tags",
+                theme: "fg-dark",
+                style: TAGS_STYLE,
+                align: TAGS_ALIGN,
+                showCount: SHOW_COUNT === 'yes',
+                adjustSize: false,
+                collapse: true,
+                search: SEARCH_POSITION !== '',
+                searchPosition: SEARCH_POSITION,
+                tags: MULTI_LEVEL === 'yes' ? [ {
+                    all: 'All 1',
+                    tags: [ 'tag1', 'tag2', 'tag3', 'tag4', 'tag5', 'tag6', 'tag7', 'tag8', 'tag9', 'tag10', 'tag11' ]
+                }, {
+                    all: 'All 2',
+                    tags: [ 'tag12', 'tag13', 'tag14', 'tag15', 'tag16', 'tag17' ]
+                }, {
+                    all: 'All 3',
+                    tags: [ 'tag5', 'tag6', 'tag7', 'tag8', 'tag9', 'tag10', 'tag11' ]
+                } ] : []
+            },
+            panel: {
+                exif: 'auto',
+                info: 'bottom',
+                infoVisible: true,
+                infoOverlay: true,
+                cart: 'right',
+                cartOverlay: true
+            }
         };
     </script>
     <style>
@@ -92,8 +200,9 @@
             width: 275px;
         }
     </style>
+    <nav class="fg-ph-tags"></nav>
     <div id="foogallery-gallery-1"
-         class="foogallery fg-loading-default fg-loaded-slide-up fg-caption-always fg-default fg-center fg-c-c fg-gutter-10 fg-hover-fade fg-hover-circle-plus2 fg-dark"
+         class="foogallery fg-loading-default fg-loaded-slide-up fg-default fg-center fg-c-c fg-gutter-10 fg-hover-fade fg-hover-circle-plus2 fg-caption-hover fg-dark"
          data-foogallery="{}"
          data-foogallery-lightbox="{}">
 
@@ -114,13 +223,8 @@
                 </a>
                 <figcaption class="fg-caption">
                     <div class="fg-caption-inner">
-                        <div class="fg-caption-title">At Eget Tincidunt At Eget Tincidunt At Eget Tincidunt At Eget Tincidunt At Eget Tincidunt</div>
-                        <div class="fg-caption-desc">Non <a href="#suscipit">suscipit</a> sed magna aenean in.</div>
-                        <div class="fg-caption-buttons">
-                            <a class="fg-woo-view-product" href="http://foogallery-test.local/product/hat/">View Product</a>
-                            <a class="fg-woo-add-to-cart-ajax fg-woo-adding" href="http://foogallery-test.local?add-to-cart=145&amp;foogallery_id=146&amp;foogallery_attachment_id=144">Add To Cart</a>
-                            <a href="#test">Test</a>
-                        </div>
+                        <div class="fg-caption-title">At Eget Tincidunt</div>
+                        <div class="fg-caption-desc">Non suscipit sed magna aenean in.</div>
                     </div>
                 </figcaption>
             </figure>
@@ -148,11 +252,6 @@
                         <div class="fg-caption-title">Nisl Condimentum Mauris Hendrerit</div>
                         <div class="fg-caption-desc">Ad litora torquent per. Tellus vulputate semper hac habitasse
                             platea, feugiat tempus pharetra fringilla aliquet blandit. Congue porttitor venenatis porta.
-                        </div>
-                        <div class="fg-caption-buttons">
-                            <a class="fg-woo-view-product" href="http://foogallery-test.local/product/hat/">View Product</a>
-                            <a class="fg-woo-add-to-cart-ajax" href="http://foogallery-test.local?add-to-cart=145&amp;foogallery_id=146&amp;foogallery_attachment_id=144">Add To Cart</a>
-                            <a href="#test">Test</a>
                         </div>
                     </div>
                 </figcaption>
@@ -286,11 +385,6 @@
                         <div class="fg-caption-title">Vel Et Nisi Maximus</div>
                         <div class="fg-caption-desc">Ligula dignissim non suscipit sed magna, vitae eros odio fusce.
                             Phasellus cubilia curae.
-                        </div>
-                        <div class="fg-caption-buttons">
-                            <a class="fg-woo-view-product" href="http://foogallery-test.local/product/hat/">View Product</a>
-                            <a class="fg-woo-add-to-cart-ajax fg-woo-adding" href="http://foogallery-test.local?add-to-cart=145&amp;foogallery_id=146&amp;foogallery_attachment_id=144">Add To Cart</a>
-                            <a href="#test">Test</a>
                         </div>
                     </div>
                 </figcaption>

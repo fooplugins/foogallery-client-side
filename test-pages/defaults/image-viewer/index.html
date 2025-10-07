@@ -13,7 +13,7 @@
     </style>
     <script src="../assets/jquery.min.js" defer></script>
     <script src="../assets/theme.js" defer></script>
-    <script src="../assets/js/foogallery.min.js" defer></script>
+    <script src="../assets/js/foogallery.js" defer></script>
 </head>
 <body class="light">
 <header>
@@ -33,6 +33,8 @@
 <main>
     <style>
         #foogallery-gallery-1 .fg-image { width: 640px; }
+
+
     </style>
     <script>
         window["foogallery-gallery-1_items"] = [
@@ -274,13 +276,13 @@
         ];
     </script>
     <div id="foogallery-gallery-1"
-         class="foogallery fg-image-viewer fg-center fg-shadow-outline fg-loading-default fg-loaded-fade-in fg-caption-hover fg-hover-fade fg-light"
+         class="foogallery fg-image-viewer fg-border-thin fg-round-large fg-center fg-loading-default fg-loaded-fade-in fg-caption-hover fg-hover-fade fg-dark"
          data-foogallery="{&quot;lazy&quot;:true}"
          data-foogallery-lightbox="{&quot;exif&quot;:&quot;auto&quot;,&quot;cart&quot;:&quot;right&quot;,&quot;info&quot;:&quot;right&quot;,&quot;infoOverlay&quot;:false}">
         <div class="fiv-inner">
             <div class="fiv-inner-container">
 
-                <div class="fg-item fg-type-image fg-item-exif fg-idle">
+                <div class="fg-item fg-type-image fg-item-exif fg-item-active fg-idle">
                     <figure class="fg-item-inner">
                         <a class="fg-thumb" href="http://localhost:10/1.jpg" data-title="In Lobortis" data-description="Eros odio fusce. Class aptent taciti sociosqu ad." data-tags='["640x360","tag2"]' data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/4.0","shutter_speed":"1/496 s","focal_length":"36 mm","iso":"62","created_timestamp":"8/4/2025, 6:11:49 AM","orientation":"Top"}'>
 			<span class="fg-image-wrap">
@@ -303,6 +305,7 @@
                 <div class="fiv-prev"><span>Prev</span></div>
                 <label class="fiv-count"><span class="fiv-count-current">1</span>of<span class="fiv-count-total">50</span></label>
                 <div class="fiv-next"><span>Next</span></div>
+                <div id="foogallery-gallery-1_paging-bottom"></div>
             </div>
         </div>
 
