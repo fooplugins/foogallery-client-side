@@ -219,46 +219,49 @@
 	visibility: visible;
 	opacity: 1;
 }
-.fg-masonry.fg-captions-bottom .fg-caption-desc,
-.fg-masonry.fg-captions-bottom .fg-caption-desc a {
-	transition-property: color;
-}
 
-.fg-masonry.fg-captions-bottom.fg-dark .fg-caption,
-.fg-masonry.fg-captions-bottom.fg-dark .fg-caption a {
-	color: #FFF;
-	border-bottom: 1px solid currentColor;
+/* Captions */
+.fg-masonry.fg-captions-bottom.fg-dark .fg-caption-title,
+.fg-masonry.fg-captions-bottom.fg-dark .fg-caption-title a {
+    color: #FFF;
 }
-.fg-masonry.fg-captions-bottom.fg-light .fg-caption,
-.fg-masonry.fg-captions-bottom.fg-light .fg-caption a {
-	color: #222;
-	border-bottom: 1px solid currentColor;
-}
-.fg-masonry.fg-captions-bottom.fg-light .fg-caption a:hover,
-.fg-masonry.fg-captions-bottom.fg-dark .fg-caption a:hover {
-	border-bottom: none;
+.fg-masonry.fg-captions-bottom.fg-light .fg-caption-title {
+    color: #222;
 }
 .fg-masonry.fg-captions-bottom.fg-dark .fg-caption-desc,
 .fg-masonry.fg-captions-bottom.fg-dark .fg-caption-desc a {
-	color: #ccc;
+    color: #ccc;
 }
 .fg-masonry.fg-captions-bottom.fg-light .fg-caption-desc,
 .fg-masonry.fg-captions-bottom.fg-light .fg-caption-desc a {
-	color: #828282;
+    color: #828282;
 }
 .fg-masonry.fg-captions-bottom.fg-dark .fg-item-inner:hover .fg-caption-desc,
 .fg-masonry.fg-captions-bottom.fg-dark .fg-item-inner:focus-within .fg-caption-desc,
 .fg-masonry.fg-captions-bottom.fg-dark .fg-item-inner:hover .fg-caption-desc a,
-.fg-masonry.fg-captions-bottom.fg-dark .fg-item-inner:focus-within .fg-caption-desc a,
+.fg-masonry.fg-captions-bottom.fg-dark .fg-item-inner:focus-within .fg-caption-desc a {
+    color: #FFF;
+}
 .fg-masonry.fg-captions-bottom.fg-light .fg-item-inner:hover .fg-caption-desc,
 .fg-masonry.fg-captions-bottom.fg-light .fg-item-inner:focus-within .fg-caption-desc,
 .fg-masonry.fg-captions-bottom.fg-light .fg-item-inner:hover .fg-caption-desc a,
 .fg-masonry.fg-captions-bottom.fg-light .fg-item-inner:focus-within .fg-caption-desc a {
-	color: inherit;
+    color: #222;
 }
-.fg-masonry.fg-captions-bottom.fg-dark .fg-caption-desc a,
-.fg-masonry.fg-captions-bottom.fg-light .fg-caption-desc a {
-	border-bottom: 1px solid currentColor;
+
+/* Caption Buttons */
+.foogallery.fg-masonry:is(.fg-captions-bottom,.fg-caption-always) .fg-caption-buttons,
+.foogallery.fg-masonry.fg-c-l .fg-caption-buttons {
+    justify-content: flex-start;
+}
+.foogallery.fg-masonry.fg-c-c .fg-caption-buttons {
+    justify-content: center;
+}
+.foogallery.fg-masonry.fg-c-r .fg-caption-buttons {
+    justify-content: flex-end;
+}
+.foogallery.fg-masonry.fg-c-j .fg-caption-buttons {
+    justify-content: stretch;
 }
 
 /* Handle Border Sizing for Captions Below */

@@ -21,11 +21,6 @@
 	opacity: 0.6;
 }
 
-
-.foogallery.fg-preset.fg-selena .fg-caption {
-	text-align: center;
-}
-
 .foogallery.fg-preset.fg-selena .fg-caption-inner {
 	gap: 10px;
 	padding: calc(4% + 10px);
@@ -57,6 +52,17 @@
 	opacity: 1;
 	-webkit-transform: translateY(0);
 	transform: translateY(0);
+}
+
+.foogallery.fg-preset.fg-selena .fg-caption-buttons {
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.35s, transform 0.35s;
+}
+.foogallery.fg-preset.fg-selena .fg-item-inner:hover .fg-caption-buttons,
+.foogallery.fg-preset.fg-selena .fg-item-inner:focus-within .fg-caption-buttons {
+    opacity: 1;
+    transform: translateY(0px);
 }
 
 /* Preset Sizes */

@@ -69,6 +69,16 @@
 	transform: translateY(0);
 }
 
+.foogallery.fg-preset.fg-sadie .fg-caption-buttons {
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0.35s, transform 0.35s;
+}
+.foogallery.fg-preset.fg-sadie .fg-item-inner:hover .fg-caption-buttons,
+.foogallery.fg-preset.fg-sadie .fg-item-inner:focus-within .fg-caption-buttons {
+    opacity: 1;
+    transform: translateY(0px);
+}
 
 /* Preset Sizes */
 .foogallery.fg-preset.fg-preset-small.fg-sadie .fg-caption-inner {

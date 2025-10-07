@@ -78,6 +78,17 @@
 	transform: scale(1) translateY(0);
 }
 
+.foogallery.fg-preset.fg-oscar .fg-caption-buttons {
+    opacity: 0;
+    transform: scale(0) translateY(-60px);
+    transition: opacity 0.35s, transform 0.35s;
+}
+.foogallery.fg-preset.fg-oscar .fg-item-inner:hover .fg-caption-buttons,
+.foogallery.fg-preset.fg-oscar .fg-item-inner:focus-within .fg-caption-buttons {
+    opacity: 1;
+    transform: scale(1) translateY(0px);
+}
+
 /* Preset Sizes */
 .foogallery.fg-preset.fg-preset-small.fg-oscar .fg-caption-inner {
 	padding: 30px 25px 25px;

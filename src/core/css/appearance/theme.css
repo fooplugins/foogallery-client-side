@@ -27,45 +27,194 @@
 	background-color: rgba(0,0,0,0.5);
 	color: #fff;
 }
-.foogallery .fg-caption-desc {
-	color: #d2d2d2;
-}
-.foogallery .fg-caption a {
+.foogallery .fg-caption-title a {
 	color: #fff;
-	border-bottom: 1px solid #FFF;
+    border-bottom-color: #FFF;
+}
+.foogallery .fg-caption-desc {
+    color: #d2d2d2;
+}
+.foogallery .fg-caption-desc a {
+    color: #d2d2d2;
+    border-bottom-color: #d2d2d2;
 }
 .foogallery.fg-light-overlays .fg-caption {
-	background-color: rgba(255,255,255,0.5);
+	background-color: rgba(255,255,255,0.7);
 	color: #333;
 }
-.foogallery.fg-light-overlays .fg-caption a {
+.foogallery.fg-light-overlays .fg-caption-title a {
 	color: #333;
 	border-bottom-color: #333;
 }
 .foogallery.fg-light-overlays .fg-caption-desc {
     color: #333;
 }
+.foogallery.fg-light-overlays .fg-caption-desc a {
+    border-bottom-color: #333;
+}
 .foogallery.fg-transparent-overlays .fg-caption {
 	background-color: transparent;
 	color: #fff;
 }
-.foogallery.fg-transparent-overlays .fg-caption a {
+.foogallery.fg-transparent-overlays .fg-caption-title a {
 	color: #fff;
 	border-bottom-color: #fff;
 }
 .foogallery.fg-transparent-overlays .fg-caption-desc {
     color: #d2d2d2;
 }
-
+.foogallery.fg-light-overlays .fg-caption-desc a {
+    border-bottom-color: #d2d2d2;
+}
+/* Image Overlay */
 .foogallery .fg-image-overlay {
-	background-color: rgba(0,0,0,0.5);
-	color: #fff;
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
 }
 .foogallery.fg-light-overlays .fg-image-overlay {
-	background-color: rgba(255,255,255,0.8);
-	color: #333;
+    background-color: rgba(255,255,255,0.8);
+    color: #333;
 }
 .foogallery.fg-transparent-overlays .fg-image-overlay {
-	background-color: transparent;
-	color: #fff;
+    background-color: transparent;
+    color: #fff;
+}
+
+/* Caption Buttons */
+/* Button is displayed in caption over image */
+/* Default, Block & Pill Buttons */
+/* Light */
+.foogallery:not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a {
+    color: #333;
+    background-color: #fff;
+    border-color: #222;
+}
+.foogallery:not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #222;
+}
+/* Dark */
+.foogallery.fg-light-overlays:not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+.foogallery.fg-light-overlays:not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover {
+    color: #FFF;
+    background-color: #666;
+    border-color: #555;
+}
+/* Block & Pill Outline Buttons */
+/* Light */
+.foogallery:is(.fg-cb-block-outline,.fg-cb-pill-outline):not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a {
+    color: #FFF;
+    background-color: transparent;
+    border-color: #FFF;
+}
+.foogallery:is(.fg-cb-block-outline,.fg-cb-pill-outline):not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover {
+    color: #333;
+    background-color: #fff;
+    border-color: #FFF;
+}
+/* Dark */
+.foogallery.fg-light-overlays:is(.fg-cb-block-outline,.fg-cb-pill-outline):not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a {
+    color: #333;
+    background-color: transparent;
+    border-color: #222;
+}
+.foogallery.fg-light-overlays:is(.fg-cb-block-outline,.fg-cb-pill-outline):not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+/* Caption Buttons + Captions Top & Bottom */
+/* Button is displayed always either below or above the image */
+/* Default, Block & Pill Buttons */
+/* Light */
+.foogallery:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a {
+    color: #333;
+    background-color: #FFF;
+    border-color: #ccc;
+}
+.foogallery:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #ccc;
+}
+/* Dark */
+.foogallery.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a {
+    color: #FFF;
+    background-color: #444;
+    border-color: #222;
+}
+.foogallery.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover {
+    color: #FFF;
+    background-color: #666;
+    border-color: #444;
+}
+/* Handle light-overlay */
+.foogallery.fg-light-overlays.fg-light:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+.foogallery.fg-light-overlays.fg-light:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover {
+    color: #FFF;
+    background-color: #666;
+    border-color: #555;
+}
+.foogallery.fg-light-overlays.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a {
+    color: #333;
+    background-color: #FFF;
+    border-color: #222;
+}
+.foogallery.fg-light-overlays.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #555;
+}
+/* Block & Pill Outline Buttons */
+/* Light */
+.foogallery:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a {
+    color: #333;
+    background-color: transparent;
+    border-color: #ccc;
+}
+.foogallery:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a:hover {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+/* Dark */
+.foogallery.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a {
+    color: #FFF;
+    background-color: transparent;
+    border-color: #FFF;
+}
+.foogallery.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a:hover {
+    color: #333;
+    background-color: #FFF;
+    border-color: #FFF;
+}
+/* Handle the light overlay */
+.foogallery.fg-light-overlays.fg-light:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a {
+    color: #333;
+    background-color: transparent;
+    border-color: #ccc;
+}
+.foogallery.fg-light-overlays.fg-light:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a:hover {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
+.foogallery.fg-light-overlays.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a {
+    color: #fff;
+    background-color: transparent;
+    border-color: #fff;
+}
+.foogallery.fg-light-overlays.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a:hover {
+    color: #333;
+    background-color: #fff;
+    border-color: #fff;
 }

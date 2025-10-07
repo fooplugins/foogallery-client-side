@@ -99,24 +99,14 @@
 .fg-simple_portfolio .fg-caption-desc {
     flex: unset;
 }
-.fg-simple_portfolio .fg-caption-desc,
-.fg-simple_portfolio .fg-caption-desc a {
-    transition-property: color;
-}
 
-.fg-simple_portfolio.fg-dark .fg-caption,
-.fg-simple_portfolio.fg-dark .fg-caption a {
+/* Captions */
+.fg-simple_portfolio.fg-dark .fg-caption-title,
+.fg-simple_portfolio.fg-dark .fg-caption-title a {
     color: #FFF;
-    border-bottom: 1px solid currentColor;
 }
-.fg-simple_portfolio.fg-light .fg-caption,
-.fg-simple_portfolio.fg-light .fg-caption a {
+.fg-simple_portfolio.fg-light .fg-caption-title {
     color: #222;
-    border-bottom: 1px solid currentColor;
-}
-.fg-simple_portfolio.fg-light .fg-caption a:hover,
-.fg-simple_portfolio.fg-dark .fg-caption a:hover {
-    border-bottom: none;
 }
 .fg-simple_portfolio.fg-dark .fg-caption-desc,
 .fg-simple_portfolio.fg-dark .fg-caption-desc a {
@@ -129,18 +119,30 @@
 .fg-simple_portfolio.fg-dark .fg-item-inner:hover .fg-caption-desc,
 .fg-simple_portfolio.fg-dark .fg-item-inner:focus-within .fg-caption-desc,
 .fg-simple_portfolio.fg-dark .fg-item-inner:hover .fg-caption-desc a,
-.fg-simple_portfolio.fg-dark .fg-item-inner:focus-within .fg-caption-desc a,
+.fg-simple_portfolio.fg-dark .fg-item-inner:focus-within .fg-caption-desc a {
+    color: #FFF;
+}
 .fg-simple_portfolio.fg-light .fg-item-inner:hover .fg-caption-desc,
 .fg-simple_portfolio.fg-light .fg-item-inner:focus-within .fg-caption-desc,
 .fg-simple_portfolio.fg-light .fg-item-inner:hover .fg-caption-desc a,
 .fg-simple_portfolio.fg-light .fg-item-inner:focus-within .fg-caption-desc a {
-    color: inherit;
-}
-.fg-simple_portfolio.fg-dark .fg-caption-desc a,
-.fg-simple_portfolio.fg-light .fg-caption-desc a {
-    border-bottom: 1px solid currentColor;
+    color: #222;
 }
 
+/* Caption Buttons */
+.foogallery.fg-simple_portfolio.fg-c-c .fg-caption-buttons {
+    justify-content: center;
+}
+.foogallery.fg-simple_portfolio .fg-caption-buttons,
+.foogallery.fg-simple_portfolio.fg-c-l .fg-caption-buttons {
+    justify-content: flex-start;
+}
+.foogallery.fg-simple_portfolio.fg-c-r .fg-caption-buttons {
+    justify-content: flex-end;
+}
+.foogallery.fg-simple_portfolio.fg-c-j .fg-caption-buttons {
+    justify-content: stretch;
+}
 
 /* Handle Border Sizing */
 .fg-simple_portfolio .fg-caption {

@@ -56,12 +56,19 @@
 	opacity: 1;
 }
 
+.foogallery.fg-preset.fg-lily .fg-caption-buttons {
+    padding: 0 10px 10px;
+}
+
 /* Preset Sizes */
 .foogallery.fg-preset.fg-preset-small.fg-lily .fg-caption-title {
 	padding: 10px;
 }
 .foogallery.fg-preset.fg-preset-small.fg-lily .fg-caption-desc {
 	padding: 0 10px 10px;
+}
+.foogallery.fg-preset.fg-preset-small.fg-lily .fg-caption-buttons {
+    padding: 0 10px 10px;
 }
 
 .foogallery.fg-preset.fg-preset-medium.fg-lily .fg-caption-title {
@@ -70,10 +77,16 @@
 .foogallery.fg-preset.fg-preset-medium.fg-lily .fg-caption-desc {
 	padding: 0 15px 15px;
 }
+.foogallery.fg-preset.fg-preset-medium.fg-lily .fg-caption-buttons {
+    padding: 0 15px 15px;
+}
 
 .foogallery.fg-preset.fg-preset-large.fg-lily .fg-caption-title {
 	padding: 20px;
 }
 .foogallery.fg-preset.fg-preset-large.fg-lily .fg-caption-desc {
 	padding: 0 20px 20px;
+}
+.foogallery.fg-preset.fg-preset-large.fg-lily .fg-caption-buttons {
+    padding: 0 20px 20px;
 }

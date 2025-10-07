@@ -52,6 +52,11 @@
 	padding: 0;
 }
 
+.foogallery.fg-preset .fg-caption-buttons {
+    text-transform: none;
+    letter-spacing: normal;
+}
+
 /* Preset Sizes */
 .fg-preset.fg-preset-small .fg-caption-title {
 	font-size: 16px;

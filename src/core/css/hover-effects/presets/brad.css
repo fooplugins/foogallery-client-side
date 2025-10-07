@@ -49,6 +49,11 @@
     order: 3;
 }
 
+.foogallery.fg-preset.fg-brad .fg-caption-buttons {
+    order: 4;
+    padding: 0 10px 10px;
+}
+
 /* Text Align */
 .foogallery.fg-preset.fg-brad.fg-c-l .fg-caption-inner {
     align-items: flex-start;
