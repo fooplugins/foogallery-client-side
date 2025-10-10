@@ -127,8 +127,8 @@
                         self.panel.trigger("area-unloaded", [self, prev]);
                         self.currentMedia = media;
                         self.panel.trigger("area-load", [self, media]);
-                        self.doLoad(media, reverseTransition).then(def.resolve).fail(def.reject);
-                    }).fail(def.reject);
+                        self.doLoad(media, reverseTransition).then(def.resolve).catch(def.reject);
+                    }).catch(def.reject);
                 } else {
                     if (hasMedia){
                         self.panel.trigger("area-unload", [self, prev]);
@@ -138,11 +138,11 @@
                     }
                     self.currentMedia = media;
                     self.panel.trigger("area-load", [self, media]);
-                    self.doLoad(media, reverseTransition).then(def.resolve).fail(def.reject);
+                    self.doLoad(media, reverseTransition).then(def.resolve).catch(def.reject);
                 }
             }).then(function(){
                 self.panel.trigger("area-loaded", [self, media]);
-            }).fail(function(){
+            }).catch(function(){
                 self.panel.trigger("area-error", [self, media]);
             }).promise();
         },

@@ -183,11 +183,11 @@
 						} else {
 							def.reject("post-init failed");
 						}
-					}).fail(def.reject);
+					}).catch(def.reject);
 				} else {
 					def.reject("pre-init failed");
 				}
-			}).fail(function (err) {
+			}).catch(function (err) {
 				console.log("initialize failed", self, err);
 				return self.destroy();
 			}).promise();

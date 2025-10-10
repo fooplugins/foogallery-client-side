@@ -362,14 +362,14 @@
                 self.currentItem = item;
                 self.prevItem = self.tmpl.items.prev(item, self.isVisible, self.opt.loop);
                 self.nextItem = self.tmpl.items.next(item, self.isVisible, self.opt.loop);
-                self.doLoad(media).then(def.resolve).fail(def.reject);
+                self.doLoad(media).then(def.resolve).catch(def.reject);
             }).always(function(){
                 self.isLoading = false;
             }).then(function(){
                 self.isLoaded = true;
                 self.trigger("loaded", [item]);
                 item.updateState();
-            }).fail(function(){
+            }).catch(function(){
                 self.isError = true;
                 self.trigger("error", [item]);
             }).promise();
@@ -405,7 +405,7 @@
                     self.appendTo( parent );
                 }
                 if (self.isAttached){
-                    self.load( item ).then(def.resolve).fail(def.reject);
+                    self.load( item ).then(def.resolve).catch(def.reject);
                 } else {
                     def.rejectWith("not attached");
                 }
@@ -456,7 +456,7 @@
                             wait.push(area.close(immediate));
                         }
                     });
-                    $.when.apply($, wait).then(def.resolve).fail(def.reject);
+                    $.when.apply($, wait).then(def.resolve).catch(def.reject);
                 });
             }).always(function(){
                 self.isClosing = false;

@@ -191,13 +191,13 @@
                     return;
                 }
                 self.$el.removeClass(states.allLoading).addClass(states.loading);
-                self.doLoad().then(def.resolve).fail(def.reject);
+                self.doLoad().then(def.resolve).catch(def.reject);
             }).always(function(){
                 self.$el.removeClass(states.loading);
             }).then(function(){
                 self.$el.addClass(states.loaded);
                 self.panel.trigger("caption-loaded", [self]);
-            }).fail(function(){
+            }).catch(function(){
                 self.$el.addClass(states.loaded);
                 self.panel.trigger("caption-error", [self]);
             }).promise();
@@ -217,7 +217,7 @@
                     def.rejectWith("default prevented");
                     return;
                 }
-                self.doUnload().then(def.resolve).fail(def.reject);
+                self.doUnload().then(def.resolve).catch(def.reject);
             }).then(function(){
                 self.panel.trigger("caption-unloaded", [self]);
             }).promise();

@@ -42,7 +42,7 @@
                     return;
                 }
                 var promise = self.isSelfHosted ? self.loadSelfHosted() : self.loadIframe();
-                promise.then(def.resolve).fail(def.reject);
+                promise.then(def.resolve).catch(def.reject);
             }).promise();
         },
         loadSelfHosted: function(){

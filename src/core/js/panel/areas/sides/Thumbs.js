@@ -235,7 +235,7 @@
                             $el.css("transform", translate);
                         }, null, 350).then(function () {
                             def.resolve();
-                        }).fail(def.reject);
+                        }).catch(def.reject);
                     } else {
                         self.$stage.addClass(states.noTransitions).css("transform", translate);
                         self.$stage.prop("offsetHeight");
