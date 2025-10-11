@@ -1,4 +1,7 @@
 /* Icon & Overlay */
+.foogallery {
+    --fg-icon-size: 32px;
+}
 .foogallery .fg-image-overlay:before {
 	content: "";
 	display: block;
@@ -6,27 +9,27 @@
 	top: 50%;
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
-	width: 32px;
-	height: 32px;
-	background-size: 32px 32px;
+	width: var(--fg-icon-size);
+	height: var(--fg-icon-size);
+	background-size: var(--fg-icon-size) var(--fg-icon-size);
 	background-position: center center;
 	background-repeat: no-repeat;
-	min-width: 32px;
-	min-height: 32px;
+	min-width: var(--fg-icon-size);
+	min-height: var(--fg-icon-size);
 }
 .foogallery .fg-caption-inner:before {
 	content: "";
 	display: none;
 	position: relative;
-	width: 32px;
-	height: 32px;
+	width: var(--fg-icon-size);
+	height: var(--fg-icon-size);
 	margin: 0;
-	background-size: 32px 32px;
+	background-size: var(--fg-icon-size) var(--fg-icon-size);
 	vertical-align: middle;
 	background-position: center center;
 	background-repeat: no-repeat;
-	min-width: 32px;
-	min-height: 32px;
+	min-width: var(--fg-icon-size);
+	min-height: var(--fg-icon-size);
 }
 .foogallery.fg-hover-zoom:not(.fg-preset) 				.fg-caption-inner:before,
 .foogallery.fg-hover-zoom2:not(.fg-preset) 				.fg-caption-inner:before,
