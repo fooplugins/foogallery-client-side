@@ -50,6 +50,7 @@
     color: #333;
 }
 .foogallery.fg-light-overlays .fg-caption-desc a {
+    color: #333;
     border-bottom-color: #333;
 }
 .foogallery.fg-transparent-overlays .fg-caption {
@@ -63,15 +64,20 @@
 .foogallery.fg-transparent-overlays .fg-caption-desc {
     color: #d2d2d2;
 }
-.foogallery.fg-light-overlays .fg-caption-desc a {
+.foogallery.fg-transparent-overlays .fg-caption-desc a {
+    color: #d2d2d2;
     border-bottom-color: #d2d2d2;
 }
 /* Image Overlay */
-.foogallery .fg-image-overlay {
+.foogallery .fg-image-overlay,
+.foogallery.fg-video-sticky:not(.fg-caption-hover) .fg-type-video.fg-loaded .fg-item-inner:hover .fg-image-overlay,
+.foogallery.fg-video-sticky:not(.fg-caption-hover) .fg-type-video.fg-loaded .fg-item-inner:focus-within .fg-image-overlay {
     background-color: rgba(0,0,0,0.5);
     color: #fff;
 }
-.foogallery.fg-light-overlays .fg-image-overlay {
+.foogallery.fg-light-overlays .fg-image-overlay,
+.foogallery.fg-light-overlays.fg-video-sticky:not(.fg-caption-hover) .fg-type-video.fg-loaded .fg-item-inner:hover .fg-image-overlay,
+.foogallery.fg-light-overlays.fg-video-sticky:not(.fg-caption-hover) .fg-type-video.fg-loaded .fg-item-inner:focus-within .fg-image-overlay {
     background-color: rgba(255,255,255,0.8);
     color: #333;
 }
