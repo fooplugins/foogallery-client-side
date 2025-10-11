@@ -244,13 +244,13 @@
             // get the currently applied filter tags
             let tags = current.map( obj => _is.array( obj ) ? obj.slice() : obj );
             if ( !_is.empty( tag.value ) ) {
+                if ( !_is.array( tags[ tag.level ] ) ) {
+                    tags[ tag.level ] = [];
+                }
+                let i = _utils.inArray( tag.value, tags[ tag.level ] );
                 switch ( mode ) {
                     case "union":
                     case "intersect":
-                        if ( !_is.array( tags[ tag.level ] ) ) {
-                            tags[ tag.level ] = [];
-                        }
-                        let i = _utils.inArray( tag.value, tags[ tag.level ] );
                         if ( i === -1 ) {
                             tags[ tag.level ].push( tag.value );
                         } else {
@@ -259,7 +259,11 @@
                         break;
                     case "single":
                     default:
-                        tags[ tag.level ] = [ tag.value ];
+                        if ( i === -1 ) {
+                            tags[ tag.level ] = [ tag.value ];
+                        } else {
+                            tags[ tag.level ] = [];
+                        }
                         break;
                 }
             } else {
