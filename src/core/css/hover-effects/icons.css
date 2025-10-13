@@ -7,19 +7,33 @@
     --fg-icon-size-transparent: calc( var(--fg-icon-size) + calc( var(--fg-icon-size) * 0.25 ) );
 }
 .foogallery .fg-image-overlay:before {
-	content: "";
-	display: block;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
-	width: var(--fg-icon-size);
-	height: var(--fg-icon-size);
-	background-size: var(--fg-icon-size) var(--fg-icon-size);
-	background-position: center center;
-	background-repeat: no-repeat;
-	min-width: var(--fg-icon-size);
-	min-height: var(--fg-icon-size);
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: var(--fg-icon-size);
+    height: var(--fg-icon-size);
+    background-size: var(--fg-icon-size) var(--fg-icon-size);
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-width: var(--fg-icon-size);
+    min-height: var(--fg-icon-size);
+}
+.foogallery .fg-caption-inner:before {
+    content: "";
+    display: none;
+    position: relative;
+    width: var(--fg-icon-size);
+    height: var(--fg-icon-size);
+    margin: 0;
+    background-size: var(--fg-icon-size) var(--fg-icon-size);
+    vertical-align: middle;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-width: var(--fg-icon-size);
+    min-height: var(--fg-icon-size);
 }
 .foogallery.fg-transparent-overlays .fg-image-overlay:before,
 .foogallery.fg-transparent-overlays .fg-caption-inner:before {
