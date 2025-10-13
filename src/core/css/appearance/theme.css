@@ -56,6 +56,7 @@
 .foogallery.fg-transparent-overlays .fg-caption {
 	background-color: transparent;
 	color: #fff;
+    text-shadow: 0 0 3px #000000;
 }
 .foogallery.fg-transparent-overlays .fg-caption-title a {
 	color: #fff;
