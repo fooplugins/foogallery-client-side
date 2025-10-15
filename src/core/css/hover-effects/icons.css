@@ -60,11 +60,11 @@
 .foogallery.fg-hover-zoom4:not(.fg-preset) 				.fg-caption-inner:before,
 .foogallery.fg-hover-zoom5:not(.fg-preset) 				.fg-caption-inner:before,
 
-.foogallery.fg-video-default:not(.fg-preset)            .fg-caption-inner:before,
-.foogallery.fg-video-1:not(.fg-preset)                  .fg-caption-inner:before,
-.foogallery.fg-video-2:not(.fg-preset)                  .fg-caption-inner:before,
-.foogallery.fg-video-3:not(.fg-preset)                  .fg-caption-inner:before,
-.foogallery.fg-video-4:not(.fg-preset)                  .fg-caption-inner:before {
+.foogallery.fg-video-default:not(.fg-preset)            .fg-type-video .fg-caption-inner:before,
+.foogallery.fg-video-1:not(.fg-preset)                  .fg-type-video .fg-caption-inner:before,
+.foogallery.fg-video-2:not(.fg-preset)                  .fg-type-video .fg-caption-inner:before,
+.foogallery.fg-video-3:not(.fg-preset)                  .fg-type-video .fg-caption-inner:before,
+.foogallery.fg-video-4:not(.fg-preset)                  .fg-type-video .fg-caption-inner:before {
 	display: block;
 }
 
