@@ -58,6 +58,11 @@
 	color: #FFF;
 }
 
+/* Transparent Overlays */
+.foogallery.fg-preset.fg-polaroid.fg-transparent-overlays .fg-caption {
+    text-shadow: none;
+}
+
 /* Handle Border Sizing */
 .foogallery.fg-preset.fg-polaroid .fg-caption {
 	padding: 10px;

@@ -167,6 +167,10 @@
     padding: 0 0 16px 0;
 }
 
+/* Transparent Overlays */
+.fg-simple_portfolio.fg-transparent-overlays .fg-caption {
+    text-shadow: none;
+}
 /* Transparent Theme */
 .fg-simple_portfolio.fg-transparent .fg-item-inner {
     background-color: transparent;
