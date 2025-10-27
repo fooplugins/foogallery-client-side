@@ -8,11 +8,11 @@
         html {
             background-color: #222;
         }
-        .row {
-            display: flex;
-            flex-direction: row;
+        .group {
+            display: inline-flex;
+            flex-direction: column;
             gap: 10px;
-            margin: 10px 0;
+            margin: 10px 10px;
         }
 
         svg {
@@ -21,29 +21,126 @@
             --size: 32px;
             width: var(--size);
             height: var(--size);
-            border: solid 1px fuchsia;
+            /*border: solid 1px fuchsia;*/
         }
-        .row .foogallery {
+        .group .foogallery {
             box-sizing: content-box;
             border: solid 1px fuchsia;
         }
-        .row .foogallery,
-        .row .fg-image-overlay {
+        .group .foogallery,
+        .group .fg-image-overlay {
             display: block;
-            width: 32px;
-            height: 32px;
-            min-width: 32px;
-            min-height: 32px;
+            width: 64px;
+            height: 64px;
+            min-width: 64px;
+            min-height: 64px;
         }
-        .row .foogallery .fg-image-overlay {
+        .group .foogallery .fg-image-overlay {
             visibility: visible;
             opacity: 1;
             background-color: #FFF;
         }
+        .group .foogallery:not(.fg-light-overlays,.fg-transparent-overlays) .fg-image-overlay {
+            background-color: #333;
+        }
     </style>
 </head>
 <body>
-<div class="row">
+<div class="group">
+    <div class="foogallery fg-video-default">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-video-1">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-video-2">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-video-3">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-video-4">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-hover-zoom">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-zoom2">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-zoom3">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-plus">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-circle-plus">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-eye">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-external">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-cart">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-zoom4">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-zoom5">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-plus2">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-plus3">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-circle-plus2">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-hover-square-plus">
+        <span class="fg-image-overlay"></span>
+    </div>
+</div>
+<div class="group">
+    <div class="foogallery fg-light-overlays fg-video-default">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-light-overlays fg-video-1">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-light-overlays fg-video-2">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-light-overlays fg-video-3">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-light-overlays fg-video-4">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
     <div class="foogallery fg-light-overlays fg-hover-zoom">
         <span class="fg-image-overlay"></span>
     </div>
@@ -68,8 +165,6 @@
     <div class="foogallery fg-light-overlays fg-hover-cart">
         <span class="fg-image-overlay"></span>
     </div>
-</div>
-<div class="row">
     <div class="foogallery fg-light-overlays fg-hover-zoom4">
         <span class="fg-image-overlay"></span>
     </div>
@@ -86,6 +181,75 @@
         <span class="fg-image-overlay"></span>
     </div>
     <div class="foogallery fg-light-overlays fg-hover-square-plus">
+        <span class="fg-image-overlay"></span>
+    </div>
+</div>
+<div class="group">
+    <div class="foogallery fg-transparent-overlays fg-video-default">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-video-1">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-video-2">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-video-3">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-video-4">
+        <div class="fg-type-video">
+            <span class="fg-image-overlay"></span>
+        </div>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-zoom">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-zoom2">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-zoom3">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-plus">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-circle-plus">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-eye">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-external">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-cart">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-zoom4">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-zoom5">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-plus2">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-plus3">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-circle-plus2">
+        <span class="fg-image-overlay"></span>
+    </div>
+    <div class="foogallery fg-transparent-overlays fg-hover-square-plus">
         <span class="fg-image-overlay"></span>
     </div>
 </div>

@@ -91,9 +91,48 @@
         #foogallery-gallery-1 .fg-image {
             width: 275px;
         }
+        /*
+        Captions
+
+        1. Font
+        2. Font-size
+        3. Color
+        4. Background-color
+        5. Padding
+
+        How to target hover state
+
+        */
+
+/* Change typography for standard captions */
+/* Target title */
+.foogallery:not(.fg-preset) .fg-caption-title {
+    font-family: monospace;
+    font-size: 20px;
+    color: hotpink;
+}
+/* Target description */
+.foogallery:not(.fg-preset) .fg-caption-desc {
+    font-family: monospace;
+    font-size: 14px;
+    color: hotpink;
+}
+/* Change padding for standard captions */
+.foogallery:not(.fg-preset) .fg-caption .fg-caption-inner {
+    padding: 30px;
+}
+/* Change icon for standard captions */
+.foogallery:not(.fg-preset) :is(.fg-caption-inner,.fg-image-overlay):before {
+    background-image: url(../assets/img/icons.svg#image-light);
+    background-size: 32px 32px;
+}
+/* Change backdrop color for standard captions */
+.foogallery:not(.fg-preset) .fg-caption {
+    background-color: #00b9ff;
+}
     </style>
     <div id="foogallery-gallery-1"
-         class="foogallery fg-loading-default fg-loaded-slide-up fg-caption-always fg-default fg-center fg-c-c fg-gutter-10 fg-hover-fade fg-hover-circle-plus2 fg-dark"
+         class="foogallery foogallery-container foogallery-default foogallery-lightbox-foogallery fg-center fg-default fg-dark fg-shadow-medium fg-loading-partial fg-loaded-flip fg-caption-hover fg-hover-fade fg-hover-zoom fg-ready"
          data-foogallery="{}"
          data-foogallery-lightbox="{}">
 

@@ -8,7 +8,27 @@
     <link href="assets/css/foogallery.min.css" rel="stylesheet"/>
     <style>
 
-
+        /* Change typography for standard captions */
+        /* Target title */
+        #foogallery-gallery-1:not(.fg-preset) .fg-caption-title {
+            font-family: monospace;
+            font-size: 20px;
+            color: hotpink;
+        }
+        /* Target description */
+        #foogallery-gallery-1:not(.fg-preset) .fg-caption-desc {
+            font-family: monospace;
+            font-size: 14px;
+            color: hotpink;
+        }
+        /* Change padding for standard captions */
+        #foogallery-gallery-1:not(.fg-preset) .fg-caption .fg-caption-inner {
+            padding: 30px;
+        }
+        /* Change icon for standard captions - in this example replacing the "zoom" icon */
+        #foogallery-gallery-1.fg-hover-zoom:not(.fg-preset) .fg-caption .fg-caption-inner {
+            background-image: url(assets/img/icons.svg#image-light);
+        }
 
 
 

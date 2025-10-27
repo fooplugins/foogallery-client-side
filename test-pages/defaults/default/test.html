@@ -13,7 +13,7 @@
     </style>
     <script src="../assets/jquery.min.js" defer></script>
     <script src="../assets/theme.js" defer></script>
-    <script src="../assets/js/foogallery.min.js" defer></script>
+    <script src="../assets/js/foogallery.js" defer></script>
 </head>
 <body class="light">
 <header>
@@ -33,14 +33,50 @@
 <main>
     <style>
         #foogallery-gallery-1 .fg-image { width: 275px; }
+.fg-default {
+    /* Calculate the column sizes */
+    /* For 1 column no calculation is needed, just set it to be 100% */
+    --fg-responsive-1-column: 100%;
+    /* For >= 2 columns use the formula: ( ( 100% - ( GUTTER_SIZE * ( NUMBER_OF_COLUMNS - 1 ) ) ) / NUMBER_OF_COLUMNS ) */
+    --fg-responsive-2-column: calc( calc( 100% - calc( var(--fg-gutter) * 1 ) ) / 2 );
+    --fg-responsive-3-column: calc( calc( 100% - calc( var(--fg-gutter) * 2 ) ) / 3 );
+    --fg-responsive-4-column: calc( calc( 100% - calc( var(--fg-gutter) * 3 ) ) / 4 );
+    --fg-responsive-5-column: calc( calc( 100% - calc( var(--fg-gutter) * 4 ) ) / 5 );
 
+    /* Set the number of columns displayed if the screen is < 600px */
+    --fg-responsive-column-width: var(--fg-responsive-1-column);
+}
+
+/* Set to 2 columns if the screen is >= 600px */
+@media only screen and (min-width: 600px) {
+    .fg-default {
+        --fg-responsive-column-width: var(--fg-responsive-2-column);
+    }
+}
+/* Set to 3 columns if the screen is >= 1280px */
+@media only screen and (min-width: 1280px) {
+    .fg-default {
+        --fg-responsive-column-width: var(--fg-responsive-3-column);
+    }
+}
+
+/* The following applies the calculated width to the items in the gallery and does not need to be changed */
+.fg-default .fg-item {
+    width: var(--fg-responsive-column-width);
+    min-width: var(--fg-responsive-column-width);
+    max-width: var(--fg-responsive-column-width);
+}
+/* This ensures the image expands to fill the entire column width */
+.fg-default .fg-item .fg-image {
+    width: 100%!important;
+}
     </style>
     <div id="foogallery-gallery-1"
-         class="foogallery fg-loading-default fg-loaded-swing-down fg-caption-always fg-default fg-center fg-c-c fg-gutter-10 fg-hover-fade fg-hover-circle-plus2 fg-dark"
+         class="foogallery fg-video-sticky fg-video-default fg-loading-default fg-loaded-swing-down fg-caption-hover fg-default fg-center fg-c-c fg-gutter-10 fg-hover-fade fg-hover-circle-plus2 fg-dark"
          data-foogallery="{}"
          data-foogallery-lightbox="{}">
 
-        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(77, 127, 154)">
+        <div class="fg-item fg-type-video fg-idle" style="--fg-dominant-color:rgb(77, 127, 154)">
             <figure class="fg-item-inner">
                 <a class="fg-thumb" href="http://localhost:10/1.jpg" data-id="1.jpg" data-product-id="1"
                    data-title="At Eget Tincidunt" data-description="Non suscipit sed magna aenean in."
