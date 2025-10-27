@@ -410,7 +410,7 @@
      * @returns {boolean} True if the URL is cross-origin, otherwise False.
      */
 	_.isCrossOrigin = function(url) {
-		const parsed = URL.parse(url);
+		const parsed = _utils.url.parts(url);
 		if ( parsed !== null ) {
 			return parsed.origin !== window.location.origin;
 		}
