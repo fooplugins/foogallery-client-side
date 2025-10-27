@@ -258,7 +258,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/panel/areas/sides/SideArea.js",
 						"./src/core/js/panel/areas/sides/Info.js",
 						"./src/core/js/panel/areas/sides/Thumbs.js",
-						"./src/core/js/panel/areas/sides/Cart.js",
+                        "./src/core/js/panel/areas/sides/Cart.js",
 						"./src/core/js/panel/media/Media.js",
 						"./src/core/js/panel/media/Caption.js",
 						"./src/core/js/panel/media/Product.js",
@@ -296,6 +296,18 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
+
+            "social": {
+                "files": {
+                    "./dist/components/js/foogallery.social.js": [
+                        "./src/core/js/panel/areas/sides/Comments.js",
+                        "./src/core/js/panel/media/Comments.js"
+                    ],
+                    "./dist/components/css/foogallery.social.css": [
+                        "./src/core/css/panel/media-comments.css"
+                    ]
+                }
+            },
 
 			"filtering": {
 				"files": {
@@ -640,12 +652,18 @@ module.exports = function ( grunt ) {
 				"src": ["**"],
 				"dest": "./test-pages/defaults/assets"
 			},
-			"defaults_free": {
-				"expand": true,
-				"cwd": "dist/free",
-				"src": ["**"],
-				"dest": "./test-pages/defaults/assets/free"
-			}
+            "defaults_free": {
+                "expand": true,
+                "cwd": "dist/free",
+                "src": ["**"],
+                "dest": "./test-pages/defaults/assets/free"
+            },
+            "defaults_components": {
+                "expand": true,
+                "cwd": "dist/components",
+                "src": ["**"],
+                "dest": "./test-pages/defaults/assets/components"
+            }
 		},
 		"jsdoc": {
 			"all": {
@@ -686,6 +704,7 @@ module.exports = function ( grunt ) {
 
 		"clean:foo-utils", // remove the foogallery.utils.js file as it is now part of the core
 
+        "concat:social",
 		"concat:woocommerce",
 		"concat:panel",
 		"concat:panel_pro",
@@ -719,7 +738,8 @@ module.exports = function ( grunt ) {
 		"cssmin:dist",
 
 		"copy:defaults_pro",
-		"copy:defaults_free",
+        "copy:defaults_free",
+        "copy:defaults_components",
 
 		"copy:templates_pro",
 		"copy:templates_free",

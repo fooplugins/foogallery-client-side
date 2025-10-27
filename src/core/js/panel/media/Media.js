@@ -22,6 +22,10 @@
                 self.product = new _.Panel.Media.Product(panel, self);
             }
 
+            if ( _.Panel.Media.Comments ){
+                self.comments = new _.Panel.Media.Comments(panel, self);
+            }
+
             self.$el = null;
 
             self.$content = null;

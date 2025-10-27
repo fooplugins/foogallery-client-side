@@ -54,6 +54,11 @@
                 self.areas.push( self.cart );
             }
 
+            if ( _.Panel.Comments ){
+                self.comments = new _.Panel.Comments(self);
+                self.areas.push( self.comments );
+            }
+
             self.$el = null;
 
             self.el = null;
@@ -586,7 +591,8 @@
                 autoProgress: true,
                 info: true,
                 thumbs: false,
-                cart: true
+                cart: true,
+                comments: true
             },
             breakpoints: [{
                 name: "medium",
@@ -654,7 +660,8 @@
                 maximize: "fg-panel-button fg-panel-button-maximize",
                 info: "fg-panel-button fg-panel-button-info",
                 thumbs: "fg-panel-button fg-panel-button-thumbs",
-                cart: "fg-panel-button fg-panel-button-cart"
+                cart: "fg-panel-button fg-panel-button-cart",
+                comments: "fg-panel-button fg-panel-button-comments"
             },
 
             transition: {
@@ -734,7 +741,8 @@
                 autoProgress: "Auto Progress",
                 info: "Toggle Information",
                 thumbs: "Toggle Thumbnails",
-                cart: "Toggle Cart"
+                cart: "Toggle Cart",
+                comments: "Comments"
             }
         }
     });

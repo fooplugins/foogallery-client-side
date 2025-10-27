@@ -1,16 +1,19 @@
 .fg-panel-content,
 .fg-panel-info,
 .fg-panel-cart,
+.fg-panel-comments,
 .fg-panel-thumbs,
 .fg-panel-content-inner,
 .fg-panel-info-inner,
 .fg-panel-cart-inner,
+.fg-panel-comments-inner,
 .fg-panel-thumbs-inner {
     position: relative;
 }
 .fg-panel-content,
 .fg-panel-info,
 .fg-panel-cart,
+.fg-panel-comments,
 .fg-panel-thumbs {
     pointer-events: none;
 }
@@ -44,7 +47,7 @@
 }
 
 /* By default collapse and overlay the caption along the bottom on small screens */
-:is(.fg-panel-info-inner, .fg-panel-cart-inner) {
+:is(.fg-panel-info-inner, .fg-panel-cart-inner, .fg-panel-comments-inner) {
     pointer-events: auto;
     display: flex;
     position: absolute;
@@ -56,33 +59,35 @@
     min-height: 42px;
     max-height: 100%;
 }
-.fg-panel.fg-landscape :is(.fg-panel-info-inner, .fg-panel-cart-inner) {
+.fg-panel.fg-landscape :is(.fg-panel-info-inner, .fg-panel-cart-inner, .fg-panel-comments-inner) {
     right: 37px;
     width: calc(100% - 37px);
     max-width: calc(100% - 37px);
 }
-.fg-panel.fg-portrait :is(.fg-panel-info-inner, .fg-panel-cart-inner) {
+.fg-panel.fg-portrait :is(.fg-panel-info-inner, .fg-panel-cart-inner, .fg-panel-comments-inner) {
     max-height: calc(100% - 37px);
 }
 .fg-landscape.fg-panel-info-top .fg-panel-info-inner,
-.fg-landscape.fg-panel-cart-top .fg-panel-cart-inner {
+.fg-landscape.fg-panel-cart-top .fg-panel-cart-inner,
+.fg-landscape.fg-panel-comments-top .fg-panel-comments-inner {
     top: 0;
     bottom: unset;
 }
 .fg-portrait.fg-panel-info-top .fg-panel-info-inner,
-.fg-portrait.fg-panel-cart-top .fg-panel-cart-inner {
+.fg-portrait.fg-panel-cart-top .fg-panel-cart-inner,
+.fg-portrait.fg-panel-comments-top .fg-panel-comments-inner {
     top: 37px;
     bottom: unset;
 }
-.fg-landscape.fg-panel-buttons-left :is(.fg-panel-info-inner,.fg-panel-cart-inner) {
+.fg-landscape.fg-panel-buttons-left :is(.fg-panel-info-inner,.fg-panel-cart-inner,.fg-panel-comments-inner) {
     left: 37px;
     right: unset;
 }
-.fg-portrait.fg-panel-buttons-bottom :is(.fg-panel-info-inner,.fg-panel-cart-inner) {
+.fg-portrait.fg-panel-buttons-bottom :is(.fg-panel-info-inner,.fg-panel-cart-inner,.fg-panel-comments-inner) {
     top: unset;
     bottom: 37px;
 }
-.fg-panel:is(.fg-medium,.fg-panel-no-mobile) :is(.fg-panel-info-inner,.fg-panel-cart-inner) {
+.fg-panel:is(.fg-medium,.fg-panel-no-mobile) :is(.fg-panel-info-inner,.fg-panel-cart-inner,.fg-panel-comments-inner) {
     position: relative;
     top: unset;
     bottom: unset;
@@ -124,6 +129,21 @@
     height: auto;
 }
 
+/* Comments Overlay */
+.fg-panel-comments-right.fg-panel-comments-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments-inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.fg-panel-comments-bottom.fg-panel-comments-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments-inner {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.fg-panel-comments-overlay:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-comments-top,.fg-panel-comments-bottom) .fg-panel-comments-inner {
+    height: auto;
+}
+
 /* Sizing of the side content and thumbs */
 :is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb,
 :is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-inner {
@@ -162,29 +182,33 @@
     width: 82px;
     min-width: 82px;
 }
-.fg-medium:is(.fg-panel-info-left,.fg-panel-info-right) .fg-panel-info-inner,
-.fg-medium:is(.fg-panel-cart-left,.fg-panel-cart-right) .fg-panel-cart-inner,
+/*.fg-medium:is(.fg-panel-info-left,.fg-panel-info-right) .fg-panel-info-inner,*/
+/*.fg-medium:is(.fg-panel-cart-left,.fg-panel-cart-right) .fg-panel-cart-inner,*/
+/*.fg-medium:is(.fg-panel-comments-left,.fg-panel-comments-right) .fg-panel-comments-inner,*/
 .fg-medium:is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom):not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
 .fg-medium:is(.fg-panel-thumbs-left,.fg-panel-thumbs-right):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner {
     width: 240px;
     min-width: 240px;
 }
-.fg-medium.fg-large-width:is(.fg-panel-info-left,.fg-panel-info-right) .fg-panel-info-inner,
-.fg-medium.fg-large-width:is(.fg-panel-cart-left,.fg-panel-cart-right) .fg-panel-cart-inner,
+/*.fg-medium.fg-large-width:is(.fg-panel-info-left,.fg-panel-info-right) .fg-panel-info-inner,*/
+/*.fg-medium.fg-large-width:is(.fg-panel-cart-left,.fg-panel-cart-right) .fg-panel-cart-inner,*/
+/*.fg-medium.fg-large-width:is(.fg-panel-comments-left,.fg-panel-comments-right) .fg-panel-comments-inner,*/
 .fg-medium.fg-large-width:is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom):not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
 .fg-medium.fg-large-width:is(.fg-panel-thumbs-left,.fg-panel-thumbs-right):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner {
     width: 280px;
     min-width: 280px;
 }
-.fg-medium.fg-x-large-width:is(.fg-panel-info-left,.fg-panel-info-right) .fg-panel-info-inner,
-.fg-medium.fg-x-large-width:is(.fg-panel-cart-left,.fg-panel-cart-right) .fg-panel-cart-inner,
+:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-info-left,.fg-panel-info-right) .fg-panel-info-inner,
+:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-cart-left,.fg-panel-cart-right) .fg-panel-cart-inner,
+:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-comments-left,.fg-panel-comments-right) .fg-panel-comments-inner,
 .fg-medium.fg-x-large-width:is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom):not(.fg-panel-thumbs-no-captions) .fg-panel-thumb,
 .fg-medium.fg-x-large-width:is(.fg-panel-thumbs-left,.fg-panel-thumbs-right):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner {
     width: 360px;
     min-width: 360px;
 }
 .fg-medium.fg-x-large-width.fg-panel-info-overlay:is(.fg-panel-info-left,.fg-panel-info-right) .fg-panel-info-inner,
-.fg-medium.fg-x-large-width.fg-panel-cart-overlay:is(.fg-panel-cart-left,.fg-panel-cart-right) .fg-panel-cart-inner {
+.fg-medium.fg-x-large-width.fg-panel-cart-overlay:is(.fg-panel-cart-left,.fg-panel-cart-right) .fg-panel-cart-inner,
+.fg-medium.fg-x-large-width.fg-panel-comments-overlay:is(.fg-panel-comments-left,.fg-panel-comments-right) .fg-panel-comments-inner {
     width: 402px;
     min-width: 402px;
 }
