@@ -301,10 +301,12 @@ module.exports = function ( grunt ) {
                 "files": {
                     "./dist/components/js/foogallery.social.js": [
                         "./src/core/js/panel/areas/sides/Comments.js",
-                        "./src/core/js/panel/media/Comments.js"
+                        "./src/core/js/panel/media/Comments.js",
+                        "./src/core/js/Social.js"
                     ],
                     "./dist/components/css/foogallery.social.css": [
-                        "./src/core/css/panel/media-comments.css"
+                        "./src/core/css/panel/media-comments.css",
+                        "./src/core/css/social/overlay.css"
                     ]
                 }
             },

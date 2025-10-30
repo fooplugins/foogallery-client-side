@@ -1,0 +1,18 @@
+.fg-social-overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 9;
+}
+.fg-social-buttons {
+    display: flex;
+    flex-direction: row;
+    pointer-events: auto;
+}
