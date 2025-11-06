@@ -4,6 +4,7 @@
 }
 .fg-media-comments {
     --fg-comments-spacing: 10px;
+    --fg-collapsible-icon-color: #999;
     position: relative;
     width: 100%;
     height: auto;
@@ -69,10 +70,9 @@
 .fg-comments-replies {
     grid-area: comment-replies;
     margin: 0;
+    padding: 0;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: var(--fg-comments-spacing);
+    display: block;
 }
 .fg-comments-replies > summary {
     list-style: none;
@@ -83,6 +83,7 @@
     column-gap: 6px;
     padding: 0;
     cursor: pointer;
+    user-select: none;
 }
 .fg-comments-response:has(.fg-comments-avatar) > .fg-comments-replies > summary {
     grid-template-columns: 32px auto;
@@ -107,6 +108,15 @@
     display: inline-block;
 }
 
+/* collapsable icon color */
+.fg-comments-replies > summary > .fg-icon {
+    color: var(--fg-collapsible-icon-color);
+}
+.fg-comments-replies > summary:hover > .fg-icon,
+.fg-comments-replies[open] > summary > .fg-icon {
+    color: currentColor;
+}
+
 .fg-comments-responses {
     position: relative;
     display: flex;
@@ -116,11 +126,10 @@
     padding: 0;
     gap: var(--fg-comments-spacing);
 }
-/*.fg-comments-response > .fg-comments-responses {*/
-/*    padding-inline-start: 16px;*/
-/*    margin: var(--fg-comments-spacing) 0 0 0;*/
-/*}*/
 
+.fg-comments-replies > .fg-comments-responses {
+    margin-top: var(--fg-comments-spacing);
+}
 div.fg-comments-replies > .fg-comments-responses {
     padding-inline-start: 16px;
 }
@@ -272,6 +281,7 @@ details.fg-comments-replies > .fg-comments-responses {
     font-size: 13px;
     cursor: pointer;
     color: inherit;
+    user-select: none;
 }
 .fg-comments-form-cancel:hover,
 .fg-comments-form-cancel:focus,
@@ -282,6 +292,11 @@ details.fg-comments-replies > .fg-comments-responses {
     text-decoration: none;
 }
 
+.fg-comments-form-cancel:disabled {
+    display: none;
+}
+
+/* form styles */
 .fg-comments-form-leave-reply-wrap {
     display: flex;
     flex-direction: row;
@@ -370,6 +385,13 @@ details.fg-comments-replies > .fg-comments-responses {
     padding: .4em;
 }
 
+.fg-panel:is(.fg-light,.fg-dark) :is(.fg-comments-form-control-input) {
+    background-color: #FFF;
+}
+.fg-panel:is(.fg-light,.fg-dark) :is(.fg-comments-form-control-input):disabled {
+    background-color: #CCC;
+}
+
 /* override some of the panel-button style props */
 .fg-media-comments button.fg-comments-form-submit {
     margin-top: 10px;
@@ -380,6 +402,10 @@ details.fg-comments-replies > .fg-comments-responses {
     padding: 8px 14px;
     border-radius: 3px;
 }
+.fg-media-comments button:is(.fg-comments-form-submit,.fg-comments-form-leave-reply):disabled {
+    opacity: 0.8;
+    cursor: default;
+}
 
 /* Toggle visibility of elements while editing / replying */
 .fg-comments-responses:has(.fg-is-replying,.fg-is-editing) .fg-comments-response:not(:has(.fg-is-replying,.fg-is-editing),.fg-is-replying,.fg-is-editing),
@@ -387,4 +413,73 @@ details.fg-comments-replies > .fg-comments-responses {
 .fg-comments-responses:has(.fg-is-replying,.fg-is-editing) .fg-comments-response .fg-comments-reply,
 .fg-comments-responses:has(.fg-is-replying,.fg-is-editing) .fg-comments-replies > summary {
     display: none;
+}
+
+/* thread-lines for nested comments */
+.fg-comments-thread-lines {
+    --fg-thread-lines-column: 16px;
+    --fg-thread-lines-v-spacers: 10px;
+    --fg-thread-lines-color: currentColor;
+    --fg-thread-lines-width: 1px;
+}
+.fg-light .fg-comments-thread-lines {
+    --fg-thread-lines-color: #e2e2e2;
+}
+.fg-dark .fg-comments-thread-lines {
+    --fg-thread-lines-color: #686868;
+}
+.fg-comments-thread-lines .fg-comments-replies > .fg-comments-responses {
+    padding-inline-start: 22px;
+}
+.fg-comments-thread-lines .fg-comments-response:has(.fg-comments-replies):has(.fg-comments-avatar):not(.fg-is-replying,.fg-is-editing) > .fg-comments-body::before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: calc( 100% + 10px );
+    position: absolute;
+    border-left: solid var(--fg-thread-lines-width) var(--fg-thread-lines-color);
+    background-color: transparent;
+    left: -23px;
+    top: 0;
+}
+.fg-comments-thread-lines .fg-comments-response:has(.fg-comments-replies):has(.fg-comments-avatar):not(.fg-is-replying,.fg-is-editing) > .fg-comments-body::before {
+    height: calc( 100% + 20px );
+    top: -10px;
+}
+.fg-comments-thread-lines .fg-comments-replies .fg-comments-response::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 27px;
+    position: absolute;
+    border-left: solid var(--fg-thread-lines-width) var(--fg-thread-lines-color);
+    border-bottom: solid var(--fg-thread-lines-width) var(--fg-thread-lines-color);
+    background-color: transparent;
+    left: -15px;
+    top: -10px;
+}
+.fg-comments-thread-lines .fg-comments-replies .fg-comments-response:has(.fg-comments-avatar)::before {
+    left: -7px;
+}
+.fg-comments-thread-lines div.fg-comments-replies .fg-comments-response:first-child::before {
+    height: 17px;
+    top: 0;
+}
+.fg-comments-thread-lines .fg-comments-replies:not(:has(.fg-is-replying,.fg-is-editing)) > .fg-comments-responses > .fg-comments-response:not(:last-child)::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: calc( 100% + 10px );
+    position: absolute;
+    border-left: solid var(--fg-thread-lines-width) var(--fg-thread-lines-color);
+    background-color: transparent;
+    left: -15px;
+    top: -10px;
+}
+.fg-comments-thread-lines .fg-comments-replies:not(:has(.fg-is-replying,.fg-is-editing)) > .fg-comments-responses > .fg-comments-response:has(.fg-comments-avatar):not(:last-child)::after {
+    left: -7px;
+}
+.fg-comments-thread-lines div.fg-comments-replies:not(:has(.fg-is-replying,.fg-is-editing)) > .fg-comments-responses > .fg-comments-response:first-child:not(:last-child)::after {
+    height: 100%;
+    top: 0;
 }

@@ -1,3 +1,16 @@
 .fg-icon {
     fill: currentColor;
 }
+
+.fg-icon-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg); /* Start at 0 degrees rotation */
+    }
+    100% {
+        transform: rotate(360deg); /* End at 360 degrees rotation for a full spin */
+    }
+}

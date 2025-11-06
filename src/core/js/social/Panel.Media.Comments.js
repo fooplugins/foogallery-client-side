@@ -133,7 +133,10 @@
             } ).promise();
         },
         doLoad: function() {
-            return this.fetch().then( response => {
+            if ( this._loaded ) {
+                return this._loaded;
+            }
+            return this._loaded = this.fetch().then( response => {
                 this.currentAuthor = response?.currentAuthor;
                 this.consented = _is.hash( response?.currentAuthor );
                 this.closed = response?.closed ?? true;
@@ -167,10 +170,7 @@
 
         //#region Helper Methods
         fetch: function() {
-            if ( this._fetched ) {
-                return this._fetched;
-            }
-            return this._fetched = globalThis.COMMENTS_LIST( globalThis.COMMENTS_ROLE, globalThis?.COMMENTS_OVERRIDE_LIST_RESPONSE );
+            return globalThis.COMMENTS_LIST( globalThis.COMMENTS_ROLE, globalThis?.COMMENTS_OVERRIDE_LIST_RESPONSE );
         },
         upsert: function( data ) {
             return globalThis.COMMENTS_UPSERT( data, globalThis.COMMENTS_ROLE );
@@ -251,11 +251,13 @@
                     result = limitDepth( rootComments, 1 );
                 }
             }
-            console.log( 'nested', result );
             return [ result, lookup ];
         },
         formatCountText: function( singular, plural, count ){
             return ( count === 1 ? singular : plural ).replaceAll( /\{COUNT}/g, `${ count }` );
+        },
+        getSummaryText: function( replyCount ) {
+            return this.formatCountText( this.il8n.responseCollapsedSingular, this.il8n.responseCollapsedPlural, replyCount );
         },
         setHeaderText: function(){
             const total = this.lookup.size;
@@ -346,10 +348,9 @@
                     } );
                     if ( this.form.length > 0 ) {
                         const [ $form ] = this.form;
-                        $form.appendTo( this.$footer );
+                        this.$footer.empty().append( $form );
                     }
                     $response.get(0).scrollIntoView();
-                    console.log( 'edit' );
                 };
                 $( '<button/>' ).addClass( this.cls.responseEdit )
                     .text( this.il8n.responseEdit )
@@ -380,7 +381,7 @@
                     } );
                     if ( this.form.length > 0 ) {
                         const [ $form ] = this.form;
-                        $form.appendTo( this.$footer );
+                        this.$footer.empty().append( $form );
                     }
                     $response.get(0).scrollIntoView();
                     console.log( 'reply' );
@@ -396,11 +397,7 @@
                 $response.addClass( 'fg-has-responses' );
                 if ( this.collapseNested ) {
                     const $details = $( '<details/>' ).addClass( this.cls.responseReplies );
-                    $details.append( $( '<summary/>' ).append(
-                        _icons.get( 'circle-plus', this.panel.opt.icons ),
-                        _icons.get( 'circle-minus', this.panel.opt.icons ),
-                        $( '<span/>' ).text( this.formatCountText( this.il8n.responseCollapsedSingular, this.il8n.responseCollapsedPlural, comment.replies.length ) )
-                    ) );
+                    $details.append( this.$createCollapsableSummary( comment.replies.length ) );
                     $details.append( $replies ).appendTo( $response );
                 } else {
                     const $details = $( '<div/>' ).addClass( this.cls.responseReplies );
@@ -417,6 +414,114 @@
                 $form.remove();
             }
         },
+        updateComment( response ) {
+            // update
+            const comment = this.lookup.get( response.id );
+            const $comment = this.$el.find( `#comment_${ response.id }` );
+            comment.content = response?.content ?? '';
+            comment.author = {
+                ...comment.author,
+                ...( response?.author ?? {} )
+            };
+            $comment.children( this.sel.responseBody ).children( this.sel.responseContent ).text( comment.content );
+            const $author = $comment.children( this.sel.responseHeader ).children( this.sel.responseAuthor );
+            $author.empty();
+            const authorName = comment.author?.name ?? 'Anonymous';
+            if ( _is.string( comment.author?.url ) ) {
+                $author.append(
+                    $( '<a/>', {
+                        href: comment.author?.url,
+                        rel: 'external nofollow ugc',
+                        target: '_blank'
+                    } ).text( authorName )
+                );
+            } else {
+                $author.append( $( '<span/>' ).text( authorName ) );
+            }
+        },
+        insertComment( response ) {
+            // insert
+            const comment = {
+                ...response,
+                isAtMaxDepth: 0 >= this.nestedDepth,
+                depth: 0,
+                replies: [],
+                editable: response?.editable ?? false,
+                moderation: response?.moderation ?? false
+            };
+            this.lookup.set( comment.id, comment );
+
+            const insertAtRoot = () => {
+                this.comments.push( comment );
+                if ( this.$responses.length > 0 ) {
+                    const $response = this.createResponse( comment );
+                    this.$responses.append( $response );
+                } else {
+                    this.$responses = this.createResponses( this.comments );
+                    if ( this.$responses.length > 0 ) {
+                        this.$responses.appendTo( this.$body );
+                    }
+                }
+            }
+
+            if ( _is.number( comment?.parentId ) && this.lookup.has( comment.parentId ) ) {
+                // find the closest parent with isAtMaxDepth = false
+                let parent = this.lookup.get( comment.parentId );
+                while ( parent?.isAtMaxDepth === true ) {
+                    parent = this.lookup.get( parent?.parentId );
+                }
+                if ( parent ) {
+                    comment.depth = parent.depth + 1;
+                    comment.isAtMaxDepth = comment.depth >= this.nestedDepth;
+                    parent.replies.push( comment );
+                    const $parent = this.$el.find( `#comment_${ parent.id }` );
+                    if ( $parent.length > 0 ) {
+                        let $responses = $parent.find( this.sel.responses );
+                        if ( $responses.length > 0 ) {
+                            // update the existing responses
+                            const $response = this.createResponse( comment );
+                            $responses.append( $response );
+                            $parent.find( `> details${ this.sel.responseReplies } > summary > span` )
+                                .text( this.getSummaryText( parent.replies.length ) );
+                        } else {
+                            // create and append new responses
+                            const $replies = this.$createReplies( parent.replies );
+                            if ( $replies.length > 0 ) {
+                                $parent.addClass( 'fg-has-responses' ).append( $replies );
+                            }
+                        }
+                    } else {
+                        console.log( `Cannot find '#comment_${ parent.id }', appending to root.` );
+                        insertAtRoot();
+                    }
+                } else {
+                    insertAtRoot();
+                }
+            } else {
+                insertAtRoot();
+            }
+        },
+        $createReplies: function( comments ) {
+            const $responses = this.createResponses( comments );
+            if ( $responses.length > 0 ) {
+                if ( this.collapseNested ) {
+                    return $( '<details/>' ).addClass( this.cls.responseReplies )
+                        .append( this.$createCollapsableSummary( comments.length ) )
+                        .append( $responses );
+                } else {
+                    return $( '<div/>' ).addClass( this.cls.responseReplies )
+                        .append( $responses );
+                }
+            }
+            return $();
+        },
+        $createCollapsableSummary: function( replyCount ) {
+            return $( '<summary/>' ).append(
+                _icons.get( 'circle-plus', this.panel.opt.icons ),
+                _icons.get( 'circle-minus', this.panel.opt.icons ),
+                $( '<span/>' ).text( this.getSummaryText( replyCount ) )
+            );
+        },
         createForm: function( { parentId, id, author, content = '' } = {}, destroyCallback = () => {} ) {
             const attachmentId = this.media.item.id;
             const galleryId = this.media.item.tmpl.id;
@@ -424,116 +529,32 @@
             const { requireNameAndEmail, showCookieConsent, lookup } = this;
             const d = [];
 
-            const $form = $( '<form/>', { id: guid } ).addClass( this.cls.form );
+            const $form = $( '<form/>', { id: guid, autocomplete: 'off' } ).addClass( this.cls.form );
             const $content = $( '<fieldset/>' ).addClass( this.cls.formContent ).appendTo( $form );
+
+            const destroy = () => {
+                $form.off( 'submit', onSubmit );
+                d.forEach( cb => cb() );
+                destroyCallback();
+            };
 
             const onSubmit = async( e ) => {
                 e.preventDefault();
                 const data = new FormData( e.target );
                 this.consented = data.has( 'cookie_consent' );
                 $content.prop( 'disabled', true );
-                console.log( 'submit', Array.from( data.entries() ) );
                 this.upsert( data ).then( response => {
                     if ( this.lookup.has( response.id ) ) {
-                        // update
-                        const comment = this.lookup.get( response.id );
-                        const $comment = this.$el.find( `#comment_${ response.id }` );
-                        comment.content = response?.content ?? '';
-                        comment.author = {
-                            ...comment.author,
-                            ...( response?.author ?? {} )
-                        };
-                        $comment.children( this.sel.responseBody ).children( this.sel.responseContent ).text( comment.content );
-                        const $author = $comment.children( this.sel.responseHeader ).children( this.sel.responseAuthor );
-                        $author.empty();
-                        const authorName = comment.author?.name ?? 'Anonymous';
-                        if ( _is.string( comment.author?.url ) ) {
-                            $author.append(
-                                $( '<a/>', {
-                                    href: comment.author?.url,
-                                    rel: 'external nofollow ugc',
-                                    target: '_blank'
-                                } ).text( authorName )
-                            );
-                        } else {
-                            $author.append( $( '<span/>' ).text( authorName ) );
-                        }
+                        this.updateComment( response );
                     } else {
-                        // insert
-                        const comment = {
-                            ...response,
-                            isAtMaxDepth: 0 >= this.nestedDepth,
-                            depth: 0,
-                            replies: [],
-                            editable: response?.editable ?? false,
-                            moderation: response?.moderation ?? false
-                        };
-                        this.lookup.set( comment.id, comment );
-                        if ( _is.number( comment?.parentId ) && this.lookup.has( comment.parentId ) ) {
-                            // find the closest parent with isAtMaxDepth = false
-                            let parent = this.lookup.get( comment.parentId );
-                            while ( parent?.isAtMaxDepth === true ) {
-                                parent = this.lookup.get( parent?.parentId );
-                            }
-                            if ( parent ) {
-                                comment.depth = parent.depth + 1;
-                                comment.isAtMaxDepth = comment.depth >= this.nestedDepth;
-                                parent.replies.push( comment );
-                                const $parent = this.$el.find( `#comment_${ parent.id }` );
-                                if ( $parent.length > 0 ) {
-                                    let $replies = $parent.find( this.sel.responses );
-                                    if ( $replies.length > 0 ) {
-                                        const $response = this.createResponse( comment );
-                                        $replies.append( $response );
-                                    } else {
-                                        $replies = this.createResponses( parent.replies );
-                                        $parent.addClass( 'fg-has-responses' );
-                                        if ( this.collapseNested ) {
-                                            const $details = $( '<details/>' ).addClass( this.cls.responseReplies );
-                                            $details.append( $( '<summary/>' ).append(
-                                                _icons.get( 'circle-plus', this.panel.opt.icons ),
-                                                _icons.get( 'circle-minus', this.panel.opt.icons ),
-                                                $( '<span/>' ).text( this.formatCountText( this.il8n.responseCollapsedSingular, this.il8n.responseCollapsedPlural, comment.replies.length ) )
-                                            ) );
-                                            $details.append( $replies ).appendTo( $parent );
-                                        } else {
-                                            const $details = $( '<div/>' ).addClass( this.cls.responseReplies );
-                                            $details.append( $replies ).appendTo( $parent );
-                                        }
-                                    }
-                                }
-                            } else {
-                                this.comments.push( comment );
-                                if ( this.$responses.length > 0 ) {
-                                    const $response = this.createResponse( comment );
-                                    this.$responses.append( $response );
-                                } else {
-                                    this.$responses = this.createResponses( this.comments );
-                                    if ( this.$responses.length > 0 ) {
-                                        this.$responses.appendTo( this.$body );
-                                    }
-                                }
-                            }
-                        } else {
-                            this.comments.push( comment );
-                            if ( this.$responses.length > 0 ) {
-                                const $response = this.createResponse( comment );
-                                this.$responses.append( $response );
-                            } else {
-                                this.$responses = this.createResponses( this.comments );
-                                if ( this.$responses.length > 0 ) {
-                                    this.$responses.appendTo( this.$body );
-                                }
-                            }
-                        }
+                        this.insertComment( response );
                     }
                     this.setHeaderText();
-                    console.log( 'submit-response', response );
                     this.destroyForm();
                     this.form = this.createForm( { author: this.currentAuthor } );
                     if ( this.form.length > 0 ) {
                         const [ $form ] = this.form;
-                        this.$footer.append( $form );
+                        this.$footer.empty().append( $form );
                     }
                 } ).catch( reason => {
                     console.error( reason );
@@ -541,12 +562,6 @@
             };
 
             $form.on( 'submit', onSubmit );
-
-            const destroy = () => {
-                $form.off( 'submit', onSubmit );
-                d.forEach( cb => cb() );
-                destroyCallback();
-            };
 
             $content.append( this.$createHiddenInput( `${ guid }[gallery_id]`, {
                 name: 'gallery_id',
@@ -576,8 +591,8 @@
                 formSubmitText = this.il8n.formSubmitEdit;
                 formTitle = this.il8n.formTitleEdit.replaceAll( /\{AUTHOR_NAME}/g, author.name );
                 formCancelText = this.il8n.formCancelEdit;
-                $content.append( this.$createHiddenInput( `${ guid }[id]`, {
-                    name: 'id',
+                $content.append( this.$createHiddenInput( `${ guid }[comment_id]`, {
+                    name: 'comment_id',
                     value: id
                 } ) );
             }
@@ -621,24 +636,11 @@
                     name: 'author_id',
                     value: author.id
                 } ) );
-                // $content.append( this.$createHiddenInput( `${ guid }[author_name]`, {
-                //     name: 'author_name',
-                //     value: author.name
-                // } ) );
-                // $content.append( this.$createHiddenInput( `${ guid }[author_email]`, {
-                //     name: 'author_email',
-                //     value: author.email
-                // } ) );
-                // $content.append( this.$createHiddenInput( `${ guid }[author_url]`, {
-                //     name: 'author_url',
-                //     value: author.url
-                // } ) );
             } else {
                 const [ $name_control ] = this.$createTextInput( `${ guid }[author_name]`, this.il8n.formName, {
                     type: 'text',
                     name: 'author_name',
                     maxlength: 245,
-                    autocomplete: 'name',
                     required: requireNameAndEmail,
                     value: author?.name
                 } );
@@ -648,7 +650,6 @@
                     type: 'email',
                     name: 'author_email',
                     maxlength: 100,
-                    autocomplete: 'email',
                     required: requireNameAndEmail,
                     value: author?.email
                 } );
@@ -658,7 +659,6 @@
                     type: 'url',
                     name: 'author_url',
                     maxlength: 200,
-                    autocomplete: 'url',
                     value: author?.url
                 } );
                 $content.append( $website_control );
@@ -692,7 +692,7 @@
 
                 d.push( () => $leaveReply.off( 'click', onLeaveReply ) );
 
-                return [ $wrap, destroy ];
+                return [ $($form, $wrap), destroy ];
             }
 
             return [ $form, destroy ];
@@ -750,6 +750,11 @@
 
     _.template.configure( 'core', {
         panel: {
+            commentsRequireNameAndEmail: true,
+            commentsRequireLoggedIn: true,
+            commentsShowCookieConsent: true,
+            commentsShowAvatar: true,
+            commentsNestedDepth: 5,
             commentsCollapseNested: false,
             commentsShowThreadLines: false
         }

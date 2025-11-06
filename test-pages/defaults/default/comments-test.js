@@ -240,4 +240,131 @@
         } );
     };
 
+    G.OVERRIDE_LIKE_RESPONSE = {};
+
+    G.LIKE = ( { attachmentId, galleryId, timeout = 1000, error = '' } ) => {
+        return new Promise( ( res, rej ) => {
+            setTimeout( () => {
+                if ( error !== '' ) {
+                    rej( error );
+                } else {
+                    res( true );
+                }
+            }, timeout );
+        } );
+    };
+
+    if ( !globalThis?.wp ) {
+        globalThis.wp = {};
+    }
+    if ( !globalThis.wp?.apiFetch ) {
+        const wpRestResponse = ( data, status = 200 ) => {
+            if ( status === 200 ) {
+                return {
+                    ...data
+                };
+            } else {
+                return {
+                    ...data,
+                    data: { status },
+                }
+            }
+        };
+
+        /**
+         *
+         * @param {FormData|{[key: string]: string|Blob;}} data
+         * @returns {FormData}
+         */
+        const getFormData = data => {
+            if ( data instanceof FormData ) {
+                return data;
+            }
+            const result = new FormData();
+            if ( data !== null && typeof data === 'object' ) {
+                Object.entries( data ).forEach( ( [ key, value ] ) => {
+                    result.set( key, `${ value }` );
+                } );
+            }
+            return result;
+        };
+
+        const getIdFromPath = ( path, basePath ) => {
+            let id = path.replace( basePath, '' );
+            if ( id.startsWith( '/' ) ) {
+                id = id.substring( 1 );
+            }
+            return parseInt( id );
+        };
+
+        /**
+         *
+         * @param {string} path
+         * @param {string} url
+         * @param {boolean} parse
+         * @param {{[key: string]: any;}} data
+         * @param {"GET"|"POST"|"PUT"|"DELETE"} method
+         * @param {number} timeout
+         * @returns {Promise<unknown>}
+         * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-api-fetch/
+         */
+        globalThis.wp.apiFetch = ({ path = '', url = '', parse = true, data = {}, method = 'GET', timeout = 1000 }) => {
+            return new Promise( ( resolve, reject ) => {
+                setTimeout( () => {
+                    if ( /^\/foogallery\/v1\/comments/i.test( path ) ) {
+                        // GET /foogallery/v1/comments/{id}
+                        if ( method === 'GET' ) {
+                            const id = getIdFromPath( path, '/foogallery/v1/comments' );
+                            if ( isNaN( id ) ) {
+                                reject( wpRestResponse( { message: 'Attachment not found.' }, 404 ) );
+                            } else {
+                                resolve( wpRestResponse( G.COMMENTS_LIST( G?.COMMENTS_ROLE ?? '', G?.COMMENTS_OVERRIDE_LIST_RESPONSE ) ) );
+                            }
+                            return;
+                        }
+                        // POST /foogallery/v1/comments (create/update)
+                        if ( method === 'POST' ) {
+
+                        }
+                    }
+                    if ( /\/foogallery\/v1\/likes/i.test( path ) ) {
+                        // POST /foogallery/v1/likes
+                        if ( method === 'POST' ) {
+                            const formData = getFormData( data );
+                            if ( !formData.has( 'attachment_id' ) ) {
+                                reject( wpRestResponse( { message: 'Invalid attachment id.' }, 400 ) );
+                                return;
+                            }
+                            if ( !formData.has( 'gallery_id' ) ) {
+                                reject( wpRestResponse( { message: 'Invalid gallery id.' }, 400 ) );
+                                return;
+                            }
+
+                        }
+                    }
+                    reject( wpRestResponse( { message: 'Internal server error.' }, 500 ) );
+                }, timeout );
+            } );
+        };
+    }
+
+    if ( !globalThis.wp?.url ) {
+        globalThis.wp.url = {};
+    }
+
+    if ( !globalThis.wp?.url?.addQueryArgs ) {
+        /**
+         *
+         * @param {string} path
+         * @param {{[key: string]: string | number | boolean;}} args
+         */
+        globalThis.wp.url.addQueryArgs = ( path, args ) => {
+            const sp = new URLSearchParams();
+            Object.entries( args ).forEach( ([ key, value ]) => {
+                sp.set( key, `${ value }` );
+            } );
+            return sp.size > 0 ? `${ path }?${ sp.toString() }` : path;
+        };
+    }
+
 })(globalThis);

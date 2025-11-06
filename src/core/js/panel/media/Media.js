@@ -150,14 +150,24 @@
                     def.rejectWith("default prevented");
                     return;
                 }
-                self.$el.removeClass(states.allLoading).addClass(states.loading);
-                self.doLoad().then(def.resolve).catch(def.reject);
+                if ( self.isLoaded ) {
+                    def.resolve();
+                } else if ( self.isError ) {
+                    def.reject('previous error');
+                } else {
+                    self.isLoading = true;
+                    self.$el.removeClass(states.allLoading).addClass(states.loading);
+                    self.doLoad().then(def.resolve).catch(def.reject);
+                }
             }).always(function(){
+                self.isLoading = false;
                 self.$el.removeClass(states.loading);
             }).then(function(){
+                self.isLoaded = true;
                 self.$el.addClass(states.loaded);
                 self.panel.trigger("media-loaded", [self]);
             }).catch(function(){
+                self.isError = true;
                 self.$el.addClass(states.loaded);
                 self.panel.trigger("media-error", [self]);
             }).promise();

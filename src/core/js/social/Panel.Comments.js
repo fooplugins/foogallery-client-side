@@ -36,17 +36,16 @@
             commentsOverlay: true,
             commentsAutoHide: true,
             commentsVisible: false,
-            commentsRequireNameAndEmail: true,
-            commentsRequireLoggedIn: true,
-            commentsShowCookieConsent: true,
-            commentsShowAvatar: true,
-            commentsNestedDepth: 5,
         }
     }, {
-        comments: {}
+        panel: {
+            comments: {}
+        }
     }, {
-        buttons: {
-            comments: "Comments"
+        panel: {
+            buttons: {
+                comments: "Comments"
+            }
         }
     } );
 

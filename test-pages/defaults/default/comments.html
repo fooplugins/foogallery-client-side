@@ -35,82 +35,6 @@
 <main>
     <style>
         #foogallery-gallery-1 .fg-image { width: 275px; }
-
-        .fg-comments-thread-lines {
-            --fg-thread-lines-column: 16px;
-            --fg-thread-lines-v-spacers: 10px;
-            --fg-thread-lines-color: currentColor;
-            --fg-thread-lines-width: 1px;
-            --fg-collapsible-icon-color: #999;
-        }
-        .fg-light .fg-comments-thread-lines {
-            --fg-thread-lines-color: #e2e2e2;
-        }
-        .fg-dark .fg-comments-thread-lines {
-            --fg-thread-lines-color: #686868;
-        }
-        .fg-comments-replies > summary > .fg-icon {
-            color: var(--fg-collapsible-icon-color);
-        }
-        .fg-comments-replies > summary:hover > .fg-icon,
-        .fg-comments-replies[open] > summary > .fg-icon {
-            color: currentColor;
-        }
-        .fg-comments-thread-lines .fg-comments-replies > .fg-comments-responses {
-            padding-inline-start: 22px;
-        }
-        .fg-comments-thread-lines .fg-comments-response:has(.fg-comments-replies):has(.fg-comments-avatar):not(.fg-is-replying,.fg-is-editing) > .fg-comments-body::before {
-            content: '';
-            display: inline-block;
-            width: 0;
-            height: calc( 100% + 10px );
-            position: absolute;
-            border-left: solid var(--fg-thread-lines-width) var(--fg-thread-lines-color);
-            background-color: transparent;
-            left: -23px;
-            top: 0;
-        }
-        .fg-comments-thread-lines .fg-comments-response:has(.fg-comments-replies):has(.fg-comments-avatar):not(.fg-is-replying,.fg-is-editing) > .fg-comments-body::before {
-            height: calc( 100% + 20px );
-            top: -10px;
-        }
-        .fg-comments-thread-lines .fg-comments-replies .fg-comments-response::before {
-            content: '';
-            display: inline-block;
-            width: 4px;
-            height: 27px;
-            position: absolute;
-            border-left: solid var(--fg-thread-lines-width) var(--fg-thread-lines-color);
-            border-bottom: solid var(--fg-thread-lines-width) var(--fg-thread-lines-color);
-            background-color: transparent;
-            left: -15px;
-            top: -10px;
-        }
-        .fg-comments-thread-lines .fg-comments-replies .fg-comments-response:has(.fg-comments-avatar)::before {
-            left: -7px;
-        }
-        .fg-comments-thread-lines div.fg-comments-replies .fg-comments-response:first-child::before {
-            height: 17px;
-            top: 0;
-        }
-        .fg-comments-thread-lines .fg-comments-replies:not(:has(.fg-is-replying,.fg-is-editing)) > .fg-comments-responses > .fg-comments-response:not(:last-child)::after {
-            content: '';
-            display: inline-block;
-            width: 0;
-            height: calc( 100% + 10px );
-            position: absolute;
-            border-left: solid var(--fg-thread-lines-width) var(--fg-thread-lines-color);
-            background-color: transparent;
-            left: -15px;
-            top: -10px;
-        }
-        .fg-comments-thread-lines .fg-comments-replies:not(:has(.fg-is-replying,.fg-is-editing)) > .fg-comments-responses > .fg-comments-response:has(.fg-comments-avatar):not(:last-child)::after {
-            left: -7px;
-        }
-        .fg-comments-thread-lines div.fg-comments-replies:not(:has(.fg-is-replying,.fg-is-editing)) > .fg-comments-responses > .fg-comments-response:first-child:not(:last-child)::after {
-            height: 100%;
-            top: 0;
-        }
     </style>
     <script>
         globalThis.COMMENTS_ROLE = ''; // '' | 'anonymous' | 'awaiting-moderation' | 'logged-in' | 'can-edit'
@@ -127,16 +51,7 @@
         globalThis.COMMENTS_OVERRIDE_LIST_RESPONSE = { none: false };
 
         window['FooGallery_auto'] = {
-            lazy: true,
             panel: {
-                // theme: "fg-dark",
-                noMobile: true,
-                transition: "fade",
-                exif: "auto",
-                cart: "right",
-                info: "right",
-                infoOverlay: true,
-                // comments options
                 comments: "right", // none | top | bottom | left | right
                 commentsOverlay: true,
                 commentsAutoHide: false,

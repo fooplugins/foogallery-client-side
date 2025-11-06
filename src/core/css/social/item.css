@@ -1,0 +1,80 @@
+.fg-social-overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 9;
+}
+.fg-social-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 5px;
+    gap: 5px;
+}
+
+:is(.fg-social-top-right,.fg-social-top-left) .fg-social-overlay {
+    justify-content: flex-start;
+}
+:is(.fg-social-bottom-right,.fg-social-bottom-left) .fg-social-overlay {
+    justify-content: flex-end;
+}
+:is(.fg-social-top-right,.fg-social-bottom-right) .fg-social-overlay {
+    align-items: flex-end;
+}
+:is(.fg-social-top-left,.fg-social-bottom-left) .fg-social-overlay {
+    align-items: flex-start;
+}
+:is(.fg-social-top-right,.fg-social-bottom-right) .fg-social-buttons {
+    flex-direction: row-reverse;
+}
+:is(.fg-social-top-left,.fg-social-bottom-left) .fg-social-buttons {
+    flex-direction: row;
+}
+
+.fg-social-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: none;
+    color: #FFF;
+    font-family: Verdana, sans-serif;
+    font-size: 10px;
+    border: none;
+    box-shadow: none;
+    padding: 5px;
+    gap: 5px;
+    cursor: pointer;
+    pointer-events: auto;
+}
+.fg-social-button.fg-hidden {
+    display: none;
+}
+
+.fg-social-button-icon {
+    width: 24px;
+    height: 24px;
+    filter: drop-shadow( 0 0 1px rgba(0 0 0 / 50%));
+}
+
+.fg-social-button-count {
+    text-shadow: 0 0 1px rgba(0 0 0 / 50%);
+}
+.fg-social-button-count.fg-hidden {
+    display: none;
+}
+
+.fg-social-likes {
+    cursor: default;
+    pointer-events: none;
+}
+.fg-social-likes.fg-can-like {
+    cursor: pointer;
+    pointer-events: auto;
+}

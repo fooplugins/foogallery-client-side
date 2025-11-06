@@ -59,6 +59,11 @@
                 self.areas.push( self.comments );
             }
 
+            if ( _.Panel.Share ){
+                self.share = new _.Panel.Share(self);
+                self.areas.push( self.share );
+            }
+
             self.$el = null;
 
             self.el = null;
