@@ -513,9 +513,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/js/foogallery.tmpl.foogrid.js",
 						"./dist/components/js/foogallery.tmpl.slider.js",
 
-						"./dist/components/js/foogallery.tmpl.stack-album.js",
-
-						"./dist/components/js/foogallery.ready.js"
+						"./dist/components/js/foogallery.tmpl.stack-album.js"
 					],
 					"./dist/pro/css/foogallery.css": [
 						"./dist/components/css/foogallery.core.pro.css",
@@ -554,9 +552,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/js/foogallery.tmpl.image-viewer.js",
 						"./dist/components/js/foogallery.tmpl.single-thumbnail.js",
 						"./dist/components/js/foogallery.tmpl.stack-album.js",
-						"./dist/components/js/foogallery.tmpl.carousel.js",
-
-						"./dist/components/js/foogallery.ready.js"
+						"./dist/components/js/foogallery.tmpl.carousel.js"
 					],
 					"./dist/free/css/foogallery.css": [
 						"./dist/components/css/foogallery.core.css",
