@@ -1217,10 +1217,10 @@
 				if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
 					img.crossOrigin = 'anonymous';
 				}
+                if (!_is.empty(self.srcset)){
+                    img.srcset = self.srcset;
+                }
 				img.src = self.src;
-				if (!_is.empty(self.srcset)){
-					img.srcset = self.srcset;
-				}
 				if (img.complete){
 					img.onload();
 				}
