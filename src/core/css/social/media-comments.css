@@ -127,7 +127,7 @@
     gap: var(--fg-comments-spacing);
 }
 
-.fg-comments-replies > .fg-comments-responses {
+details.fg-comments-replies > .fg-comments-responses {
     margin-top: var(--fg-comments-spacing);
 }
 div.fg-comments-replies > .fg-comments-responses {
@@ -149,6 +149,8 @@ details.fg-comments-replies > .fg-comments-responses {
     gap: 0;
     column-gap: 6px;
     row-gap: var(--fg-comments-spacing);
+    margin: 0;
+    padding: 0;
 }
 
 .fg-comments-response:has(> .fg-comments-replies) {
