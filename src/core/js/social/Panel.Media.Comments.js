@@ -522,10 +522,14 @@
 
             const onSubmit = async( e ) => {
                 e.preventDefault();
-                const data = new FormData( e.target );
-                this.consented = data.has( 'cookie_consent' );
+                const formData = new FormData( e.target );
+                this.consented = formData.has( 'cookie_consent' );
+                const data = formData.entries().reduce( (acc, [ key, value ]) => {
+                    acc[ key ] = value;
+                    return acc;
+                }, {} );
                 $content.prop( 'disabled', true );
-                apiFetch( { path: '/foogallery/v1/comments', method: 'POST', data } ).then( response => {
+                apiFetch( { path: '/foogallery/v1/comments', method: 'POST', data  } ).then( response => {
                     if ( response.action === 'updated' ) {
                         this.updateComment( response.comment );
                     } else {
