@@ -6,6 +6,7 @@
     <title>Portfolio</title>
     <link href="../assets/theme.css" rel="stylesheet"/>
     <link href="../assets/css/foogallery.min.css" rel="stylesheet"/>
+    <link href="../assets/components/css/foogallery.social.css" rel="stylesheet"/>
     <style>
         main img {
             width: auto;
@@ -13,7 +14,45 @@
     </style>
     <script src="../assets/jquery.min.js" defer></script>
     <script src="../assets/theme.js" defer></script>
-    <script src="../assets/js/foogallery.min.js" defer></script>
+    <script src="../assets/js/foogallery.js" defer></script>
+    <script src="../../comments-test.js" defer></script>
+    <script src="../assets/components/js/foogallery.social.js" defer></script>
+    <script src="../assets/components/js/foogallery.ready.min.js" defer></script>
+    <script>
+        globalThis.COMMENTS_ROLE = 'can-edit'; // '' | 'anonymous' | 'awaiting-moderation' | 'logged-in' | 'can-edit'
+        window[ 'FooGallery_auto' ] = {
+            lazy: true,
+            social: {
+                likes: true,
+                canLike: true,
+                comments: true
+            },
+            panel: {
+                theme: "fg-light",
+                noMobile: false,
+                transition: "fade",
+                exif: "auto",
+                cart: "right",
+                info: "right",
+                infoOverlay: true,
+                // comments options
+                comments: "right", // none | top | bottom | left | right
+                commentsOverlay: true,
+                commentsAutoHide: true,
+                commentsVisible: false,
+                commentsRequireNameAndEmail: true,
+                commentsRequireLoggedIn: false,
+                commentsShowCookieConsent: true,
+                commentsShowAvatar: false,
+                commentsNestedDepth: 5,
+                commentsCollapseNested: true,
+                commentsShowThreadLines: true,
+                // share options
+                share: 'bottom',
+                shareLinks: [ 'facebook', 'twitter', 'pinterest', 'tumblr', 'linkedin', 'reddit', 'download', 'email' ]
+            }
+        };
+    </script>
 </head>
 <body class="light">
 <header>
@@ -38,9 +77,6 @@
         }
         #foogallery-gallery-1.fg-simple_portfolio .fg-item {
             flex-basis: 275px;
-        }
-        .foogallery .fg-caption-buttons > a {
-            margin-bottom: 1px;
         }
     </style>
     <div id="foogallery-gallery-1"

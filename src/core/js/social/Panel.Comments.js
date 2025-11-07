@@ -1,5 +1,24 @@
 ( function( $, _, _fn ) {
 
+    _.template.configure( 'core', {
+        panel: {
+            comments: "none", // none | top | bottom | left | right
+            commentsOverlay: true,
+            commentsAutoHide: true,
+            commentsVisible: false,
+        }
+    }, {
+        panel: {
+            comments: {}
+        }
+    }, {
+        panel: {
+            buttons: {
+                comments: "Comments"
+            }
+        }
+    } );
+
     _.Panel.Comments = _.Panel.SideArea.extend( {
         construct: function( panel ) {
             this._super( panel, "comments", {
@@ -27,25 +46,6 @@
             media?.comments?.unload();
             media?.comments?.detach();
             return _fn.resolved;
-        }
-    } );
-
-    _.template.configure( 'core', {
-        panel: {
-            comments: "none", // none | top | bottom | left | right
-            commentsOverlay: true,
-            commentsAutoHide: true,
-            commentsVisible: false,
-        }
-    }, {
-        panel: {
-            comments: {}
-        }
-    }, {
-        panel: {
-            buttons: {
-                comments: "Comments"
-            }
         }
     } );
 
