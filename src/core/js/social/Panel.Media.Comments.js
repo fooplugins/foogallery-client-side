@@ -1,4 +1,4 @@
-( function( $, _, _icons, _utils, _is, _fn, _obj, _str, _t ) {
+( function( $, _, _icons, _utils, _is, _fn, apiFetch ) {
 
     _.Panel.Media.Comments = _utils.Class.extend( {
         construct: function( panel, media ) {
@@ -37,7 +37,7 @@
             this.comments = [];
         },
         canLoad: function() {
-            return _is.string( this.media?.item?.id ) && _is.string( this.media?.item?.tmpl?.id );
+            return !!apiFetch && _is.string( this.media?.item?.id ) && _is.string( this.media?.item?.tmpl?.id );
         },
         create: function() {
             if ( !this.isCreated ) {
@@ -136,7 +136,7 @@
             if ( this._loaded ) {
                 return this._loaded;
             }
-            return this._loaded = this.fetch().then( response => {
+            return this._loaded = apiFetch( { path: `/foogallery/v1/comments/${ this.media.item.id }` } ).then( response => {
                 this.currentAuthor = response?.currentAuthor;
                 this.consented = _is.hash( response?.currentAuthor );
                 this.closed = response?.closed ?? true;
@@ -169,12 +169,6 @@
         },
 
         //#region Helper Methods
-        fetch: function() {
-            return globalThis.COMMENTS_LIST( globalThis.COMMENTS_ROLE, globalThis?.COMMENTS_OVERRIDE_LIST_RESPONSE );
-        },
-        upsert: function( data ) {
-            return globalThis.COMMENTS_UPSERT( data, globalThis.COMMENTS_ROLE );
-        },
         prepareComments: function( comments, nestedDepth ) {
             const lookup = new Map();
             const rootComments = [];
@@ -277,11 +271,7 @@
                 this.$body.empty().append( this.$responses );
             }
             if ( !this.locked ) {
-                this.form = this.createForm( { author: this.currentAuthor } );
-                if ( this.form.length > 0 ) {
-                    const [ $form ] = this.form;
-                    this.$footer.empty().append( $form );
-                }
+                this.createForm( { author: this.currentAuthor } );
             }
         },
         destroyResponses: function() {
@@ -340,16 +330,11 @@
                 $response.addClass( 'fg-can-edit' );
                 const onEdit = e => {
                     e.preventDefault();
-                    this.destroyForm();
                     $response.addClass( 'fg-is-editing' );
-                    this.form = this.createForm( comment, () => {
+                    this.createForm( this.lookup.get( comment.id ), () => {
                         $response.removeClass( 'fg-is-editing' );
                         $response.get(0).scrollIntoView();
                     } );
-                    if ( this.form.length > 0 ) {
-                        const [ $form ] = this.form;
-                        this.$footer.empty().append( $form );
-                    }
                     $response.get(0).scrollIntoView();
                 };
                 $( '<button/>' ).addClass( this.cls.responseEdit )
@@ -373,16 +358,11 @@
                 $response.addClass( 'fg-can-reply' );
                 const onReply = e => {
                     e.preventDefault();
-                    this.destroyForm();
                     $response.addClass( 'fg-is-replying' );
-                    this.form = this.createForm( { parentId: comment.id, author: this.currentAuthor }, () => {
+                    this.createForm( { parentId: comment.id, author: this.currentAuthor }, () => {
                         $response.removeClass( 'fg-is-replying' );
                         $response.get(0).scrollIntoView();
                     } );
-                    if ( this.form.length > 0 ) {
-                        const [ $form ] = this.form;
-                        this.$footer.empty().append( $form );
-                    }
                     $response.get(0).scrollIntoView();
                     console.log( 'reply' );
                 };
@@ -406,13 +386,6 @@
             }
 
             return $response;
-        },
-        destroyForm: function() {
-            if ( this.form.length > 0 ) {
-                const [ $form, destroy ] = this.form;
-                destroy();
-                $form.remove();
-            }
         },
         updateComment( response ) {
             // update
@@ -522,7 +495,16 @@
                 $( '<span/>' ).text( this.getSummaryText( replyCount ) )
             );
         },
+        destroyForm: function() {
+            if ( this.form.length > 0 ) {
+                const [ $form, destroy ] = this.form;
+                destroy();
+                $form.remove();
+            }
+        },
         createForm: function( { parentId, id, author, content = '' } = {}, destroyCallback = () => {} ) {
+            this.destroyForm();
+
             const attachmentId = this.media.item.id;
             const galleryId = this.media.item.tmpl.id;
             const guid = _.generateGUID();
@@ -543,19 +525,14 @@
                 const data = new FormData( e.target );
                 this.consented = data.has( 'cookie_consent' );
                 $content.prop( 'disabled', true );
-                this.upsert( data ).then( response => {
-                    if ( this.lookup.has( response.id ) ) {
-                        this.updateComment( response );
+                apiFetch( { path: '/foogallery/v1/comments', method: 'POST', data } ).then( response => {
+                    if ( response.action === 'updated' ) {
+                        this.updateComment( response.comment );
                     } else {
-                        this.insertComment( response );
+                        this.insertComment( response.comment );
                     }
                     this.setHeaderText();
-                    this.destroyForm();
-                    this.form = this.createForm( { author: this.currentAuthor } );
-                    if ( this.form.length > 0 ) {
-                        const [ $form ] = this.form;
-                        this.$footer.empty().append( $form );
-                    }
+                    this.createForm( { author: this.currentAuthor } );
                 } ).catch( reason => {
                     console.error( reason );
                 } );
@@ -604,12 +581,7 @@
                 if ( formCancelText !== '' ) {
                     let onFormCancel = e => {
                         e.preventDefault();
-                        this.destroyForm();
-                        this.form = this.createForm( { author: this.currentAuthor } );
-                        if ( this.form.length > 0 ) {
-                            const [ $form ] = this.form;
-                            this.$footer.empty().append( $form );
-                        }
+                        this.createForm( { author: this.currentAuthor } );
                     };
                     const $formCancel = $( '<button/>' )
                         .addClass( this.cls.formCancel )
@@ -682,6 +654,7 @@
                 const $wrap = $( '<div/>' ).addClass( this.cls.formLeaveReplyWrap );
                 const onLeaveReply = e => {
                     e.preventDefault();
+                    this.form = [ $form, destroy ];
                     this.$footer.empty().append( $form );
                 };
                 const $leaveReply = $( '<button/>' )
@@ -692,10 +665,14 @@
 
                 d.push( () => $leaveReply.off( 'click', onLeaveReply ) );
 
-                return [ $($form, $wrap), destroy ];
+                this.form = [ $wrap, destroy ];
+            } else {
+                this.form = [ $form, destroy ];
             }
-
-            return [ $form, destroy ];
+            if ( this.form.length > 0 ) {
+                const [ $form ] = this.form;
+                this.$footer.empty().append( $form );
+            }
         },
         $createHiddenInput: function( id, attr = {} ) {
             return $( '<input/>', { id, type: 'hidden', ...attr } );
@@ -837,7 +814,5 @@
     FooGallery.utils,
     FooGallery.utils.is,
     FooGallery.utils.fn,
-    FooGallery.utils.obj,
-    FooGallery.utils.str,
-    FooGallery.utils.transition
+    globalThis?.wp?.apiFetch
 );

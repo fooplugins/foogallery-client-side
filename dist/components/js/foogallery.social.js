@@ -1,12 +1,7 @@
-( function( $, _, apiFetch, addQueryArgs ) {
+( function( $, _, apiFetch ) {
 
     if ( !apiFetch ) {
         console.error( 'FooGallery social depends on wp.apiFetch which is not available.' );
-        return;
-    }
-
-    if ( !addQueryArgs ) {
-        console.error( 'FooGallery social depends on wp.url.addQueryArgs which is not available.' );
         return;
     }
 
@@ -44,11 +39,15 @@
     };
 
     _.Item.prototype.onCommentsClicked = function( e ) {
+        e.preventDefault();
+        e.stopPropagation();
         const self = e.data.self;
         self.showComments();
     };
 
     _.Item.prototype.onLikesClicked = function( e ) {
+        e.preventDefault();
+        e.stopPropagation();
         const self = e.data.self;
         self.toggleLike();
     };
@@ -71,27 +70,25 @@
                 attachment_id: this.id,
                 gallery_id: this.tmpl.id
             }
-        } ).then( response => {
-            if ( response ) {
-                const { opt: { social } } = this.tmpl;
-                const cf = this.tmpl.getCountFormatter();
-                if ( this.liked ) {
-                    this.liked = false;
-                    this.likes--;
-                } else {
-                    this.liked = true;
-                    this.likes++;
-                }
-                $likes.find( '.fg-social-button-count' )
-                    .text( cf.format( this.likes ) )
-                    .toggleClass( 'fg-hidden', this.likes === 0 && social?.hideLikesZeroCount );
-
-                $likes.find( '.fg-social-button-icon' )
-                    .replaceWith( _.icons.get( this.liked ? 'heart' : 'heart-outline' ).addClass( 'fg-social-button-icon' ) )
-                    .toggleClass( 'fg-hidden', ( this.likes === 0 && social?.hideLikesZero ) || social?.hideCounts );
+        } ).then( data => {
+            this.liked = data?.liked ?? this.liked;
+            this.likes = data?.count ?? this.likes;
+        } ).catch( reason => {
+            if ( reason?.message ) {
+                console.error( reason?.message );
             } else {
-
+                console.error( reason );
             }
+        } ).finally( () => {
+            const { opt: { social } } = this.tmpl;
+            const cf = this.tmpl.getCountFormatter();
+            $likes.find( '.fg-social-button-count' )
+                .text( cf.format( this.likes ) )
+                .toggleClass( 'fg-hidden', this.likes === 0 && social?.hideLikesZeroCount );
+
+            $likes.find( '.fg-social-button-icon' )
+                .replaceWith( _.icons.get( this.liked ? 'heart' : 'heart-outline' ).addClass( 'fg-social-button-icon' ) )
+                .toggleClass( 'fg-hidden', ( this.likes === 0 && social?.hideLikesZero ) || social?.hideCounts );
         } );
     };
 
@@ -103,10 +100,9 @@
 
     _.Item.prototype.createSocialOverlay = function() {
         const { opt: { social }, $el: $tmpl } = this.tmpl;
-        const showInThumb = !$tmpl.hasClass( 'fg-caption-hover' );
-        const tag = showInThumb ? '<span/>' : '<div/>';
-        this.$socialOverlay = $( tag ).addClass( 'fg-social-overlay' );
-        const $buttons = $( tag ).addClass( 'fg-social-buttons' ).appendTo( this.$socialOverlay );
+        const appendToInner = $tmpl.hasClass( 'fg-caption-hover' ) || $tmpl.hasClass( 'fg-caption-always' ) || $tmpl.hasClass( 'fg-preset' );
+        this.$socialOverlay = $( '<span/>' ).addClass( 'fg-social-overlay' );
+        const $buttons = $( '<span/>' ).addClass( 'fg-social-buttons' ).appendTo( this.$socialOverlay );
 
         const cf = this.tmpl.getCountFormatter();
         if ( social?.likes ) {
@@ -152,186 +148,206 @@
                 }
             }
         }
-        if ( showInThumb ) {
-            this.$socialOverlay.appendTo( this.$anchor );
-        } else {
+        if ( appendToInner ) {
             this.$socialOverlay.appendTo( this.$inner );
+        } else {
+            this.$socialOverlay.appendTo( this.$anchor );
         }
     };
 
-    _.Item.override( "doParseItem", function( $el ) {
-        if ( this._super( $el ) ) {
-            const { opt: { social } } = this.tmpl;
-            const data = this.$anchor.data();
-            // always add the props to the item, enabled or not.
-            this.likes = data?.likes ?? this.opt?.likes ?? 0;
-            this.liked = data?.liked ?? this.opt?.liked ?? false;
-            this.comments = data?.comments ?? this.opt?.comments ?? 0;
-            this.shareUrl = data?.shareUrl ?? this.opt?.shareUrl ?? '';
+    _.Item.prototype.doParseSocial = function() {
+        const { opt: { social } } = this.tmpl;
+        const data = this.$anchor.data();
+        // always add the props to the item, enabled or not.
+        this.likes = data?.likes ?? this.opt?.likes ?? 0;
+        this.liked = data?.liked ?? this.opt?.liked ?? false;
+        this.comments = data?.comments ?? this.opt?.comments ?? 0;
+        this.shareUrl = data?.shareUrl ?? this.opt?.shareUrl ?? '';
 
-            this.$socialOverlay = this.$el.find( '.fg-social-overlay' );
-            if ( social?.likes || social?.comments ) {
-                if ( this.$socialOverlay.length === 0 ) {
-                    this.createSocialOverlay();
-                }
-                if ( social?.likes && social?.canLike ) {
-                    this.$socialOverlay.find( '.fg-social-likes' ).addClass( 'fg-can-like' ).on( 'click', { self: this }, this.onLikesClicked );
-                }
-                if ( this.shouldShowCommentsButton() ) {
-                    this.$socialOverlay.find( '.fg-social-comments' ).on( 'click', { self: this }, this.onCommentsClicked );
-                }
-            } else {
-                this.$socialOverlay.remove();
+        this.$socialOverlay = this.$el.find( '.fg-social-overlay' );
+        if ( social?.likes || social?.comments ) {
+            if ( this.$socialOverlay.length === 0 ) {
+                this.createSocialOverlay();
             }
+            if ( social?.likes && social?.canLike ) {
+                this.$socialOverlay.find( '.fg-social-likes' ).addClass( 'fg-can-like' ).on( 'click', { self: this }, this.onLikesClicked );
+            }
+            if ( this.shouldShowCommentsButton() ) {
+                this.$socialOverlay.find( '.fg-social-comments' ).on( 'click', { self: this }, this.onCommentsClicked );
+            }
+        } else {
+            this.$socialOverlay.remove();
+        }
+    };
+
+    _.Item.prototype.doCreateSocial = function() {
+        // always add the props to the item, enabled or not.
+        this.likes = this.opt?.likes ?? 0;
+        this.liked = this.opt?.liked ?? false;
+        this.comments = this.opt?.comments ?? 0;
+        this.shareUrl = this.opt?.shareUrl ?? '';
+        this.$socialOverlay = this.createSocialOverlay();
+    };
+
+    function doParseItem( $el ) {
+        if ( this._super( $el ) ) {
+            this.doParseSocial();
             return true
         }
         return false;
-    } );
+    }
 
-    _.Item.override( "doCreateItem", function() {
+    function doCreateItem() {
         if ( this._super() ) {
-            // always add the props to the item, enabled or not.
-            this.likes = this.opt?.likes ?? 0;
-            this.liked = this.opt?.liked ?? false;
-            this.comments = this.opt?.comments ?? 0;
-            this.shareUrl = this.opt?.shareUrl ?? '';
-            this.$socialOverlay = this.createSocialOverlay();
+            this.doCreateSocial();
             return true
         }
         return false;
-    } );
+    }
 
-    _.Item.override( "doDestroyItem", function() {
-        if ( this.isParsed ) {
-
-        }
-        return this._super();
-    } );
+    _.Item.override( "doParseItem", doParseItem );
+    _.Item.override( "doCreateItem", doCreateItem );
+    _.Video.override( "doParseItem", doParseItem );
+    _.Video.override( "doCreateItem", doCreateItem );
 
 } )(
     jQuery,
     FooGallery,
-    globalThis?.wp?.apiFetch,
-    globalThis?.wp?.url?.addQueryArgs
+    globalThis?.wp?.apiFetch
 );
 (function($, _, _is){
 
-    if ( _?.Panel && _.Panel?.Media ) {
-
-        _.template.configure( 'core', {
-            panel: {
-                share: 'none', // none, top, bottom
-                shareFacebookAppId: 966242223397117,
-                shareLinks: [],
-                shareLinkOptions: {
-                    facebook: {
-                        urlFormat: 'https://www.facebook.com/dialog/share?app_id={app_id}&display=popup&href={share_url}'
-                    },
-                    linkedin: {
-                        urlFormat: 'https://linkedin.com/shareArticle?mini=true&url={share_url}&title={title}&summary={description}'
-                    },
-                    pinterest: {
-                        urlFormat: 'https://pinterest.com/pin/create/bookmarklet/?url={share_url}&description={title}'
-                    },
-                    reddit: {
-                        urlFormat: 'https://reddit.com/submit?url={share_url}&title={title}'
-                    },
-                    tumblr: {
-                        urlFormat: 'https://www.tumblr.com/widgets/share/tool?canonicalUrl={share_url}&title={title}&caption={description}'
-                    },
-                    twitter: {
-                        urlFormat: 'https://twitter.com/share?url={share_url}&text={title}'
-                    },
-                    download: {
-                        allow: [ 'image' ]
-                    },
-                    email: {}
-                }
+    _.template.configure( 'core', {
+        panel: {
+            share: 'none', // none, top, bottom
+            shareFacebookAppId: 966242223397117,
+            shareLinks: [],
+            shareLinkOptions: {
+                facebook: {
+                    urlFormat: 'https://www.facebook.com/dialog/share?app_id={app_id}&display=popup&href={share_url}'
+                },
+                linkedin: {
+                    urlFormat: 'https://linkedin.com/shareArticle?mini=true&url={share_url}&title={title}&summary={description}'
+                },
+                pinterest: {
+                    urlFormat: 'https://pinterest.com/pin/create/bookmarklet/?url={share_url}&description={title}'
+                },
+                reddit: {
+                    urlFormat: 'https://reddit.com/submit?url={share_url}&title={title}'
+                },
+                tumblr: {
+                    urlFormat: 'https://www.tumblr.com/widgets/share/tool?canonicalUrl={share_url}&title={title}&caption={description}'
+                },
+                twitter: {
+                    urlFormat: 'https://twitter.com/share?url={share_url}&text={title}'
+                },
+                download: {
+                    allow: [ 'image' ]
+                },
+                email: {}
             }
-        }, {
-            panel: {
-                share: {}
+        }
+    }, {
+        panel: {
+            share: {}
+        }
+    }, {
+        panel: {
+            share: {}
+        }
+    } );
+
+    _.Panel.Media.prototype.canShare = function() {
+        const { share, shareLinks = [] } = this.panel.opt;
+        const { shareUrl = '' } = this.item;
+        return [ 'top', 'bottom' ].includes( share ) && shareLinks.length > 0 && shareUrl !== '';
+    };
+
+    _.Panel.Media.prototype.getShareUrl = function( name, options ) {
+        const {
+            item: { shareUrl = '' } = {},
+            caption: { title = '', description = '' } = {},
+            panel: { opt: { shareFacebookAppId = '' } = {} } = {}
+        } = this;
+
+        let url = '';
+        if ( [ 'download', 'email' ].includes( name ) ) {
+            if ( name === 'download' ) {
+                return shareUrl;
             }
-        }, {
-            panel: {
-                share: {}
+            if ( name === 'email' ) {
+                const subject = title !== '' ? `subject=${ encodeURIComponent( title ) }` : '';
+                const body = `body=${ encodeURIComponent( description !== '' ? `${ description } ${ shareUrl }` : shareUrl ) }`;
+                if ( subject !== '' ) {
+                    return `mailto:?${ subject }&${ body }`;
+                }
+                return `mailto:?${ body }`;
             }
-        } );
+        } else {
+            url = options.urlFormat.replaceAll( /\{share_url}/g, encodeURIComponent( shareUrl ) );
+            url = url.replaceAll( /\{title}/g, encodeURIComponent( title ) );
+            url = url.replaceAll( /\{description}/g, encodeURIComponent( description ) );
+            url = url.replaceAll( /\{app_id}/g, encodeURIComponent( shareFacebookAppId ) );
+        }
+        return url;
+    };
 
-        _.Panel.Media.prototype.canShare = function() {
-            const { share, shareLinks = [] } = this.panel.opt;
-            const { shareUrl = '' } = this.item;
-            return [ 'top', 'bottom' ].includes( share ) && shareLinks.length > 0 && shareUrl !== '';
-        };
-
-        _.Panel.Media.prototype.getShareUrl = function( name, options ) {
-            const {
-                item: { shareUrl = '' } = {},
-                caption: { title = '', description = '' } = {},
-                panel: { opt: { shareFacebookAppId = '' } = {} } = {}
-            } = this;
-
-            let url = '';
-            if ( [ 'download', 'email' ].includes( name ) ) {
-                if ( name === 'download' ) {
-                    return shareUrl;
-                }
-                if ( name === 'email' ) {
-                    const subject = title !== '' ? `subject=${ encodeURIComponent( title ) }` : '';
-                    const body = `body=${ encodeURIComponent( description !== '' ? `${ description } ${ shareUrl }` : shareUrl ) }`;
-                    if ( subject !== '' ) {
-                        return `mailto:?${ subject }&${ body }`;
-                    }
-                    return `mailto:?${ body }`;
-                }
-            } else {
-                url = options.urlFormat.replaceAll( /\{share_url}/g, encodeURIComponent( shareUrl ) );
-                url = url.replaceAll( /\{title}/g, encodeURIComponent( title ) );
-                url = url.replaceAll( /\{description}/g, encodeURIComponent( description ) );
-                url = url.replaceAll( /\{app_id}/g, encodeURIComponent( shareFacebookAppId ) );
+    _.Panel.Media.prototype.$createShareLink = function( name ) {
+        const { shareLinkOptions = {} } = this.panel.opt;
+        if ( Object.hasOwn( shareLinkOptions, name ) ) {
+            const opt = shareLinkOptions[ name ];
+            if ( name === 'download' && !opt?.allow?.includes( this.item.type ) ) {
+                return $();
             }
-            return url;
-        };
-
-        _.Panel.Media.prototype.$createShareLink = function( name ) {
-            const { shareLinkOptions = {} } = this.panel.opt;
-            if ( Object.hasOwn( shareLinkOptions, name ) ) {
-                const opt = shareLinkOptions[ name ];
-                if ( name === 'download' && !opt?.allow?.includes( this.item.type ) ) {
-                    return $();
-                }
-                const url = this.getShareUrl( name, opt );
-                const $link =  $( '<a/>', { href: url, target: '_blank', rel: 'nofollow' } )
-                    .addClass( `fg-share-link fg-share-link-${ name }` )
-                    .append( _.icons.get( `social-${ name }`, this.panel.opt.icons ).addClass( 'fg-share-link-icon' ) );
-                if ( name === 'download' ) {
-                    $link.attr( 'download', '' );
-                }
-                return $link;
+            const url = this.getShareUrl( name, opt );
+            const $link =  $( '<a/>', { href: url, target: '_blank', rel: 'nofollow' } )
+                .addClass( `fg-share-link fg-share-link-${ name }` )
+                .append( _.icons.get( `social-${ name }`, this.panel.opt.icons ).addClass( 'fg-share-link-icon' ) );
+            if ( name === 'download' ) {
+                $link.attr( 'download', '' );
             }
-            return $();
-        };
+            return $link;
+        }
+        return $();
+    };
 
-        _.Panel.Media.override( 'doCreate', function(){
-            if ( this._super() ) {
-                if ( this.canShare() ) {
-                    const { share, shareLinks = [] } = this.panel.opt;
-                    this.$socialButtons = $( '<div/>' )
-                        .addClass( `fg-share-links fg-share-links-${ share }` );
-                    shareLinks.forEach( name => {
-                        this.$socialButtons.append( this.$createShareLink( name ) );
-                    } );
-                    this.$socialButtons.appendTo( this.$el );
-                }
-                return true;
+    _.Panel.Media.override( 'doCreate', function(){
+        if ( this._super() ) {
+            if ( this.canShare() ) {
+                const { share, shareLinks = [] } = this.panel.opt;
+                this.$socialButtons = $( '<div/>' )
+                    .addClass( `fg-share-links fg-share-links-${ share }` );
+                shareLinks.forEach( name => {
+                    this.$socialButtons.append( this.$createShareLink( name ) );
+                } );
+                this.$socialButtons.appendTo( this.$el );
             }
-            return false;
-        } );
-
-    }
+            return true;
+        }
+        return false;
+    } );
 
 })(jQuery, FooGallery, FooGallery.utils.is);
 ( function( $, _, _fn ) {
+
+    _.template.configure( 'core', {
+        panel: {
+            comments: "none", // none | top | bottom | left | right
+            commentsOverlay: true,
+            commentsAutoHide: true,
+            commentsVisible: false,
+        }
+    }, {
+        panel: {
+            comments: {}
+        }
+    }, {
+        panel: {
+            buttons: {
+                comments: "Comments"
+            }
+        }
+    } );
 
     _.Panel.Comments = _.Panel.SideArea.extend( {
         construct: function( panel ) {
@@ -363,31 +379,12 @@
         }
     } );
 
-    _.template.configure( 'core', {
-        panel: {
-            comments: "none", // none | top | bottom | left | right
-            commentsOverlay: true,
-            commentsAutoHide: true,
-            commentsVisible: false,
-        }
-    }, {
-        panel: {
-            comments: {}
-        }
-    }, {
-        panel: {
-            buttons: {
-                comments: "Comments"
-            }
-        }
-    } );
-
 } )(
     FooGallery.$,
     FooGallery,
     FooGallery.utils.fn
 );
-( function( $, _, _icons, _utils, _is, _fn, _obj, _str, _t ) {
+( function( $, _, _icons, _utils, _is, _fn, apiFetch ) {
 
     _.Panel.Media.Comments = _utils.Class.extend( {
         construct: function( panel, media ) {
@@ -426,7 +423,7 @@
             this.comments = [];
         },
         canLoad: function() {
-            return _is.string( this.media?.item?.id ) && _is.string( this.media?.item?.tmpl?.id );
+            return !!apiFetch && _is.string( this.media?.item?.id ) && _is.string( this.media?.item?.tmpl?.id );
         },
         create: function() {
             if ( !this.isCreated ) {
@@ -525,7 +522,7 @@
             if ( this._loaded ) {
                 return this._loaded;
             }
-            return this._loaded = this.fetch().then( response => {
+            return this._loaded = apiFetch( { path: `/foogallery/v1/comments/${ this.media.item.id }` } ).then( response => {
                 this.currentAuthor = response?.currentAuthor;
                 this.consented = _is.hash( response?.currentAuthor );
                 this.closed = response?.closed ?? true;
@@ -558,12 +555,6 @@
         },
 
         //#region Helper Methods
-        fetch: function() {
-            return globalThis.COMMENTS_LIST( globalThis.COMMENTS_ROLE, globalThis?.COMMENTS_OVERRIDE_LIST_RESPONSE );
-        },
-        upsert: function( data ) {
-            return globalThis.COMMENTS_UPSERT( data, globalThis.COMMENTS_ROLE );
-        },
         prepareComments: function( comments, nestedDepth ) {
             const lookup = new Map();
             const rootComments = [];
@@ -666,11 +657,7 @@
                 this.$body.empty().append( this.$responses );
             }
             if ( !this.locked ) {
-                this.form = this.createForm( { author: this.currentAuthor } );
-                if ( this.form.length > 0 ) {
-                    const [ $form ] = this.form;
-                    this.$footer.empty().append( $form );
-                }
+                this.createForm( { author: this.currentAuthor } );
             }
         },
         destroyResponses: function() {
@@ -729,16 +716,11 @@
                 $response.addClass( 'fg-can-edit' );
                 const onEdit = e => {
                     e.preventDefault();
-                    this.destroyForm();
                     $response.addClass( 'fg-is-editing' );
-                    this.form = this.createForm( comment, () => {
+                    this.createForm( this.lookup.get( comment.id ), () => {
                         $response.removeClass( 'fg-is-editing' );
                         $response.get(0).scrollIntoView();
                     } );
-                    if ( this.form.length > 0 ) {
-                        const [ $form ] = this.form;
-                        this.$footer.empty().append( $form );
-                    }
                     $response.get(0).scrollIntoView();
                 };
                 $( '<button/>' ).addClass( this.cls.responseEdit )
@@ -762,16 +744,11 @@
                 $response.addClass( 'fg-can-reply' );
                 const onReply = e => {
                     e.preventDefault();
-                    this.destroyForm();
                     $response.addClass( 'fg-is-replying' );
-                    this.form = this.createForm( { parentId: comment.id, author: this.currentAuthor }, () => {
+                    this.createForm( { parentId: comment.id, author: this.currentAuthor }, () => {
                         $response.removeClass( 'fg-is-replying' );
                         $response.get(0).scrollIntoView();
                     } );
-                    if ( this.form.length > 0 ) {
-                        const [ $form ] = this.form;
-                        this.$footer.empty().append( $form );
-                    }
                     $response.get(0).scrollIntoView();
                     console.log( 'reply' );
                 };
@@ -795,13 +772,6 @@
             }
 
             return $response;
-        },
-        destroyForm: function() {
-            if ( this.form.length > 0 ) {
-                const [ $form, destroy ] = this.form;
-                destroy();
-                $form.remove();
-            }
         },
         updateComment( response ) {
             // update
@@ -911,7 +881,16 @@
                 $( '<span/>' ).text( this.getSummaryText( replyCount ) )
             );
         },
+        destroyForm: function() {
+            if ( this.form.length > 0 ) {
+                const [ $form, destroy ] = this.form;
+                destroy();
+                $form.remove();
+            }
+        },
         createForm: function( { parentId, id, author, content = '' } = {}, destroyCallback = () => {} ) {
+            this.destroyForm();
+
             const attachmentId = this.media.item.id;
             const galleryId = this.media.item.tmpl.id;
             const guid = _.generateGUID();
@@ -932,19 +911,14 @@
                 const data = new FormData( e.target );
                 this.consented = data.has( 'cookie_consent' );
                 $content.prop( 'disabled', true );
-                this.upsert( data ).then( response => {
-                    if ( this.lookup.has( response.id ) ) {
-                        this.updateComment( response );
+                apiFetch( { path: '/foogallery/v1/comments', method: 'POST', data } ).then( response => {
+                    if ( response.action === 'updated' ) {
+                        this.updateComment( response.comment );
                     } else {
-                        this.insertComment( response );
+                        this.insertComment( response.comment );
                     }
                     this.setHeaderText();
-                    this.destroyForm();
-                    this.form = this.createForm( { author: this.currentAuthor } );
-                    if ( this.form.length > 0 ) {
-                        const [ $form ] = this.form;
-                        this.$footer.empty().append( $form );
-                    }
+                    this.createForm( { author: this.currentAuthor } );
                 } ).catch( reason => {
                     console.error( reason );
                 } );
@@ -993,12 +967,7 @@
                 if ( formCancelText !== '' ) {
                     let onFormCancel = e => {
                         e.preventDefault();
-                        this.destroyForm();
-                        this.form = this.createForm( { author: this.currentAuthor } );
-                        if ( this.form.length > 0 ) {
-                            const [ $form ] = this.form;
-                            this.$footer.empty().append( $form );
-                        }
+                        this.createForm( { author: this.currentAuthor } );
                     };
                     const $formCancel = $( '<button/>' )
                         .addClass( this.cls.formCancel )
@@ -1071,6 +1040,7 @@
                 const $wrap = $( '<div/>' ).addClass( this.cls.formLeaveReplyWrap );
                 const onLeaveReply = e => {
                     e.preventDefault();
+                    this.form = [ $form, destroy ];
                     this.$footer.empty().append( $form );
                 };
                 const $leaveReply = $( '<button/>' )
@@ -1081,10 +1051,14 @@
 
                 d.push( () => $leaveReply.off( 'click', onLeaveReply ) );
 
-                return [ $($form, $wrap), destroy ];
+                this.form = [ $wrap, destroy ];
+            } else {
+                this.form = [ $form, destroy ];
             }
-
-            return [ $form, destroy ];
+            if ( this.form.length > 0 ) {
+                const [ $form ] = this.form;
+                this.$footer.empty().append( $form );
+            }
         },
         $createHiddenInput: function( id, attr = {} ) {
             return $( '<input/>', { id, type: 'hidden', ...attr } );
@@ -1226,7 +1200,5 @@
     FooGallery.utils,
     FooGallery.utils.is,
     FooGallery.utils.fn,
-    FooGallery.utils.obj,
-    FooGallery.utils.str,
-    FooGallery.utils.transition
+    globalThis?.wp?.apiFetch
 );

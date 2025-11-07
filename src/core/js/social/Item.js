@@ -1,12 +1,7 @@
-( function( $, _, apiFetch, addQueryArgs ) {
+( function( $, _, apiFetch ) {
 
     if ( !apiFetch ) {
         console.error( 'FooGallery social depends on wp.apiFetch which is not available.' );
-        return;
-    }
-
-    if ( !addQueryArgs ) {
-        console.error( 'FooGallery social depends on wp.url.addQueryArgs which is not available.' );
         return;
     }
 
@@ -44,11 +39,15 @@
     };
 
     _.Item.prototype.onCommentsClicked = function( e ) {
+        e.preventDefault();
+        e.stopPropagation();
         const self = e.data.self;
         self.showComments();
     };
 
     _.Item.prototype.onLikesClicked = function( e ) {
+        e.preventDefault();
+        e.stopPropagation();
         const self = e.data.self;
         self.toggleLike();
     };
@@ -71,27 +70,25 @@
                 attachment_id: this.id,
                 gallery_id: this.tmpl.id
             }
-        } ).then( response => {
-            if ( response ) {
-                const { opt: { social } } = this.tmpl;
-                const cf = this.tmpl.getCountFormatter();
-                if ( this.liked ) {
-                    this.liked = false;
-                    this.likes--;
-                } else {
-                    this.liked = true;
-                    this.likes++;
-                }
-                $likes.find( '.fg-social-button-count' )
-                    .text( cf.format( this.likes ) )
-                    .toggleClass( 'fg-hidden', this.likes === 0 && social?.hideLikesZeroCount );
-
-                $likes.find( '.fg-social-button-icon' )
-                    .replaceWith( _.icons.get( this.liked ? 'heart' : 'heart-outline' ).addClass( 'fg-social-button-icon' ) )
-                    .toggleClass( 'fg-hidden', ( this.likes === 0 && social?.hideLikesZero ) || social?.hideCounts );
+        } ).then( data => {
+            this.liked = data?.liked ?? this.liked;
+            this.likes = data?.count ?? this.likes;
+        } ).catch( reason => {
+            if ( reason?.message ) {
+                console.error( reason?.message );
             } else {
-
+                console.error( reason );
             }
+        } ).finally( () => {
+            const { opt: { social } } = this.tmpl;
+            const cf = this.tmpl.getCountFormatter();
+            $likes.find( '.fg-social-button-count' )
+                .text( cf.format( this.likes ) )
+                .toggleClass( 'fg-hidden', this.likes === 0 && social?.hideLikesZeroCount );
+
+            $likes.find( '.fg-social-button-icon' )
+                .replaceWith( _.icons.get( this.liked ? 'heart' : 'heart-outline' ).addClass( 'fg-social-button-icon' ) )
+                .toggleClass( 'fg-hidden', ( this.likes === 0 && social?.hideLikesZero ) || social?.hideCounts );
         } );
     };
 
@@ -103,10 +100,9 @@
 
     _.Item.prototype.createSocialOverlay = function() {
         const { opt: { social }, $el: $tmpl } = this.tmpl;
-        const showInThumb = !$tmpl.hasClass( 'fg-caption-hover' );
-        const tag = showInThumb ? '<span/>' : '<div/>';
-        this.$socialOverlay = $( tag ).addClass( 'fg-social-overlay' );
-        const $buttons = $( tag ).addClass( 'fg-social-buttons' ).appendTo( this.$socialOverlay );
+        const appendToInner = $tmpl.hasClass( 'fg-caption-hover' ) || $tmpl.hasClass( 'fg-caption-always' ) || $tmpl.hasClass( 'fg-preset' );
+        this.$socialOverlay = $( '<span/>' ).addClass( 'fg-social-overlay' );
+        const $buttons = $( '<span/>' ).addClass( 'fg-social-buttons' ).appendTo( this.$socialOverlay );
 
         const cf = this.tmpl.getCountFormatter();
         if ( social?.likes ) {
@@ -152,65 +148,70 @@
                 }
             }
         }
-        if ( showInThumb ) {
-            this.$socialOverlay.appendTo( this.$anchor );
-        } else {
+        if ( appendToInner ) {
             this.$socialOverlay.appendTo( this.$inner );
+        } else {
+            this.$socialOverlay.appendTo( this.$anchor );
         }
     };
 
-    _.Item.override( "doParseItem", function( $el ) {
-        if ( this._super( $el ) ) {
-            const { opt: { social } } = this.tmpl;
-            const data = this.$anchor.data();
-            // always add the props to the item, enabled or not.
-            this.likes = data?.likes ?? this.opt?.likes ?? 0;
-            this.liked = data?.liked ?? this.opt?.liked ?? false;
-            this.comments = data?.comments ?? this.opt?.comments ?? 0;
-            this.shareUrl = data?.shareUrl ?? this.opt?.shareUrl ?? '';
+    _.Item.prototype.doParseSocial = function() {
+        const { opt: { social } } = this.tmpl;
+        const data = this.$anchor.data();
+        // always add the props to the item, enabled or not.
+        this.likes = data?.likes ?? this.opt?.likes ?? 0;
+        this.liked = data?.liked ?? this.opt?.liked ?? false;
+        this.comments = data?.comments ?? this.opt?.comments ?? 0;
+        this.shareUrl = data?.shareUrl ?? this.opt?.shareUrl ?? '';
 
-            this.$socialOverlay = this.$el.find( '.fg-social-overlay' );
-            if ( social?.likes || social?.comments ) {
-                if ( this.$socialOverlay.length === 0 ) {
-                    this.createSocialOverlay();
-                }
-                if ( social?.likes && social?.canLike ) {
-                    this.$socialOverlay.find( '.fg-social-likes' ).addClass( 'fg-can-like' ).on( 'click', { self: this }, this.onLikesClicked );
-                }
-                if ( this.shouldShowCommentsButton() ) {
-                    this.$socialOverlay.find( '.fg-social-comments' ).on( 'click', { self: this }, this.onCommentsClicked );
-                }
-            } else {
-                this.$socialOverlay.remove();
+        this.$socialOverlay = this.$el.find( '.fg-social-overlay' );
+        if ( social?.likes || social?.comments ) {
+            if ( this.$socialOverlay.length === 0 ) {
+                this.createSocialOverlay();
             }
+            if ( social?.likes && social?.canLike ) {
+                this.$socialOverlay.find( '.fg-social-likes' ).addClass( 'fg-can-like' ).on( 'click', { self: this }, this.onLikesClicked );
+            }
+            if ( this.shouldShowCommentsButton() ) {
+                this.$socialOverlay.find( '.fg-social-comments' ).on( 'click', { self: this }, this.onCommentsClicked );
+            }
+        } else {
+            this.$socialOverlay.remove();
+        }
+    };
+
+    _.Item.prototype.doCreateSocial = function() {
+        // always add the props to the item, enabled or not.
+        this.likes = this.opt?.likes ?? 0;
+        this.liked = this.opt?.liked ?? false;
+        this.comments = this.opt?.comments ?? 0;
+        this.shareUrl = this.opt?.shareUrl ?? '';
+        this.$socialOverlay = this.createSocialOverlay();
+    };
+
+    function doParseItem( $el ) {
+        if ( this._super( $el ) ) {
+            this.doParseSocial();
             return true
         }
         return false;
-    } );
+    }
 
-    _.Item.override( "doCreateItem", function() {
+    function doCreateItem() {
         if ( this._super() ) {
-            // always add the props to the item, enabled or not.
-            this.likes = this.opt?.likes ?? 0;
-            this.liked = this.opt?.liked ?? false;
-            this.comments = this.opt?.comments ?? 0;
-            this.shareUrl = this.opt?.shareUrl ?? '';
-            this.$socialOverlay = this.createSocialOverlay();
+            this.doCreateSocial();
             return true
         }
         return false;
-    } );
+    }
 
-    _.Item.override( "doDestroyItem", function() {
-        if ( this.isParsed ) {
-
-        }
-        return this._super();
-    } );
+    _.Item.override( "doParseItem", doParseItem );
+    _.Item.override( "doCreateItem", doCreateItem );
+    _.Video.override( "doParseItem", doParseItem );
+    _.Video.override( "doCreateItem", doCreateItem );
 
 } )(
     jQuery,
     FooGallery,
-    globalThis?.wp?.apiFetch,
-    globalThis?.wp?.url?.addQueryArgs
+    globalThis?.wp?.apiFetch
 );

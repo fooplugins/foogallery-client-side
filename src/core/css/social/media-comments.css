@@ -411,7 +411,8 @@ details.fg-comments-replies > .fg-comments-responses {
 .fg-comments-responses:has(.fg-is-replying,.fg-is-editing) .fg-comments-response:not(:has(.fg-is-replying,.fg-is-editing),.fg-is-replying,.fg-is-editing),
 .fg-comments-responses:has(.fg-is-replying,.fg-is-editing) .fg-comments-response .fg-comments-edit,
 .fg-comments-responses:has(.fg-is-replying,.fg-is-editing) .fg-comments-response .fg-comments-reply,
-.fg-comments-responses:has(.fg-is-replying,.fg-is-editing) .fg-comments-replies > summary {
+.fg-comments-responses:has(.fg-is-replying,.fg-is-editing) .fg-comments-replies > summary,
+.fg-comments-response:is(.fg-is-replying,.fg-is-editing) > .fg-comments-replies {
     display: none;
 }
 

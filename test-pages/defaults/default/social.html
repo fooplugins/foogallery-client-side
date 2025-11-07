@@ -14,7 +14,7 @@
     </style>
     <script src="../assets/jquery.min.js" defer></script>
     <script src="../assets/theme.js" defer></script>
-    <script src="comments-test.js" defer></script>
+    <script src="../../comments-test.js" defer></script>
     <script src="../assets/js/foogallery.js" defer></script>
     <script src="../../wc_testing.js" defer></script>
     <script src="../assets/components/js/foogallery.social.js" defer></script>
@@ -42,7 +42,7 @@
 </header>
 <main>
     <script>
-        globalThis.COMMENTS_ROLE = 'logged-in'; // '' | 'anonymous' | 'awaiting-moderation' | 'logged-in' | 'can-edit'
+        globalThis.COMMENTS_ROLE = 'can-edit'; // '' | 'anonymous' | 'awaiting-moderation' | 'logged-in' | 'can-edit'
         window[ 'FooGallery_auto' ] = {
             lazy: true,
             social: {
@@ -82,7 +82,7 @@
         }
     </style>
     <div id="foogallery-gallery-1"
-         class="foogallery fg-social-bottom-left foogallery-container foogallery-default foogallery-lightbox-foogallery fg-center fg-default fg-dark fg-shadow-medium fg-loading-partial fg-loaded-flip fg-caption-hover fg-hover-fade fg-hover-zoom fg-ready"
+         class="foogallery fg-social-bottom-left foogallery-container foogallery-default foogallery-lightbox-foogallery fg-center fg-default fg-dark fg-shadow-medium fg-loading-partial fg-loaded-flip fg-caption-always fg-hover-fade fg-hover-zoom fg-ready"
          data-foogallery="{}"
          data-foogallery-lightbox="{}">
 

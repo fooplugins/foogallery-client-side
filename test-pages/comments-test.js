@@ -126,6 +126,7 @@
      * @typedef {{ closed: boolean, requireNameAndEmail: boolean, requireLoggedIn: boolean, showCookieConsent: boolean, showAvatar: boolean, nestedDepth: number, comments: ResponseComment[], currentAuthor?: ResponseCommentAuthor }} ResponseCommentsList
      */
 
+    G.COMMENTS_ROLE = G?.COMMENTS_ROLE ?? '';
     G.COMMENTS_ROLES = ['anonymous', 'awaiting-moderation', 'logged-in', 'can-edit'];
 
     const getAuthorFromRole = role => {
@@ -140,6 +141,24 @@
             currentAuthor = { ...loggedInUser };
         }
         if ( role === 'can-edit' ) {
+            currentAuthor = { ...loggedInUserCanEdit };
+        }
+        return currentAuthor;
+    };
+
+    const getCurrentAuthor = () => {
+        let currentAuthor;
+        const { COMMENTS_ROLE } = G;
+        if ( COMMENTS_ROLE === 'anonymous' ) {
+            currentAuthor = { ...anonymousUser };
+        }
+        if ( COMMENTS_ROLE === 'awaiting-moderation' ) {
+            currentAuthor = { ...awaitingModerationUser };
+        }
+        if ( COMMENTS_ROLE === 'logged-in' ) {
+            currentAuthor = { ...loggedInUser };
+        }
+        if ( COMMENTS_ROLE === 'can-edit' ) {
             currentAuthor = { ...loggedInUserCanEdit };
         }
         return currentAuthor;
@@ -254,10 +273,31 @@
         } );
     };
 
-    if ( !globalThis?.wp ) {
-        globalThis.wp = {};
+    if ( !G?.wp ) {
+        G.wp = {};
     }
-    if ( !globalThis.wp?.apiFetch ) {
+    if ( !G.wp?.apiFetch ) {
+        class WP_REST_Response {
+            constructor( data, status = 200 ) {
+                this.data = data;
+                this.status = status;
+            }
+            data = {};
+            status = 200;
+            parsed() {
+                if ( this.status === 200 ) {
+                    return {
+                        ...this.data
+                    };
+                } else {
+                    return {
+                        ...this.data,
+                        data: { status: this.status },
+                    }
+                }
+            }
+        }
+
         const wpRestResponse = ( data, status = 200 ) => {
             if ( status === 200 ) {
                 return {
@@ -294,76 +334,173 @@
             if ( id.startsWith( '/' ) ) {
                 id = id.substring( 1 );
             }
-            return parseInt( id );
+            return id;
+        };
+
+        const attachmentIds = new Set([
+            '1.jpg',
+            '2.jpg',
+            '3.jpg',
+            '4.jpg',
+            '5.jpg',
+            '6.jpg',
+            '7.jpg',
+            '8.jpg',
+            '9.jpg',
+            '10.jpg',
+        ]);
+
+        const closedComments = new Set([
+            '2.jpg',
+            '3.jpg',
+        ]);
+
+        /**
+         *
+         * @type {Map<string, boolean>}
+         */
+        const likedMap = new Map([
+            [ '1.jpg', true ]
+        ]);
+
+        /**
+         *
+         * @type {Map<string, number>}
+         */
+        const likesMap = new Map([
+            [ '1.jpg', 123 ],
+            [ '2.jpg', 1234 ],
+            [ '3.jpg', 4254 ],
+        ]);
+
+        const POST_likes = ({ attachment_id, gallery_id }) => {
+            if ( typeof attachment_id !== 'string' || attachment_id === '' ) {
+                return new WP_REST_Response( { message: 'attachment_id is required.' }, 400 );
+            }
+            if ( typeof gallery_id !== 'string' || gallery_id === '' ) {
+                return new WP_REST_Response( { message: 'gallery_id is required.' }, 400 );
+            }
+            if ( !attachmentIds.has( attachment_id ) ) {
+                return new WP_REST_Response( { message: 'Attachment not found.' }, 404 );
+            }
+            const liked = !( likedMap.has( attachment_id ) && likedMap.get( attachment_id ) );
+            likedMap.set( attachment_id, liked );
+            let count = likesMap.get( attachment_id ) ?? 0;
+            count += liked ? 1 : -1;
+            likesMap.set( attachment_id, count );
+            return new WP_REST_Response( { liked, count } );
+        };
+
+        const GET_comments = ({ attachment_id }) => {
+            if ( typeof attachment_id !== 'string' || attachment_id === '' ) {
+                return new WP_REST_Response( { message: 'attachment_id is required.' }, 400 );
+            }
+            if ( !attachmentIds.has( attachment_id ) ) {
+                return new WP_REST_Response( { message: 'Attachment not found.' }, 404 );
+            }
+            const currentAuthor = getCurrentAuthor();
+            return new WP_REST_Response( {
+                currentAuthor,
+                closed: closedComments.has( attachment_id ),
+                comments: makeComments( currentAuthor ) ?? []
+            } );
+        };
+
+        const POST_comments = ( data ) => {
+            const rawComment = {
+                id: data.get( 'comment_id' ) ?? undefined,
+                parentId: data.get( 'parent_id' ) ?? undefined,
+                content: data.get( 'content' ) ?? undefined,
+                author: {
+                    id: data.get( 'author_id' ) ?? undefined,
+                    name: data.get( 'author_name' ) ?? undefined,
+                    email: data.get( 'author_email' ) ?? undefined,
+                    url: data.get( 'author_url' ) ?? undefined
+                }
+            };
+
+            const getAuthor = raw => {
+                if ( typeof raw?.id === 'string' ) {
+                    const userId = parseInt( raw.id );
+                    const user = users.find( u => u.id === userId );
+                    if ( user ) {
+                        return { ...user };
+                    }
+                }
+                return {
+                    ...raw,
+                    id: 0,
+                    avatar: 'https://gravatar.com/avatar/123456789?s=100&d=robohash&r=g'
+                };
+            };
+
+            let action = 'created', comment;
+            if ( typeof rawComment?.id === 'string' ) {
+                const id = parseInt( rawComment.id );
+                comment = comments.find( c => c.id === id );
+                if ( !comment ) {
+                    return new WP_REST_Response( { message: 'Comment not found.' }, 404 );
+                }
+                action = 'updated';
+            } else {
+                comment = {
+                    id: newId(),
+                    date: 'August 18, 2025'
+                };
+                if ( typeof rawComment?.parentId === 'string' ) {
+                    comment.parentId = parseInt( rawComment.parentId );
+                }
+                comments.push( comment );
+            }
+            if ( comment ) {
+                comment.content = rawComment.content;
+                comment.author = getAuthor( rawComment.author );
+                comment.editable = canEditComments( getCurrentAuthor()?.id );
+                comment.moderation = comment.id === 3;
+            }
+
+            return new WP_REST_Response( { comment, action } );
         };
 
         /**
          *
          * @param {string} path
-         * @param {string} url
-         * @param {boolean} parse
-         * @param {{[key: string]: any;}} data
+         * @param {boolean} parsed
+         * @param {FormData|{[key: string]: any;}} data
          * @param {"GET"|"POST"|"PUT"|"DELETE"} method
          * @param {number} timeout
-         * @returns {Promise<unknown>}
+         * @returns {Promise<any>}
          * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-api-fetch/
          */
-        globalThis.wp.apiFetch = ({ path = '', url = '', parse = true, data = {}, method = 'GET', timeout = 1000 }) => {
+        G.wp.apiFetch = ({ path = '', parsed = true, data = {}, method = 'GET', timeout = 1000 }) => {
             return new Promise( ( resolve, reject ) => {
+                const apiResult = wp_response => {
+                    if ( wp_response.status !== 200 ) reject( parsed ? wp_response.parsed() : wp_response );
+                    else resolve( parsed ? wp_response.parsed() : wp_response );
+                };
                 setTimeout( () => {
                     if ( /^\/foogallery\/v1\/comments/i.test( path ) ) {
                         // GET /foogallery/v1/comments/{id}
                         if ( method === 'GET' ) {
-                            const id = getIdFromPath( path, '/foogallery/v1/comments' );
-                            if ( isNaN( id ) ) {
-                                reject( wpRestResponse( { message: 'Attachment not found.' }, 404 ) );
-                            } else {
-                                resolve( wpRestResponse( G.COMMENTS_LIST( G?.COMMENTS_ROLE ?? '', G?.COMMENTS_OVERRIDE_LIST_RESPONSE ) ) );
-                            }
-                            return;
+                            const attachment_id = getIdFromPath( path, '/foogallery/v1/comments' );
+                            return apiResult( GET_comments( { attachment_id } ) );
                         }
                         // POST /foogallery/v1/comments (create/update)
                         if ( method === 'POST' ) {
-
+                            return apiResult( POST_comments( data ) );
                         }
+                        return apiResult( new WP_REST_Response( { message: 'Comments endpoint error.' }, 500 ) );
                     }
                     if ( /\/foogallery\/v1\/likes/i.test( path ) ) {
                         // POST /foogallery/v1/likes
                         if ( method === 'POST' ) {
-                            const formData = getFormData( data );
-                            if ( !formData.has( 'attachment_id' ) ) {
-                                reject( wpRestResponse( { message: 'Invalid attachment id.' }, 400 ) );
-                                return;
-                            }
-                            if ( !formData.has( 'gallery_id' ) ) {
-                                reject( wpRestResponse( { message: 'Invalid gallery id.' }, 400 ) );
-                                return;
-                            }
-
+                            return apiResult( POST_likes( data ) );
                         }
+                        return apiResult( new WP_REST_Response( { message: 'Likes endpoint error.' }, 500 ) );
                     }
-                    reject( wpRestResponse( { message: 'Internal server error.' }, 500 ) );
+                    return apiResult( new WP_REST_Response( { message: 'Internal server error.' }, 500 ) );
                 }, timeout );
             } );
-        };
-    }
-
-    if ( !globalThis.wp?.url ) {
-        globalThis.wp.url = {};
-    }
-
-    if ( !globalThis.wp?.url?.addQueryArgs ) {
-        /**
-         *
-         * @param {string} path
-         * @param {{[key: string]: string | number | boolean;}} args
-         */
-        globalThis.wp.url.addQueryArgs = ( path, args ) => {
-            const sp = new URLSearchParams();
-            Object.entries( args ).forEach( ([ key, value ]) => {
-                sp.set( key, `${ value }` );
-            } );
-            return sp.size > 0 ? `${ path }?${ sp.toString() }` : path;
         };
     }
 
