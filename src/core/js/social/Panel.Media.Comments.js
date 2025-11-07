@@ -511,7 +511,7 @@
             const { requireNameAndEmail, showCookieConsent, lookup } = this;
             const d = [];
 
-            const $form = $( '<form/>', { id: guid, autocomplete: 'off' } ).addClass( this.cls.form );
+            const $form = $( '<form/>', { id: guid } ).attr( 'autocomplete', 'off' ).addClass( this.cls.form );
             const $content = $( '<fieldset/>' ).addClass( this.cls.formContent ).appendTo( $form );
 
             const destroy = () => {
