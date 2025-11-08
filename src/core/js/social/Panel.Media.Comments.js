@@ -552,6 +552,12 @@
                 name: 'attachment_id',
                 value: attachmentId
             } ) );
+            if ( this.media?.item?.productId ) {
+                $content.append( this.$createHiddenInput( `${ guid }[product_id]`, {
+                    name: 'product_id',
+                    value: this.media.item?.productId
+                } ) );
+            }
 
             let formTitle = this.il8n.formTitle;
             let formCancelText = this.il8n.formCancel;

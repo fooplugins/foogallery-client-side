@@ -63,13 +63,19 @@
         $likes.find( '.fg-social-button-icon' )
             .replaceWith( _.icons.get( 'spinner' ).addClass( 'fg-social-button-icon' ) );
 
+        const data = {
+            attachment_id: this.id,
+            gallery_id: this.tmpl.id
+        };
+
+        if ( this?.productId ) {
+            data.product_id = this.productId;
+        }
+
         return apiFetch( {
             method: 'POST',
             path: '/foogallery/v1/likes',
-            data: {
-                attachment_id: this.id,
-                gallery_id: this.tmpl.id
-            }
+            data
         } ).then( data => {
             this.liked = data?.liked ?? this.liked;
             this.likes = data?.count ?? this.likes;
