@@ -136,7 +136,12 @@
             if ( this._loaded ) {
                 return this._loaded;
             }
-            return this._loaded = apiFetch( { path: `/foogallery/v1/comments/${ this.media.item.id }` } ).then( response => {
+            let path = `/foogallery/v1/comments/${ this.media.item.id }`;
+            if ( this.media?.item?.productId ) {
+                path = `/foogallery/v1/comments/${ this.media.item.id }/${ this.media.item.productId }`;
+            }
+
+            return this._loaded = apiFetch( { path:  } ).then( response => {
                 this.currentAuthor = response?.currentAuthor;
                 this.consented = _is.hash( response?.currentAuthor );
                 this.closed = response?.closed ?? true;
