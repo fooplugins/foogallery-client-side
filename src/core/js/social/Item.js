@@ -124,13 +124,11 @@
                 .text( cf.format( this.likes ) )
                 .appendTo( $likes );
 
-            if ( this.likes === 0 || social?.hideCounts ) {
-                if ( social?.hideLikesZero ) {
-                    $likes.addClass( 'fg-hidden' );
-                }
-                if ( social?.hideLikesZeroCount || social?.hideCounts ) {
-                    $likesCount.addClass( 'fg-hidden' );
-                }
+            if ( this.likes === 0 && social?.hideLikesZero ) {
+                $likes.addClass( 'fg-hidden' );
+            }
+            if ( ( this.likes === 0 && social?.hideLikesZeroCount ) || social?.hideCounts ) {
+                $likesCount.addClass( 'fg-hidden' );
             }
         }
         if ( this.shouldShowCommentsButton() ) {
@@ -145,13 +143,11 @@
                 .text( cf.format( this.comments ) )
                 .appendTo( $comments );
 
-            if ( this.comments === 0 || social?.hideCounts ) {
-                if ( social?.hideCommentsZero ) {
-                    $comments.addClass( 'fg-hidden' );
-                }
-                if ( social?.hideCommentsZeroCount || social?.hideCounts ) {
-                    $commentsCount.addClass( 'fg-hidden' );
-                }
+            if ( this.comments === 0 && social?.hideCommentsZero ) {
+                $comments.addClass( 'fg-hidden' );
+            }
+            if ( ( this.comments === 0 && social?.hideCommentsZeroCount ) || social?.hideCounts ) {
+                $commentsCount.addClass( 'fg-hidden' );
             }
         }
         if ( appendToInner ) {
