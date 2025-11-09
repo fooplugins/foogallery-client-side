@@ -52,9 +52,48 @@
     gap: 5px;
     cursor: pointer;
     pointer-events: auto;
+    transition-property: color;
 }
 .fg-social-button.fg-hidden {
     display: none;
+}
+.fg-light-overlays:not(
+    .fg-caption-always:is(.fg-social-top-left,.fg-social-top-right):not(
+        /* transitions */
+        .fg-hover-instant,
+        .fg-hover-fade,
+        .fg-hover-slide-up,
+        .fg-hover-slide-down,
+        .fg-hover-slide-left,
+        .fg-hover-slide-right,
+        .fg-hover-push,
+        .fg-hover-colorize,
+        .fg-hover-grayscale,
+        .fg-hover-scale,
+        /* icons */
+        .fg-hover-zoom,
+        .fg-hover-zoom2,
+        .fg-hover-zoom3,
+        .fg-hover-plus,
+        .fg-hover-circle-plus,
+        .fg-hover-eye,
+        .fg-hover-external,
+        .fg-hover-tint,
+        .fg-hover-cart,
+        .fg-hover-plus2,
+        .fg-hover-plus3,
+        .fg-hover-square-plus,
+        .fg-hover-circle-plus2,
+        .fg-hover-zoom4,
+        .fg-hover-zoom5,
+        .fg-video-default,
+        .fg-video-1,
+        .fg-video-2,
+        .fg-video-3,
+        .fg-video-4
+    )
+) .fg-item-inner:is(:hover,:focus-within) .fg-social-button {
+    color: #333;
 }
 
 .fg-social-button-icon {
@@ -77,4 +116,22 @@
 .fg-social-likes.fg-can-like {
     cursor: pointer;
     pointer-events: auto;
+}
+
+/* Only enable button transition when needed */
+.foogallery:is(
+    .fg-hover-instant,
+    .fg-hover-fade,
+    .fg-hover-slide-up,
+    .fg-hover-slide-down,
+    .fg-hover-slide-left,
+    .fg-hover-slide-right,
+    .fg-hover-push,
+    .fg-hover-colorize,
+    .fg-hover-grayscale,
+    .fg-hover-scale
+) .fg-loaded .fg-social-button {
+    transition-timing-function: ease;
+    transition-duration: 300ms;
+    backface-visibility: hidden;
 }
