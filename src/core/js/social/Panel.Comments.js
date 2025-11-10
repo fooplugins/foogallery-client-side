@@ -6,15 +6,21 @@
             commentsOverlay: true,
             commentsAutoHide: true,
             commentsVisible: false,
+            buttons: {
+                comments: true
+            }
         }
     }, {
         panel: {
-            comments: {}
+            comments: {},
+            buttons: {
+                comments: "fg-panel-button fg-panel-button-comments"
+            }
         }
     }, {
         panel: {
             buttons: {
-                comments: "Comments"
+                comments: "Toggle Comments"
             }
         }
     } );
