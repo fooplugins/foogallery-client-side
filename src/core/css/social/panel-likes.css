@@ -1,0 +1,13 @@
+.fg-panel-area-toggle .fg-icon-spinner,
+.fg-panel-button .fg-icon-spinner {
+    animation: panel-spin 1s linear infinite;
+}
+
+@keyframes panel-spin {
+    0% {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg); /* Start at 0 degrees rotation */
+    }
+    100% {
+        transform: translateX(-50%) translateY(-50%) rotate(360deg); /* End at 360 degrees rotation for a full spin */
+    }
+}

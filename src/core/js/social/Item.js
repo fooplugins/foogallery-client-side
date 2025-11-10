@@ -90,12 +90,25 @@
             const cf = this.tmpl.getCountFormatter();
             $likes.find( '.fg-social-button-count' )
                 .text( cf.format( this.likes ) )
-                .toggleClass( 'fg-hidden', this.likes === 0 && social?.hideLikesZeroCount );
+                .toggleClass( 'fg-hidden', ( this.likes === 0 && social?.hideLikesZeroCount ) || social?.hideCounts );
 
             $likes.find( '.fg-social-button-icon' )
-                .replaceWith( _.icons.get( this.liked ? 'heart' : 'heart-outline' ).addClass( 'fg-social-button-icon' ) )
-                .toggleClass( 'fg-hidden', ( this.likes === 0 && social?.hideLikesZero ) || social?.hideCounts );
+                .replaceWith( _.icons.get( this.liked ? 'heart' : 'heart-outline' ).addClass( 'fg-social-button-icon' ) );
+
+            $likes.toggleClass( 'fg-hidden', this.likes === 0 && social?.hideLikesZero );
         } );
+    };
+
+    _.Item.prototype.updateCommentCount = function( count ){
+        const { opt: { social } } = this.tmpl;
+        const cf = this.tmpl.getCountFormatter();
+        this.comments = isNaN( count ) || count < 0 ? 0 : count;
+        const $button = this.$socialOverlay.find( '.fg-social-comments' );
+        $button.find( '.fg-social-button-count' )
+            .text( cf.format( this.comments ) )
+            .toggleClass( 'fg-hidden', ( this.comments === 0 && social?.hideCommentsZeroCount ) || social?.hideCounts );
+
+        $button.toggleClass( 'fg-hidden', this.comments === 0 && social?.hideCommentsZero );
     };
 
     _.Item.prototype.shouldShowCommentsButton = function() {

@@ -128,7 +128,7 @@
                 this.$el.addClass( states.loaded );
                 this.panel.trigger( "comments-loaded", [ this ] );
             } ).catch( () => {
-                this.$el.addClass( states.loaded );
+                this.$el.addClass( states.error );
                 this.panel.trigger( "comments-error", [ this ] );
             } ).promise();
         },
@@ -151,7 +151,19 @@
                 this.comments = comments;
                 this.lookup = lookup;
                 this.createComments();
-            } );
+                this.media?.item?.updateCommentCount( this.lookup.size );
+            } ).catch( reason => {
+                console.error( `FooGallery Comments: ${ this.il8n.errorOccurredGET }`, reason );
+                this.$header.text( this.il8n.errorOccurred );
+                this.$body.empty().append(
+                    $( '<p/>' ).text( this.il8n.errorOccurredGET ),
+                    $( '<button/>' ).text( this.il8n.errorRetry ).addClass( this.cls.errorRetry ).on( 'click', e => {
+                        e.preventDefault();
+                        this._loaded = null;
+                        this.load();
+                    } )
+                );
+            });
         },
         unload: function() {
             return $.Deferred( def => {
@@ -542,9 +554,22 @@
                     }
                     this.setHeaderText();
                     this.createForm( { author: this.currentAuthor } );
+                    this.media?.item?.updateCommentCount( this.lookup.size );
                 } ).catch( reason => {
-                    console.error( reason );
-                } );
+                    console.error( `FooGallery Comments: ${ this.il8n.errorOccurredPOST }`, reason );
+                    $form.css( 'display', 'none' );
+                    const $error = $( '<div/>' ).addClass( this.cls.error ).append(
+                        $( '<div/>' ).text( this.il8n.errorOccurred ).addClass( this.cls.errorTitle ),
+                        $( '<div/>' ).text( this.il8n.errorOccurredPOST ).addClass( this.cls.errorMessage ),
+                        $( '<button/>' ).text( this.il8n.errorRetry ).addClass( this.cls.errorRetry ).on( 'click', e => {
+                            e.preventDefault();
+                            $error.remove();
+                            $content.prop( 'disabled', false );
+                            $form.css( 'display', '' );
+                        } )
+                    );
+                    this.$footer.append( $error );
+                });
             };
 
             $form.on( 'submit', onSubmit );
@@ -759,6 +784,10 @@
                     header: "fg-media-comments-title",
                     body: "fg-media-comments-body",
                     footer: "fg-media-comments-footer",
+                    error: "fg-comments-error",
+                    errorTitle: "fg-comments-error-title",
+                    errorMessage: "fg-comments-error-message",
+                    errorRetry: "fg-comments-error-retry fg-panel-button fg-panel-button-primary",
                     responses: "fg-comments-responses",
                     responsesThreadLines: "fg-comments-thread-lines",
                     response: "fg-comments-response",
@@ -792,6 +821,10 @@
         panel: {
             media: {
                 comments: {
+                    errorOccurred: "An Error Occurred",
+                    errorOccurredGET: "An error occurred attempting to retrieve the comments for the current item.",
+                    errorOccurredPOST: "An error occurred submitting your comment.",
+                    errorRetry: "Try Again",
                     titleSingular: "{COUNT} response",
                     titlePlural: "{COUNT} responses",
                     responseEdit: "Edit",
