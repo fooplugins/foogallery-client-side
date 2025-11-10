@@ -702,6 +702,7 @@
 		src: "data-src-fg",
 		protected: false,
         lang: "en", // the language to use if there's no html[lang] attribute value
+        cors: null,
 		template: {},
 		regex: {
 			theme: /(?:\s|^)(fg-(?:light|dark|custom))(?:\s|$)/,

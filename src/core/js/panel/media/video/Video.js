@@ -32,7 +32,18 @@
         doCreateContent: function(){
             this.urls = this.parseHref();
             this.isSelfHosted = $.map(this.urls, function(url){ return url.source.selfHosted ? true : null; }).length > 0;
-            return this.isSelfHosted ? $('<video/>', this.opt.attrs.video) : $('<iframe/>', this.opt.attrs.iframe).addClass("fitvidsignore");
+
+            const { opt: { cors } } = this.panel.tmpl;
+            const attr = { ...this.opt.attrs.video };
+            if ( _is.string( cors ) ) {
+                const first = this.urls.at( 0 );
+                if ( _is.string( first ) && _is.string( attr?.crossOrigin ) && _.isCrossOrigin( first ) ) {
+                    attr.crossOrigin = cors;
+                }
+            }
+            return this.isSelfHosted
+                ? $('<video/>', attr)
+                : $('<iframe/>', this.opt.attrs.iframe).addClass("fitvidsignore");
         },
         doLoad: function(){
             var self = this;

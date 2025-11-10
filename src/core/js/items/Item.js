@@ -1214,8 +1214,11 @@
 					});
 				}
 
-				if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
-					img.crossOrigin = 'anonymous';
+                const { opt: { cors } } = self.tmpl;
+                if ( _is.string( cors ) ) {
+                    if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
+                        img.crossOrigin = cors;
+                    }
 				}
                 if (!_is.empty(self.srcset)){
                     img.srcset = self.srcset;
