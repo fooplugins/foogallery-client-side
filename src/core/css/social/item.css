@@ -1,3 +1,6 @@
+.foogallery {
+    --fg-social-icon-size: 24px;
+}
 .fg-social-overlay {
     display: flex;
     flex-direction: column;
@@ -45,7 +48,7 @@
     background: none;
     color: #FFF;
     font-family: Verdana, sans-serif;
-    font-size: 10px;
+    font-size: max(10px, calc( var(--fg-social-icon-size) / 2.5 ));
     border: none;
     box-shadow: none;
     padding: 5px;
@@ -97,8 +100,8 @@
 }
 
 .fg-social-button-icon {
-    width: 24px;
-    height: 24px;
+    width: var(--fg-social-icon-size);
+    height: var(--fg-social-icon-size);
     filter: drop-shadow( 0 0 1px rgba(0 0 0 / 50%));
 }
 
