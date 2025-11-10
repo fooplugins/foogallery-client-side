@@ -2,8 +2,9 @@
 
     _.template.configure( 'core', {
         panel: {
-            share: 'none', // none, top, bottom
+            share: 'none', // none, top, bottom, info-top, info-bottom
             shareFacebookAppId: 966242223397117,
+            shareLinkSize: 24,
             shareLinks: [],
             shareLinkOptions: {
                 facebook: {
@@ -46,7 +47,7 @@
     _.Panel.Media.prototype.canShare = function() {
         const { share, shareLinks = [] } = this.panel.opt;
         const { shareUrl = '' } = this.item;
-        return [ 'top', 'bottom' ].includes( share ) && shareLinks.length > 0 && shareUrl !== '';
+        return [ 'top', 'bottom', 'info-top', 'info-bottom' ].includes( share ) && shareLinks.length > 0 && shareUrl !== '';
     };
 
     _.Panel.Media.prototype.getShareUrl = function( name, options ) {
@@ -100,9 +101,9 @@
     _.Panel.Media.override( 'doCreate', function(){
         if ( this._super() ) {
             if ( this.canShare() ) {
-                const { share, shareLinks = [] } = this.panel.opt;
+                const { share, shareLinks = [], shareLinkSize = 24 } = this.panel.opt;
                 this.$socialButtons = $( '<div/>' )
-                    .addClass( `fg-share-links fg-share-links-${ share }` );
+                    .addClass( `fg-share-links fg-share-links-${ share }` ).css( '--fg-social-share-icon-size', `${ shareLinkSize }px` );
                 shareLinks.forEach( name => {
                     this.$socialButtons.append( this.$createShareLink( name ) );
                 } );
