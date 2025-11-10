@@ -24,6 +24,9 @@
                 twitter: {
                     urlFormat: 'https://twitter.com/share?url={share_url}&text={title}'
                 },
+                vk: {
+                    urlFormat: 'https://vk.com/share.php?url={share_url}&title={title}'
+                },
                 download: {
                     allow: [ 'image' ]
                 },
