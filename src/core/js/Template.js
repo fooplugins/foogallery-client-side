@@ -687,6 +687,7 @@
 		srcset: "data-srcset-fg",
 		src: "data-src-fg",
 		protected: false,
+        cors: null,
 		template: {},
 		regex: {
 			theme: /(?:\s|^)(fg-(?:light|dark|custom))(?:\s|$)/,

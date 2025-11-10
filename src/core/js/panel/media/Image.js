@@ -1,4 +1,4 @@
-(function($, _, _utils, _obj){
+(function($, _, _utils, _is, _obj){
 
     _.Panel.Image = _.Panel.Media.extend({
         construct: function(panel, item){
@@ -51,6 +51,12 @@
                     img.onload = img.onerror = null;
                     def.rejectWith("error loading image");
                 };
+                const { opt: { cors } } = self.panel.tmpl;
+                if ( _is.string( cors ) ) {
+                    if ( img.crossOrigin === null && _.isCrossOrigin(self.item.href) ) {
+                        img.crossOrigin = cors;
+                    }
+                }
                 // set everything in motion by setting the src
                 img.src = self.item.href;
                 if (img.complete){
@@ -86,5 +92,6 @@
     FooGallery.$,
     FooGallery,
     FooGallery.utils,
+    FooGallery.utils.is,
     FooGallery.utils.obj
 );
