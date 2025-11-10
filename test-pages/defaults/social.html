@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>Social - Responsive (Default)</title>
-    <link href="../assets/theme.css" rel="stylesheet"/>
-    <link href="../assets/css/foogallery.min.css" rel="stylesheet"/>
-    <link href="../assets/components/css/foogallery.social.css" rel="stylesheet"/>
+    <link href="assets/theme.css" rel="stylesheet"/>
+    <link href="assets/css/foogallery.min.css" rel="stylesheet"/>
+    <link href="assets/components/css/foogallery.social.css" rel="stylesheet"/>
     <style>
         main img {
             width: auto;
         }
     </style>
-    <script src="../assets/jquery.min.js" defer></script>
-    <script src="../assets/theme.js" defer></script>
-    <script src="../../comments-test.js" defer></script>
-    <script src="../assets/js/foogallery.js" defer></script>
-    <script src="../../wc_testing.js" defer></script>
-    <script src="../assets/components/js/foogallery.social.js" defer></script>
-    <script src="../assets/components/js/foogallery.ready.js" defer></script>
+    <script src="assets/jquery.min.js" defer></script>
+    <script src="assets/theme.js" defer></script>
+    <script src="social-testing.js" defer></script>
+    <script src="assets/js/foogallery.js" defer></script>
+    <script src="woocommerce-testing.js" defer></script>
+    <script src="assets/components/js/foogallery.social.js" defer></script>
+    <script src="assets/components/js/foogallery.ready.js" defer></script>
     <script>
         document.addEventListener( 'DOMContentLoaded', () => {
 
@@ -28,8 +28,8 @@
 <body class="light wp-core-ui">
 <header>
     <ul class="header-left">
-        <li><a href="../index.html">Templates</a></li>
-        <li><h1>Social - Responsive (Default)</h1></li>
+        <li><a href="index.html">Templates</a></li>
+        <li><h1>Social Testing</h1></li>
     </ul>
     <div class="header-right">
         <button title="Toggle Theme">
@@ -48,9 +48,13 @@
             social: {
                 likes: true,
                 canLike: true,
-                comments: true
+                comments: true,
+                hideCounts: false
             },
             panel: {
+                buttons: {
+                    likes: true
+                },
                 theme: "fg-light",
                 noMobile: false,
                 transition: "fade",
@@ -58,6 +62,7 @@
                 cart: "right",
                 info: "right",
                 infoOverlay: true,
+                infoVisible: true,
                 // comments options
                 comments: "right", // none | top | bottom | left | right
                 commentsOverlay: true,
@@ -68,11 +73,12 @@
                 commentsShowCookieConsent: true,
                 commentsShowAvatar: false,
                 commentsNestedDepth: 5,
-                commentsCollapseNested: true,
+                commentsCollapseNested: false,
                 commentsShowThreadLines: true,
                 // share options
                 share: 'bottom',
-                shareLinks: [ 'facebook', 'twitter', 'pinterest', 'tumblr', 'linkedin', 'reddit', 'download', 'email' ]
+                shareLinkSize: 48,
+                shareLinks: [ 'facebook', 'twitter', 'pinterest', 'tumblr', 'linkedin', 'reddit', 'vk', 'download', 'email' ]
             }
         };
     </script>
@@ -80,9 +86,12 @@
         #foogallery-gallery-1 .fg-image {
             width: 275px;
         }
+#foogallery-gallery-1 {
+    --fg-social-icon-size: 24px;
+}
     </style>
     <div id="foogallery-gallery-1"
-         class="foogallery fg-social-bottom-left foogallery-container foogallery-default foogallery-lightbox-foogallery fg-center fg-default fg-dark fg-shadow-medium fg-loading-partial fg-loaded-flip fg-caption-always fg-hover-fade fg-hover-zoom fg-ready"
+         class="foogallery fg-light-overlays fg-social-top-right fg-center fg-default fg-dark fg-shadow-medium fg-loading-partial fg-loaded-flip fg-caption-always"
          data-foogallery="{}"
          data-foogallery-lightbox="{}">
 

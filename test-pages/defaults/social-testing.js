@@ -334,7 +334,7 @@
             if ( id.startsWith( '/' ) ) {
                 id = id.substring( 1 );
             }
-            return id;
+            return id.split( '/' );
         };
 
         const attachmentIds = new Set([
@@ -406,16 +406,17 @@
             } );
         };
 
-        const POST_comments = ( data ) => {
+        const POST_comments = ( { comment_id, parent_id, content, author_id, author_name, author_email, author_url, cookie_consent } ) => {
+
             const rawComment = {
-                id: data.get( 'comment_id' ) ?? undefined,
-                parentId: data.get( 'parent_id' ) ?? undefined,
-                content: data.get( 'content' ) ?? undefined,
+                id: comment_id,
+                parentId: parent_id,
+                content: content,
                 author: {
-                    id: data.get( 'author_id' ) ?? undefined,
-                    name: data.get( 'author_name' ) ?? undefined,
-                    email: data.get( 'author_email' ) ?? undefined,
-                    url: data.get( 'author_url' ) ?? undefined
+                    id: author_id,
+                    name: author_name,
+                    email: author_email,
+                    url: author_url
                 }
             };
 
@@ -480,10 +481,10 @@
                 };
                 setTimeout( () => {
                     if ( /^\/foogallery\/v1\/comments/i.test( path ) ) {
-                        // GET /foogallery/v1/comments/{id}
+                        // GET /foogallery/v1/comments/{attachment_id}/{product_id}
                         if ( method === 'GET' ) {
-                            const attachment_id = getIdFromPath( path, '/foogallery/v1/comments' );
-                            return apiResult( GET_comments( { attachment_id } ) );
+                            const [ attachment_id, product_id ] = getIdFromPath( path, '/foogallery/v1/comments' );
+                            return apiResult( GET_comments( { attachment_id, product_id } ) );
                         }
                         // POST /foogallery/v1/comments (create/update)
                         if ( method === 'POST' ) {
