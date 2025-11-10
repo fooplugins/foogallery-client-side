@@ -106,7 +106,7 @@
 }
 
 .fg-social-button-count {
-    text-shadow: 0 0 1px rgba(0 0 0 / 50%);
+    text-shadow: 0 0 3px rgba(0 0 0 / 100%);
 }
 .fg-social-button-count.fg-hidden {
     display: none;
