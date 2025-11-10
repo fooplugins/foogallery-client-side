@@ -13,12 +13,15 @@
             this.item = null;
         },
         isEnabled: function(){
-            return !!this.options?.likes;
+            return this._super() && !!this.options?.likes;
+        },
+        formatCountText: function( singular, plural, count ){
+            const cf = this.panel.tmpl.getCountFormatter();
+            return ( count === 1 ? singular : plural ).replaceAll( /\{COUNT}/g, `${ cf.format( count ) }` );
         },
         update: function() {
             if ( this.item instanceof _.Item ) {
-                const cf = this.panel.tmpl.getCountFormatter();
-                this.$el.attr( 'title', this.panel.il8n.buttons.likesCount.replace( /\{COUNT}/i, cf.format( this.item?.likes ?? 0 ) ) );
+                this.$el.attr( 'title', this.formatCountText( this.panel.il8n.buttons.likesCountSingular, this.panel.il8n.buttons.likesCountPlural, this.item?.likes ?? 0 ) );
                 const $icon = this.$el.find( '.fg-icon' );
                 let icon;
                 if ( this.item?.liked ) {
@@ -56,7 +59,11 @@
     } );
 
     _.template.configure( 'core', {
-        panel: {}
+        panel: {
+            buttons: {
+                likes: true
+            }
+        }
     }, {
         panel: {
             buttons: {
@@ -67,7 +74,8 @@
         panel: {
             buttons: {
                 likes: "Toggle Like",
-                likesCount: "{COUNT} Likes"
+                likesCountSingular: "{COUNT} Like",
+                likesCountPlural: "{COUNT} Likes"
             }
         }
     } );
