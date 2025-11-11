@@ -60,7 +60,7 @@
             return this.cls.position.hasOwnProperty(this.opt.position);
         },
         canLoad: function(media){
-            return media instanceof _.Panel.Media;
+            return this.isEnabled() && media instanceof _.Panel.Media;
         },
         getPosition: function(){
             if (this.isEnabled()){

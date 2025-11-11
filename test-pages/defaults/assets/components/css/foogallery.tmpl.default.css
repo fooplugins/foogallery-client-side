@@ -1,0 +1,55 @@
+.fg-default {
+    --fg-gutter: 10px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--fg-gutter);
+}
+.fg-default .fg-image {
+	border-radius: 0;
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin: 0;
+	padding: 0;
+}
+
+/* Horizontal alignment */
+.fg-default.fg-left {
+    justify-content: flex-start;
+}
+
+.fg-default.fg-center {
+    justify-content: center;
+}
+
+.fg-default.fg-right {
+    justify-content: flex-end;
+}
+@media only screen and (max-width: 600px) {
+    .fg-default .fg-item {
+        --fg-m-column-width: 100%;
+    }
+    .fg-default.fg-m-col1 .fg-image,
+    .fg-default.fg-m-col2 .fg-image,
+    .fg-default.fg-m-col3 .fg-image {
+        width: 100%;
+    }
+
+    .fg-default.fg-m-col1 .fg-item {
+        --fg-m-column-width: 100%;
+    }
+    .fg-default.fg-m-col2 .fg-item {
+        --fg-m-column-width: calc( calc( 100% - calc( var(--fg-gutter) * 1 ) ) / 2 );
+    }
+    .fg-default.fg-m-col3 .fg-item {
+        --fg-m-column-width: calc( calc( 100% - calc( var(--fg-gutter) * 2 ) ) / 3 );
+    }
+
+    .fg-default:is(.fg-m-col1,.fg-m-col2,.fg-m-col3) .fg-item {
+        width: var(--fg-m-column-width);
+        min-width: var(--fg-m-column-width);
+        max-width: var(--fg-m-column-width);
+    }
+}

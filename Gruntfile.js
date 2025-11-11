@@ -258,7 +258,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/panel/areas/sides/SideArea.js",
 						"./src/core/js/panel/areas/sides/Info.js",
 						"./src/core/js/panel/areas/sides/Thumbs.js",
-						"./src/core/js/panel/areas/sides/Cart.js",
+                        "./src/core/js/panel/areas/sides/Cart.js",
 						"./src/core/js/panel/media/Media.js",
 						"./src/core/js/panel/media/Caption.js",
 						"./src/core/js/panel/media/Product.js",
@@ -296,6 +296,24 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
+
+            "social": {
+                "files": {
+                    "./dist/components/js/foogallery.social.js": [
+                        "./src/core/js/social/Item.js",
+                        "./src/core/js/social/Panel.Likes.js",
+                        "./src/core/js/social/Panel.Media.js",
+                        "./src/core/js/social/Panel.Comments.js",
+                        "./src/core/js/social/Panel.Media.Comments.js",
+                    ],
+                    "./dist/components/css/foogallery.social.css": [
+                        "./src/core/css/social/item.css",
+                        "./src/core/css/social/panel-likes.css",
+                        "./src/core/css/social/media-share.css",
+                        "./src/core/css/social/media-comments.css",
+                    ]
+                }
+            },
 
 			"filtering": {
 				"files": {
@@ -497,9 +515,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/js/foogallery.tmpl.foogrid.js",
 						"./dist/components/js/foogallery.tmpl.slider.js",
 
-						"./dist/components/js/foogallery.tmpl.stack-album.js",
-
-						"./dist/components/js/foogallery.ready.js"
+						"./dist/components/js/foogallery.tmpl.stack-album.js"
 					],
 					"./dist/pro/css/foogallery.css": [
 						"./dist/components/css/foogallery.core.pro.css",
@@ -538,9 +554,7 @@ module.exports = function ( grunt ) {
 						"./dist/components/js/foogallery.tmpl.image-viewer.js",
 						"./dist/components/js/foogallery.tmpl.single-thumbnail.js",
 						"./dist/components/js/foogallery.tmpl.stack-album.js",
-						"./dist/components/js/foogallery.tmpl.carousel.js",
-
-						"./dist/components/js/foogallery.ready.js"
+						"./dist/components/js/foogallery.tmpl.carousel.js"
 					],
 					"./dist/free/css/foogallery.css": [
 						"./dist/components/css/foogallery.core.css",
@@ -640,12 +654,18 @@ module.exports = function ( grunt ) {
 				"src": ["**"],
 				"dest": "./test-pages/defaults/assets"
 			},
-			"defaults_free": {
-				"expand": true,
-				"cwd": "dist/free",
-				"src": ["**"],
-				"dest": "./test-pages/defaults/assets/free"
-			}
+            "defaults_free": {
+                "expand": true,
+                "cwd": "dist/free",
+                "src": ["**"],
+                "dest": "./test-pages/defaults/assets/free"
+            },
+            "defaults_components": {
+                "expand": true,
+                "cwd": "dist/components",
+                "src": ["**"],
+                "dest": "./test-pages/defaults/assets/components"
+            }
 		},
 		"jsdoc": {
 			"all": {
@@ -686,6 +706,7 @@ module.exports = function ( grunt ) {
 
 		"clean:foo-utils", // remove the foogallery.utils.js file as it is now part of the core
 
+        "concat:social",
 		"concat:woocommerce",
 		"concat:panel",
 		"concat:panel_pro",
@@ -719,7 +740,8 @@ module.exports = function ( grunt ) {
 		"cssmin:dist",
 
 		"copy:defaults_pro",
-		"copy:defaults_free",
+        "copy:defaults_free",
+        "copy:defaults_components",
 
 		"copy:templates_pro",
 		"copy:templates_free",

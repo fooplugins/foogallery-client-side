@@ -1,0 +1,78 @@
+.foogallery .fg-caption .fg-caption-buttons > .fg-woo-add-to-cart-ajax.fg-woo-adding {
+    color: transparent!important;
+}
+.foogallery .fg-caption .fg-caption-buttons > .fg-woo-add-to-cart-ajax.fg-woo-adding:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -.1em;
+    margin-left: -.1em;
+    width: .2em;
+    height: .2em;
+    pointer-events: none;
+    border-radius: 50%;
+    text-indent: -9999em;
+    color: var(--color);
+    transition: color .3s ease-out;
+    box-shadow: 0 -.35em 0 0 currentColor,
+    .27em -.27em 0 0 hsl(from currentColor h s l / 20%),
+    .34em 0 0 0 hsl(from currentColor h s l / 20%),
+    .265em .265em 0 0 hsl(from currentColor h s l / 20%),
+    0 .34em 0 0 hsl(from currentColor h s l / 20%),
+    -.27em .27em 0 0 hsl(from currentColor h s l / 20%),
+    -.35em 0 0 0 hsl(from currentColor h s l / 50%),
+    -.27em -.27em 0 0 hsl(from currentColor h s l / 70%);
+    -webkit-animation: woo-adding 1.1s infinite steps(8, start);
+    animation: woo-adding 1.1s infinite steps(8, start);
+}
+
+.foogallery:not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a,
+.foogallery:not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery:is(.fg-cb-block-outline,.fg-cb-pill-outline):not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery.fg-light-overlays:is(.fg-cb-block-outline,.fg-cb-pill-outline):not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a,
+.foogallery:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a,
+.foogallery:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery.fg-light-overlays.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a,
+.foogallery.fg-light-overlays.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a,
+.foogallery.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery.fg-light-overlays.fg-light:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a,
+.foogallery.fg-light-overlays.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a:hover {
+    --color: #333;
+}
+
+
+.foogallery.fg-light-overlays:not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a,
+.foogallery.fg-light-overlays:not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery:is(.fg-cb-block-outline,.fg-cb-pill-outline):not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a,
+.foogallery.fg-light-overlays:is(.fg-cb-block-outline,.fg-cb-pill-outline):not(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a,
+.foogallery.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery.fg-light-overlays.fg-light:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a,
+.foogallery.fg-light-overlays.fg-light:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a,
+.foogallery.fg-light-overlays.fg-light:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a:hover,
+.foogallery.fg-light-overlays.fg-dark:is(.fg-captions-bottom,.fg-captions-top,.fg-simple_portfolio):is(.fg-cb-block-outline,.fg-cb-pill-outline) .fg-caption .fg-caption-buttons > a {
+    --color: #FFF;
+}
+
+@-webkit-keyframes woo-adding {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes woo-adding {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

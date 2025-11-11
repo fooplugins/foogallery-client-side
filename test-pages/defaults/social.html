@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Social - Responsive (Default)</title>
+    <link href="assets/theme.css" rel="stylesheet"/>
+    <link href="assets/css/foogallery.min.css" rel="stylesheet"/>
+    <link href="assets/components/css/foogallery.social.css" rel="stylesheet"/>
+    <style>
+        main img {
+            width: auto;
+        }
+    </style>
+    <script src="assets/jquery.min.js" defer></script>
+    <script src="assets/theme.js" defer></script>
+    <script src="social-testing.js" defer></script>
+    <script src="assets/js/foogallery.js" defer></script>
+    <script src="woocommerce-testing.js" defer></script>
+    <script src="assets/components/js/foogallery.social.js" defer></script>
+    <script src="assets/components/js/foogallery.ready.js" defer></script>
+    <script>
+        document.addEventListener( 'DOMContentLoaded', () => {
+
+        } );
+    </script>
+</head>
+<body class="light wp-core-ui">
+<header>
+    <ul class="header-left">
+        <li><a href="index.html">Templates</a></li>
+        <li><h1>Social Testing</h1></li>
+    </ul>
+    <div class="header-right">
+        <button title="Toggle Theme">
+            <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                <path d="M48 72q9.938 0 16.969-7.031t7.031-16.969-7.031-16.969-16.969-7.031v48zM80.063 61.313v18.75h-18.75l-13.313 13.125-13.313-13.125h-18.75v-18.75l-13.125-13.313 13.125-13.313v-18.75h18.75l13.313-13.125 13.313 13.125h18.75v18.75l13.125 13.313z"></path>
+            </svg>
+        </button>
+        <button title="PageSpeed Insights"></button>
+    </div>
+</header>
+<main>
+    <script>
+        globalThis.COMMENTS_ROLE = 'can-edit'; // '' | 'anonymous' | 'awaiting-moderation' | 'logged-in' | 'can-edit'
+        window[ 'FooGallery_auto' ] = {
+            lazy: true,
+            social: {
+                likes: true,
+                canLike: true,
+                comments: true,
+                hideCounts: false
+            },
+            panel: {
+                buttons: {
+                    likes: true
+                },
+                theme: "fg-light",
+                noMobile: false,
+                transition: "fade",
+                exif: "auto",
+                cart: "right",
+                info: "right",
+                infoOverlay: true,
+                infoVisible: true,
+                // comments options
+                comments: "right", // none | top | bottom | left | right
+                commentsOverlay: true,
+                commentsAutoHide: true,
+                commentsVisible: false,
+                commentsRequireNameAndEmail: true,
+                commentsRequireLoggedIn: false,
+                commentsShowCookieConsent: true,
+                commentsShowAvatar: false,
+                commentsNestedDepth: 5,
+                commentsCollapseNested: false,
+                commentsShowThreadLines: true,
+                // share options
+                share: 'bottom',
+                shareLinkSize: 48,
+                shareLinks: [ 'facebook', 'twitter', 'pinterest', 'tumblr', 'linkedin', 'reddit', 'vk', 'download', 'email' ]
+            }
+        };
+    </script>
+    <style>
+        #foogallery-gallery-1 .fg-image {
+            width: 275px;
+        }
+#foogallery-gallery-1 {
+    --fg-social-icon-size: 24px;
+}
+    </style>
+    <div id="foogallery-gallery-1"
+         class="foogallery fg-light-overlays fg-social-top-right fg-center fg-default fg-dark fg-shadow-medium fg-loading-partial fg-loaded-flip fg-caption-always"
+         data-foogallery="{}"
+         data-foogallery-lightbox="{}">
+
+        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(77, 127, 154)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/1.jpg"
+                   data-id="1.jpg"
+                   data-product-id="1"
+                   data-likes="123"
+                   data-liked="true"
+                   data-comments="2222"
+                   data-share-url="http://localhost:10/1.jpg"
+                   data-title="At Eget Tincidunt"
+                   data-description="Non suscipit sed magna aenean in."
+                   data-tags='["275x200","tag2","tag3","tag4"]'
+                   data-exif='{"camera":"Pentax K10D","aperture":"f/4.0","shutter_speed":"1/135 s","focal_length":"16 mm","iso":"66","created_timestamp":"9/11/2025, 8:22:30 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image"
+                     src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E"
+                     data-src-fg="http://localhost:10/275x200/1.jpg"
+                     data-srcset-fg="http://localhost:10/550x400/1.jpg 2x,http://localhost:10/825x600/1.jpg 3x"
+                     width="275" height="200" title="At Eget Tincidunt" alt="Non suscipit sed magna aenean in.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">At Eget Tincidunt At Eget Tincidunt At Eget Tincidunt At Eget Tincidunt At Eget Tincidunt</div>
+                        <div class="fg-caption-desc">Non <a href="#suscipit">suscipit</a> sed magna aenean in.</div>
+                        <div class="fg-caption-buttons">
+                            <a class="fg-woo-view-product" href="http://foogallery-test.local/product/hat/">View Product</a>
+                            <a class="fg-woo-add-to-cart-ajax fg-woo-adding" href="http://foogallery-test.local?add-to-cart=145&amp;foogallery_id=146&amp;foogallery_attachment_id=144">Add To Cart</a>
+                            <a href="#test">Test</a>
+                        </div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(34, 48, 41)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/2.jpg" data-id="2.jpg" data-product-id="2"
+                   data-likes="1234"
+                   data-title="Nisl Condimentum Mauris Hendrerit"
+                   data-description="Ad litora torquent per. Tellus vulputate semper hac habitasse platea, feugiat tempus pharetra fringilla aliquet blandit. Congue porttitor venenatis porta."
+                   data-tags='["275x200","tag1","tag3"]'
+                   data-exif='{"camera":"Olympus C8080WZ","aperture":"f/1.0","shutter_speed":"1/527 s","focal_length":"12 mm","iso":"50","created_timestamp":"9/11/2025, 8:01:22 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image"
+                     src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E"
+                     data-src-fg="http://localhost:10/275x200/2.jpg"
+                     data-srcset-fg="http://localhost:10/550x400/2.jpg 2x,http://localhost:10/825x600/2.jpg 3x"
+                     width="275" height="200" title="Nisl Condimentum Mauris Hendrerit"
+                     alt="Ad litora torquent per. Tellus vulputate semper hac habitasse platea, feugiat tempus pharetra fringilla aliquet blandit. Congue porttitor venenatis porta.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Nisl Condimentum Mauris Hendrerit</div>
+                        <div class="fg-caption-desc">Ad litora torquent per. Tellus vulputate semper hac habitasse
+                            platea, feugiat tempus pharetra fringilla aliquet blandit. Congue porttitor venenatis porta.
+                        </div>
+                        <div class="fg-caption-buttons">
+                            <a class="fg-woo-view-product" href="http://foogallery-test.local/product/hat/">View Product</a>
+                            <a class="fg-woo-add-to-cart-ajax" href="http://foogallery-test.local?add-to-cart=145&amp;foogallery_id=146&amp;foogallery_attachment_id=144">Add To Cart</a>
+                            <a href="#test">Test</a>
+                        </div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(76, 84, 85)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/3.jpg" data-id="3.jpg" data-product-id="3"
+                   data-likes="4254"
+                   data-title="Blandit Class Aptent Taciti" data-description="Blandit class aptent."
+                   data-tags='["275x200","tag3","tag4"]'
+                   data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/2.0","shutter_speed":"1/383 s","focal_length":"2 mm","iso":"72","created_timestamp":"9/6/2025, 8:56:45 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image"
+                     src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E"
+                     data-src-fg="http://localhost:10/275x200/3.jpg"
+                     data-srcset-fg="http://localhost:10/550x400/3.jpg 2x,http://localhost:10/825x600/3.jpg 3x"
+                     width="275" height="200" title="Blandit Class Aptent Taciti" alt="Blandit class aptent.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Blandit Class Aptent Taciti</div>
+                        <div class="fg-caption-desc">Blandit class aptent.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(53, 61, 23)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/4.jpg" data-id="4.jpg" data-product-id="4"
+                   data-title="Parturient Montes Nascetur"
+                   data-description="Volutpat massa dictum at eget tincidunt arcu." data-tags='["275x200","tag3"]'
+                   data-exif='{"camera":"Kodak CX7530","aperture":"f/4.0","shutter_speed":"1/566 s","focal_length":"23 mm","iso":"53","created_timestamp":"9/10/2025, 8:10:13 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image"
+                     src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E"
+                     data-src-fg="http://localhost:10/275x200/4.jpg"
+                     data-srcset-fg="http://localhost:10/550x400/4.jpg 2x,http://localhost:10/825x600/4.jpg 3x"
+                     width="275" height="200" title="Parturient Montes Nascetur"
+                     alt="Volutpat massa dictum at eget tincidunt arcu.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Parturient Montes Nascetur</div>
+                        <div class="fg-caption-desc">Volutpat massa dictum at eget tincidunt arcu.</div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(23, 65, 24)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/5.jpg" data-id="5.jpg" data-product-id="5"
+                   data-title="Habitasse Platea Dictumst"
+                   data-description="Vehicula lacus pellentesque. Habitant tristique senectus netus egestas purus quisque, mus mattis vehicula lacus pellentesque ac."
+                   data-tags='["275x200","tag3","tag4"]'
+                   data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/1.0","shutter_speed":"1/633 s","focal_length":"20 mm","iso":"59","created_timestamp":"9/7/2025, 8:25:30 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image"
+                     src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E"
+                     data-src-fg="http://localhost:10/275x200/5.jpg"
+                     data-srcset-fg="http://localhost:10/550x400/5.jpg 2x,http://localhost:10/825x600/5.jpg 3x"
+                     width="275" height="200" title="Habitasse Platea Dictumst"
+                     alt="Vehicula lacus pellentesque. Habitant tristique senectus netus egestas purus quisque, mus mattis vehicula lacus pellentesque ac.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Habitasse Platea Dictumst</div>
+                        <div class="fg-caption-desc">Vehicula lacus pellentesque. Habitant tristique senectus netus
+                            egestas purus quisque, mus mattis vehicula lacus pellentesque ac.
+                        </div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(221, 193, 115)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/6.jpg" data-id="6.jpg" data-product-id="6"
+                   data-title="Interdum Sem Ullamcorper Nec"
+                   data-description="Per conubia nostra inceptos himenaeos proin dapibus. Dis parturient montes nascetur ridiculus mus mattis."
+                   data-tags='["275x200","tag4","tag2","tag5","tag3"]'
+                   data-exif='{"camera":"Samsung Digimax i50","aperture":"f/4.0","shutter_speed":"1/720 s","focal_length":"16 mm","iso":"88","created_timestamp":"9/9/2025, 8:23:09 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image"
+                     src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E"
+                     data-src-fg="http://localhost:10/275x200/6.jpg"
+                     data-srcset-fg="http://localhost:10/550x400/6.jpg 2x,http://localhost:10/825x600/6.jpg 3x"
+                     width="275" height="200" title="Interdum Sem Ullamcorper Nec"
+                     alt="Per conubia nostra inceptos himenaeos proin dapibus. Dis parturient montes nascetur ridiculus mus mattis.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Interdum Sem Ullamcorper Nec</div>
+                        <div class="fg-caption-desc">Per conubia nostra inceptos himenaeos proin dapibus. Dis parturient
+                            montes nascetur ridiculus mus mattis.
+                        </div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(226, 170, 207)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/7.jpg" data-id="7.jpg" data-product-id="7"
+                   data-title="Vel Et Nisi Maximus"
+                   data-description="Ligula dignissim non suscipit sed magna, vitae eros odio fusce. Phasellus cubilia curae."
+                   data-tags='["275x200","tag5"]'
+                   data-exif='{"camera":"Panasonic DMC-FZ30","aperture":"f/1.0","shutter_speed":"1/671 s","focal_length":"33 mm","iso":"53","created_timestamp":"9/10/2025, 8:43:50 AM","orientation":"Right Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image"
+                     src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E"
+                     data-src-fg="http://localhost:10/275x200/7.jpg"
+                     data-srcset-fg="http://localhost:10/550x400/7.jpg 2x,http://localhost:10/825x600/7.jpg 3x"
+                     width="275" height="200" title="Vel Et Nisi Maximus"
+                     alt="Ligula dignissim non suscipit sed magna, vitae eros odio fusce. Phasellus cubilia curae.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Vel Et Nisi Maximus</div>
+                        <div class="fg-caption-desc">Ligula dignissim non suscipit sed magna, vitae eros odio fusce.
+                            Phasellus cubilia curae.
+                        </div>
+                        <div class="fg-caption-buttons">
+                            <a class="fg-woo-view-product" href="http://foogallery-test.local/product/hat/">View Product</a>
+                            <a class="fg-woo-add-to-cart-ajax fg-woo-adding" href="http://foogallery-test.local?add-to-cart=145&amp;foogallery_id=146&amp;foogallery_attachment_id=144">Add To Cart</a>
+                            <a href="#test">Test</a>
+                        </div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(21, 26, 33)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/8.jpg" data-id="8.jpg" data-product-id="8"
+                   data-title="Est Integer Ligula Dignissim Non"
+                   data-description="Habitasse platea dictumst rhoncus malesuada. Vehicula lacus pellentesque."
+                   data-tags='["275x200","tag4","tag1","tag3","tag5"]'
+                   data-exif='{"camera":"Fujifilm FinePix E500","aperture":"f/2.0","shutter_speed":"1/642 s","focal_length":"5 mm","iso":"86","created_timestamp":"9/6/2025, 8:20:19 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image"
+                     src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E"
+                     data-src-fg="http://localhost:10/275x200/8.jpg"
+                     data-srcset-fg="http://localhost:10/550x400/8.jpg 2x,http://localhost:10/825x600/8.jpg 3x"
+                     width="275" height="200" title="Est Integer Ligula Dignissim Non"
+                     alt="Habitasse platea dictumst rhoncus malesuada. Vehicula lacus pellentesque.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Est Integer Ligula Dignissim Non</div>
+                        <div class="fg-caption-desc">Habitasse platea dictumst rhoncus malesuada. Vehicula lacus
+                            pellentesque.
+                        </div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(185, 76, 37)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/9.jpg" data-id="9.jpg" data-product-id="9"
+                   data-title="Mi Varius Turpis Ex Quam"
+                   data-description="Sit amet consectetur adipiscing elit maecenas. Ullamcorper nec vestibulum erat leo viverra felis, hendrerit tellus vulputate, bibendum fames primis faucibus elementum praesent."
+                   data-tags='["275x200","tag2","tag5","tag4"]'
+                   data-exif='{"camera":"Panasonic DMC-FZ30","aperture":"f/3.0","shutter_speed":"1/680 s","focal_length":"14 mm","iso":"62","created_timestamp":"9/5/2025, 8:28:14 AM","orientation":"Left Side"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image"
+                     src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E"
+                     data-src-fg="http://localhost:10/275x200/9.jpg"
+                     data-srcset-fg="http://localhost:10/550x400/9.jpg 2x,http://localhost:10/825x600/9.jpg 3x"
+                     width="275" height="200" title="Mi Varius Turpis Ex Quam"
+                     alt="Sit amet consectetur adipiscing elit maecenas. Ullamcorper nec vestibulum erat leo viverra felis, hendrerit tellus vulputate, bibendum fames primis faucibus elementum praesent.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Mi Varius Turpis Ex Quam</div>
+                        <div class="fg-caption-desc">Sit amet consectetur adipiscing elit maecenas. Ullamcorper nec
+                            vestibulum erat leo viverra felis, hendrerit tellus vulputate, bibendum fames primis
+                            faucibus elementum praesent.
+                        </div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+        <div class="fg-item fg-type-image fg-item-exif fg-idle" style="--fg-dominant-color:rgb(80, 96, 51)">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="http://localhost:10/10.jpg" data-id="10.jpg" data-product-id="10"
+                   data-title="Fames Primis Faucibus Elementum"
+                   data-description="Magnis dis parturient montes nascetur ridiculus mus. Torquent per conubia, neque ut consequat ante est. Diam euismod neque ut consequat ante est. Vulputate semper hac habitasse platea dictumst."
+                   data-tags='["275x200","tag2"]'
+                   data-exif='{"camera":"Konica Minolta DiMAGE Z3","aperture":"f/2.0","shutter_speed":"1/429 s","focal_length":"31 mm","iso":"66","created_timestamp":"9/9/2025, 8:16:46 AM","orientation":"Top"}'>
+			<span class="fg-image-wrap">
+				<img class="fg-image"
+                     src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22275%20height=%22200%22%20viewBox=%220%200%20275%20200%22%3E%3C/svg%3E"
+                     data-src-fg="http://localhost:10/275x200/10.jpg"
+                     data-srcset-fg="http://localhost:10/550x400/10.jpg 2x,http://localhost:10/825x600/10.jpg 3x"
+                     width="275" height="200" title="Fames Primis Faucibus Elementum"
+                     alt="Magnis dis parturient montes nascetur ridiculus mus. Torquent per conubia, neque ut consequat ante est. Diam euismod neque ut consequat ante est. Vulputate semper hac habitasse platea dictumst.">
+			</span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption">
+                    <div class="fg-caption-inner">
+                        <div class="fg-caption-title">Fames Primis Faucibus Elementum</div>
+                        <div class="fg-caption-desc">Magnis dis parturient montes nascetur ridiculus mus. Torquent per
+                            conubia, neque ut consequat ante est. Diam euismod neque ut consequat ante est. Vulputate
+                            semper hac habitasse platea dictumst.
+                        </div>
+                    </div>
+                </figcaption>
+            </figure>
+            <div class="fg-loader"></div>
+        </div>
+
+
+    </div>
+
+</main>
+</body>
+</html>

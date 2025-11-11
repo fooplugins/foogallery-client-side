@@ -7,23 +7,23 @@
 
 /* Border Color */
 .fg-panel.fg-light,
-.fg-panel.fg-light :is(.fg-panel-info-inner,.fg-panel-cart-inner,.fg-panel-thumbs-inner),
+.fg-panel.fg-light :is(.fg-panel-info-inner,.fg-panel-cart-inner,.fg-panel-comments-inner,.fg-panel-thumbs-inner),
 .fg-panel.fg-light.fg-panel-preserve-button-space .fg-media-iframe .fg-media-content,
 .fg-panel.fg-light .fg-panel-thumb:is(.fg-idle,.fg-loading,.fg-error) .fg-panel-thumb-media {
     border-color: #e2e2e2;
 }
 
 .fg-panel.fg-dark,
-.fg-panel.fg-dark :is(.fg-panel-info-inner,.fg-panel-cart-inner,.fg-panel-thumbs-inner),
+.fg-panel.fg-dark :is(.fg-panel-info-inner,.fg-panel-cart-inner,.fg-panel-comments-inner,.fg-panel-thumbs-inner),
 .fg-panel.fg-dark.fg-panel-preserve-button-space .fg-media-iframe .fg-media-content,
 .fg-panel.fg-dark .fg-panel-thumb:is(.fg-idle,.fg-loading,.fg-error) .fg-panel-thumb-media {
     border-color: #232323;
 }
 
-.fg-panel.fg-light :is(.fg-media-caption-title,.fg-media-caption-exif,.fg-media-product-body) {
+.fg-panel.fg-light :is(.fg-media-caption-title,.fg-media-caption-exif,.fg-media-product-body,.fg-media-comments-body,.fg-comments-error,.fg-comments-error-title,.fg-comments-form,.fg-comments-form-title,.fg-comments-form-control-input,.fg-comments-form-leave-reply-wrap) {
     border-color: #e2e2e2;
 }
-.fg-panel.fg-dark :is(.fg-media-caption-title,.fg-media-caption-exif,.fg-media-product-body) {
+.fg-panel.fg-dark :is(.fg-media-caption-title,.fg-media-caption-exif,.fg-media-product-body,.fg-media-comments-body,.fg-comments-error,.fg-comments-error-title,.fg-comments-form,.fg-comments-form-title,.fg-comments-form-control-input,.fg-comments-form-leave-reply-wrap) {
     border-color: #767676;
 }
 /* Background Color */
@@ -36,11 +36,26 @@
     background-color: #151515;
 }
 
-.fg-panel.fg-light :is(.fg-panel-cart-inner,.fg-panel-info-inner) {
+.fg-panel.fg-light :is(.fg-panel-cart-inner,.fg-panel-info-inner,.fg-panel-comments-inner) {
     background-color: rgba(255, 255, 255, 0.95);
 }
-.fg-panel.fg-dark :is(.fg-panel-cart-inner,.fg-panel-info-inner) {
+.fg-panel.fg-dark :is(.fg-panel-cart-inner,.fg-panel-info-inner,.fg-panel-comments-inner) {
     background-color: rgba(51, 51, 51, 0.95);
+}
+
+/* Comments */
+.fg-panel.fg-light .fg-comments-author {
+    color: #767676;
+}
+.fg-panel.fg-light .fg-comments-date {
+    color: #777777;
+}
+
+.fg-panel.fg-dark .fg-comments-author {
+    color: #FFFFFF;
+}
+.fg-panel.fg-dark .fg-comments-date {
+    color: #bbbbbb;
 }
 
 /* EXIF Colors */
@@ -62,7 +77,8 @@
 .fg-panel.fg-dark .fg-panel-button.fg-panel-button-primary,
 .fg-panel.fg-light :is(.fg-panel-button,.fg-panel-thumbs-button,.fg-panel-thumb,.fg-panel-thumb-spacer),
 .fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay) .fg-panel-info-inner,
-.fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-cart-overlay) .fg-panel-cart-inner {
+.fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-cart-overlay) .fg-panel-cart-inner,
+.fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-comments-overlay) .fg-panel-comments-inner {
     background-color: #FFF;
     border-color: #e2e2e2;
 }
@@ -72,6 +88,7 @@
 }
 .fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay) .fg-panel-info-inner,
 .fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-cart-overlay) .fg-panel-cart-inner,
+.fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-comments-overlay) .fg-panel-comments-inner,
 .fg-panel.fg-light .fg-panel-thumb.fg-selected {
     background-color: #f0f0f0;
 }
@@ -88,7 +105,8 @@
 .fg-panel.fg-light .fg-panel-button.fg-panel-button-primary,
 .fg-panel.fg-dark :is(.fg-panel-button,.fg-panel-thumbs-button,.fg-panel-thumb,.fg-panel-thumb-spacer),
 .fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay) .fg-panel-info-inner,
-.fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-cart-overlay) .fg-panel-cart-inner {
+.fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-cart-overlay) .fg-panel-cart-inner,
+.fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-comments-overlay) .fg-panel-comments-inner {
     background-color: #333;
     border-color: #222;
 }
@@ -98,6 +116,7 @@
 }
 .fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay) .fg-panel-info-inner,
 .fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-cart-overlay) .fg-panel-cart-inner,
+.fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-comments-overlay) .fg-panel-comments-inner,
 .fg-panel.fg-dark .fg-panel-thumb.fg-selected {
     background-color: #2c2c2c;
 }

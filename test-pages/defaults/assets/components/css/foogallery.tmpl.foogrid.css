@@ -1,0 +1,308 @@
+.foogallery.foogrid {
+    --fg-gutter: 10px;
+    --fg-column-width: 100%;
+    --fg-col2-width: calc( calc( 100% - calc( var(--fg-gutter) * 1 ) ) / 2 );
+    --fg-col3-width: calc( calc( 100% - calc( var(--fg-gutter) * 2 ) ) / 3 );
+    --fg-col4-width: calc( calc( 100% - calc( var(--fg-gutter) * 3 ) ) / 4 );
+    --fg-col5-width: calc( calc( 100% - calc( var(--fg-gutter) * 4 ) ) / 5 );
+    --fg-col6-width: calc( calc( 100% - calc( var(--fg-gutter) * 5 ) ) / 6 );
+    --fg-col7-width: calc( calc( 100% - calc( var(--fg-gutter) * 6 ) ) / 7 );
+    --fg-col8-width: calc( calc( 100% - calc( var(--fg-gutter) * 7 ) ) / 8 );
+
+    display: block;
+    padding: 0;
+    width: 100%;
+    font-size: 0;
+    line-height: 0;
+}
+.foogrid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.foogrid.foogrid-cols-2 {
+    --fg-column-width: var(--fg-col2-width);
+}
+.foogrid.foogrid-cols-3 {
+    --fg-column-width: var(--fg-col3-width);
+}
+.foogrid.foogrid-cols-4 {
+    --fg-column-width: var(--fg-col4-width);
+}
+.foogrid.foogrid-cols-5 {
+    --fg-column-width: var(--fg-col5-width);
+}
+.foogrid.foogrid-cols-6 {
+    --fg-column-width: var(--fg-col6-width);
+}
+.foogrid.foogrid-cols-7 {
+    --fg-column-width: var(--fg-col7-width);
+}
+.foogrid.foogrid-cols-8 {
+    --fg-column-width: var(--fg-col8-width);
+}
+
+.foogrid .fg-item {
+    width: var(--fg-column-width);
+    max-width: var(--fg-column-width);
+    z-index: 1;
+    position: relative;
+    display: inline-block;
+    margin: 0 var(--fg-gutter) var(--fg-gutter) 0;
+    padding: 0;
+    font-size: 16px;
+}
+.foogrid.foogrid-cols-1 .fg-item:nth-of-type(1n),
+.foogrid.foogrid-cols-2 .fg-item:nth-of-type(2n),
+.foogrid.foogrid-cols-3 .fg-item:nth-of-type(3n),
+.foogrid.foogrid-cols-4 .fg-item:nth-of-type(4n),
+.foogrid.foogrid-cols-5 .fg-item:nth-of-type(5n),
+.foogrid.foogrid-cols-6 .fg-item:nth-of-type(6n),
+.foogrid.foogrid-cols-7 .fg-item:nth-of-type(7n),
+.foogrid.foogrid-cols-8 .fg-item:nth-of-type(8n) {
+    margin-right: 0;
+}
+
+.foogrid .fg-image {
+    width: 100%;
+}
+
+/* Force 7 column layout */
+@media only screen and (min-width: 1441px) and (max-width: 1600px) {
+    .foogrid.foogrid-cols-8 {
+        --fg-column-width: var(--fg-col7-width);
+    }
+    .foogrid.foogrid-cols-8 .fg-item:nth-of-type(7n) {
+        margin-right: 0;
+    }
+}
+/* Force 6 column layout */
+@media only screen and (min-width: 1201px) and (max-width: 1440px) {
+    .foogrid.foogrid-cols-7,
+    .foogrid.foogrid-cols-8 {
+        --fg-column-width: var(--fg-col6-width);
+    }
+    .foogrid.foogrid-cols-7 .fg-item:nth-of-type(6n),
+    .foogrid.foogrid-cols-8 .fg-item:nth-of-type(6n) {
+        margin-right: 0;
+    }
+}
+/* Force 5 column layout */
+@media only screen and (min-width: 993px) and (max-width: 1200px) {
+    .foogrid.foogrid-cols-6,
+    .foogrid.foogrid-cols-7,
+    .foogrid.foogrid-cols-8 {
+        --fg-column-width: var(--fg-col5-width);
+    }
+    .foogrid.foogrid-cols-6 .fg-item:nth-of-type(5n),
+    .foogrid.foogrid-cols-7 .fg-item:nth-of-type(5n),
+    .foogrid.foogrid-cols-8 .fg-item:nth-of-type(5n) {
+        margin-right: 0;
+    }
+}
+/* Force 4 column layout */
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+    .foogrid.foogrid-cols-5,
+    .foogrid.foogrid-cols-6,
+    .foogrid.foogrid-cols-7,
+    .foogrid.foogrid-cols-8 {
+        --fg-column-width: var(--fg-col4-width);
+    }
+    .foogrid.foogrid-cols-5 .fg-item:nth-of-type(4n),
+    .foogrid.foogrid-cols-6 .fg-item:nth-of-type(4n),
+    .foogrid.foogrid-cols-7 .fg-item:nth-of-type(4n),
+    .foogrid.foogrid-cols-8 .fg-item:nth-of-type(4n) {
+        margin-right: 0;
+    }
+}
+/* Force 3 column layout */
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    .foogrid.foogrid-cols-4,
+    .foogrid.foogrid-cols-5,
+    .foogrid.foogrid-cols-6,
+    .foogrid.foogrid-cols-7,
+    .foogrid.foogrid-cols-8 {
+        --fg-column-width: var(--fg-col3-width);
+    }
+    .foogrid.foogrid-cols-4 .fg-item:nth-of-type(3n),
+    .foogrid.foogrid-cols-5 .fg-item:nth-of-type(3n),
+    .foogrid.foogrid-cols-6 .fg-item:nth-of-type(3n),
+    .foogrid.foogrid-cols-7 .fg-item:nth-of-type(3n),
+    .foogrid.foogrid-cols-8 .fg-item:nth-of-type(3n) {
+        margin-right: 0;
+    }
+}
+/* Force 2 column layout */
+@media only screen and (min-width: 321px) and (max-width: 480px) {
+    .foogrid.foogrid-cols-3,
+    .foogrid.foogrid-cols-4,
+    .foogrid.foogrid-cols-5,
+    .foogrid.foogrid-cols-6,
+    .foogrid.foogrid-cols-7,
+    .foogrid.foogrid-cols-8 {
+        --fg-column-width: var(--fg-col2-width);
+    }
+    .foogrid.foogrid-cols-3 .fg-item:nth-of-type(2n),
+    .foogrid.foogrid-cols-4 .fg-item:nth-of-type(2n),
+    .foogrid.foogrid-cols-5 .fg-item:nth-of-type(2n),
+    .foogrid.foogrid-cols-6 .fg-item:nth-of-type(2n),
+    .foogrid.foogrid-cols-7 .fg-item:nth-of-type(2n),
+    .foogrid.foogrid-cols-8 .fg-item:nth-of-type(2n) {
+        margin-right: 0;
+    }
+}
+
+/** Create the small pointer for the active item */
+.foogrid .fg-item:after {
+    display: block;
+    content: '';
+    border-bottom: 45px solid transparent;
+    border-left: 35px solid transparent;
+    border-right: 35px solid transparent;
+    height: 0;
+    width: 0;
+    position: absolute;
+    bottom: -45px;
+    left: 50%;
+    margin-left: -35px;
+    visibility: hidden;
+    opacity: 0;
+}
+.foogrid .fg-item.foogrid-visible:after {
+    visibility: visible;
+    opacity: 1;
+}
+.foogrid.fg-light .fg-item:after {
+    border-bottom-color: #e6e6e6;
+}
+.foogrid.fg-dark .fg-item:after {
+    border-bottom-color: #292929;
+}
+
+/* The content block the panel is inserted into to display an item */
+.foogrid-content {
+    display: grid;
+    position: relative;
+    float: left;
+    font-size: 16px;
+    width: 100%;
+    margin: 0 0 var(--fg-gutter) 0;
+    min-height: 0;
+    z-index: 5;
+    opacity: 0;
+    visibility: hidden;
+    outline: 0;
+}
+.fg-gutter-medium .foogrid-content {
+    margin: 0 0 1% 0;
+}
+.fg-gutter-large .foogrid-content {
+    margin: 0 0 1.5% 0;
+}
+.foogrid.fg-light .foogrid-content {
+    background-color: #eee;
+    border: 1px solid #e6e6e6;
+}
+.foogrid.fg-dark .foogrid-content {
+    background-color: #333;
+    border: 1px solid #292929;
+}
+.foogrid-content.foogrid-visible {
+    opacity: 1;
+    visibility: visible;
+    min-height: 315px;
+}
+
+/* Control the aspect ratio of the content block */
+.foogrid-content::before {
+    display: block;
+    content: '';
+    width: 100%;
+    max-width: 100%;
+    height: 0;
+    padding-top: 0;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+.foogrid-content.foogrid-visible::before,
+.foogrid.fg-16-9 .foogrid-content.foogrid-visible::before {
+    padding-top: 56.25%;
+}
+.foogrid.fg-16-10 .foogrid-content.foogrid-visible::before {
+    padding-top: 62.5%;
+}
+.foogrid.fg-4-3 .foogrid-content.foogrid-visible::before {
+    padding-top: 75%;
+}
+
+/* Transitions */
+.foogrid.foogrid-transition-fade .foogrid-content,
+.foogrid.foogrid-transition-horizontal .foogrid-content,
+.foogrid.foogrid-transition-vertical .foogrid-content,
+.foogrid.foogrid-transition-fade .foogrid-content::before,
+.foogrid.foogrid-transition-horizontal .foogrid-content::before,
+.foogrid.foogrid-transition-vertical .foogrid-content::before {
+    transition-duration: .3s;
+    transition-timing-function: ease-in-out;
+}
+
+/* content container slide up/down */
+.foogrid.foogrid-transition-fade .foogrid-content,
+.foogrid.foogrid-transition-horizontal .foogrid-content,
+.foogrid.foogrid-transition-vertical .foogrid-content,
+.foogrid.foogrid-transition-fade .foogrid-content::before,
+.foogrid.foogrid-transition-horizontal .foogrid-content::before,
+.foogrid.foogrid-transition-vertical .foogrid-content::before {
+    transition-property: padding-top, opacity, visibility, min-height;
+}
+
+/* Override panel styling */
+.foogrid-panel.fg-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.foogrid-panel.fg-panel.fg-panel-maximized {
+    position: fixed;
+}
+.foogrid-panel.fg-panel.fg-light {
+    background-color: #eee;
+    border: none;
+}
+.foogrid-panel.fg-panel.fg-dark {
+    background-color: #333;
+    border: none;
+}
+.foogrid-panel.fg-panel.fg-light .fg-panel-area .fg-panel-info-inner {
+    background-color: rgba(238, 238, 238, 0.5);
+    border-width: 0;
+}
+.foogrid-panel.fg-panel.fg-dark .fg-panel-area .fg-panel-info-inner {
+    background-color: rgba(51, 51, 51, 0.5);
+    border-width: 0;
+}
+.foogrid-panel.fg-panel.fg-light.fg-panel-info-bottom .fg-panel-area .fg-panel-info-inner {
+    border-color: #e6e6e6;
+    border-top-width: 1px;
+}
+.foogrid-panel.fg-panel.fg-dark.fg-panel-info-bottom .fg-panel-area .fg-panel-info-inner {
+    border-color: #292929;
+    border-top-width: 1px;
+}
+
+.foogrid-panel.fg-panel.fg-medium.fg-panel-preserve-button-space .fg-media,
+.foogrid-panel.fg-panel.fg-panel-no-mobile.fg-panel-preserve-button-space .fg-media {
+    overflow: visible;
+    top: 25px;
+    left: 62px;
+    width: calc(100% - 124px);
+    height: calc(100% - 50px);
+}
+.foogrid-panel.fg-panel.fg-medium.fg-panel-preserve-button-space .fg-media-content,
+.foogrid-panel.fg-panel.fg-panel-no-mobile.fg-panel-preserve-button-space .fg-media-content {
+    box-shadow: 0 5px 35px rgba(0,0,0,.65);
+}

@@ -3,35 +3,21 @@
     border-width: 1px;
 }
 
-.fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info-inner {
+.fg-panel:is(.fg-medium,.fg-panel-no-mobile) :is(.fg-panel-info-inner,.fg-panel-cart-inner,.fg-panel-comments-inner) {
     border-width: 0;
     border-style: solid;
 }
-
 .fg-panel.fg-panel-info-right:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info-inner {
     border-left-width: 1px;
 }
 .fg-panel.fg-panel-info-right.fg-panel-info-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info-inner {
     border-right-width: 42px;
 }
-
 .fg-panel.fg-panel-info-left:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info-inner {
     border-right-width: 1px;
 }
 .fg-panel.fg-panel-info-left.fg-panel-info-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info-inner {
     border-left-width: 42px;
-}
-
-.fg-panel.fg-panel-info-top:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info-inner {
-    border-bottom-width: 1px;
-}
-.fg-panel.fg-panel-info-bottom:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info-inner {
-    border-top-width: 1px;
-}
-
-.fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner {
-    border-width: 0;
-    border-style: solid;
 }
 
 .fg-panel.fg-panel-cart-right:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner {
@@ -40,7 +26,6 @@
 .fg-panel.fg-panel-cart-right.fg-panel-cart-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner {
     border-right-width: 42px;
 }
-
 .fg-panel.fg-panel-cart-left:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner {
     border-right-width: 1px;
 }
@@ -48,11 +33,17 @@
     border-left-width: 42px;
 }
 
-.fg-panel.fg-panel-cart-top:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner {
-    border-bottom-width: 1px;
+.fg-panel.fg-panel-comments-right:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments-inner {
+    border-left-width: 1px;
 }
-.fg-panel.fg-panel-cart-bottom:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner {
-    border-top-width: 1px;
+.fg-panel.fg-panel-comments-right.fg-panel-comments-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments-inner {
+    border-right-width: 42px;
+}
+.fg-panel.fg-panel-comments-left:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments-inner {
+    border-right-width: 1px;
+}
+.fg-panel.fg-panel-comments-left.fg-panel-comments-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments-inner {
+    border-left-width: 42px;
 }
 
 .fg-panel-thumb,
