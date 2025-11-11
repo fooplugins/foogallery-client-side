@@ -51,16 +51,20 @@
     };
 
     _.Panel.Media.prototype.getShareUrl = function( name, options ) {
-        const {
-            item: { shareUrl = '' } = {},
+        let {
+            item: { shareUrl = '', href = '' } = {},
             caption: { title = '', description = '' } = {},
             panel: { opt: { shareFacebookAppId = '' } = {} } = {}
         } = this;
 
-        let url = '';
+        if ( shareUrl === '/' ) {
+            shareUrl = window.location.href;
+        }
+
+        let networkUrl = '';
         if ( [ 'download', 'email' ].includes( name ) ) {
             if ( name === 'download' ) {
-                return shareUrl;
+                return href;
             }
             if ( name === 'email' ) {
                 const subject = title !== '' ? `subject=${ encodeURIComponent( title ) }` : '';
@@ -71,12 +75,12 @@
                 return `mailto:?${ body }`;
             }
         } else {
-            url = options.urlFormat.replaceAll( /\{share_url}/g, encodeURIComponent( shareUrl ) );
-            url = url.replaceAll( /\{title}/g, encodeURIComponent( title ) );
-            url = url.replaceAll( /\{description}/g, encodeURIComponent( description ) );
-            url = url.replaceAll( /\{app_id}/g, encodeURIComponent( shareFacebookAppId ) );
+            networkUrl = options.urlFormat.replaceAll( /\{share_url}/g, encodeURIComponent( shareUrl ) );
+            networkUrl = networkUrl.replaceAll( /\{title}/g, encodeURIComponent( title ) );
+            networkUrl = networkUrl.replaceAll( /\{description}/g, encodeURIComponent( description ) );
+            networkUrl = networkUrl.replaceAll( /\{app_id}/g, encodeURIComponent( shareFacebookAppId ) );
         }
-        return url;
+        return networkUrl;
     };
 
     _.Panel.Media.prototype.$createShareLink = function( name ) {
@@ -87,13 +91,15 @@
                 return $();
             }
             const url = this.getShareUrl( name, opt );
-            const $link =  $( '<a/>', { href: url, target: '_blank', rel: 'nofollow' } )
-                .addClass( `fg-share-link fg-share-link-${ name }` )
-                .append( _.icons.get( `social-${ name }`, this.panel.opt.icons ).addClass( 'fg-share-link-icon' ) );
-            if ( name === 'download' ) {
-                $link.attr( 'download', '' );
+            if ( url !== '' ) {
+                const $link =  $( '<a/>', { href: url, target: '_blank', rel: 'nofollow' } )
+                    .addClass( `fg-share-link fg-share-link-${ name }` )
+                    .append( _.icons.get( `social-${ name }`, this.panel.opt.icons ).addClass( 'fg-share-link-icon' ) );
+                if ( name === 'download' ) {
+                    $link.attr( 'download', '' );
+                }
+                return $link;
             }
-            return $link;
         }
         return $();
     };
