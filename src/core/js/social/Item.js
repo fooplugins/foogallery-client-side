@@ -133,8 +133,13 @@
                 .append( _.icons.get( this.liked ? 'heart' : 'heart-outline' ).addClass( 'fg-social-button-icon' ) )
                 .appendTo( $buttons );
 
+            const likesCount = cf.format( this.likes );
+            if ( social?.hideCounts ) {
+                $likes.attr( 'title', likesCount );
+            }
+
             const $likesCount = $( '<span/>' ).addClass( 'fg-social-button-count' )
-                .text( cf.format( this.likes ) )
+                .text( likesCount )
                 .appendTo( $likes );
 
             if ( this.likes === 0 && social?.hideLikesZero ) {
@@ -152,8 +157,13 @@
                 .append( _.icons.get( 'comment' ).addClass( 'fg-social-button-icon' ) )
                 .appendTo( $buttons );
 
+            const commentsCount = cf.format( this.comments );
+            if ( social?.hideCounts ) {
+                $comments.attr( 'title', commentsCount );
+            }
+
             const $commentsCount = $( '<span/>' ).addClass( 'fg-social-button-count' )
-                .text( cf.format( this.comments ) )
+                .text( commentsCount )
                 .appendTo( $comments );
 
             if ( this.comments === 0 && social?.hideCommentsZero ) {
