@@ -136,9 +136,9 @@
             if ( this._loaded ) {
                 return this._loaded;
             }
-            let path = `/foogallery/v1/comments/${ this.media.item.id }`;
+            let path = `/foogallery/v1/comments/${ this.media.item.tmpl.id }/${ this.media.item.id }`;
             if ( this.media?.item?.productId ) {
-                path = `/foogallery/v1/comments/${ this.media.item.id }/${ this.media.item.productId }`;
+                path = `${ path }/${ this.media.item.productId }`;
             }
 
             return this._loaded = apiFetch( { path } ).then( response => {
