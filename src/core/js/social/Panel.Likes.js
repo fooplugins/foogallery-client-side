@@ -54,7 +54,7 @@
         this._super();
         const { opt: { social } } = this.panel.tmpl;
         if ( social.likes ) {
-            this.register( new _.Panel.Likes( this.panel, social ) )
+            this.register( new _.Panel.Likes( this.panel, social ), 100 )
         }
     } );
 
