@@ -46,7 +46,11 @@
     transition-timing-function: ease-in-out;
 }
 
-.fg-media.fg-loaded .fg-share-links {
+.fg-panel-content .fg-share-links {
+    opacity: 0;
+}
+
+.fg-panel-content .fg-media.fg-loaded .fg-share-links {
     opacity: 1;
 }
 
