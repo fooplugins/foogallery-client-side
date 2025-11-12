@@ -355,6 +355,11 @@
             '3.jpg',
         ]);
 
+        const emptyComments = new Set([
+            '3.jpg',
+            '4.jpg',
+        ]);
+
         /**
          *
          * @type {Map<string, boolean>}
@@ -402,7 +407,7 @@
             return new WP_REST_Response( {
                 currentAuthor,
                 closed: closedComments.has( attachment_id ),
-                comments: makeComments( currentAuthor ) ?? []
+                comments: ( emptyComments.has( attachment_id ) ? [] : makeComments( currentAuthor ) ) ?? []
             } );
         };
 
@@ -483,8 +488,8 @@
                     if ( /^\/foogallery\/v1\/comments/i.test( path ) ) {
                         // GET /foogallery/v1/comments/{attachment_id}/{product_id}
                         if ( method === 'GET' ) {
-                            const [ attachment_id, product_id ] = getIdFromPath( path, '/foogallery/v1/comments' );
-                            return apiResult( GET_comments( { attachment_id, product_id } ) );
+                            const [ gallery_id, attachment_id, product_id ] = getIdFromPath( path, '/foogallery/v1/comments' );
+                            return apiResult( GET_comments( { gallery_id, attachment_id, product_id } ) );
                         }
                         // POST /foogallery/v1/comments (create/update)
                         if ( method === 'POST' ) {

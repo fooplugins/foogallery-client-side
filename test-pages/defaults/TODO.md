@@ -8,8 +8,10 @@
 - [x] Add VK share link: https://gist.github.com/saippuakauppias/247af51c6ed50503afe4
 - [x] Update share icons
 - [x] Fix crossorigin attribute
-- [ ] Position share links in info: info-top, info-bottom
+- [x] Position share links in info: info-top, info-bottom
 - [ ] Fix sticky video icon on portfolio ![specificity](portfolio-sticky-video-issue.png)
 - [x] If hide count on thumb icons, show title with count
 - [x] Fix social download link to point to full-size image
 - [x] Share links using '/' will resolve to the current url
+- [x] Fix blank comments if closed & no comments: change title and provide message
+- [x] Fix various CSS issues related to wordpress themes
