@@ -156,7 +156,7 @@
                 console.error( `FooGallery Comments: ${ this.il8n.errorOccurredGET }`, reason );
                 this.$header.text( this.il8n.errorOccurred );
                 this.$body.empty().append(
-                    $( '<p/>' ).text( this.il8n.errorOccurredGET ),
+                    $( '<div/>' ).text( reason?.friendly ?? this.il8n.errorOccurredGET ).addClass( this.cls.errorMessage ),
                     $( '<button/>' ).text( this.il8n.errorRetry ).addClass( this.cls.errorRetry ).on( 'click', e => {
                         e.preventDefault();
                         this._loaded = null;
@@ -564,7 +564,7 @@
                     $form.css( 'display', 'none' );
                     const $error = $( '<div/>' ).addClass( this.cls.error ).append(
                         $( '<div/>' ).text( this.il8n.errorOccurred ).addClass( this.cls.errorTitle ),
-                        $( '<div/>' ).text( this.il8n.errorOccurredPOST ).addClass( this.cls.errorMessage ),
+                        $( '<div/>' ).text( reason?.friendly ?? this.il8n.errorOccurredPOST ).addClass( this.cls.errorMessage ),
                         $( '<button/>' ).text( this.il8n.errorRetry ).addClass( this.cls.errorRetry ).on( 'click', e => {
                             e.preventDefault();
                             $error.remove();
