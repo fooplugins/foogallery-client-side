@@ -4,13 +4,15 @@
     pointer-events: auto;
     display: inline-flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 5px;
     z-index: 1;
-    opacity: 0;
     transition-property: opacity;
     padding: 5px;
+    border-width: 0;
+    border-style: solid;
 }
 
 .fg-share-links.fg-share-links-top {
@@ -25,6 +27,18 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.fg-share-links.fg-share-links-info-top {
+    order: -1;
+    padding: 0 0 10px 0;
+    border-bottom-width: 1px;
+}
+
+.fg-share-links.fg-share-links-info-bottom {
+    order: 100;
+    padding: 10px 0 5px 0;
+    border-top-width: 1px;
 }
 
 .fg-panel:is(.fg-panel-fade,.fg-panel-horizontal,.fg-panel-vertical) .fg-share-links {

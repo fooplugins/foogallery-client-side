@@ -106,12 +106,28 @@
 
     _.Panel.Media.override( 'doCreate', function(){
         if ( this._super() ) {
-            if ( this.canShare() ) {
+            if ( this.canShare() && [ 'top', 'bottom' ].includes( this.panel.opt.share ) ) {
                 const { share, shareLinks = [], shareLinkSize = 24 } = this.panel.opt;
                 this.$socialButtons = $( '<div/>' )
                     .addClass( `fg-share-links fg-share-links-${ share }` ).css( '--fg-social-share-icon-size', `${ shareLinkSize }px` );
                 shareLinks.forEach( name => {
                     this.$socialButtons.append( this.$createShareLink( name ) );
+                } );
+                this.$socialButtons.appendTo( this.$el );
+            }
+            return true;
+        }
+        return false;
+    } );
+
+    _.Panel.Media.Caption.override( 'doCreate', function(){
+        if ( this._super() ) {
+            if ( this.media.canShare() && [ 'info-top', 'info-bottom' ].includes( this.panel.opt.share ) ) {
+                const { share, shareLinks = [], shareLinkSize = 24 } = this.panel.opt;
+                this.$socialButtons = $( '<div/>' )
+                    .addClass( `fg-share-links fg-share-links-${ share }` ).css( '--fg-social-share-icon-size', `${ shareLinkSize }px` );
+                shareLinks.forEach( name => {
+                    this.$socialButtons.append( this.media.$createShareLink( name ) );
                 } );
                 this.$socialButtons.appendTo( this.$el );
             }
