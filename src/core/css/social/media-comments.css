@@ -5,12 +5,13 @@
 .fg-media-comments {
     --fg-comments-spacing: 10px;
     --fg-collapsible-icon-color: #999;
+    --fg-comments-font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;
     position: relative;
     width: 100%;
     height: auto;
     max-width: 100%;
     max-height: 100%;
-    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-family: var(--fg-comments-font-family),sans-serif;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.4;
@@ -195,13 +196,18 @@ details.fg-comments-replies > .fg-comments-responses {
     align-items: flex-start;
 }
 
-.fg-comments-author,
-.fg-comments-author > a {
+.fg-comments-header .fg-comments-author,
+.fg-comments-header .fg-comments-author > a {
     color: inherit;
+    font-family: var(--fg-comments-font-family),sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: normal;
     text-decoration: none;
 }
-.fg-comments-author > a:hover,
-.fg-comments-author > a:focus {
+.fg-comments-header .fg-comments-author > a:hover,
+.fg-comments-header .fg-comments-author > a:focus {
     text-decoration: underline;
 }
 
@@ -209,6 +215,7 @@ details.fg-comments-replies > .fg-comments-responses {
     display: flex;
     flex-direction: row;
     gap: var(--fg-comments-spacing);
+    align-items: center;
 }
 
 .fg-comments-date {
@@ -235,9 +242,9 @@ details.fg-comments-replies > .fg-comments-responses {
     font-size: 14px;
 }
 
-.fg-comments-form-cancel,
-.fg-comments-edit,
-.fg-comments-reply {
+button.fg-comments-form-cancel,
+button.fg-comments-edit,
+button.fg-comments-reply {
     display: inline-block;
     border: none;
     background: none;
@@ -251,13 +258,16 @@ details.fg-comments-replies > .fg-comments-responses {
     color: inherit;
     user-select: none;
 }
-.fg-comments-form-cancel:hover,
-.fg-comments-form-cancel:focus,
-.fg-comments-edit:hover,
-.fg-comments-edit:focus,
-.fg-comments-reply:hover,
-.fg-comments-reply:focus {
+button.fg-comments-form-cancel:hover,
+button.fg-comments-form-cancel:focus,
+button.fg-comments-edit:hover,
+button.fg-comments-edit:focus,
+button.fg-comments-reply:hover,
+button.fg-comments-reply:focus {
     text-decoration: none;
+    border: none;
+    background: none;
+    color: inherit;
 }
 
 .fg-comments-form-cancel:disabled {
@@ -396,7 +406,12 @@ details.fg-comments-replies > .fg-comments-responses {
     width: fit-content;
     height: fit-content;
     padding: 8px 14px;
+    margin: 0;
     border-radius: 3px;
+    font-family: var(--fg-comments-font-family),sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
 }
 .fg-media-comments button:is(.fg-comments-form-submit,.fg-comments-form-leave-reply,.fg-comments-error-retry):disabled {
     opacity: 0.8;
