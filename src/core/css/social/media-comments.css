@@ -274,6 +274,15 @@ button.fg-comments-reply:focus {
     display: none;
 }
 
+.fg-comments-closed-message {
+    width: 100%;
+    border-style: solid;
+    border-width: 0;
+    border-top-width: 1px;
+    margin: 0;
+    padding: var(--fg-comments-spacing) 0;
+}
+
 .fg-comments-error {
     box-sizing: border-box;
     display: flex;

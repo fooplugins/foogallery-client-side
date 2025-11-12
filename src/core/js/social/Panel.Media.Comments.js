@@ -272,7 +272,7 @@
         },
         setHeaderText: function(){
             const total = this.lookup.size;
-            const title = total > 0 ? this.formatCountText( this.il8n.titleSingular, this.il8n.titlePlural, total ) : this.il8n.formLeaveReply;
+            const title = total > 0 ? this.formatCountText( this.il8n.titleSingular, this.il8n.titlePlural, total ) : ( this.closed ? this.il8n.titleEmptyClosed : this.il8n.titleEmpty );
             this.$header.text( title );
         },
         createComments: function() {
@@ -289,6 +289,10 @@
             }
             if ( !this.locked ) {
                 this.createForm( { author: this.currentAuthor } );
+            }
+            if ( this.closed ) {
+                const $msg = $( '<div/>' ).addClass( this.cls.closedMessage ).text( this.il8n.closedMessage );
+                this.$footer.empty().append( $msg );
             }
         },
         destroyResponses: function() {
@@ -784,6 +788,7 @@
                     header: "fg-media-comments-title",
                     body: "fg-media-comments-body",
                     footer: "fg-media-comments-footer",
+                    closedMessage: "fg-comments-closed-message",
                     error: "fg-comments-error",
                     errorTitle: "fg-comments-error-title",
                     errorMessage: "fg-comments-error-message",
@@ -827,6 +832,9 @@
                     errorRetry: "Try Again",
                     titleSingular: "{COUNT} response",
                     titlePlural: "{COUNT} responses",
+                    titleEmpty: "Leave a Reply",
+                    titleEmptyClosed: "No Comments",
+                    closedMessage: "Comments are closed for this item.",
                     responseEdit: "Edit",
                     responseModeration: "Your comment is awaiting moderation. This is a preview; your comment will be visible after it has been approved.",
                     responseReply: "Reply",
