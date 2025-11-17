@@ -307,10 +307,12 @@ module.exports = function ( grunt ) {
                         "./src/core/js/social/Panel.Media.Comments.js",
                     ],
                     "./dist/components/css/foogallery.social.css": [
+                        "./src/core/css/social/panel.css",
                         "./src/core/css/social/item.css",
                         "./src/core/css/social/panel-likes.css",
                         "./src/core/css/social/media-share.css",
                         "./src/core/css/social/media-comments.css",
+                        "./src/core/css/social/theme.css",
                     ]
                 }
             },

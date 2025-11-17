@@ -1,0 +1,47 @@
+/* Border Color */
+.fg-panel.fg-light .fg-panel-comments-inner {
+    border-color: #e2e2e2;
+}
+.fg-panel.fg-dark .fg-panel-comments-inner {
+    border-color: #232323;
+}
+
+.fg-panel.fg-light :is(.fg-share-links,.fg-media-comments-body,.fg-comments-closed-message,.fg-comments-error,.fg-comments-error-title,.fg-comments-form,.fg-comments-form-title,.fg-comments-form-control-input,.fg-comments-form-leave-reply-wrap) {
+    border-color: #e2e2e2;
+}
+.fg-panel.fg-dark :is(.fg-share-links,.fg-media-comments-body,.fg-comments-closed-message,.fg-comments-error,.fg-comments-error-title,.fg-comments-form,.fg-comments-form-title,.fg-comments-form-control-input,.fg-comments-form-leave-reply-wrap) {
+    border-color: #767676;
+}
+
+/* Background Color */
+.fg-panel.fg-light .fg-panel-comments-inner {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+.fg-panel.fg-dark .fg-panel-comments-inner {
+    background-color: rgba(51, 51, 51, 0.95);
+}
+
+/* Comments */
+.fg-panel.fg-light .fg-comments-author {
+    color: #767676;
+}
+.fg-panel.fg-light .fg-comments-date {
+    color: #777777;
+}
+
+.fg-panel.fg-dark .fg-comments-author {
+    color: #FFFFFF;
+}
+.fg-panel.fg-dark .fg-comments-date {
+    color: #bbbbbb;
+}
+
+/* Button & Highlight Colors */
+.fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-comments-overlay) .fg-panel-comments-inner {
+    background-color: #f0f0f0;
+    border-color: #e2e2e2;
+}
+.fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-comments-overlay) .fg-panel-comments-inner {
+    background-color: #2c2c2c;
+    border-color: #222;
+}
