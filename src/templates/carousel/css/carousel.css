@@ -136,9 +136,11 @@ button.fg-carousel-next:is(:hover,:focus) {
     outline: none;
     opacity: 1;
 }
-button.fg-carousel-prev:focus,
-button.fg-carousel-next:focus {
-    border: dashed 1px #444;
+button.fg-carousel-prev:focus:not(:hover),
+button.fg-carousel-next:focus:not(:hover) {
+    outline-style: dashed;
+    outline-width: 1px;
+    outline-offset: -2px;
 }
 .fg-carousel-prev .fg-icon,
 .fg-carousel-next .fg-icon {
@@ -202,6 +204,7 @@ button.fg-carousel-next:focus {
 .foogallery.fg-carousel.fg-light.fg-inverted button.fg-carousel-next {
     color: #FFF;
     background-color: transparent;
+    outline-color: #FFF;
 }
 
 .foogallery.fg-carousel.fg-light .fg-carousel-progress,
@@ -220,6 +223,7 @@ button.fg-carousel-next:focus {
 .foogallery.fg-carousel.fg-dark.fg-inverted button.fg-carousel-next {
     color: #444;
     background-color: transparent;
+    outline-color: #444;
 }
 
 .fg-shadow-outline .fg-carousel-inner {
