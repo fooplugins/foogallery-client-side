@@ -48,9 +48,14 @@
 .fg-paging-container .fg-dot-item .fg-dot-link:active,
 .fg-paging-container .fg-dot-item .fg-dot-link:hover,
 .fg-paging-container .fg-dot-item .fg-dot-link:focus {
-	text-decoration: none;
-	box-shadow: none;
-	outline: none;
+    text-decoration: none;
+    box-shadow: none;
+    outline: none;
+}
+.fg-paging-container .fg-dot-item .fg-dot-link:focus:not(:hover) {
+    outline-style: dashed;
+    outline-width: 1px  ;
+    outline-offset: 1px;
 }
 .fg-paging-container .fg-dot-item.fg-disabled .fg-dot-link,
 .fg-paging-container .fg-dot-item.fg-selected .fg-dot-link {
@@ -73,6 +78,7 @@
 .fg-paging-container.fg-light .fg-dot-item .fg-dot-link {
 	background-color: #eee;
 	border-color: #9d9d9d;
+    outline-color: #9d9d9d;
 }
 .fg-paging-container.fg-light .fg-dot-item.fg-selected .fg-dot-link {
 	border-color: #888;
@@ -101,6 +107,7 @@
 .fg-paging-container.fg-dark .fg-dot-item .fg-dot-link {
 	background-color: #999;
 	border-color: #666;
+    outline-color: #666;
 }
 .fg-paging-container.fg-dark .fg-dot-item.fg-selected .fg-dot-link {
 	border-color: #666;
