@@ -97,13 +97,14 @@
          * @param {object} cls
          * @param {object} sel
          */
-        construct: function(template, opt, cls, sel){
+        construct: function(template, opt, cls, sel, i18n){
             const self = this;
             self.tmpl = template;
             self.el = template.el;
             self.opt = opt;
             self.cls = cls;
             self.sel = sel;
+            self.i18n = i18n;
             self.elem = {
                 inner: null,
                 center: null,
@@ -249,6 +250,7 @@
             } );
             if ( self.elem.prev.type !== "button" ) self.elem.prev.type = "button";
             self.elem.prev.appendChild( _icons.element( "arrow-left" ) );
+            self.elem.prev.title = self.i18n.prev;
 
             self._listeners.add( self.elem.next, "click", function( event ){
                 event.preventDefault();
@@ -257,6 +259,7 @@
             } );
             if ( self.elem.next.type !== "button" ) self.elem.next.type = "button";
             self.elem.next.appendChild( _icons.element( "arrow-right" ) );
+            self.elem.prev.title = self.i18n.next;
         },
         initPagination: function(){
             const self = this;
@@ -265,7 +268,11 @@
                 const bullet = document.createElement( "button" );
                 bullet.type = "button";
                 bullet.classList.add( self.cls.bullet );
-                if ( i === 0 ) bullet.classList.add( self.cls.activeBullet );
+                bullet.title = self.i18n.bullet.replace( /\{ITEM}/g, `${ i + 1 }` );
+                if ( i === 0 ){
+                    bullet.classList.add( self.cls.activeBullet );
+                    bullet.title = self.i18n.activeBullet.replace( /\{ITEM}/g, `${ i + 1 }` );
+                }
                 self._listeners.add( bullet, "click", function( event ){
                     event.preventDefault();
                     self.interacted = true;

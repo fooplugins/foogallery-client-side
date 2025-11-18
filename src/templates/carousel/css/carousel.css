@@ -95,11 +95,15 @@
     }
 }
 
-.fg-carousel-bullet:hover {
+.fg-carousel-bullet:is(:hover,:focus) {
     background: none;
     box-shadow: none;
     outline: none;
     opacity: 1;
+}
+.fg-carousel-bullet:focus {
+    outline: dashed 1px #333;
+    outline-offset: 1px;
 }
 .fg-carousel-bullet.fg-bullet-active {
     opacity: 1;
@@ -124,13 +128,17 @@ button.fg-carousel-next {
     padding: 0;
     margin: 0;
 }
-button.fg-carousel-prev:hover,
-button.fg-carousel-next:hover {
+button.fg-carousel-prev:is(:hover,:focus),
+button.fg-carousel-next:is(:hover,:focus) {
     background: none;
     border: none;
     box-shadow: none;
     outline: none;
     opacity: 1;
+}
+button.fg-carousel-prev:focus,
+button.fg-carousel-next:focus {
+    border: dashed 1px #444;
 }
 .fg-carousel-prev .fg-icon,
 .fg-carousel-next .fg-icon {

@@ -30,7 +30,7 @@
         },
         onPreInit: function(){
             const self = this;
-            self.carousel = new _.Carousel( self, self.template, self.cls.carousel, self.sel.carousel );
+            self.carousel = new _.Carousel( self, self.template, self.cls.carousel, self.sel.carousel, self.il8n.carousel );
         },
         onInit: function(){
             this.carousel.init();
@@ -103,6 +103,13 @@
             prevItem: "fg-item-prev",
             nextItem: "fg-item-next",
             progress: "fg-carousel-progress"
+        }
+    }, {
+        carousel: {
+            prev: "Previous",
+            next: "Next",
+            bullet: "Item {ITEM}",
+            activeBullet: "Item {ITEM} - Current"
         }
     });
 
