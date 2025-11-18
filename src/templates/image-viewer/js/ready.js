@@ -96,12 +96,12 @@
 			return $("<div/>", {"class": self.cls.inner}).append(
 					$("<div/>", {"class": self.cls.innerContainer}),
 					$("<div/>", {"class": self.cls.controls}).append(
-							$("<div/>", {"class": self.cls.prev})
+							$("<button/>", {"class": self.cls.prev, type: 'button', title: self.il8n.prev})
 									.append($("<span/>", {text: self.il8n.prev})),
 							$("<label/>", {"class": self.cls.count, text: self.il8n.count})
 									.prepend($("<span/>", {"class": self.cls.countCurrent, text: "0"}))
 									.append($("<span/>", {"class": self.cls.countTotal, text: "0"})),
-							$("<div/>", {"class": self.cls.next})
+							$("<button/>", {"class": self.cls.next, type: 'button', title: self.il8n.next})
 									.append($("<span/>", {text: self.il8n.next}))
 					)
 			);
@@ -121,7 +121,13 @@
 			self.$current = self.$el.find(self.sel.countCurrent);
 			self.$total = self.$el.find(self.sel.countTotal);
 			self.$prev = self.$el.find(self.sel.prev);
+            if ( !self.$prev.attr('title') ) {
+                self.$prev.attr('title', self.il8n.prev);
+            }
 			self.$next = self.$el.find(self.sel.next);
+            if ( !self.$next.attr('title') ) {
+                self.$next.attr('title', self.il8n.next);
+            }
 		},
 		onInit: function (event) {
 			var self = this;
