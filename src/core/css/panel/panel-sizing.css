@@ -14,6 +14,12 @@
 .fg-panel-thumbs {
     pointer-events: none;
 }
+.fg-panel-content-inner,
+.fg-panel-info-inner,
+.fg-panel-cart-inner,
+.fg-panel-thumbs-inner {
+    pointer-events: auto;
+}
 
 .fg-panel-content {
     display: flex;
@@ -37,92 +43,73 @@
 
 .fg-panel-content-inner,
 .fg-panel-thumbs-inner {
-    pointer-events: auto;
     display: flex;
     overflow: hidden;
     flex: 1;
 }
 
-/* By default collapse and overlay the caption along the bottom on small screens */
-:is(.fg-panel-info-inner, .fg-panel-cart-inner) {
-    pointer-events: auto;
-    display: flex;
-    position: absolute;
-    top: unset;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: auto;
-    min-height: 42px;
-    max-height: 100%;
-}
-.fg-panel.fg-landscape :is(.fg-panel-info-inner, .fg-panel-cart-inner) {
-    right: 37px;
-    width: calc(100% - 37px);
-    max-width: calc(100% - 37px);
-}
-.fg-panel.fg-portrait :is(.fg-panel-info-inner, .fg-panel-cart-inner) {
-    max-height: calc(100% - 37px);
-}
-.fg-landscape.fg-panel-info-top .fg-panel-info-inner,
-.fg-landscape.fg-panel-cart-top .fg-panel-cart-inner {
-    top: 0;
-    bottom: unset;
-}
-.fg-portrait.fg-panel-info-top .fg-panel-info-inner,
-.fg-portrait.fg-panel-cart-top .fg-panel-cart-inner {
-    top: 37px;
-    bottom: unset;
-}
-.fg-landscape.fg-panel-buttons-left :is(.fg-panel-info-inner,.fg-panel-cart-inner) {
-    left: 37px;
-    right: unset;
-}
-.fg-portrait.fg-panel-buttons-bottom :is(.fg-panel-info-inner,.fg-panel-cart-inner) {
-    top: unset;
-    bottom: 37px;
-}
 .fg-panel:is(.fg-medium,.fg-panel-no-mobile) :is(.fg-panel-info-inner,.fg-panel-cart-inner) {
-    position: relative;
-    top: unset;
-    bottom: unset;
-    left: unset;
-    right: unset;
     width: 100%;
     height: 100%;
     max-width: 100%;
     max-height: 100%;
 }
 
-/* Caption Overlay */
-.fg-panel-info-right.fg-panel-info-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info-inner {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-.fg-panel-info-bottom.fg-panel-info-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-info-inner {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-.fg-panel-info-overlay:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-info-top,.fg-panel-info-bottom) .fg-panel-info-inner {
-    height: auto;
-}
+/*.fg-panel.fg-landscape :is(.fg-panel-info-inner, .fg-panel-cart-inner) {*/
+/*    right: 37px;*/
+/*    width: calc(100% - 37px);*/
+/*    max-width: calc(100% - 37px);*/
+/*}*/
 
-/* Cart Overlay */
-.fg-panel-cart-right.fg-panel-cart-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-.fg-panel-cart-bottom.fg-panel-cart-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-cart-inner {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-.fg-panel-cart-overlay:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-cart-top,.fg-panel-cart-bottom) .fg-panel-cart-inner {
-    height: auto;
-}
+/*:is(.fg-panel-info-inner, .fg-panel-cart-inner) {*/
+/*    pointer-events: auto;*/
+/*    display: flex;*/
+/*    position: absolute;*/
+/*    top: unset;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    height: auto;*/
+/*    min-height: 42px;*/
+/*    max-height: 100%;*/
+/*}*/
+/*.fg-panel.fg-landscape :is(.fg-panel-info-inner, .fg-panel-cart-inner) {*/
+/*    right: 37px;*/
+/*    width: calc(100% - 37px);*/
+/*    max-width: calc(100% - 37px);*/
+/*}*/
+/*.fg-panel.fg-portrait :is(.fg-panel-info-inner, .fg-panel-cart-inner) {*/
+/*    max-height: calc(100% - 37px);*/
+/*}*/
+/*.fg-landscape.fg-panel-info-top .fg-panel-info-inner,*/
+/*.fg-landscape.fg-panel-cart-top .fg-panel-cart-inner {*/
+/*    top: 0;*/
+/*    bottom: unset;*/
+/*}*/
+/*.fg-portrait.fg-panel-info-top .fg-panel-info-inner,*/
+/*.fg-portrait.fg-panel-cart-top .fg-panel-cart-inner {*/
+/*    top: 37px;*/
+/*    bottom: unset;*/
+/*}*/
+/*.fg-landscape.fg-panel-buttons-left :is(.fg-panel-info-inner,.fg-panel-cart-inner) {*/
+/*    left: 37px;*/
+/*    right: unset;*/
+/*}*/
+/*.fg-portrait.fg-panel-buttons-bottom :is(.fg-panel-info-inner,.fg-panel-cart-inner) {*/
+/*    top: unset;*/
+/*    bottom: 37px;*/
+/*}*/
+/*.fg-panel:is(.fg-medium,.fg-panel-no-mobile) :is(.fg-panel-info-inner,.fg-panel-cart-inner) {*/
+/*    position: relative;*/
+/*    top: unset;*/
+/*    bottom: unset;*/
+/*    left: unset;*/
+/*    right: unset;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    max-width: 100%;*/
+/*    max-height: 100%;*/
+/*}*/
 
 /* Sizing of the side content and thumbs */
 :is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb,

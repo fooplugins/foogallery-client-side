@@ -56,7 +56,7 @@
                 var enabled = self.isEnabled();
                 self.toggle(enabled);
                 self.disable(!enabled);
-                if (self.isToggle) self.press( self.opt.pressed );
+                if (self.isToggle) self.press( self.isPressed );
             }
             return self.isCreated;
         },

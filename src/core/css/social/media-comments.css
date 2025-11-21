@@ -19,6 +19,9 @@
 :is(.fg-medium,.fg-panel-no-mobile) .fg-media-comments {
     height: 100%;
 }
+:is(.fg-panel-comments-top,.fg-panel-comments-bottom):is(.fg-medium,.fg-panel-no-mobile) .fg-media-comments {
+    padding: 0 42px;
+}
 .fg-media-comments-inner {
     position: relative;
     width: 100%;

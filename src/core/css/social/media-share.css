@@ -1,7 +1,7 @@
 .fg-share-links {
     --fg-social-share-icon-size: 24px;
     position: relative;
-    pointer-events: auto;
+    pointer-events: none;
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -9,24 +9,32 @@
     justify-content: center;
     gap: 5px;
     z-index: 1;
+    opacity: 1;
     transition-property: opacity;
     padding: 5px;
     border-width: 0;
     border-style: solid;
 }
 
+.fg-share-links:is(.fg-share-links-top,.fg-share-links-bottom) {
+    display: flex;
+    grid-column: 4 / 5;
+    grid-row: 4 / 5;
+}
+
+.fg-panel:is(.fg-panel-info-visible,.fg-panel-cart-visible,.fg-panel-comments-visible):not(.fg-medium, .fg-panel-no-mobile) > .fg-share-links {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .fg-share-links.fg-share-links-top {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    align-items: flex-start;
+    align-content: flex-start;
 }
 
 .fg-share-links.fg-share-links-bottom {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    align-items: flex-end;
+    align-content: flex-end;
 }
 
 .fg-share-links.fg-share-links-info-top {
@@ -46,15 +54,8 @@
     transition-timing-function: ease-in-out;
 }
 
-.fg-panel-content .fg-share-links {
-    opacity: 0;
-}
-
-.fg-panel-content .fg-media.fg-loaded .fg-share-links {
-    opacity: 1;
-}
-
 .fg-share-link {
+    pointer-events: auto;
     display: flex;
     align-items: center;
     justify-content: center;

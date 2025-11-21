@@ -59,9 +59,17 @@
                 self.areas.push( self.comments );
             }
 
-            if ( _.Panel.Share ){
-                self.share = new _.Panel.Share(self);
-                self.areas.push( self.share );
+            // Make sure only one side area can occupy the same position, overrides supplied options
+            // There can be only one...
+            const highlanders = self.areas.filter( a => a instanceof _.Panel.SideArea && a.isVisible && a.opt.group === 'overlay' );
+            while ( highlanders.length > 0 ) {
+                const theOne = highlanders.shift();
+                highlanders.forEach( challenger => {
+                    if ( challenger.isTargetingSamePosition( theOne ) ) {
+                        challenger.isVisible = false;
+                        challenger.button.isPressed = false;
+                    }
+                } );
             }
 
             self.$el = null;

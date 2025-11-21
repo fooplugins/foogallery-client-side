@@ -23,6 +23,8 @@
 }
 :is(.fg-panel-info-top,.fg-panel-info-bottom) .fg-media-caption {
     text-align: center;
+}
+:is(.fg-panel-info-top,.fg-panel-info-bottom):is(.fg-medium,.fg-panel-no-mobile) .fg-media-caption {
     padding: 10px 42px;
 }
 .fg-panel-media-caption-left .fg-media-caption {

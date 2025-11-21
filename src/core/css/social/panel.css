@@ -18,25 +18,59 @@
 
 /* Comments Side Area Position - ~/panel/panel-grid.css */
 .fg-panel-comments {
-    grid-column: 4 / 5;
-    grid-row: 4 / 7;
+    grid-column: 3 / 6;
+    grid-row: 3 / 6;
     display: none;
 }
-/* Only show the comments if a position is set */
+/* By default collapse and overlay the caption along the bottom on small screens */
+.fg-portrait.fg-panel-buttons-top:is(.fg-panel-comments-top, .fg-panel-comments-right, .fg-panel-comments-bottom, .fg-panel-comments-left):not(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
+    grid-row: 4 / 6;
+}
+.fg-portrait.fg-panel-buttons-bottom:is(.fg-panel-comments-top, .fg-panel-comments-right, .fg-panel-comments-bottom, .fg-panel-comments-left):not(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
+    grid-row: 3 / 5;
+}
+.fg-landscape.fg-panel-buttons-right:is(.fg-panel-comments-top, .fg-panel-comments-right, .fg-panel-comments-bottom, .fg-panel-comments-left):not(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
+    grid-column: 3 / 5;
+}
+.fg-landscape.fg-panel-buttons-left:is(.fg-panel-comments-top, .fg-panel-comments-right, .fg-panel-comments-bottom, .fg-panel-comments-left):not(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
+    grid-column: 4 / 6;
+}
+/* Only show the caption if a position is set */
 .fg-panel-comments-visible:is(.fg-panel-comments-top, .fg-panel-comments-right, .fg-panel-comments-bottom, .fg-panel-comments-left) .fg-panel-comments {
+    display: block;
+}
+.fg-panel-comments-visible:is(.fg-panel-comments-top, .fg-panel-comments-right, .fg-panel-comments-bottom, .fg-panel-comments-left):not(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
     display: flex;
+    flex-direction: column-reverse;
 }
 .fg-panel-comments-top:not(.fg-panel-comments-overlay):is(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
     grid-row: 2 / 3;
 }
 .fg-panel-comments-bottom:not(.fg-panel-comments-overlay):is(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
-    grid-row: 8 / 9;
+    grid-row: 6 / 7;
 }
 .fg-panel-comments-left:not(.fg-panel-comments-overlay):is(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
     grid-column: 2 / 3;
 }
 .fg-panel-comments-right:not(.fg-panel-comments-overlay):is(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
     grid-column: 6 / 7;
+}
+/* Caption Overlay */
+.fg-panel-comments-top.fg-panel-comments-overlay:is(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
+    grid-column: 4 / 5;
+    grid-row: 3 / 4;
+}
+.fg-panel-comments-bottom.fg-panel-comments-overlay:is(.fg-medium, .fg-panel-no-mobile) .fg-panel-comments {
+    grid-column: 4 / 5;
+    grid-row: 5 / 6;
+}
+.fg-panel-comments-right.fg-panel-comments-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments {
+    grid-column: 5 / 6;
+    grid-row: 3 / 6;
+}
+.fg-panel-comments-left.fg-panel-comments-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments {
+    grid-column: 3 / 4;
+    grid-row: 3 / 6;
 }
 
 /* Comments Side Area Sizing - ~/panel/panel-sizing.css */
@@ -49,66 +83,14 @@
 }
 .fg-panel-comments-inner {
     pointer-events: auto;
-    display: flex;
-    position: absolute;
-    top: unset;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: auto;
-    min-height: 42px;
-    max-height: 100%;
-}
-.fg-panel.fg-landscape .fg-panel-comments-inner {
-    right: 37px;
-    width: calc(100% - 37px);
-    max-width: calc(100% - 37px);
-}
-.fg-panel.fg-portrait .fg-panel-comments-inner {
-    max-height: calc(100% - 37px);
-}
-.fg-landscape.fg-panel-comments-top .fg-panel-comments-inner {
-    top: 0;
-    bottom: unset;
-}
-.fg-portrait.fg-panel-comments-top .fg-panel-comments-inner {
-    top: 37px;
-    bottom: unset;
-}
-.fg-landscape.fg-panel-buttons-left .fg-panel-comments-inner {
-    left: 37px;
-    right: unset;
-}
-.fg-portrait.fg-panel-buttons-bottom .fg-panel-comments-inner {
-    top: unset;
-    bottom: 37px;
 }
 .fg-panel:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments-inner {
-    position: relative;
-    top: unset;
-    bottom: unset;
-    left: unset;
-    right: unset;
     width: 100%;
     height: 100%;
     max-width: 100%;
     max-height: 100%;
 }
 
-/* Comments Overlay */
-.fg-panel-comments-right.fg-panel-comments-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments-inner {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-.fg-panel-comments-bottom.fg-panel-comments-overlay:is(.fg-medium,.fg-panel-no-mobile) .fg-panel-comments-inner {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-.fg-panel-comments-overlay:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-comments-top,.fg-panel-comments-bottom) .fg-panel-comments-inner {
-    height: auto;
-}
 
 /* Comments Width */
 :is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-comments-left,.fg-panel-comments-right) .fg-panel-comments-inner {
