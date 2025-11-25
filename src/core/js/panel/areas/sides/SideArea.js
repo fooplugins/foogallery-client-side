@@ -95,15 +95,9 @@
         },
         isTargetingSamePosition: function( area ) {
             if ( area instanceof _.Panel.SideArea ) {
-                const ov1 = this.opt.overlay,
-                    ov2 = area.opt.overlay;
-                // check if the overlay state is the same
-                if ( ov1 === ov2 ) {
-                    // overlay state is the same so check the position
-                    const pos1 = this.opt.position,
-                        pos2 = area.opt.position;
-                    return _is.string( pos1 ) && _is.string( pos2 ) && pos1 === pos2;
-                }
+                const pos1 = this.opt.position,
+                    pos2 = area.opt.position;
+                return _is.string( pos1 ) && _is.string( pos2 ) && pos1 === pos2;
             }
             return false;
         }

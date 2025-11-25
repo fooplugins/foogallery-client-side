@@ -20,7 +20,7 @@ html.fg-panel-no-scroll body {
 	outline: none;
 	box-sizing: content-box;
 }
-.rtl .fg-panel {
+body.rtl .fg-panel {
 	text-align: right;
 }
 .fg-panel-maximized {

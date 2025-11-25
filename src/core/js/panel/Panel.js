@@ -109,6 +109,7 @@
             self.isSmallScreen = false;
             self.isMediumScreen = false;
             self.isLargeScreen = false;
+            self.isMobileLayout = false;
 
             self.breakpointClassNames = self.opt.breakpoints.map(function(bp){
                 return "fg-" + bp.name + " fg-" + bp.name + "-width" + " fg-" + bp.name + "-height";
@@ -174,7 +175,7 @@
             self.areas.forEach(function(area){
                 area.appendTo( self.$el );
             });
-            self.buttons.appendTo( self.content.$el );
+            self.buttons.appendTo( self.$el );
             return true;
         },
         createElem: function(){
@@ -306,6 +307,7 @@
             self.isLargeScreen = self.$el.hasClass("fg-large");
             self.isXLargeScreen = self.$el.hasClass("fg-x-large");
             self.isSmallScreen = !self.isMediumScreen && !self.isLargeScreen && !self.isXLargeScreen;
+            self.isMobileLayout = self.isSmallScreen && !self.opt.noMobile;
             self.areas.forEach(function (area) {
                 area.resize();
             });
@@ -686,7 +688,9 @@
                 inner: "fg-panel-area-inner"
             },
 
-            content: {},
+            content: {
+                buttons: "fg-panel-content-buttons"
+            },
 
             sideArea: {
                 toggle: "fg-panel-area-toggle",

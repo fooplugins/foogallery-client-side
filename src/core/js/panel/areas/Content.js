@@ -15,11 +15,13 @@
             this._super(panel, "content", {
                 waitForUnload: false
             }, panel.cls.content);
+            this.$buttons = null;
             this.robserver = null;
         },
         doCreate: function(){
             var self = this;
             if (self._super()){
+                self.$buttons = $( "<div/>" ).addClass( self.cls.buttons ).appendTo( self.$el );
                 if (self.panel.opt.swipe){
                     self.$inner.fgswipe({data: {self: self}, swipe: self.onSwipe, allowPageScroll: true});
                 }

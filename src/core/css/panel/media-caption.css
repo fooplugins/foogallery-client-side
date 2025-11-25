@@ -71,7 +71,7 @@
     padding: 10px 0 0 0;
     gap: 10px;
 }
-.rtl .fg-media-caption-exif {
+body.rtl .fg-media-caption-exif {
     text-align: right;
 }
 .fg-media-caption-exif:is(.fg-media-caption-exif-auto,.fg-media-caption-exif-full,.fg-media-caption-exif-partial,.fg-media-caption-exif-minimal) {
@@ -93,7 +93,7 @@
     padding: 0;
     gap: 10px;
 }
-.rtl .fg-media-caption-exif-prop {
+body.rtl .fg-media-caption-exif-prop {
     flex-direction: row-reverse;
 }
 
@@ -178,12 +178,12 @@
 :is(.fg-panel-info-top .fg-media-caption-exif-partial,.fg-panel-info-top .fg-media-caption-exif-full,.fg-panel.fg-medium.fg-panel-info-top .fg-media-caption-exif-auto) .fg-media-caption-exif-tooltip {
     transform: translateY(100%);
 }
-.rtl :is(.fg-media-caption-exif-partial,.fg-media-caption-exif-full,.fg-panel.fg-medium .fg-media-caption-exif-auto) .fg-media-caption-exif-tooltip {
+body.rtl :is(.fg-media-caption-exif-partial,.fg-media-caption-exif-full,.fg-panel.fg-medium .fg-media-caption-exif-auto) .fg-media-caption-exif-tooltip {
     left: unset;
     right: 0;
     transform: translateY(-100%);
 }
-.rtl :is(.fg-panel-info-top .fg-media-caption-exif-partial,.fg-panel-info-top .fg-media-caption-exif-full,.fg-panel.fg-medium.fg-panel-info-top .fg-media-caption-exif-auto) .fg-media-caption-exif-tooltip {
+body.rtl :is(.fg-panel-info-top .fg-media-caption-exif-partial,.fg-panel-info-top .fg-media-caption-exif-full,.fg-panel.fg-medium.fg-panel-info-top .fg-media-caption-exif-auto) .fg-media-caption-exif-tooltip {
     transform: translateY(100%);
 }
 
@@ -210,7 +210,7 @@
 :is(.fg-media-caption-exif-partial,.fg-media-caption-exif-full,.fg-panel.fg-medium .fg-media-caption-exif-auto) .fg-media-caption-exif-tooltip-pointer {
     left: 21px;
 }
-.rtl :is(.fg-media-caption-exif-partial,.fg-media-caption-exif-full,.fg-panel.fg-medium .fg-media-caption-exif-auto) .fg-media-caption-exif-tooltip-pointer {
+body.rtl :is(.fg-media-caption-exif-partial,.fg-media-caption-exif-full,.fg-panel.fg-medium .fg-media-caption-exif-auto) .fg-media-caption-exif-tooltip-pointer {
     left: unset;
     margin-left: unset;
     right: 21px;

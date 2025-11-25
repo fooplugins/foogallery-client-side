@@ -214,6 +214,11 @@
         },
 
         resize: function(){
+            const prev = this.get("prev");
+            const next = this.get("next");
+            const target = this.panel.isMobileLayout ? this.$el : this.panel.content.$buttons;
+            if ( next ) next.prependTo( target );
+            if ( prev ) prev.prependTo( target );
             this.each(function(button){
                 button.resize();
             });
