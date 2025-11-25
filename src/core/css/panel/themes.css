@@ -70,8 +70,6 @@
 .fg-panel.fg-light .fg-panel-button.fg-panel-button-primary[aria-pressed="true"] {
     background-color: #FFF;
 }
-.fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay) .fg-panel-info-inner,
-.fg-panel.fg-light:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-cart-overlay) .fg-panel-cart-inner,
 .fg-panel.fg-light .fg-panel-thumb.fg-selected {
     background-color: #f0f0f0;
 }
@@ -96,8 +94,6 @@
 .fg-panel.fg-dark .fg-panel-button.fg-panel-button-primary[aria-pressed="true"] {
     background-color: #333;
 }
-.fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay) .fg-panel-info-inner,
-.fg-panel.fg-dark:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-cart-overlay) .fg-panel-cart-inner,
 .fg-panel.fg-dark .fg-panel-thumb.fg-selected {
     background-color: #2c2c2c;
 }
