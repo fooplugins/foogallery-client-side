@@ -250,7 +250,9 @@
             } );
             if ( self.elem.prev.type !== "button" ) self.elem.prev.type = "button";
             self.elem.prev.appendChild( _icons.element( "arrow-left" ) );
-            self.elem.prev.title = self.i18n.prev;
+            if ( !self.elem.prev.title?.length ) {
+                self.elem.prev.title = self.i18n.prev;
+            }
 
             self._listeners.add( self.elem.next, "click", function( event ){
                 event.preventDefault();
@@ -259,7 +261,9 @@
             } );
             if ( self.elem.next.type !== "button" ) self.elem.next.type = "button";
             self.elem.next.appendChild( _icons.element( "arrow-right" ) );
-            self.elem.prev.title = self.i18n.next;
+            if ( !self.elem.next.title?.length ) {
+                self.elem.next.title = self.i18n.next;
+            }
         },
         initPagination: function(){
             const self = this;
