@@ -52,11 +52,11 @@
     box-shadow: none;
     outline: none;
 }
-.fg-paging-container .fg-dot-item .fg-dot-link:focus:not(:hover) {
-    outline-style: dashed;
-    outline-width: 1px  ;
-    outline-offset: 1px;
-}
+/*.fg-paging-container .fg-dot-item .fg-dot-link:focus:not(:hover) {*/
+/*    outline-style: dashed;*/
+/*    outline-width: 1px  ;*/
+/*    outline-offset: 1px;*/
+/*}*/
 .fg-paging-container .fg-dot-item.fg-disabled .fg-dot-link,
 .fg-paging-container .fg-dot-item.fg-selected .fg-dot-link {
 	cursor: not-allowed;

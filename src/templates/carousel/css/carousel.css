@@ -101,10 +101,10 @@
     outline: none;
     opacity: 1;
 }
-.fg-carousel button.fg-carousel-bullet:focus {
-    outline: dashed 1px #333;
-    outline-offset: 1px;
-}
+/*.fg-carousel button.fg-carousel-bullet:focus {*/
+/*    outline: dashed 1px #333;*/
+/*    outline-offset: 1px;*/
+/*}*/
 .fg-carousel button.fg-carousel-bullet.fg-bullet-active {
     opacity: 1;
 }
