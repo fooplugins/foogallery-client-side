@@ -71,7 +71,6 @@
 	border-style: solid;
 	line-height: 34px;
     position: relative;
-    height: 39px;
     z-index: 6;
 }
 .fg-image-viewer .fiv-inner .fiv-ctrls:after {
@@ -108,6 +107,9 @@
     outline: none;
     padding: 0 6px;
     margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: normal;
 }
 .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
 .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
