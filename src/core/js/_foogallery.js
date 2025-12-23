@@ -119,6 +119,12 @@
 	 * });
 	 */
 
+    var mobileSize = globalThis?.FooGallery_mobileSize ?? '782px';
+    /**
+     * A very simple screen size based check for mobile sized screens.
+     */
+    _.isMobile = !!(globalThis.matchMedia && globalThis.matchMedia( `(max-width: ${ mobileSize })` ).matches);
+
 	/**
 	 * @summary Checks if the supplied image src is cached by the browser.
 	 * @param {string} src - The image src to check.
