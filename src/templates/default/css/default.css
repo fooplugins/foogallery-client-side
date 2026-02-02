@@ -27,6 +27,44 @@
 .fg-default.fg-right {
     justify-content: flex-end;
 }
+@media only screen and (min-width: 601px) {
+    .fg-default .fg-item {
+        --fg-d-column-width: calc( calc( 100% - calc( var(--fg-gutter) * 2 ) ) / 3 );
+    }
+    .fg-default.fg-d-col1 .fg-image,
+    .fg-default.fg-d-col2 .fg-image,
+    .fg-default.fg-d-col3 .fg-image,
+    .fg-default.fg-d-col4 .fg-image,
+    .fg-default.fg-d-col5 .fg-image,
+    .fg-default.fg-d-col6 .fg-image {
+        width: 100%;
+    }
+
+    .fg-default.fg-d-col1 .fg-item {
+        --fg-d-column-width: 100%;
+    }
+    .fg-default.fg-d-col2 .fg-item {
+        --fg-d-column-width: calc( calc( 100% - calc( var(--fg-gutter) * 1 ) ) / 2 );
+    }
+    .fg-default.fg-d-col3 .fg-item {
+        --fg-d-column-width: calc( calc( 100% - calc( var(--fg-gutter) * 2 ) ) / 3 );
+    }
+    .fg-default.fg-d-col4 .fg-item {
+        --fg-d-column-width: calc( calc( 100% - calc( var(--fg-gutter) * 3 ) ) / 4 );
+    }
+    .fg-default.fg-d-col5 .fg-item {
+        --fg-d-column-width: calc( calc( 100% - calc( var(--fg-gutter) * 4 ) ) / 5 );
+    }
+    .fg-default.fg-d-col6 .fg-item {
+        --fg-d-column-width: calc( calc( 100% - calc( var(--fg-gutter) * 5 ) ) / 6 );
+    }
+
+    .fg-default:is(.fg-d-col1,.fg-d-col2,.fg-d-col3,.fg-d-col4,.fg-d-col5,.fg-d-col6) .fg-item {
+        width: var(--fg-d-column-width);
+        min-width: var(--fg-d-column-width);
+        max-width: var(--fg-d-column-width);
+    }
+}
 @media only screen and (max-width: 600px) {
     .fg-default .fg-item {
         --fg-m-column-width: 100%;
