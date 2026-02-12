@@ -153,6 +153,18 @@
 		getOffsetTop: function(item){
 			return item instanceof _.Item && item.isCreated ? item.$el.offset().top : 0;
 		},
+		getRowLastItem: function(item){
+			if (!(item instanceof _.Item) || !item.isCreated){
+				return item instanceof _.Item ? item.$el : null;
+			}
+			var $item = item.$el,
+				rowTop = Math.round($item.position().top),
+				$next = $item.nextAll('.fg-item'),
+				$sameRow = $next.filter(function(){
+					return Math.round($(this).position().top) === rowTop;
+				});
+			return $sameRow.length ? $sameRow.last() : $item;
+		},
 		scrollTo: function(scrollTop, when, duration){
 			var self = this;
 
@@ -205,7 +217,14 @@
 				self.scrollTo(self.getOffsetTop(item), newRow || self.isFirst).then(function(){
 
 					self.panel.appendTo(self.$section);
-					if (newRow) item.$el.after(self.$section);
+					if (newRow){
+						var $rowLast = self.getRowLastItem(item);
+						if ($rowLast && $rowLast.length){
+							$rowLast.after(self.$section);
+						} else {
+							item.$el.after(self.$section);
+						}
+					}
 					if (self.transitionOpen(newRow)){
 						self.isFirst = false;
 						_t.start(self.$section, function($el){
