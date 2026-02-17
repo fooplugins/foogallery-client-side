@@ -43,6 +43,7 @@
             var self = this;
             return $.Deferred(function(def){
                 var img = self.$content.get(0);
+                img.alt = self.item.alt;
                 img.onload = function () {
                     img.onload = img.onerror = null;
                     def.resolve(self);
