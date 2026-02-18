@@ -18,6 +18,9 @@
             this.nestedDepth = this.opt.commentsNestedDepth;
             this.collapseNested = this.opt.commentsCollapseNested;
             this.showThreadLines = this.opt.commentsShowThreadLines;
+            this.showNameField = this.opt.commentsShowNameField !== false;
+            this.showEmailField = this.opt.commentsShowEmailField !== false;
+            this.showWebsiteField = this.opt.commentsShowWebsiteField !== false;
 
             this.$el = null;
             this.$inner = null;
@@ -529,7 +532,7 @@
             const attachmentId = this.media.item.id;
             const galleryId = this.media.item.tmpl.id;
             const guid = _.generateGUID();
-            const { requireNameAndEmail, showCookieConsent, lookup } = this;
+            const { requireNameAndEmail, showCookieConsent, showNameField, showEmailField, showWebsiteField, lookup } = this;
             const d = [];
 
             const $form = $( '<form/>', { id: guid } ).attr( 'autocomplete', 'off' ).addClass( this.cls.form );
@@ -653,31 +656,37 @@
                     value: author.id
                 } ) );
             } else {
-                const [ $name_control ] = this.$createTextInput( `${ guid }[author_name]`, this.il8n.formName, {
-                    type: 'text',
-                    name: 'author_name',
-                    maxlength: 245,
-                    required: requireNameAndEmail,
-                    value: author?.name
-                } );
-                $content.append( $name_control );
+                if ( showNameField ) {
+                    const [ $name_control ] = this.$createTextInput( `${ guid }[author_name]`, this.il8n.formName, {
+                        type: 'text',
+                        name: 'author_name',
+                        maxlength: 245,
+                        required: requireNameAndEmail,
+                        value: author?.name
+                    } );
+                    $content.append( $name_control );
+                }
 
-                const [ $email_control ] = this.$createTextInput( `${ guid }[author_email]`, this.il8n.formEmail, {
-                    type: 'email',
-                    name: 'author_email',
-                    maxlength: 100,
-                    required: requireNameAndEmail,
-                    value: author?.email
-                } );
-                $content.append( $email_control );
+                if ( showEmailField ) {
+                    const [ $email_control ] = this.$createTextInput( `${ guid }[author_email]`, this.il8n.formEmail, {
+                        type: 'email',
+                        name: 'author_email',
+                        maxlength: 100,
+                        required: requireNameAndEmail,
+                        value: author?.email
+                    } );
+                    $content.append( $email_control );
+                }
 
-                const [ $website_control ] = this.$createTextInput( `${ guid }[author_url]`, this.il8n.formWebsite, {
-                    type: 'url',
-                    name: 'author_url',
-                    maxlength: 200,
-                    value: author?.url
-                } );
-                $content.append( $website_control );
+                if ( showWebsiteField ) {
+                    const [ $website_control ] = this.$createTextInput( `${ guid }[author_url]`, this.il8n.formWebsite, {
+                        type: 'url',
+                        name: 'author_url',
+                        maxlength: 200,
+                        value: author?.url
+                    } );
+                    $content.append( $website_control );
+                }
 
                 if ( !editing && showCookieConsent ) {
                     const [ $cookie_consent_control ] = this.$createCheckboxInput( `${ guid }[cookie_consent]`, this.il8n.formCookieConsent, {
@@ -777,7 +786,10 @@
             commentsShowAvatar: true,
             commentsNestedDepth: 5,
             commentsCollapseNested: false,
-            commentsShowThreadLines: false
+            commentsShowThreadLines: false,
+            commentsShowNameField: true,
+            commentsShowEmailField: true,
+            commentsShowWebsiteField: true
         }
     }, {
         panel: {
@@ -854,7 +866,7 @@
                     formEmail: "Email",
                     formWebsite: "Website",
                     formComment: "Comment",
-                    formCookieConsent: "Save my name, email, and website in this browser for the next time I comment.",
+                    formCookieConsent: "Save my details in this browser for the next time I comment.",
                     formSubmit: "Post Comment",
                     formSubmitReply: "Post Comment",
                     formSubmitEdit: "Update Comment"
