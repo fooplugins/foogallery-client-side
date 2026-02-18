@@ -232,8 +232,10 @@
 
     _.Item.override( "doParseItem", doParseItem );
     _.Item.override( "doCreateItem", doCreateItem );
-    _.Video.override( "doParseItem", doParseItem );
-    _.Video.override( "doCreateItem", doCreateItem );
+    if ( _.Video?.override ) {
+        _.Video.override( "doParseItem", doParseItem );
+        _.Video.override( "doCreateItem", doCreateItem );
+    }
 
 } )(
     jQuery,
