@@ -275,7 +275,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/panel/media/video/sources/YouTube.js",
 						"./src/core/js/panel/media/video/sources/TED.js",
 						"./src/core/js/panel/media/video/sources/Facebook.js",
-						"./src/core/js/panel/media/video/sources/Forced.js",
+						"./src/core/js/panel/media/video/sources/Generic.js",
 						"./src/core/js/Lightbox.js"
 					],
 					"./dist/components/css/foogallery.panel.pro.css": [
