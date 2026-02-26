@@ -446,6 +446,23 @@
         }
     };
 
+	const _domParser = new DOMParser();
+
+	/**
+	 * Uses the native DOMParser to decode HTMLEntities in a string.
+	 * @param str
+	 * @returns {string}
+	 */
+	_.decodeHTMLEntities = ( str ) => {
+		let result = '';
+		try {
+			result = _domParser.parseFromString( str, "text/html" ).documentElement.textContent;
+		} catch ( err ) {
+			console.error( `Error decoding HTMLEntities in string "${ str }".`, err );
+		}
+		return result;
+	};
+
 })(
 	FooGallery.$,
 	FooGallery,

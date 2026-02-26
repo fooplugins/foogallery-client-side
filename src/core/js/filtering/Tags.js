@@ -209,7 +209,7 @@
             if ( dropdownEnabled ) {
                 const $option = $( "<option/>", {
                     value: tag.value,
-                    text: _is.string(tag.text) ? tag.text : tag.value
+                    text: _.decodeHTMLEntities( _is.string(tag.text) ? tag.text : tag.value )
                 } ).data( 'tagObject', tag );
 
                 if ( selected ) {
