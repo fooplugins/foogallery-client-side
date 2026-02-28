@@ -78,6 +78,8 @@
             perspective: 150,
             scale: 0.12,
             speed: 300,
+            align: "center", // "center", "left" or "right". Visual alignment of the entire visible item set.
+            activePosition: "center", // "center", "start" or "end". Controls active item position in the visible sequence.
             centerOnClick: true,
             gutter: {
                 min: -40,
