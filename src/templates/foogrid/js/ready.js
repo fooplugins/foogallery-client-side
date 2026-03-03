@@ -10,6 +10,7 @@
 				self.disableTransitions = false;
 				self._panelLayoutTimeout = null;
 				self._mql = [];
+				self._didOpenByDefault = false;
 				self.panel = new _.Panel( self, self.template );
 				self.on({
 					"pre-init": self.onPreInit,
@@ -17,6 +18,7 @@
 					"created-item": self.onCreatedItem,
 					"destroy-item": self.onDestroyItem,
 					"after-state": self.onAfterState,
+					"ready": self.onReady,
 					"before-page-change": self.onBeforePageChange,
 					"before-filter-change": self.onBeforeFilterChange
 				}, self);
@@ -110,6 +112,20 @@
 		onAfterState: function(event, state){
 			if (!(state.item instanceof _.Item)) return;
 			this.open(state.item);
+		},
+		onReady: function(){
+			var self = this;
+			if (self._didOpenByDefault) return;
+			if (self.template.openByDefault !== true) return;
+			if (self.panel.currentItem instanceof _.Item) return;
+
+			var $first = self.getVisibleItems().first(),
+				firstItem = $first.length ? self.items.get($first.get(0), true) : self.items.first();
+
+			if (firstItem instanceof _.Item){
+				self._didOpenByDefault = true;
+				self.open(firstItem);
+			}
 		},
 		onBeforePageChange: function(event, current, next, setPage, isFilter){
 			if (isFilter) return;
@@ -267,32 +283,6 @@
 				$rowLast.after(self.$section);
 			}
 		},
-		scrollTo: function(scrollTop, when, duration){
-			var self = this;
-
-			scrollTop = (_is.number(scrollTop) ? scrollTop : 0) - (+self.template.scrollOffset);
-			when = _is.boolean(when) ? when : true;
-			duration = _is.number(duration) ? duration : 300;
-
-			var $wp = $('#wpadminbar'), $page = $('html, body');
-			if ($wp.length === 1){
-				scrollTop -= $wp.height();
-			}
-
-			return $.Deferred(function(d){
-				if (!self.template.scroll || !when){
-					d.resolve();
-				} else if (self.template.scrollSmooth && !self.panel.isMaximized){
-					$page.animate({ scrollTop: scrollTop }, duration, function(){
-						d.resolve();
-					});
-				} else {
-					$page.scrollTop(scrollTop);
-					d.resolve();
-				}
-			});
-		},
-
 		open: function(item){
 			var self = this;
 			if (item.index !== -1){
@@ -315,36 +305,35 @@
 		doOpen: function(item, newRow){
 			var self = this;
 			return $.Deferred(function(def){
-
-				self.scrollTo(self.getOffsetTop(item), newRow || self.isFirst).then(function(){
-
-					self.panel.appendTo(self.$section);
-					if (newRow){
-						var $rowLast = self.getRowLastItem(item);
-						if ($rowLast && $rowLast.length){
-							$rowLast.after(self.$section);
-						} else {
-							item.$el.after(self.$section);
-						}
-					}
-					if (self.transitionOpen(newRow)){
-						self.isFirst = false;
-						_t.start(self.$section, function($el){
-							$el.addClass(self.cls.visible);
-						}, null, 350).then(function(){
-							def.resolve();
-						}, function(err){
-							def.reject(err);
-						});
+				self.panel.appendTo(self.$section);
+				if (newRow){
+					var $rowLast = self.getRowLastItem(item);
+					if ($rowLast && $rowLast.length){
+						$rowLast.after(self.$section);
 					} else {
-						self.$section.addClass(self.cls.visible);
-						def.resolve();
+						item.$el.after(self.$section);
 					}
-
-				});
-
+				}
+				if (self.transitionOpen(newRow)){
+					self.isFirst = false;
+					_t.start(self.$section, function($el){
+						$el.addClass(self.cls.visible);
+					}, null, 350).then(function(){
+						def.resolve();
+					}, function(err){
+						def.reject(err);
+					});
+				} else {
+					self.$section.addClass(self.cls.visible);
+					def.resolve();
+				}
 			}).then(function(){
-				return self.scrollTo(self.getOffsetTop(item), true);
+				const behavior = self.template.scrollSmooth && (newRow || self.isFirst) ? "smooth" : "instant";
+				self.$section.get(0).scrollIntoView({
+					behavior: behavior,
+					block: "center",
+					inline: "center"
+				});
 			}).then(function(){
 				return self.panel.load(item);
 			}).then(function(){
@@ -418,7 +407,6 @@
 			noPanel: false,
 			classNames: "foogrid-panel",
 			scroll: true,
-			scrollOffset: 0,
 			scrollSmooth: false,
 			loop: true,
 			external: '_blank',
@@ -426,6 +414,7 @@
 			keyboard: true,
 			transitionRow: true,
 			transitionOpen: true,
+			openByDefault: false,
 			noMobile: true,
 			info: "bottom",
             infoVisible: true,
