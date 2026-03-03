@@ -482,17 +482,19 @@
                 const visualRightSide = self.isRTL ? "left" : "right";
                 const dominantSide = activePosition === "start" ? visualRightSide : visualLeftSide;
                 let showCount = Math.max( 0, self.getShowPerSide() * 2 );
+                let positionedLayout = null;
                 let sideLayout = [];
                 let fit = { width: itemWidth, center: 0 };
 
                 // maxItems is a cap; reduce visible items until the positioned sequence fits inner width.
                 while ( showCount >= 0 ){
-                    sideLayout = self.calculate(
+                    positionedLayout = self.calculate(
                         itemWidth,
                         innerWidth + ( itemWidth / 2 ),
                         self.opt.gutter.max,
                         showCount
-                    ).side;
+                    );
+                    sideLayout = positionedLayout.side;
                     fit = self.measureAlignedFit( itemWidth, sideLayout, dominantSide );
                     if ( fit.width <= innerWidth ){
                         break;
@@ -506,6 +508,9 @@
                 layout.sideBySide.left = [];
                 layout.sideBySide.right = [];
                 layout.sideBySide[dominantSide] = sideLayout;
+                if ( positionedLayout && _is.number( positionedLayout.zIndex ) ){
+                    layout.zIndex = positionedLayout.zIndex;
+                }
             }
 
             self.applyVisualAlign( layout, itemWidth, innerWidth );
