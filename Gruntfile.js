@@ -179,7 +179,9 @@ module.exports = function ( grunt ) {
 						"./src/core/css/hover-effects/transitions/scale.css",
 						"./src/core/css/hover-effects/transitions/zoomed.css",
                         "./src/core/css/hover-effects/transitions/semi-zoomed.css",
-						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css"
+						"./src/core/css/hover-effects/transitions/slide-up-right-down-left.css",
+
+						"./src/core/css/appearance/dominant-color.css"
 					]
 				}
 			},
