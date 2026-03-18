@@ -50,7 +50,7 @@
         return [ 'top', 'bottom', 'info-top', 'info-bottom' ].includes( share ) && shareLinks.length > 0 && shareUrl !== '';
     };
 
-    _.Panel.Media.prototype.getShareUrl = function( name, options ) {
+    _.Panel.Media.prototype.getShareUrl = function( name, options, hash ) {
         let {
             item: { shareUrl = '', href = '' } = {},
             caption: { title = '', description = '' } = {},
@@ -58,7 +58,13 @@
         } = this;
 
         if ( shareUrl === '/' ) {
-            shareUrl = window.location.href;
+            if ( _is.string( hash ) && hash !== '' && hash.startsWith( '#' ) ) {
+                const url = new URL( window.location.href, window.location.origin );
+                url.hash = hash;
+                shareUrl = url.toString();
+            } else {
+                shareUrl = window.location.href;
+            }
         }
 
         let networkUrl = '';
@@ -90,7 +96,8 @@
             if ( name === 'download' && !opt?.allow?.includes( this.item.type ) ) {
                 return $();
             }
-            const url = this.getShareUrl( name, opt );
+            const hash = this.panel.tmpl.state.getItemHash( this.item );
+            const url = this.getShareUrl( name, opt, hash );
             if ( url !== '' ) {
                 const $link =  $( '<a/>', { href: url, target: '_blank', rel: 'nofollow' } )
                     .addClass( `fg-share-link fg-share-link-${ name }` )
