@@ -86,9 +86,13 @@
 
 .fg-panel:is(.fg-medium,.fg-panel-no-mobile) :is(.fg-panel-info-inner,.fg-panel-cart-inner) {
     width: 100%;
-    height: fit-content;
+    height: 100%;
     max-width: 100%;
     max-height: 100%;
+}
+
+.fg-panel:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-info-top,.fg-panel-info-bottom,.fg-panel-cart-top,.fg-panel-cart-bottom) :is(.fg-panel-info-inner,.fg-panel-cart-inner) {
+    height: fit-content;
 }
 
 /*.fg-panel.fg-landscape :is(.fg-panel-info-inner, .fg-panel-cart-inner) {*/
