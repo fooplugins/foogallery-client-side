@@ -91,7 +91,8 @@
     max-height: 100%;
 }
 
-.fg-panel:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-info-top,.fg-panel-info-bottom,.fg-panel-cart-top,.fg-panel-cart-bottom) :is(.fg-panel-info-inner,.fg-panel-cart-inner) {
+.fg-panel:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-info-top,.fg-panel-info-bottom) .fg-panel-info-inner,
+.fg-panel:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-cart-top,.fg-panel-cart-bottom) .fg-panel-cart-inner {
     height: fit-content;
 }
 

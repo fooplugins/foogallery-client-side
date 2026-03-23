@@ -16,6 +16,11 @@
     border-style: solid;
 }
 
+.fg-panel:not(.fg-medium, .fg-panel-no-mobile) .fg-share-links {
+    --fg-social-share-icon-size: 24px!important;
+    padding: 10px 5px;
+}
+
 .fg-share-links:is(.fg-share-links-top,.fg-share-links-bottom) {
     display: flex;
     grid-column: 4 / 5;
@@ -67,6 +72,10 @@
     color: #fff!important;
     margin: 0;
     padding: calc( var(--fg-social-share-icon-size) / 4 );
+}
+
+.fg-panel:not(.fg-medium, .fg-panel-no-mobile) .fg-share-link {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 @media (hover: hover) {
