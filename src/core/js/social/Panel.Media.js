@@ -52,7 +52,7 @@
 
     _.Panel.Media.prototype.getShareUrl = function( name, options, hash ) {
         let {
-            item: { shareUrl = '', href = '' } = {},
+            item: { shareUrl = '', href = '', download = '' } = {},
             caption: { title = '', description = '' } = {},
             panel: { opt: { shareFacebookAppId = '' } = {} } = {}
         } = this;
@@ -70,7 +70,7 @@
         let networkUrl = '';
         if ( [ 'download', 'email' ].includes( name ) ) {
             if ( name === 'download' ) {
-                return href;
+                return download;
             }
             if ( name === 'email' ) {
                 const subject = title !== '' ? `subject=${ encodeURIComponent( title ) }` : '';
@@ -104,6 +104,12 @@
                     .append( _.icons.get( `social-${ name }`, this.panel.opt.icons ).addClass( 'fg-share-link-icon' ) );
                 if ( name === 'download' ) {
                     $link.attr( 'download', '' );
+                    $link.on( 'click', function( e ) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        _.downloadImage( url )
+                            .catch( err => console.error( err ) );
+                    } );
                 }
                 return $link;
             }
