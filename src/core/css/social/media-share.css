@@ -11,25 +11,22 @@
     z-index: 1;
     opacity: 1;
     transition-property: opacity;
-    padding: 5px;
+    padding: 10px 5px;
+    margin: 0;
     border-width: 0;
     border-style: solid;
+    width: 100%;
 }
 
 .fg-panel:not(.fg-medium, .fg-panel-no-mobile) .fg-share-links {
     --fg-social-share-icon-size: 24px!important;
-    padding: 10px 5px;
+    margin-top: 37px; /* same height as mobile buttons */
 }
 
 .fg-share-links:is(.fg-share-links-top,.fg-share-links-bottom) {
     display: flex;
-    grid-column: 4 / 5;
-    grid-row: 4 / 5;
-}
-
-.fg-panel:is(.fg-panel-info-visible,.fg-panel-cart-visible,.fg-panel-comments-visible):not(.fg-medium, .fg-panel-no-mobile) > .fg-share-links {
-    opacity: 0;
-    pointer-events: none;
+    grid-column: 3 / 6;
+    grid-row: 3 / 6;
 }
 
 .fg-share-links.fg-share-links-top {
@@ -60,6 +57,8 @@
 }
 
 .fg-share-link {
+    box-sizing: border-box;
+    cursor: pointer;
     pointer-events: auto;
     display: flex;
     align-items: center;

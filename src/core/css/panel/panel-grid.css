@@ -163,20 +163,3 @@
 .fg-panel-thumbs-right .fg-panel-thumbs {
     grid-column: 7 / 8;
 }
-
-/*!* Allow side areas to be stacked *!*/
-/*.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-visible:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-info-left.fg-panel-thumbs-left,.fg-panel-info-right.fg-panel-thumbs-right):not(.fg-panel-info-overlay,.fg-panel-thumbs-no-captions) .fg-panel-info {*/
-/*    grid-row: 4 / 5;*/
-/*}*/
-
-/*.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-visible:is(.fg-medium,.fg-panel-no-mobile):is(.fg-panel-info-left.fg-panel-thumbs-left,.fg-panel-info-right.fg-panel-thumbs-right):not(.fg-panel-info-overlay,.fg-panel-thumbs-no-captions) .fg-panel-thumbs {*/
-/*    grid-row: 5 / 7;*/
-/*}*/
-
-/*.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-visible.fg-panel-info-left.fg-panel-thumbs-left:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay,.fg-panel-thumbs-no-captions) :is(.fg-panel-info,.fg-panel-thumbs) {*/
-/*    grid-column: 1 / 2;*/
-/*}*/
-
-/*.fg-panel-area-stack.fg-panel-thumbs-visible.fg-panel-info-visible.fg-panel-info-right.fg-panel-thumbs-right:is(.fg-medium,.fg-panel-no-mobile):not(.fg-panel-info-overlay,.fg-panel-thumbs-no-captions) :is(.fg-panel-info,.fg-panel-thumbs) {*/
-/*    grid-column: 9 / 10;*/
-/*}*/
