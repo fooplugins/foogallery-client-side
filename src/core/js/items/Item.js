@@ -176,6 +176,12 @@
 			self.href = self.opt.href;
 			/**
 			 * @memberof FooGallery.Item#
+			 * @name download
+			 * @type {string}
+			 */
+			self.download = self.opt.download;
+			/**
+			 * @memberof FooGallery.Item#
 			 * @name placeholder
 			 * @type {string}
 			 */
@@ -566,6 +572,7 @@
 			self.productId = data.productId || self.productId;
 			self.tags = data.tags || self.tags;
 			self.href = data.href || self.$anchor.attr('href') || self.href;
+			self.download = data.download || self.download || self.href;
 
 			var $img;
 			if (self.$image.is("picture")){
@@ -811,7 +818,8 @@
 				"data-description": self.description,
 				"data-tags": self.tags,
 				"data-exif": self.exif,
-				"data-product-id": self.productId
+				"data-product-id": self.productId,
+				"data-download": self.download
 			});
 
 			if (!_is.string(self.placeholder) || self.placeholder.length === 0){

@@ -606,7 +606,8 @@
                 autoProgress: true,
                 info: true,
                 thumbs: false,
-                cart: true
+                cart: true,
+                download: false
             },
             breakpoints: [{
                 name: "medium",
@@ -674,7 +675,8 @@
                 maximize: "fg-panel-button fg-panel-button-maximize",
                 info: "fg-panel-button fg-panel-button-info",
                 thumbs: "fg-panel-button fg-panel-button-thumbs",
-                cart: "fg-panel-button fg-panel-button-cart"
+                cart: "fg-panel-button fg-panel-button-cart",
+                download: "fg-panel-button fg-panel-button-download"
             },
 
             transition: {
@@ -756,7 +758,8 @@
                 autoProgress: "Auto Progress",
                 info: "Toggle Information",
                 thumbs: "Toggle Thumbnails",
-                cart: "Toggle Cart"
+                cart: "Toggle Cart",
+                download: "Download Media"
             }
         }
     });
