@@ -101,14 +101,16 @@
 
     _.Item.prototype.updateCommentCount = function( count ){
         const { opt: { social } } = this.tmpl;
-        const cf = this.tmpl.getCountFormatter();
         this.comments = isNaN( count ) || count < 0 ? 0 : count;
-        const $button = this.$socialOverlay.find( '.fg-social-comments' );
-        $button.find( '.fg-social-button-count' )
-            .text( cf.format( this.comments ) )
-            .toggleClass( 'fg-hidden', ( this.comments === 0 && social?.hideCommentsZeroCount ) || social?.hideCounts );
+        if ( this.isCreated ) {
+            const cf = this.tmpl.getCountFormatter();
+            const $button = this.$socialOverlay.find( '.fg-social-comments' );
+            $button.find( '.fg-social-button-count' )
+                .text( cf.format( this.comments ) )
+                .toggleClass( 'fg-hidden', ( this.comments === 0 && social?.hideCommentsZeroCount ) || social?.hideCounts );
 
-        $button.toggleClass( 'fg-hidden', this.comments === 0 && social?.hideCommentsZero );
+            $button.toggleClass( 'fg-hidden', this.comments === 0 && social?.hideCommentsZero );
+        }
     };
 
     _.Item.prototype.shouldShowCommentsButton = function() {
