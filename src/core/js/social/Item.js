@@ -213,7 +213,7 @@
         this.liked = this.opt?.liked ?? false;
         this.comments = this.opt?.comments ?? 0;
         this.shareUrl = this.opt?.shareUrl ?? '';
-        this.$socialOverlay = this.createSocialOverlay();
+        this.createSocialOverlay();
     };
 
     function doParseItem( $el ) {
