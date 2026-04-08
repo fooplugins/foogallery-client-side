@@ -466,10 +466,25 @@
 	/**
 	 * More reliable way to trigger the download/Save As dialog for images than simply relying on a[download].
 	 * @param {string} url
-	 * @param {string} [name='image']
+	 * @param {?string} [name=null]
 	 * @returns {Promise<void>}
 	 */
-	_.downloadImage = function( url, name = 'image' ){
+	_.downloadImage = function( url, name = null ){
+		let downloadName = name;
+		if ( !_is.string( downloadName ) || _is.empty( downloadName ) ) {
+			downloadName = 'image';
+			const parsed = _utils.url.parts( url );
+			if ( parsed !== null && _is.string( parsed.pathname ) ) {
+				const filename = parsed.pathname.replace( /\/+$/, '' ).split( '/' ).pop();
+				if ( _is.string( filename ) && !_is.empty( filename ) ) {
+					try {
+						downloadName = decodeURIComponent( filename );
+					} catch ( err ) {
+						downloadName = filename;
+					}
+				}
+			}
+		}
 		return fetch(url)
 			.then(function (res) {
 				if (!res.ok) {
@@ -482,7 +497,7 @@
 				try {
 					const a = document.createElement('a');
 					a.href = objectUrl;
-					a.download = name;
+					a.download = downloadName;
 					document.body.appendChild(a);
 					a.click();
 					a.remove();
