@@ -274,5 +274,7 @@
     color: #aaa;
     padding: 10px 5px;
     background: #F7F7F7;
-    height: 100%;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
 }

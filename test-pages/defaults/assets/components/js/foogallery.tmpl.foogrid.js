@@ -4,38 +4,54 @@
 		construct: function(options, element){
 			var self = this;
 			self._super(options, element);
-			self.$section = null;
-			self.isFirst = false;
-			self.disableTransitions = false;
-			self.panel = new _.Panel( self, self.template );
-			self.on({
-				"pre-init": self.onPreInit,
-				"parsed-item": self.onParsedItem,
-				"created-item": self.onCreatedItem,
-				"destroy-item": self.onDestroyItem,
-				"after-state": self.onAfterState,
-				"before-page-change": self.onBeforePageChange,
-				"before-filter-change": self.onBeforeFilterChange
-			}, self);
-			self.panel.on({
-				"next": self.onPanelNext,
-				"prev": self.onPanelPrev,
-				"close": self.onPanelClose,
-				"area-load": self.onPanelAreaLoad,
-				"area-unload": self.onPanelAreaUnload
-			}, self);
+			if ( !self.template.noPanel ) {
+				self.$section = null;
+				self.isFirst = false;
+				self.disableTransitions = false;
+				self._panelLayoutTimeout = null;
+				self._mql = [];
+				self._didOpenByDefault = false;
+				self.panel = new _.Panel( self, self.template );
+				self.on({
+					"pre-init": self.onPreInit,
+					"parsed-item": self.onParsedItem,
+					"created-item": self.onCreatedItem,
+					"destroy-item": self.onDestroyItem,
+					"after-state": self.onAfterState,
+					"ready": self.onReady,
+					"before-page-change": self.onBeforePageChange,
+					"before-filter-change": self.onBeforeFilterChange
+				}, self);
+				self.panel.on({
+					"next": self.onPanelNext,
+					"prev": self.onPanelPrev,
+					"close": self.onPanelClose,
+					"area-load": self.onPanelAreaLoad,
+					"area-unload": self.onPanelAreaUnload
+				}, self);
+			}
 		},
 		destroy: function(preserveState){
 			var self = this, _super = self._super.bind(self);
-			return self.panel.destroy().then(function(){
-				self.$section.remove();
+			if ( self.panel ) {
+				self.unbindMediaQueries();
+				if (self._panelLayoutTimeout != null){
+					clearTimeout(self._panelLayoutTimeout);
+					self._panelLayoutTimeout = null;
+				}
+				return self.panel.destroy().then(function(){
+					self.$section.remove();
+					return _super(preserveState);
+				});
+			} else {
 				return _super(preserveState);
-			});
+			}
 		},
 
 		onPreInit: function(){
 			var self = this, hasTransition = false;
 			self.$section = $('<section/>', {'class': 'foogrid-content'});
+			self.bindMediaQueries();
 			if (self.panel.opt.transition === "none"){
 				if (self.$el.hasClass("foogrid-transition-horizontal")){
 					self.panel.opt.transition = "horizontal";
@@ -97,6 +113,20 @@
 			if (!(state.item instanceof _.Item)) return;
 			this.open(state.item);
 		},
+		onReady: function(){
+			var self = this;
+			if (self._didOpenByDefault) return;
+			if (self.template.openByDefault !== true) return;
+			if (self.panel.currentItem instanceof _.Item) return;
+
+			var $first = self.getVisibleItems().first(),
+				firstItem = $first.length ? self.items.get($first.get(0), true) : self.items.first();
+
+			if (firstItem instanceof _.Item){
+				self._didOpenByDefault = true;
+				self.open(firstItem);
+			}
+		},
 		onBeforePageChange: function(event, current, next, setPage, isFilter){
 			if (isFilter) return;
 			var self = this;
@@ -105,6 +135,54 @@
 		onBeforeFilterChange: function(){
 			var self = this;
 			if (!self.panel.isMaximized) self.close(true, self.panel.isAttached);
+		},
+		onMediaQueryChange: function(){
+			var self = this;
+			if (self._panelLayoutTimeout != null){
+				clearTimeout(self._panelLayoutTimeout);
+			}
+			self._panelLayoutTimeout = setTimeout(function(){
+				self._panelLayoutTimeout = null;
+				self.repositionPanelSection();
+			}, 60);
+		},
+		bindMediaQueries: function(){
+			var self = this;
+			var queries = [
+				"(min-width: 1441px) and (max-width: 1600px)",
+				"(min-width: 1201px) and (max-width: 1440px)",
+				"(min-width: 993px) and (max-width: 1200px)",
+				"(min-width: 769px) and (max-width: 992px)",
+				"(min-width: 481px) and (max-width: 768px)",
+				"(max-width: 480px)"
+			];
+			self.unbindMediaQueries();
+			self._mql = queries.map(function(query){
+				var mql = window.matchMedia(query);
+				var handler = self.onMediaQueryChange.bind(self);
+				if (mql.addEventListener){
+					mql.addEventListener("change", handler);
+				} else if (mql.addListener){
+					mql.addListener(handler);
+				}
+				return {
+					mql: mql,
+					handler: handler
+				};
+			});
+		},
+		unbindMediaQueries: function(){
+			var self = this;
+			if (!self._mql || !self._mql.length) return;
+			self._mql.forEach(function(entry){
+				var mql = entry.mql, handler = entry.handler;
+				if (mql.removeEventListener){
+					mql.removeEventListener("change", handler);
+				} else if (mql.removeListener){
+					mql.removeListener(handler);
+				}
+			});
+			self._mql = [];
 		},
 
 		onPanelNext: function(event, currentItem, nextItem){
@@ -147,32 +225,64 @@
 		getOffsetTop: function(item){
 			return item instanceof _.Item && item.isCreated ? item.$el.offset().top : 0;
 		},
-		scrollTo: function(scrollTop, when, duration){
-			var self = this;
-
-			scrollTop = (_is.number(scrollTop) ? scrollTop : 0) - (+self.template.scrollOffset);
-			when = _is.boolean(when) ? when : true;
-			duration = _is.number(duration) ? duration : 300;
-
-			var $wp = $('#wpadminbar'), $page = $('html, body');
-			if ($wp.length === 1){
-				scrollTop -= $wp.height();
-			}
-
-			return $.Deferred(function(d){
-				if (!self.template.scroll || !when){
-					d.resolve();
-				} else if (self.template.scrollSmooth && !self.panel.isMaximized){
-					$page.animate({ scrollTop: scrollTop }, duration, function(){
-						d.resolve();
-					});
-				} else {
-					$page.scrollTop(scrollTop);
-					d.resolve();
-				}
+		getBaseColumns: function(){
+			var self = this,
+				match = (self.$el.attr("class") || "").match(/\bfoogrid-cols-(\d+)\b/);
+			return match ? parseInt(match[1], 10) : 0;
+		},
+		getForcedMaxColumns: function(){
+			var width = window.innerWidth || document.documentElement.clientWidth || 0;
+			if (width <= 480) return 2;
+			if (width <= 768) return 3;
+			if (width <= 992) return 4;
+			if (width <= 1200) return 5;
+			if (width <= 1440) return 6;
+			if (width <= 1600) return 7;
+			return 0;
+		},
+		getEffectiveColumns: function(){
+			var base = this.getBaseColumns(),
+				forced = this.getForcedMaxColumns();
+			if (!base) return 0;
+			return forced > 0 ? Math.min(base, forced) : base;
+		},
+		getVisibleItems: function(){
+			return this.$el.children(".fg-item").filter(function(){
+				return $(this).css("display") !== "none";
 			});
 		},
+		getRowLastItem: function(item){
+			if (!(item instanceof _.Item) || !item.isCreated){
+				return item instanceof _.Item ? item.$el : null;
+			}
+			var self = this,
+				columns = self.getEffectiveColumns(),
+				$items = self.getVisibleItems(),
+				currentIndex = $items.index(item.$el);
 
+			if (!columns || currentIndex === -1){
+				return item.$el;
+			}
+
+			var rowEndIndex = Math.min(
+				(Math.floor(currentIndex / columns) * columns) + (columns - 1),
+				$items.length - 1
+			);
+			return $items.eq(rowEndIndex);
+		},
+		repositionPanelSection: function(){
+			var self = this;
+			if (!(self.panel.currentItem instanceof _.Item)) return;
+			if (self.panel.isMaximized) return;
+			if (!self.$section || self.$section.parent().length === 0) return;
+
+			var $rowLast = self.getRowLastItem(self.panel.currentItem);
+			if (!$rowLast || !$rowLast.length) return;
+
+			if ($rowLast.next().get(0) !== self.$section.get(0)){
+				$rowLast.after(self.$section);
+			}
+		},
 		open: function(item){
 			var self = this;
 			if (item.index !== -1){
@@ -195,29 +305,35 @@
 		doOpen: function(item, newRow){
 			var self = this;
 			return $.Deferred(function(def){
-
-				self.scrollTo(self.getOffsetTop(item), newRow || self.isFirst).then(function(){
-
-					self.panel.appendTo(self.$section);
-					if (newRow) item.$el.after(self.$section);
-					if (self.transitionOpen(newRow)){
-						self.isFirst = false;
-						_t.start(self.$section, function($el){
-							$el.addClass(self.cls.visible);
-						}, null, 350).then(function(){
-							def.resolve();
-						}, function(err){
-							def.reject(err);
-						});
+				self.panel.appendTo(self.$section);
+				if (newRow){
+					var $rowLast = self.getRowLastItem(item);
+					if ($rowLast && $rowLast.length){
+						$rowLast.after(self.$section);
 					} else {
-						self.$section.addClass(self.cls.visible);
-						def.resolve();
+						item.$el.after(self.$section);
 					}
-
-				});
-
+				}
+				if (self.transitionOpen(newRow)){
+					self.isFirst = false;
+					_t.start(self.$section, function($el){
+						$el.addClass(self.cls.visible);
+					}, null, 350).then(function(){
+						def.resolve();
+					}, function(err){
+						def.reject(err);
+					});
+				} else {
+					self.$section.addClass(self.cls.visible);
+					def.resolve();
+				}
 			}).then(function(){
-				return self.scrollTo(self.getOffsetTop(item), true);
+				const behavior = self.template.scrollSmooth && (newRow || self.isFirst) ? "smooth" : "instant";
+				self.$section.get(0).scrollIntoView({
+					behavior: behavior,
+					block: "center",
+					inline: "center"
+				});
 			}).then(function(){
 				return self.panel.load(item);
 			}).then(function(){
@@ -288,9 +404,9 @@
 
 	_.template.register("foogrid", _.FooGridTemplate, {
 		template: {
+			noPanel: false,
 			classNames: "foogrid-panel",
 			scroll: true,
-			scrollOffset: 0,
 			scrollSmooth: false,
 			loop: true,
 			external: '_blank',
@@ -298,6 +414,7 @@
 			keyboard: true,
 			transitionRow: true,
 			transitionOpen: true,
+			openByDefault: false,
 			noMobile: true,
 			info: "bottom",
             infoVisible: true,

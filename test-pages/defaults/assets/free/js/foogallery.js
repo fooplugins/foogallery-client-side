@@ -2968,11 +2968,10 @@ FooGallery.utils, FooGallery.utils.is, FooGallery.utils.str);
    * @memberof FooGallery.utils.
    * @class Timer
    * @param {number} [interval=1000] - The internal tick interval of the timer.
-   * @augments FooGallery.utils.EventClass
    */
 
   _.Timer = _.EventClass.extend(
-  /** @lends FooGallery.utils.Timer.prototype */
+  /** @lends FooGallery.utils.Timer */
   {
     /**
      * @ignore
@@ -3259,7 +3258,6 @@ FooGallery.utils, FooGallery.utils.is, FooGallery.utils.str);
       if (self.isRunning) {
         self.isRunning = false;
         self.isPaused = true;
-        self.canResume = self.__remaining > 0;
         self.trigger("pause", self.__eventArgs());
       }
 
@@ -3901,6 +3899,12 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 	 * });
 	 */
 
+    var mobileSize = globalThis?.FooGallery_mobileSize ?? '782px';
+    /**
+     * A very simple screen size based check for mobile sized screens.
+     */
+    _.isMobile = !!(globalThis.matchMedia && globalThis.matchMedia( `(max-width: ${ mobileSize })` ).matches);
+
 	/**
 	 * @summary Checks if the supplied image src is cached by the browser.
 	 * @param {string} src - The image src to check.
@@ -4222,6 +4226,68 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         }
     };
 
+	const _domParser = new DOMParser();
+
+	/**
+	 * Uses the native DOMParser to decode HTMLEntities in a string.
+	 * @param str
+	 * @returns {string}
+	 */
+	_.decodeHTMLEntities = ( str ) => {
+		let result = '';
+		try {
+			result = _domParser.parseFromString( str, "text/html" ).documentElement.textContent;
+		} catch ( err ) {
+			console.error( `Error decoding HTMLEntities in string "${ str }".`, err );
+		}
+		return result;
+	};
+
+	/**
+	 * More reliable way to trigger the download/Save As dialog for images than simply relying on a[download].
+	 * @param {string} url
+	 * @param {?string} [name=null]
+	 * @returns {Promise<void>}
+	 */
+	_.downloadImage = function( url, name = null ){
+		let downloadName = name;
+		if ( !_is.string( downloadName ) || _is.empty( downloadName ) ) {
+			downloadName = 'image';
+			const parsed = _utils.url.parts( url );
+			if ( parsed !== null && _is.string( parsed.pathname ) ) {
+				const filename = parsed.pathname.replace( /\/+$/, '' ).split( '/' ).pop();
+				if ( _is.string( filename ) && !_is.empty( filename ) ) {
+					try {
+						downloadName = decodeURIComponent( filename );
+					} catch ( err ) {
+						downloadName = filename;
+					}
+				}
+			}
+		}
+		return fetch(url)
+			.then(function (res) {
+				if (!res.ok) {
+					throw new Error(`Failed to fetch image: ${res.status} ${res.statusText}`);
+				}
+				return res.blob();
+			})
+			.then(function (blob) {
+				const objectUrl = window.URL.createObjectURL(blob);
+				try {
+					const a = document.createElement('a');
+					a.href = objectUrl;
+					a.download = downloadName;
+					document.body.appendChild(a);
+					a.click();
+					a.remove();
+				} finally {
+					// Always runs if objectUrl was created
+					window.URL.revokeObjectURL(objectUrl);
+				}
+			});
+	};
+
 })(
 	FooGallery.$,
 	FooGallery,
@@ -4230,6 +4296,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 	FooGallery.utils.fn,
 	FooGallery.utils.str
 );
+
 ( function( _ ) {
     const GlobalAttributes = new globalThis.Set( [ "accesskey", "autocapitalize", "autofocus", "class", "contenteditable", "data-", "dir", "draggable", "enterkeyhint", "exportparts", "hidden", "id", "inert", "inputmode", "is", "itemid", "itemprop", "itemref", "itemscope", "itemtype", "lang", "nonce", "part", "popover", "role", "slot", "spellcheck", "style", "tabindex", "title", "translate" ] );
     const ElementsAttributesMap = new globalThis.Map( [ [ "html", [ "xmlns" ] ], [ "base", [ "href", "target" ] ], [ "head", [] ], [ "link", [ "as", "crossorigin", "disabled", "fetchpriority", "href", "hreflang", "imagesizes", "imagesrcset", "integrity", "media", "referrerpolicy", "rel", "sizes", "type" ] ], [ "meta", [ "charset", "content", "http-equiv", "name" ] ], [ "style", [ "media" ] ], [ "title", [] ], [ "body", [ "onafterprint", "onbeforeprint", "onbeforeunload", "onblur", "onerror", "onfocus", "onhashchange", "onlanguagechange", "onload", "onmessage", "onoffline", "ononline", "onpopstate", "onresize", "onstorage", "onunload" ] ], [ "address", [] ], [ "article", [] ], [ "aside", [] ], [ "footer", [] ], [ "header", [] ], [ "h1", [] ], [ "h2", [] ], [ "h3", [] ], [ "h4", [] ], [ "h5", [] ], [ "h6", [] ], [ "hgroup", [] ], [ "main", [] ], [ "nav", [] ], [ "section", [] ], [ "search", [] ], [ "blockquote", [ "cite" ] ], [ "dd", [] ], [ "div", [] ], [ "dl", [] ], [ "dt", [] ], [ "figcaption", [] ], [ "figure", [] ], [ "hr", [] ], [ "li", [ "value" ] ], [ "menu", [] ], [ "ol", [ "reversed", "start", "type" ] ], [ "p", [] ], [ "pre", [] ], [ "ul", [] ], [ "a", [ "download", "href", "hreflang", "ping", "referrerpolicy", "rel", "target", "type" ] ], [ "abbr", [] ], [ "b", [] ], [ "bdi", [] ], [ "bdo", [] ], [ "br", [] ], [ "cite", [] ], [ "code", [] ], [ "data", [ "value" ] ], [ "dfn", [] ], [ "em", [] ], [ "i", [] ], [ "kbd", [] ], [ "mark", [] ], [ "q", [ "cite" ] ], [ "rp", [] ], [ "rt", [] ], [ "ruby", [] ], [ "s", [] ], [ "samp", [] ], [ "small", [] ], [ "span", [] ], [ "strong", [] ], [ "sub", [] ], [ "sup", [] ], [ "time", [ "datetime" ] ], [ "u", [] ], [ "var", [] ], [ "wbr", [] ], [ "area", [ "alt", "coords", "download", "href", "ping", "referrerpolicy", "rel", "shape", "target" ] ], [ "audio", [ "autoplay", "controls", "controlslist", "crossorigin", "disableremoteplayback", "loop", "muted", "preload", "src" ] ], [ "img", [ "alt", "crossorigin", "decoding", "elementtiming", "fetchpriority", "height", "ismap", "loading", "referrerpolicy", "sizes", "src", "srcset", "usemap", "width" ] ], [ "map", [ "name" ] ], [ "track", [ "default", "kind", "label", "src", "srclang" ] ], [ "video", [ "autoplay", "controls", "controlslist", "crossorigin", "disablepictureinpicture", "disableremoteplayback", "height", "loop", "muted", "playsinline", "poster", "preload", "src", "width" ] ], [ "embed", [ "height", "src", "type", "width" ] ], [ "iframe", [ "allow", "allowfullscreen", "height", "loading", "name", "referrerpolicy", "sandbox", "src", "srcdoc", "width" ] ], [ "object", [ "data", "form", "height", "name", "type", "width" ] ], [ "picture", [] ], [ "portal", [ "referrerpolicy", "src" ] ], [ "source", [ "height", "media", "sizes", "src", "srcset", "type", "width" ] ], [ "svg", [ "height", "preserveaspectratio", "viewbox", "width", "x", "y" ] ], [ "canvas", [ "height", "width" ] ], [ "noscript", [] ], [ "script", [ "async", "crossorigin", "defer", "fetchpriority", "integrity", "nomodule", "referrerpolicy", "src", "type" ] ], [ "del", [ "cite", "datetime" ] ], [ "ins", [ "cite", "datetime" ] ], [ "caption", [] ], [ "col", [ "span" ] ], [ "colgroup", [ "span" ] ], [ "table", [] ], [ "tbody", [] ], [ "td", [ "colspan", "headers", "rowspan" ] ], [ "tfoot", [] ], [ "th", [ "abbr", "colspan", "headers", "rowspan", "scope" ] ], [ "thead", [] ], [ "tr", [] ], [ "button", [ "disabled", "form", "formaction", "formenctype", "formmethod", "formnovalidate", "formtarget", "name", "popovertarget", "popovertargetaction", "type", "value" ] ], [ "datalist", [] ], [ "fieldset", [ "disabled", "form", "name" ] ], [ "form", [ "accept-charset", "autocomplete", "name", "rel" ] ], [ "input", [] ], [ "label", [ "for" ] ], [ "legend", [] ], [ "meter", [ "form", "high", "low", "max", "min", "optimum", "value" ] ], [ "optgroup", [ "disabled", "label" ] ], [ "option", [ "disabled", "label", "selected", "value" ] ], [ "output", [ "for", "form", "name" ] ], [ "progress", [ "max", "value" ] ], [ "select", [ "autocomplete", "disabled", "form", "multiple", "name", "required", "size" ] ], [ "textarea", [ "autocomplete", "cols", "dirname", "disabled", "form", "maxlength", "minlength", "name", "placeholder", "readonly", "required", "rows", "wrap" ] ], [ "details", [ "name", "open" ] ], [ "dialog", [ "open" ] ], [ "summary", [] ], [ "slot", [ "name" ] ], [ "template", [ "shadowrootclonable", "shadowrootdelegatesfocus", "shadowrootmode" ] ] ] );
@@ -4379,6 +4446,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                     "comment": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3 4h10v1h-10zM3 6h8v1h-8zM3 8h4v1h-4zM14.5 1h-13c-0.825 0-1.5 0.675-1.5 1.5v8c0 0.825 0.675 1.5 1.5 1.5h2.5v4l4.8-4h5.7c0.825 0 1.5-0.675 1.5-1.5v-8c0-0.825-0.675-1.5-1.5-1.5zM14 10h-5.924l-3.076 2.73v-2.73h-3v-7h12v7z"></path></svg>',
                     "thumbs": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M3 3v10h-2v-11c0-0.552 0.448-1 1-1h12c0.552 0 1 0.448 1 1v12c0 0.552-0.448 1-1 1h-12c-0.552 0-1-0.448-1-1v-1h4v-2h-2v-2h2v-2h-2v-2h2v-2h2v10h6v-10h-10z"></path></svg>',
                     "cart": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M13.238 9c0.55 0 1.124-0.433 1.275-0.962l1.451-5.077c0.151-0.529-0.175-0.962-0.725-0.962h-10.238c0-1.105-0.895-2-2-2h-3v2h3v8.5c0 0.828 0.672 1.5 1.5 1.5h9.5c0.552 0 1-0.448 1-1s-0.448-1-1-1h-9v-1h8.238zM5 4h9.044l-0.857 3h-8.187v-3z"></path><path d="M6 14.5c0 0.828-0.672 1.5-1.5 1.5s-1.5-0.672-1.5-1.5c0-0.828 0.672-1.5 1.5-1.5s1.5 0.672 1.5 1.5z"></path><path d="M15 14.5c0 0.828-0.672 1.5-1.5 1.5s-1.5-0.672-1.5-1.5c0-0.828 0.672-1.5 1.5-1.5s1.5 0.672 1.5 1.5z"></path></svg>',
+                    "download": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2.5 7l5.5 5.5 5.5-5.5h-3.5v-6h-4v6z"></path><path d="M14 8v6h-12v-6h-2v6.5c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-6.5h-2z"></path></svg>',
                     "circle-close": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM8 14.5c-3.59 0-6.5-2.91-6.5-6.5s2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5z"></path><path d="M10.5 4l-2.5 2.5-2.5-2.5-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 2.5-2.5 2.5 2.5 1.5-1.5-2.5-2.5 2.5-2.5z"></path></svg>',
                     "circle-plus": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM8 14c-3.314 0-6-2.686-6-6s2.686-6 6-6c3.314 0 6 2.686 6 6s-2.686 6-6 6zM12 9h-3v3h-2v-3h-3v-2h3v-3h2v3h3z"></path></svg>',
                     "circle-minus": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM8 14c-3.314 0-6-2.686-6-6s2.686-6 6-6c3.314 0 6 2.686 6 6s-2.686 6-6 6zM4 7h8v2h-8z"></path></svg>',
@@ -4395,12 +4463,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                     "exif-iso": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M 7.5,0 V 1.6015625 C 6.0969201,1.7146076 4.8392502,2.256185 3.828125,3.1210938 L 2.6035156,1.8964844 1.8964844,2.6035156 3.1210938,3.828125 C 2.256185,4.8392502 1.7146076,6.0969201 1.6015625,7.5 H 0 v 1 h 1.6015625 c 0.1130451,1.4030799 0.6546225,2.66075 1.5195313,3.671875 l -1.2246094,1.224609 0.7070312,0.707032 1.2246094,-1.22461 C 4.8392502,13.743815 6.0969201,14.285392 7.5,14.398438 V 16 h 1 v -1.601562 c 1.4030799,-0.113046 2.66075,-0.654623 3.671875,-1.519532 l 1.224609,1.22461 0.707032,-0.707032 -1.22461,-1.224609 C 13.743815,11.16075 14.285392,9.9030799 14.398438,8.5 H 16 v -1 H 14.398438 C 14.285392,6.0969201 13.743815,4.8392502 12.878906,3.828125 L 14.103516,2.6035156 13.396484,1.8964844 12.171875,3.1210938 C 11.16075,2.256185 9.9030799,1.7146076 8.5,1.6015625 V 0 Z M 8,2.5 c 3.043488,0 5.5,2.4565116 5.5,5.5 0,3.043488 -2.456512,5.5 -5.5,5.5 C 4.9565116,13.5 2.5,11.043488 2.5,8 2.5,4.9565116 4.9565116,2.5 8,2.5 Z"></path></svg>',
                     "exif-orientation": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M 1.25,0 C 0.625,0 0,0.625 0,1.25 V 5 H 1 V 3 h 8 v 2 h 1 V 1.25 C 10,0.625 9.375,0 8.75,0 Z m 0,1 h 7.5 C 8.875,1 9,1.125 9,1.25 V 2 H 1 V 1.25 C 1,1.125 1.125,1 1.25,1 Z m 0,5 C 0.625,6 0,6.625 0,7.25 v 7.5 C 0,15.375 0.625,16 1.25,16 h 13.5 C 15.375,16 16,15.375 16,14.75 V 7.25 C 16,6.625 15.375,6 14.75,6 Z m 0,1 H 2 v 3 H 1 V 7.25 C 1,7.125 1.125,7 1.25,7 Z M 3,7 h 10 v 8 H 3 Z m 11,0 h 0.75 C 14.875,7 15,7.125 15,7.25 v 7.5 C 15,14.875 14.875,15 14.75,15 H 14 Z M 1,12 h 1 v 3 H 1.25 C 1.125,15 1,14.875 1,14.75 Z"></path></svg>',
                     "social-share": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M13.5 11c-0.706 0-1.342 0.293-1.797 0.763l-6.734-3.367c0.021-0.129 0.032-0.261 0.032-0.396s-0.011-0.267-0.032-0.396l6.734-3.367c0.455 0.47 1.091 0.763 1.797 0.763 1.381 0 2.5-1.119 2.5-2.5s-1.119-2.5-2.5-2.5-2.5 1.119-2.5 2.5c0 0.135 0.011 0.267 0.031 0.396l-6.734 3.367c-0.455-0.47-1.091-0.763-1.797-0.763-1.381 0-2.5 1.119-2.5 2.5s1.119 2.5 2.5 2.5c0.706 0 1.343-0.293 1.797-0.763l6.734 3.367c-0.021 0.129-0.031 0.261-0.031 0.396 0 1.381 1.119 2.5 2.5 2.5s2.5-1.119 2.5-2.5c0-1.381-1.119-2.5-2.5-2.5z"></path></svg>',
-                    "social-facebook": '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><path d="M0,0H64V64H0ZM0 0v64h64V0zm39.6 22h-2.8c-2.2 0-2.6 1.1-2.6 2.6V28h5.3l-.7 5.3h-4.6V47h-5.5V33.3H24V28h4.6v-4c0-4.6 2.8-7 6.9-7 2 0 3.6.1 4.1.2z"></path></svg>',
-                    "social-linkedin": '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><path d="M0,0H64V64H0ZM0 0v64h64V0zm25.8 44h-5.4V26.6h5.4zm-2.7-19.7c-1.7 0-3.1-1.4-3.1-3.1s1.4-3.1 3.1-3.1 3.1 1.4 3.1 3.1-1.4 3.1-3.1 3.1M46 44h-5.4v-8.4c0-2 0-4.6-2.8-4.6s-3.2 2.2-3.2 4.5V44h-5.4V26.6h5.2V29h.1c.7-1.4 2.5-2.8 5.1-2.8 5.5 0 6.5 3.6 6.5 8.3V44z"></path></svg>',
-                    "social-pinterest": '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><path d="M0,0H64V64H0ZM0 0v64h64V0zm32 48c-1.6 0-3.1-.2-4.5-.7.6-1 1.3-2.2 1.6-3.4.2-.7 1.1-4.4 1.1-4.4.6 1.1 2.2 2 3.9 2 5.1 0 8.6-4.7 8.6-11 0-4.7-4-9.2-10.1-9.2-7.6 0-11.4 5.5-11.4 10 0 2.8 1 5.2 3.3 6.1.4.1.7 0 .8-.4.1-.3.2-1 .3-1.3.1-.4.1-.5-.2-.9-.6-.8-1.1-1.7-1.1-3.1 0-4 3-7.7 7.9-7.7 4.3 0 6.7 2.6 6.7 6.1 0 4.6-2 8.5-5.1 8.5-1.7 0-2.9-1.4-2.5-3.1.5-2 1.4-4.2 1.4-5.7 0-1.3-.7-2.4-2.2-2.4-1.7 0-3.1 1.8-3.1 4.1 0 1.5.5 2.5.5 2.5s-1.8 7.4-2.1 8.7c-.3 1.2-.3 2.6-.3 3.7C19.9 44.2 16 38.6 16 32c0-8.8 7.2-16 16-16s16 7.2 16 16-7.2 16-16 16"></path></svg>',
-                    "social-reddit": '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><path d="M0,0H64V64H0ZM0 0v64h64V0zm53.344 32a4.67 4.67 0 0 0-7.903-3.2 22.77 22.77 0 0 0-12.32-3.937L35.2 14.88l6.848 1.441a3.2 3.2 0 0 0 3.02 2.852 3.2 3.2 0 1 0-2.602-4.805l-7.84-1.566a1 1 0 0 0-.754.136.98.98 0 0 0-.43.63l-2.37 11.105a22.8 22.8 0 0 0-12.477 3.937 4.672 4.672 0 1 0-5.152 7.648q-.06.704 0 1.407c0 7.168 8.351 12.992 18.656 12.992 10.3 0 18.656-5.824 18.656-12.992a9.4 9.4 0 0 0 0-1.406A4.68 4.68 0 0 0 53.344 32m-32 3.2a3.198 3.198 0 1 1 6.398 0 3.195 3.195 0 0 1-3.199 3.198c-1.766 0-3.2-1.43-3.2-3.199M39.938 44a12.3 12.3 0 0 1-7.907 2.465A12.3 12.3 0 0 1 24.13 44a.87.87 0 0 1 .055-1.16.87.87 0 0 1 1.16-.055A10.48 10.48 0 0 0 32 44.801a10.5 10.5 0 0 0 6.688-1.953.9.9 0 0 1 1.265.015.9.9 0 0 1-.016 1.266Zm-.579-5.473a3.2 3.2 0 0 1-3.199-3.199 3.198 3.198 0 1 1 6.398 0 3.2 3.2 0 0 1-3.23 3.328Zm0 0"></path></svg>',
-                    "social-tumblr": '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><path d="M0,0H64V64H0ZM0 0v64h64V0zm35.4 47c-6.5.1-9-4.7-9-8v-9.8h-3v-3.9c4.6-1.6 5.6-5.7 5.9-8.1 0-.2.1-.2.2-.2h4.4v7.6h6v4.5h-6v9.3c0 1.3.5 3 2.9 3 .8 0 1.9-.3 2.4-.5l1.4 4.3c-.5.8-3 1.8-5.2 1.8"></path></svg>',
-                    "social-twitter": '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><path d="M0,0H64V64H0ZM0 0v64h64V0zm16 17.537h10.125l6.992 9.242 8.084-9.242h4.908L35.39 29.79 48 46.463h-9.875l-7.734-10.111-8.85 10.11h-4.908l11.465-13.105zm5.73 2.783 17.75 23.205h2.72L24.647 20.32z"></path></svg>',
+                    "social-facebook": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M9.5 3h2.5v-3h-2.5c-1.93 0-3.5 1.57-3.5 3.5v1.5h-2v3h2v8h3v-8h2.5l0.5-3h-3v-1.5c0-0.271 0.229-0.5 0.5-0.5z"></path></svg>',
+                    "social-linkedin": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M6 6h2.767v1.418h0.040c0.385-0.691 1.327-1.418 2.732-1.418 2.921 0 3.461 1.818 3.461 4.183v4.817h-2.885v-4.27c0-1.018-0.021-2.329-1.5-2.329-1.502 0-1.732 1.109-1.732 2.255v4.344h-2.883v-9z"></path><path d="M1 6h3v9h-3v-9z"></path><path d="M4 3.5c0 0.828-0.672 1.5-1.5 1.5s-1.5-0.672-1.5-1.5c0-0.828 0.672-1.5 1.5-1.5s1.5 0.672 1.5 1.5z"></path></svg>',
+                    "social-pinterest": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1.069c-3.828 0-6.931 3.103-6.931 6.931 0 2.938 1.828 5.444 4.406 6.453-0.059-0.547-0.116-1.391 0.025-1.988 0.125-0.541 0.813-3.444 0.813-3.444s-0.206-0.416-0.206-1.028c0-0.963 0.559-1.684 1.253-1.684 0.591 0 0.878 0.444 0.878 0.975 0 0.594-0.378 1.484-0.575 2.306-0.166 0.691 0.344 1.253 1.025 1.253 1.231 0 2.178-1.3 2.178-3.175 0-1.659-1.194-2.819-2.894-2.819-1.972 0-3.128 1.478-3.128 3.009 0 0.597 0.228 1.234 0.516 1.581 0.056 0.069 0.066 0.128 0.047 0.2-0.053 0.219-0.169 0.691-0.194 0.787-0.031 0.128-0.1 0.153-0.231 0.094-0.866-0.403-1.406-1.669-1.406-2.684 0-2.188 1.587-4.194 4.578-4.194 2.403 0 4.272 1.712 4.272 4.003 0 2.388-1.506 4.313-3.597 4.313-0.703 0-1.362-0.366-1.588-0.797 0 0-0.347 1.322-0.431 1.647-0.156 0.603-0.578 1.356-0.862 1.816 0.65 0.2 1.337 0.309 2.053 0.309 3.828 0 6.931-3.103 6.931-6.931 0-3.831-3.103-6.934-6.931-6.934z"></path></svg>',
+                    "social-reddit": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M4 10c0-0.552 0.448-1 1-1s1 0.448 1 1c0 0.552-0.448 1-1 1s-1-0.448-1-1zM10 10c0-0.552 0.448-1 1-1s1 0.448 1 1c0 0.552-0.448 1-1 1s-1-0.448-1-1zM10.049 12.137c0.258-0.203 0.631-0.159 0.834 0.099s0.159 0.631-0.099 0.834c-0.717 0.565-1.81 0.93-2.783 0.93s-2.066-0.365-2.784-0.93c-0.258-0.203-0.302-0.576-0.099-0.834s0.576-0.302 0.834-0.099c0.413 0.325 1.23 0.675 2.049 0.675s1.636-0.35 2.049-0.675zM16 8c0-1.105-0.895-2-2-2-0.752 0-1.406 0.415-1.748 1.028-1.028-0.562-2.28-0.926-3.645-1.010l1.193-2.68 2.284 0.659c0.206 0.583 0.761 1.002 1.415 1.002 0.828 0 1.5-0.672 1.5-1.5s-0.672-1.5-1.5-1.5c-0.571 0-1.068 0.319-1.321 0.789l-2.545-0.735c-0.285-0.082-0.587 0.058-0.707 0.329l-1.621 3.641c-1.33 0.094-2.551 0.453-3.557 1.004-0.342-0.613-0.996-1.028-1.748-1.028-1.105 0-2 0.895-2 2 0 0.817 0.491 1.52 1.193 1.83-0.126 0.375-0.193 0.767-0.193 1.17 0 2.761 3.134 5 7 5s7-2.239 7-5c0-0.403-0.067-0.795-0.193-1.17 0.703-0.31 1.193-1.013 1.193-1.83zM13.5 2.938c0.311 0 0.563 0.252 0.563 0.563s-0.252 0.563-0.563 0.563-0.563-0.252-0.563-0.563 0.252-0.563 0.563-0.563zM1 8c0-0.551 0.449-1 1-1 0.399 0 0.743 0.234 0.904 0.573-0.523 0.396-0.956 0.854-1.276 1.355-0.368-0.148-0.628-0.508-0.628-0.928zM8 14.813c-3.21 0-5.813-1.707-5.813-3.813s2.602-3.813 5.813-3.813c3.21 0 5.813 1.707 5.813 3.813s-2.602 3.813-5.813 3.813zM14.372 8.928c-0.32-0.502-0.753-0.959-1.276-1.355 0.161-0.338 0.505-0.573 0.904-0.573 0.551 0 1 0.449 1 1 0 0.42-0.26 0.78-0.628 0.928z"></path></svg>',
+                    "social-tumblr": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M9.001 7l-0 3.659c0 0.928-0.012 1.463 0.086 1.727 0.098 0.262 0.342 0.534 0.609 0.691 0.354 0.212 0.758 0.318 1.214 0.318 0.81 0 1.289-0.107 2.090-0.633v2.405c-0.683 0.321-1.279 0.509-1.833 0.639-0.555 0.129-1.154 0.194-1.798 0.194-0.732 0-1.163-0.092-1.725-0.276-0.562-0.185-1.042-0.45-1.438-0.79-0.398-0.343-0.672-0.706-0.826-1.091s-0.23-0.944-0.23-1.676v-5.611h-2.147v-2.266c0.628-0.204 1.331-0.497 1.778-0.877 0.449-0.382 0.809-0.839 1.080-1.374 0.272-0.534 0.459-1.214 0.561-2.039h2.579l-0 4h3.999v3h-3.999z"></path></svg>',
+                    "social-twitter": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M12.163 1.5h2.205l-4.818 5.507 5.668 7.493h-4.438l-3.476-4.545-3.977 4.545h-2.207l5.153-5.89-5.437-7.11h4.551l3.142 4.154zM11.389 13.18h1.222l-7.888-10.429h-1.311z"></path></svg>',
+                    "social-vk": '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><path d="M14.977 4.063c0.117 0.32-0.25 1.070-1.172 2.297-1.516 2.016-1.68 1.828-0.43 2.992 1.203 1.117 1.453 1.656 1.492 1.727 0 0 0.5 0.875-0.555 0.883l-2 0.031c-0.43 0.086-1-0.305-1-0.305-0.75-0.516-1.453-1.852-2-1.68 0 0-0.563 0.18-0.547 1.383 0.008 0.258-0.117 0.398-0.117 0.398s-0.141 0.148-0.414 0.172h-0.898c-1.977 0.125-3.719-1.695-3.719-1.695s-1.906-1.969-3.578-5.898c-0.109-0.258 0.008-0.383 0.008-0.383s0.117-0.148 0.445-0.148l2.141-0.016c0.203 0.031 0.344 0.141 0.344 0.141s0.125 0.086 0.187 0.25c0.352 0.875 0.805 1.672 0.805 1.672 0.781 1.609 1.313 1.883 1.617 1.719 0 0 0.398-0.242 0.312-2.188-0.031-0.703-0.227-1.023-0.227-1.023-0.18-0.242-0.516-0.312-0.664-0.336-0.117-0.016 0.078-0.297 0.336-0.422 0.383-0.187 1.062-0.195 1.867-0.187 0.633 0.008 0.813 0.047 1.055 0.102 0.742 0.18 0.492 0.867 0.492 2.523 0 0.531-0.102 1.273 0.281 1.516 0.164 0.109 0.57 0.016 1.57-1.688 0 0 0.469-0.813 0.836-1.758 0.062-0.172 0.195-0.242 0.195-0.242s0.125-0.070 0.297-0.047l2.25-0.016c0.68-0.086 0.789 0.227 0.789 0.227z"></path></svg>',
                     "social-email": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M15 2h-14c-0.55 0-1 0.45-1 1v10c0 0.55 0.45 1 1 1h14c0.55 0 1-0.45 1-1v-10c0-0.55-0.45-1-1-1zM14 4v0.719l-6 3.536-6-3.536v-0.719h12zM2 12v-5.54l6 3.536 6-3.536v5.54h-12z"></path></svg>',
                     "social-download": '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M2.5 7l5.5 5.5 5.5-5.5h-3.5v-6h-4v6z"></path><path d="M14 8v6h-12v-6h-2v6.5c0 0.825 0.675 1.5 1.5 1.5h13c0.825 0 1.5-0.675 1.5-1.5v-6.5h-2z"></path></svg>',
                 }
@@ -5088,7 +5157,10 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		 */
 		make: function (options, element) {
 			element = _is.jq(element) ? element : $(element);
-			options = _obj.extend({}, options, element.data("foogallery"));
+            options = _obj.extend({}, options, element.data("foogallery"));
+            if (_.isMobile) {
+                options = _obj.extend({}, options, element.data("foogalleryMobile"));
+            }
 			var self = this, type = self.type(options, element);
 			if (!self.contains(type)) return null;
 			options = self.options(type, options);
@@ -5857,6 +5929,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 		src: "data-src-fg",
 		protected: false,
         lang: "en", // the language to use if there's no html[lang] attribute value
+        cors: null,
 		template: {},
 		regex: {
 			theme: /(?:\s|^)(fg-(?:light|dark|custom))(?:\s|$)/,
@@ -6307,6 +6380,14 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 					tmpl.trigger("after-state", [obj]);
 				}
 			}
+		},
+		getItemHash: function(item) {
+			const self = this;
+			if (self.enabled && item instanceof _.Item) {
+				let state = self.get(item);
+				return self.hashify(state);
+			}
+			return '';
 		},
 		onPopState: function(e){
 			var self = this, parsed = self.parse();
@@ -7192,7 +7273,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			 * @name id
 			 * @type {string}
 			 */
-			self.id = self.opt.id;
+			self.id = `${ self.opt.id }`;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name productId
@@ -7205,6 +7286,12 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			 * @type {string}
 			 */
 			self.href = self.opt.href;
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name download
+			 * @type {string}
+			 */
+			self.download = self.opt.download;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name placeholder
@@ -7593,10 +7680,11 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			self.isError = self.$el.hasClass(cls.error);
 
 			var data = self.$anchor.data();
-			self.id = data.id || data.attachmentId || self.id;
+			self.id = `${ data.id || data.attachmentId || self.id }`;
 			self.productId = data.productId || self.productId;
 			self.tags = data.tags || self.tags;
 			self.href = data.href || self.$anchor.attr('href') || self.href;
+			self.download = data.download || self.download || self.href;
 
 			var $img;
 			if (self.$image.is("picture")){
@@ -7842,7 +7930,8 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 				"data-description": self.description,
 				"data-tags": self.tags,
 				"data-exif": self.exif,
-				"data-product-id": self.productId
+				"data-product-id": self.productId,
+				"data-download": self.download
 			});
 
 			if (!_is.string(self.placeholder) || self.placeholder.length === 0){
@@ -8245,8 +8334,11 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 					});
 				}
 
-				if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
-					img.crossOrigin = 'anonymous';
+                const { opt: { cors } } = self.tmpl;
+                if ( _is.string( cors ) ) {
+                    if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
+                        img.crossOrigin = cors;
+                    }
 				}
                 if (!_is.empty(self.srcset)){
                     img.srcset = self.srcset;
@@ -9161,9 +9253,17 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 self.areas.push( self.comments );
             }
 
-            if ( _.Panel.Share ){
-                self.share = new _.Panel.Share(self);
-                self.areas.push( self.share );
+            // Make sure only one side area can occupy the same position, overrides supplied options
+            // There can be only one...
+            const highlanders = self.areas.filter( a => a instanceof _.Panel.SideArea && a.isVisible && a.opt.group === 'overlay' );
+            while ( highlanders.length > 0 ) {
+                const theOne = highlanders.shift();
+                highlanders.forEach( challenger => {
+                    if ( challenger.isTargetingSamePosition( theOne ) ) {
+                        challenger.isVisible = false;
+                        challenger.button.isPressed = false;
+                    }
+                } );
             }
 
             self.$el = null;
@@ -9203,6 +9303,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             self.isSmallScreen = false;
             self.isMediumScreen = false;
             self.isLargeScreen = false;
+            self.isMobileLayout = false;
 
             self.breakpointClassNames = self.opt.breakpoints.map(function(bp){
                 return "fg-" + bp.name + " fg-" + bp.name + "-width" + " fg-" + bp.name + "-height";
@@ -9268,7 +9369,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             self.areas.forEach(function(area){
                 area.appendTo( self.$el );
             });
-            self.buttons.appendTo( self.content.$el );
+            self.buttons.appendTo( self.$el );
             return true;
         },
         createElem: function(){
@@ -9400,6 +9501,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             self.isLargeScreen = self.$el.hasClass("fg-large");
             self.isXLargeScreen = self.$el.hasClass("fg-x-large");
             self.isSmallScreen = !self.isMediumScreen && !self.isLargeScreen && !self.isXLargeScreen;
+            self.isMobileLayout = self.isSmallScreen && !self.opt.noMobile;
             self.areas.forEach(function (area) {
                 area.resize();
             });
@@ -9699,7 +9801,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 info: true,
                 thumbs: false,
                 cart: true,
-                comments: true
+                download: false
             },
             breakpoints: [{
                 name: "medium",
@@ -9768,7 +9870,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 info: "fg-panel-button fg-panel-button-info",
                 thumbs: "fg-panel-button fg-panel-button-thumbs",
                 cart: "fg-panel-button fg-panel-button-cart",
-                comments: "fg-panel-button fg-panel-button-comments"
+                download: "fg-panel-button fg-panel-button-download"
             },
 
             transition: {
@@ -9782,7 +9884,9 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 inner: "fg-panel-area-inner"
             },
 
-            content: {},
+            content: {
+                buttons: "fg-panel-content-buttons"
+            },
 
             sideArea: {
                 toggle: "fg-panel-area-toggle",
@@ -9849,7 +9953,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 info: "Toggle Information",
                 thumbs: "Toggle Thumbnails",
                 cart: "Toggle Cart",
-                comments: "Comments"
+                download: "Download Media"
             }
         }
     });
@@ -9909,6 +10013,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 
             // area buttons are inserted by default with priority 99
 
+            this.register(new _.Panel.Download(this.panel), 170);
             this.register(new _.Panel.Maximize(this.panel), 180);
             this.register(new _.Panel.Fullscreen(this.panel), 190);
             this.register(new _.Panel.Button(this.panel, "close", {
@@ -10079,6 +10184,11 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         },
 
         resize: function(){
+            const prev = this.get("prev");
+            const next = this.get("next");
+            const target = this.panel.isMobileLayout ? this.$el : this.panel.content.$buttons;
+            if ( next ) next.prependTo( target );
+            if ( prev ) prev.prependTo( target );
             this.each(function(button){
                 button.resize();
             });
@@ -10150,7 +10260,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 var enabled = self.isEnabled();
                 self.toggle(enabled);
                 self.disable(!enabled);
-                if (self.isToggle) self.press( self.opt.pressed );
+                if (self.isToggle) self.press( self.isPressed );
             }
             return self.isCreated;
         },
@@ -10162,16 +10272,31 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             return !this.isCreated;
         },
         appendTo: function(parent){
+            if ( this.isAttached ) {
+                this.detach();
+            }
             if ((this.isCreated || this.create()) && !this.isAttached){
                 this.$el.appendTo(parent);
+                this.isAttached = true;
+            }
+            return this.isAttached;
+        },
+        prependTo: function(parent){
+            if ( this.isAttached ) {
+                this.detach();
+            }
+            if ((this.isCreated || this.create()) && !this.isAttached){
+                this.$el.prependTo(parent);
+                this.isAttached = true;
             }
             return this.isAttached;
         },
         detach: function(){
             if (this.isCreated && this.isAttached){
                 this.$el.detach();
+                this.isAttached = false;
             }
-            return !this.isAttached;
+            return this.isAttached;
         },
         toggle: function(visible){
             if (!this.isCreated) return;
@@ -10268,19 +10393,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         },
         isTargetingSamePosition: function( button ) {
             if ( button instanceof _.Panel.SideAreaButton ) {
-                const ov1 = this?.area?.opt?.overlay,
-                    ov2 = button?.area?.opt?.overlay;
-                // check if the overlay state is the same
-                if ( ov1 === ov2 ) {
-                    if ( ov1 === true ) {
-                        // all overlays are counted as the same position as they overlap
-                        return true;
-                    }
-                    // overlay state is the same so check the position
-                    const pos1 = this?.area?.opt?.position,
-                        pos2 = button?.area?.opt?.position;
-                    return _is.string( pos1 ) && _is.string( pos2 ) && pos1 === pos2;
-                }
+                return button.area.isTargetingSamePosition( this.area );
             }
             return false;
         },
@@ -10533,6 +10646,40 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
     FooGallery,
     FooGallery.utils.is
 );
+(function($, _, _is){
+
+    _.Panel.Download = _.Panel.Button.extend({
+        construct: function(panel){
+            this._super(panel, "download", {
+                icon: "download",
+                label: panel.il8n.buttons.download,
+                toggle: false
+            });
+            this.downloadable = [ 'image' ];
+        },
+        beforeLoad: function(media) {
+            this._super( media );
+            if ( this.isEnabled() ) {
+                this.toggle( this.downloadable.includes( media?.item?.type ) );
+            }
+        },
+        click: function(){
+            this._super();
+            const i = this.panel.currentItem;
+            if ( i instanceof _.Item && _is.string( i.download ) ) {
+                this.disable( true );
+                _.downloadImage( i.download )
+                    .catch( err => console.error( err ) )
+                    .finally( () => this.disable( false ) );
+            }
+        }
+    });
+
+})(
+    FooGallery.$,
+    FooGallery,
+    FooGallery.utils.is
+);
 (function($, _, _utils, _is, _fn, _obj, _str){
 
     /**
@@ -10746,11 +10893,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             this._super(panel, "content", {
                 waitForUnload: false
             }, panel.cls.content);
+            this.$buttons = null;
             this.robserver = null;
         },
         doCreate: function(){
             var self = this;
             if (self._super()){
+                self.$buttons = $( "<div/>" ).addClass( self.cls.buttons ).appendTo( self.$el );
                 if (self.panel.opt.swipe){
                     self.$inner.fgswipe({data: {self: self}, swipe: self.onSwipe, allowPageScroll: true});
                 }
@@ -10860,7 +11009,8 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 overlay: false,
                 visible: true,
                 autoHide: false,
-                toggle: !!panel.opt.buttons[name]
+                toggle: !!panel.opt.buttons[name],
+                priority: 99
             }, options), _obj.extend({
                 toggle: this.__cls(cls.toggle, name, true),
                 visible: this.__cls(cls.visible, name),
@@ -10880,7 +11030,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         },
         registerButton: function(){
             var btn = new _.Panel.SideAreaButton(this);
-            this.panel.buttons.register(btn);
+            this.panel.buttons.register(btn, this.opt.priority);
             return btn;
         },
         doCreate: function(){
@@ -10928,6 +11078,14 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         onToggleClick: function(e){
             e.preventDefault();
             e.data.self.toggle();
+        },
+        isTargetingSamePosition: function( area ) {
+            if ( area instanceof _.Panel.SideArea ) {
+                const pos1 = this.opt.position,
+                    pos2 = area.opt.position;
+                return _is.string( pos1 ) && _is.string( pos2 ) && pos1 === pos2;
+            }
+            return false;
         }
     });
 
@@ -10963,7 +11121,8 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 autoHide: panel.opt.infoAutoHide,
                 align: panel.opt.infoAlign,
                 waitForUnload: false,
-                group: "overlay"
+                group: "overlay",
+                priority: 90
             }, panel.cls.info);
         },
         doCreate: function(){
@@ -11873,7 +12032,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
     FooGallery.utils.str,
     FooGallery.utils.transition
 );
-(function($, _, _utils, _obj){
+(function($, _, _utils, _is, _obj){
 
     _.Panel.Image = _.Panel.Media.extend({
         construct: function(panel, item){
@@ -11918,6 +12077,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             var self = this;
             return $.Deferred(function(def){
                 var img = self.$content.get(0);
+                img.alt = self.item.alt;
                 img.onload = function () {
                     img.onload = img.onerror = null;
                     def.resolve(self);
@@ -11926,6 +12086,12 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                     img.onload = img.onerror = null;
                     def.rejectWith("error loading image");
                 };
+                const { opt: { cors } } = self.panel.tmpl;
+                if ( _is.string( cors ) ) {
+                    if ( img.crossOrigin === null && _.isCrossOrigin(self.item.href) ) {
+                        img.crossOrigin = cors;
+                    }
+                }
                 // set everything in motion by setting the src
                 img.src = self.item.href;
                 if (img.complete){
@@ -11961,6 +12127,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
     FooGallery.$,
     FooGallery,
     FooGallery.utils,
+    FooGallery.utils.is,
     FooGallery.utils.obj
 );
 (function($, _, _utils, _obj){
@@ -12639,12 +12806,12 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			return $("<div/>", {"class": self.cls.inner}).append(
 					$("<div/>", {"class": self.cls.innerContainer}),
 					$("<div/>", {"class": self.cls.controls}).append(
-							$("<div/>", {"class": self.cls.prev})
+							$("<button/>", {"class": self.cls.prev, type: 'button', title: self.il8n.prev})
 									.append($("<span/>", {text: self.il8n.prev})),
 							$("<label/>", {"class": self.cls.count, text: self.il8n.count})
 									.prepend($("<span/>", {"class": self.cls.countCurrent, text: "0"}))
 									.append($("<span/>", {"class": self.cls.countTotal, text: "0"})),
-							$("<div/>", {"class": self.cls.next})
+							$("<button/>", {"class": self.cls.next, type: 'button', title: self.il8n.next})
 									.append($("<span/>", {text: self.il8n.next}))
 					)
 			);
@@ -12664,7 +12831,13 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 			self.$current = self.$el.find(self.sel.countCurrent);
 			self.$total = self.$el.find(self.sel.countTotal);
 			self.$prev = self.$el.find(self.sel.prev);
+            if ( !self.$prev.attr('title') ) {
+                self.$prev.attr('title', self.il8n.prev);
+            }
 			self.$next = self.$el.find(self.sel.next);
+            if ( !self.$next.attr('title') ) {
+                self.$next.attr('title', self.il8n.next);
+            }
 		},
 		onInit: function (event) {
 			var self = this;
@@ -13428,13 +13601,14 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
          * @param {object} cls
          * @param {object} sel
          */
-        construct: function(template, opt, cls, sel){
+        construct: function(template, opt, cls, sel, i18n){
             const self = this;
             self.tmpl = template;
             self.el = template.el;
             self.opt = opt;
             self.cls = cls;
             self.sel = sel;
+            self.i18n = i18n;
             self.elem = {
                 inner: null,
                 center: null,
@@ -13580,6 +13754,9 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             } );
             if ( self.elem.prev.type !== "button" ) self.elem.prev.type = "button";
             self.elem.prev.appendChild( _icons.element( "arrow-left" ) );
+            if ( !self.elem.prev.title?.length ) {
+                self.elem.prev.title = self.i18n.prev;
+            }
 
             self._listeners.add( self.elem.next, "click", function( event ){
                 event.preventDefault();
@@ -13588,6 +13765,12 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             } );
             if ( self.elem.next.type !== "button" ) self.elem.next.type = "button";
             self.elem.next.appendChild( _icons.element( "arrow-right" ) );
+            if ( !self.elem.next.title?.length ) {
+                self.elem.next.title = self.i18n.next;
+            }
+        },
+        getBulletTitle: function( str, num ) {
+            return str.replace( /\{ITEM}/g, `${ num }` );
         },
         initPagination: function(){
             const self = this;
@@ -13596,7 +13779,11 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
                 const bullet = document.createElement( "button" );
                 bullet.type = "button";
                 bullet.classList.add( self.cls.bullet );
-                if ( i === 0 ) bullet.classList.add( self.cls.activeBullet );
+                bullet.title = self.getBulletTitle( self.i18n.bullet, i + 1 );
+                if ( i === 0 ){
+                    bullet.classList.add( self.cls.activeBullet );
+                    bullet.title = self.getBulletTitle( self.i18n.activeBullet, i + 1 );
+                }
                 self._listeners.add( bullet, "click", function( event ){
                     event.preventDefault();
                     self.interacted = true;
@@ -13778,18 +13965,146 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         },
         getLayout: function( width ){
             const self = this;
+            const activePosition = self.getActivePosition();
+            const align = self.getAlign();
+            const usePositionedLayout = activePosition !== "center";
+            const mode = activePosition + "|" + align;
 
-            if ( self.cache.has("layout") && self.cache.get("width") === width ){
+            if ( self.cache.has("layout") && self.cache.get("width") === width && self.cache.get("layoutMode") === mode ){
                 return self.cache.get("layout");
             }
             const itemWidth = self.getSize( self.elem.center ).width;
-            const maxOffset = ( self.getSize( self.elem.inner, true ).width / 2 ) + ( itemWidth / 2 );
+            const innerWidth = self.getSize( self.elem.inner, true ).width;
+            const maxOffset = ( innerWidth / 2 ) + ( itemWidth / 2 );
             const layout = self.calculate( itemWidth, maxOffset );
+
+            layout.activeX = 0;
+            layout.sideBySide = null;
+
+            if ( usePositionedLayout ) {
+                const visualLeftSide = self.isRTL ? "right" : "left";
+                const visualRightSide = self.isRTL ? "left" : "right";
+                const dominantSide = activePosition === "start" ? visualRightSide : visualLeftSide;
+                let showCount = Math.max( 0, self.getShowPerSide() * 2 );
+                let positionedLayout = null;
+                let sideLayout = [];
+                let fit = { width: itemWidth, center: 0 };
+
+                // maxItems is a cap; reduce visible items until the positioned sequence fits inner width.
+                while ( showCount >= 0 ){
+                    positionedLayout = self.calculate(
+                        itemWidth,
+                        innerWidth + ( itemWidth / 2 ),
+                        self.opt.gutter.max,
+                        showCount
+                    );
+                    sideLayout = positionedLayout.side;
+                    fit = self.measureAlignedFit( itemWidth, sideLayout, dominantSide );
+                    if ( fit.width <= innerWidth ){
+                        break;
+                    }
+                    showCount -= 1;
+                }
+
+                // Keep the displayed sequence centered while the active item stays at the chosen position.
+                layout.activeX = -fit.center;
+                layout.sideBySide = {};
+                layout.sideBySide.left = [];
+                layout.sideBySide.right = [];
+                layout.sideBySide[dominantSide] = sideLayout;
+                if ( positionedLayout && _is.number( positionedLayout.zIndex ) ){
+                    layout.zIndex = positionedLayout.zIndex;
+                }
+            }
+
+            self.applyVisualAlign( layout, itemWidth, innerWidth );
+
             self.cache.set( "width", width );
+            self.cache.set( "layoutMode", mode );
             if ( layout?.side?.length > 0 ) {
                 self.cache.set( "layout", layout );
             }
             return layout;
+        },
+        getActivePosition: function(){
+            const value = _is.string( this.opt.activePosition )
+                ? this.opt.activePosition.toLowerCase()
+                : "center";
+            return [ "start", "end" ].indexOf( value ) !== -1 ? value : "center";
+        },
+        getAlign: function(){
+            const value = _is.string( this.opt.align )
+                ? this.opt.align.toLowerCase()
+                : "center";
+            return [ "left", "right" ].indexOf( value ) !== -1 ? value : "center";
+        },
+        applyVisualAlign: function( layout, itemWidth, innerWidth ){
+            const self = this;
+            const align = self.getAlign();
+            if ( align === "center" ) return;
+
+            const bounds = self.measureVisibleBounds( itemWidth, layout );
+            const target = align === "left"
+                ? -( innerWidth / 2 )
+                : ( innerWidth / 2 );
+            const delta = align === "left"
+                ? target - bounds.min
+                : target - bounds.max;
+
+            layout.activeX = ( _is.number( layout.activeX ) ? layout.activeX : 0 ) + delta;
+        },
+        measureVisibleBounds: function( itemWidth, layout ){
+            const self = this;
+            const activeX = _is.number( layout?.activeX ) ? layout.activeX : 0;
+            const leftValues = layout?.sideBySide?.left || layout.side || [];
+            const rightValues = layout?.sideBySide?.right || layout.side || [];
+            const result = {
+                min: activeX - ( itemWidth / 2 ),
+                max: activeX + ( itemWidth / 2 )
+            };
+            const perspective = self.opt.perspective;
+            const update = function( side, values ){
+                for ( let i = 0; i < values.length; i++ ){
+                    const entry = values[i];
+                    const signedX = ( side === "left" && !self.isRTL ) || ( side === "right" && self.isRTL ) ? -entry.x : entry.x;
+                    const centerX = self.getScreenX( signedX, entry.z, perspective ) + activeX;
+                    const width = self.scaleToZ( itemWidth, entry.z, perspective );
+                    const min = centerX - ( width / 2 );
+                    const max = centerX + ( width / 2 );
+                    if ( min < result.min ) result.min = min;
+                    if ( max > result.max ) result.max = max;
+                }
+            };
+
+            update( "left", leftValues );
+            update( "right", rightValues );
+
+            return result;
+        },
+        measureAlignedFit: function( itemWidth, sideLayout, dominantSide ){
+            const self = this;
+            const result = {
+                min: -( itemWidth / 2 ),
+                max: itemWidth / 2,
+                width: itemWidth,
+                center: 0
+            };
+
+            for ( let i = 0; i < sideLayout.length; i++ ){
+                const values = sideLayout[i];
+                const signedX = ( dominantSide === "left" && !self.isRTL ) || ( dominantSide === "right" && self.isRTL ) ? -values.x : values.x;
+                const centerX = self.getScreenX( signedX, values.z, self.opt.perspective );
+                const width = self.scaleToZ( itemWidth, values.z, self.opt.perspective );
+                const left = centerX - ( width / 2 );
+                const right = centerX + ( width / 2 );
+                if ( left < result.min ) result.min = left;
+                if ( right > result.max ) result.max = right;
+            }
+
+            result.width = result.max - result.min;
+            result.center = ( result.min + result.max ) / 2;
+
+            return result;
         },
         round: function( value, precision ){
             let multiplier = Math.pow(10, precision || 0);
@@ -13880,12 +14195,20 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             el.classList.add( self.cls.activeItem );
             el.style.setProperty("transition-duration", ( self._firstLayout ? 0 : self.opt.speed ) + "ms" );
             el.style.setProperty( "z-index", layout.zIndex );
-            el.style.removeProperty( "transform" );
+            if ( _is.number( layout.activeX ) && layout.activeX !== 0 ){
+                el.style.setProperty( "transform", "translate3d(" + layout.activeX + "px, 0, 0)" );
+            } else {
+                el.style.removeProperty( "transform" );
+            }
 
             const ai = self.tmpl.items.indexOf( self.activeItem );
             Array.from( self.el.querySelectorAll( self.sel.bullet ) ).forEach( function( node, i ){
                 node.classList.remove( self.cls.activeBullet );
-                if ( i === ai ) node.classList.add( self.cls.activeBullet );
+                node.title = self.getBulletTitle( self.i18n.bullet, i + 1 );
+                if ( i === ai ){
+                    node.classList.add( self.cls.activeBullet );
+                    node.title = self.getBulletTitle( self.i18n.activeBullet, i + 1 );
+                }
             } );
             return true;
         },
@@ -13895,12 +14218,23 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
 
             self.cleanup( selector, cls, exclude );
 
+            const valuesList = layout?.sideBySide?.[side] || layout.side;
+            const activeX = _is.number( layout?.activeX ) ? layout.activeX : 0;
             let place = self.activeItem;
-            for (let i = 0; i < layout.side.length; i++ ){
-                const values = layout.side[i];
+            for (let i = 0; i < valuesList.length; i++ ){
+                const values = valuesList[i];
                 const item = side === "left" ? self.getPrev( place ) : self.getNext( place );
                 if ( item instanceof _.Item ){
-                    let transform = "translate3d(" + ( ( side === "left" && !self.isRTL ) || ( side === "right" && self.isRTL ) ? "-" : "" ) + values.x + "px, 0,-" + values.z + "px)";
+                    const signedX = ( side === "left" && !self.isRTL ) || ( side === "right" && self.isRTL ) ? -values.x : values.x;
+                    let vectorX = signedX;
+
+                    // Apply active position offset in screen space so perspective math remains bounded.
+                    if ( activeX !== 0 ){
+                        const screenX = self.getScreenX( signedX, values.z, self.opt.perspective ) + activeX;
+                        vectorX = self.getVectorX( screenX, values.z, self.opt.perspective );
+                    }
+
+                    let transform = "translate3d(" + vectorX + "px, 0,-" + values.z + "px)";
                     item.el.classList.add( cls );
                     if ( !item.isLoaded ){
                         item.el.style.setProperty("transition-duration", "0ms" );
@@ -13936,6 +14270,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
     FooGallery.utils,
     FooGallery.utils.is
 );
+
 (function($, _, _obj){
 
     _.CarouselTemplate = _.Template.extend({
@@ -13968,7 +14303,7 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
         },
         onPreInit: function(){
             const self = this;
-            self.carousel = new _.Carousel( self, self.template, self.cls.carousel, self.sel.carousel );
+            self.carousel = new _.Carousel( self, self.template, self.cls.carousel, self.sel.carousel, self.il8n );
         },
         onInit: function(){
             this.carousel.init();
@@ -14016,6 +14351,8 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             perspective: 150,
             scale: 0.12,
             speed: 300,
+            align: "center", // "center", "left" or "right". Visual alignment of the entire visible item set.
+            activePosition: "center", // "center", "start" or "end". Controls active item position in the visible sequence.
             centerOnClick: true,
             gutter: {
                 min: -40,
@@ -14042,6 +14379,11 @@ FooGallery.utils.$, FooGallery.utils, FooGallery.utils.is, FooGallery.utils.fn);
             nextItem: "fg-item-next",
             progress: "fg-carousel-progress"
         }
+    }, {
+        prev: "Previous",
+        next: "Next",
+        bullet: "Item {ITEM}",
+        activeBullet: "Item {ITEM} - Current"
     });
 
 })(

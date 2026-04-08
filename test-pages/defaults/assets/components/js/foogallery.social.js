@@ -63,13 +63,19 @@
         $likes.find( '.fg-social-button-icon' )
             .replaceWith( _.icons.get( 'spinner' ).addClass( 'fg-social-button-icon' ) );
 
+        const data = {
+            attachment_id: this.id,
+            gallery_id: this.tmpl.id
+        };
+
+        if ( this?.productId ) {
+            data.product_id = this.productId;
+        }
+
         return apiFetch( {
             method: 'POST',
             path: '/foogallery/v1/likes',
-            data: {
-                attachment_id: this.id,
-                gallery_id: this.tmpl.id
-            }
+            data
         } ).then( data => {
             this.liked = data?.liked ?? this.liked;
             this.likes = data?.count ?? this.likes;
@@ -84,12 +90,27 @@
             const cf = this.tmpl.getCountFormatter();
             $likes.find( '.fg-social-button-count' )
                 .text( cf.format( this.likes ) )
-                .toggleClass( 'fg-hidden', this.likes === 0 && social?.hideLikesZeroCount );
+                .toggleClass( 'fg-hidden', ( this.likes === 0 && social?.hideLikesZeroCount ) || social?.hideCounts );
 
             $likes.find( '.fg-social-button-icon' )
-                .replaceWith( _.icons.get( this.liked ? 'heart' : 'heart-outline' ).addClass( 'fg-social-button-icon' ) )
-                .toggleClass( 'fg-hidden', ( this.likes === 0 && social?.hideLikesZero ) || social?.hideCounts );
+                .replaceWith( _.icons.get( this.liked ? 'heart' : 'heart-outline' ).addClass( 'fg-social-button-icon' ) );
+
+            $likes.toggleClass( 'fg-hidden', this.likes === 0 && social?.hideLikesZero );
         } );
+    };
+
+    _.Item.prototype.updateCommentCount = function( count ){
+        const { opt: { social } } = this.tmpl;
+        this.comments = isNaN( count ) || count < 0 ? 0 : count;
+        if ( this.isCreated ) {
+            const cf = this.tmpl.getCountFormatter();
+            const $button = this.$socialOverlay.find( '.fg-social-comments' );
+            $button.find( '.fg-social-button-count' )
+                .text( cf.format( this.comments ) )
+                .toggleClass( 'fg-hidden', ( this.comments === 0 && social?.hideCommentsZeroCount ) || social?.hideCounts );
+
+            $button.toggleClass( 'fg-hidden', this.comments === 0 && social?.hideCommentsZero );
+        }
     };
 
     _.Item.prototype.shouldShowCommentsButton = function() {
@@ -114,17 +135,20 @@
                 .append( _.icons.get( this.liked ? 'heart' : 'heart-outline' ).addClass( 'fg-social-button-icon' ) )
                 .appendTo( $buttons );
 
+            const likesCount = cf.format( this.likes );
+            if ( social?.hideCounts ) {
+                $likes.attr( 'title', likesCount );
+            }
+
             const $likesCount = $( '<span/>' ).addClass( 'fg-social-button-count' )
-                .text( cf.format( this.likes ) )
+                .text( likesCount )
                 .appendTo( $likes );
 
-            if ( this.likes === 0 || social?.hideCounts ) {
-                if ( social?.hideLikesZero ) {
-                    $likes.addClass( 'fg-hidden' );
-                }
-                if ( social?.hideLikesZeroCount || social?.hideCounts ) {
-                    $likesCount.addClass( 'fg-hidden' );
-                }
+            if ( this.likes === 0 && social?.hideLikesZero ) {
+                $likes.addClass( 'fg-hidden' );
+            }
+            if ( ( this.likes === 0 && social?.hideLikesZeroCount ) || social?.hideCounts ) {
+                $likesCount.addClass( 'fg-hidden' );
             }
         }
         if ( this.shouldShowCommentsButton() ) {
@@ -135,17 +159,20 @@
                 .append( _.icons.get( 'comment' ).addClass( 'fg-social-button-icon' ) )
                 .appendTo( $buttons );
 
+            const commentsCount = cf.format( this.comments );
+            if ( social?.hideCounts ) {
+                $comments.attr( 'title', commentsCount );
+            }
+
             const $commentsCount = $( '<span/>' ).addClass( 'fg-social-button-count' )
-                .text( cf.format( this.comments ) )
+                .text( commentsCount )
                 .appendTo( $comments );
 
-            if ( this.comments === 0 || social?.hideCounts ) {
-                if ( social?.hideCommentsZero ) {
-                    $comments.addClass( 'fg-hidden' );
-                }
-                if ( social?.hideCommentsZeroCount || social?.hideCounts ) {
-                    $commentsCount.addClass( 'fg-hidden' );
-                }
+            if ( this.comments === 0 && social?.hideCommentsZero ) {
+                $comments.addClass( 'fg-hidden' );
+            }
+            if ( ( this.comments === 0 && social?.hideCommentsZeroCount ) || social?.hideCounts ) {
+                $commentsCount.addClass( 'fg-hidden' );
             }
         }
         if ( appendToInner ) {
@@ -186,7 +213,7 @@
         this.liked = this.opt?.liked ?? false;
         this.comments = this.opt?.comments ?? 0;
         this.shareUrl = this.opt?.shareUrl ?? '';
-        this.$socialOverlay = this.createSocialOverlay();
+        this.createSocialOverlay();
     };
 
     function doParseItem( $el ) {
@@ -207,20 +234,109 @@
 
     _.Item.override( "doParseItem", doParseItem );
     _.Item.override( "doCreateItem", doCreateItem );
-    _.Video.override( "doParseItem", doParseItem );
-    _.Video.override( "doCreateItem", doCreateItem );
+    if ( _.Video?.override ) {
+        _.Video.override( "doParseItem", doParseItem );
+        _.Video.override( "doCreateItem", doCreateItem );
+    }
 
 } )(
     jQuery,
     FooGallery,
     globalThis?.wp?.apiFetch
 );
+
+( function( $, _ ) {
+
+    _.Panel.Likes = _.Panel.Button.extend( {
+        construct: function( panel, options ) {
+            this._super( panel, "likes", {
+                icon: "heart-outline",
+                label: panel.il8n.buttons.likes,
+                visible: options?.likes ?? false,
+                click: options?.canLike ? this.onLikesClicked : $.noop,
+                beforeLoad: this.onBeforeLoad,
+            } );
+            this.options = options;
+            this.item = null;
+        },
+        isEnabled: function(){
+            return this._super() && !!this.options?.likes;
+        },
+        formatCountText: function( singular, plural, count ){
+            const cf = this.panel.tmpl.getCountFormatter();
+            return ( count === 1 ? singular : plural ).replaceAll( /\{COUNT}/g, `${ cf.format( count ) }` );
+        },
+        update: function() {
+            if ( this.item instanceof _.Item ) {
+                this.$el.attr( 'title', this.formatCountText( this.panel.il8n.buttons.likesCountSingular, this.panel.il8n.buttons.likesCountPlural, this.item?.likes ?? 0 ) );
+                const $icon = this.$el.find( '.fg-icon' );
+                let icon;
+                if ( this.item?.liked ) {
+                    icon = _.icons.get( "heart", this.panel.opt.icons );
+                } else {
+                    icon = _.icons.get( "heart-outline", this.panel.opt.icons );
+                }
+                if ( $icon.length > 0 ) {
+                    $icon.replaceWith( icon );
+                } else {
+                    this.$el.append( icon );
+                }
+            }
+        },
+        onBeforeLoad: function( media ) {
+            if ( media?.item instanceof _.Item ) {
+                this.item = media.item;
+                this.update();
+            }
+        },
+        onLikesClicked: function() {
+            this.$el.find( '.fg-icon' ).replaceWith(_.icons.get( 'spinner', this.panel.opt.icons ));
+            this.item?.toggleLike().finally(() => {
+                this.update();
+            });
+        }
+    } );
+
+    _.Panel.Buttons.override( 'registerCore', function() {
+        this._super();
+        const { opt: { social } } = this.panel.tmpl;
+        if ( social.likes ) {
+            this.register( new _.Panel.Likes( this.panel, social ), 100 )
+        }
+    } );
+
+    _.template.configure( 'core', {
+        panel: {
+            buttons: {
+                likes: true
+            }
+        }
+    }, {
+        panel: {
+            buttons: {
+                likes: "fg-panel-button fg-panel-button-likes"
+            }
+        }
+    }, {
+        panel: {
+            buttons: {
+                likes: "Toggle Like",
+                likesCountSingular: "{COUNT} Like",
+                likesCountPlural: "{COUNT} Likes"
+            }
+        }
+    } );
+
+} )(
+    jQuery, FooGallery
+);
 (function($, _, _is){
 
     _.template.configure( 'core', {
         panel: {
-            share: 'none', // none, top, bottom
+            share: 'none', // none, top, bottom, info-top, info-bottom
             shareFacebookAppId: 966242223397117,
+            shareLinkSize: 24,
             shareLinks: [],
             shareLinkOptions: {
                 facebook: {
@@ -241,6 +357,9 @@
                 twitter: {
                     urlFormat: 'https://twitter.com/share?url={share_url}&text={title}'
                 },
+                vk: {
+                    urlFormat: 'https://vk.com/share.php?url={share_url}&title={title}'
+                },
                 download: {
                     allow: [ 'image' ]
                 },
@@ -260,20 +379,30 @@
     _.Panel.Media.prototype.canShare = function() {
         const { share, shareLinks = [] } = this.panel.opt;
         const { shareUrl = '' } = this.item;
-        return [ 'top', 'bottom' ].includes( share ) && shareLinks.length > 0 && shareUrl !== '';
+        return [ 'top', 'bottom', 'info-top', 'info-bottom' ].includes( share ) && shareLinks.length > 0 && shareUrl !== '';
     };
 
-    _.Panel.Media.prototype.getShareUrl = function( name, options ) {
-        const {
-            item: { shareUrl = '' } = {},
+    _.Panel.Media.prototype.getShareUrl = function( name, options, hash ) {
+        let {
+            item: { shareUrl = '', href = '', download = '' } = {},
             caption: { title = '', description = '' } = {},
             panel: { opt: { shareFacebookAppId = '' } = {} } = {}
         } = this;
 
-        let url = '';
+        if ( shareUrl === '/' ) {
+            if ( _is.string( hash ) && hash !== '' && hash.startsWith( '#' ) ) {
+                const url = new URL( window.location.href, window.location.origin );
+                url.hash = hash;
+                shareUrl = url.toString();
+            } else {
+                shareUrl = window.location.href;
+            }
+        }
+
+        let networkUrl = '';
         if ( [ 'download', 'email' ].includes( name ) ) {
             if ( name === 'download' ) {
-                return shareUrl;
+                return _is.string( download ) && download !== '' ? download : href;
             }
             if ( name === 'email' ) {
                 const subject = title !== '' ? `subject=${ encodeURIComponent( title ) }` : '';
@@ -284,12 +413,12 @@
                 return `mailto:?${ body }`;
             }
         } else {
-            url = options.urlFormat.replaceAll( /\{share_url}/g, encodeURIComponent( shareUrl ) );
-            url = url.replaceAll( /\{title}/g, encodeURIComponent( title ) );
-            url = url.replaceAll( /\{description}/g, encodeURIComponent( description ) );
-            url = url.replaceAll( /\{app_id}/g, encodeURIComponent( shareFacebookAppId ) );
+            networkUrl = options.urlFormat.replaceAll( /\{share_url}/g, encodeURIComponent( shareUrl ) );
+            networkUrl = networkUrl.replaceAll( /\{title}/g, encodeURIComponent( title ) );
+            networkUrl = networkUrl.replaceAll( /\{description}/g, encodeURIComponent( description ) );
+            networkUrl = networkUrl.replaceAll( /\{app_id}/g, encodeURIComponent( shareFacebookAppId ) );
         }
-        return url;
+        return networkUrl;
     };
 
     _.Panel.Media.prototype.$createShareLink = function( name ) {
@@ -299,28 +428,77 @@
             if ( name === 'download' && !opt?.allow?.includes( this.item.type ) ) {
                 return $();
             }
-            const url = this.getShareUrl( name, opt );
-            const $link =  $( '<a/>', { href: url, target: '_blank', rel: 'nofollow' } )
-                .addClass( `fg-share-link fg-share-link-${ name }` )
-                .append( _.icons.get( `social-${ name }`, this.panel.opt.icons ).addClass( 'fg-share-link-icon' ) );
-            if ( name === 'download' ) {
-                $link.attr( 'download', '' );
+            const hash = this.panel.tmpl.state.getItemHash( this.item );
+            const url = this.getShareUrl( name, opt, hash );
+            if ( url !== '' ) {
+                const $link =  $( '<a/>', { href: url, target: '_blank', rel: 'nofollow' } )
+                    .addClass( `fg-share-link fg-share-link-${ name }` )
+                    .append( _.icons.get( `social-${ name }`, this.panel.opt.icons ).addClass( 'fg-share-link-icon' ) );
+                if ( name === 'download' ) {
+                    $link.attr( 'download', '' );
+                    if ( _is.fn( _?.downloadImage ) ) {
+                        $link.on( 'click', function( e ) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            _.downloadImage( url )
+                                .catch( err => console.error( err ) );
+                        } );
+                    }
+                }
+                return $link;
             }
-            return $link;
         }
         return $();
     };
 
+    _.Panel.Media.override( 'construct', function( panel, item ){
+        this._super();
+        this.isShareCreated = false;
+    } );
+
     _.Panel.Media.override( 'doCreate', function(){
         if ( this._super() ) {
             if ( this.canShare() ) {
-                const { share, shareLinks = [] } = this.panel.opt;
+                const { share, shareLinks = [], shareLinkSize = 24 } = this.panel.opt;
                 this.$socialButtons = $( '<div/>' )
-                    .addClass( `fg-share-links fg-share-links-${ share }` );
+                    .addClass( `fg-share-links fg-share-links-${ share }` )
+                    .css( '--fg-social-share-icon-size', `${ shareLinkSize }px` );
+
                 shareLinks.forEach( name => {
                     this.$socialButtons.append( this.$createShareLink( name ) );
                 } );
-                this.$socialButtons.appendTo( this.$el );
+
+                this.isShareCreated = true;
+            }
+            return true;
+        }
+        return false;
+    } );
+
+    _.Panel.Media.override( 'doAppendTo', function( parent ) {
+        if ( this._super( parent ) ) {
+            if ( this.isShareCreated && [ 'top', 'bottom' ].includes( this.panel.opt.share ) ) {
+                this.panel.$el.append( this.$socialButtons );
+            }
+            return true;
+        }
+        return false;
+    } );
+
+    _.Panel.Media.override( 'doDetach', function() {
+        if ( this._super() ) {
+            if ( this.isShareCreated && [ 'top', 'bottom' ].includes( this.panel.opt.share ) ) {
+                this.$socialButtons.detach();
+            }
+            return true;
+        }
+        return false;
+    } );
+
+    _.Panel.Media.Caption.override( 'doCreate', function(){
+        if ( this._super() ) {
+            if ( this.media.isShareCreated && [ 'info-top', 'info-bottom' ].includes( this.panel.opt.share ) ) {
+                this.$el.append( this.media.$socialButtons );
             }
             return true;
         }
@@ -336,15 +514,21 @@
             commentsOverlay: true,
             commentsAutoHide: true,
             commentsVisible: false,
+            buttons: {
+                comments: true
+            }
         }
     }, {
         panel: {
-            comments: {}
+            comments: {},
+            buttons: {
+                comments: "fg-panel-button fg-panel-button-comments"
+            }
         }
     }, {
         panel: {
             buttons: {
-                comments: "Comments"
+                comments: "Toggle Comments"
             }
         }
     } );
@@ -404,6 +588,9 @@
             this.nestedDepth = this.opt.commentsNestedDepth;
             this.collapseNested = this.opt.commentsCollapseNested;
             this.showThreadLines = this.opt.commentsShowThreadLines;
+            this.showNameField = this.opt.commentsShowNameField !== false;
+            this.showEmailField = this.opt.commentsShowEmailField !== false;
+            this.showWebsiteField = this.opt.commentsShowWebsiteField !== false;
 
             this.$el = null;
             this.$inner = null;
@@ -514,7 +701,7 @@
                 this.$el.addClass( states.loaded );
                 this.panel.trigger( "comments-loaded", [ this ] );
             } ).catch( () => {
-                this.$el.addClass( states.loaded );
+                this.$el.addClass( states.error );
                 this.panel.trigger( "comments-error", [ this ] );
             } ).promise();
         },
@@ -522,7 +709,12 @@
             if ( this._loaded ) {
                 return this._loaded;
             }
-            return this._loaded = apiFetch( { path: `/foogallery/v1/comments/${ this.media.item.id }` } ).then( response => {
+            let path = `/foogallery/v1/comments/${ this.media.item.tmpl.id }/${ this.media.item.id }`;
+            if ( this.media?.item?.productId ) {
+                path = `${ path }/${ this.media.item.productId }`;
+            }
+
+            return this._loaded = apiFetch( { path } ).then( response => {
                 this.currentAuthor = response?.currentAuthor;
                 this.consented = _is.hash( response?.currentAuthor );
                 this.closed = response?.closed ?? true;
@@ -532,7 +724,19 @@
                 this.comments = comments;
                 this.lookup = lookup;
                 this.createComments();
-            } );
+                this.media?.item?.updateCommentCount( this.lookup.size );
+            } ).catch( reason => {
+                console.error( `FooGallery Comments: ${ this.il8n.errorOccurredGET }`, reason );
+                this.$header.text( this.il8n.errorOccurred );
+                this.$body.empty().append(
+                    $( '<div/>' ).text( reason?.friendly ?? this.il8n.errorOccurredGET ).addClass( this.cls.errorMessage ),
+                    $( '<button/>' ).text( this.il8n.errorRetry ).addClass( this.cls.errorRetry ).on( 'click', e => {
+                        e.preventDefault();
+                        this._loaded = null;
+                        this.load();
+                    } )
+                );
+            });
         },
         unload: function() {
             return $.Deferred( def => {
@@ -641,7 +845,7 @@
         },
         setHeaderText: function(){
             const total = this.lookup.size;
-            const title = total > 0 ? this.formatCountText( this.il8n.titleSingular, this.il8n.titlePlural, total ) : this.il8n.formLeaveReply;
+            const title = total > 0 ? this.formatCountText( this.il8n.titleSingular, this.il8n.titlePlural, total ) : ( this.closed ? this.il8n.titleEmptyClosed : this.il8n.titleEmpty );
             this.$header.text( title );
         },
         createComments: function() {
@@ -658,6 +862,10 @@
             }
             if ( !this.locked ) {
                 this.createForm( { author: this.currentAuthor } );
+            }
+            if ( this.closed ) {
+                const $msg = $( '<div/>' ).addClass( this.cls.closedMessage ).text( this.il8n.closedMessage );
+                this.$footer.empty().append( $msg );
             }
         },
         destroyResponses: function() {
@@ -894,10 +1102,10 @@
             const attachmentId = this.media.item.id;
             const galleryId = this.media.item.tmpl.id;
             const guid = _.generateGUID();
-            const { requireNameAndEmail, showCookieConsent, lookup } = this;
+            const { requireNameAndEmail, showCookieConsent, showNameField, showEmailField, showWebsiteField, lookup } = this;
             const d = [];
 
-            const $form = $( '<form/>', { id: guid, autocomplete: 'off' } ).addClass( this.cls.form );
+            const $form = $( '<form/>', { id: guid } ).attr( 'autocomplete', 'off' ).addClass( this.cls.form );
             const $content = $( '<fieldset/>' ).addClass( this.cls.formContent ).appendTo( $form );
 
             const destroy = () => {
@@ -908,10 +1116,14 @@
 
             const onSubmit = async( e ) => {
                 e.preventDefault();
-                const data = new FormData( e.target );
-                this.consented = data.has( 'cookie_consent' );
+                const formData = new FormData( e.target );
+                this.consented = formData.has( 'cookie_consent' );
+                const data = formData.entries().reduce( (acc, [ key, value ]) => {
+                    acc[ key ] = value;
+                    return acc;
+                }, {} );
                 $content.prop( 'disabled', true );
-                apiFetch( { path: '/foogallery/v1/comments', method: 'POST', data } ).then( response => {
+                apiFetch( { path: '/foogallery/v1/comments', method: 'POST', data  } ).then( response => {
                     if ( response.action === 'updated' ) {
                         this.updateComment( response.comment );
                     } else {
@@ -919,9 +1131,22 @@
                     }
                     this.setHeaderText();
                     this.createForm( { author: this.currentAuthor } );
+                    this.media?.item?.updateCommentCount( this.lookup.size );
                 } ).catch( reason => {
-                    console.error( reason );
-                } );
+                    console.error( `FooGallery Comments: ${ this.il8n.errorOccurredPOST }`, reason );
+                    $form.css( 'display', 'none' );
+                    const $error = $( '<div/>' ).addClass( this.cls.error ).append(
+                        $( '<div/>' ).text( this.il8n.errorOccurred ).addClass( this.cls.errorTitle ),
+                        $( '<div/>' ).text( reason?.friendly ?? this.il8n.errorOccurredPOST ).addClass( this.cls.errorMessage ),
+                        $( '<button/>' ).text( this.il8n.errorRetry ).addClass( this.cls.errorRetry ).on( 'click', e => {
+                            e.preventDefault();
+                            $error.remove();
+                            $content.prop( 'disabled', false );
+                            $form.css( 'display', '' );
+                        } )
+                    );
+                    this.$footer.append( $error );
+                });
             };
 
             $form.on( 'submit', onSubmit );
@@ -934,6 +1159,12 @@
                 name: 'attachment_id',
                 value: attachmentId
             } ) );
+            if ( this.media?.item?.productId ) {
+                $content.append( this.$createHiddenInput( `${ guid }[product_id]`, {
+                    name: 'product_id',
+                    value: this.media.item?.productId
+                } ) );
+            }
 
             let formTitle = this.il8n.formTitle;
             let formCancelText = this.il8n.formCancel;
@@ -995,31 +1226,37 @@
                     value: author.id
                 } ) );
             } else {
-                const [ $name_control ] = this.$createTextInput( `${ guid }[author_name]`, this.il8n.formName, {
-                    type: 'text',
-                    name: 'author_name',
-                    maxlength: 245,
-                    required: requireNameAndEmail,
-                    value: author?.name
-                } );
-                $content.append( $name_control );
+                if ( showNameField ) {
+                    const [ $name_control ] = this.$createTextInput( `${ guid }[author_name]`, this.il8n.formName, {
+                        type: 'text',
+                        name: 'author_name',
+                        maxlength: 245,
+                        required: requireNameAndEmail,
+                        value: author?.name
+                    } );
+                    $content.append( $name_control );
+                }
 
-                const [ $email_control ] = this.$createTextInput( `${ guid }[author_email]`, this.il8n.formEmail, {
-                    type: 'email',
-                    name: 'author_email',
-                    maxlength: 100,
-                    required: requireNameAndEmail,
-                    value: author?.email
-                } );
-                $content.append( $email_control );
+                if ( showEmailField ) {
+                    const [ $email_control ] = this.$createTextInput( `${ guid }[author_email]`, this.il8n.formEmail, {
+                        type: 'email',
+                        name: 'author_email',
+                        maxlength: 100,
+                        required: requireNameAndEmail,
+                        value: author?.email
+                    } );
+                    $content.append( $email_control );
+                }
 
-                const [ $website_control ] = this.$createTextInput( `${ guid }[author_url]`, this.il8n.formWebsite, {
-                    type: 'url',
-                    name: 'author_url',
-                    maxlength: 200,
-                    value: author?.url
-                } );
-                $content.append( $website_control );
+                if ( showWebsiteField ) {
+                    const [ $website_control ] = this.$createTextInput( `${ guid }[author_url]`, this.il8n.formWebsite, {
+                        type: 'url',
+                        name: 'author_url',
+                        maxlength: 200,
+                        value: author?.url
+                    } );
+                    $content.append( $website_control );
+                }
 
                 if ( !editing && showCookieConsent ) {
                     const [ $cookie_consent_control ] = this.$createCheckboxInput( `${ guid }[cookie_consent]`, this.il8n.formCookieConsent, {
@@ -1119,7 +1356,10 @@
             commentsShowAvatar: true,
             commentsNestedDepth: 5,
             commentsCollapseNested: false,
-            commentsShowThreadLines: false
+            commentsShowThreadLines: false,
+            commentsShowNameField: true,
+            commentsShowEmailField: true,
+            commentsShowWebsiteField: true
         }
     }, {
         panel: {
@@ -1130,6 +1370,11 @@
                     header: "fg-media-comments-title",
                     body: "fg-media-comments-body",
                     footer: "fg-media-comments-footer",
+                    closedMessage: "fg-comments-closed-message",
+                    error: "fg-comments-error",
+                    errorTitle: "fg-comments-error-title",
+                    errorMessage: "fg-comments-error-message",
+                    errorRetry: "fg-comments-error-retry fg-panel-button fg-panel-button-primary",
                     responses: "fg-comments-responses",
                     responsesThreadLines: "fg-comments-thread-lines",
                     response: "fg-comments-response",
@@ -1163,8 +1408,15 @@
         panel: {
             media: {
                 comments: {
+                    errorOccurred: "An Error Occurred",
+                    errorOccurredGET: "An error occurred attempting to retrieve the comments for the current item.",
+                    errorOccurredPOST: "An error occurred submitting your comment.",
+                    errorRetry: "Try Again",
                     titleSingular: "{COUNT} response",
                     titlePlural: "{COUNT} responses",
+                    titleEmpty: "Leave a Reply",
+                    titleEmptyClosed: "No Comments",
+                    closedMessage: "Comments are closed for this item.",
                     responseEdit: "Edit",
                     responseModeration: "Your comment is awaiting moderation. This is a preview; your comment will be visible after it has been approved.",
                     responseReply: "Reply",
@@ -1184,7 +1436,7 @@
                     formEmail: "Email",
                     formWebsite: "Website",
                     formComment: "Comment",
-                    formCookieConsent: "Save my name, email, and website in this browser for the next time I comment.",
+                    formCookieConsent: "Save my details in this browser for the next time I comment.",
                     formSubmit: "Post Comment",
                     formSubmitReply: "Post Comment",
                     formSubmitEdit: "Update Comment"
