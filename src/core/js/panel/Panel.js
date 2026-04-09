@@ -54,6 +54,24 @@
                 self.areas.push( self.cart );
             }
 
+            if ( _.Panel.Comments ){
+                self.comments = new _.Panel.Comments(self);
+                self.areas.push( self.comments );
+            }
+
+            // Make sure only one side area can occupy the same position, overrides supplied options
+            // There can be only one...
+            const highlanders = self.areas.filter( a => a instanceof _.Panel.SideArea && a.isVisible && a.opt.group === 'overlay' );
+            while ( highlanders.length > 0 ) {
+                const theOne = highlanders.shift();
+                highlanders.forEach( challenger => {
+                    if ( challenger.isTargetingSamePosition( theOne ) ) {
+                        challenger.isVisible = false;
+                        challenger.button.isPressed = false;
+                    }
+                } );
+            }
+
             self.$el = null;
 
             self.el = null;
@@ -91,6 +109,7 @@
             self.isSmallScreen = false;
             self.isMediumScreen = false;
             self.isLargeScreen = false;
+            self.isMobileLayout = false;
 
             self.breakpointClassNames = self.opt.breakpoints.map(function(bp){
                 return "fg-" + bp.name + " fg-" + bp.name + "-width" + " fg-" + bp.name + "-height";
@@ -156,7 +175,7 @@
             self.areas.forEach(function(area){
                 area.appendTo( self.$el );
             });
-            self.buttons.appendTo( self.content.$el );
+            self.buttons.appendTo( self.$el );
             return true;
         },
         createElem: function(){
@@ -288,6 +307,7 @@
             self.isLargeScreen = self.$el.hasClass("fg-large");
             self.isXLargeScreen = self.$el.hasClass("fg-x-large");
             self.isSmallScreen = !self.isMediumScreen && !self.isLargeScreen && !self.isXLargeScreen;
+            self.isMobileLayout = self.isSmallScreen && !self.opt.noMobile;
             self.areas.forEach(function (area) {
                 area.resize();
             });
@@ -362,14 +382,14 @@
                 self.currentItem = item;
                 self.prevItem = self.tmpl.items.prev(item, self.isVisible, self.opt.loop);
                 self.nextItem = self.tmpl.items.next(item, self.isVisible, self.opt.loop);
-                self.doLoad(media).then(def.resolve).fail(def.reject);
+                self.doLoad(media).then(def.resolve).catch(def.reject);
             }).always(function(){
                 self.isLoading = false;
             }).then(function(){
                 self.isLoaded = true;
                 self.trigger("loaded", [item]);
                 item.updateState();
-            }).fail(function(){
+            }).catch(function(){
                 self.isError = true;
                 self.trigger("error", [item]);
             }).promise();
@@ -405,7 +425,7 @@
                     self.appendTo( parent );
                 }
                 if (self.isAttached){
-                    self.load( item ).then(def.resolve).fail(def.reject);
+                    self.load( item ).then(def.resolve).catch(def.reject);
                 } else {
                     def.rejectWith("not attached");
                 }
@@ -456,7 +476,7 @@
                             wait.push(area.close(immediate));
                         }
                     });
-                    $.when.apply($, wait).then(def.resolve).fail(def.reject);
+                    $.when.apply($, wait).then(def.resolve).catch(def.reject);
                 });
             }).always(function(){
                 self.isClosing = false;
@@ -586,7 +606,8 @@
                 autoProgress: true,
                 info: true,
                 thumbs: false,
-                cart: true
+                cart: true,
+                download: false
             },
             breakpoints: [{
                 name: "medium",
@@ -654,7 +675,8 @@
                 maximize: "fg-panel-button fg-panel-button-maximize",
                 info: "fg-panel-button fg-panel-button-info",
                 thumbs: "fg-panel-button fg-panel-button-thumbs",
-                cart: "fg-panel-button fg-panel-button-cart"
+                cart: "fg-panel-button fg-panel-button-cart",
+                download: "fg-panel-button fg-panel-button-download"
             },
 
             transition: {
@@ -668,7 +690,9 @@
                 inner: "fg-panel-area-inner"
             },
 
-            content: {},
+            content: {
+                buttons: "fg-panel-content-buttons"
+            },
 
             sideArea: {
                 toggle: "fg-panel-area-toggle",
@@ -734,7 +758,8 @@
                 autoProgress: "Auto Progress",
                 info: "Toggle Information",
                 thumbs: "Toggle Thumbnails",
-                cart: "Toggle Cart"
+                cart: "Toggle Cart",
+                download: "Download Media"
             }
         }
     });

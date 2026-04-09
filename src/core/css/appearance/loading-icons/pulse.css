@@ -2,25 +2,19 @@
 .fg-loading-pulse .fg-loader:before,
 .fg-loading-pulse .fg-loader:after {
 	border-radius: 50%;
-	width: 2.5em;
-	height: 2.5em;
-	-webkit-animation: loading-pulse 1.8s infinite both paused ease-in-out;
+	width: 1.6em;
+	height: 1.6em;
 	animation: loading-pulse 1.8s infinite both paused ease-in-out;
 }
 .fg-loading-pulse .fg-loading .fg-loader,
 .fg-loading-pulse .fg-loading .fg-loader:before,
 .fg-loading-pulse .fg-loading .fg-loader:after {
-	-webkit-animation-play-state: running;
 	animation-play-state: running;
 }
 
 .fg-loading-pulse .fg-loader {
 	color: #828282;
-	font-size: 4px;
-	margin-top: -3.75em;
-	margin-left: -1.25em;
-	text-indent: -9999em;
-	-webkit-animation-delay: -0.16s;
+    margin-top: -1.6em;
 	animation-delay: -0.16s;
 }
 .fg-loading-pulse .fg-loader:before,
@@ -30,30 +24,20 @@
 	top: 0;
 }
 .fg-loading-pulse .fg-loader:before {
-	left: -3.5em;
-	-webkit-animation-delay: -0.32s;
+	left: -2.24em;
 	animation-delay: -0.32s;
 }
 .fg-loading-pulse .fg-loader:after {
-	left: 3.5em;
+	left: 2.24em;
 }
-@-webkit-keyframes loading-pulse {
-	0%,
-	80%,
-	100% {
-		box-shadow: 0 2.5em 0 -1.3em;
-	}
-	40% {
-		box-shadow: 0 2.5em 0 0;
-	}
-}
+
 @keyframes loading-pulse {
 	0%,
 	80%,
 	100% {
-		box-shadow: 0 2.5em 0 -1.3em;
+		box-shadow: 0 1.6em 0 -0.8em;
 	}
 	40% {
-		box-shadow: 0 2.5em 0 0;
+		box-shadow: 0 1.6em 0 0;
 	}
 }

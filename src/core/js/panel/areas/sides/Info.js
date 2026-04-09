@@ -21,7 +21,8 @@
                 autoHide: panel.opt.infoAutoHide,
                 align: panel.opt.infoAlign,
                 waitForUnload: false,
-                group: "overlay"
+                group: "overlay",
+                priority: 90
             }, panel.cls.info);
         },
         doCreate: function(){

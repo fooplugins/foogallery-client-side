@@ -19,6 +19,7 @@ test-pages/defaults/assets/js/foogallery.js
 test-pages/defaults/assets/js/foogallery.min.js
 test-pages/defaults/assets/free/
 test-pages/defaults/assets/img/icons.svg
+test-pages/defaults/assets/components/
 test-pages/templates/assets/css/foogallery.css
 test-pages/templates/assets/css/foogallery.min.css
 test-pages/templates/assets/js/foogallery.js

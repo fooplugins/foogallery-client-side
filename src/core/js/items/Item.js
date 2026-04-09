@@ -161,7 +161,7 @@
 			 * @name id
 			 * @type {string}
 			 */
-			self.id = self.opt.id;
+			self.id = `${ self.opt.id }`;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name productId
@@ -174,6 +174,12 @@
 			 * @type {string}
 			 */
 			self.href = self.opt.href;
+			/**
+			 * @memberof FooGallery.Item#
+			 * @name download
+			 * @type {string}
+			 */
+			self.download = self.opt.download;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name placeholder
@@ -542,6 +548,7 @@
 			self.$anchor = $(el.querySelector(sel.anchor)).on("click.foogallery", {self: self}, self.onAnchorClick);
 			self.$image = $(el.querySelector(sel.image));
 			self.$caption = $(el.querySelector(sel.caption.elem)).on("click.foogallery", {self: self}, self.onCaptionClick);
+			self.$caption.on("click.foogallery", ".fg-download-button", {self: self}, self.onDownloadClick);
 			self.$overlay = $(el.querySelector(sel.overlay));
 			self.$wrap = $(el.querySelector(sel.wrap));
 			self.$loader = $(el.querySelector(sel.loader));
@@ -562,10 +569,11 @@
 			self.isError = self.$el.hasClass(cls.error);
 
 			var data = self.$anchor.data();
-			self.id = data.id || data.attachmentId || self.id;
+			self.id = `${ data.id || data.attachmentId || self.id }`;
 			self.productId = data.productId || self.productId;
 			self.tags = data.tags || self.tags;
 			self.href = data.href || self.$anchor.attr('href') || self.href;
+			self.download = data.download || self.download || self.href;
 
 			var $img;
 			if (self.$image.is("picture")){
@@ -811,7 +819,8 @@
 				"data-description": self.description,
 				"data-tags": self.tags,
 				"data-exif": self.exif,
-				"data-product-id": self.productId
+				"data-product-id": self.productId,
+				"data-download": self.download
 			});
 
 			if (!_is.string(self.placeholder) || self.placeholder.length === 0){
@@ -923,8 +932,11 @@
 						if (_is.string(button.target) && button.target.length > 0){
 							captionButton.target = button.target;
 						}
-						if (_is.string(button.classes) && button.classes.length > 0){
-							captionButton.className = button.classes;
+						const buttonClasses = [ button.classes, button.class ]
+							.filter( classNames => _is.string( classNames ) && classNames.length > 0 )
+							.join( " " );
+						if ( buttonClasses.length > 0 ){
+							captionButton.className = buttonClasses;
 						}
 						if (_is.hash(button.attr)){
 							self._setAttributes(captionButton, button.attr);
@@ -965,6 +977,7 @@
 				self.$image = $(image);
 			}
 			self.$caption = $(caption).on("click.foogallery", {self: self}, self.onCaptionClick);
+			self.$caption.on("click.foogallery", ".fg-download-button", {self: self}, self.onDownloadClick);
 			self.$loader = $(loader);
 
 			return true;
@@ -1214,13 +1227,16 @@
 					});
 				}
 
-				if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
-					img.crossOrigin = 'anonymous';
+                const { opt: { cors } } = self.tmpl;
+                if ( _is.string( cors ) ) {
+                    if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
+                        img.crossOrigin = cors;
+                    }
 				}
+                if (!_is.empty(self.srcset)){
+                    img.srcset = self.srcset;
+                }
 				img.src = self.src;
-				if (!_is.empty(self.srcset)){
-					img.srcset = self.srcset;
-				}
 				if (img.complete){
 					img.onload();
 				}
@@ -1338,6 +1354,26 @@
 			var self = e.data.self, evt = self.tmpl.trigger("caption-click-item", [self]);
 			if (!evt.isDefaultPrevented() && self.$anchor.length > 0 && !$(e.target).is("a[href],:input")) {
 				self.$anchor.get(0).click();
+			}
+		},
+		/**
+		 * @summary Listens for clicks on caption download buttons and triggers the client-side download helper.
+		 * @memberof FooGallery.Item#
+		 * @function onDownloadClick
+		 * @param {jQuery.Event} e - The jQuery.Event object for the click event.
+		 * @private
+		 */
+		onDownloadClick: function (e) {
+			var self = e.data.self,
+				$button = $(e.target).closest(".fg-download-button"),
+				url = $button.attr("data-download") || $button.prop("href") || self.download;
+
+			if (_is.string(url) && url.length > 0 && _is.fn(_.downloadImage)) {
+				e.preventDefault();
+				e.stopPropagation();
+				_.downloadImage(url).catch(function(err){
+					console.error(err);
+				});
 			}
 		}
 	});

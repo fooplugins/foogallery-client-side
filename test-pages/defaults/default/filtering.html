@@ -32,7 +32,6 @@
     <script src="../assets/jquery.min.js" defer></script>
     <script src="../assets/theme.js" defer></script>
     <script src="../assets/js/foogallery.js" defer></script>
-    <script src="../../wc_testing.js" defer></script>
     <script>
         const SHOW_COUNT = localStorage.getItem( 'show-count' ) ?? "no";
         const MULTI_LEVEL = localStorage.getItem( 'multi-level' ) ?? "no";
@@ -172,6 +171,7 @@
                 showCount: SHOW_COUNT === 'yes',
                 adjustSize: false,
                 collapse: true,
+                noAll: false,
                 search: SEARCH_POSITION !== '',
                 searchPosition: SEARCH_POSITION,
                 tags: MULTI_LEVEL === 'yes' ? [ {
@@ -199,8 +199,9 @@
         #foogallery-gallery-1 .fg-image {
             width: 275px;
         }
+
+
     </style>
-    <nav class="fg-ph-tags"></nav>
     <div id="foogallery-gallery-1"
          class="foogallery fg-loading-default fg-loaded-slide-up fg-default fg-center fg-c-c fg-gutter-10 fg-hover-fade fg-hover-circle-plus2 fg-caption-hover fg-dark"
          data-foogallery="{}"

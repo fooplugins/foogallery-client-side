@@ -71,6 +71,8 @@ const getPosition = path => {
     return 'centre';
 };
 
+const getExpires = seconds => new Date( Date.now() + (seconds * 1000) ).toUTCString();
+
 const server = http.createServer( ( req, res ) => {
     const requestURL = URL.parse( req.url, `http://${ req.headers.host }/` );
     const path = strim( requestURL.pathname, '/' );
@@ -96,13 +98,17 @@ const server = http.createServer( ( req, res ) => {
                     if ( err ) {
                         console.error( err.message );
                         res.writeHead( 404, {
-                            'Access-Control-Allow-Origin': '*'
+                            'Access-Control-Allow-Origin': '*',
+                            'Cache-Control': '60',
+                            'Expires': getExpires( 60 )
                         } );
                         res.end();
                     } else {
                         res.writeHead( 200, {
                             'Content-Type': `image/${ info.format }`,
-                            'Access-Control-Allow-Origin': '*'
+                            'Access-Control-Allow-Origin': '*',
+                            'Cache-Control': '60',
+                            'Expires': getExpires( 60 )
                         } );
                         res.end( buffer );
                     }

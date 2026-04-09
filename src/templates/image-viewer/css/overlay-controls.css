@@ -39,8 +39,8 @@
 .fg-image-viewer.fg-overlay-controls .fiv-inner:hover .fiv-ctrls .fiv-next {
     opacity: 0.6;
 }
-.fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-prev:hover,
-.fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-next:hover {
+.fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
+.fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
     opacity: 1;
 }
 
@@ -133,6 +133,6 @@
 .fg-image-viewer.fg-overlay-controls .fiv-inner:hover .fg-paging-container .fg-dots {
     opacity: 0.6;
 }
-.fg-image-viewer.fg-overlay-controls .fiv-inner .fg-paging-container .fg-dots:hover {
+.fg-image-viewer.fg-overlay-controls .fiv-inner .fg-paging-container .fg-dots:is(:hover,:focus-within) {
     opacity: 1;
 }

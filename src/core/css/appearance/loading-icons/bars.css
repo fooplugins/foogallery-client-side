@@ -1,25 +1,18 @@
 .fg-loading-bars .fg-loader,
 .fg-loading-bars .fg-loader:before,
 .fg-loading-bars .fg-loader:after {
-	background: rgba(130, 130, 130, 1);
-	width: 1em;
-	height: 4em;
-	-webkit-animation: loading-bars 1s infinite paused ease-in-out;
-	animation: loading-bars 1s infinite paused ease-in-out;
+    background: rgba(130, 130, 130, 1);
+    width: 0.8em;
+    height: 3.2em;
+    animation: loading-bars 1s infinite paused ease-in-out;
 }
 .fg-loading-bars .fg-loading .fg-loader,
 .fg-loading-bars .fg-loading .fg-loader:before,
 .fg-loading-bars .fg-loading .fg-loader:after {
-	-webkit-animation-play-state: running;
-	animation-play-state: running;
+    animation-play-state: running;
 }
 .fg-loading-bars .fg-loader {
 	color: rgba(130, 130, 130, 1);
-	text-indent: -9999em;
-	font-size: 4px;
-	margin-top: -2em;
-	margin-left: -0.5em;
-	-webkit-animation-delay: -0.16s;
 	animation-delay: -0.16s;
 }
 .fg-loading-bars .fg-loader:before,
@@ -29,34 +22,21 @@
 	content: '';
 }
 .fg-loading-bars .fg-loader:before {
-	left: -1.5em;
-	-webkit-animation-delay: -0.32s;
+	left: -1.2em;
 	animation-delay: -0.32s;
 }
 .fg-loading-bars .fg-loader:after {
-	left: 1.5em;
-}
-@-webkit-keyframes loading-bars {
-	0%,
-	80%,
-	100% {
-		box-shadow: 0 0;
-		height: 4em;
-	}
-	40% {
-		box-shadow: 0 -2em;
-		height: 5em;
-	}
+	left: 1.2em;
 }
 @keyframes loading-bars {
 	0%,
 	80%,
 	100% {
 		box-shadow: 0 0;
-		height: 4em;
+		height: 3.2em;
 	}
 	40% {
-		box-shadow: 0 -2em;
-		height: 5em;
+		box-shadow: 0 -1.6em;
+		height: 4em;
 	}
 }

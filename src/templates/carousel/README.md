@@ -26,6 +26,8 @@ The first item should have a CSS class of `fg-item-active` applied to it.
 
 * **maxItems** (`0`) - The max number of items displayed in the carousel. This should be an ODD number as the active item is the center and the remainder make up each side.
 * **scale** (`0.12`) - The scale difference between items. The active item starts at 1, then each item to the side is scaled down by this factor.
+* **align** (`"center"`) - Visual alignment of the entire visible item set. Use `"left"` or `"right"` to align the whole set to that side.
+* **activePosition** (`"center"`) - Position of the active item in the visible sequence. Use `"start"` or `"end"` to keep the active item anchored to that side during navigation.
 * **gutter** (`{ "min":-40, "max":-20, "unit":"%" }`) - The gutter to apply to items. Negative values create an overlap.
 * **autoplay** (`{ "time": 0, "interaction": "pause" }`) - The autoplay options for the carousel. `time` is the number in *seconds* an item is displayed. `interaction` specifies what occurs once/when a user has interacted with the carousel. If set to `"pause"`, autoplay will resume a short time after the user stops interacting with the carousel. If set to `"disable"`, autoplay is simply turned off once the carousel has been interacted with. *NOTE:* On touch devices autoplay is paused on `touchstart` and is only resumed once the user has not interacted with the carousel for the supplied `time`.
 * **centerOnClick** (`true`) - Overrides opening the lightbox when clicking on a side item.

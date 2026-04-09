@@ -119,6 +119,12 @@
 	 * });
 	 */
 
+    var mobileSize = globalThis?.FooGallery_mobileSize ?? '782px';
+    /**
+     * A very simple screen size based check for mobile sized screens.
+     */
+    _.isMobile = !!(globalThis.matchMedia && globalThis.matchMedia( `(max-width: ${ mobileSize })` ).matches);
+
 	/**
 	 * @summary Checks if the supplied image src is cached by the browser.
 	 * @param {string} src - The image src to check.
@@ -410,11 +416,96 @@
      * @returns {boolean} True if the URL is cross-origin, otherwise False.
      */
 	_.isCrossOrigin = function(url) {
-		const parsed = URL.parse(url);
+		const parsed = _utils.url.parts(url);
 		if ( parsed !== null ) {
 			return parsed.origin !== window.location.origin;
 		}
 		return false;
+	};
+
+    /**
+     * Generates a UUID (version 4) according to RFC 4122. In modern browsers,
+     * this method uses the `crypto.randomUUID()` method, which is more secure.
+     * In older browsers, a fallback method is used.
+     *
+     * @returns {string} A UUID (version 4) according to RFC 4122.
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
+     * @see https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)
+     */
+    _.generateGUID = () => {
+        // Check if the crypto object and randomUUID method are available
+        if ( window.crypto && crypto.randomUUID ) {
+            return crypto.randomUUID();
+        } else {
+            // Fallback method for non-secure contexts
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace( /[xy]/g, function( c ) {
+                var r = Math.random() * 16 | 0,
+                    v = c === 'x' ? r : ( r & 0x3 | 0x8 );
+                return v.toString( 16 );
+            } );
+        }
+    };
+
+	const _domParser = new DOMParser();
+
+	/**
+	 * Uses the native DOMParser to decode HTMLEntities in a string.
+	 * @param str
+	 * @returns {string}
+	 */
+	_.decodeHTMLEntities = ( str ) => {
+		let result = '';
+		try {
+			result = _domParser.parseFromString( str, "text/html" ).documentElement.textContent;
+		} catch ( err ) {
+			console.error( `Error decoding HTMLEntities in string "${ str }".`, err );
+		}
+		return result;
+	};
+
+	/**
+	 * More reliable way to trigger the download/Save As dialog for images than simply relying on a[download].
+	 * @param {string} url
+	 * @param {?string} [name=null]
+	 * @returns {Promise<void>}
+	 */
+	_.downloadImage = function( url, name = null ){
+		let downloadName = name;
+		if ( !_is.string( downloadName ) || _is.empty( downloadName ) ) {
+			downloadName = 'image';
+			const parsed = _utils.url.parts( url );
+			if ( parsed !== null && _is.string( parsed.pathname ) ) {
+				const filename = parsed.pathname.replace( /\/+$/, '' ).split( '/' ).pop();
+				if ( _is.string( filename ) && !_is.empty( filename ) ) {
+					try {
+						downloadName = decodeURIComponent( filename );
+					} catch ( err ) {
+						downloadName = filename;
+					}
+				}
+			}
+		}
+		return fetch(url)
+			.then(function (res) {
+				if (!res.ok) {
+					throw new Error(`Failed to fetch image: ${res.status} ${res.statusText}`);
+				}
+				return res.blob();
+			})
+			.then(function (blob) {
+				const objectUrl = window.URL.createObjectURL(blob);
+				try {
+					const a = document.createElement('a');
+					a.href = objectUrl;
+					a.download = downloadName;
+					document.body.appendChild(a);
+					a.click();
+					a.remove();
+				} finally {
+					// Always runs if objectUrl was created
+					window.URL.revokeObjectURL(objectUrl);
+				}
+			});
 	};
 
 })(

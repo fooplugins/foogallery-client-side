@@ -23,7 +23,8 @@
                 overlay: false,
                 visible: true,
                 autoHide: false,
-                toggle: !!panel.opt.buttons[name]
+                toggle: !!panel.opt.buttons[name],
+                priority: 99
             }, options), _obj.extend({
                 toggle: this.__cls(cls.toggle, name, true),
                 visible: this.__cls(cls.visible, name),
@@ -43,7 +44,7 @@
         },
         registerButton: function(){
             var btn = new _.Panel.SideAreaButton(this);
-            this.panel.buttons.register(btn);
+            this.panel.buttons.register(btn, this.opt.priority);
             return btn;
         },
         doCreate: function(){
@@ -60,7 +61,7 @@
             return this.cls.position.hasOwnProperty(this.opt.position);
         },
         canLoad: function(media){
-            return media instanceof _.Panel.Media;
+            return this.isEnabled() && media instanceof _.Panel.Media;
         },
         getPosition: function(){
             if (this.isEnabled()){
@@ -91,6 +92,14 @@
         onToggleClick: function(e){
             e.preventDefault();
             e.data.self.toggle();
+        },
+        isTargetingSamePosition: function( area ) {
+            if ( area instanceof _.Panel.SideArea ) {
+                const pos1 = this.opt.position,
+                    pos2 = area.opt.position;
+                return _is.string( pos1 ) && _is.string( pos2 ) && pos1 === pos2;
+            }
+            return false;
         }
     });
 

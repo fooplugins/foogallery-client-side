@@ -32,30 +32,31 @@
     <script src="../assets/jquery.min.js" defer></script>
     <script src="../assets/theme.js" defer></script>
     <script src="../assets/js/foogallery.js" defer></script>
-    <script src="../../wc_testing.js" defer></script>
-    <script>
-        const CAPTION_BUTTONS_STYLE = localStorage.getItem( 'caption-buttons-style' ) ?? "";
+    <script src="../assets/components/js/foogallery.ready.js" defer></script>
+    <script src="../woocommerce-testing.js" defer></script>
+<!--    <script>-->
+<!--        const CAPTION_BUTTONS_STYLE = localStorage.getItem( 'caption-buttons-style' ) ?? "";-->
 
-        document.addEventListener( 'DOMContentLoaded', () => {
-            const captionButtonsStyle = document.getElementById( 'caption-buttons-style' );
-            const galleryContainer = document.querySelector( '.foogallery' );
-            captionButtonsStyle.value = CAPTION_BUTTONS_STYLE;
-            const allStyleClasses = Array.from( captionButtonsStyle?.options ).filter( o => o.value.length > 0 ).map( o => `fg-cb-${o.value}` );
-            captionButtonsStyle?.addEventListener( 'change', () => {
-                const style = captionButtonsStyle.value;
-                galleryContainer?.classList?.remove( ...allStyleClasses );
-                if ( style !== '' ) {
-                    localStorage.setItem( 'caption-buttons-style', style );
-                    galleryContainer?.classList?.add( `fg-cb-${style}` );
-                } else {
-                    localStorage.removeItem( 'caption-buttons-style' );
-                }
-            } );
-            if ( CAPTION_BUTTONS_STYLE !== '' ) {
-                galleryContainer?.classList?.add( `fg-cb-${CAPTION_BUTTONS_STYLE}` );
-            }
-        } );
-    </script>
+<!--        document.addEventListener( 'DOMContentLoaded', () => {-->
+<!--            const captionButtonsStyle = document.getElementById( 'caption-buttons-style' );-->
+<!--            const galleryContainer = document.querySelector( '.foogallery' );-->
+<!--            captionButtonsStyle.value = CAPTION_BUTTONS_STYLE;-->
+<!--            const allStyleClasses = Array.from( captionButtonsStyle?.options ).filter( o => o.value.length > 0 ).map( o => `fg-cb-${o.value}` );-->
+<!--            captionButtonsStyle?.addEventListener( 'change', () => {-->
+<!--                const style = captionButtonsStyle.value;-->
+<!--                galleryContainer?.classList?.remove( ...allStyleClasses );-->
+<!--                if ( style !== '' ) {-->
+<!--                    localStorage.setItem( 'caption-buttons-style', style );-->
+<!--                    galleryContainer?.classList?.add( `fg-cb-${style}` );-->
+<!--                } else {-->
+<!--                    localStorage.removeItem( 'caption-buttons-style' );-->
+<!--                }-->
+<!--            } );-->
+<!--            if ( CAPTION_BUTTONS_STYLE !== '' ) {-->
+<!--                galleryContainer?.classList?.add( `fg-cb-${CAPTION_BUTTONS_STYLE}` );-->
+<!--            }-->
+<!--        } );-->
+<!--    </script>-->
 </head>
 <body class="light wp-core-ui">
 <header>
@@ -93,7 +94,7 @@
         }
     </style>
     <div id="foogallery-gallery-1"
-         class="foogallery fg-loading-default fg-loaded-slide-up fg-caption-always fg-default fg-center fg-c-c fg-gutter-10 fg-hover-fade fg-hover-circle-plus2 fg-dark"
+         class="foogallery foogallery-container foogallery-default foogallery-lightbox-foogallery fg-center fg-default fg-dark fg-shadow-medium fg-loading-partial fg-loaded-flip fg-caption-hover fg-hover-fade fg-hover-zoom fg-ready"
          data-foogallery="{}"
          data-foogallery-lightbox="{}">
 

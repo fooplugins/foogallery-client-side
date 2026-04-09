@@ -56,7 +56,7 @@
                 var enabled = self.isEnabled();
                 self.toggle(enabled);
                 self.disable(!enabled);
-                if (self.isToggle) self.press( self.opt.pressed );
+                if (self.isToggle) self.press( self.isPressed );
             }
             return self.isCreated;
         },
@@ -68,16 +68,31 @@
             return !this.isCreated;
         },
         appendTo: function(parent){
+            if ( this.isAttached ) {
+                this.detach();
+            }
             if ((this.isCreated || this.create()) && !this.isAttached){
                 this.$el.appendTo(parent);
+                this.isAttached = true;
+            }
+            return this.isAttached;
+        },
+        prependTo: function(parent){
+            if ( this.isAttached ) {
+                this.detach();
+            }
+            if ((this.isCreated || this.create()) && !this.isAttached){
+                this.$el.prependTo(parent);
+                this.isAttached = true;
             }
             return this.isAttached;
         },
         detach: function(){
             if (this.isCreated && this.isAttached){
                 this.$el.detach();
+                this.isAttached = false;
             }
-            return !this.isAttached;
+            return this.isAttached;
         },
         toggle: function(visible){
             if (!this.isCreated) return;

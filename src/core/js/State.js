@@ -335,6 +335,14 @@
 				}
 			}
 		},
+		getItemHash: function(item) {
+			const self = this;
+			if (self.enabled && item instanceof _.Item) {
+				let state = self.get(item);
+				return self.hashify(state);
+			}
+			return '';
+		},
 		onPopState: function(e){
 			var self = this, parsed = self.parse();
 			if ( Object.keys( parsed ).length ){

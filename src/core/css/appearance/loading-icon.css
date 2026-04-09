@@ -3,14 +3,12 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin-top: -0.5em;
-	margin-left: -0.5em;
-	width: 1em;
-	height: 1em;
+    transform: translateX(-50%) translateY(-50%);
 	font-size: 5px;
 	visibility: hidden;
 	opacity: 0;
 	pointer-events: none;
+    text-indent: -9999em;
 }
 
 .foogallery .fg-loading .fg-loader {

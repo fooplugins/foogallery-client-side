@@ -55,20 +55,20 @@
         border-left: none;
     }
 
-    .fg-style-pill-block:is(.fg-search-after-merged,.fg-search-before-merged):not(.fg-has-wrapped) .fg-search-wrap {
+    .fg-style-pill-block:is(.fg-search-after-merged,.fg-search-before-merged):not(.fg-has-wrapped,.fg-no-tags) .fg-search-wrap {
         height: -webkit-fill-available;
     }
 
-    .fg-style-pill-block:is(.fg-search-after-merged,.fg-search-before-merged):not(.fg-multi-level,.fg-has-wrapped) .fg-search-inner {
+    .fg-style-pill-block:is(.fg-search-after-merged,.fg-search-before-merged):not(.fg-multi-level,.fg-has-wrapped,.fg-no-tags) .fg-search-inner {
         height: 100%;
     }
 
-    .fg-style-pill-block.fg-search-after-merged:not(.fg-multi-level,.fg-has-wrapped) .fg-search-inner {
+    .fg-style-pill-block.fg-search-after-merged:not(.fg-multi-level,.fg-has-wrapped,.fg-no-tags) .fg-search-inner {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
 
-    .fg-style-pill-block.fg-search-before-merged:not(.fg-multi-level,.fg-has-wrapped) .fg-search-inner {
+    .fg-style-pill-block.fg-search-before-merged:not(.fg-multi-level,.fg-has-wrapped,.fg-no-tags) .fg-search-inner {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
@@ -99,10 +99,15 @@
     background-color: #555;
     border-color: inherit;
 }
+.fg-style-pill-block.fg-light :is(.fg-search-clear,.fg-search-submit) {
+    color: #FFF;
+    background-color: #333;
+    border-color: #222;
+}
 .fg-style-pill-block.fg-light :is(.fg-search-clear,.fg-search-submit):hover {
-    color: #333;
-    background-color: #efefef;
-    border-color: #adadad;
+    color: #FFF;
+    background-color: #555;
+    border-color: #333;
 }
 
 /* Dark */
@@ -132,6 +137,16 @@
 .fg-style-pill-block.fg-dark .fg-tag-item.fg-selected .fg-tag-link .fg-tag-count {
     background-color: #333;
     border-color: #222;
+}
+.fg-style-pill-block.fg-dark :is(.fg-search-clear,.fg-search-submit) {
+    color: #333;
+    background-color: #fff;
+    border-color: #444;
+}
+.fg-style-pill-block.fg-dark :is(.fg-search-clear,.fg-search-submit):hover {
+    color: #333;
+    background-color: #efefef;
+    border-color: #444;
 }
 
 /* Multi Level Styling */

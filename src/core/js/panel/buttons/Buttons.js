@@ -44,6 +44,7 @@
 
             // area buttons are inserted by default with priority 99
 
+            this.register(new _.Panel.Download(this.panel), 170);
             this.register(new _.Panel.Maximize(this.panel), 180);
             this.register(new _.Panel.Fullscreen(this.panel), 190);
             this.register(new _.Panel.Button(this.panel, "close", {
@@ -214,6 +215,11 @@
         },
 
         resize: function(){
+            const prev = this.get("prev");
+            const next = this.get("next");
+            const target = this.panel.isMobileLayout ? this.$el : this.panel.content.$buttons;
+            if ( next ) next.prependTo( target );
+            if ( prev ) prev.prependTo( target );
             this.each(function(button){
                 button.resize();
             });

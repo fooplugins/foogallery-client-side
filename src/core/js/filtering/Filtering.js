@@ -399,7 +399,6 @@
 			var self = this;
 			if (self._containerExisted){
 				self.$container.empty()
-					.removeClass()
 					.addClass(self._placeholderClasses.join(' '));
 			} else {
 				self.$container.remove();

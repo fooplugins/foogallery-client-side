@@ -183,11 +183,11 @@
 						} else {
 							def.reject("post-init failed");
 						}
-					}).fail(def.reject);
+					}).catch(def.reject);
 				} else {
 					def.reject("pre-init failed");
 				}
-			}).fail(function (err) {
+			}).catch(function (err) {
 				console.log("initialize failed", self, err);
 				return self.destroy();
 			}).promise();
@@ -654,6 +654,20 @@
 			return match != null && match.length >= 2 ? match[1] : def;
 		},
 
+        /**
+         * @summary Get the BCP 47 language tag to use with APIs like Intl.NumberFormat.
+         * @memberof FooGallery.Template#
+         * @function
+         * @name getLanguage
+         * @returns {string} Returns either the `html[lang]` attribute value, otherwise the `lang` option value.
+         */
+        getLanguage: function(){
+            if ( document.documentElement.lang !== '' ) {
+                return document.documentElement.lang;
+            }
+            return this.opt.lang;
+        },
+
 		// ###############
 		// ## Listeners ##
 		// ###############
@@ -687,6 +701,8 @@
 		srcset: "data-srcset-fg",
 		src: "data-src-fg",
 		protected: false,
+        lang: "en", // the language to use if there's no html[lang] attribute value
+        cors: null,
 		template: {},
 		regex: {
 			theme: /(?:\s|^)(fg-(?:light|dark|custom))(?:\s|$)/,

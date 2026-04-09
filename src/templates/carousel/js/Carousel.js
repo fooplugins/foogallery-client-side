@@ -97,13 +97,14 @@
          * @param {object} cls
          * @param {object} sel
          */
-        construct: function(template, opt, cls, sel){
+        construct: function(template, opt, cls, sel, i18n){
             const self = this;
             self.tmpl = template;
             self.el = template.el;
             self.opt = opt;
             self.cls = cls;
             self.sel = sel;
+            self.i18n = i18n;
             self.elem = {
                 inner: null,
                 center: null,
@@ -249,6 +250,9 @@
             } );
             if ( self.elem.prev.type !== "button" ) self.elem.prev.type = "button";
             self.elem.prev.appendChild( _icons.element( "arrow-left" ) );
+            if ( !self.elem.prev.title?.length ) {
+                self.elem.prev.title = self.i18n.prev;
+            }
 
             self._listeners.add( self.elem.next, "click", function( event ){
                 event.preventDefault();
@@ -257,6 +261,12 @@
             } );
             if ( self.elem.next.type !== "button" ) self.elem.next.type = "button";
             self.elem.next.appendChild( _icons.element( "arrow-right" ) );
+            if ( !self.elem.next.title?.length ) {
+                self.elem.next.title = self.i18n.next;
+            }
+        },
+        getBulletTitle: function( str, num ) {
+            return str.replace( /\{ITEM}/g, `${ num }` );
         },
         initPagination: function(){
             const self = this;
@@ -265,7 +275,11 @@
                 const bullet = document.createElement( "button" );
                 bullet.type = "button";
                 bullet.classList.add( self.cls.bullet );
-                if ( i === 0 ) bullet.classList.add( self.cls.activeBullet );
+                bullet.title = self.getBulletTitle( self.i18n.bullet, i + 1 );
+                if ( i === 0 ){
+                    bullet.classList.add( self.cls.activeBullet );
+                    bullet.title = self.getBulletTitle( self.i18n.activeBullet, i + 1 );
+                }
                 self._listeners.add( bullet, "click", function( event ){
                     event.preventDefault();
                     self.interacted = true;
@@ -447,18 +461,146 @@
         },
         getLayout: function( width ){
             const self = this;
+            const activePosition = self.getActivePosition();
+            const align = self.getAlign();
+            const usePositionedLayout = activePosition !== "center";
+            const mode = activePosition + "|" + align;
 
-            if ( self.cache.has("layout") && self.cache.get("width") === width ){
+            if ( self.cache.has("layout") && self.cache.get("width") === width && self.cache.get("layoutMode") === mode ){
                 return self.cache.get("layout");
             }
             const itemWidth = self.getSize( self.elem.center ).width;
-            const maxOffset = ( self.getSize( self.elem.inner, true ).width / 2 ) + ( itemWidth / 2 );
+            const innerWidth = self.getSize( self.elem.inner, true ).width;
+            const maxOffset = ( innerWidth / 2 ) + ( itemWidth / 2 );
             const layout = self.calculate( itemWidth, maxOffset );
+
+            layout.activeX = 0;
+            layout.sideBySide = null;
+
+            if ( usePositionedLayout ) {
+                const visualLeftSide = self.isRTL ? "right" : "left";
+                const visualRightSide = self.isRTL ? "left" : "right";
+                const dominantSide = activePosition === "start" ? visualRightSide : visualLeftSide;
+                let showCount = Math.max( 0, self.getShowPerSide() * 2 );
+                let positionedLayout = null;
+                let sideLayout = [];
+                let fit = { width: itemWidth, center: 0 };
+
+                // maxItems is a cap; reduce visible items until the positioned sequence fits inner width.
+                while ( showCount >= 0 ){
+                    positionedLayout = self.calculate(
+                        itemWidth,
+                        innerWidth + ( itemWidth / 2 ),
+                        self.opt.gutter.max,
+                        showCount
+                    );
+                    sideLayout = positionedLayout.side;
+                    fit = self.measureAlignedFit( itemWidth, sideLayout, dominantSide );
+                    if ( fit.width <= innerWidth ){
+                        break;
+                    }
+                    showCount -= 1;
+                }
+
+                // Keep the displayed sequence centered while the active item stays at the chosen position.
+                layout.activeX = -fit.center;
+                layout.sideBySide = {};
+                layout.sideBySide.left = [];
+                layout.sideBySide.right = [];
+                layout.sideBySide[dominantSide] = sideLayout;
+                if ( positionedLayout && _is.number( positionedLayout.zIndex ) ){
+                    layout.zIndex = positionedLayout.zIndex;
+                }
+            }
+
+            self.applyVisualAlign( layout, itemWidth, innerWidth );
+
             self.cache.set( "width", width );
+            self.cache.set( "layoutMode", mode );
             if ( layout?.side?.length > 0 ) {
                 self.cache.set( "layout", layout );
             }
             return layout;
+        },
+        getActivePosition: function(){
+            const value = _is.string( this.opt.activePosition )
+                ? this.opt.activePosition.toLowerCase()
+                : "center";
+            return [ "start", "end" ].indexOf( value ) !== -1 ? value : "center";
+        },
+        getAlign: function(){
+            const value = _is.string( this.opt.align )
+                ? this.opt.align.toLowerCase()
+                : "center";
+            return [ "left", "right" ].indexOf( value ) !== -1 ? value : "center";
+        },
+        applyVisualAlign: function( layout, itemWidth, innerWidth ){
+            const self = this;
+            const align = self.getAlign();
+            if ( align === "center" ) return;
+
+            const bounds = self.measureVisibleBounds( itemWidth, layout );
+            const target = align === "left"
+                ? -( innerWidth / 2 )
+                : ( innerWidth / 2 );
+            const delta = align === "left"
+                ? target - bounds.min
+                : target - bounds.max;
+
+            layout.activeX = ( _is.number( layout.activeX ) ? layout.activeX : 0 ) + delta;
+        },
+        measureVisibleBounds: function( itemWidth, layout ){
+            const self = this;
+            const activeX = _is.number( layout?.activeX ) ? layout.activeX : 0;
+            const leftValues = layout?.sideBySide?.left || layout.side || [];
+            const rightValues = layout?.sideBySide?.right || layout.side || [];
+            const result = {
+                min: activeX - ( itemWidth / 2 ),
+                max: activeX + ( itemWidth / 2 )
+            };
+            const perspective = self.opt.perspective;
+            const update = function( side, values ){
+                for ( let i = 0; i < values.length; i++ ){
+                    const entry = values[i];
+                    const signedX = ( side === "left" && !self.isRTL ) || ( side === "right" && self.isRTL ) ? -entry.x : entry.x;
+                    const centerX = self.getScreenX( signedX, entry.z, perspective ) + activeX;
+                    const width = self.scaleToZ( itemWidth, entry.z, perspective );
+                    const min = centerX - ( width / 2 );
+                    const max = centerX + ( width / 2 );
+                    if ( min < result.min ) result.min = min;
+                    if ( max > result.max ) result.max = max;
+                }
+            };
+
+            update( "left", leftValues );
+            update( "right", rightValues );
+
+            return result;
+        },
+        measureAlignedFit: function( itemWidth, sideLayout, dominantSide ){
+            const self = this;
+            const result = {
+                min: -( itemWidth / 2 ),
+                max: itemWidth / 2,
+                width: itemWidth,
+                center: 0
+            };
+
+            for ( let i = 0; i < sideLayout.length; i++ ){
+                const values = sideLayout[i];
+                const signedX = ( dominantSide === "left" && !self.isRTL ) || ( dominantSide === "right" && self.isRTL ) ? -values.x : values.x;
+                const centerX = self.getScreenX( signedX, values.z, self.opt.perspective );
+                const width = self.scaleToZ( itemWidth, values.z, self.opt.perspective );
+                const left = centerX - ( width / 2 );
+                const right = centerX + ( width / 2 );
+                if ( left < result.min ) result.min = left;
+                if ( right > result.max ) result.max = right;
+            }
+
+            result.width = result.max - result.min;
+            result.center = ( result.min + result.max ) / 2;
+
+            return result;
         },
         round: function( value, precision ){
             let multiplier = Math.pow(10, precision || 0);
@@ -549,12 +691,20 @@
             el.classList.add( self.cls.activeItem );
             el.style.setProperty("transition-duration", ( self._firstLayout ? 0 : self.opt.speed ) + "ms" );
             el.style.setProperty( "z-index", layout.zIndex );
-            el.style.removeProperty( "transform" );
+            if ( _is.number( layout.activeX ) && layout.activeX !== 0 ){
+                el.style.setProperty( "transform", "translate3d(" + layout.activeX + "px, 0, 0)" );
+            } else {
+                el.style.removeProperty( "transform" );
+            }
 
             const ai = self.tmpl.items.indexOf( self.activeItem );
             Array.from( self.el.querySelectorAll( self.sel.bullet ) ).forEach( function( node, i ){
                 node.classList.remove( self.cls.activeBullet );
-                if ( i === ai ) node.classList.add( self.cls.activeBullet );
+                node.title = self.getBulletTitle( self.i18n.bullet, i + 1 );
+                if ( i === ai ){
+                    node.classList.add( self.cls.activeBullet );
+                    node.title = self.getBulletTitle( self.i18n.activeBullet, i + 1 );
+                }
             } );
             return true;
         },
@@ -564,12 +714,23 @@
 
             self.cleanup( selector, cls, exclude );
 
+            const valuesList = layout?.sideBySide?.[side] || layout.side;
+            const activeX = _is.number( layout?.activeX ) ? layout.activeX : 0;
             let place = self.activeItem;
-            for (let i = 0; i < layout.side.length; i++ ){
-                const values = layout.side[i];
+            for (let i = 0; i < valuesList.length; i++ ){
+                const values = valuesList[i];
                 const item = side === "left" ? self.getPrev( place ) : self.getNext( place );
                 if ( item instanceof _.Item ){
-                    let transform = "translate3d(" + ( ( side === "left" && !self.isRTL ) || ( side === "right" && self.isRTL ) ? "-" : "" ) + values.x + "px, 0,-" + values.z + "px)";
+                    const signedX = ( side === "left" && !self.isRTL ) || ( side === "right" && self.isRTL ) ? -values.x : values.x;
+                    let vectorX = signedX;
+
+                    // Apply active position offset in screen space so perspective math remains bounded.
+                    if ( activeX !== 0 ){
+                        const screenX = self.getScreenX( signedX, values.z, self.opt.perspective ) + activeX;
+                        vectorX = self.getVectorX( screenX, values.z, self.opt.perspective );
+                    }
+
+                    let transform = "translate3d(" + vectorX + "px, 0,-" + values.z + "px)";
                     item.el.classList.add( cls );
                     if ( !item.isLoaded ){
                         item.el.style.setProperty("transition-duration", "0ms" );

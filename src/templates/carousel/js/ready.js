@@ -30,7 +30,7 @@
         },
         onPreInit: function(){
             const self = this;
-            self.carousel = new _.Carousel( self, self.template, self.cls.carousel, self.sel.carousel );
+            self.carousel = new _.Carousel( self, self.template, self.cls.carousel, self.sel.carousel, self.il8n );
         },
         onInit: function(){
             this.carousel.init();
@@ -78,6 +78,8 @@
             perspective: 150,
             scale: 0.12,
             speed: 300,
+            align: "center", // "center", "left" or "right". Visual alignment of the entire visible item set.
+            activePosition: "center", // "center", "start" or "end". Controls active item position in the visible sequence.
             centerOnClick: true,
             gutter: {
                 min: -40,
@@ -104,6 +106,11 @@
             nextItem: "fg-item-next",
             progress: "fg-carousel-progress"
         }
+    }, {
+        prev: "Previous",
+        next: "Next",
+        bullet: "Item {ITEM}",
+        activeBullet: "Item {ITEM} - Current"
     });
 
 })(

@@ -1,0 +1,67 @@
+.foogallery.fg-dominant-color {
+    --fg-dominant-color: #FFF;
+}
+.foogallery.fg-dominant-color .fg-item {
+    --fg-dominant-color-alt: hsl(from var(--fg-dominant-color, #EEE) H S calc(L - 10));
+    --fg-dominant-color-text: hsl(from var(--fg-dominant-color, #333) 0 0% calc((l - 60) * -100%));
+}
+
+/* Item Style */
+.foogallery.fg-dominant-color .fg-item-inner {
+    background-color: var(--fg-dominant-color, #FFF);
+    color: var(--fg-dominant-color-text, #333);
+    border-color: var(--fg-dominant-color, #FFF);
+}
+/* Idle / Loading / Error Style */
+.foogallery.fg-dominant-color .fg-item.fg-idle,
+.foogallery.fg-dominant-color .fg-item.fg-loading,
+.foogallery.fg-dominant-color .fg-item.fg-error {
+    background-color: var(--fg-dominant-color, #EEE);;
+    box-shadow: inset 0 0 0 1px var(--fg-dominant-color-alt, #DDD);
+}
+/* Loading Styles */
+.fg-dominant-color.fg-loading-default .fg-loader {
+    color: var(--fg-dominant-color-alt, #828282);
+    box-shadow: 0 -2.6em 0 0 currentColor,
+    1.8em -1.8em 0 0 hsl(from currentColor h s l / 20%),
+    2.5em 0 0 0 hsl(from currentColor h s l / 20%),
+    1.75em 1.75em 0 0 hsl(from currentColor h s l / 20%),
+    0 2.5em 0 0 hsl(from currentColor h s l / 20%),
+    -1.8em 1.8em 0 0 hsl(from currentColor h s l / 20%),
+    -2.6em 0 0 0 hsl(from currentColor h s l / 50%),
+    -1.8em -1.8em 0 0 hsl(from currentColor h s l / 70%);
+}
+.fg-dominant-color.fg-loading-bars .fg-loader,
+.fg-dominant-color.fg-loading-bars .fg-loader:before,
+.fg-dominant-color.fg-loading-bars .fg-loader:after {
+    color: var(--fg-dominant-color-alt, #828282);
+    background: var(--fg-dominant-color-alt, #828282);
+}
+.fg-dominant-color.fg-loading-dots .fg-loader {
+    color: var(--fg-dominant-color-alt, #828282);
+}
+.fg-dominant-color.fg-loading-partial .fg-loader {
+    color: var(--fg-dominant-color-alt, #828282);
+    border-top: 1.1em solid hsl(from currentColor h s l / 20%);
+    border-right: 1.1em solid hsl(from currentColor h s l / 20%);
+    border-bottom: 1.1em solid hsl(from currentColor h s l / 20%);
+    border-left: 1.1em solid currentColor;
+}
+.fg-dominant-color.fg-loading-pulse .fg-loader {
+    color: var(--fg-dominant-color-alt, #828282);
+}
+.fg-dominant-color.fg-loading-trail .fg-loader {
+    color: var(--fg-dominant-color-alt, #828282);
+}
+/* Drop Shadow */
+.foogallery.fg-dominant-color.fg-shadow-outline .fg-item-inner {
+    box-shadow: 0 0 0 1px var(--fg-dominant-color-alt, #ddd);
+}
+/* Inset Shadow */
+.foogallery.fg-dominant-color.fg-shadow-inset-outline .fg-thumb:after {
+    box-shadow: inset 0 0 0 1px var(--fg-dominant-color-alt, #ddd);
+}
+/* Presets */
+.foogallery.fg-dominant-color.fg-preset.fg-goliath .fg-caption-desc {
+    color: var(--fg-dominant-color-text, #333);
+}
