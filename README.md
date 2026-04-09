@@ -2,6 +2,12 @@ The client side CSS and JavaScript used by the [FooGallery](https://github.com/f
 
 You can also use the CSS and JavaScript in this repo to create awesome galleries without the WordPress plugin. Include the required files in page and create the gallery elements yourself and you are good to go.
 
+## Development
+
+Generated assets are not committed to this repository.
+
+Run `npm install` and then `npm run build` before using the test pages or any workflow that depends on files under `dist/` or `test-pages/*/assets/`.
+
 ## Full & Lite
 
 There are two versions available in the dist folder, Full and Lite. The difference between these two versions is primarily the CSS however there are also JS differences such as limited paging options etc.
