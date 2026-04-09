@@ -6,7 +6,22 @@ module.exports = function ( grunt ) {
 		"clean": {
 			"dist": "./dist",
 			"foo-utils": "./dist/foogallery.utils.js",
-			"jsdoc": "./docs/jsdocs"
+			"jsdoc": "./docs/jsdocs",
+			"test-pages": [
+				"./test-pages/defaults/assets/css/foogallery.css",
+				"./test-pages/defaults/assets/css/foogallery.min.css",
+				"./test-pages/defaults/assets/js/foogallery.js",
+				"./test-pages/defaults/assets/js/foogallery.min.js",
+				"./test-pages/defaults/assets/free",
+				"./test-pages/defaults/assets/img/icons.svg",
+				"./test-pages/defaults/assets/components",
+				"./test-pages/templates/assets/css/foogallery.css",
+				"./test-pages/templates/assets/css/foogallery.min.css",
+				"./test-pages/templates/assets/js/foogallery.js",
+				"./test-pages/templates/assets/js/foogallery.min.js",
+				"./test-pages/templates/assets/free",
+				"./test-pages/templates/assets/img/icons.svg"
+			]
 		},
 		"foo-utils": {
 			"options": {
@@ -661,18 +676,18 @@ module.exports = function ( grunt ) {
 				"src": ["**"],
 				"dest": "./test-pages/defaults/assets"
 			},
-            "defaults_free": {
-                "expand": true,
-                "cwd": "dist/free",
-                "src": ["**"],
-                "dest": "./test-pages/defaults/assets/free"
-            },
-            "defaults_components": {
-                "expand": true,
-                "cwd": "dist/components",
-                "src": ["**"],
-                "dest": "./test-pages/defaults/assets/components"
-            }
+			"defaults_free": {
+				"expand": true,
+				"cwd": "dist/free",
+				"src": ["**"],
+				"dest": "./test-pages/defaults/assets/free"
+			},
+			"defaults_components": {
+				"expand": true,
+				"cwd": "dist/components",
+				"src": ["**"],
+				"dest": "./test-pages/defaults/assets/components"
+			}
 		},
 		"jsdoc": {
 			"all": {
@@ -745,10 +760,11 @@ module.exports = function ( grunt ) {
 
 		"uglify:dist",
 		"cssmin:dist",
+		"clean:test-pages",
 
 		"copy:defaults_pro",
-        "copy:defaults_free",
-        "copy:defaults_components",
+		"copy:defaults_free",
+		"copy:defaults_components",
 
 		"copy:templates_pro",
 		"copy:templates_free",
