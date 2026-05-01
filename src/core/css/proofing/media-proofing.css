@@ -1,0 +1,136 @@
+/* Basic Layout */
+.fg-media-proofing,
+.fg-media-proofing * {
+    box-sizing: border-box;
+}
+.fg-media-proofing {
+    --fg-proofing-spacing: 10px;
+    --fg-proofing-font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    font-family: var(--fg-proofing-font-family),sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+:is(.fg-medium,.fg-panel-no-mobile) .fg-media-proofing {
+    height: 100%;
+}
+:is(.fg-panel-proofing-top,.fg-panel-proofing-bottom):is(.fg-medium,.fg-panel-no-mobile) .fg-media-proofing {
+    padding: 0 42px;
+}
+.fg-media-proofing-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3ms ease-in-out, visibility 0.3ms ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    gap: 0;
+}
+.fg-media-proofing.fg-loaded .fg-media-proofing-inner {
+    opacity: 1;
+    visibility: visible;
+}
+.fg-media-proofing-title {
+    min-height: fit-content;
+    line-height: 20px;
+    margin: 0 30px 10px 0;
+    font-weight: 600;
+}
+:is(.fg-medium,.fg-panel-no-mobile) .fg-media-proofing-title {
+    margin-right: 0;
+}
+.fg-media-proofing-body {
+    max-height: 100%;
+    width: 100%;
+    border-style: solid;
+    border-width: 0;
+    border-top-width: 1px;
+    margin: 0;
+    overflow: unset;
+    overflow-y: auto;
+    padding: var(--fg-proofing-spacing) 0;
+}
+.fg-media-proofing-body:not(:has(*)) {
+    display: none;
+}
+.fg-media-proofing-footer {
+    min-height: fit-content;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.fg-media-proofing-actions {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin: 0 0 10px;
+    padding: 0;
+    border: none;
+}
+.fg-media-proofing-comment {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    border-radius: 3px;
+    border: solid 1px;
+    font-size: inherit;
+    font-family: inherit;
+    padding: .4em;
+}
+.fg-panel:is(.fg-light,.fg-dark) :is(.fg-media-proofing-comment) {
+    background-color: #FFF;
+}
+.fg-panel:is(.fg-light,.fg-dark) :is(.fg-media-proofing-comment):disabled {
+    background-color: #CCC;
+}
+
+/* override some of the panel-button style props */
+.fg-media-proofing button.fg-media-proofing-save {
+    margin-top: 10px;
+}
+.fg-media-proofing button:is(.fg-media-proofing-button,.fg-media-proofing-save) {
+    width: fit-content;
+    height: fit-content;
+    padding: 8px 14px;
+    margin: 0;
+    border-radius: 3px;
+    font-family: var(--fg-proofing-font-family),sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+.fg-media-proofing button:is(.fg-media-proofing-button,.fg-media-proofing-save):disabled {
+    opacity: 0.8;
+    cursor: default;
+}
+.fg-panel .fg-media-proofing button:is(.fg-media-proofing-select,.fg-media-proofing-reject):not(.fg-proofing-active):not(:focus):not(:focus-visible) {
+    background-color: #f0f0f0;
+    border-color: #e2e2e2;
+    color: #222;
+}
+.fg-panel .fg-media-proofing button.fg-media-proofing-select.fg-proofing-active {
+    background-color: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+}
+.fg-panel .fg-media-proofing button.fg-media-proofing-reject.fg-proofing-active {
+    background-color: #b32d2e;
+    border-color: #b32d2e;
+    color: #fff;
+}
