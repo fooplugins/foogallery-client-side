@@ -250,7 +250,9 @@
 			const app = proofingApp();
 			self.commentDirty = false;
 			app?.setComment( self.attachmentId, self.$comment.val(), 0 );
-			app?.flushDraft();
+			if ( !app?.isPreview?.() ) {
+				app?.flushDraft();
+			}
 		}
 	} );
 
