@@ -1,4 +1,8 @@
-( function( $, _, _fn ) {
+( function( $, _, _icons, _fn ) {
+
+	const proofingIcons = {
+		proofing: '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 3c-3.53 0-6.54 2.05-8 5 1.46 2.95 4.47 5 8 5s6.54-2.05 8-5c-1.46-2.95-4.47-5-8-5zM2.42 8c1.25-1.92 3.29-3 5.58-3s4.33 1.08 5.58 3c-1.25 1.92-3.29 3-5.58 3s-4.33-1.08-5.58-3z"></path><path d="M8 5.5c-1.381 0-2.5 1.119-2.5 2.5s1.119 2.5 2.5 2.5 2.5-1.119 2.5-2.5-1.119-2.5-2.5-2.5z"></path></svg>'
+	};
 
 	function proofingApp() {
 		return globalThis.FGPROOF_APP || null;
@@ -34,7 +38,9 @@
 	_.Panel.Proofing = _.Panel.SideArea.extend( {
 		construct: function( panel ) {
 			this._super( panel, 'proofing', {
-				icon: 'thumbs',
+				icon: function() {
+					return _icons.get( 'proofing', proofingIcons );
+				},
 				label: panel.il8n.buttons.proofing,
 				position: panel.opt.proofing,
 				overlay: panel.opt.proofingOverlay,
@@ -86,5 +92,6 @@
 } )(
 	jQuery,
 	FooGallery,
+	FooGallery.icons,
 	FooGallery.utils.fn
 );
