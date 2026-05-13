@@ -197,6 +197,7 @@
                 _is.boolean(self.opt.hoverScale) && self.opt.hoverScale ? self.cls.hoverScale : self.tmpl.getCSSClass("hoverScale"),
                 _is.string(self.opt.button) ? self.opt.button : "",
                 _is.string(self.opt.highlight) ? self.opt.highlight : "",
+                self.opt.adjustBackgroundColor ? self.cls.dominantColor : "",
                 self.opt.stackSideAreas ? self.cls.stackSideAreas : "",
                 self.opt.preserveButtonSpace ? self.cls.preserveButtonSpace : "",
                 self.opt.fitMedia ? self.cls.fitMedia : "",
@@ -382,6 +383,7 @@
                 self.currentItem = item;
                 self.prevItem = self.tmpl.items.prev(item, self.isVisible, self.opt.loop);
                 self.nextItem = self.tmpl.items.next(item, self.isVisible, self.opt.loop);
+                self.updateBackgroundColor(item);
                 self.doLoad(media).then(def.resolve).catch(def.reject);
             }).always(function(){
                 self.isLoading = false;
@@ -393,6 +395,22 @@
                 self.isError = true;
                 self.trigger("error", [item]);
             }).promise();
+        },
+        updateBackgroundColor: function( item ){
+            var self = this, color = "";
+            if (!self.opt.adjustBackgroundColor || !self.el) return;
+            if (item instanceof _.Item && _is.element(item.el)){
+                color = item.el.style.getPropertyValue("--fg-lightbox-dominant-color");
+                if (_is.empty(color) && window.getComputedStyle){
+                    color = window.getComputedStyle(item.el).getPropertyValue("--fg-lightbox-dominant-color");
+                }
+            }
+            color = _is.string(color) ? color.trim() : "";
+            if (_is.empty(color)){
+                self.el.style.removeProperty("--fg-dominant-color");
+            } else {
+                self.el.style.setProperty("--fg-dominant-color", color);
+            }
         },
         doLoad: function( media ){
             var self = this, wait = [];
@@ -481,6 +499,9 @@
             }).always(function(){
                 self.isClosing = false;
                 self.currentItem = null;
+                if (self.opt.adjustBackgroundColor && self.el){
+                    self.el.style.removeProperty("--fg-dominant-color");
+                }
                 self.buttons.close();
                 if (detach) self.detach();
                 self.tmpl.state.clear();
@@ -560,6 +581,7 @@
             autoProgress: 0,
             autoProgressStart: true,
             fitMedia: false,
+            adjustBackgroundColor: false,
             keyboard: true,
             noScrollbars: true,
             swipe: true,
@@ -637,6 +659,7 @@
             stickyVideoIcon: "fg-video-sticky",
             hoverScale: "fg-hover-scale",
             noMobile: "fg-panel-no-mobile",
+            dominantColor: "fg-dominant-color",
 
             loader: "fg-loader",
 
