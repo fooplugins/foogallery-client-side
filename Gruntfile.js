@@ -239,6 +239,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/panel/media/Caption.js",
 						"./src/core/js/panel/media/Image.js",
 						"./src/core/js/panel/media/Iframe.js",
+						"./src/core/js/panel/media/Splat.js",
 						"./src/core/js/panel/media/Html.js",
 						"./src/core/js/Lightbox.js"
 					],
@@ -283,6 +284,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/panel/media/Product.js",
 						"./src/core/js/panel/media/Image.js",
 						"./src/core/js/panel/media/Iframe.js",
+						"./src/core/js/panel/media/Splat.js",
 						"./src/core/js/panel/media/Html.js",
 						"./src/core/js/panel/media/Embed.js",
 						"./src/core/js/panel/media/video/Video.js",

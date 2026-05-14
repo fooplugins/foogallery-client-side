@@ -336,10 +336,18 @@
 
             return result.length > 0 ? result.join(" ") : null;
         },
+        getMediaType: function(item){
+            if (item instanceof _.Item && _is.fn(item.hasSplat) && item.hasSplat() && _.Panel.media.contains("splat")){
+                return "splat";
+            }
+            return item.type;
+        },
         getMedia: function(item){
             if (!(item instanceof _.Item)) return null;
-            if (this.__media.hasOwnProperty(item.id)) return this.__media[item.id];
-            return this.__media[item.id] = _.Panel.media.make(item.type, this, item);
+            var type = this.getMediaType(item),
+                id = item.id + ":" + type;
+            if (this.__media.hasOwnProperty(id)) return this.__media[id];
+            return this.__media[id] = _.Panel.media.make(type, this, item);
         },
         getItem: function(item){
             var self = this, result = item;
