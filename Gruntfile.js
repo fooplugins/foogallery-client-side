@@ -337,6 +337,21 @@ module.exports = function ( grunt ) {
                 }
             },
 
+			"proofing": {
+				"files": {
+					"./dist/components/js/foogallery.proofing.js": [
+						"./src/core/js/proofing/Item.js",
+						"./src/core/js/proofing/Panel.Proofing.js",
+						"./src/core/js/proofing/Panel.Media.Proofing.js"
+					],
+					"./dist/components/css/foogallery.proofing.css": [
+						"./src/core/css/proofing/item.css",
+						"./src/core/css/proofing/panel.css",
+						"./src/core/css/proofing/media-proofing.css"
+					]
+				}
+			},
+
 			"3d-walkthrough": {
 				"files": {
 					"./dist/components/js/foogallery.3d-walkthrough.js": [
@@ -750,7 +765,8 @@ module.exports = function ( grunt ) {
 
 		"clean:foo-utils", // remove the foogallery.utils.js file as it is now part of the core
 
-        "concat:social",
+		"concat:social",
+		"concat:proofing",
 		"concat:3d-walkthrough",
 		"concat:woocommerce",
 		"concat:panel",
