@@ -1,0 +1,96 @@
+.foogallery {
+	--fg-proofing-icon-size: 22px;
+}
+
+.fg-proofing-overlay {
+	align-items: flex-start;
+	bottom: 0;
+	display: flex;
+	justify-content: flex-end;
+	left: 0;
+	pointer-events: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 10;
+}
+
+.fg-proofing-buttons {
+	background: rgba(29, 35, 39, 0.72);
+	border-radius: 999px;
+	display: flex;
+	flex-direction: row;
+	gap: 2px;
+	margin: 6px;
+	padding: 4px;
+}
+
+button.fg-proofing-button {
+	align-items: center;
+	appearance: none;
+	background: transparent;
+	border: 0;
+	border-radius: 999px;
+	box-shadow: none;
+	color: #fff;
+	cursor: pointer;
+	display: flex;
+	height: 32px;
+	justify-content: center;
+	margin: 0;
+	padding: 5px;
+	pointer-events: auto;
+	text-decoration: none;
+	text-indent: 0;
+	width: 32px;
+}
+
+button.fg-proofing-button:is(:hover,:focus) {
+	background: rgba(255, 255, 255, 0.18);
+	color: #fff;
+}
+
+button.fg-proofing-button:disabled {
+	cursor: default;
+	opacity: 0.55;
+}
+
+button.fg-proofing-select.fg-proofing-active {
+	background: #2271b1;
+	color: #fff;
+}
+
+button.fg-proofing-reject.fg-proofing-active {
+	background: #b32d2e;
+	color: #fff;
+}
+
+button.fg-proofing-comment.fg-proofing-commented {
+	background: rgba(255, 255, 255, 0.18);
+	color: #fff;
+}
+
+.fg-proofing-button-icon {
+	filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
+	height: var(--fg-proofing-icon-size);
+	width: var(--fg-proofing-icon-size);
+}
+
+/* Only enable button transition when needed */
+.foogallery:is(
+	.fg-hover-instant,
+	.fg-hover-fade,
+	.fg-hover-slide-up,
+	.fg-hover-slide-down,
+	.fg-hover-slide-left,
+	.fg-hover-slide-right,
+	.fg-hover-push,
+	.fg-hover-colorize,
+	.fg-hover-grayscale,
+	.fg-hover-scale
+) .fg-loaded .fg-proofing-button {
+	backface-visibility: hidden;
+	transition-duration: 300ms;
+	transition-property: background-color, color, opacity;
+	transition-timing-function: ease;
+}
