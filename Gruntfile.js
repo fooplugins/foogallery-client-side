@@ -337,6 +337,17 @@ module.exports = function ( grunt ) {
                 }
             },
 
+			"3d-walkthrough": {
+				"files": {
+					"./dist/components/js/foogallery.3d-walkthrough.js": [
+						"./src/core/js/3d-walkthrough/Lightbox.js"
+					],
+					"./dist/components/css/foogallery.3d-walkthrough.css": [
+						"./src/core/css/3d-walkthrough/lightbox.css"
+					]
+				}
+			},
+
 			"filtering": {
 				"files": {
 					"./dist/components/js/foogallery.filtering.js": [
@@ -687,6 +698,17 @@ module.exports = function ( grunt ) {
 				"cwd": "dist/components",
 				"src": ["**"],
 				"dest": "./test-pages/defaults/assets/components"
+			},
+			"3d-walkthrough-addon": {
+				"expand": true,
+				"cwd": "dist/components",
+				"src": [
+					"js/foogallery.3d-walkthrough.js",
+					"js/foogallery.3d-walkthrough.min.js",
+					"css/foogallery.3d-walkthrough.css",
+					"css/foogallery.3d-walkthrough.min.css"
+				],
+				"dest": "../../foogallery-3d/assets"
 			}
 		},
 		"jsdoc": {
@@ -729,6 +751,7 @@ module.exports = function ( grunt ) {
 		"clean:foo-utils", // remove the foogallery.utils.js file as it is now part of the core
 
         "concat:social",
+		"concat:3d-walkthrough",
 		"concat:woocommerce",
 		"concat:panel",
 		"concat:panel_pro",
@@ -768,6 +791,14 @@ module.exports = function ( grunt ) {
 
 		"copy:templates_pro",
 		"copy:templates_free",
+	]);
+
+	grunt.registerTask("3d-walkthrough", [
+		"clean:dist",
+		"concat:3d-walkthrough",
+		"uglify:dist",
+		"cssmin:dist",
+		"copy:3d-walkthrough-addon"
 	]);
 
 	grunt.registerTask("docs", [
