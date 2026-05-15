@@ -75,6 +75,14 @@ The 3D Walkthrough addon follows the same pattern:
 - build task: `npx grunt 3d-walkthrough`
 - copied outputs: `../foogallery-3d/assets/js` and `../foogallery-3d/assets/css`
 
+Proofing also has client source in this repo:
+
+- source: `src/core/js/proofing/` and `src/core/css/proofing/`
+- component target: `concat:proofing`
+- component outputs: `dist/components/js/foogallery.proofing(.min).js` and `dist/components/css/foogallery.proofing(.min).css`
+- addon repo: `../foogallery-proofing/`
+- note: the Proofing addon currently ships public, admin, and panel asset groups; preserve those enqueue names when updating its generated asset workflow
+
 ## Development Rules
 
 - Source edits belong under `src/`, not `dist/`.

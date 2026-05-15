@@ -4,6 +4,43 @@ FooGallery addons that extend frontend gallery behavior should keep their JavaSc
 
 This keeps addon client code in the same build system as FooGallery core while allowing each addon to ship only the standalone files it needs.
 
+## Addon Inventory
+
+### Social
+
+Social is the reference addon for shared client-source development.
+
+- Source: `src/core/js/social/` and `src/core/css/social/`.
+- Grunt target: `concat:social`.
+- Component output: `dist/components/js/foogallery.social(.min).js` and `dist/components/css/foogallery.social(.min).css`.
+- Addon repo output: `../foogallery-social/assets/js/foogallery.social(.min).js` and `../foogallery-social/assets/css/foogallery.social(.min).css`.
+- Runtime enqueue: the Social addon registers these copied files through FooGallery feature dependency filters.
+- Extra dependencies: Social depends on `wp-hooks` and `wp-api-fetch` because its browser code calls WordPress APIs.
+
+### Proofing
+
+Proofing now has source files in the client repo, but its addon package has multiple shipped asset groups that need to be preserved when changing the build workflow.
+
+- Source: `src/core/js/proofing/` and `src/core/css/proofing/`.
+- Grunt target: `concat:proofing`.
+- Component output: `dist/components/js/foogallery.proofing(.min).js` and `dist/components/css/foogallery.proofing(.min).css`.
+- Addon repo: `../foogallery-proofing/`.
+- Shipped addon assets include public, admin, and panel files under `../foogallery-proofing/assets/js/` and `../foogallery-proofing/assets/css/`.
+- Current panel enqueue names include `foogallery.proofing.panel(.min).js` and `foogallery.proofing.panel(.min).css`; do not replace those names unless the PHP enqueue code is updated at the same time.
+
+Proofing does not currently have a dedicated `copy:<addon>` task in this client repo. If Proofing is moved fully onto generated assets, add a focused copy target that accounts for every shipped Proofing asset group before treating addon `assets/` files as generated output.
+
+### 3D Walkthrough
+
+3D Walkthrough follows the Social-style source/build/copy workflow and loads as standalone lightbox support from the addon plugin.
+
+- Source: `src/core/js/3d-walkthrough/` and `src/core/css/3d-walkthrough/`.
+- Grunt target: `concat:3d-walkthrough`.
+- Focused build task: `npx grunt 3d-walkthrough`.
+- Component output: `dist/components/js/foogallery.3d-walkthrough(.min).js` and `dist/components/css/foogallery.3d-walkthrough(.min).css`.
+- Addon repo output: `../foogallery-3d/assets/js/foogallery.3d-walkthrough(.min).js` and `../foogallery-3d/assets/css/foogallery.3d-walkthrough(.min).css`.
+- Runtime enqueue: the 3D addon registers the copied files as feature dependencies on `foogallery-core`.
+
 ## Source Layout
 
 Place addon source under `src/core/js/<addon>/` and `src/core/css/<addon>/`.
