@@ -64,7 +64,7 @@ Use the Social addon as the baseline:
 - source lives under `src/core/js/social/` and `src/core/css/social/`
 - `Gruntfile.js` has a `concat:social` component target
 - the build emits `dist/components/js/foogallery.social(.min).js` and `dist/components/css/foogallery.social(.min).css`
-- those built files are copied into `foogallery-social/assets/js` and `foogallery-social/assets/css`
+- `npx grunt social` copies those built files into `../../foogallery-social/assets/js` and `../../foogallery-social/assets/css`
 - the addon plugin enqueues the copied assets through FooGallery feature dependency hooks
 
 For detailed addon asset workflow, read [docs/addon-assets.md](docs/addon-assets.md).
@@ -73,15 +73,16 @@ The 3D Walkthrough addon follows the same pattern:
 
 - source: `src/core/js/3d-walkthrough/` and `src/core/css/3d-walkthrough/`
 - build task: `npx grunt 3d-walkthrough`
-- copied outputs: `../foogallery-3d/assets/js` and `../foogallery-3d/assets/css`
+- copied outputs: `../../foogallery-3d/assets/js` and `../../foogallery-3d/assets/css`
 
 Proofing also has client source in this repo:
 
 - source: `src/core/js/proofing/` and `src/core/css/proofing/`
 - component target: `concat:proofing`
-- component outputs: `dist/components/js/foogallery.proofing(.min).js` and `dist/components/css/foogallery.proofing(.min).css`
-- addon repo: `../foogallery-proofing/`
-- note: the Proofing addon currently ships public, admin, and panel asset groups; preserve those enqueue names when updating its generated asset workflow
+- build task: `npx grunt proofing`
+- component outputs: `dist/components/js/foogallery.proofing.panel(.min).js` and `dist/components/css/foogallery.proofing.panel(.min).css`
+- copied outputs: `../../foogallery-proofing/assets/js` and `../../foogallery-proofing/assets/css`
+- note: the Proofing addon currently ships public, admin, and panel asset groups; only the panel asset group is generated from this client repo
 
 ## Development Rules
 

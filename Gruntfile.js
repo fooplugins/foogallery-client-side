@@ -339,12 +339,12 @@ module.exports = function ( grunt ) {
 
 			"proofing": {
 				"files": {
-					"./dist/components/js/foogallery.proofing.js": [
+					"./dist/components/js/foogallery.proofing.panel.js": [
 						"./src/core/js/proofing/Item.js",
 						"./src/core/js/proofing/Panel.Proofing.js",
 						"./src/core/js/proofing/Panel.Media.Proofing.js"
 					],
-					"./dist/components/css/foogallery.proofing.css": [
+					"./dist/components/css/foogallery.proofing.panel.css": [
 						"./src/core/css/proofing/item.css",
 						"./src/core/css/proofing/panel.css",
 						"./src/core/css/proofing/media-proofing.css"
@@ -714,6 +714,28 @@ module.exports = function ( grunt ) {
 				"src": ["**"],
 				"dest": "./test-pages/defaults/assets/components"
 			},
+			"social-addon": {
+				"expand": true,
+				"cwd": "dist/components",
+				"src": [
+					"js/foogallery.social.js",
+					"js/foogallery.social.min.js",
+					"css/foogallery.social.css",
+					"css/foogallery.social.min.css"
+				],
+				"dest": "../../foogallery-social/assets"
+			},
+			"proofing-addon": {
+				"expand": true,
+				"cwd": "dist/components",
+				"src": [
+					"js/foogallery.proofing.panel.js",
+					"js/foogallery.proofing.panel.min.js",
+					"css/foogallery.proofing.panel.css",
+					"css/foogallery.proofing.panel.min.css"
+				],
+				"dest": "../../foogallery-proofing/assets"
+			},
 			"3d-walkthrough-addon": {
 				"expand": true,
 				"cwd": "dist/components",
@@ -807,6 +829,34 @@ module.exports = function ( grunt ) {
 
 		"copy:templates_pro",
 		"copy:templates_free",
+	]);
+
+	grunt.registerTask("addons", [
+		"clean:dist",
+		"concat:social",
+		"concat:proofing",
+		"concat:3d-walkthrough",
+		"uglify:dist",
+		"cssmin:dist",
+		"copy:social-addon",
+		"copy:proofing-addon",
+		"copy:3d-walkthrough-addon"
+	]);
+
+	grunt.registerTask("social", [
+		"clean:dist",
+		"concat:social",
+		"uglify:dist",
+		"cssmin:dist",
+		"copy:social-addon"
+	]);
+
+	grunt.registerTask("proofing", [
+		"clean:dist",
+		"concat:proofing",
+		"uglify:dist",
+		"cssmin:dist",
+		"copy:proofing-addon"
 	]);
 
 	grunt.registerTask("3d-walkthrough", [
