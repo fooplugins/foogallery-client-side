@@ -1,50 +1,5 @@
 (function ($, _, _utils, _is, _fn, _obj, _str) {
 
-	var splatDataValue = function($el, data, keys, attrs){
-		var i, value;
-		if (_is.hash(data)){
-			for (i = 0; i < keys.length; i++){
-				value = data[keys[i]];
-				if (!_is.empty(value)) return value;
-			}
-		}
-		if ($el && $el.length){
-			for (i = 0; i < attrs.length; i++){
-				value = $el.attr(attrs[i]);
-				if (!_is.empty(value)) return value;
-			}
-		}
-		return null;
-	};
-
-	var splatParseJSON = function(value){
-		if (_is.hash(value) || _is.array(value)) return value;
-		if (!_is.string(value) || value.length === 0) return value;
-		try {
-			return JSON.parse(value);
-		} catch (err){
-			return value;
-		}
-	};
-
-	var splatParseBoolean = function(value, fallback){
-		if (_is.boolean(value)) return value;
-		if (!_is.string(value)) return fallback;
-		switch (value.toLowerCase()){
-			case "1":
-			case "true":
-			case "yes":
-			case "on":
-				return true;
-			case "0":
-			case "false":
-			case "no":
-			case "off":
-				return false;
-		}
-		return fallback;
-	};
-
 	_.Item = _.Component.extend(/** @lends FooGallery.Item.prototype */{
 		/**
 		 * @summary The base class for an item.
@@ -225,54 +180,6 @@
 			 * @type {string}
 			 */
 			self.download = self.opt.download;
-			/**
-			 * @memberof FooGallery.Item#
-			 * @name splatUrl
-			 * @type {string}
-			 */
-			self.splatUrl = self.opt.splatUrl;
-			/**
-			 * @memberof FooGallery.Item#
-			 * @name splatViewerUrl
-			 * @type {string}
-			 */
-			self.splatViewerUrl = self.opt.splatViewerUrl;
-			/**
-			 * @memberof FooGallery.Item#
-			 * @name splatPosterUrl
-			 * @type {string}
-			 */
-			self.splatPosterUrl = self.opt.splatPosterUrl;
-			/**
-			 * @memberof FooGallery.Item#
-			 * @name splatSettingsUrl
-			 * @type {string}
-			 */
-			self.splatSettingsUrl = self.opt.splatSettingsUrl;
-			/**
-			 * @memberof FooGallery.Item#
-			 * @name splatSettingsData
-			 * @type {object|string}
-			 */
-			self.splatSettingsData = self.opt.splatSettingsData;
-			/**
-			 * @memberof FooGallery.Item#
-			 * @name splatConfig
-			 * @type {object|string}
-			 */
-			self.splatConfig = self.opt.splatConfig;
-			/**
-			 * @memberof FooGallery.Item#
-			 * @name splatMode
-			 * @type {string}
-			 */
-			self.splatMode = self.opt.splatMode;
-			/**
-			 * @memberof FooGallery.Item#
-			 * @name splatShowUI
-			 * @type {boolean}
-			 */
-			self.splatShowUI = self.opt.splatShowUI;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name placeholder
@@ -667,14 +574,6 @@
 			self.tags = data.tags || self.tags;
 			self.href = data.href || self.$anchor.attr('href') || self.href;
 			self.download = data.download || self.download || self.href;
-			self.splatUrl = splatDataValue(self.$anchor, data, ["splatUrl", "sceneUrl", "foogallery3dSceneUrl", "fg3dSceneUrl"], ["data-splat-url", "data-scene-url", "data-foogallery-3d-scene-url", "data-fg3d-scene-url"]) || self.splatUrl;
-			self.splatViewerUrl = splatDataValue(self.$anchor, data, ["splatViewerUrl", "viewerUrl", "foogallery3dViewerUrl", "fg3dViewerUrl"], ["data-splat-viewer-url", "data-viewer-url", "data-foogallery-3d-viewer-url", "data-fg3d-viewer-url"]) || self.splatViewerUrl;
-			self.splatPosterUrl = splatDataValue(self.$anchor, data, ["splatPosterUrl", "posterUrl", "foogallery3dPosterUrl", "fg3dPosterUrl"], ["data-splat-poster-url", "data-poster-url", "data-foogallery-3d-poster-url", "data-fg3d-poster-url"]) || self.splatPosterUrl;
-			self.splatSettingsUrl = splatDataValue(self.$anchor, data, ["splatSettingsUrl", "settingsUrl", "foogallery3dSettingsUrl", "fg3dSettingsUrl"], ["data-splat-settings-url", "data-settings-url", "data-foogallery-3d-settings-url", "data-fg3d-settings-url"]) || self.splatSettingsUrl;
-			self.splatSettingsData = splatParseJSON(splatDataValue(self.$anchor, data, ["splatSettingsData", "settingsData", "foogallery3dSettingsData", "fg3dSettingsData"], ["data-splat-settings-data", "data-settings-data", "data-foogallery-3d-settings-data", "data-fg3d-settings-data"]) || self.splatSettingsData);
-			self.splatConfig = splatParseJSON(splatDataValue(self.$anchor, data, ["splatConfig", "sceneConfig", "foogallery3dConfig", "fg3dConfig"], ["data-splat-config", "data-scene-config", "data-foogallery-3d-config", "data-fg3d-config"]) || self.splatConfig);
-			self.splatMode = splatDataValue(self.$anchor, data, ["splatMode", "mode", "foogallery3dMode", "fg3dMode"], ["data-splat-mode", "data-mode", "data-foogallery-3d-mode", "data-fg3d-mode"]) || self.splatMode;
-			self.splatShowUI = splatParseBoolean(splatDataValue(self.$anchor, data, ["splatShowUI", "splatShowUi", "showUI", "showUi", "foogallery3dShowUi", "fg3dShowUi"], ["data-splat-show-ui", "data-show-ui", "data-foogallery-3d-show-ui", "data-fg3d-show-ui"]), self.splatShowUI);
 
 			var $img;
 			if (self.$image.is("picture")){
@@ -922,16 +821,6 @@
 				"data-exif": self.exif,
 				"data-product-id": self.productId,
 				"data-download": self.download
-			});
-			self._setAttributes(anchor, {
-				"data-splat-url": self.splatUrl,
-				"data-splat-viewer-url": self.splatViewerUrl,
-				"data-splat-poster-url": self.splatPosterUrl,
-				"data-splat-settings-url": self.splatSettingsUrl,
-				"data-splat-settings-data": self.splatSettingsData,
-				"data-splat-config": self.splatConfig,
-				"data-splat-mode": self.splatMode,
-				"data-splat-show-ui": _is.boolean(self.splatShowUI) ? (self.splatShowUI ? "true" : "false") : self.splatShowUI
 			});
 
 			if (!_is.string(self.placeholder) || self.placeholder.length === 0){
@@ -1410,15 +1299,6 @@
 			this.tmpl.state.update(this.tmpl.state.get(this));
 		},
 		/**
-		 * @summary Checks whether this item has 3D splat scene data attached.
-		 * @memberof FooGallery.Item#
-		 * @function hasSplat
-		 * @returns {boolean}
-		 */
-		hasSplat: function(){
-			return _is.string(this.splatUrl) && this.splatUrl.length > 0;
-		},
-		/**
 		 * @summary Converts the item to a JSON object.
 		 * @memberof FooGallery.Item#
 		 * @function toJSON
@@ -1430,14 +1310,6 @@
 				"id": this.id,
 				"productId": this.productId,
 				"href": this.href,
-				"splatUrl": this.splatUrl,
-				"splatViewerUrl": this.splatViewerUrl,
-				"splatPosterUrl": this.splatPosterUrl,
-				"splatSettingsUrl": this.splatSettingsUrl,
-				"splatSettingsData": this.splatSettingsData,
-				"splatConfig": this.splatConfig,
-				"splatMode": this.splatMode,
-				"splatShowUI": this.splatShowUI,
 				"src": this.src,
 				"srcset": this.srcset,
 				"width": this.width,
@@ -1534,14 +1406,6 @@
 			type: "item",
 			id: "",
 			href: "",
-			splatUrl: "",
-			splatViewerUrl: "",
-			splatPosterUrl: "",
-			splatSettingsUrl: "",
-			splatSettingsData: null,
-			splatConfig: null,
-			splatMode: "",
-			splatShowUI: true,
 			placeholder: "",
 			src: "",
 			srcset: "",
