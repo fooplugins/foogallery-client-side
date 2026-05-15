@@ -8,6 +8,8 @@ Generated assets are not committed to this repository.
 
 Run `npm install` and then `npm run build` before using the test pages or any workflow that depends on files under `dist/` or `test-pages/*/assets/`.
 
+Addon-specific client assets should also be developed from this repo and copied into the addon plugin repo for distribution. See [Addon Client Assets](docs/addon-assets.md) for the Social-style source, build, and deploy workflow.
+
 ## Full & Lite
 
 There are two versions available in the dist folder, Full and Lite. The difference between these two versions is primarily the CSS however there are also JS differences such as limited paging options etc.
