@@ -5,6 +5,13 @@
     --fg-dominant-color-alt: hsl(from var(--fg-dominant-color, #EEE) H S calc(L - 10));
     --fg-dominant-color-text: hsl(from var(--fg-dominant-color, #333) 0 0% calc((l - 60) * -100%));
 }
+.fg-panel.fg-dominant-color {
+    --fg-dominant-color: #EEE;
+}
+.fg-panel.fg-dominant-color.fg-light,
+.fg-panel.fg-dominant-color.fg-dark {
+    background-color: var(--fg-dominant-color, #EEE);
+}
 
 /* Item Style */
 .foogallery.fg-dominant-color .fg-item-inner {
