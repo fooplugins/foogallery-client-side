@@ -469,14 +469,23 @@
             var self = this;
             self.isClosing = true;
             return $.Deferred(function(def){
-                self.content.close(immediate).then(function(){
+                var closeArea = function(area){
+                    try {
+                        return area.close(immediate);
+                    } catch (err){
+                        return _fn.reject(err);
+                    }
+                };
+                $.when(closeArea(self.content)).always(function(){
                     var wait = [];
                     self.areas.forEach(function(area){
                         if (area !== self.content){
-                            wait.push(area.close(immediate));
+                            wait.push(closeArea(area));
                         }
                     });
-                    $.when.apply($, wait).then(def.resolve).catch(def.reject);
+                    _fn.allSettled(wait).then(function(){
+                        def.resolve();
+                    });
                 });
             }).always(function(){
                 self.isClosing = false;

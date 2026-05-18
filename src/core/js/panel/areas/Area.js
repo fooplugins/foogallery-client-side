@@ -160,6 +160,7 @@
                     self.panel.trigger("area-unload", [self, current]);
                     return self.doUnload(current, false).then(function() {
                         self.panel.trigger("area-unloaded", [self, current]);
+                    }).always(function(){
                         self.currentMedia = null;
                     });
                 }
