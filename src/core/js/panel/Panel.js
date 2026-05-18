@@ -172,10 +172,10 @@
             if (self.opt.keyboard){
                 self.$el.attr("tabindex", -1).on("keydown.foogallery", {self: self}, self.onKeyDown);
             }
+            self.buttons.appendTo( self.$el );
             self.areas.forEach(function(area){
                 area.appendTo( self.$el );
             });
-            self.buttons.appendTo( self.$el );
             return true;
         },
         createElem: function(){
@@ -527,7 +527,11 @@
         onTrapFocusKeydown: function(e){
             // If TAB key pressed
             if (e.keyCode === 9) {
-                var self = e.data.self, $target = $(e.target), $dialog = $target.parents('[role=dialog]');
+                var self = e.data.self,
+                    $target = $(e.target),
+                    targetIsDialog = $target.is('[role=dialog]'),
+                    $dialog = targetIsDialog ? $target : $target.parents('[role=dialog]');
+
                 // If inside a Modal dialog (determined by attribute role="dialog")
                 if ($dialog.length) {
                     // Find first or last input element in the dialog parent (depending on whether Shift was pressed).
@@ -536,7 +540,7 @@
                         $boundary = e.shiftKey ? $first : $last,
                         $new = e.shiftKey ? $last : $first;
 
-                    if ($boundary.length && $target.is($boundary)) {
+                    if ($boundary.length && ( targetIsDialog || $target.is($boundary) )) {
                         e.preventDefault();
                         $new.trigger('focus');
                     }

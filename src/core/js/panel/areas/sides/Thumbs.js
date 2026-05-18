@@ -247,9 +247,14 @@
                 }
             }).always(function(){
                 self.scrollIndex = scrollIndex;
-                self.$prev.toggleClass(states.disabled, scrollIndex <= 0);
-                self.$next.toggleClass(states.disabled, scrollIndex >= maxIndex);
+                self.disableButton(self.$prev, scrollIndex <= 0, states.disabled);
+                self.disableButton(self.$next, scrollIndex >= maxIndex, states.disabled);
             }).promise();
+        },
+        disableButton: function( $button, state, cls ) {
+            $button.toggleClass( cls, state )
+                .attr("aria-disabled", state)
+                .prop("disabled", state);
         },
         getInfo: function(){
             var isHorizontal = this.isHorizontal(),

@@ -102,10 +102,9 @@
         disable: function(disabled){
             if (!this.isCreated) return;
             this.isDisabled = _is.boolean(disabled) ? disabled : !this.isDisabled;
-            this.$el.toggleClass(this.cls.states.disabled, this.isDisabled).attr({
-                "aria-disabled": this.isDisabled,
-                "disabled": this.isDisabled
-            });
+            this.$el.toggleClass(this.cls.states.disabled, this.isDisabled)
+                .attr("aria-disabled", this.isDisabled)
+                .prop("disabled", this.isDisabled);
         },
         press: function(pressed){
             if ( !this.isCreated ) return;

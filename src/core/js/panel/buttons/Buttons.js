@@ -79,11 +79,11 @@
             var self = this;
             if (prioritize){
                 self.__registered.sort(function(a, b){
-                    return a.priority - b.priority;
+                    return b.priority - a.priority;
                 });
             }
-            self.__registered.forEach(function(registered){
-                callback.call(self, registered.button);
+            self.__registered.forEach(function(registered, index){
+                callback.call(self, registered.button, index);
             });
         },
 
@@ -218,8 +218,8 @@
             const prev = this.get("prev");
             const next = this.get("next");
             const target = this.panel.isMobileLayout ? this.$el : this.panel.content.$buttons;
-            if ( next ) next.prependTo( target );
-            if ( prev ) prev.prependTo( target );
+            if ( next ) next.appendTo( target );
+            if ( prev ) prev.appendTo( target );
             this.each(function(button){
                 button.resize();
             });
