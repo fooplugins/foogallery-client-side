@@ -246,6 +246,16 @@
 			 * @type {FooGallery.Item~Attributes}
 			 */
 			self.attr = self.opt.attr;
+			var attr = self.attr || {},
+				anchor = attr.anchor || {},
+				image = attr.image || {},
+				caption = anchor["data-title"] || anchor["data-caption-title"],
+				description = anchor["data-description"] || anchor["data-caption-desc"];
+
+			if (_is.empty(self.title) && _is.string(image.title)) self.title = _.safeParse(image.title);
+			if (_is.empty(self.alt) && _is.string(image.alt)) self.alt = _.safeParse(image.alt);
+			if (_is.empty(self.caption) && _is.string(caption)) self.caption = _.safeParse(caption);
+			if (_is.empty(self.description) && _is.string(description)) self.description = _.safeParse(description);
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name tags
