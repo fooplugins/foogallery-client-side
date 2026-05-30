@@ -464,12 +464,30 @@
 	};
 
 	/**
+	 * Detects Facebook and Messenger in-app browsers.
+	 * @param {?string} [userAgent=null]
+	 * @returns {boolean}
+	 */
+	_.isFacebookMessengerBrowser = function( userAgent = null ){
+		const ua = _is.string( userAgent ) ? userAgent : window.navigator.userAgent || "";
+		if ( /facebookexternalhit|facebot/i.test( ua ) ) {
+			return false;
+		}
+		return /\bFB_IAB\/(?:FB4A|MESSENGER|Orca-Android)\b|\bFBAN\/(?:FBIOS|FB4A|MessengerForiOS|MessengerLite|Messenger)\b|\bFBAV\//i.test( ua );
+	};
+
+	/**
 	 * More reliable way to trigger the download/Save As dialog for images than simply relying on a[download].
 	 * @param {string} url
 	 * @param {?string} [name=null]
 	 * @returns {Promise<void>}
 	 */
 	_.downloadImage = function( url, name = null ){
+		if ( _is.string( url ) && !_is.empty( url ) && _.isFacebookMessengerBrowser() ) {
+			window.location.assign( url );
+			return Promise.resolve();
+		}
+
 		let downloadName = name;
 		if ( !_is.string( downloadName ) || _is.empty( downloadName ) ) {
 			downloadName = 'image';
