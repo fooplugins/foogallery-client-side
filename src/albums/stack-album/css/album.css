@@ -257,6 +257,7 @@
 
 .fg-pile-cover-content {
     display: flex;
+    flex-wrap: wrap;
     position: relative;
     background: #fff;
     color: #333;
@@ -265,10 +266,21 @@
     box-shadow: 1px 1px 1px rgba(0,0,0,0.1), 5px 0 5px -3px rgba(0,0,0,0.4), inset 0 0 5px rgba(0,0,0,0.04);
 }
 
-.fg-pile-cover-title {
+.fg-pile-caption-align-left {
+    text-align: left;
+}
+.fg-pile-caption-align-center {
     text-align: center;
+}
+.fg-pile-caption-align-right {
+    text-align: right;
+}
+
+.fg-pile-cover-title {
+    text-align: inherit;
     padding: 10px;
-    width: 100%;
+    flex: 1 1 auto;
+    width: auto;
 }
 .fg-pile-cover-count {
     color: #aaa;
@@ -277,4 +289,21 @@
     white-space: nowrap;
     display: flex;
     align-items: center;
+}
+.fg-pile-cover-description {
+    display: block;
+    flex: 0 0 100%;
+    width: 100%;
+    max-height: 6em;
+    overflow: hidden;
+    padding: 0 10px 10px;
+    text-align: inherit;
+    font-weight: 400;
+    line-height: 1.25;
+}
+.fg-pile-cover-description p {
+    margin: 0 0 0.5em;
+}
+.fg-pile-cover-description p:last-child {
+    margin-bottom: 0;
 }

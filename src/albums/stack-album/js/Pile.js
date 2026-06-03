@@ -7,6 +7,8 @@
             self.$el = _is.jq(element) ? element : $(element);
             self.opt = _obj.extend({}, _.StackAlbum.Pile.defaults, options, self.$el.data());
             self.title = self.opt.title;
+            self.description = self.opt.description;
+            self.captionAlignment = ['left', 'center', 'right'].indexOf(self.opt.captionAlignment) !== -1 ? self.opt.captionAlignment : 'center';
             self.items = self.$el.find('.fg-pile-item').map(function(i, el){
                 return new _.StackAlbum.Item(self, el, { index: i });
             }).get();
@@ -22,11 +24,19 @@
                 currentAngle = opt.randomAngle ? self.randomAngle(availableAngles) : opt.angleStep;
 
             if ( self.$cover.length === 0 && self.items.length > 0 ) {
+                const $coverContent = $('<div/>', {'class': 'fg-pile-cover-content fg-pile-caption-align-' + self.captionAlignment}).append(
+                    $('<span/>', {'class': 'fg-pile-cover-title', text: self.opt.title}),
+                    $('<span/>', {'class': 'fg-pile-cover-count', text: self.items.length})
+                );
+
+                if ( self.description ) {
+                    $coverContent.append(
+                        $('<span/>', {'class': 'fg-pile-cover-description', html: self.description})
+                    );
+                }
+
                 self.$cover = $('<div/>', {'class': 'fg-pile-cover'}).append(
-                    $('<div/>', {'class': 'fg-pile-cover-content'}).append(
-                        $('<span/>', {'class': 'fg-pile-cover-title', text: self.opt.title}),
-                        $('<span/>', {'class': 'fg-pile-cover-count', text: self.items.length})
-                    )
+                    $coverContent
                 );
                 self.items[0].$el.addClass('fg-has-cover').append(self.$cover);
             }
@@ -171,7 +181,9 @@
 
     _.StackAlbum.Pile.defaults = {
         index: -1,
-        title: null
+        title: null,
+        captionAlignment: 'center',
+        description: ''
     };
 
 })(
