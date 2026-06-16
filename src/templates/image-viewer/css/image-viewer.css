@@ -41,6 +41,9 @@
 	box-shadow: none;
 	max-width: 100%;
 }
+.foogallery.fg-image-viewer .fg-thumb {
+	border-radius: inherit;
+}
 
 .fg-image-viewer .fiv-inner .fiv-inner-container .fg-item {
 	position: absolute;

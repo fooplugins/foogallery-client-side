@@ -1,4 +1,17 @@
 /* Rounded Corners */
+.foogallery.fg-round-small {
+	--fg-item-border-radius: 5px;
+}
+.foogallery.fg-round-medium {
+	--fg-item-border-radius: 10px;
+}
+.foogallery.fg-round-large {
+	--fg-item-border-radius: 15px;
+}
+.foogallery.fg-round-full {
+	--fg-item-border-radius: 50%;
+	--fg-thumb-border-radius: 50%;
+}
 .foogallery.fg-round-small .fg-item,
 .foogallery.fg-round-small .fg-item-inner {
 	border-radius: 5px;

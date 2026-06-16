@@ -2,6 +2,9 @@
 	box-sizing: border-box;
 }
 .foogallery {
+    --fg-item-border-width: 0px;
+    --fg-item-border-radius: 0px;
+    --fg-thumb-border-radius: max(0px, calc(var(--fg-item-border-radius) - var(--fg-item-border-width)));
 	display: block;
 	z-index: 1;
 	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -71,7 +74,7 @@
 	text-decoration: none;
 	z-index: 4;
 	box-shadow: none;
-    border-radius: inherit;
+    border-radius: var(--fg-thumb-border-radius);
 }
 .foogallery .fg-thumb:hover,
 .foogallery .fg-thumb:focus {
