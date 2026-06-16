@@ -1,4 +1,13 @@
 /* Border Size */
+.foogallery.fg-border-thin {
+	--fg-item-border-width: 4px;
+}
+.foogallery.fg-border-medium {
+	--fg-item-border-width: 10px;
+}
+.foogallery.fg-border-thick {
+	--fg-item-border-width: 16px;
+}
 .foogallery.fg-border-thin .fg-item-inner {
 	border-width: 4px;
 }

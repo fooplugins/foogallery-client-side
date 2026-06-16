@@ -219,6 +219,7 @@
 .fg-simple_portfolio.fg-transparent.fg-round-large:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-image-overlay {
     overflow: hidden;
 }
+.fg-simple_portfolio.fg-transparent.fg-round-small.fg-shadow-inset-outline:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
 .fg-simple_portfolio.fg-transparent.fg-round-small.fg-shadow-inset-small:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
 .fg-simple_portfolio.fg-transparent.fg-round-small.fg-shadow-inset-medium:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
 .fg-simple_portfolio.fg-transparent.fg-round-small.fg-shadow-inset-large:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
@@ -226,6 +227,7 @@
 .fg-simple_portfolio.fg-transparent.fg-round-small:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-image-overlay {
     border-radius: 5px;
 }
+.fg-simple_portfolio.fg-transparent.fg-round-medium.fg-shadow-inset-outline:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
 .fg-simple_portfolio.fg-transparent.fg-round-medium.fg-shadow-inset-small:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
 .fg-simple_portfolio.fg-transparent.fg-round-medium.fg-shadow-inset-medium:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
 .fg-simple_portfolio.fg-transparent.fg-round-medium.fg-shadow-inset-large:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
@@ -233,6 +235,7 @@
 .fg-simple_portfolio.fg-transparent.fg-round-medium:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-image-overlay {
     border-radius: 10px;
 }
+.fg-simple_portfolio.fg-transparent.fg-round-large.fg-shadow-inset-outline:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
 .fg-simple_portfolio.fg-transparent.fg-round-large.fg-shadow-inset-small:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
 .fg-simple_portfolio.fg-transparent.fg-round-large.fg-shadow-inset-medium:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
 .fg-simple_portfolio.fg-transparent.fg-round-large.fg-shadow-inset-large:not(.fg-shadow-outline):not(.fg-shadow-small):not(.fg-shadow-medium):not(.fg-shadow-large) .fg-thumb:after,
