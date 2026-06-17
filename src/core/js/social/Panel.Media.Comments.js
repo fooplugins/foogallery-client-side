@@ -139,7 +139,8 @@
             if ( this._loaded ) {
                 return this._loaded;
             }
-            let path = `/foogallery/v1/comments/${ this.media.item.tmpl.id }/${ this.media.item.id }`;
+            const attachmentId = this.media.item.getSocialId ? this.media.item.getSocialId() : this.media.item.id;
+            let path = `/foogallery/v1/comments/${ this.media.item.tmpl.id }/${ attachmentId }`;
             if ( this.media?.item?.productId ) {
                 path = `${ path }/${ this.media.item.productId }`;
             }
@@ -529,7 +530,7 @@
         createForm: function( { parentId, id, author, content = '' } = {}, destroyCallback = () => {} ) {
             this.destroyForm();
 
-            const attachmentId = this.media.item.id;
+            const attachmentId = this.media.item.getSocialId ? this.media.item.getSocialId() : this.media.item.id;
             const galleryId = this.media.item.tmpl.id;
             const guid = _.generateGUID();
             const { requireNameAndEmail, showCookieConsent, showNameField, showEmailField, showWebsiteField, lookup } = this;

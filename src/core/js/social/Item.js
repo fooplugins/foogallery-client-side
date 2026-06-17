@@ -25,6 +25,7 @@
             }
         },
         item: {
+            socialId: '',
             likes: 0,
             liked: false,
             comments: 0
@@ -58,13 +59,17 @@
         } );
     };
 
+    _.Item.prototype.getSocialId = function() {
+        return this.socialId || this.id;
+    };
+
     _.Item.prototype.toggleLike = function(){
         const $likes = this.$socialOverlay.find( '.fg-social-likes' );
         $likes.find( '.fg-social-button-icon' )
             .replaceWith( _.icons.get( 'spinner' ).addClass( 'fg-social-button-icon' ) );
 
         const data = {
-            attachment_id: this.id,
+            attachment_id: this.getSocialId(),
             gallery_id: this.tmpl.id
         };
 
@@ -128,6 +133,7 @@
         const cf = this.tmpl.getCountFormatter();
         if ( social?.likes ) {
             this.$anchor.attr( {
+                'data-social-id': this.getSocialId(),
                 'data-likes': this.likes,
                 'data-liked': this.liked
             } );
@@ -153,6 +159,7 @@
         }
         if ( this.shouldShowCommentsButton() ) {
             this.$anchor.attr( {
+                'data-social-id': this.getSocialId(),
                 'data-comments': this.comments
             } );
             const $comments = $( '<button/>' ).addClass( 'fg-social-button fg-social-comments' )
@@ -186,6 +193,7 @@
         const { opt: { social } } = this.tmpl;
         const data = this.$anchor.data();
         // always add the props to the item, enabled or not.
+        this.socialId = `${ data?.socialId ?? this.opt?.socialId ?? this.id }`;
         this.likes = data?.likes ?? this.opt?.likes ?? 0;
         this.liked = data?.liked ?? this.opt?.liked ?? false;
         this.comments = data?.comments ?? this.opt?.comments ?? 0;
@@ -209,6 +217,7 @@
 
     _.Item.prototype.doCreateSocial = function() {
         // always add the props to the item, enabled or not.
+        this.socialId = `${ this.opt?.socialId ?? this.id }`;
         this.likes = this.opt?.likes ?? 0;
         this.liked = this.opt?.liked ?? false;
         this.comments = this.opt?.comments ?? 0;
