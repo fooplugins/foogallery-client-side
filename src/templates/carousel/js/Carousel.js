@@ -697,7 +697,7 @@
                 el.style.removeProperty( "transform" );
             }
 
-            const ai = self.tmpl.items.indexOf( self.activeItem );
+            const ai = self.tmpl.items && _is.fn( self.tmpl.items.indexOf ) ? self.tmpl.items.indexOf( self.activeItem ) : -1;
             Array.from( self.el.querySelectorAll( self.sel.bullet ) ).forEach( function( node, i ){
                 node.classList.remove( self.cls.activeBullet );
                 node.title = self.getBulletTitle( self.i18n.bullet, i + 1 );

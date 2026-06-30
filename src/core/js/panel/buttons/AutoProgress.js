@@ -18,6 +18,9 @@
         },
         create: function () {
             if (this._super()){
+                if (this.panel.opt.autoProgressVisible === false){
+                    this.toggle(false);
+                }
                 this.$icon = this.$el.find("svg");
                 this.$circle = this.$icon.find("circle");
                 var radius = parseFloat(this.$circle.attr("r"));

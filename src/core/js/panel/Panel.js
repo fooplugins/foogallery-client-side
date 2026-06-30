@@ -593,6 +593,7 @@
             loop: true,
             autoProgress: 0,
             autoProgressStart: true,
+            autoProgressVisible: true,
             fitMedia: false,
             adjustBackgroundColor: false,
             keyboard: true,
