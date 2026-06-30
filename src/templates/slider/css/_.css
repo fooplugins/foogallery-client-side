@@ -25,6 +25,9 @@
 .foogallery.fg-slider.fg-16-10::before {
     padding-top: 62.5%;
 }
+.foogallery.fg-slider.fg-3-2::before {
+    padding-top: 66.6667%;
+}
 .foogallery.fg-slider.fg-4-3::before {
     padding-top: 75%;
 }

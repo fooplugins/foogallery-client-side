@@ -55,6 +55,8 @@
 			 * @type {jQuery}
 			 */
 			self.$total = $();
+			self._autoplayTimeout = null;
+			self._autoplayPaused = false;
 			/**
 			 * @summary The jQuery object for the previous button.
 			 * @memberof FooGallery.ImageViewerTemplate#
@@ -82,9 +84,10 @@
 			 * @type {FooGallery.ImageViewerTemplate~CSSSelectors}
 			 */
 			self.on({
-                "loaded-item error-item": self.onFirstItemReady,
+				"loaded-item error-item": self.onFirstItemReady,
 				"pre-init": self.onPreInit,
-                "init": self.onInit,
+				"init": self.onInit,
+				"ready": self.onReady,
 				"destroy": self.onDestroy,
 				"append-item": self.onAppendItem,
 				"after-page-change": self.onAfterPageChange,
@@ -137,6 +140,12 @@
 			}
 			self.$prev.on('click', {self: self}, self.onPrevClick);
 			self.$next.on('click', {self: self}, self.onNextClick);
+			self.$el.on('mouseenter.foogallery-autoplay', {self: self}, self.onAutoplayMouseEnter)
+					.on('mouseleave.foogallery-autoplay', {self: self}, self.onAutoplayMouseLeave);
+		},
+		onReady: function (event) {
+			this.update();
+			this.startAutoplay();
 		},
 		/**
 		 * @summary Destroy the plugin cleaning up any bound events.
@@ -153,6 +162,8 @@
 			}
 			self.$prev.off('click', self.onPrevClick);
 			self.$next.off('click', self.onNextClick);
+			self.$el.off('.foogallery-autoplay');
+			self.clearAutoplay();
 		},
 		onAppendItem: function (event, item) {
 			event.preventDefault();
@@ -162,10 +173,12 @@
 		onAfterPageChange: function(event, current, prev, isFilter){
 			if (!isFilter){
 				this.update();
+				this.startAutoplay();
 			}
 		},
 		onAfterFilterChange: function(event){
 			this.update();
+			this.startAutoplay();
 		},
 
 		update: function(){
@@ -173,6 +186,43 @@
 				this.$current.text(this.pages.current);
 				this.$total.text(this.pages.total);
 			}
+		},
+		getAutoplaySeconds: function(){
+			var seconds = parseInt(this.template.autoplay, 10);
+			return isNaN(seconds) ? 0 : seconds;
+		},
+		clearAutoplay: function(){
+			if (this._autoplayTimeout !== null){
+				clearTimeout(this._autoplayTimeout);
+				this._autoplayTimeout = null;
+			}
+		},
+		startAutoplay: function(){
+			var self = this,
+				seconds = self.getAutoplaySeconds();
+
+			self.clearAutoplay();
+
+			if (self._autoplayPaused || seconds <= 0 || !self.pages || self.pages.total <= 1){
+				return;
+			}
+
+			if (!self.template.loop && self.pages.current >= self.pages.total){
+				return;
+			}
+
+			self._autoplayTimeout = setTimeout(function(){
+				self._autoplayTimeout = null;
+				self.next();
+			}, seconds * 1000);
+		},
+		onAutoplayMouseEnter: function(e){
+			e.data.self._autoplayPaused = true;
+			e.data.self.clearAutoplay();
+		},
+		onAutoplayMouseLeave: function(e){
+			e.data.self._autoplayPaused = false;
+			e.data.self.startAutoplay();
 		},
 		/**
 		 * @summary Navigate to the previous item in the collection.
@@ -251,7 +301,8 @@
 	_.template.register("image-viewer", _.ImageViewerTemplate, {
 		template: {
 			attachFooBox: false,
-			loop: false
+			loop: false,
+			autoplay: 0
 		}
 	}, {
 		container: "foogallery fg-image-viewer",
