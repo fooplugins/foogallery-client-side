@@ -172,6 +172,9 @@
         },
 
         onCoverClick: function(e){
+            if ($(e.target).closest('a, button, input, select, textarea, [role="button"]').length !== 0){
+                return;
+            }
             e.preventDefault();
             e.stopPropagation();
             var self = e.data.self;

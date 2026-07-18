@@ -13,8 +13,25 @@
         PageUp: true
     };
 
-    function prevent( event ) {
-        event.preventDefault();
+    function getElement( target ) {
+        if (target && target.nodeType === 3) return target.parentElement;
+        return target && target.nodeType === 1 ? target : null;
+    }
+
+    function hasScrollableAncestor( target, panel ) {
+        var element = getElement(target), style;
+        while (element && panel.contains(element)) {
+            style = window.getComputedStyle(element);
+            if (
+                (/(auto|scroll|overlay)/.test(style.overflowY) && element.scrollHeight > element.clientHeight) ||
+                (/(auto|scroll|overlay)/.test(style.overflowX) && element.scrollWidth > element.clientWidth)
+            ) {
+                return true;
+            }
+            if (element === panel) break;
+            element = element.parentElement;
+        }
+        return false;
     }
 
     function isEditable( target ) {
@@ -22,10 +39,6 @@
             target.isContentEditable ||
             (target.tagName && /^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test( target.tagName.toUpperCase() ))
         );
-    }
-
-    function preventKey( event ) {
-        if ( scrollKeys[ event.key ] && !isEditable( event.target ) ) event.preventDefault();
     }
 
     _.Panel.Maximize = _.Panel.Button.extend({
@@ -57,6 +70,7 @@
             if (!body || this._scrollState) return;
 
             var pageHeight = Math.max(root.scrollHeight, body.scrollHeight, root.clientHeight);
+            var panel = this.panel.$el.get(0);
             var state = this._scrollState = {
                 x: window.scrollX,
                 y: window.scrollY,
@@ -65,7 +79,19 @@
                 bodyTop: body.style.top,
                 bodyLeft: body.style.left,
                 bodyRight: body.style.right,
-                bodyWidth: body.style.width
+                bodyWidth: body.style.width,
+                preventScroll: function(event){
+                    if (!hasScrollableAncestor(event.target, panel)) event.preventDefault();
+                },
+                preventKey: function(event){
+                    if (
+                        scrollKeys[event.key] &&
+                        !isEditable(event.target) &&
+                        !hasScrollableAncestor(event.target, panel)
+                    ) {
+                        event.preventDefault();
+                    }
+                }
             };
 
             root.classList.add(this.panel.cls.noScrollbars);
@@ -76,17 +102,17 @@
             body.style.right = "0";
             body.style.width = "100%";
 
-            document.addEventListener("wheel", prevent, {capture: true, passive: false});
-            document.addEventListener("touchmove", prevent, {capture: true, passive: false});
-            document.addEventListener("keydown", preventKey, true);
+            document.addEventListener("wheel", state.preventScroll, {capture: true, passive: false});
+            document.addEventListener("touchmove", state.preventScroll, {capture: true, passive: false});
+            document.addEventListener("keydown", state.preventKey, true);
         },
         unlockScroll: function(){
             var state = this._scrollState, body = document.body;
             if (!state || !body) return;
 
-            document.removeEventListener("wheel", prevent, {capture: true});
-            document.removeEventListener("touchmove", prevent, {capture: true});
-            document.removeEventListener("keydown", preventKey, true);
+            document.removeEventListener("wheel", state.preventScroll, {capture: true});
+            document.removeEventListener("touchmove", state.preventScroll, {capture: true});
+            document.removeEventListener("keydown", state.preventKey, true);
 
             root.classList.remove(this.panel.cls.noScrollbars);
             root.style.minHeight = state.rootMinHeight;
