@@ -10,6 +10,7 @@
 		init: function(){
 			var self = this;
 			self.checkBounds();
+			self.tmpl.on("ready.infinite", self.checkReadyBounds, self);
 			self.tmpl.$scrollParent.on("scroll" + self.tmpl.namespace, {self: self}, _fn.throttle(function () {
 				if (!self.tmpl.destroying && !self.tmpl.destroyed){
 					self.checkBounds();
@@ -18,7 +19,14 @@
 		},
 		destroy: function(){
 			var self = this;
+			self.tmpl.off("ready.infinite", self.checkReadyBounds, self);
 			self.tmpl.$scrollParent.off(self.tmpl.namespace);
+		},
+		checkReadyBounds: function(){
+			var self = this;
+			if (self.tmpl.$scrollParent.scrollTop() > 0){
+				self.checkBounds();
+			}
 		},
 		checkBounds: function(){
 			var self = this, page = self.get(self.current), bounds;
