@@ -130,7 +130,7 @@
             } ).then( () => {
                 this.$el.addClass( states.loaded );
                 this.panel.trigger( "comments-loaded", [ this ] );
-            } ).catch( () => {
+            } ).fail( () => {
                 this.$el.addClass( states.error );
                 this.panel.trigger( "comments-error", [ this ] );
             } ).promise();
@@ -180,7 +180,7 @@
                     def.rejectWith( "default prevented" );
                     return;
                 }
-                this.doUnload().then( def.resolve ).catch( def.reject );
+                this.doUnload().then( def.resolve ).fail( def.reject );
             } ).then( () => {
                 this.panel.trigger( "comments-unloaded", [ this ] );
             } ).promise();

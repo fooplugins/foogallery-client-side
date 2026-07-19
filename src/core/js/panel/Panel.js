@@ -384,14 +384,14 @@
                 self.prevItem = self.tmpl.items.prev(item, self.isVisible, self.opt.loop);
                 self.nextItem = self.tmpl.items.next(item, self.isVisible, self.opt.loop);
                 self.updateBackgroundColor(item);
-                self.doLoad(media).then(def.resolve).catch(def.reject);
+                self.doLoad(media).then(def.resolve).fail(def.reject);
             }).always(function(){
                 self.isLoading = false;
             }).then(function(){
                 self.isLoaded = true;
                 self.trigger("loaded", [item]);
                 item.updateState();
-            }).catch(function(){
+            }).fail(function(){
                 self.isError = true;
                 self.trigger("error", [item]);
             }).promise();
@@ -443,7 +443,7 @@
                     self.appendTo( parent );
                 }
                 if (self.isAttached){
-                    self.load( item ).then(def.resolve).catch(def.reject);
+                    self.load( item ).then(def.resolve).fail(def.reject);
                 } else {
                     def.rejectWith("not attached");
                 }

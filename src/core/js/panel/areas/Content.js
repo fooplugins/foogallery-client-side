@@ -58,7 +58,7 @@
                     media.$el.addClass(states.visible);
                 }
                 wait.push(media.load());
-                $.when.apply($, wait).then(def.resolve).catch(def.reject);
+                $.when.apply($, wait).then(def.resolve).fail(def.reject);
             }).promise();
         },
         doUnload: function(media, reverseTransition){
@@ -76,7 +76,7 @@
                     }
                 }
                 wait.push(media.unload());
-                $.when.apply($, wait).then(def.resolve).catch(def.reject);
+                $.when.apply($, wait).then(def.resolve).fail(def.reject);
             }).always(function(){
                 if (media.isCreated){
                     media.$el.removeClass(states.reverse);
