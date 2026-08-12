@@ -3,7 +3,11 @@
 	_.ImageViewerTemplate = _.Template.extend({
 		construct: function (options, element) {
 			var self = this,
+				dotsPosition = options && options.template ? options.template.dotsPosition : null,
                 overlay = element.hasClass('fg-overlay-controls');
+			if (["fg-dots-none", "fg-dots-left", "fg-dots-center", "fg-dots-right"].indexOf(dotsPosition) !== -1){
+				element.removeClass("fg-dots-none fg-dots-left fg-dots-center fg-dots-right").addClass(dotsPosition);
+			}
             if ( overlay && _.paging?.contains('dots') ) {
                 var reg = _.paging.registered['dots'];
                 options = _obj.extend({
