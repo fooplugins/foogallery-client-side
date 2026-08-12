@@ -50,6 +50,11 @@
 
 		onPreInit: function(){
 			var self = this, hasTransition = false;
+			if (/^foogrid-cols-[2-8]$/.test(self.template.columns || "")){
+				self.$el.removeClass(function(index, className){
+					return (className.match(/\bfoogrid-cols-\d+\b/g) || []).join(" ");
+				}).addClass(self.template.columns);
+			}
 			self.$section = $('<section/>', {'class': 'foogrid-content'});
 			self.bindMediaQueries();
 			if (self.panel.opt.transition === "none"){
