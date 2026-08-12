@@ -27,7 +27,13 @@
 		},
 		onPreInit: function(){
 			var self = this, sel = self.sel,
-				fixed = self.$el.hasClass("fg-fixed");
+				layout = self.template.layout,
+				fixed;
+
+			if (["fixed", "col1", "col2", "col3", "col4", "col5", "col6"].indexOf(layout) !== -1){
+				self.$el.removeClass("fg-fixed fg-col1 fg-col2 fg-col3 fg-col4 fg-col5 fg-col6").addClass("fg-" + layout);
+			}
+			fixed = self.$el.hasClass("fg-fixed");
 
 			self.template.isFitWidth = fixed;
 			self.template.percentPosition = !fixed;
