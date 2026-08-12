@@ -37,6 +37,10 @@
 	margin: 0;
 	border: solid 0 transparent;
 }
+.foogallery.fg-seo .fg-item.fg-loading .fg-item-inner {
+	visibility: visible;
+	opacity: 1;
+}
 
 .foogallery .fg-item.fg-error:before {
 	content: "";
