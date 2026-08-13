@@ -37,9 +37,17 @@
 	margin: 0;
 	border: solid 0 transparent;
 }
-.foogallery.fg-seo .fg-item.fg-loading .fg-item-inner {
+/* No JavaScript, or initialization failed: show the server-rendered thumbnail. */
+.foogallery.fg-seo:not(.fg-js) .fg-item.fg-loading .fg-item-inner {
 	visibility: visible;
 	opacity: 1;
+	transform: none;
+	transition: none;
+}
+
+.foogallery.fg-seo:not(.fg-js) .fg-item.fg-loading .fg-loader {
+	visibility: hidden;
+	opacity: 0;
 }
 
 .foogallery .fg-item.fg-error:before {

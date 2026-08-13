@@ -232,6 +232,7 @@
 			}
 			self._undo.classes = self.$el.attr("class");
 			self._undo.style = self.$el.attr("style");
+			self.$el.addClass("fg-js");
 
 			// ensure the container has it's required CSS classes
 			if (!self.$el.is(self.sel.container)) {
