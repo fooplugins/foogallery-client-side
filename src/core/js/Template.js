@@ -241,6 +241,15 @@
 			if (selector != null && !self.$el.is(selector)) {
 				self.$el.addClass(self.opt.classes);
 			}
+			if (_is.hash(self.opt.responsiveClasses)) {
+				var responsiveClasses = self.opt.responsiveClasses;
+				if (_is.string(responsiveClasses.remove) && !_is.empty(responsiveClasses.remove)) {
+					self.$el.removeClass(responsiveClasses.remove);
+				}
+				if (_is.string(responsiveClasses.add) && !_is.empty(responsiveClasses.add)) {
+					self.$el.addClass(responsiveClasses.add);
+				}
+			}
 
 			// if the container currently has no children make them
 			if (self.$el.children().not(self.sel.item.elem).length === 0) {
@@ -691,6 +700,7 @@
 		id: null,
 		type: "core",
 		classes: "",
+		responsiveClasses: {},
 		on: {},
 		lazy: true,
 		items: [],
@@ -726,6 +736,7 @@
 	 * @property {?string} [id=null] - The id for the template. This is only required if creating a template without a pre-existing container element that has an `id` attribute.
 	 * @property {string} [type="core"] - The type of template to load. If no container element exists to parse the type from this must be supplied so the correct type of template is loaded.
 	 * @property {string} [classes=""] - A space delimited string of any additional CSS classes to append to the container element of the template.
+	 * @property {object} [responsiveClasses={}] - CSS classes to remove and add after the original container classes are recorded for restoration.
 	 * @property {object} [on={}] - An object containing any template events to bind to.
 	 * @property {boolean} [lazy=true] - Whether or not to enable lazy loading of images.
 	 * @property {boolean} [protected=false] - Whether or not to enable basic image protection.
