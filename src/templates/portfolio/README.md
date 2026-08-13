@@ -12,7 +12,7 @@ The following files must be included in the page prior to the template files.
 
 The following files for the template must be included after all dependencies are included in the page.
 
-- Simple Portfolio CSS & JS (foogallery.simple-portfolio[.min].css & foogallery.simple-portfolio[.min].js)
+- Portfolio CSS & JS (foogallery.simple-portfolio[.min].css & foogallery.simple-portfolio[.min].js)
 
 ## Markup
 
