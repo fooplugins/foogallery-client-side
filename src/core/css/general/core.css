@@ -38,14 +38,14 @@
 	border: solid 0 transparent;
 }
 /* No JavaScript, or initialization failed: show the server-rendered thumbnail. */
-.foogallery.fg-seo:not(.fg-js) .fg-item.fg-loading .fg-item-inner {
+.foogallery.fg-no-js .fg-item.fg-loading .fg-item-inner {
 	visibility: visible;
 	opacity: 1;
 	transform: none;
 	transition: none;
 }
 
-.foogallery.fg-seo:not(.fg-js) .fg-item.fg-loading .fg-loader {
+.foogallery.fg-no-js .fg-item.fg-loading .fg-loader {
 	visibility: hidden;
 	opacity: 0;
 }
