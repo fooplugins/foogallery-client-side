@@ -85,6 +85,16 @@
 }
 
 /* Preset Sizes */
+.foogallery.fg-preset.fg-preset-smallest.fg-ming .fg-caption-inner {
+	border: solid 5px transparent;
+}
+.foogallery.fg-preset.fg-preset-smallest.fg-ming .fg-caption:before {
+	top: 5px;
+	right: 5px;
+	bottom: 5px;
+	left: 5px;
+}
+
 .foogallery.fg-preset.fg-preset-small.fg-ming .fg-caption-inner {
 	border: solid 10px transparent;
 }

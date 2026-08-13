@@ -81,6 +81,10 @@
 }
 
 /* Preset Sizes */
+.foogallery.fg-preset.fg-preset-smallest.fg-sadie .fg-caption-inner {
+	padding: 20px 5px 5px;
+}
+
 .foogallery.fg-preset.fg-preset-small.fg-sadie .fg-caption-inner {
 	padding: 30px 10px 10px;
 }

@@ -92,6 +92,9 @@
 }
 
 /* Preset Sizes */
+.foogallery.fg-preset.fg-preset-smallest.fg-steve .fg-caption-inner {
+	padding: 10px 5px;
+}
 .foogallery.fg-preset.fg-preset-small.fg-steve .fg-caption-inner {
 	padding: 20px 10px;
 }

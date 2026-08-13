@@ -90,6 +90,17 @@
 }
 
 /* Preset Sizes */
+.foogallery.fg-preset.fg-preset-smallest.fg-oscar .fg-caption-inner {
+	padding: 20px 15px 15px;
+	transform: translateY(50%) translateY(-20px);
+}
+.foogallery.fg-preset.fg-preset-smallest.fg-oscar .fg-caption:before {
+	top: 5px;
+	right: 5px;
+	bottom: 5px;
+	left: 5px;
+}
+
 .foogallery.fg-preset.fg-preset-small.fg-oscar .fg-caption-inner {
 	padding: 30px 25px 25px;
 	transform: translateY(50%) translateY(-30px);

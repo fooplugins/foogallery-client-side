@@ -77,6 +77,11 @@
 }
 
 /* Preset Sizes */
+.foogallery.fg-preset.fg-preset-smallest.fg-sarah .fg-caption-inner {
+	gap: 5px;
+	padding: 5px;
+}
+
 .foogallery.fg-preset.fg-preset-small.fg-sarah .fg-caption-inner {
 	gap: 10px;
 	padding: 10px;

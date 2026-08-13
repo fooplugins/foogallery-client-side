@@ -54,6 +54,26 @@
     padding: 0 10px 10px;
 }
 
+/* Preset Sizes */
+.foogallery.fg-preset.fg-preset-smallest.fg-brad .fg-caption {
+	padding: 5px;
+}
+.foogallery.fg-preset.fg-preset-smallest.fg-brad .fg-caption-inner {
+	top: 5px;
+	right: 5px;
+	bottom: 5px;
+	left: 5px;
+	width: calc(100% - 10px);
+	height: calc(100% - 10px);
+}
+.foogallery.fg-preset.fg-preset-smallest.fg-brad .fg-caption-title,
+.foogallery.fg-preset.fg-preset-smallest.fg-brad .fg-caption-desc {
+	padding: 5px;
+}
+.foogallery.fg-preset.fg-preset-smallest.fg-brad .fg-caption-buttons {
+	padding: 0 5px 5px;
+}
+
 /* Text Align */
 .foogallery.fg-preset.fg-brad.fg-c-l .fg-caption-inner {
     align-items: flex-start;

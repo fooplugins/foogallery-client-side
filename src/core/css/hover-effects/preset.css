@@ -58,6 +58,13 @@
 }
 
 /* Preset Sizes */
+.fg-preset.fg-preset-smallest .fg-caption-title {
+	font-size: 12px;
+}
+.fg-preset.fg-preset-smallest .fg-caption-desc {
+	font-size: 10px;
+}
+
 .fg-preset.fg-preset-small .fg-caption-title {
 	font-size: 16px;
 }

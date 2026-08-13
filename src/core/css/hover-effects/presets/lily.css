@@ -61,6 +61,16 @@
 }
 
 /* Preset Sizes */
+.foogallery.fg-preset.fg-preset-smallest.fg-lily .fg-caption-title {
+	padding: 5px;
+}
+.foogallery.fg-preset.fg-preset-smallest.fg-lily .fg-caption-desc {
+	padding: 0 5px 5px;
+}
+.foogallery.fg-preset.fg-preset-smallest.fg-lily .fg-caption-buttons {
+	padding: 0 5px 5px;
+}
+
 .foogallery.fg-preset.fg-preset-small.fg-lily .fg-caption-title {
 	padding: 10px;
 }

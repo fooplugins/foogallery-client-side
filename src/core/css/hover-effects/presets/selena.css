@@ -66,6 +66,10 @@
 }
 
 /* Preset Sizes */
+.foogallery.fg-preset.fg-preset-smallest.fg-selena .fg-caption-inner {
+	gap: 5px;
+	padding: calc(4% + 5px);
+}
 .foogallery.fg-preset.fg-preset-small.fg-selena .fg-caption-inner {
 	gap: 10px;
 	padding: calc(4% + 10px);
