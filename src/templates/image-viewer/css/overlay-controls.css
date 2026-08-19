@@ -35,6 +35,27 @@
 .fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-next {
     right: 20px;
 }
+
+/*
+ * Spotlight uses inline SVG arrows. Reset the complete icon layout so theme
+ * rules and the legacy image-viewer control padding cannot offset the SVG.
+ */
+.foogallery.fg-spotlight .fiv-inner .fiv-ctrls .fiv-prev,
+.foogallery.fg-spotlight .fiv-inner .fiv-ctrls .fiv-next {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 0;
+}
+.foogallery.fg-spotlight .fiv-inner .fiv-ctrls .fiv-prev > svg,
+.foogallery.fg-spotlight .fiv-inner .fiv-ctrls .fiv-next > svg {
+    display: block;
+    flex: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
 .fg-image-viewer.fg-overlay-controls .fiv-inner:hover .fiv-ctrls .fiv-prev,
 .fg-image-viewer.fg-overlay-controls .fiv-inner:hover .fiv-ctrls .fiv-next {
     opacity: 0.6;
