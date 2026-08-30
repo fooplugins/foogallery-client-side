@@ -616,7 +616,7 @@ module.exports = function ( grunt ) {
 				"banner": '/*\n' +
 					'* <%= pkg.title %> - <%= pkg.description %>\n' +
 					'* @version <%= pkg.version %>\n' +
-					'* @link <%= pkg.homepage %>\n' +
+					'* @link<%= pkg.homepage ? " " + pkg.homepage : "" %>\n' +
 					'* @copyright Steven Usher & Brad Vincent 2015\n' +
 					'* @license Released under the GPLv3 license.\n' +
 					'*/\n'
@@ -638,7 +638,7 @@ module.exports = function ( grunt ) {
 				"banner": '/*\n' +
 					'* <%= pkg.title %> - <%= pkg.description %>\n' +
 					'* @version <%= pkg.version %>\n' +
-					'* @link <%= pkg.homepage %>\n' +
+					'* @link<%= pkg.homepage ? " " + pkg.homepage : "" %>\n' +
 					'* @copyright Steven Usher & Brad Vincent 2015\n' +
 					'* @license Released under the GPLv3 license.\n' +
 					'*/\n'
