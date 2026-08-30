@@ -23,9 +23,6 @@
 	text-align: center;
 	margin: 0;
 }
-.foogallery .fg-thumb[href] + .fg-caption {
-    cursor: pointer;
-}
 .foogallery .fg-caption-inner {
 	flex: 1;
 	display: flex;

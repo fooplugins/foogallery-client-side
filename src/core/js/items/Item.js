@@ -1354,17 +1354,15 @@
 			}
 		},
 		/**
-		 * @summary Listens for the click event on the {@link FooGallery.Item#$caption|$caption} element and redirects it to the anchor if required.
+		 * @summary Listens for the click event on the {@link FooGallery.Item#$caption|$caption} element.
 		 * @memberof FooGallery.Item#
 		 * @function onCaptionClick
 		 * @param {jQuery.Event} e - The jQuery.Event object for the click event.
 		 * @private
 		 */
 		onCaptionClick: function (e) {
-			var self = e.data.self, evt = self.tmpl.trigger("caption-click-item", [self]);
-			if (!evt.isDefaultPrevented() && self.$anchor.length > 0 && !$(e.target).is("a[href],:input")) {
-				self.$anchor.get(0).click();
-			}
+			var self = e.data.self;
+			self.tmpl.trigger("caption-click-item", [self]);
 		},
 		/**
 		 * @summary Listens for clicks on caption download buttons and triggers the client-side download helper.
