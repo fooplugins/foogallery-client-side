@@ -7,6 +7,7 @@
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
+	pointer-events: none;
 	visibility: hidden;
 	opacity: 0;
 	position: absolute;
@@ -22,6 +23,10 @@
 	border: none;
 	text-align: center;
 	margin: 0;
+}
+
+.foogallery .fg-caption :is(a,button,input,select,textarea,label,[tabindex],[role="button"]) {
+	pointer-events: auto;
 }
 .foogallery .fg-caption-inner {
 	flex: 1;
