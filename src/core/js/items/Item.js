@@ -233,13 +233,13 @@
 			 * @name caption
 			 * @type {string}
 			 */
-			self.caption = self.opt.caption;
+			self.caption = _.safeParse(self.opt.caption);
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name description
 			 * @type {string}
 			 */
-			self.description = self.opt.description;
+			self.description = _.safeParse(self.opt.description);
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name attrItem
