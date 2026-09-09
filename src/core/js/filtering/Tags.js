@@ -62,9 +62,14 @@
 
                 if (this.shouldRenderTags()){
                     if (this.collapseEnabled) {
-                        this.collapse = matchMedia(`(max-width: 600px)`);
-                        this.collapse.addEventListener('change', this.onCollapseChange);
-                        this.dropdownEnabled = this.isDropdownStyle() || this.collapse.matches;
+                        if (globalThis.FooGallery_autoMobileBreakpoint === false) {
+                            // The editor controls mobile mode without resizing the browser.
+                            this.dropdownEnabled = this.isDropdownStyle() || _.isMobile;
+                        } else {
+                            this.collapse = matchMedia(`(max-width: 600px)`);
+                            this.collapse.addEventListener('change', this.onCollapseChange);
+                            this.dropdownEnabled = this.isDropdownStyle() || this.collapse.matches;
+                        }
                     }
                     this.$wrap = this.createWrap().appendTo(this.$container);
                     let $wrap = this.$wrap;
@@ -170,6 +175,10 @@
             this.update(this.filter.current, this.filter.search);
         },
 		destroy: function(){
+            if (this.collapse) {
+                this.collapse.removeEventListener('change', this.onCollapseChange);
+                this.collapse = null;
+            }
             this.destroyLists( this.dropdownEnabled );
             this.tmpl.off("layout", this.onLayout);
             this._super();
