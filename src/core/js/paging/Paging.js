@@ -54,10 +54,12 @@
 			self._super();
 		},
 		build: function () {
-			var self = this, items = self.tmpl.items.available();
+			var self = this, items = self.tmpl.items.available(),
+				size = self.size > 0 ? self.size : items.length;
+			// Keep an unlimited page sized to the current matches on every rebuild.
 			self.total = self.size > 0 && items.length > 0 ? Math.ceil(items.length / self.size) : 1;
 			for (var i = 0; i < self.total; i++) {
-				self._pages.push(items.splice(0, self.size));
+				self._pages.push(items.splice(0, size));
 			}
 			if (self.total > 1 && _.paging.hasCtrl(self.type)) {
 				var pos = self.position, top, bottom;
