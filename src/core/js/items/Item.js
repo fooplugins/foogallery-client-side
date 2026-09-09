@@ -1006,7 +1006,7 @@
 				ribbon = document.createElement("div");
 				ribbon.className = self.ribbon.type;
 				var ribbonText = document.createElement("span");
-				ribbonText.innerHTML = self.ribbon.text;
+				ribbonText.innerHTML = _.safeParse(self.ribbon.text);
 				ribbon.appendChild(ribbonText);
 			}
 
@@ -1054,7 +1054,7 @@
 				_utils.each(self.buttons, function(button){
 					if (_is.hash(button) && _is.string(button.text)){
 						var captionButton = document.createElement("a");
-						captionButton.innerHTML = button.text;
+						captionButton.innerHTML = _.safeParse(button.text);
 						if (_is.string(button.url) && button.url.length > 0){
 							captionButton.href = button.url;
 						}
@@ -1073,7 +1073,8 @@
 						if (_is.hash(button.attr)){
 							self._setAttributes(captionButton, button.attr);
 						}
-						captionButtons.appendChild(captionButton);
+						// Validate the complete button after custom attributes have been applied.
+						captionButtons.insertAdjacentHTML("beforeend", _.safeParse(captionButton.outerHTML));
 					}
 				});
 				captionInner.appendChild(captionButtons);

@@ -5,6 +5,7 @@ const fs = require( 'node:fs' );
 const path = require( 'node:path' );
 const test = require( 'node:test' );
 const vm = require( 'node:vm' );
+const { JSDOM } = require( 'jsdom' );
 
 const clientRoot = path.resolve( __dirname, '..' );
 
@@ -19,10 +20,6 @@ function loadItemDefinition() {
 		},
 		components: {
 			register: function () {}
-		},
-		safeParse: function ( value ) {
-			parsed.push( value );
-			return typeof value === 'string' && ! value.includes( 'onerror' ) ? value : '';
 		},
 		template: {
 			configure: function () {}
@@ -52,9 +49,15 @@ function loadItemDefinition() {
 		}
 	};
 
+	const dom = new JSDOM('', { runScripts: 'outside-only' });
+	dom.window.FooGallery = FooGallery;
+	dom.window.eval(fs.readFileSync(path.join(clientRoot, 'src/core/js/safeParse.js'), 'utf8'));
+	const realSafeParse = FooGallery.safeParse;
+	FooGallery.safeParse = value => { parsed.push(value); return realSafeParse(value); };
+
 	vm.runInContext(
 		fs.readFileSync( path.join( clientRoot, 'src/core/js/items/Item.js' ), 'utf8' ),
-		vm.createContext( { FooGallery: FooGallery } ),
+		dom.getInternalVMContext(),
 		{ filename: 'src/core/js/items/Item.js' }
 	);
 

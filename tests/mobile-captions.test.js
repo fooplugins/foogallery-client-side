@@ -43,7 +43,7 @@ function loadItem(dom) {
 	const context = vm.createContext({
 		FooGallery, document: dom.window.document, window: dom.window,
 		HTMLElement: dom.window.HTMLElement, Element: dom.window.Element,
-		Node: dom.window.Node, Text: dom.window.Text, DOMParser: dom.window.DOMParser,
+		Attr: dom.window.Attr, Node: dom.window.Node, Text: dom.window.Text, DOMParser: dom.window.DOMParser,
 	});
 	vm.runInContext(fs.readFileSync(path.resolve(__dirname, '../src/core/js/safeParse.js'), 'utf8'), context);
 	vm.runInContext(fs.readFileSync(itemSourcePath, 'utf8'), context, { filename: itemSourcePath });
@@ -196,4 +196,24 @@ test('JSON items are removed on destroy and rebuilt from unchanged canonical dat
 	assert.equal(text(desktop.el, 'desc'), 'Desktop description');
 	assert.equal(desktop.el.querySelector('.fg-thumb').getAttribute('data-lightbox-title'), 'Independent lightbox title');
 	assert.equal(desktop.el.querySelector('.fg-thumb').getAttribute('data-lightbox-description'), 'Independent lightbox description');
+});
+
+
+test('JSON buttons and ribbons sanitize markup and final custom attributes', () => {
+	const { element, dom } = render('JSON', false, undefined, {
+		ribbon: { type: 'ribbon', text: '<img src=x onerror=alert(1)>' },
+		buttons: [
+			{ text: '<b>Good</b>', url: 'https://example.test/', classes: 'good', attr: { 'data-test': 'ok' } },
+			{ text: 'Bad URL', url: 'javascript:alert(1)' },
+			{ text: 'Bad attribute', attr: { onclick: 'alert(1)' } },
+			{ text: 'Overridden URL', url: 'https://example.test/', attr: { href: 'javascript:alert(1)' } },
+			{ text: '&lt;img src=x onerror=alert(1)&gt;', classes: 'encoded' },
+		]
+	});
+	assert.equal(element.querySelectorAll('.fg-caption-buttons a').length, 2);
+	assert.equal(element.querySelector('.good b').textContent, 'Good');
+	assert.equal(element.querySelector('.good').getAttribute('data-test'), 'ok');
+	assert.equal(element.querySelector('.encoded').textContent, '<img src=x onerror=alert(1)>');
+	assert.equal(element.querySelector('[onclick], [onerror], .ribbon img'), null);
+	dom.window.close();
 });
