@@ -18,6 +18,7 @@
   "author": "FooPlugins",
   "license": "GPL",
   "devDependencies": {
+    "jsdom": "^26.1.0",
     "@steveush/utils": "^0.0.2",
     "bootstrap": "3.4.1",
     "foo-utils": "1.0.0",

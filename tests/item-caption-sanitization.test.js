@@ -64,9 +64,8 @@ function loadItemDefinition() {
 test( 'option-sourced item captions and descriptions are always safely parsed', function () {
 	const runtime = loadItemDefinition();
 	const payload = '<img src=x onerror="alert(document.cookie)">';
-	const instance = {
-		_super: function () {}
-	};
+	const instance = Object.create( runtime.definition );
+	instance._super = function () {};
 	const template = {
 		cls: { item: {} },
 		il8n: { item: {} },

@@ -19,6 +19,13 @@
 			 * @function _super
 			 */
 			self._super(template);
+			// Some integrations instantiate the definition directly instead of
+			// inheriting the component methods (for example server-side tests).
+			// Keep the normal prototype path untouched while making those items
+			// use the same caption helpers.
+			if (typeof self.parseMobileCaptionOverrides !== "function" && _.Item && typeof _.Item.parseMobileCaptionOverrides === "function") self.parseMobileCaptionOverrides = _.Item.parseMobileCaptionOverrides;
+			if (typeof self.updateThumbnailCaptionValues !== "function" && _.Item && typeof _.Item.updateThumbnailCaptionValues === "function") self.updateThumbnailCaptionValues = _.Item.updateThumbnailCaptionValues;
+			if (typeof self.updateParsedCaption !== "function" && _.Item && typeof _.Item.updateParsedCaption === "function") self.updateParsedCaption = _.Item.updateParsedCaption;
 			self.cls = template.cls.item;
 			self.il8n = template.il8n.item;
 			self.sel = template.sel.item;
@@ -286,6 +293,11 @@
 			 * @type {boolean}
 			 */
 			self.showCaptionDescription = self.opt.showCaptionDescription;
+			self.mobileCaptionOverrides = self.parseMobileCaptionOverrides(anchor["data-mobile-captions"]);
+			self.thumbnailCaption = self.caption;
+			self.thumbnailDescription = self.description;
+			self.thumbnailShowCaptionTitle = self.showCaptionTitle;
+			self.thumbnailShowCaptionDescription = self.showCaptionDescription;
 			/**
 			 * @memberof FooGallery.Item#
 			 * @name noLightbox
@@ -346,8 +358,116 @@
 			self._undo = {
 				classes: "",
 				style: "",
-				placeholder: false
+				placeholder: false,
+				captionExists: false,
+				captionHTML: ""
 			};
+		},
+		/**
+		 * Parse the optional thumbnail-only mobile caption payload.
+		 * @param {*} value Serialized or parsed mobile caption overrides.
+		 * @returns {?Object}
+		 */
+		parseMobileCaptionOverrides: function (value) {
+			if (_is.string(value)) {
+				try {
+					value = JSON.parse(value);
+				} catch (e) {
+					return null;
+				}
+			}
+			if (!_is.hash(value)) return null;
+			var overrides = {};
+			["title", "description"].forEach(function (key) {
+				if (Object.prototype.hasOwnProperty.call(value, key) && _is.string(value[key])) {
+					overrides[key] = _.safeParse(value[key]);
+				}
+			});
+			return Object.keys(overrides).length > 0 ? overrides : null;
+		},
+		/**
+		 * Resolve the text and visibility used by the thumbnail caption.
+		 * Canonical caption properties are deliberately left unchanged for the
+		 * lightbox and other item consumers.
+		 */
+		updateThumbnailCaptionValues: function () {
+			var self = this,
+				overrides = self.mobileCaptionOverrides,
+				mobile = self.tmpl && self.tmpl.opt && self.tmpl.opt.mobileCaptions;
+			self.thumbnailCaption = self.caption;
+			self.thumbnailDescription = self.description;
+			self.thumbnailShowCaptionTitle = self.showCaptionTitle;
+			self.thumbnailShowCaptionDescription = self.showCaptionDescription;
+			if (!mobile || !_is.hash(overrides)) return;
+			if (Object.prototype.hasOwnProperty.call(overrides, "title")) {
+				self.thumbnailCaption = overrides.title;
+				self.thumbnailShowCaptionTitle = self.thumbnailCaption.length > 0;
+			}
+			if (Object.prototype.hasOwnProperty.call(overrides, "description")) {
+				self.thumbnailDescription = overrides.description;
+				self.thumbnailShowCaptionDescription = self.thumbnailDescription.length > 0;
+			}
+		},
+		/**
+		 * Update parsed caption markup while retaining the original desktop DOM.
+		 */
+		updateParsedCaption: function () {
+			var self = this,
+				cls = self.cls,
+				sel = self.sel,
+				overrides = self.mobileCaptionOverrides,
+				applyTitle = self.tmpl && self.tmpl.opt && self.tmpl.opt.mobileCaptions && _is.hash(overrides) && Object.prototype.hasOwnProperty.call(overrides, "title"),
+				applyDescription = self.tmpl && self.tmpl.opt && self.tmpl.opt.mobileCaptions && _is.hash(overrides) && Object.prototype.hasOwnProperty.call(overrides, "description"),
+				captionTitle = applyTitle && self.thumbnailShowCaptionTitle && _is.string(self.thumbnailCaption) && self.thumbnailCaption.length > 0,
+				captionDescription = applyDescription && self.thumbnailShowCaptionDescription && _is.string(self.thumbnailDescription) && self.thumbnailDescription.length > 0;
+
+			if (!applyTitle && !applyDescription) return;
+
+			if (!self.$caption.length && (captionTitle || captionDescription)) {
+				var caption = document.createElement("figcaption"),
+					captionInner = document.createElement("div");
+				caption.className = cls.caption.elem;
+				captionInner.className = cls.caption.inner;
+				caption.appendChild(captionInner);
+				self.$inner.append(caption);
+				self.$caption = $(caption).on("click.foogallery", {self: self}, self.onCaptionClick);
+				self.$caption.on("click.foogallery", ".fg-download-button", {self: self}, self.onDownloadClick);
+			}
+			if (!self.$caption.length) return;
+
+			var innerSelector = sel.caption.inner || "." + cls.caption.inner,
+				$inner = self.$caption.find(innerSelector).first();
+			if (!$inner.length) {
+				$inner = $("<div>").addClass(cls.caption.inner).appendTo(self.$caption);
+			}
+
+			if (applyTitle) {
+				var $title = self.$caption.find(sel.caption.title).first();
+				if (captionTitle) {
+					if (!$title.length) {
+						$title = $("<div>").addClass(cls.caption.title);
+						$title.prependTo($inner);
+					}
+					$title.html(self.maxCaptionLength > 0 ? _str.trimTo(self.thumbnailCaption, self.maxCaptionLength) : self.thumbnailCaption);
+				} else {
+					$title.remove();
+				}
+			}
+
+			if (applyDescription) {
+				var $description = self.$caption.find(sel.caption.description).first();
+				if (captionDescription) {
+					if (!$description.length) {
+						$description = $("<div>").addClass(cls.caption.description);
+						var $buttons = $inner.find(sel.caption.buttons || "." + cls.caption.buttons).first();
+						if ($buttons.length) $description.insertBefore($buttons);
+						else $inner.append($description);
+					}
+					$description.html(self.maxDescriptionLength > 0 ? _str.trimTo(self.thumbnailDescription, self.maxDescriptionLength) : self.thumbnailDescription);
+				} else {
+					$description.remove();
+				}
+			}
 		},
 		/**
 		 * @summary Destroy the item preparing it for garbage collection.
@@ -436,6 +556,8 @@
 			var self = this;
 			if (self.isParsed) {
 				self.$anchor.add(self.$caption).off("click.foogallery");
+				if (self._undo.captionExists) self.$caption.html(self._undo.captionHTML);
+				else self.$caption.remove();
 				self.append();
 
 				self.tmpl.items.unobserve(self);
@@ -558,6 +680,8 @@
 			self.$anchor = $(el.querySelector(sel.anchor)).on("click.foogallery", {self: self}, self.onAnchorClick);
 			self.$image = $(el.querySelector(sel.image));
 			self.$caption = $(el.querySelector(sel.caption.elem)).on("click.foogallery", {self: self}, self.onCaptionClick);
+			self._undo.captionExists = self.$caption.length > 0;
+			self._undo.captionHTML = self.$caption.length ? self.$caption.html() : "";
 			self.$caption.on("click.foogallery", ".fg-download-button", {self: self}, self.onDownloadClick);
 			self.$overlay = $(el.querySelector(sel.overlay));
 			self.$wrap = $(el.querySelector(sel.wrap));
@@ -579,6 +703,7 @@
 			self.isError = self.$el.hasClass(cls.error);
 
 			var data = self.$anchor.data();
+			self.mobileCaptionOverrides = self.parseMobileCaptionOverrides(data.mobileCaptions || self.$anchor.attr("data-mobile-captions"));
 			self.id = `${ data.id || data.attachmentId || self.id }`;
 			self.productId = data.productId || self.productId;
 			self.tags = data.tags || self.tags;
@@ -610,6 +735,7 @@
 
 			self.caption = _.safeParse( data.title || data.captionTitle || self.caption );
 			self.description = _.safeParse( data.description || data.captionDesc || self.description );
+			self.updateThumbnailCaptionValues();
 			self.noLightbox = self.$anchor.hasClass(cls.noLightbox);
 			self.panelHide = self.$anchor.hasClass(cls.panelHide);
 			if (_is.exif(data.exif)){
@@ -623,7 +749,7 @@
 					self.$caption.find(sel.caption.title).html(title);
 				}
 			}
-			if (self.maxDescriptionLength){
+			if (self.maxDescriptionLength > 0){
 				var desc = _str.trimTo(self.description, self.maxDescriptionLength);
 				if (desc !== self.description) {
 					self.$caption.find(sel.caption.description).html(desc);
@@ -635,6 +761,7 @@
 			if (!self.showCaptionDescription) {
 				self.$caption.find(sel.caption.description).remove();
 			}
+			self.updateParsedCaption();
 
 			// if the image has no src url then set the placeholder
 			var img = $img.get(0);
@@ -793,6 +920,8 @@
 				attr = self.attr,
 				exif = self.hasExif ? cls.exif : "";
 
+			self.updateThumbnailCaptionValues();
+
 			self.isLoaded = !self.tmpl.opt.lazy;
 			self.isPicture = self.sources.length > 0;
 
@@ -909,20 +1038,20 @@
 				"class": cls.caption.inner
 			});
 
-			var captionTitle = null, hasTitle = self.showCaptionTitle && _is.string(self.caption) && self.caption.length > 0;
+			var captionTitle = null, hasTitle = self.thumbnailShowCaptionTitle && _is.string(self.thumbnailCaption) && self.thumbnailCaption.length > 0;
 			if (hasTitle) {
 				captionTitle = document.createElement("div");
 				self._setAttributes(captionTitle, attr.caption.title);
 				captionTitle.className = cls.caption.title;
-				captionTitle.innerHTML = self.maxCaptionLength > 0 ? _str.trimTo(self.caption, self.maxCaptionLength) : self.caption;
+				captionTitle.innerHTML = self.maxCaptionLength > 0 ? _str.trimTo(self.thumbnailCaption, self.maxCaptionLength) : self.thumbnailCaption;
 				captionInner.appendChild(captionTitle);
 			}
-			var captionDesc = null, hasDescription = self.showCaptionDescription && _is.string(self.description) && self.description.length > 0;
+			var captionDesc = null, hasDescription = self.thumbnailShowCaptionDescription && _is.string(self.thumbnailDescription) && self.thumbnailDescription.length > 0;
 			if (hasDescription) {
 				captionDesc = document.createElement("div");
 				self._setAttributes(captionDesc, attr.caption.description);
 				captionDesc.className = cls.caption.description;
-				captionDesc.innerHTML = self.maxDescriptionLength > 0 ? _str.trimTo(self.description, self.maxDescriptionLength) : self.description;
+				captionDesc.innerHTML = self.maxDescriptionLength > 0 ? _str.trimTo(self.thumbnailDescription, self.maxDescriptionLength) : self.thumbnailDescription;
 				captionInner.appendChild(captionDesc);
 			}
 			var captionButtons = null, hasButtons = _is.array(self.buttons) && self.buttons.length > 0;
