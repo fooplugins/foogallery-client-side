@@ -129,6 +129,7 @@
              * @private
              */
             self._listeners = new _utils.DOMEventListeners();
+            self._generatedControls = [];
             /**
              *
              * @type {FooGallery.utils.Progress}
@@ -249,7 +250,9 @@
                 self.previous();
             } );
             if ( self.elem.prev.type !== "button" ) self.elem.prev.type = "button";
-            self.elem.prev.appendChild( _icons.element( "arrow-left" ) );
+            const prevIcon = _icons.element( "arrow-left" );
+            self._generatedControls.push( prevIcon );
+            self.elem.prev.appendChild( prevIcon );
             if ( !self.elem.prev.title?.length ) {
                 self.elem.prev.title = self.i18n.prev;
             }
@@ -260,7 +263,9 @@
                 self.next();
             } );
             if ( self.elem.next.type !== "button" ) self.elem.next.type = "button";
-            self.elem.next.appendChild( _icons.element( "arrow-right" ) );
+            const nextIcon = _icons.element( "arrow-right" );
+            self._generatedControls.push( nextIcon );
+            self.elem.next.appendChild( nextIcon );
             if ( !self.elem.next.title?.length ) {
                 self.elem.next.title = self.i18n.next;
             }
@@ -285,6 +290,7 @@
                     self.interacted = true;
                     self.goto( self.tmpl.items.get( i ) );
                 } );
+                self._generatedControls.push( bullet );
                 self.elem.bottom.appendChild( bullet );
             }
         },
@@ -424,6 +430,12 @@
             self.timeouts.clear();
             self._listeners.clear();
             self._centerListeners.clear();
+            self._progress.destroy();
+            // Breakpoint rebuilds reuse the markup, so remove this instance's controls.
+            self._generatedControls.forEach( function( element ){
+                element.remove();
+            } );
+            self._generatedControls = [];
             if ( self.opt.perspective !== 150 ){
                 self.el.style.removeProperty( "--fg-carousel-perspective" );
             }
