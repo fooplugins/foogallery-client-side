@@ -19,13 +19,6 @@
 			 * @function _super
 			 */
 			self._super(template);
-			// Some integrations instantiate the definition directly instead of
-			// inheriting the component methods (for example server-side tests).
-			// Keep the normal prototype path untouched while making those items
-			// use the same caption helpers.
-			if (typeof self.parseMobileCaptionOverrides !== "function" && _.Item && typeof _.Item.parseMobileCaptionOverrides === "function") self.parseMobileCaptionOverrides = _.Item.parseMobileCaptionOverrides;
-			if (typeof self.updateThumbnailCaptionValues !== "function" && _.Item && typeof _.Item.updateThumbnailCaptionValues === "function") self.updateThumbnailCaptionValues = _.Item.updateThumbnailCaptionValues;
-			if (typeof self.updateParsedCaption !== "function" && _.Item && typeof _.Item.updateParsedCaption === "function") self.updateParsedCaption = _.Item.updateParsedCaption;
 			self.cls = template.cls.item;
 			self.il8n = template.il8n.item;
 			self.sel = template.sel.item;
