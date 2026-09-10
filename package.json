@@ -31,7 +31,7 @@
     "grunt-contrib-uglify": "5.2.1",
     "grunt-jsdoc": "2.4.1",
     "local-web-server": "5.1.0",
-    "sharp": "^0.34.3"
+    "sharp": "^0.35.4"
   },
   "dependencies": {
     "jquery": "3.6.0",
