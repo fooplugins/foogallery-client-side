@@ -54,6 +54,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/factories/Factory.js",
 						"./src/core/js/factories/TemplateFactory.js",
 						"./src/core/js/Template.js",
+						"./src/core/js/Responsive.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
 
@@ -123,6 +124,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/factories/Factory.js",
 						"./src/core/js/factories/TemplateFactory.js",
 						"./src/core/js/Template.js",
+						"./src/core/js/Responsive.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
 

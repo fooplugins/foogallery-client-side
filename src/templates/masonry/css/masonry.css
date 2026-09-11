@@ -29,6 +29,8 @@
 .fg-masonry .fg-column-width,
 .fg-masonry .fg-gutter-width {
 	position: absolute;
+	top: 0;
+	left: 0;
 	height: 0;
 	visibility: hidden;
 	opacity: 0;
