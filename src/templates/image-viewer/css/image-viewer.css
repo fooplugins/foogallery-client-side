@@ -58,6 +58,11 @@
 .fg-image-viewer .fiv-inner .fiv-inner-container .fg-item:first-of-type {
 	position: relative;
 }
+/* Only the first item occupies the visible frame while the gallery initializes. */
+.fg-image-viewer .fiv-inner .fiv-inner-container .fg-item:not(:first-of-type) .fg-loader {
+	visibility: hidden;
+	opacity: 0;
+}
 .fg-image-viewer .fiv-inner .fiv-inner-container .fg-item .fg-thumb img {
 	display: block;
 	max-width: 100%;
