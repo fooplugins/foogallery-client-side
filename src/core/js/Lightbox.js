@@ -47,7 +47,7 @@
         var data = this.$el.data("foogalleryLightbox"),
             enabled = this.opt.lightbox.enabled || _is.hash(data) || (this.$el.length > 0 && this.el.hasAttribute("data-foogallery-lightbox"));
 
-        this.opt.lightbox = _obj.extend({}, this.opt.panel, this.opt.lightbox, { enabled: enabled }, data);
+        this.opt.lightbox = _obj.extend({}, this.opt.panel, this.opt.lightbox, { enabled: enabled }, data, this.opt.mobileLightbox);
         this.lightbox = enabled ? new _.Lightbox(this, this.opt.lightbox) : null;
     });
 
