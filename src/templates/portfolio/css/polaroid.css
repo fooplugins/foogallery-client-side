@@ -45,9 +45,6 @@
 .foogallery.fg-preset.fg-polaroid .fg-caption-title {
 	text-align: center;
 }
-.foogallery.fg-preset.fg-polaroid .fg-caption-desc {
-	display: none;
-}
 
 /* Themes */
 .foogallery.fg-preset.fg-polaroid .fg-caption-title,
