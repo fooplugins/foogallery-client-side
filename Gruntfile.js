@@ -731,12 +731,26 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks("foo-utils");
 	grunt.loadNpmTasks("grunt-jsdoc");
 
+	grunt.registerTask("csp-safe-utils", "Removes the legacy unsafe-eval DOM ready probe from FooUtils.", function () {
+		const utilsPath = "./dist/foogallery.utils.js";
+		const legacyProbe = "Function('/*@cc_on return true@*/')() ? document.readyState === \"complete\" : document.readyState !== \"loading\"";
+		const source = grunt.file.read(utilsPath);
+		const occurrences = source.split(legacyProbe).length - 1;
+
+		if (occurrences !== 1) {
+			grunt.fail.fatal(`Expected one legacy FooUtils DOM ready probe, found ${occurrences}.`);
+		}
+
+		grunt.file.write(utilsPath, source.replace(legacyProbe, "document.readyState !== \"loading\""));
+	});
+
 	grunt.registerTask("default", [
 		"clean:dist",
 
 		"concat:polyfills",
 
 		"foo-utils", // create the foogallery.utils.js file that is then included as part of the core
+		"csp-safe-utils",
 
 		"concat:core",
 		"concat:core_pro",
