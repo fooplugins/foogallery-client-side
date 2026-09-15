@@ -7,7 +7,7 @@
   "scripts": {
     "build": "grunt",
     "build:docs": "grunt docs",
-    "test": "node --test",
+    "test": "npm run build && node --test",
     "test-pages": "ws --directory test-pages/templates"
   },
   "keywords": [
