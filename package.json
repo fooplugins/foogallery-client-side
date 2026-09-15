@@ -21,7 +21,7 @@
     "jsdom": "^26.1.0",
     "@steveush/utils": "^0.0.2",
     "bootstrap": "3.4.1",
-    "foo-utils": "1.0.0",
+    "foo-utils": "1.0.1",
     "foodoc": "0.0.9",
     "grunt": "1.6.3",
     "grunt-contrib-clean": "2.0.0",
