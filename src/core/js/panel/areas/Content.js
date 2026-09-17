@@ -43,6 +43,33 @@
             this.$inner.fgswipe("destroy");
             return this._super();
         },
+        doTransition: function($element, trigger){
+            var element = $element.get(0);
+            if (!element || typeof element.getAnimations !== "function"){
+                return _t.start($element, trigger, null, 350);
+            }
+            return $.Deferred(function(def){
+                requestAnimationFrame(function(){
+                    trigger($element);
+                    var animations = element.getAnimations().filter(function(animation){
+                        var timing = animation.effect && typeof animation.effect.getComputedTiming === "function"
+                            ? animation.effect.getComputedTiming()
+                            : null;
+                        return animation.playState !== "paused"
+                            && timing !== null
+                            && typeof timing.endTime === "number"
+                            && isFinite(timing.endTime);
+                    });
+                    if (animations.length === 0){
+                        def.resolve();
+                        return;
+                    }
+                    Promise.all(animations.map(function(animation){
+                        return animation.finished;
+                    })).then(def.resolve, def.reject);
+                });
+            }).promise();
+        },
         doLoad: function(media, reverseTransition){
             var self = this, states = self.panel.cls.states;
             return $.Deferred(function (def) {
@@ -51,9 +78,9 @@
                 media.appendTo(self.$inner);
                 var wait = [];
                 if (self.panel.hasTransition){
-                    wait.push(_t.start(media.$el, function($el){
+                    wait.push(self.doTransition(media.$el, function($el){
                         $el.addClass(states.visible);
-                    }, null, 350));
+                    }));
                 } else {
                     media.$el.addClass(states.visible);
                 }
@@ -68,9 +95,9 @@
                 if (media.isCreated){
                     media.$el.toggleClass(states.reverse, !reverseTransition);
                     if (self.panel.hasTransition){
-                        wait.push(_t.start(media.$el, function($el){
+                        wait.push(self.doTransition(media.$el, function($el){
                             $el.removeClass(states.visible);
-                        }, null, 350));
+                        }));
                     } else {
                         media.$el.removeClass(states.visible);
                     }
