@@ -28,6 +28,10 @@
 			var current = element.data(_.DATA_TEMPLATE);
 			if (current instanceof _.Template) {
 				return current.destroy(true).then(function(){
+					var replacement = element.data(_.DATA_TEMPLATE);
+					if (replacement instanceof _.Template) {
+						return replacement.initialize();
+					}
 					var tmpl = _.template.make(options, element);
 					return tmpl instanceof _.Template ? tmpl.initialize() : _fn.rejected;
 				});
