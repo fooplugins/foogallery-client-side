@@ -131,6 +131,8 @@
 			 * @private
 			 */
 			self._layoutWidths = [];
+			self._resizeWidth = null;
+			self._resizeFrame = null;
 			/**
 			 * @memberof FooGallery.Template#
 			 * @name lastWidth
@@ -150,7 +152,13 @@
 			self.robserver = new ResizeObserver(_fn.throttle(function(entries) {
 				if (!self.destroying && !self.destroyed && entries.length === 1 && entries[0].target === self.el){
 					var size = _utils.getResizeObserverSize(entries[0]);
-					self.layout(size.width);
+					if (size.width === self._resizeWidth) return;
+					self._resizeWidth = size.width;
+					if (self._resizeFrame !== null) cancelAnimationFrame(self._resizeFrame);
+					self._resizeFrame = requestAnimationFrame(function(){
+						self._resizeFrame = null;
+						if (!self.destroying && !self.destroyed) self.layout(size.width);
+					});
 				}
 			}, 50));
 		},
@@ -514,6 +522,8 @@
              * });
              */
             self.trigger("destroy");
+			if (self._resizeFrame !== null) cancelAnimationFrame(self._resizeFrame);
+			self._resizeFrame = null;
 			self.robserver.disconnect();
             $(window).off(self.namespace);
             self.state.destroy(preserveState);
