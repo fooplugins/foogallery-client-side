@@ -141,7 +141,7 @@ test('scroll lock freezes at the 50-viewport boundary but not beyond it', () => 
 });
 
 test('default scrollbar mode does not alter page scroll styles', () => {
-	const harness = createMaximizeHarness({ noScrollbars: false });
+	const harness = createMaximizeHarness({ noScrollbars: false, scrollHeight: 12000 });
 	const { dom, maximize, restoredScrollPositions, window } = harness;
 	try {
 		maximize.enter();
