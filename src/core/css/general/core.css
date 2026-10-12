@@ -83,6 +83,23 @@
 	text-decoration: none;
 	box-shadow: none;
 }
+.foogallery .fg-thumb[href]:focus {
+	outline: 3px solid #2271b1;
+	outline-offset: -3px;
+}
+.foogallery .fg-thumb[href]:focus:after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 10;
+	border: 3px solid #2271b1;
+	border-radius: inherit;
+	pointer-events: none;
+}
 .foogallery .fg-image-overlay {
 	position: absolute;
 	top: 0;
