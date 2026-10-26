@@ -8,6 +8,15 @@
 .foogallery.fg-wall.fg-wall-ready {
 	opacity: 1;
 }
+/* The gallery editor forces preview galleries visible (and half visible while loading); keep the
+   wall hidden until it is ready so a refreshing preview fades in just like the front end. */
+.foogallery_preview_container .foogallery.fg-wall:not(.fg-wall-ready) {
+	opacity: 0;
+}
+.foogallery_preview_container .foogallery.fg-wall.fg-wall-ready {
+	opacity: 1;
+	transition: opacity var(--fg-wall-fade, 900ms) ease;
+}
 
 /* Inline: a normal block with its own height */
 .foogallery.fg-wall-inline {
@@ -16,7 +25,9 @@
 	height: 70vh;
 }
 
-/* Background: fills its host from behind the host's content */
+/* Background: fills its host from behind the host's content. The mode class from the server applies
+   this before the script runs, so the hidden wall never pushes the page content down. */
+.foogallery.fg-wall-mode-background,
 .foogallery.fg-wall-background {
 	position: absolute;
 	top: 0;
@@ -340,6 +351,7 @@
 
 /* Sample section shown behind a background wall in the gallery editor preview */
 .fg-wall-preview {
+	isolation: isolate;
 	display: grid;
 	place-items: center;
 	position: relative;
