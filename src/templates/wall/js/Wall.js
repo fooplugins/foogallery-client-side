@@ -391,11 +391,33 @@
 
 			// 1. Freeze the wall and note where each photo is drawn right now.
 			el.classList.add( "fg-wall-frozen" );
-			var sources = new Map();
+			var sources = new Map(), fade = self.fades(), backdrop = null;
 			self.items().forEach( function( it ){
 				var copy = self.visibleCopy( it );
 				if ( copy ) sources.set( it, self.tilePose( copy ) );
 			} );
+
+			// The fade transition first covers the page with a backdrop, then fades the gallery in over it.
+			if ( fade ){
+				backdrop = self.backdrop();
+				return backdrop.animate( [ { opacity: 0 }, { opacity: 1 } ], { duration: self.fadeDuration(), easing: "ease", fill: "forwards" } ).finished.then( function(){
+					return self.show( item, sources, backdrop );
+				} );
+			}
+			return self.show( item, sources, null );
+		},
+		/**
+		 * @summary Build the fullscreen gallery and transition into it.
+		 * @memberof FooGallery.Wall#
+		 * @function show
+		 * @param {?FooGallery.Item} item - The item that was clicked, if any.
+		 * @param {Map} sources - Where each photo was drawn on the wall.
+		 * @param {?Element} backdrop - The backdrop covering the page (fade transition only).
+		 * @returns {Promise}
+		 * @private
+		 */
+		show: function( item, sources, backdrop ){
+			var self = this, el = self.el, opt = self.opt;
 
 			// 2. Lift the gallery out to the document so it can cover the whole page.
 			self._placeholder = document.createComment( "foogallery-wall" );
@@ -461,13 +483,18 @@
 				if ( e.key === "Escape" && !self.lightboxOpen() ) self.close();
 			} );
 
-			// 4. Fly each photo from the wall into its place in the grid.
+			// 4. Fly each photo from the wall into its place in the grid, or fade the gallery in over the backdrop.
 			var animations = [], entering = 0, motion = _.morph.supported();
-			el.classList.add( "fg-wall-morphing" );
-			requestAnimationFrame( function(){
+			if ( backdrop ){
 				el.classList.add( "fg-wall-open-in" );
-			} );
-			if ( motion ){
+				animations.push( el.animate( [ { opacity: 0 }, { opacity: 1 } ], { duration: self.fadeDuration(), easing: "ease" } ) );
+			} else {
+				el.classList.add( "fg-wall-morphing" );
+				requestAnimationFrame( function(){
+					el.classList.add( "fg-wall-open-in" );
+				} );
+			}
+			if ( motion && !backdrop ){
 				self.items().forEach( function( it ){
 					var to = it.el.getBoundingClientRect(), from = sources.get( it );
 					if ( to.bottom < 0 || to.top > window.innerHeight ) return;
@@ -475,6 +502,7 @@
 				} );
 			}
 			return self.settle( animations ).then( function(){
+				if ( backdrop ) backdrop.remove();
 				el.classList.remove( "fg-wall-morphing" );
 				el.classList.add( "fg-wall-open-ready" );
 				close.focus( { preventScroll: true } );
@@ -504,9 +532,29 @@
 			} );
 
 			// 2. A backdrop covers the switch back to the wall and then fades away.
-			var backdrop = document.createElement( "div" );
-			backdrop.className = "fg-wall-backdrop";
-			document.body.appendChild( backdrop );
+			var backdrop = self.backdrop(), fade = self.fades();
+
+			// The fade transition first fades the gallery out to the backdrop, then reveals the wall.
+			if ( fade ){
+				var fadeOut = el.animate( [ { opacity: 1 }, { opacity: 0 } ], { duration: self.fadeDuration(), easing: "ease", fill: "forwards" } );
+				return fadeOut.finished.then( function(){
+					return self.hide( [], backdrop, fadeOut );
+				} );
+			}
+			return self.hide( motion ? flights : [], backdrop, null );
+		},
+		/**
+		 * @summary Return the gallery to the wall and transition out of fullscreen.
+		 * @memberof FooGallery.Wall#
+		 * @function hide
+		 * @param {Array} flights - The visible photos to fly back to the wall.
+		 * @param {Element} backdrop - The backdrop covering the switch back to the wall.
+		 * @param {?Animation} fadeOut - The finished fade-out of the gallery (fade transition only).
+		 * @returns {Promise}
+		 * @private
+		 */
+		hide: function( flights, backdrop, fadeOut ){
+			var self = this, el = self.el, opt = self.opt;
 
 			// 3. Return every original to its slot and the gallery to its host.
 			self.items().forEach( function( it ){
@@ -535,32 +583,32 @@
 			self._placeholder = null;
 			document.documentElement.style.overflow = self._scroll || "";
 			if ( self._height ) el.style.height = self._height;
+			// The wall is back under the backdrop, so it can be shown again.
+			if ( fadeOut ) fadeOut.cancel();
 
 			// 4. Fly copies of the visible photos back to where they sit on the frozen wall.
-			var animations = [ backdrop.animate( [ { opacity: 1 }, { opacity: 0 } ], { duration: opt.morphDuration, easing: opt.easing, fill: "forwards" } ) ];
+			var animations = [ backdrop.animate( [ { opacity: 1 }, { opacity: 0 } ], { duration: fadeOut ? self.fadeDuration() : opt.morphDuration, easing: fadeOut ? "ease" : opt.easing, fill: "forwards" } ) ];
 			var hidden = [];
-			if ( motion ){
-				flights.forEach( function( flight, i ){
-					var copy = self.visibleCopy( flight.item );
-					if ( !copy ) return;
-					var img = flight.item.getImageElement && flight.item.getImageElement();
-					if ( !img ) return;
-					var ghost = document.createElement( "img" );
-					ghost.className = "fg-wall-flyer";
-					ghost.alt = "";
-					ghost.src = img.currentSrc || img.src;
-					ghost.style.left = flight.from.left + "px";
-					ghost.style.top = flight.from.top + "px";
-					ghost.style.width = flight.from.width + "px";
-					ghost.style.height = flight.from.height + "px";
-					document.body.appendChild( ghost );
-					copy.style.visibility = "hidden";
-					hidden.push( copy );
-					var anim = self.fly( ghost, self.tilePose( copy ), flight.from, i * 12, true );
-					anim.ghost = ghost;
-					animations.push( anim );
-				} );
-			}
+			flights.forEach( function( flight, i ){
+				var copy = self.visibleCopy( flight.item );
+				if ( !copy ) return;
+				var img = flight.item.getImageElement && flight.item.getImageElement();
+				if ( !img ) return;
+				var ghost = document.createElement( "img" );
+				ghost.className = "fg-wall-flyer";
+				ghost.alt = "";
+				ghost.src = img.currentSrc || img.src;
+				ghost.style.left = flight.from.left + "px";
+				ghost.style.top = flight.from.top + "px";
+				ghost.style.width = flight.from.width + "px";
+				ghost.style.height = flight.from.height + "px";
+				document.body.appendChild( ghost );
+				copy.style.visibility = "hidden";
+				hidden.push( copy );
+				var anim = self.fly( ghost, self.tilePose( copy ), flight.from, i * 12, true );
+				anim.ghost = ghost;
+				animations.push( anim );
+			} );
 			return self.settle( animations ).then( function(){
 				animations.forEach( function( anim ){
 					if ( anim.ghost ) anim.ghost.remove();
@@ -694,6 +742,33 @@
 				fill: "both"
 			} );
 		},
+		/**
+		 * @summary Whether the fullscreen gallery fades in and out instead of morphing.
+		 * @memberof FooGallery.Wall#
+		 * @function fades
+		 * @returns {boolean} False when motion is unavailable or reduced, so the change is instant.
+		 */
+		fades: function(){
+			return this.opt.fullscreenTransition === "fade" && _.morph.supported();
+		},
+		fadeDuration: function(){
+			return Math.round( this.opt.morphDuration * 0.45 );
+		},
+		/**
+		 * @summary Add a full-page backdrop in the fullscreen gallery's background colour.
+		 * @memberof FooGallery.Wall#
+		 * @function backdrop
+		 * @returns {Element}
+		 */
+		backdrop: function(){
+			var backdrop = document.createElement( "div" ),
+				rgb = window.getComputedStyle( this.el ).getPropertyValue( "--fg-wall-fullscreen-rgb" ).trim();
+			backdrop.className = "fg-wall-backdrop";
+			// Match a light gallery's background so the cross-fade has no dark flash.
+			if ( rgb ) backdrop.style.background = "rgb(" + rgb + ")";
+			document.body.appendChild( backdrop );
+			return backdrop;
+		},
 		settle: function( animations ){
 			return Promise.all( animations.map( function( anim ){
 				return anim.finished.catch( function(){} );
@@ -755,6 +830,7 @@
 	 * @property {number} [revealTimeout=4000] - The longest the wall waits for its photos before fading in anyway.
 	 * @property {number} [fadeDuration=900] - The fade-in duration in milliseconds.
 	 * @property {number} [morphDuration=900] - The fullscreen open/close duration in milliseconds.
+	 * @property {string} [fullscreenTransition="morph"] - "morph" flies the photos between the wall and the fullscreen gallery; "fade" cross-fades them.
 	 * @property {number} [fullscreenRowHeight=240] - The target row height of the fullscreen gallery.
 	 * @property {number} [fullscreenGap=10] - The gap between photos in the fullscreen gallery.
 	 * @property {string} [easing="cubic-bezier(.65, 0, .2, 1)"] - The easing for the fullscreen morph.
@@ -777,6 +853,7 @@
 		revealTimeout: 4000,
 		fadeDuration: 900,
 		morphDuration: 900,
+		fullscreenTransition: "morph",
 		fullscreenRowHeight: 240,
 		fullscreenGap: 10,
 		easing: "cubic-bezier(.65, 0, .2, 1)"
