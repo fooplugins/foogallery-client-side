@@ -38,6 +38,8 @@
                 });
             }
 			self._super(options, element);
+			// Only one item is shown at a time, so filter and page changes are not morphed.
+			self.morphable = false;
 			/**
 			 * @summary The jQuery object containing the inner element that wraps all items.
 			 * @memberof FooGallery.ImageViewerTemplate#

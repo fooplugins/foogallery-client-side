@@ -57,6 +57,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/Responsive.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
+						"./src/core/js/Morph.js",
 
 						"./src/core/js/items/Items.js",
 						"./src/core/js/items/Item.js",
@@ -65,6 +66,7 @@ module.exports = function ( grunt ) {
 					"./dist/components/css/foogallery.core.css": [
 						"./src/core/css/general/core.css",
 						"./src/core/css/general/icons.css",
+						"./src/core/css/general/morph.css",
 
 						"./src/core/css/appearance/theme.css",
 						"./src/core/css/appearance/exif.css",
@@ -127,6 +129,7 @@ module.exports = function ( grunt ) {
 						"./src/core/js/Responsive.js",
 						"./src/core/js/Component.js",
 						"./src/core/js/State.js",
+						"./src/core/js/Morph.js",
 
 						"./src/core/js/items/Items.js",
 						"./src/core/js/items/Item.js",
@@ -139,6 +142,7 @@ module.exports = function ( grunt ) {
 					"./dist/components/css/foogallery.core.pro.css": [
 						"./src/core/css/general/core.css",
 						"./src/core/css/general/icons.css",
+						"./src/core/css/general/morph.css",
 
 						"./src/core/css/appearance/theme.css",
 						"./src/core/css/appearance/exif.css",

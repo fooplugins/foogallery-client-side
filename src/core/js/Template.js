@@ -115,6 +115,20 @@
 			 */
 			self.state = _.components.make("state", self);
 			/**
+			 * @summary Animates items to their new positions when the gallery is filtered or paged.
+			 * @memberof FooGallery.Template#
+			 * @name morph
+			 * @type {FooGallery.Morph}
+			 */
+			self.morph = _.components.make("morph", self);
+			/**
+			 * @summary Whether filter and page changes may be morphed. Templates that only show one item at a time set this to false.
+			 * @memberof FooGallery.Template#
+			 * @name morphable
+			 * @type {boolean}
+			 */
+			self.morphable = true;
+			/**
 			 * @summary The promise object returned by the {@link FooGallery.Template#initialize|initialize} method.
 			 * @memberof FooGallery.Template#
 			 * @name _initialize
@@ -527,6 +541,7 @@
 			self.robserver.disconnect();
             $(window).off(self.namespace);
             self.state.destroy(preserveState);
+            self.morph.destroy();
             if (self.filter) self.filter.destroy();
             if (self.pages) self.pages.destroy();
             self.items.destroy();
