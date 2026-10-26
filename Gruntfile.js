@@ -523,6 +523,17 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
+			"wall": {
+				"files": {
+					"./dist/components/js/foogallery.tmpl.wall.js": [
+						"./src/templates/wall/js/Wall.js",
+						"./src/templates/wall/js/ready.js"
+					],
+					"./dist/components/css/foogallery.tmpl.wall.css": [
+						"./src/templates/wall/css/wall.css"
+					]
+				}
+			},
 			"stack-album": {
 				"files": {
 					"./dist/components/js/foogallery.tmpl.stack-album.js": [
@@ -557,6 +568,7 @@ module.exports = function ( grunt ) {
 
 						"./dist/components/js/foogallery.tmpl.foogrid.js",
 						"./dist/components/js/foogallery.tmpl.slider.js",
+						"./dist/components/js/foogallery.tmpl.wall.js",
 
 						"./dist/components/js/foogallery.tmpl.stack-album.js"
 					],
@@ -578,6 +590,7 @@ module.exports = function ( grunt ) {
 
 						"./dist/components/css/foogallery.tmpl.foogrid.css",
 						"./dist/components/css/foogallery.tmpl.slider.css",
+						"./dist/components/css/foogallery.tmpl.wall.css",
 
 						"./dist/components/css/foogallery.tmpl.stack-album.css"
 					]
@@ -766,6 +779,7 @@ module.exports = function ( grunt ) {
 		"concat:single-thumbnail",
 		"concat:foogrid",
 		"concat:slider",
+		"concat:wall",
 		"concat:stack-album",
 		"concat:carousel",
 
