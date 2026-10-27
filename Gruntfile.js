@@ -446,6 +446,17 @@ module.exports = function ( grunt ) {
 					]
 				}
 			},
+			"mosaic": {
+				"files": {
+					"./dist/components/js/foogallery.tmpl.mosaic.js": [
+						"./src/templates/mosaic/js/Mosaic.js",
+						"./src/templates/mosaic/js/ready.js"
+					],
+					"./dist/components/css/foogallery.tmpl.mosaic.css": [
+						"./src/templates/mosaic/css/mosaic.css"
+					]
+				}
+			},
 			"image-viewer": {
 				"files": {
 					"./dist/components/js/foogallery.tmpl.image-viewer.js": [
@@ -544,6 +555,7 @@ module.exports = function ( grunt ) {
 
 						"./dist/components/js/foogallery.tmpl.default.js",
 						"./dist/components/js/foogallery.tmpl.masonry.js",
+						"./dist/components/js/foogallery.tmpl.mosaic.js",
 						"./dist/components/js/foogallery.tmpl.justified.js",
 						"./dist/components/js/foogallery.tmpl.portfolio.js",
 						"./dist/components/js/foogallery.tmpl.image-viewer.js",
@@ -565,6 +577,7 @@ module.exports = function ( grunt ) {
 
 						"./dist/components/css/foogallery.tmpl.default.css",
 						"./dist/components/css/foogallery.tmpl.masonry.css",
+						"./dist/components/css/foogallery.tmpl.mosaic.css",
 						"./dist/components/css/foogallery.tmpl.justified.css",
 						"./dist/components/css/foogallery.tmpl.portfolio.css",
 						"./dist/components/css/foogallery.tmpl.image-viewer.css",
@@ -756,6 +769,7 @@ module.exports = function ( grunt ) {
 
 		"concat:default",
 		"concat:masonry",
+		"concat:mosaic",
 		"concat:image-viewer",
 		"concat:justified",
 		"concat:portfolio",

@@ -1,0 +1,36 @@
+.foogallery.fg-mosaic {
+	position: relative;
+	display: block;
+}
+
+.foogallery.fg-mosaic > .fg-item {
+	position: absolute;
+	inset-inline-start: var(--fg-mosaic-x);
+	top: var(--fg-mosaic-y);
+	width: var(--fg-mosaic-width);
+	height: var(--fg-mosaic-height);
+	margin: 0;
+	aspect-ratio: auto;
+}
+
+.foogallery.fg-mosaic .fg-item-inner,
+.foogallery.fg-mosaic .fg-thumb,
+.foogallery.fg-mosaic .fg-image-wrap {
+	width: 100%;
+	height: 100%;
+	aspect-ratio: auto;
+}
+
+.foogallery.fg-mosaic .fg-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+/* Hide unpositioned tiles, including loaders which set their own visibility. */
+.foogallery.fg-mosaic:not(.fg-mosaic-ready) > .fg-item {
+	visibility: hidden;
+	opacity: 0;
+	pointer-events: none;
+}

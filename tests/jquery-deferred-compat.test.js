@@ -25,7 +25,7 @@ function countMethodCalls( method ) {
 		const source = fs.readFileSync( file, 'utf8' );
 		const matches = source.match( pattern );
 		if ( matches ) {
-			counts[ path.relative( clientRoot, file ) ] = matches.length;
+			counts[ path.relative( clientRoot, file ).replace( /\\/g, '/' ) ] = matches.length;
 		}
 	} );
 
