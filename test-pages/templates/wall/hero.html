@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Wall + Hero Background</title>
+    <link href="../../defaults/assets/theme.css" rel="stylesheet"/>
+    <link href="../assets/css/foogallery.min.css" rel="stylesheet"/>
+    <style>
+        body { margin: 0; }
+        .hero { min-height: 100vh; display: grid; place-items: center; text-align: center; color: #fff; background: #07090b; font-family: system-ui, sans-serif; }
+        .hero__content { max-width: 680px; padding: 120px 24px; }
+        .hero h1 { font-size: clamp(36px, 6vw, 72px); line-height: 1.05; margin: 0 0 18px; }
+        .hero p { font-size: 18px; opacity: .8; margin: 0 0 28px; }
+        .hero button { font: inherit; font-weight: 700; padding: 14px 26px; border-radius: 999px; border: 0; background: #fff; color: #111; cursor: pointer; }
+        .after { padding: 60px 24px; font-family: system-ui, sans-serif; }
+        .log { position: fixed; left: 12px; bottom: 12px; z-index: 5; font: 12px monospace; color: #9ff; }
+    </style>
+    <script src="../../defaults/assets/jquery.min.js" defer></script>
+    <script src="../assets/js/foogallery.min.js" defer></script>
+</head>
+<body>
+<section class="hero">
+    <div id="foogallery-gallery-1" class="foogallery fg-wall fg-loading-default fg-loaded-fade-in fg-border-thin fg-hover-fade fg-hover-zoom fg-caption-hover fg-dark"
+         data-foogallery="{&quot;lazy&quot;:true,&quot;template&quot;:{&quot;click&quot;:&quot;fullscreen&quot;}}" data-foogallery-lightbox="{}">
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/1.jpg" data-type="image" data-title="Photo 1">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22200%22%3E%3C/svg%3E" data-src-fg="../../img/1.jpg" width="300" height="200" title="Photo 1" alt="Sample photo 1">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 1</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/2.jpg" data-type="image" data-title="Photo 2">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22200%22%3E%3C/svg%3E" data-src-fg="../../img/2.jpg" width="300" height="200" title="Photo 2" alt="Sample photo 2">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 2</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/3.jpg" data-type="image" data-title="Photo 3">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22200%22%3E%3C/svg%3E" data-src-fg="../../img/3.jpg" width="300" height="200" title="Photo 3" alt="Sample photo 3">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 3</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/4.jpg" data-type="image" data-title="Photo 4">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22450%22%3E%3C/svg%3E" data-src-fg="../../img/4.jpg" width="300" height="450" title="Photo 4" alt="Sample photo 4">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 4</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/5.jpg" data-type="image" data-title="Photo 5">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22200%22%3E%3C/svg%3E" data-src-fg="../../img/5.jpg" width="300" height="200" title="Photo 5" alt="Sample photo 5">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 5</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/6.jpg" data-type="image" data-title="Photo 6">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22450%22%3E%3C/svg%3E" data-src-fg="../../img/6.jpg" width="300" height="450" title="Photo 6" alt="Sample photo 6">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 6</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/7.jpg" data-type="image" data-title="Photo 7">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22199%22%3E%3C/svg%3E" data-src-fg="../../img/7.jpg" width="300" height="199" title="Photo 7" alt="Sample photo 7">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 7</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/8.jpg" data-type="image" data-title="Photo 8">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22225%22%3E%3C/svg%3E" data-src-fg="../../img/8.jpg" width="300" height="225" title="Photo 8" alt="Sample photo 8">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 8</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/9.jpg" data-type="image" data-title="Photo 9">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22450%22%3E%3C/svg%3E" data-src-fg="../../img/9.jpg" width="300" height="450" title="Photo 9" alt="Sample photo 9">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 9</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/10.jpg" data-type="image" data-title="Photo 10">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22450%22%3E%3C/svg%3E" data-src-fg="../../img/10.jpg" width="300" height="450" title="Photo 10" alt="Sample photo 10">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 10</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/1.jpg" data-type="image" data-title="Photo 11">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22200%22%3E%3C/svg%3E" data-src-fg="../../img/1.jpg" width="300" height="200" title="Photo 11" alt="Sample photo 1">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 11</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/2.jpg" data-type="image" data-title="Photo 12">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22200%22%3E%3C/svg%3E" data-src-fg="../../img/2.jpg" width="300" height="200" title="Photo 12" alt="Sample photo 2">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 12</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/3.jpg" data-type="image" data-title="Photo 13">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22200%22%3E%3C/svg%3E" data-src-fg="../../img/3.jpg" width="300" height="200" title="Photo 13" alt="Sample photo 3">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 13</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/4.jpg" data-type="image" data-title="Photo 14">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22450%22%3E%3C/svg%3E" data-src-fg="../../img/4.jpg" width="300" height="450" title="Photo 14" alt="Sample photo 4">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 14</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/5.jpg" data-type="image" data-title="Photo 15">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22200%22%3E%3C/svg%3E" data-src-fg="../../img/5.jpg" width="300" height="200" title="Photo 15" alt="Sample photo 5">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 15</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/6.jpg" data-type="image" data-title="Photo 16">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22450%22%3E%3C/svg%3E" data-src-fg="../../img/6.jpg" width="300" height="450" title="Photo 16" alt="Sample photo 6">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 16</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/7.jpg" data-type="image" data-title="Photo 17">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22199%22%3E%3C/svg%3E" data-src-fg="../../img/7.jpg" width="300" height="199" title="Photo 17" alt="Sample photo 7">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 17</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/8.jpg" data-type="image" data-title="Photo 18">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22225%22%3E%3C/svg%3E" data-src-fg="../../img/8.jpg" width="300" height="225" title="Photo 18" alt="Sample photo 8">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 18</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/9.jpg" data-type="image" data-title="Photo 19">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22450%22%3E%3C/svg%3E" data-src-fg="../../img/9.jpg" width="300" height="450" title="Photo 19" alt="Sample photo 9">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 19</div></div></figcaption>
+            </figure>
+        </div>
+        <div class="fg-item fg-type-image fg-idle">
+            <figure class="fg-item-inner">
+                <a class="fg-thumb" href="../../img/10.jpg" data-type="image" data-title="Photo 20">
+                    <span class="fg-image-wrap">
+                        <img class="fg-image" src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%22300%22%20height=%22450%22%3E%3C/svg%3E" data-src-fg="../../img/10.jpg" width="300" height="450" title="Photo 20" alt="Sample photo 10">
+                    </span>
+                    <span class="fg-image-overlay"></span>
+                </a>
+                <figcaption class="fg-caption"><div class="fg-caption-inner"><div class="fg-caption-title">Photo 20</div></div></figcaption>
+            </figure>
+        </div>
+    </div>
+    <div class="hero__content">
+        <h1>Galleries as good as the photos in them.</h1>
+        <p>This FooGallery Wall sits behind the hero. Use ?click=lightbox|none|event|fullscreen and ?position=inline to try each mode.</p>
+        <button type="button" data-foogallery-wall-open>Open the gallery</button>
+    </div>
+</section>
+<div class="after"><h2>Content after the hero</h2><p>The wall stays inside its section.</p></div>
+<div class="log" id="log"></div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var params = new URLSearchParams(location.search), el = document.getElementById("foogallery-gallery-1"),
+            data = JSON.parse(el.getAttribute("data-foogallery"));
+        ["click", "position", "tilt", "speed", "columns", "shade"].forEach(function (key) {
+            if (params.has(key)) data.template[key] = isNaN(params.get(key)) ? params.get(key) : Number(params.get(key));
+        });
+        el.setAttribute("data-foogallery", JSON.stringify(data));
+        document.addEventListener("foogallery-wall-click", function (e) {
+            document.getElementById("log").textContent = "foogallery-wall-click: " + e.detail.title;
+        });
+        FooGallery.init({}, el);
+    });
+</script>
+</body>
+</html>

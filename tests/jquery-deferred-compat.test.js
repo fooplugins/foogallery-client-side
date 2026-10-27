@@ -49,11 +49,13 @@ test( 'jQuery Deferred rejection handlers remain compatible with WordPress 5.3',
 	// These are native Promise or wp.apiFetch chains; changing them to .fail()
 	// would break modern browsers even though jQuery Deferred uses that method.
 	assert.deepEqual( countMethodCalls( 'catch' ), {
+		'src/core/js/Morph.js': 1,
 		'src/core/js/items/Item.js': 1,
 		'src/core/js/panel/buttons/Download.js': 1,
 		'src/core/js/panel/media/video/Video.js': 1,
 		'src/core/js/social/Item.js': 1,
 		'src/core/js/social/Panel.Media.Comments.js': 3,
-		'src/core/js/social/Panel.Media.js': 1
+		'src/core/js/social/Panel.Media.js': 1,
+		'src/templates/wall/js/Wall.js': 1
 	} );
 } );

@@ -8,6 +8,8 @@
                     type: "none"
                 }
             }), element);
+            // Only one item is shown at a time, so filter and page changes are not morphed.
+            self.morphable = false;
             self.items.LAYOUT_AFTER_LOAD = false;
             self.carousel = null;
             self.on({

@@ -1,0 +1,17 @@
+/* Morph: items animating between layouts after a filter or page change */
+.foogallery.fg-morphing {
+	position: relative;
+}
+.foogallery .fg-morph-layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	overflow: visible;
+}
+.foogallery .fg-morph-layer .fg-morph-ghost {
+	pointer-events: none;
+	transition: none;
+}

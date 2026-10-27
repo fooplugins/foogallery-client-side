@@ -15,6 +15,8 @@
 					scrollToTop: false
 				}
 			}), element);
+			// Only one item is shown at a time, so filter and page changes are not morphed.
+			this.morphable = false;
 		}
 	});
 

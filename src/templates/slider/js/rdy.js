@@ -8,6 +8,8 @@
                     type: "none"
                 }
             }), element);
+            // Only one item is shown at a time, so filter and page changes are not morphed.
+            self.morphable = false;
             self.items.ALLOW_CREATE = false;
             self.items.ALLOW_APPEND = false;
             self.panel = new _.Panel(self, self.template);
