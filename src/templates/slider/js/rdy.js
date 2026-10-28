@@ -18,6 +18,11 @@
             var self = this;
             if (self._super()){
                 self.$el.toggleClass(self.cls.fitContainer, self.template.fitContainer);
+                // Follow the gallery's mobile breakpoint, including editor preview overrides.
+                // Keep desktop panel sizing outside mobile mode. Compact caption panels
+                // prevent a side caption from consuming the entire slider on phones.
+                self.$el.toggleClass(self.cls.mobile, !!_.isMobile);
+                if (_.isMobile) self.panel.opt.noMobile = false;
                 self.template.horizontal = self.$el.hasClass("fgs-horizontal") || self.template.horizontal;
                 if (self.panel.opt.thumbs === null){
                     self.panel.thumbs.opt.position = self.template.horizontal ? "bottom" : "right";
@@ -41,6 +46,14 @@
                     if (self.$el.hasClass("fg-c-j")) align = "justified";
                     if (align !== null) self.panel.info.opt.align = align;
                 }
+                // Keep navigation secondary to the image without changing saved options.
+                var mobileThumbs = !!_.isMobile && self.panel.thumbs.isEnabled();
+                if (mobileThumbs) {
+                    self.panel.opt.thumbsSmall = self.panel.thumbs.opt.small = true;
+                    self.panel.opt.thumbsCaptions = self.panel.thumbs.opt.captions = false;
+                    self.panel.opt.thumbsBestFit = self.panel.thumbs.opt.bestFit = false;
+                }
+                self.$el.toggleClass(self.cls.mobileHorizontalThumbs, mobileThumbs && self.panel.thumbs.isHorizontal());
                 return true;
             }
             return false;
@@ -101,7 +114,9 @@
         }
     }, {
         container: "foogallery fg-slider",
-        fitContainer: "fg-fit-container"
+        fitContainer: "fg-fit-container",
+        mobile: "fg-slider-mobile",
+        mobileHorizontalThumbs: "fg-slider-mobile-horizontal-thumbs"
     });
 
 })(

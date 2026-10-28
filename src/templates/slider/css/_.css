@@ -8,6 +8,109 @@
     padding: 0;
     min-height: 315px;
 }
+.foogallery.fg-slider.fg-slider-mobile {
+    /* Let the selected aspect ratio size the slider on phones, rather than
+       forcing fill-mode images into the taller desktop minimum height. */
+    min-height: 0;
+}
+.foogallery.fg-slider.fg-slider-mobile-horizontal-thumbs::after {
+    /* Horizontal navigation gets its own space outside the selected image ratio. */
+    content: '';
+    display: block;
+    height: 48px;
+}
+.foogallery.fg-slider-mobile :is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-inner {
+    height: 48px;
+    min-height: 48px;
+}
+.foogallery.fg-slider-mobile :is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-inner {
+    width: 48px;
+    min-width: 48px;
+    height: 100%;
+    min-height: 0;
+}
+.foogallery.fg-slider-mobile .fg-panel-thumb {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 4px;
+}
+.foogallery.fg-slider-mobile .fg-panel-thumb-media {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
+}
+.foogallery.fg-slider-mobile .fg-panel-thumb-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.foogallery.fg-slider-mobile .fg-panel-thumb-caption {
+    display: none;
+}
+.foogallery.fg-slider-mobile .fg-panel-thumbs-button {
+    width: 24px;
+    min-width: 24px;
+}
+.foogallery.fg-slider-mobile :is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-button {
+    width: 100%;
+    min-width: 0;
+    height: 24px;
+    min-height: 24px;
+}
+.foogallery.fg-slider-mobile .fg-panel-content-buttons {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.foogallery.fg-slider-mobile .fg-panel-buttons {
+    position: absolute;
+    inset: 0;
+    grid-column: 3 / 6;
+    grid-row: 3 / 6;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+.foogallery.fg-slider-mobile .fg-panel-buttons .fg-panel-button {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 auto;
+    margin: 5px;
+}
+.foogallery.fg-slider-mobile .fg-panel-buttons :is(.fg-panel-button-prev,.fg-panel-button-next) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 52px;
+    margin: 0;
+    border-width: 1px;
+    border-radius: 3px;
+}
+.foogallery.fg-slider-mobile .fg-panel-buttons .fg-panel-button-prev {
+    inset-inline-start: 6px;
+    inset-inline-end: auto;
+}
+.foogallery.fg-slider-mobile .fg-panel-buttons .fg-panel-button-next {
+    inset-inline-start: auto;
+    inset-inline-end: 6px;
+}
+.foogallery.fg-slider-mobile .fg-panel.fg-panel-info-visible .fg-panel-info,
+.foogallery.fg-slider-mobile .fg-panel.fg-panel-cart-visible .fg-panel-cart {
+    grid-column: 3 / 6;
+    grid-row: 3 / 6;
+}
+.foogallery.fg-slider-mobile .fg-panel .fg-media-caption {
+    font-size: 14px;
+    padding: 8px 44px;
+    gap: 4px;
+}
 .foogallery.fg-slider::before {
     display: block;
     content: '';
