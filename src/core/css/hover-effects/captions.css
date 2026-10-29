@@ -218,7 +218,9 @@
 	transform: translateY(-50%);
 	padding: 10px;
 }
-.foogallery.fg-caption-hover .fg-item.fg-loaded .fg-image-overlay {
+
+/* Let captionless items keep their hover overlay and icon. */
+.foogallery.fg-caption-hover .fg-item.fg-loaded:has(.fg-caption) .fg-image-overlay {
 	display: none;
 }
 
