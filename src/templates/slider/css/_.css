@@ -195,6 +195,196 @@
     font-weight: normal;
 }
 
+/* One outer shadow follows the complete panel's own corner clipping. */
+.fg-panel.fg-slider-shadow-outline.fg-light { box-shadow: 0 0 0 1px #ddd; }
+.fg-panel.fg-slider-shadow-outline.fg-dark { box-shadow: 0 0 0 1px #222; }
+.fg-panel.fg-slider-shadow-small { box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }
+.fg-panel.fg-slider-shadow-medium { box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.5); }
+.fg-panel.fg-slider-shadow-large { box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.5); }
+
+/* Explicit panel styling. Galleries without these classes retain legacy styles. */
+.fg-panel.fg-slider-styled {
+    --fg-slider-radius: 0px;
+    --fg-slider-frame-width: 0px;
+    --fg-slider-frame-color: #fff;
+    --fg-slider-outer-radius: 0px;
+    background-color: var(--fg-slider-frame-color);
+    border-width: 0;
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-maximized):not(.fg-panel-fullscreen) { border-width: 0; }
+.fg-panel.fg-slider-styled.fg-dark { --fg-slider-frame-color: #333; }
+.fg-panel.fg-slider-styled:is(.fg-light,.fg-dark) {
+    /* A changing media background must not show through the shared frame. */
+    background-color: var(--fg-slider-frame-color);
+}
+/* Share the adjoining frame instead of adding the main and strip borders. */
+.fg-panel.fg-slider-styled.fg-panel-thumbs-top .fg-panel-thumbs { margin-bottom: calc(0px - var(--fg-slider-frame-width)); }
+.fg-panel.fg-slider-styled.fg-panel-thumbs-right .fg-panel-thumbs { margin-left: calc(0px - var(--fg-slider-frame-width)); }
+.fg-panel.fg-slider-styled.fg-panel-thumbs-bottom .fg-panel-thumbs { margin-top: calc(0px - var(--fg-slider-frame-width)); }
+.fg-panel.fg-slider-styled.fg-panel-thumbs-left .fg-panel-thumbs { margin-right: calc(0px - var(--fg-slider-frame-width)); }
+.fg-panel.fg-slider-round-small { --fg-slider-radius: 5px; }
+.fg-panel.fg-slider-round-medium { --fg-slider-radius: 10px; }
+.fg-panel.fg-slider-round-large { --fg-slider-radius: 15px; }
+.fg-panel.fg-slider-round-large-extra { --fg-slider-radius: 40px; }
+.fg-panel:is(.fg-slider-round-small,.fg-slider-round-medium,.fg-slider-round-large,.fg-slider-round-large-extra) {
+    --fg-slider-outer-radius: calc(var(--fg-slider-radius) + var(--fg-slider-frame-width));
+}
+.fg-panel.fg-slider-thumb-border-none { --fg-slider-frame-width: 0px; }
+.fg-panel.fg-slider-thumb-border-thin { --fg-slider-frame-width: 2px; }
+.fg-panel.fg-slider-thumb-border-medium { --fg-slider-frame-width: 6px; }
+.fg-panel.fg-slider-thumb-border-thick { --fg-slider-frame-width: 12px; }
+
+/* Inset overlay controls from the frame and its rounded corners. The shared
+   mobile toolbar outside a maximized slider retains its native layout. */
+.fg-panel.fg-slider-styled {
+    --fg-slider-button-inset: max(10px, calc(var(--fg-slider-frame-width) + 6px), calc(var(--fg-slider-outer-radius) / 2));
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space):is(.fg-panel-no-mobile,.fg-medium,.fg-slider-mobile .fg-panel) .fg-panel-buttons {
+    padding: var(--fg-slider-button-inset);
+    align-items: flex-end;
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space):is(.fg-panel-no-mobile,.fg-medium,.fg-slider-mobile .fg-panel) .fg-panel-buttons .fg-panel-button:not(.fg-panel-button-prev,.fg-panel-button-next) {
+    margin: 0 0 5px;
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space):is(.fg-panel-no-mobile,.fg-medium,.fg-slider-mobile .fg-panel) :is(.fg-panel-buttons,.fg-panel-content-buttons) .fg-panel-button:is(.fg-panel-button-prev,.fg-panel-button-next) {
+    left: auto;
+    right: auto;
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space):is(.fg-panel-no-mobile,.fg-medium,.fg-slider-mobile .fg-panel) :is(.fg-panel-buttons,.fg-panel-content-buttons) .fg-panel-button.fg-panel-button-prev {
+    inset-inline-start: var(--fg-slider-button-inset);
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space):is(.fg-panel-no-mobile,.fg-medium,.fg-slider-mobile .fg-panel) :is(.fg-panel-buttons,.fg-panel-content-buttons) .fg-panel-button.fg-panel-button-next {
+    inset-inline-end: var(--fg-slider-button-inset);
+}
+.foogallery.fg-slider-mobile > .fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space) .fg-panel-buttons {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 5px;
+}
+.foogallery.fg-slider-mobile > .fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space) .fg-panel-buttons .fg-panel-button:not(.fg-panel-button-prev,.fg-panel-button-next) {
+    margin: 0;
+}
+.foogallery.fg-slider-mobile > .fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space) .fg-panel-buttons .fg-panel-button:is(.fg-panel-button-prev,.fg-panel-button-next) {
+    /* Clear the 32px toolbar row plus its 5px gap, keeping 52px arrows centered
+       whenever the image is tall enough. */
+    top: max(50%, calc(var(--fg-slider-button-inset) + 63px));
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-maximized):not(.fg-panel-fullscreen),
+.fg-panel.fg-slider-styled :is(.fg-panel-thumbs-inner,.fg-media) {
+    border-radius: var(--fg-slider-outer-radius);
+}
+.fg-panel.fg-slider-styled .fg-panel-thumbs-inner {
+    background-color: var(--fg-slider-frame-color);
+}
+/* The inline frame is one continuous surface. Only the outer panel clips the
+   strip's corners; rounding both layers can expose a notch or a thin halo. */
+.fg-panel.fg-slider-styled:not(.fg-panel-maximized):not(.fg-panel-fullscreen) .fg-panel-content-inner {
+    background-color: var(--fg-slider-frame-color);
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-maximized):not(.fg-panel-fullscreen) .fg-panel-thumbs-inner {
+    border-radius: 0;
+}
+.fg-panel.fg-slider-styled :is(.fg-panel-thumb-media,.fg-panel-thumb-image),
+.fg-panel.fg-slider-styled .fg-media-image .fg-media-content {
+    border-radius: var(--fg-slider-radius);
+}
+
+/* Keep the shell from cutting into a narrow strip's own rounded frame. */
+.fg-panel.fg-slider-styled.fg-panel-thumbs-right:not(.fg-panel-maximized):not(.fg-panel-fullscreen) {
+    border-top-right-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+    border-bottom-right-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+}
+.fg-panel.fg-slider-styled.fg-panel-thumbs-left:not(.fg-panel-maximized):not(.fg-panel-fullscreen) {
+    border-top-left-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+    border-bottom-left-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+}
+.fg-panel.fg-slider-styled.fg-panel-thumbs-top:not(.fg-panel-maximized):not(.fg-panel-fullscreen) {
+    border-top-left-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+    border-top-right-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+}
+.fg-panel.fg-slider-styled.fg-panel-thumbs-bottom:not(.fg-panel-maximized):not(.fg-panel-fullscreen) {
+    border-bottom-left-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+    border-bottom-right-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+}
+
+/* The strip and visible main image share one frame width and corner geometry. */
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) { --fg-panel-thumb-viewport-extra: 0; }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumbs-inner {
+    border-style: solid;
+    border-color: var(--fg-slider-frame-color);
+    /* Overrides the caption/strip divider rules, independently of separators. */
+    border-width: calc(var(--fg-slider-frame-width) / 2) !important;
+}
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick).fg-panel-fit-media .fg-media-image,
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):not(.fg-panel-fit-media) .fg-media-image .fg-media-content {
+    box-sizing: border-box;
+    border: var(--fg-slider-frame-width) solid var(--fg-slider-frame-color);
+    border-radius: var(--fg-slider-outer-radius);
+}
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick).fg-panel-fit-media .fg-media-image .fg-media-content {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+.fg-panel.fg-slider-no-thumb-separators { --fg-panel-thumb-separator-width: 0px; }
+
+/* Default thickness retains its existing cell frames when separators are off. */
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb { padding: 4px; }
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-stage > .fg-panel-thumb:first-of-type { padding-top: 4px; }
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-stage > .fg-panel-thumb:last-of-type { padding-bottom: 4px; }
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumb {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-stage > .fg-panel-thumb:first-of-type { padding-left: 4px; }
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-stage > .fg-panel-thumb:last-of-type { padding-right: 4px; }
+
+/* Half the frame belongs to each cell, giving state colours equal space on all sides.
+   The strip supplies the remaining outer half; adjacent cells share one full width. */
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) :is(.fg-panel-thumb,.fg-panel-thumb-spacer,.fg-panel-thumbs-button) { border-width: 0; }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb {
+    padding: calc(var(--fg-slider-frame-width) / 2);
+    border-radius: 0;
+}
+.fg-panel:is(.fg-slider-round-small,.fg-slider-round-medium,.fg-slider-round-large,.fg-slider-round-large-extra):is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb {
+    border-radius: calc(var(--fg-slider-radius) + var(--fg-slider-frame-width) / 2);
+}
+
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb { width: 100%; min-width: 0; }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb + .fg-panel-thumb { border-top-width: var(--fg-panel-thumb-separator-width, 1px); }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-prev { border-bottom-width: var(--fg-panel-thumb-separator-width, 1px); }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-next { border-top-width: var(--fg-panel-thumb-separator-width, 1px); }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumb { height: 100%; min-height: 0; }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumb + .fg-panel-thumb { border-left-width: var(--fg-panel-thumb-separator-width, 1px); }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-prev { border-right-width: var(--fg-panel-thumb-separator-width, 1px); }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-next { border-left-width: var(--fg-panel-thumb-separator-width, 1px); }
+
+/* Fill available cells so centering cannot introduce extra frame thickness. */
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb-media,
+.fg-panel.fg-slider-no-thumb-separators:is(.fg-panel-thumbs-top,.fg-panel-thumbs-right,.fg-panel-thumbs-bottom,.fg-panel-thumbs-left) .fg-panel-thumb-media {
+    height: 100%;
+    min-height: 0;
+    border-width: 0;
+}
+/* Captions also disappear below the panel's medium breakpoint. */
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-no-captions,:not(.fg-medium)) .fg-panel-thumb-media,
+.fg-panel.fg-slider-no-thumb-separators:is(.fg-panel-thumbs-no-captions,:not(.fg-medium)) .fg-panel-thumb-media {
+    width: 100%;
+    min-width: 0;
+}
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb-image,
+.fg-panel.fg-slider-no-thumb-separators .fg-panel-thumb-image {
+    height: 100%;
+    object-fit: cover;
+}
+
 /*.fg-slider .fg-panel.fg-dark .fg-panel-thumb {*/
 /*    background-color: #151515;*/
 /*    border-color: #444;*/

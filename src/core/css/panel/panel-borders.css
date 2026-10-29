@@ -127,7 +127,7 @@ body.rtl .fg-panel.fg-panel-cart-left:is(.fg-medium,.fg-panel-no-mobile) .fg-pan
 .fg-panel-thumbs-right :is(.fg-panel-thumb,.fg-panel-thumb-spacer,.fg-panel-thumbs-button),
 :is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumb,
 :is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-next {
-    border-left-width: 1px;
+    border-left-width: var(--fg-panel-thumb-separator-width, 1px);
 }
 .fg-panel-thumbs-bottom :is(.fg-panel-thumb,.fg-panel-thumb-spacer,.fg-panel-thumbs-button),
 :is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb,
@@ -142,13 +142,13 @@ body.rtl .fg-panel.fg-panel-cart-left:is(.fg-medium,.fg-panel-no-mobile) .fg-pan
 .fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-visible.fg-panel-hover-buttons.fg-panel-thumbs-right.fg-panel-info-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-inner,
 .fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-visible.fg-panel-thumbs-left.fg-panel-info-left:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-prev,
 .fg-panel-no-mobile.fg-panel-area-stack.fg-panel-info-visible.fg-panel-thumbs-right.fg-panel-info-right:not(.fg-panel-info-overlay):not(.fg-panel-thumbs-no-captions) .fg-panel-thumbs-prev {
-    border-top-width: 1px;
+    border-top-width: var(--fg-panel-thumb-separator-width, 1px);
 }
 .fg-panel-thumbs-left :is(.fg-panel-thumb,.fg-panel-thumb-spacer,.fg-panel-thumbs-button),
 :is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-prev {
-    border-right-width: 1px;
+    border-right-width: var(--fg-panel-thumb-separator-width, 1px);
 }
 .fg-panel-thumbs-top :is(.fg-panel-thumb,.fg-panel-thumb-spacer,.fg-panel-thumbs-button),
 :is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-prev {
-    border-bottom-width: 1px;
+    border-bottom-width: var(--fg-panel-thumb-separator-width, 1px);
 }

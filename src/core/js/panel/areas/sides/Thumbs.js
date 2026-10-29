@@ -200,6 +200,7 @@
             index = index < 0 ? 0 : (index > self.lastIndex ? self.lastIndex : index);
 
             var states = self.panel.cls.states,
+                viewportExtra = _is.number(self.info.viewportExtra) ? self.info.viewportExtra : 1,
                 rightOrBottom = index >= self.scrollIndex + self.info.count, // position the thumb to the right or bottom of the viewport depending on orientation
                 scrollIndex = rightOrBottom ? index - (self.info.count - 1) : index, // if rightOrBottom we subtract the count - 1 so the thumb appears to the right or bottom of the viewport
                 maxIndex = self.lastIndex - (self.info.count - 1); // the scrollIndex of the last item
@@ -220,15 +221,17 @@
                         if (alignRightOrBottom) offset += self.info.remaining.width;
                         if (hasFullStage && self.info.stage.width - Math.abs(offset) < self.info.viewport.width) {
                             offset = self.info.viewport.width - self.info.stage.width;
+                            if (viewportExtra === 0) offset = Math.min(0, offset);
                         }
-                        translate = "translateX(" + (offset - 1) + "px)";
+                        translate = "translateX(" + (offset - viewportExtra) + "px)";
                     } else {
                         offset = -($thumb.prop("offsetTop"));
                         if (alignRightOrBottom) offset += self.info.remaining.height;
                         if (hasFullStage && self.info.stage.height - Math.abs(offset) < self.info.viewport.height) {
                             offset = self.info.viewport.height - self.info.stage.height;
+                            if (viewportExtra === 0) offset = Math.min(0, offset);
                         }
-                        translate = "translateY(" + (offset - 1) + "px)";
+                        translate = "translateY(" + (offset - viewportExtra) + "px)";
                     }
                     if (self.panel.hasTransition && !disableTransition) {
                         _t.start(self.$stage, function ($el) {
@@ -264,9 +267,13 @@
                 counts = { horizontal: 0, vertical: 0 },
                 adjusted = { width: 0, height: 0 },
                 remaining = { width: 0, height: 0 },
-                width = 0, height = 0, itemCount = this.__items.length;
+                width = 0, height = 0, extra = 1, itemCount = this.__items.length;
             if (this.isCreated){
-                viewport = { width: this.$viewport.innerWidth() + 1, height: this.$viewport.innerHeight() + 1 };
+                // Legacy cell dividers need one extra pixel; explicitly framed slider
+                // strips measure their content box exactly, including best-fit end edges.
+                extra = this.panel && this.panel.el ? parseFloat(window.getComputedStyle(this.panel.el).getPropertyValue("--fg-panel-thumb-viewport-extra")) : NaN;
+                if (isNaN(extra)) extra = 1;
+                viewport = { width: this.$viewport.innerWidth() + extra, height: this.$viewport.innerHeight() + extra };
                 original = { width: this.$dummy.outerWidth(), height: this.$dummy.outerHeight() };
                 counts = { horizontal: Math.floor(viewport.width / original.width), vertical: Math.floor(viewport.height / original.height) };
                 adjusted = { width: viewport.width / Math.min(itemCount, counts.horizontal), height: viewport.height / Math.min(itemCount, counts.vertical) };
@@ -277,6 +284,7 @@
             }
             return {
                 isHorizontal: isHorizontal,
+                viewportExtra: extra,
                 viewport: viewport,
                 stage: stage,
                 original: original,
@@ -290,6 +298,10 @@
         },
         resize: function(){
             if (this.isCreated){
+                if (this.panel.$el.hasClass("fg-slider-styled")) {
+                    // Match the shell to the strip's actual clamped curve on narrow strips.
+                    this.panel.$el.css("--fg-slider-strip-radius-limit", (Math.min(this.$inner.outerWidth(), this.$inner.outerHeight()) / 2) + "px");
+                }
                 this.info = this.getInfo();
                 if (this.opt.bestFit){
                     if (this.info.isHorizontal){
