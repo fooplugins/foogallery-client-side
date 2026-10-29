@@ -19,6 +19,8 @@
 	display: inline-block;
 	max-width: 100%;
 	z-index: 6;
+	--fg-viewer-dominant-color-text: hsl(from var(--fg-viewer-dominant-color) 0 0% calc((l - 60) * -100%));
+	--fg-viewer-dominant-color-alt: hsl(from var(--fg-viewer-dominant-color) h s calc(l - 10));
 }
 .fiv-inner .fiv-inner-container {
 	position: relative;
@@ -193,17 +195,17 @@
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-count,
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-prev,
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-next {
-    background-color: #FFF;
-    color: #333;
-    border-color: #FFF;
+    background-color: var(--fg-viewer-dominant-color, #FFF);
+    color: var(--fg-viewer-dominant-color-text, #333);
+    border-color: var(--fg-viewer-dominant-color, #FFF);
 }
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-prev,
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-next {
-    border-color: #ddd;
+    border-color: var(--fg-viewer-dominant-color-alt, #ddd);
 }
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
-	background-color: #F2F2F2;
+	background-color: var(--fg-viewer-dominant-color-alt, #F2F2F2);
 }
 
 /* Theme - Dark */
@@ -212,17 +214,17 @@
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-count,
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-prev,
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-next {
-	background-color: #333;
-	color: #FFF;
-    border-color: #333;
+	background-color: var(--fg-viewer-dominant-color, #333);
+	color: var(--fg-viewer-dominant-color-text, #FFF);
+    border-color: var(--fg-viewer-dominant-color, #333);
 }
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-prev,
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-next {
-    border-color: #222;
+    border-color: var(--fg-viewer-dominant-color-alt, #222);
 }
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
-	background-color: #444;
+	background-color: var(--fg-viewer-dominant-color-alt, #444);
 }
 
 /* Border Size */

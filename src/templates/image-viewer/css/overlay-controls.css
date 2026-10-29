@@ -86,8 +86,8 @@
 }
 
 /* Border Sizes */
-.fg-image-viewer.fg-overlay-controls:not(.fg-border-thin,.fg-border-medium,.fg-border-thick) .fg-item-inner,
-.fg-image-viewer.fg-overlay-controls:not(.fg-border-thin,.fg-border-medium,.fg-border-thick) .fiv-inner .fiv-inner-container { background-color: transparent; }
+.fg-image-viewer.fg-overlay-controls:not(.fg-dominant-color):not(.fg-border-thin,.fg-border-medium,.fg-border-thick) .fg-item-inner { background-color: transparent; }
+.fg-image-viewer.fg-overlay-controls:not(.fg-border-thin,.fg-border-medium,.fg-border-thick) .fiv-inner .fiv-inner-container { background-color: var(--fg-viewer-dominant-color, transparent); }
 
 .fg-image-viewer.fg-overlay-controls { --border-width: 0px; }
 .fg-image-viewer.fg-overlay-controls.fg-border-thin { --border-width: 4px; }
