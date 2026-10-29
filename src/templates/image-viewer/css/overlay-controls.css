@@ -86,20 +86,25 @@
 }
 
 /* Border Sizes */
-.fg-image-viewer.fg-overlay-controls:not(.fg-dominant-color):not(.fg-border-thin,.fg-border-medium,.fg-border-thick) .fg-item-inner { background-color: transparent; }
-.fg-image-viewer.fg-overlay-controls:not(.fg-border-thin,.fg-border-medium,.fg-border-thick) .fiv-inner .fiv-inner-container { background-color: var(--fg-viewer-dominant-color, transparent); }
+.fg-image-viewer.fg-overlay-controls:not(.fg-dominant-color):not(.fg-border-thin,.fg-border-medium,.fg-border-thick,.fg-border-thick-extra) .fg-item-inner { background-color: transparent; }
+.fg-image-viewer.fg-overlay-controls:not(.fg-border-thin,.fg-border-medium,.fg-border-thick,.fg-border-thick-extra) .fiv-inner .fiv-inner-container { background-color: var(--fg-viewer-dominant-color, transparent); }
 
 .fg-image-viewer.fg-overlay-controls { --border-width: 0px; }
 .fg-image-viewer.fg-overlay-controls.fg-border-thin { --border-width: 4px; }
 .fg-image-viewer.fg-overlay-controls.fg-border-medium { --border-width: 8px; }
 .fg-image-viewer.fg-overlay-controls.fg-border-thick { --border-width: 16px; }
+.foogallery.fg-spotlight.fg-border-thick-extra { --border-width: 32px; }
+.foogallery.fg-spotlight.fg-border-thick-extra .fiv-inner-container {
+    border-width: var(--border-width);
+}
 
-.fg-image-viewer.fg-overlay-controls:not(.fg-border-thin,.fg-border-medium,.fg-border-thick) .fiv-inner .fiv-inner-container {
+.fg-image-viewer.fg-overlay-controls:not(.fg-border-thin,.fg-border-medium,.fg-border-thick,.fg-border-thick-extra) .fiv-inner .fiv-inner-container {
     border: none;
 }
 .fg-image-viewer.fg-overlay-controls.fg-border-thin .fiv-inner .fiv-ctrls,
 .fg-image-viewer.fg-overlay-controls.fg-border-medium .fiv-inner .fiv-ctrls,
-.fg-image-viewer.fg-overlay-controls.fg-border-thick .fiv-inner .fiv-ctrls {
+.fg-image-viewer.fg-overlay-controls.fg-border-thick .fiv-inner .fiv-ctrls,
+.foogallery.fg-spotlight.fg-border-thick-extra .fiv-inner .fiv-ctrls {
     top: var(--border-width);
     left: var(--border-width);
     width: calc(100% - calc(var(--border-width) * 2));
@@ -111,13 +116,24 @@
 .fg-image-viewer.fg-overlay-controls.fg-round-small { --border-radius: 5px; }
 .fg-image-viewer.fg-overlay-controls.fg-round-medium { --border-radius: 10px; }
 .fg-image-viewer.fg-overlay-controls.fg-round-large { --border-radius: 15px; }
+.fg-image-viewer.fg-overlay-controls.fg-round-large-extra { --border-radius: 40px; }
+
+/* Overlay viewers match the shared radius around the entire frame. */
+.foogallery.fg-image-viewer.fg-overlay-controls:is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) {
+    --border-radius: var(--fg-matched-border-radius);
+}
+.foogallery.fg-spotlight.fg-border-thick-extra {
+    --fg-matched-border-width: var(--border-width);
+}
 
 .foogallery.fg-image-viewer.fg-overlay-controls.fg-round-small .fiv-inner,
 .foogallery.fg-image-viewer.fg-overlay-controls.fg-round-small .fiv-inner-container,
 .foogallery.fg-image-viewer.fg-overlay-controls.fg-round-medium .fiv-inner,
 .foogallery.fg-image-viewer.fg-overlay-controls.fg-round-medium .fiv-inner-container,
 .foogallery.fg-image-viewer.fg-overlay-controls.fg-round-large .fiv-inner,
-.foogallery.fg-image-viewer.fg-overlay-controls.fg-round-large .fiv-inner-container {
+.foogallery.fg-image-viewer.fg-overlay-controls.fg-round-large .fiv-inner-container,
+.foogallery.fg-image-viewer.fg-overlay-controls.fg-round-large-extra .fiv-inner,
+.foogallery.fg-image-viewer.fg-overlay-controls.fg-round-large-extra .fiv-inner-container {
     border-radius: var(--border-radius);
 }
 .foogallery.fg-image-viewer.fg-overlay-controls.fg-round-small .fg-item,
@@ -125,7 +141,9 @@
 .foogallery.fg-image-viewer.fg-overlay-controls.fg-round-medium .fg-item,
 .foogallery.fg-image-viewer.fg-overlay-controls.fg-round-medium .fg-item-inner,
 .foogallery.fg-image-viewer.fg-overlay-controls.fg-round-large .fg-item,
-.foogallery.fg-image-viewer.fg-overlay-controls.fg-round-large .fg-item-inner {
+.foogallery.fg-image-viewer.fg-overlay-controls.fg-round-large .fg-item-inner,
+.foogallery.fg-image-viewer.fg-overlay-controls.fg-round-large-extra .fg-item,
+.foogallery.fg-image-viewer.fg-overlay-controls.fg-round-large-extra .fg-item-inner {
     border-radius: max(0px, calc(var(--border-radius) - var(--border-width)));
 }
 

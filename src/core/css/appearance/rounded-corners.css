@@ -8,6 +8,9 @@
 .foogallery.fg-round-large {
 	--fg-item-border-radius: 15px;
 }
+.foogallery.fg-round-large-extra {
+	--fg-item-border-radius: 40px;
+}
 .foogallery.fg-round-full {
 	--fg-item-border-radius: 50%;
 	--fg-thumb-border-radius: 50%;
@@ -24,7 +27,45 @@
 .foogallery.fg-round-large .fg-item-inner {
 	border-radius: 15px;
 }
+.foogallery.fg-round-large-extra .fg-item,
+.foogallery.fg-round-large-extra .fg-item-inner {
+	border-radius: 40px;
+}
 .foogallery.fg-round-full .fg-item,
 .foogallery.fg-round-full .fg-item-inner {
 	border-radius: 50%;
+}
+
+/* Explicit image corners; matching presets synchronize the frame below. */
+.foogallery.fg-inner-round-none {
+	--fg-inner-border-radius: 0px;
+}
+.foogallery.fg-inner-round-small {
+	--fg-inner-border-radius: 5px;
+}
+.foogallery.fg-inner-round-medium {
+	--fg-inner-border-radius: 10px;
+}
+.foogallery.fg-inner-round-large {
+	--fg-inner-border-radius: 15px;
+}
+.foogallery.fg-inner-round-large-extra {
+	--fg-inner-border-radius: 40px;
+}
+.foogallery:is(.fg-inner-round-none,.fg-inner-round-small,.fg-inner-round-medium,.fg-inner-round-large,.fg-inner-round-large-extra) {
+	--fg-thumb-border-radius: var(--fg-inner-border-radius);
+}
+.foogallery:is(.fg-inner-round-none,.fg-inner-round-small,.fg-inner-round-medium,.fg-inner-round-large,.fg-inner-round-large-extra) .fg-thumb {
+	border-radius: var(--fg-inner-border-radius);
+	overflow: hidden;
+}
+
+/* Matching presets keep the image radius and add the border to the frame. */
+.foogallery:is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) {
+	--fg-matched-border-radius: calc(var(--fg-inner-border-radius) + var(--fg-matched-border-width, var(--fg-item-border-width)));
+	--fg-item-border-radius: var(--fg-matched-border-radius);
+}
+.foogallery:is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) .fg-item,
+.foogallery:is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) .fg-item-inner {
+	border-radius: var(--fg-matched-border-radius);
 }
