@@ -27,7 +27,7 @@
     padding: 10px 0;
     perspective: var(--fg-carousel-perspective);
     transform: translate3d(0, 0, 0);
-    transform-style: preserve-3d;
+    transform-style: flat;
     backface-visibility: hidden;
     will-change: contents;
     pointer-events: none;
@@ -164,7 +164,7 @@ button.fg-carousel-next:is(:hover,:focus) {
     visibility: hidden;
     grid-area: center;
     transform-origin: center center;
-    transform: translate3d(0, 200%, var(--fg-carousel-inverse-perspective));
+    transform: translate3d(0, 0, 0);
     transition-timing-function: ease-in-out;
     transition-duration: 0s;
     transition-property: background-color,transform,transform-origin,opacity,visibility;
@@ -172,7 +172,7 @@ button.fg-carousel-next:is(:hover,:focus) {
     pointer-events: auto;
 }
 .foogallery.fg-carousel .fg-item.fg-loaded {
-    transform: translate3d(0, 0, var(--fg-carousel-inverse-perspective));
+    transform: translate3d(0, 0, 0);
     transition-timing-function: ease-in-out;
     transition-duration: calc( var(--fg-carousel-transition-speed) / 2 );
     transition-property: background-color,transform,transform-origin,opacity,visibility;
