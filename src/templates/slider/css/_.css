@@ -1,6 +1,27 @@
 .foogallery.fg-slider .fg-item {
     display: none;
 }
+/* Fade only the scrolling viewport, leaving the strip frame and controls solid.
+   Transparent masks blend with either theme and any custom strip background. */
+.fg-slider-panel .fg-panel-thumbs-viewport {
+    --fg-slider-thumbs-fade-size: 48px;
+    --fg-slider-thumbs-fade-start: 0px;
+    --fg-slider-thumbs-fade-end: 0px;
+    --fg-slider-thumbs-fade-direction: to bottom;
+}
+.fg-slider-panel:is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-viewport {
+    --fg-slider-thumbs-fade-direction: to right;
+}
+.fg-slider-panel .fg-panel-thumbs-viewport.fg-panel-thumbs-overflow-start {
+    --fg-slider-thumbs-fade-start: var(--fg-slider-thumbs-fade-size);
+}
+.fg-slider-panel .fg-panel-thumbs-viewport.fg-panel-thumbs-overflow-end {
+    --fg-slider-thumbs-fade-end: var(--fg-slider-thumbs-fade-size);
+}
+.fg-slider-panel .fg-panel-thumbs-viewport:is(.fg-panel-thumbs-overflow-start,.fg-panel-thumbs-overflow-end) {
+    -webkit-mask-image: linear-gradient(var(--fg-slider-thumbs-fade-direction), transparent, #000 var(--fg-slider-thumbs-fade-start), #000 calc(100% - var(--fg-slider-thumbs-fade-end)), transparent);
+    mask-image: linear-gradient(var(--fg-slider-thumbs-fade-direction), transparent, #000 var(--fg-slider-thumbs-fade-start), #000 calc(100% - var(--fg-slider-thumbs-fade-end)), transparent);
+}
 .foogallery.fg-slider {
     position: relative;
     display: grid;
@@ -275,6 +296,20 @@
 }
 .fg-panel.fg-slider-styled .fg-panel-thumbs-inner {
     background-color: var(--fg-slider-frame-color);
+}
+
+/* The shell already supplies half the frame. Inset strip controls by the
+   other half, just like thumbnail media, in both overlay and inline modes. */
+.fg-panel.fg-slider-styled .fg-panel-thumbs-button {
+    flex-shrink: 0;
+    margin: calc(var(--fg-slider-frame-width) / 2);
+    border-radius: var(--fg-slider-radius);
+}
+.fg-panel.fg-slider-styled:is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-button {
+    width: calc(100% - var(--fg-slider-frame-width));
+}
+.fg-panel.fg-slider-styled:is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-button {
+    height: calc(100% - var(--fg-slider-frame-width));
 }
 /* The inline frame is one continuous surface. Only the outer panel clips the
    strip's corners; rounding both layers can expose a notch or a thin halo. */

@@ -233,6 +233,10 @@
                         }
                         translate = "translateY(" + (offset - viewportExtra) + "px)";
                     }
+                    // Match navigation availability so fractional cell sizing cannot
+                    // leave a fade at an end that cannot be scrolled any further.
+                    self.$viewport.toggleClass("fg-panel-thumbs-overflow-start", scrollIndex > 0)
+                        .toggleClass("fg-panel-thumbs-overflow-end", scrollIndex < maxIndex);
                     if (self.panel.hasTransition && !disableTransition) {
                         _t.start(self.$stage, function ($el) {
                             $el.css("transform", translate);
@@ -246,6 +250,7 @@
                         def.resolve();
                     }
                 } else {
+                    self.$viewport.removeClass("fg-panel-thumbs-overflow-start fg-panel-thumbs-overflow-end");
                     def.resolve();
                 }
             }).always(function(){
