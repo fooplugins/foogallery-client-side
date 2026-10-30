@@ -107,10 +107,6 @@ body.rtl .fg-panel.fg-panel-proofing-left:is(.fg-medium,.fg-panel-no-mobile) .fg
     width: 360px;
     min-width: 360px;
 }
-.fg-medium.fg-x-large-width:is(.fg-panel-proofing-left,.fg-panel-proofing-right) .fg-panel-proofing-inner {
-    width: 402px;
-    min-width: 402px;
-}
 
 /* Border Color */
 .fg-panel.fg-light .fg-panel-proofing-inner {
