@@ -218,7 +218,7 @@
                     var alignRightOrBottom = scrollIndex > self.scrollIndex, hasFullStage = self.__items.length >= self.info.count, offset, translate;
                     if (self.info.isHorizontal) {
                         offset = -($thumb.prop("offsetLeft"));
-                        if (alignRightOrBottom) offset += self.info.remaining.width;
+                        if (alignRightOrBottom) offset += self.info.remaining.width - (self.info.divider || 0);
                         if (hasFullStage && self.info.stage.width - Math.abs(offset) < self.info.viewport.width) {
                             offset = self.info.viewport.width - self.info.stage.width;
                             if (viewportExtra === 0) offset = Math.min(0, offset);
@@ -226,7 +226,7 @@
                         translate = "translateX(" + (offset - viewportExtra) + "px)";
                     } else {
                         offset = -($thumb.prop("offsetTop"));
-                        if (alignRightOrBottom) offset += self.info.remaining.height;
+                        if (alignRightOrBottom) offset += self.info.remaining.height - (self.info.divider || 0);
                         if (hasFullStage && self.info.stage.height - Math.abs(offset) < self.info.viewport.height) {
                             offset = self.info.viewport.height - self.info.stage.height;
                             if (viewportExtra === 0) offset = Math.min(0, offset);
@@ -272,23 +272,34 @@
                 counts = { horizontal: 0, vertical: 0 },
                 adjusted = { width: 0, height: 0 },
                 remaining = { width: 0, height: 0 },
-                width = 0, height = 0, extra = 1, itemCount = this.__items.length;
+                width = 0, height = 0, extra = 1, divider = 0, naturalDivider = 0, itemCount = this.__items.length;
             if (this.isCreated){
                 // Legacy cell dividers need one extra pixel; explicitly framed slider
                 // strips measure their content box exactly, including best-fit end edges.
-                extra = this.panel && this.panel.el ? parseFloat(window.getComputedStyle(this.panel.el).getPropertyValue("--fg-panel-thumb-viewport-extra")) : NaN;
+                var panelStyle = this.panel && this.panel.el ? window.getComputedStyle(this.panel.el) : null;
+                extra = panelStyle ? parseFloat(panelStyle.getPropertyValue("--fg-panel-thumb-viewport-extra")) : NaN;
                 if (isNaN(extra)) extra = 1;
+                if (panelStyle && panelStyle.getPropertyValue("--fg-slider-square-cells").trim() === "1") {
+                    divider = parseFloat(panelStyle.getPropertyValue("--fg-panel-thumb-separator-width"));
+                    if (isNaN(divider)) divider = 1;
+                }
                 viewport = { width: this.$viewport.innerWidth() + extra, height: this.$viewport.innerHeight() + extra };
                 original = { width: this.$dummy.outerWidth(), height: this.$dummy.outerHeight() };
                 counts = { horizontal: Math.floor(viewport.width / original.width), vertical: Math.floor(viewport.height / original.height) };
+                // Natural square cells add their separator outside the square, so
+                // count the first cell without a leading divider on the strip axis.
+                if (isHorizontal) counts.horizontal = Math.floor((viewport.width + divider) / (original.width + divider));
+                else counts.vertical = Math.floor((viewport.height + divider) / (original.height + divider));
                 adjusted = { width: viewport.width / Math.min(itemCount, counts.horizontal), height: viewport.height / Math.min(itemCount, counts.vertical) };
                 width = this.opt.bestFit ? adjusted.width : original.width;
                 height = this.opt.bestFit ? adjusted.height : original.height;
-                stage = { width: isHorizontal ? this.__items.length * width : width, height: !isHorizontal ? this.__items.length * height : height };
-                remaining = { width: Math.floor(viewport.width - (counts.horizontal * width)), height: Math.floor(viewport.height - (counts.vertical * height)) };
+                naturalDivider = this.opt.bestFit ? 0 : divider;
+                stage = { width: isHorizontal ? itemCount * width + Math.max(0, itemCount - 1) * naturalDivider : width, height: !isHorizontal ? itemCount * height + Math.max(0, itemCount - 1) * naturalDivider : height };
+                remaining = { width: Math.floor(viewport.width - (counts.horizontal * width) - (isHorizontal ? Math.max(0, counts.horizontal - 1) * naturalDivider : 0)), height: Math.floor(viewport.height - (counts.vertical * height) - (!isHorizontal ? Math.max(0, counts.vertical - 1) * naturalDivider : 0)) };
             }
             return {
                 isHorizontal: isHorizontal,
+                divider: naturalDivider,
                 viewportExtra: extra,
                 viewport: viewport,
                 stage: stage,
@@ -306,8 +317,20 @@
                 if (this.panel.$el.hasClass("fg-slider-styled")) {
                     // Match the shell to the strip's actual clamped curve on narrow strips.
                     this.panel.$el.css("--fg-slider-strip-radius-limit", (Math.min(this.$inner.outerWidth(), this.$inner.outerHeight()) / 2) + "px");
+                    if (window.getComputedStyle(this.panel.el).getPropertyValue("--fg-slider-square-cells").trim() === "1") {
+                        var squareSide = this.isHorizontal() ? this.$viewport.innerHeight() : this.$viewport.innerWidth();
+                        if (squareSide > 0) this.panel.$el.css("--fg-slider-square-cell-side", squareSide + "px");
+                    }
                 }
                 this.info = this.getInfo();
+                if (this.opt.small && window.getComputedStyle(this.panel.el).getPropertyValue("--fg-slider-square-caption-cells").trim() === "1") {
+                    var cellStyle = window.getComputedStyle(this.$dummy.get(0)),
+                        captionDivider = parseFloat(window.getComputedStyle(this.panel.el).getPropertyValue("--fg-panel-thumb-separator-width")),
+                        availableHeight = this.info.isHorizontal ? this.info.viewport.height - this.info.viewportExtra : this.info.height;
+                    if (isNaN(captionDivider)) captionDivider = 1;
+                    availableHeight -= parseFloat(cellStyle.paddingTop) + parseFloat(cellStyle.paddingBottom) + (this.info.isHorizontal ? 0 : captionDivider);
+                    this.panel.$el.css("--fg-slider-square-caption-side", Math.max(1, Math.min(72, availableHeight)) + "px");
+                }
                 if (this.opt.bestFit){
                     if (this.info.isHorizontal){
                         this.$stage.find(this.sel.thumb.elem).css({width: this.info.width, minWidth: this.info.width, height: "", minHeight: ""});
