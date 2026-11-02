@@ -13,6 +13,8 @@
 * **hoverColor** - `null` - Whether to colorize or grayscale the thumbs on hover. Can be `null`, `fg-hover-colorize` or `fg-hover-grayscale`. If `null` the hover color option of the associated template is used.
 * **hoverScale** - `null`- Whether or not to scale the thumb on hover. Can be `null`, `true` or `false`. If `null` the hover scale option from the associated template is used.
 * **noMobile** - `false` - Whether or not the panel can display its' mobile UI view. Can be `true` or `false`.
+* **mobile** - `true` - Whether or not the panel can switch to its mobile UI view. Can be `true` or `false`.
+* **breakpoint** - `600` - The minimum short-side panel length required for the desktop UI. Below this value the mobile UI is used when the primary pointer is coarse.
 * **hoverButtons** - `false` - Whether or not the various panel buttons are only displayed on hover. Can be `true` or `false`. On devices that do not support `:hover` buttons will always be displayed.
 * **transition** - `"none"` - The transition to apply to the main content area when switching between items. Can be `"horizontal"`, `"vertical"`, `"fade"` or `"none"`.
 * **insetShadow** - `null` - The inset shadow to apply to the thumbs. Can be `"fg-shadow-inset-small"`, `"fg-shadow-inset-medium"`, `"fg-shadow-inset-large"` or `null`. If `null` the inset shadow from the associated template is used.

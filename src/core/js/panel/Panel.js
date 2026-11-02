@@ -106,14 +106,22 @@
 
             self.lastBreakpoint = null;
 
+            self.lastWidth = null;
+
+            self.lastHeight = null;
+
             self.isSmallScreen = false;
             self.isMediumScreen = false;
             self.isLargeScreen = false;
+            self.isXLargeScreen = false;
             self.isMobileLayout = false;
 
-            self.breakpointClassNames = self.opt.breakpoints.map(function(bp){
-                return "fg-" + bp.name + " fg-" + bp.name + "-width" + " fg-" + bp.name + "-height";
-            }).concat(["fg-landscape","fg-portrait"]).join(" ");
+            self.breakpointClassNames = "fg-medium fg-landscape fg-portrait";
+
+            self.pointerMediaQuery = _is.fn(window.matchMedia) ? window.matchMedia("(pointer: coarse)") : null;
+            self.hasCoarsePointer = self.pointerMediaQuery == null || self.pointerMediaQuery.matches;
+            self.isPointerListening = false;
+            self.onPointerChange = self.onPointerChange.bind(self);
 
             self.robserver = new ResizeObserver(_fn.throttle(function (entries) {
                 if (!self.destroying && !self.destroyed){
@@ -272,6 +280,7 @@
 
             maximize.set(!self.isInline, self.isInline && maximize.isEnabled());
 
+            self.listenToPointer();
             self.robserver.observe(self.el);
 
             self.areas.forEach(function (area) {
@@ -294,6 +303,7 @@
         },
         doDetach: function(){
             var self = this;
+            self.stopListeningToPointer();
             self.robserver.unobserve(self.el);
             self.areas.forEach(function (area) {
                 area.stopListening();
@@ -305,10 +315,10 @@
             var self = this;
             self.$el.removeClass(self.breakpointClassNames).addClass(self.lastBreakpoint);
             self.isMediumScreen = self.$el.hasClass("fg-medium");
-            self.isLargeScreen = self.$el.hasClass("fg-large");
-            self.isXLargeScreen = self.$el.hasClass("fg-x-large");
-            self.isSmallScreen = !self.isMediumScreen && !self.isLargeScreen && !self.isXLargeScreen;
-            self.isMobileLayout = self.isSmallScreen && !self.opt.noMobile;
+            self.isLargeScreen = false;
+            self.isXLargeScreen = false;
+            self.isSmallScreen = !self.isMediumScreen;
+            self.isMobileLayout = self.isSmallScreen;
             self.areas.forEach(function (area) {
                 area.resize();
             });
@@ -316,6 +326,8 @@
         },
         onResize: function(width, height){
             var self = this, bp = self.getBreakpoint(width, height);
+            self.lastWidth = width;
+            self.lastHeight = height;
             if (self.lastBreakpoint !== bp){
                 self.lastBreakpoint = bp;
                 self.resize();
@@ -323,18 +335,56 @@
         },
         getBreakpoint: function(width, height){
             var self = this,
-                result = [];
+                result = [],
+                breakpoint = _is.number(self.opt.breakpoint) && isFinite(self.opt.breakpoint) && self.opt.breakpoint > 0
+                    ? self.opt.breakpoint
+                    : 600,
+                portrait = height > width,
+                viewportWidth = document.documentElement.clientWidth,
+                panelWidth = Math.min(width, viewportWidth || width),
+                checkedLength = portrait ? panelWidth : height,
+                mobileAllowed = self.opt.mobile !== false && self.opt.noMobile !== true,
+                isMobile = mobileAllowed && self.hasCoarsePointer !== false && checkedLength < breakpoint;
 
-            self.opt.breakpoints.forEach(function(bp){
-                var w = bp.width <= width, h = bp.height <= height;
-                if (w && h) result.push("fg-" + bp.name);
-                if (w) result.push("fg-" + bp.name + "-width");
-                if (h) result.push("fg-" + bp.name + "-height");
-            });
-
-            result.push(width > height ? "fg-landscape" : "fg-portrait");
+            if (!isMobile) result.push("fg-medium");
+            result.push(portrait ? "fg-portrait" : "fg-landscape");
 
             return result.length > 0 ? result.join(" ") : null;
+        },
+        listenToPointer: function(){
+            var self = this, hasCoarsePointer;
+            if (self.pointerMediaQuery == null || self.isPointerListening) return;
+            hasCoarsePointer = !!self.pointerMediaQuery.matches;
+            if (self.hasCoarsePointer !== hasCoarsePointer){
+                self.hasCoarsePointer = hasCoarsePointer;
+                if (_is.number(self.lastWidth) && _is.number(self.lastHeight)){
+                    self.onResize(self.lastWidth, self.lastHeight);
+                }
+            }
+            if (_is.fn(self.pointerMediaQuery.addEventListener)){
+                self.pointerMediaQuery.addEventListener("change", self.onPointerChange);
+            } else if (_is.fn(self.pointerMediaQuery.addListener)) {
+                self.pointerMediaQuery.addListener(self.onPointerChange);
+            }
+            self.isPointerListening = true;
+        },
+        stopListeningToPointer: function(){
+            var self = this;
+            if (self.pointerMediaQuery == null || !self.isPointerListening) return;
+            if (_is.fn(self.pointerMediaQuery.removeEventListener)){
+                self.pointerMediaQuery.removeEventListener("change", self.onPointerChange);
+            } else if (_is.fn(self.pointerMediaQuery.removeListener)) {
+                self.pointerMediaQuery.removeListener(self.onPointerChange);
+            }
+            self.isPointerListening = false;
+        },
+        onPointerChange: function(event){
+            var self = this, hasCoarsePointer = !!event.matches;
+            if (self.hasCoarsePointer === hasCoarsePointer) return;
+            self.hasCoarsePointer = hasCoarsePointer;
+            if (_is.number(self.lastWidth) && _is.number(self.lastHeight)){
+                self.onResize(self.lastWidth, self.lastHeight);
+            }
         },
         getMedia: function(item){
             if (!(item instanceof _.Item)) return null;
@@ -573,6 +623,8 @@
         panel: {
             classNames: "",
             noMobile: false,
+            mobile: true,
+            breakpoint: 600,
             hoverButtons: false,
             icons: "default",
             transition: "none", // none | fade | horizontal | vertical
@@ -644,20 +696,7 @@
                 thumbs: false,
                 cart: true,
                 download: false
-            },
-            breakpoints: [{
-                name: "medium",
-                width: 800,
-                height: 800
-            },{
-                name: "large",
-                width: 1024,
-                height: 1024
-            },{
-                name: "x-large",
-                width: 1280,
-                height: 1280
-            }]
+            }
         }
     },{
         panel: {
