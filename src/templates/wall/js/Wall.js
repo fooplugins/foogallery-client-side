@@ -184,19 +184,26 @@
 
 			var speed = opt.speed * 6;
 			self.columns.forEach( function( column, c ){
-				var set = column.items.slice(), setHeight = 0;
+				var pool = column.items.slice(), setHeight = 0;
+				// A sparse column borrows another photo so it does not loop a single photo.
+				if ( pool.length === 1 && items.length > 1 ){
+					pool.push( items[ ( items.indexOf( pool[ 0 ] ) + 1 ) % items.length ] );
+				}
+				var set = pool.slice();
 				var tileHeight = function( item ){
 					return columnWidth / self.ratio( item ) + opt.gap;
 				};
 				set.forEach( function( item ){
 					setHeight += tileHeight( item );
 				} );
-				// Repeat the column's photos until one set is taller than the wall, so the loop never shows a gap.
+				// Repeat complete cycles so the loop's last photo never matches its first.
 				var k = 0;
 				while ( setHeight > 0 && setHeight < planeHeight + columnWidth && k < 50 ){
-					var next = column.items[ k++ % column.items.length ];
-					set.push( next );
-					setHeight += tileHeight( next );
+					pool.forEach( function( item ){
+						set.push( item );
+						setHeight += tileHeight( item );
+					} );
+					k += pool.length;
 				}
 				// The first appearance of each photo is the real item; every repeat is a decorative copy.
 				set.concat( set ).forEach( function( item ){
