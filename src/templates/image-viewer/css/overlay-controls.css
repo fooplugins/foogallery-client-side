@@ -60,8 +60,8 @@
 .fg-image-viewer.fg-overlay-controls .fiv-inner:hover .fiv-ctrls .fiv-next {
     opacity: 0.6;
 }
-.fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
-.fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
+.fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible),
+.fg-image-viewer.fg-overlay-controls .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible) {
     opacity: 1;
 }
 

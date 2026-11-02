@@ -121,8 +121,8 @@
     font-size: inherit;
     font-weight: normal;
 }
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible),
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible) {
     transform: translateY(0);
 }
 .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:before,
@@ -138,8 +138,8 @@
 	transform: translateY(0);
 	transition: transform .3s;
 }
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus):before,
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus):before {
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible):before,
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible):before {
 	transform: translateY(-100%);
 }
 .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev span,
@@ -151,8 +151,8 @@
 	transform: translateY(100%);
 	transition: transform .3s;
 }
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus) span,
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) span {
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible) span,
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible) span {
 	transform: translateY(0);
 }
 .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev {
@@ -203,8 +203,8 @@
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-next {
     border-color: var(--fg-viewer-dominant-color-alt, #ddd);
 }
-.fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
-.fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
+.fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible),
+.fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible) {
 	background-color: var(--fg-viewer-dominant-color-alt, #F2F2F2);
 }
 
@@ -222,8 +222,8 @@
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-next {
     border-color: var(--fg-viewer-dominant-color-alt, #222);
 }
-.fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
-.fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
+.fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible),
+.fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible) {
 	background-color: var(--fg-viewer-dominant-color-alt, #444);
 }
 

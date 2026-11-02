@@ -60,12 +60,12 @@
 	overflow: hidden;
 }
 
-/* Matching presets keep the image radius and add the border to the frame. */
-.foogallery:is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) {
+/* Matching presets add the border to the frame; Masonry keeps its outer radius independent. */
+.foogallery:where(:not(.fg-masonry)):is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) {
 	--fg-matched-border-radius: calc(var(--fg-inner-border-radius) + var(--fg-matched-border-width, var(--fg-item-border-width)));
 	--fg-item-border-radius: var(--fg-matched-border-radius);
 }
-.foogallery:is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) .fg-item,
-.foogallery:is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) .fg-item-inner {
+.foogallery:where(:not(.fg-masonry)):is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) .fg-item,
+.foogallery:where(:not(.fg-masonry)):is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) .fg-item-inner {
 	border-radius: var(--fg-matched-border-radius);
 }
