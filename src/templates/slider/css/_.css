@@ -321,6 +321,11 @@
        whenever the image is tall enough. */
     top: max(50%, calc(var(--fg-slider-button-inset) + 63px));
 }
+/* Fine-pointer layouts keep the taller navigation arrows in the content area,
+   even when the Slider switches to its compact toolbar at a narrow viewport. */
+.foogallery.fg-slider-mobile > .fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space) .fg-panel-content-buttons .fg-panel-button:is(.fg-panel-button-prev,.fg-panel-button-next) {
+    top: max(50%, calc(var(--fg-slider-button-inset) + 78px));
+}
 .fg-panel.fg-slider-styled:not(.fg-panel-maximized):not(.fg-panel-fullscreen),
 .fg-panel.fg-slider-styled :is(.fg-panel-thumbs-inner,.fg-media) {
     border-radius: var(--fg-slider-outer-radius);
