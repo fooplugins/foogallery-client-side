@@ -183,6 +183,14 @@
 .fg-slider .fg-panel:is(.fg-light,.fg-dark) :is(.fg-panel-cart-inner,.fg-panel-info-inner) {
     background-color: transparent;
 }
+/* Inline top/bottom captions do not need a divider or reserved toolbar space. */
+.fg-panel.fg-slider-panel:not(.fg-panel-info-overlay):is(.fg-panel-info-top,.fg-panel-info-bottom) .fg-panel-info-inner {
+    border-style: none;
+}
+.fg-panel.fg-slider-panel:not(.fg-panel-info-overlay):is(.fg-panel-info-top,.fg-panel-info-bottom) .fg-media-caption {
+    /* Override the shared panel's more specific toolbar-clearance rules. */
+    padding: 10px !important;
+}
 .fg-slider .fg-panel-info-overlay .fg-media-caption {
     font-size: 18px;
     padding: 20px;

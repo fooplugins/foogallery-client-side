@@ -676,6 +676,7 @@
             thumbs: "none", // none | top | bottom | left | right
             thumbsVisible: true,
             thumbsCaptions: true,
+            thumbsUseMediaCaption: false,
             thumbsCaptionsAlign: "default", // default | left | center | right | justified
             thumbsSmall: false,
             thumbsBestFit: true,

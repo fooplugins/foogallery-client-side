@@ -109,7 +109,10 @@
             self.$stage.append($("<div/>").addClass(self.cls.spacer));
         },
         doCreateThumb: function(item){
-            var self = this, cls = self.cls.thumb;
+            var self = this, cls = self.cls.thumb,
+                caption = self.panel.opt.thumbsUseMediaCaption
+                    ? _.Panel.Media.Caption.resolve(item)
+                    : { title: item.caption, description: item.description };
             return $("<figure/>").addClass(cls.elem).addClass(item.getTypeClass()).addClass(self.panel.cls.states.idle).append(
                 $("<div/>").addClass(cls.media).append(
                     $("<div/>").addClass(cls.overlay),
@@ -119,8 +122,8 @@
                     $("<div/>").addClass(self.panel.cls.loader)
                 ),
                 $("<div/>").addClass(cls.caption).append(
-                    $("<div/>").addClass(cls.title).html(item.caption),
-                    $("<div/>").addClass(cls.description).html(item.description)
+                    $("<div/>").addClass(cls.title).html(caption.title),
+                    $("<div/>").addClass(cls.description).html(caption.description)
                 )
             ).data("item", item).on("click", {self: self, item: item}, self.onThumbClick);
         },
