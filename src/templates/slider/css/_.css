@@ -58,14 +58,15 @@
     height: 100%;
     min-height: 0;
 }
-.foogallery.fg-slider-mobile .fg-panel-thumb {
+/* Match the panel breakpoint selectors while leaving later frame rules in control. */
+.foogallery.fg-slider-mobile .fg-panel .fg-panel-thumb {
     width: 48px;
     min-width: 48px;
     height: 48px;
     min-height: 48px;
     padding: 4px;
 }
-.foogallery.fg-slider-mobile .fg-panel-thumb-media {
+.foogallery.fg-slider-mobile .fg-panel .fg-panel-thumb-media {
     width: 40px;
     min-width: 40px;
     height: 40px;
