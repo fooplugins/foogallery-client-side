@@ -27,12 +27,20 @@
     display: grid;
     width: 100%;
     padding: 0;
-    min-height: 315px;
+    min-height: min(315px, var(--fg-slider-max-height, 315px));
+    max-height: var(--fg-slider-max-height, none);
+}
+/* Short capped panels can bring navigation into the toolbar's hit area. */
+.fg-panel.fg-slider-panel .fg-panel-buttons {
+    z-index: 4;
 }
 .foogallery.fg-slider.fg-slider-mobile {
     /* Let the selected aspect ratio size the slider on phones, rather than
        forcing fill-mode images into the taller desktop minimum height. */
     min-height: 0;
+}
+.foogallery.fg-slider.fg-slider-mobile-horizontal-thumbs {
+    --fg-slider-navigation-height: 48px;
 }
 .foogallery.fg-slider.fg-slider-mobile-horizontal-thumbs::after {
     /* Horizontal navigation gets its own space outside the selected image ratio. */
@@ -138,22 +146,24 @@
     width: 100%;
     max-width: 100%;
     height: 0;
-    padding-top: 56.25%;
+    --fg-slider-ratio-padding: 56.25%;
+    /* Clamp the invisible spacer too, so it cannot create page overflow. */
+    padding-top: min(var(--fg-slider-ratio-padding), max(0px, calc(var(--fg-slider-max-height, 100000px) - var(--fg-slider-navigation-height, 0px))));
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
 }
 .foogallery.fg-slider.fg-16-9::before {
-    padding-top: 56.25%;
+    --fg-slider-ratio-padding: 56.25%;
 }
 .foogallery.fg-slider.fg-16-10::before {
-    padding-top: 62.5%;
+    --fg-slider-ratio-padding: 62.5%;
 }
 .foogallery.fg-slider.fg-3-2::before {
-    padding-top: 66.6667%;
+    --fg-slider-ratio-padding: 66.6667%;
 }
 .foogallery.fg-slider.fg-4-3::before {
-    padding-top: 75%;
+    --fg-slider-ratio-padding: 75%;
 }
 
 .fg-slider .fg-panel {
