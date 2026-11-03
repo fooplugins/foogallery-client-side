@@ -138,7 +138,7 @@
 			var self = this;
 			if (self._didOpenByDefault) return;
 			if (self.template.openByDefault !== true) return;
-			if (self.panel.currentItem instanceof _.Item) return;
+			if (self.panel.currentItem instanceof _.Item || self.state.current.item instanceof _.Item) return;
 
 			var $first = self.getVisibleItems().first(),
 				firstItem = $first.length ? self.items.get($first.get(0), true) : self.items.first();

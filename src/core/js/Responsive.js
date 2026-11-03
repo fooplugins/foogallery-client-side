@@ -34,16 +34,16 @@
 			return;
 		}
 
-		// A mode rebuild destroys the panel and its current item. Keep the actual
-		// viewer (including inline template panels) and let its ResizeObserver
-		// relayout it. Apply mode-specific options after the viewer closes.
+		// Only modal/maximized viewers defer rebuilding. Inline templates must
+		// reapply their native mobile options even if they never close.
 		var panel = current.panel instanceof _.Panel && current.panel.isAttached
 			? current.panel : current.lightbox;
-		if (panel instanceof _.Panel && panel.isAttached) {
+		if (panel instanceof _.Panel && panel.isAttached && (!panel.isInline || panel.isMaximized)) {
 			state = { requested: _.isMobile, panel: panel };
 			$element.data(refreshData, state);
 			function cancel() {
 				panel.off("closed", release);
+				panel.off("restored", release);
 				panel.off("destroyed", cancel);
 				$element.removeData(refreshData);
 			}
@@ -54,17 +54,30 @@
 				}
 			}
 			panel.on("closed", release);
+			panel.on("restored", release);
 			panel.on("destroyed", cancel);
 			panel.resize();
 			return;
 		}
 
+		// Restore runtime selection before the replacement's initial state is applied.
+		// Do not rely on URL state (usually disabled), or retain destroyed Item objects.
+		var selection = panel instanceof _.Panel && panel.isAttached && panel.isInline
+			? current.state.get(panel.currentItem) : null,
+			itemId = selection && selection.item ? selection.item.id : null;
 		state = { requested: _.isMobile };
 		$element.data(refreshData, state);
 
 		function run() {
 			var requested = state.requested;
-			_.init({}, $element).always(function(){
+			function restore(event, value) {
+				var template = event.target;
+				template.off("before-state.mobileRefresh", restore);
+				value.filter = selection.filter;
+				value.page = selection.page;
+				value.item = template.items.find(template.items.all(), function(item){ return item.id === itemId; });
+			}
+			_.init(selection ? { on: { "before-state.mobileRefresh": restore } } : {}, $element).always(function(){
 				if (requested !== state.requested) {
 					run();
 					return;
