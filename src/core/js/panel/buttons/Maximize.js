@@ -61,6 +61,10 @@
             this.exit();
             this._super();
         },
+        destroy: function(){
+            this.exit();
+            return this._super();
+        },
         set: function(maximized, visible){
             if (maximized) this.enter();
             else this.exit();
