@@ -84,6 +84,7 @@ test('configured mobile query refreshes initialized galleries without overlappin
 		$: jquery,
 		DATA_TEMPLATE: '__FooGallery__',
 		Template,
+		Panel: function Panel() {},
 		init(options, element) {
 			const deferred = createDeferred();
 			initCalls.push({ options, element });
