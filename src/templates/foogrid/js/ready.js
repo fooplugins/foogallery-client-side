@@ -138,7 +138,7 @@
 			var self = this;
 			if (self._didOpenByDefault) return;
 			if (self.template.openByDefault !== true) return;
-			if (self.panel.currentItem instanceof _.Item) return;
+			if (self.panel.currentItem instanceof _.Item || self.state.current.item instanceof _.Item) return;
 
 			var $first = self.getVisibleItems().first(),
 				firstItem = $first.length ? self.items.get($first.get(0), true) : self.items.first();
@@ -216,7 +216,12 @@
 		},
 		onPanelClose: function(event){
 			event.preventDefault();
-			this.close(false, true);
+			var self = this;
+			this.close(false, true).then(function(){
+				if (!self.destroying && !self.destroyed && self.panel){
+					self.panel.trigger("closed");
+				}
+			});
 		},
 		onPanelAreaLoad: function(event, area, media){
 			if (area.name === "content"){

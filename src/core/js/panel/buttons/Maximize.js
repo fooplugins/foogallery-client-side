@@ -61,9 +61,15 @@
             this.exit();
             this._super();
         },
+        destroy: function(){
+            this.exit();
+            return this._super();
+        },
         set: function(maximized, visible){
+            var restoring = !maximized && this.panel.isMaximized && this.panel.isInline;
             if (maximized) this.enter();
             else this.exit();
+            if (restoring) this.panel.trigger("restored");
             visible = _is.boolean(visible) ? visible : this.isVisible;
             this.toggle(visible);
         },
