@@ -27,9 +27,35 @@
 
 		if (state) {
 			state.requested = _.isMobile;
+			if (state.panel) state.panel.resize();
 			return;
 		}
 		if (!(current instanceof _.Template)) {
+			return;
+		}
+
+		// A mode rebuild destroys the panel and its current item. Keep the actual
+		// viewer (including inline template panels) and let its ResizeObserver
+		// relayout it. Apply mode-specific options after the viewer closes.
+		var panel = current.panel instanceof _.Panel && current.panel.isAttached
+			? current.panel : current.lightbox;
+		if (panel instanceof _.Panel && panel.isAttached) {
+			state = { requested: _.isMobile, panel: panel };
+			$element.data(refreshData, state);
+			function cancel() {
+				panel.off("closed", release);
+				panel.off("destroyed", cancel);
+				$element.removeData(refreshData);
+			}
+			function release() {
+				cancel();
+				if ($element.data(_.DATA_TEMPLATE) === current && !current.destroying && !current.destroyed) {
+					refreshGallery(element);
+				}
+			}
+			panel.on("closed", release);
+			panel.on("destroyed", cancel);
+			panel.resize();
 			return;
 		}
 
