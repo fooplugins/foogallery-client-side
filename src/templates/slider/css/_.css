@@ -164,6 +164,11 @@
     --fg-slider-ratio-padding: 75%;
 }
 
+.foogallery.fg-slider > .fg-panel {
+    /* Include the panel border when filling the inline slider container. */
+    box-sizing: border-box;
+}
+
 .fg-slider .fg-panel {
     position: absolute;
     top: 0;
