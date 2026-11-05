@@ -27,17 +27,14 @@
     display: grid;
     width: 100%;
     padding: 0;
-    min-height: min(315px, var(--fg-slider-max-height, 315px));
+    /* Let the aspect ratio size narrow desktop containers too. A maximum
+       height must only cap the result, never force a taller slider. */
+    min-height: 0;
     max-height: var(--fg-slider-max-height, none);
 }
 /* Short capped panels can bring navigation into the toolbar's hit area. */
 .fg-panel.fg-slider-panel .fg-panel-buttons {
     z-index: 4;
-}
-.foogallery.fg-slider.fg-slider-mobile {
-    /* Let the selected aspect ratio size the slider on phones, rather than
-       forcing fill-mode images into the taller desktop minimum height. */
-    min-height: 0;
 }
 .foogallery.fg-slider.fg-slider-mobile-horizontal-thumbs {
     --fg-slider-navigation-height: 48px;
