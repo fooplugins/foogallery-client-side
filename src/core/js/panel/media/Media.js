@@ -61,38 +61,35 @@
                 min = self.getSize("minWidth", "minHeight", self.opt.minWidth, self.opt.minHeight);
             return _obj.extend(size, max, min);
         },
+        isActive: function(){
+            return !this.isDestroying && !this.isDestroyed && this.panel.isActive();
+        },
+        wait: function(promise, done, fail, always){
+            return this.panel.wait(promise, done, fail, always, this);
+        },
         destroy: function(){
-            var self = this;
-            var e = self.panel.trigger("media-destroy", [self]);
-            if (!e.isDefaultPrevented()) {
-                self.isCreated = !self.doDestroy();
-            }
-            if (!self.isCreated) {
-                self.panel.trigger("media-destroyed", [self]);
-            }
-            return !self.isCreated;
+            return this.panel.destroyChild(this, "media");
         },
         doDestroy: function(){
-            var self = this;
-            if (self.isCreated){
-                self.caption.destroy();
-                self.detach();
-                self.$el.remove();
-            }
+            this.caption.destroy();
+            if (this.$el) this.$el.remove();
+            this.item = null;
             return true;
         },
         create: function(){
             var self = this;
-            if (!self.isCreated && _is.string(self.item.href)) {
+            if (self.isActive() && !self.isCreated && _is.string(self.item.href)) {
                 var e = self.panel.trigger("media-create", [self]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
-                    self.isCreated = self.doCreate();
+                    var created = self.doCreate();
+                    self.isCreated = self.isActive() && created;
                 }
                 if (self.isCreated) {
                     self.panel.trigger("media-created", [self]);
                 }
             }
-            return self.isCreated;
+            return self.isActive() && self.isCreated;
         },
         doCreate: function(){
             var self = this;
@@ -110,16 +107,18 @@
             if (!self.isCreated){
                 self.create();
             }
-            if (self.isCreated && !self.isAttached){
+            if (self.isActive() && self.isCreated && !self.isAttached){
                 var e = self.panel.trigger("media-append", [self, parent]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
-                    self.isAttached = self.doAppendTo( parent );
+                    var attached = self.doAppendTo( parent );
+                    self.isAttached = self.isActive() && attached;
                 }
                 if (self.isAttached) {
                     self.panel.trigger("media-appended", [self, parent]);
                 }
             }
-            return self.isAttached;
+            return self.isActive() && self.isAttached;
         },
         doAppendTo: function( parent ){
             this.$el.appendTo( parent );
@@ -129,6 +128,7 @@
             var self = this;
             if (self.isCreated && self.isAttached) {
                 var e = self.panel.trigger("media-detach", [self]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
                     self.isAttached = !self.doDetach();
                 }
@@ -144,8 +144,10 @@
         },
         load: function(){
             var self = this, states = self.panel.cls.states;
-            return $.Deferred(function(def){
+            if (!self.isActive()) return _fn.reject("panel destroyed");
+            return self.wait(function(){ return $.Deferred(function(def){
                 var e = self.panel.trigger("media-load", [self]);
+                if (!self.isActive()) { def.reject("panel destroyed"); return; }
                 if (e.isDefaultPrevented()){
                     def.rejectWith("default prevented");
                     return;
@@ -159,38 +161,40 @@
                     self.$el.removeClass(states.allLoading).addClass(states.loading);
                     self.doLoad().then(def.resolve).fail(def.reject);
                 }
-            }).always(function(){
-                self.isLoading = false;
-                self.$el.removeClass(states.loading);
-            }).then(function(){
+            }); }, function(){
                 self.isLoaded = true;
                 self.$el.addClass(states.loaded);
                 self.panel.trigger("media-loaded", [self]);
-            }).fail(function(){
+            }, function(){
                 self.isError = true;
                 self.$el.addClass(states.loaded);
                 self.panel.trigger("media-error", [self]);
-            }).promise();
+            }, function(){
+                self.isLoading = false;
+                self.$el.removeClass(states.loading);
+            });
         },
         doLoad: function(){
             return _fn.resolved;
         },
         unload: function(){
             var self = this;
-            return $.Deferred(function(def){
+            if (!self.isActive()) return _fn.reject("panel destroyed");
+            return self.wait(function(){ return $.Deferred(function(def){
                 if (!self.isCreated || !self.isAttached){
                     def.rejectWith("not created or attached");
                     return;
                 }
                 var e = self.panel.trigger("media-unload", [self]);
+                if (!self.isActive()) { def.reject("panel destroyed"); return; }
                 if (e.isDefaultPrevented()){
                     def.rejectWith("default prevented");
                     return;
                 }
                 self.doUnload().then(def.resolve).fail(def.reject);
-            }).then(function(){
+            }); }, function(){
                 self.panel.trigger("media-unloaded", [self]);
-            }).promise();
+            });
         },
         doUnload: function(){
             return _fn.resolved;

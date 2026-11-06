@@ -34,21 +34,34 @@
                         }
                     }
                     _utils.requestFrame(function(){
+                        if (!self.panel.isActive()) return;
                         self.$content.removeClass(self.allFullClasses).addClass(fullWidth ? self.cls.fullWidth : self.cls.fullHeight);
                     });
                 }
             }
         },
+        doDestroy: function(){
+            if (this.__cancelLoad) this.__cancelLoad();
+            return this._super();
+        },
         doLoad: function(){
             var self = this;
-            return $.Deferred(function(def){
+            return self.panel.wait($.Deferred(function(def){
                 var img = self.$content.get(0);
+                self.__cancelLoad = function(){
+                    self.__cancelLoad = null;
+                    img.onload = img.onerror = null;
+                    img.removeAttribute("src");
+                    def.reject("panel destroyed");
+                };
                 img.alt = self.item.alt;
                 img.onload = function () {
+                    self.__cancelLoad = null;
                     img.onload = img.onerror = null;
                     def.resolve(self);
                 };
                 img.onerror = function () {
+                    self.__cancelLoad = null;
                     img.onload = img.onerror = null;
                     def.rejectWith("error loading image");
                 };
@@ -63,9 +76,9 @@
                 if (img.complete){
                     img.onload();
                 }
-            }).then(function(){
+            }), function(){
                 self.resize();
-            }).promise();
+            });
         }
     });
 

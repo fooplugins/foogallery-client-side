@@ -26,7 +26,7 @@
                     self.$inner.fgswipe({data: {self: self}, swipe: self.onSwipe, allowPageScroll: true});
                 }
                 self.robserver = new ResizeObserver(_fn.throttle(function () {
-                    if (self.panel instanceof _.Panel && !self.panel.destroying && !self.panel.destroyed) {
+                    if (self.panel instanceof _.Panel && self.panel.isActive()) {
                         // only the inner is being observed so if a change occurs we can safely just call resize
                         self.resize();
                     }
@@ -40,16 +40,17 @@
             if (this.robserver instanceof ResizeObserver){
                 this.robserver.disconnect();
             }
-            this.$inner.fgswipe("destroy");
+            if (this.$inner) this.$inner.fgswipe("destroy");
             return this._super();
         },
         doTransition: function($element, trigger){
-            var element = $element.get(0);
+            var self = this, element = $element.get(0);
             if (!element || typeof element.getAnimations !== "function"){
                 return _t.start($element, trigger, null, 350);
             }
             return $.Deferred(function(def){
                 requestAnimationFrame(function(){
+                    if (!self.panel.isActive()) { def.reject("panel destroyed"); return; }
                     trigger($element);
                     var animations = element.getAnimations().filter(function(animation){
                         var timing = animation.effect && typeof animation.effect.getComputedTiming === "function"
@@ -73,9 +74,12 @@
         doLoad: function(media, reverseTransition){
             var self = this, states = self.panel.cls.states;
             return $.Deferred(function (def) {
-                if (!media.isCreated) media.create();
+                if (!self.isActive()) { def.reject("panel destroyed"); return; }
+                if (!media.isCreated && !media.create()) { def.reject("media not created"); return; }
+                if (!self.isActive()) { def.reject("panel destroyed"); return; }
                 media.$el.toggleClass(states.reverse, reverseTransition);
-                media.appendTo(self.$inner);
+                if (!media.appendTo(self.$inner)) { def.reject("media not attached"); return; }
+                if (!self.isActive()) { def.reject("panel destroyed"); return; }
                 var wait = [];
                 if (self.panel.hasTransition){
                     wait.push(self.doTransition(media.$el, function($el){
@@ -105,6 +109,7 @@
                 wait.push(media.unload());
                 $.when.apply($, wait).then(def.resolve).fail(def.reject);
             }).always(function(){
+                if (!self.panel.isActive()) return;
                 if (media.isCreated){
                     media.$el.removeClass(states.reverse);
                 }

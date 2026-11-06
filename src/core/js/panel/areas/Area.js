@@ -37,40 +37,37 @@
         },
         create: function(){
             var self = this;
-            if (!self.isCreated) {
+            if (self.isActive() && !self.isCreated) {
                 var e = self.panel.trigger("area-create", [self]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
-                    self.isCreated = self.doCreate();
+                    var created = self.doCreate();
+                    self.isCreated = self.isActive() && created;
                 }
                 if (self.isCreated) {
                     self.panel.trigger("area-created", [self]);
                 }
             }
-            return self.isCreated;
+            return self.isActive() && self.isCreated;
         },
         doCreate: function(){
             this.$el = $("<div/>").addClass(this.cls.elem);
             this.$inner = $("<div/>").addClass(this.cls.inner).appendTo(this.$el);
             return true;
         },
+        isActive: function(){
+            return !this.isDestroying && !this.isDestroyed && this.panel.isActive();
+        },
+        wait: function(promise, done, fail, always){
+            return this.panel.wait(promise, done, fail, always, this);
+        },
         destroy: function(){
-            var self = this;
-            if (self.isCreated){
-                var e = self.panel.trigger("area-destroy", [self]);
-                if (!e.isDefaultPrevented()) {
-                    self.isCreated = !self.doDestroy();
-                }
-                if (!self.isCreated) {
-                    self.panel.trigger("area-destroyed", [self]);
-                }
-            }
-            return !self.isCreated;
+            return this.panel.destroyChild(this, "area");
         },
         doDestroy: function(){
-            if (this.currentMedia instanceof _.Panel.Media){
-                this.currentMedia.detach();
-            }
-            this.$el.remove();
+            if (this.currentMedia instanceof _.Panel.Media) this.currentMedia.detach();
+            this.currentMedia = null;
+            if (this.$el) this.$el.remove();
             return true;
         },
         appendTo: function( parent ){
@@ -78,16 +75,18 @@
             if (!self.isCreated){
                 self.create();
             }
-            if (self.isCreated && !self.isAttached){
+            if (self.isActive() && self.isCreated && !self.isAttached){
                 var e = self.panel.trigger("area-append", [self, parent]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
-                    self.isAttached = self.doAppendTo( parent );
+                    var attached = self.doAppendTo( parent );
+                    self.isAttached = self.isActive() && attached;
                 }
                 if (self.isAttached) {
                     self.panel.trigger("area-appended", [self, parent]);
                 }
             }
-            return self.isAttached;
+            return self.isActive() && self.isAttached;
         },
         doAppendTo: function( parent ){
             this.$el.appendTo( parent );
@@ -97,6 +96,7 @@
             var self = this;
             if (self.isCreated && self.isAttached) {
                 var e = self.panel.trigger("area-detach", [self]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
                     self.isAttached = !self.doDetach();
                 }
@@ -112,39 +112,39 @@
         },
         load: function(media){
             var self = this;
+            if (!self.isActive()) return _fn.reject("panel destroyed");
             if (!(media instanceof _.Panel.Media)) return _fn.reject("unable to load media");
-            return $.Deferred(function(def){
+            return self.wait(function(){ return $.Deferred(function(def){
                 var reverseTransition = self.shouldReverseTransition(self.currentMedia, media);
                 var e = self.panel.trigger("area-load", [self, media, reverseTransition]);
-                if (e.isDefaultPrevented()){
-                    def.rejectWith("default prevented");
-                    return;
-                }
-                var hasMedia = self.currentMedia instanceof _.Panel.Media, prev = self.currentMedia;
-                if (self.opt.waitForUnload && hasMedia){
-                    self.panel.trigger("area-unload", [self, prev]);
-                    self.doUnload(prev, reverseTransition).then(function(){
-                        self.panel.trigger("area-unloaded", [self, prev]);
-                        self.currentMedia = media;
-                        self.panel.trigger("area-load", [self, media]);
-                        self.doLoad(media, reverseTransition).then(def.resolve).fail(def.reject);
-                    }).fail(def.reject);
-                } else {
-                    if (hasMedia){
-                        self.panel.trigger("area-unload", [self, prev]);
-                        self.doUnload(prev, reverseTransition).then(function(){
-                            self.panel.trigger("area-unloaded", [self, prev]);
-                        });
-                    }
+                if (!self.isActive()) { def.reject("panel destroyed"); return; }
+                if (e.isDefaultPrevented()) { def.reject("default prevented"); return; }
+                var prev = self.currentMedia, hasMedia = prev instanceof _.Panel.Media;
+                var load = function(){
+                    if (!self.isActive()) { def.reject("panel destroyed"); return; }
                     self.currentMedia = media;
-                    self.panel.trigger("area-load", [self, media]);
+                    var e = self.panel.trigger("area-load", [self, media]);
+                    if (!self.isActive()) { def.reject("panel destroyed"); return; }
+                    if (e.isDefaultPrevented()) { def.reject("default prevented"); return; }
                     self.doLoad(media, reverseTransition).then(def.resolve).fail(def.reject);
+                };
+                if (hasMedia){
+                    self.panel.trigger("area-unload", [self, prev]);
+                    if (!self.isActive()) { def.reject("panel destroyed"); return; }
+                    var unloading = self.wait(function(){ return self.doUnload(prev, reverseTransition); }, function(){
+                        self.panel.trigger("area-unloaded", [self, prev]);
+                    });
+                    if (self.opt.waitForUnload) {
+                        unloading.then(load).fail(def.reject);
+                        return;
+                    }
                 }
-            }).then(function(){
+                load();
+            }); }, function(){
                 self.panel.trigger("area-loaded", [self, media]);
-            }).fail(function(){
+            }, function(){
                 self.panel.trigger("area-error", [self, media]);
-            }).promise();
+            });
         },
         doLoad: function(media, reverseTransition){
             return _fn.resolved;
@@ -154,23 +154,18 @@
         },
         close: function(immediate){
             var self = this;
+            if (!self.isActive()) return _fn.reject("panel destroyed");
             if (self.currentMedia instanceof _.Panel.Media){
                 var current = self.currentMedia;
-                if (!immediate){
-                    self.panel.trigger("area-unload", [self, current]);
-                    return self.doUnload(current, false).then(function() {
-                        self.panel.trigger("area-unloaded", [self, current]);
-                    }).always(function(){
-                        self.currentMedia = null;
-                    });
-                }
                 self.panel.trigger("area-unload", [self, current]);
-                self.doUnload(current, false).then(function(){
+                if (!self.isActive()) return _fn.reject("panel destroyed");
+                var unloading = self.wait(function(){ return self.doUnload(current, false); }, function(){
                     self.panel.trigger("area-unloaded", [self, current]);
-                });
+                }, null, function(){ self.currentMedia = null; });
+                if (!immediate) return unloading;
                 self.currentMedia = null;
             }
-            return _fn.resolved;
+            return self.isActive() ? _fn.resolved : _fn.reject("panel destroyed");
         },
         shouldReverseTransition: function( oldMedia, newMedia ){
             if (!(oldMedia instanceof _.Panel.Media) || !(newMedia instanceof _.Panel.Media)) return true;

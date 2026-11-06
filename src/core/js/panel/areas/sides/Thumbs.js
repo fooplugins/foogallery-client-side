@@ -209,7 +209,7 @@
             if (maxIndex < 0) maxIndex = 0;
             if (scrollIndex > maxIndex) scrollIndex = maxIndex;
 
-            return $.Deferred(function(def){
+            return self.panel.wait($.Deferred(function(def){
                 // find the thumb
                 var $thumb = self.$stage.find(self.sel.thumb.elem).eq(scrollIndex);
                 if ($thumb.length > 0){
@@ -245,11 +245,11 @@
                 } else {
                     def.resolve();
                 }
-            }).always(function(){
+            }), null, null, function(){
                 self.scrollIndex = scrollIndex;
                 self.disableButton(self.$prev, scrollIndex <= 0, states.disabled);
                 self.disableButton(self.$next, scrollIndex >= maxIndex, states.disabled);
-            }).promise();
+            });
         },
         disableButton: function( $button, state, cls ) {
             $button.toggleClass( cls, state )

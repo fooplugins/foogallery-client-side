@@ -35,7 +35,7 @@
 			self._wait = [];
 			self._layoutTimeout = null;
 			self.iobserver = new IntersectionObserver(function(entries){
-				if (!self.tmpl.destroying && !self.tmpl.destroyed){
+				if (self.tmpl && !self.tmpl.destroying && !self.tmpl.destroyed){
 					if ( self.LAYOUT_AFTER_LOAD ) clearTimeout(self._layoutTimeout);
 					entries.forEach(function(entry){
 						if (entry.isIntersecting){
@@ -47,9 +47,9 @@
 					});
 					if ( self.LAYOUT_AFTER_LOAD ){
 						self._layoutTimeout = setTimeout(function(){
-							if (self._wait.length > 0){
+							if (self.tmpl && self._wait.length > 0){
 								_fn.allSettled(self._wait.splice(0)).then(function(){
-									self.tmpl.layout();
+									if (self.tmpl && !self.tmpl.destroying && !self.tmpl.destroyed) self.tmpl.layout();
 								});
 							}
 						}, 100);
@@ -64,7 +64,13 @@
 			return value instanceof _.Item ? value.id : null;
 		},
 		destroy: function () {
-			var self = this, items = self.all(), destroyed = [];
+			var self = this;
+			if (self.isDestroying || self.isDestroyed) return;
+			self.isDestroying = true;
+			var items = self.all(), destroyed = [], owner = self.tmpl;
+			clearTimeout(self._layoutTimeout);
+			self._layoutTimeout = null;
+			self._wait.length = 0;
 			self.iobserver.disconnect();
 			if (items.length > 0) {
 				/**
@@ -83,9 +89,9 @@
 				 * 	}
 				 * });
 				 */
-				self.tmpl.trigger("destroy-items", [items]);
+				owner.trigger("destroy-items", [items]);
 				destroyed = $.map(items, function (item) {
-					return item.destroy() ? item : null;
+					return item.destroy(self) ? item : null;
 				});
 				/**
 				 * @summary Raised after the template has destroyed items.
@@ -103,7 +109,7 @@
 				 * 	}
 				 * });
 				 */
-				if (destroyed.length > 0) self.tmpl.trigger("destroyed-items", [destroyed]);
+				if (destroyed.length > 0) owner.trigger("destroyed-items", [destroyed]);
 				// should we handle a case where the destroyed.length != items.length??
 			}
 			self._fetched = null;
@@ -111,6 +117,7 @@
 			self._available = [];
 			self._unavailable = [];
 			self._observed.clear();
+			self.isDestroyed = true;
 			self._super();
 		},
 		fetch: function (refresh) {

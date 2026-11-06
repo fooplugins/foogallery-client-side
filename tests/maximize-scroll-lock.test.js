@@ -47,6 +47,7 @@ function createMaximizeHarness({
 		buttons: { press() {} },
 		trapFocus() {},
 		releaseFocus() {},
+		isActive() { return true; },
 		isMaximized: false,
 		isInline: false,
 	};
@@ -155,3 +156,29 @@ test('default scrollbar mode does not alter page scroll styles', () => {
 		dom.window.close();
 	}
 });
+
+
+for (const order of [[0, 1], [1, 0]]) {
+    test('overlapping native panels restore page state in release order ' + order.join(','), () => {
+        const { dom, maximize, panel, restoredScrollPositions, window } = createMaximizeHarness({ pageHeight: 12000, scrollY: 5000 });
+        try {
+            const secondPanel = Object.assign({}, panel, { $el: window.jQuery('<div/>').appendTo('body'), isMaximized: false });
+            const second = Object.assign({}, maximize, { panel: secondPanel });
+            second.construct(secondPanel);
+            maximize.enter(); second.enter();
+            const owners = [maximize, second];
+            owners[order[0]].exit();
+            assert.equal(window.document.body.style.position, 'fixed');
+            assert.deepEqual(restoredScrollPositions, []);
+            owners[order[1]].exit();
+            assert.equal(window.document.body.style.position, 'relative');
+            assert.equal(window.document.body.style.width, '80%');
+            assert.equal(window.document.documentElement.style.minHeight, '12px');
+            assert.equal(window.document.documentElement.classList.contains('fg-panel-no-scroll'), false);
+            assert.deepEqual(restoredScrollPositions, [[0, 5000]]);
+            const event = new window.Event('wheel', { bubbles: true, cancelable: true });
+            window.document.body.dispatchEvent(event);
+            assert.equal(event.defaultPrevented, false);
+        } finally { dom.window.close(); }
+    });
+}

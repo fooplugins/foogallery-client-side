@@ -41,14 +41,16 @@
         doLoad: function(media, reverseTransition){
             if (this.canLoad(media)){
                 media.caption.appendTo(this.$inner);
-                media.caption.load();
+                if (!this.isActive()) return _fn.reject("panel destroyed");
+                if (media.caption.isAttached) media.caption.load();
             }
-            return _fn.resolved;
+            return this.isActive() ? _fn.resolved : _fn.reject("panel destroyed");
         },
         doUnload: function(media, reverseTransition){
             media.caption.unload();
+            if (!this.isActive()) return _fn.reject("panel destroyed");
             media.caption.detach();
-            return _fn.resolved;
+            return this.isActive() ? _fn.resolved : _fn.reject("panel destroyed");
         }
     });
 

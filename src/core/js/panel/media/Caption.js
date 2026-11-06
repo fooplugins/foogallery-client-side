@@ -54,16 +54,18 @@
             self.hasExif = item.hasExif && _utils.inArray(self.opt.exif, ["auto","full","partial","minimal"]) !== -1;
         },
         create: function(){
-            if (!this.isCreated){
+            if (this.isActive() && !this.isCreated){
                 var e = this.panel.trigger("caption-create", [this]);
+                if (!this.isActive()) return false;
                 if (!e.isDefaultPrevented()){
-                    this.isCreated = this.doCreate();
+                    var created = this.doCreate();
+                    this.isCreated = this.isActive() && created;
                     if (this.isCreated){
                         this.panel.trigger("caption-created", [this]);
                     }
                 }
             }
-            return this.isCreated;
+            return this.isActive() && this.isCreated;
         },
         doCreate: function(){
             var self = this;
@@ -129,20 +131,17 @@
                 $this.addClass(self.cls.exif.showTooltip);
             }
         },
+        isActive: function(){
+            return !this.isDestroying && !this.isDestroyed && this.media.isActive();
+        },
+        wait: function(promise, done, fail, always){
+            return this.panel.wait(promise, done, fail, always, this);
+        },
         destroy: function(){
-            if (this.isCreated){
-                var e = this.panel.trigger("caption-destroy", [this]);
-                if (!e.isDefaultPrevented()){
-                    this.isCreated = !this.doDestroy();
-                    if (!this.isCreated){
-                        this.panel.trigger("caption-destroyed", [this]);
-                    }
-                }
-            }
-            return !this.isCreated;
+            return this.panel.destroyChild(this, "caption", this.media);
         },
         doDestroy: function(){
-            this.$el.remove();
+            if (this.$el) this.$el.remove();
             return true;
         },
         appendTo: function( parent ){
@@ -150,16 +149,18 @@
             if (!self.isCreated){
                 self.create();
             }
-            if (self.isCreated && !self.isAttached){
+            if (self.isActive() && self.isCreated && !self.isAttached){
                 var e = self.panel.trigger("caption-append", [self, parent]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
-                    self.isAttached = self.doAppendTo( parent );
+                    var attached = self.doAppendTo( parent );
+                    self.isAttached = self.isActive() && attached;
                 }
                 if (self.isAttached) {
                     self.panel.trigger("caption-appended", [self, parent]);
                 }
             }
-            return self.isAttached;
+            return self.isActive() && self.isAttached;
         },
         doAppendTo: function( parent ){
             this.$el.appendTo( parent );
@@ -169,6 +170,7 @@
             var self = this;
             if (self.isCreated && self.isAttached) {
                 var e = self.panel.trigger("caption-detach", [self]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
                     self.isAttached = !self.doDetach();
                 }
@@ -184,43 +186,47 @@
         },
         load: function(){
             var self = this, states = self.panel.cls.states;
-            return $.Deferred(function(def){
+            if (!self.isActive()) return _fn.reject("panel destroyed");
+            return self.wait(function(){ return $.Deferred(function(def){
                 var e = self.panel.trigger("caption-load", [self]);
+                if (!self.isActive()) { def.reject("panel destroyed"); return; }
                 if (e.isDefaultPrevented()){
                     def.rejectWith("default prevented");
                     return;
                 }
                 self.$el.removeClass(states.allLoading).addClass(states.loading);
                 self.doLoad().then(def.resolve).fail(def.reject);
-            }).always(function(){
-                self.$el.removeClass(states.loading);
-            }).then(function(){
+            }); }, function(){
                 self.$el.addClass(states.loaded);
                 self.panel.trigger("caption-loaded", [self]);
-            }).fail(function(){
+            }, function(){
                 self.$el.addClass(states.loaded);
                 self.panel.trigger("caption-error", [self]);
-            }).promise();
+            }, function(){
+                self.$el.removeClass(states.loading);
+            });
         },
         doLoad: function(){
             return _fn.resolved;
         },
         unload: function(){
             var self = this;
-            return $.Deferred(function(def){
+            if (!self.isActive()) return _fn.reject("panel destroyed");
+            return self.wait(function(){ return $.Deferred(function(def){
                 if (!self.isCreated || !self.isAttached){
                     def.rejectWith("not created or attached");
                     return;
                 }
                 var e = self.panel.trigger("caption-unload", [self]);
+                if (!self.isActive()) { def.reject("panel destroyed"); return; }
                 if (e.isDefaultPrevented()){
                     def.rejectWith("default prevented");
                     return;
                 }
                 self.doUnload().then(def.resolve).fail(def.reject);
-            }).then(function(){
+            }); }, function(){
                 self.panel.trigger("caption-unloaded", [self]);
-            }).promise();
+            });
         },
         doUnload: function(){
             return _fn.resolved;

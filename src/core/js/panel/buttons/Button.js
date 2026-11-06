@@ -36,7 +36,7 @@
         },
         create: function(){
             var self = this;
-            if (!self.isCreated){
+            if (self.panel.isActive() && !self.isCreated){
                 self.$el = $('<button/>', {
                     type: 'button',
                     "aria-label": self.opt.label,
@@ -52,6 +52,7 @@
                 } else if (_is.fn(self.opt.icon)){
                     self.$el.append(self.opt.icon.call(this));
                 }
+                if (!self.panel.isActive()) return false;
                 self.isCreated = true;
                 var enabled = self.isEnabled();
                 self.toggle(enabled);
@@ -61,17 +62,18 @@
             return self.isCreated;
         },
         destroy: function(){
-            if (this.isCreated){
+            if (this.$el){
                 this.$el.off("click.foogallery").remove();
                 this.isCreated = false;
             }
+            this.isAttached = false;
             return !this.isCreated;
         },
         appendTo: function(parent){
             if ( this.isAttached ) {
                 this.detach();
             }
-            if ((this.isCreated || this.create()) && !this.isAttached){
+            if (this.panel.isActive() && (this.isCreated || this.create()) && this.panel.isActive() && !this.isAttached){
                 this.$el.appendTo(parent);
                 this.isAttached = true;
             }
@@ -81,7 +83,7 @@
             if ( this.isAttached ) {
                 this.detach();
             }
-            if ((this.isCreated || this.create()) && !this.isAttached){
+            if (this.panel.isActive() && (this.isCreated || this.create()) && this.panel.isActive() && !this.isAttached){
                 this.$el.prependTo(parent);
                 this.isAttached = true;
             }

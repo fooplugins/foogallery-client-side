@@ -54,6 +54,7 @@ function loadContentDefinition( transitionStart ) {
 	};
 	FooGallery.Panel.Area = {
 		extend: function ( definition ) {
+			definition.panel = { isActive: function () { return true; } };
 			return definition;
 		}
 	};
@@ -221,3 +222,14 @@ test( 'panel content transition uses the legacy helper when getAnimations is una
 	assert.deepEqual( call, [ wrapper, trigger, null, 350 ] );
 	assert.equal( await result, 'legacy-complete' );
 } );
+
+
+test( 'destroying a panel before a queued transition frame cancels its mutation', async function () {
+    const loaded = loadContentDefinition();
+    let triggered = false;
+    const promise = loaded.Content.doTransition(elementWrapper({ getAnimations: function () { return []; } }), function () { triggered = true; });
+    loaded.Content.panel.isActive = function () { return false; };
+    loaded.runNextFrame();
+    await assert.rejects(promise, function (reason) { return reason === 'panel destroyed'; });
+    assert.equal(triggered, false);
+});

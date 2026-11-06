@@ -498,28 +498,23 @@
 		 * @fires FooGallery.Template~"destroy.foogallery"
 		 */
 		destroy: function (preserveState) {
-			var self = this, _super = self._super.bind(self);
-            if (self.destroyed) return _fn.resolved;
+            var self = this, _super = self._super.bind(self);
+            if (self.destroying || self.destroyed) return self._destroy || _fn.resolved;
             self.destroying = true;
-            return $.Deferred(function (def) {
-                if (self.initializing && _is.promise(self._initialize)) {
-                    self._initialize.always(function () {
-                        self.destroying = false;
-                        self.doDestroy(preserveState);
-                        def.resolve();
-                    });
-                } else {
-                    self.destroying = false;
-                    self.doDestroy(preserveState);
-                    def.resolve();
-                }
-            }).then(function(){
-            	_super();
-			}).promise();
-		},
+            var def = $.Deferred();
+            self._destroy = def.then(function(){ _super(); }).promise();
+            var finish = function(){
+                self.doDestroy(preserveState);
+                def.resolve();
+            };
+            if (self.initializing && _is.promise(self._initialize)) self._initialize.always(finish);
+            else finish();
+            return self._destroy;
+        },
         doDestroy: function(preserveState){
 		    var self = this;
-            if (self.destroyed) return;
+            if (self.destroyed || self._tearingDown) return;
+            self._tearingDown = self.destroying = true;
             /**
              * @summary Raised before the template is destroyed.
              * @event FooGallery.Template~"destroy.foogallery"
@@ -580,6 +575,7 @@
             }
             self.$el = self.state = self.items = self.pages = null;
             self.destroyed = true;
+            self.destroying = false;
             self.initializing = false;
             self.initialized = false;
         },

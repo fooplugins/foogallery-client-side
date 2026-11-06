@@ -116,7 +116,7 @@
             }).concat(["fg-landscape","fg-portrait"]).join(" ");
 
             self.robserver = new ResizeObserver(_fn.throttle(function (entries) {
-                if (!self.destroying && !self.destroyed){
+                if (self.isActive()){
                     entries.forEach(function (entry) {
                         if (entry.target === self.el){
                             var size = _utils.getResizeObserverSize(entry);
@@ -130,14 +130,20 @@
 
             self.__loading = null;
 
+            self.__pending = [];
+
             if (!(self.tmpl.destroying || self.tmpl.destroyed)){
                 self.tmpl.on({
-                    "after-filter-change": self.onItemsChanged
+                    "after-filter-change": self.onItemsChanged,
+                    "destroy": self.onDestroyTemplate
                 }, self);
             }
         },
         isVisible: function(item){
             return item instanceof _.Item && !item.noLightbox && !item.panelHide;
+        },
+        onDestroyTemplate: function(){
+            this.destroy(true);
         },
         onItemsChanged: function(e){
             var self = this;
@@ -148,16 +154,19 @@
         },
         create: function(){
             var self = this;
+            if (!self.isActive()) return false;
             if (!self.isCreated) {
                 var e = self.trigger("create");
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
-                    self.isCreated = self.doCreate();
+                    var created = self.doCreate();
+                    self.isCreated = self.isActive() && created;
                 }
                 if (self.isCreated) {
                     self.trigger("created");
                 }
             }
-            return self.isCreated;
+            return self.isActive() && self.isCreated;
         },
         doCreate: function(){
             var self = this;
@@ -174,7 +183,7 @@
             }
             self.buttons.appendTo( self.$el );
             self.areas.forEach(function(area){
-                area.appendTo( self.$el );
+                if (self.isActive()) area.appendTo( self.$el );
             });
             return true;
         },
@@ -207,63 +216,108 @@
             ];
             return $('<div/>').addClass(classes.join(" "));
         },
-        destroy: function () {
-            var self = this, _super = self._super.bind(self);
-            if (self.isDestroyed) return _fn.resolved;
-            self.isDestroying = true;
-            return $.Deferred(function (def) {
-                if (self.isLoading && _is.promise(self.__loading)) {
-                    self.__loading.always(function () {
-                        var e = self.trigger("destroy");
-                        self.isDestroying = false;
-                        if (!e.isDefaultPrevented()) {
-                            self.isDestroyed = self.doDestroy();
-                        }
-                        if (self.isDestroyed) {
-                            self.trigger("destroyed");
-                        }
-                        def.resolve();
-                    });
-                } else {
-                    var e = self.trigger("destroy");
-                    self.isDestroying = false;
-                    if (!e.isDefaultPrevented()) {
-                        self.isDestroyed = self.doDestroy();
-                    }
-                    if (self.isDestroyed) {
-                        self.trigger("destroyed");
-                    }
-                    def.resolve();
-                }
+        // A panel owns its async continuations, not the template's item collection.
+        // Reject pending callers on destruction even if a media request never ends.
+        isActive: function(){
+            return !this.isDestroying && !this.isDestroyed && !!this.tmpl && !this.tmpl.destroying && !this.tmpl.destroyed;
+        },
+        wait: function(promise, done, fail, always, owner){
+            var self = this, def = $.Deferred();
+            owner = owner || self;
+            var active = function(){ return self.isActive() && owner.isActive(); };
+            if (!active()) return def.reject("panel destroyed").promise();
+            // Register before invoking a factory: native events and Deferred fail
+            // handlers may synchronously destroy either owner during that work.
+            var pending = owner.__pending || (owner.__pending = []);
+            pending.push(def);
+            def.always(function(){
+                var index = pending.indexOf(def);
+                if (index !== -1) pending.splice(index, 1);
+            });
+            $.when(_is.fn(promise) ? promise() : promise).always(function(){
+                if (active() && _is.fn(always)) always.apply(this, arguments);
             }).then(function(){
-                _super();
-            }).promise();
+                if (!active()) return _fn.reject("panel destroyed");
+                var result = _is.fn(done) ? done.apply(this, arguments) : arguments[0];
+                return active() ? result : _fn.reject("panel destroyed");
+            }).fail(function(){
+                if (active() && _is.fn(fail)) fail.apply(this, arguments);
+            }).then(def.resolve, def.reject);
+            return def.promise();
+        },
+        cancelPending: function(owner){
+            (owner.__pending || []).slice().forEach(function(def){ def.reject("panel destroyed"); });
+        },
+        // Cancellation is valid only while the immediate owner is live. Nested
+        // resources must also be released when that owner commits teardown.
+        destroyChild: function(child, name, owner){
+            owner = owner || this;
+            if (child.isDestroying || child.isDestroyed) return !child.isCreated;
+            child.isDestroying = true;
+            var e = this.trigger(name + "-destroy", [child]);
+            if (e.isDefaultPrevented() && owner.isActive()) {
+                child.isDestroying = false;
+                return !child.isCreated;
+            }
+            this.cancelPending(child);
+            child.doDestroy();
+            child.isCreated = child.isAttached = child.isLoading = false;
+            child.isDestroyed = true;
+            this.trigger(name + "-destroyed", [child]);
+            return true;
+        },
+        destroy: function (force) {
+            var self = this;
+            if (self.isDestroying || self.isDestroyed) return _fn.resolved;
+            // Guard before external destroy listeners and synchronous rejection
+            // handlers, while allowing a live owner's normal cancellation.
+            self.isDestroying = true;
+            var e = self.trigger("destroy");
+            if (e.isDefaultPrevented() && force !== true && self.tmpl && !self.tmpl.destroying && !self.tmpl.destroyed) {
+                self.isDestroying = false;
+                return _fn.resolved;
+            }
+            self.cancelPending(self);
+            self.isLoading = self.isClosing = self.isLoaded = self.isError = false;
+            self.__loading = null;
+            self.isDestroyed = self.doDestroy();
+            self.isCreated = self.isAttached = false;
+            if (self.isDestroyed) self.trigger("destroyed");
+            self._super();
+            return _fn.resolved;
         },
         doDestroy: function(){
             var self = this;
+            self.tmpl.off("destroy", self.onDestroyTemplate, self);
+            self.tmpl.off("after-filter-change", self.onItemsChanged, self);
+            self.buttons.close();
             self.buttons.destroy();
-            self.areas.reverse();
-            self.areas.forEach(function (area) {
+            self.areas.slice().reverse().forEach(function (area) {
                 area.destroy();
             });
-            self.detach();
-            if (self.isCreated){
-                self.$el.remove();
-            }
+            Object.keys(self.__media).forEach(function(id){ self.__media[id].destroy(); });
+            self.__media = {};
+            self.currentItem = self.prevItem = self.nextItem = null;
+            self.robserver.disconnect();
+            self.detach(true);
+            if (self.$el) self.$el.remove();
             return true;
         },
         appendTo: function( parent ){
             var self = this;
-            if ((self.isCreated || self.create()) && !self.isAttached){
+            if (!self.isActive()) return false;
+            if ((self.isCreated || self.create()) && self.isActive() && !self.isAttached){
                 var e = self.trigger("append", [parent]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
-                    self.isAttached = self.doAppendTo( parent );
+                    var attached = self.doAppendTo( parent );
+                    self.isAttached = self.isActive() && attached;
                 }
                 if (self.isAttached) {
                     self.trigger("appended", [parent]);
                 }
             }
-            return self.isAttached;
+            return self.isActive() && self.isAttached;
         },
         doAppendTo: function( parent ){
             var self = this, $parent = $( parent ), maximize = self.buttons.get("maximize");
@@ -271,6 +325,7 @@
             self.$el.appendTo( $parent );
 
             maximize.set(!self.isInline, self.isInline && maximize.isEnabled());
+            if (!self.isActive()) return false;
 
             self.robserver.observe(self.el);
 
@@ -279,11 +334,12 @@
             });
             return self.el.parentNode !== null;
         },
-        detach: function(){
+        detach: function(force){
             var self = this;
             if (self.isCreated && self.isAttached) {
                 var e = self.trigger("detach");
-                if (!e.isDefaultPrevented()) {
+                if (force !== true && !self.isActive()) return true;
+                if (force === true || !e.isDefaultPrevented()) {
                     self.isAttached = !self.doDetach();
                 }
                 if (!self.isAttached) {
@@ -337,12 +393,13 @@
             return result.length > 0 ? result.join(" ") : null;
         },
         getMedia: function(item){
-            if (!(item instanceof _.Item)) return null;
+            if (!this.isActive() || !(item instanceof _.Item)) return null;
             if (this.__media.hasOwnProperty(item.id)) return this.__media[item.id];
             return this.__media[item.id] = _.Panel.media.make(item.type, this, item);
         },
         getItem: function(item){
             var self = this, result = item;
+            if (!self.isActive()) return null;
             if (!(result instanceof _.Item)) result = self.currentItem;
             if (!(result instanceof _.Item)) result = self.tmpl.items.first(self.isVisible);
             if (item instanceof _.Item && !self.isVisible(item)){
@@ -355,6 +412,7 @@
         },
         load: function( item ){
             var self = this;
+            if (!self.isActive()) return _fn.reject("panel destroyed");
 
             item = self.getItem(item);
 
@@ -365,7 +423,7 @@
             self.isLoaded = false;
             self.isError = false;
 
-            return self.__loading = $.Deferred(function(def){
+            var loading = self.wait(function(){ return $.Deferred(function(def){
                 if (!self.isCreated || !self.isAttached){
                     def.rejectWith("not created or attached");
                     return;
@@ -376,6 +434,7 @@
                     return;
                 }
                 var e = self.trigger("load", [media, item]);
+                if (!self.isActive()) { def.reject("panel destroyed"); return; }
                 if (e.isDefaultPrevented()){
                     def.rejectWith("default prevented");
                     return;
@@ -385,16 +444,18 @@
                 self.nextItem = self.tmpl.items.next(item, self.isVisible, self.opt.loop);
                 self.updateBackgroundColor(item);
                 self.doLoad(media).then(def.resolve).fail(def.reject);
-            }).always(function(){
-                self.isLoading = false;
-            }).then(function(){
+            }); }, function(){
                 self.isLoaded = true;
                 self.trigger("loaded", [item]);
-                item.updateState();
-            }).fail(function(){
+                if (self.isActive()) item.updateState();
+            }, function(){
                 self.isError = true;
                 self.trigger("error", [item]);
-            }).promise();
+            }, function(){
+                self.isLoading = false;
+            });
+            if (self.isActive()) self.__loading = loading;
+            return loading;
         },
         updateBackgroundColor: function( item ){
             var self = this, color = "";
@@ -415,19 +476,23 @@
         doLoad: function( media ){
             var self = this, wait = [];
             self.buttons.beforeLoad(media);
+            if (!self.isActive()) return _fn.reject("panel destroyed");
             self.areas.forEach(function (area) {
-                wait.push(area.load(media));
+                if (self.isActive()) wait.push(area.load(media));
             });
-            return $.when.apply($, wait).then(function(){
+            if (!self.isActive()) return _fn.reject("panel destroyed");
+            return self.wait($.when.apply($, wait), function(){
                 self.buttons.afterLoad(media);
-            }).promise();
+            });
         },
         open: function( item, parent ){
             var self = this;
+            if (!self.isActive()) return _fn.reject("panel destroyed");
             item = self.getItem(item);
             var e = self.trigger("open", [item, parent]);
+            if (!self.isActive()) return _fn.reject("panel destroyed");
             if (e.isDefaultPrevented()) return _fn.reject("default prevented");
-            return self.doOpen(item, parent).then(function(){
+            return self.wait(function(){ return self.doOpen(item, parent); }, function(){
                 self.trigger("opened", [item, parent]);
             });
         },
@@ -450,11 +515,13 @@
             }).promise();
         },
         next: function(){
+            if (!this.isActive()) return _fn.reject("panel destroyed");
             var self = this, current = self.currentItem, next = self.nextItem;
             if (!(next instanceof _.Item)) return _fn.reject("no next item");
             var e = self.trigger("next", [current, next]);
+            if (!self.isActive()) return _fn.reject("panel destroyed");
             if (e.isDefaultPrevented()) return _fn.reject("default prevented");
-            return self.doNext(next).then(function(){
+            return self.wait(function(){ return self.doNext(next); }, function(){
                 self.trigger("after-next", [current, next]);
             });
         },
@@ -462,11 +529,13 @@
             return this.load( item );
         },
         prev: function(){
+            if (!this.isActive()) return _fn.reject("panel destroyed");
             var self = this, current = self.currentItem, prev = self.prevItem;
             if (!(prev instanceof _.Item)) return _fn.reject("no prev item");
             var e = self.trigger("prev", [current, prev]);
+            if (!self.isActive()) return _fn.reject("panel destroyed");
             if (e.isDefaultPrevented()) return _fn.reject("default prevented");
-            return self.doPrev(prev).then(function(){
+            return self.wait(function(){ return self.doPrev(prev); }, function(){
                 self.trigger("after-prev", [current, prev]);
             });
         },
@@ -475,10 +544,12 @@
         },
         close: function(immediate){
             var self = this;
+            if (!self.isActive()) return _fn.reject("panel destroyed");
             if ( self.isClosing ) return $.Deferred().reject();
             var e = self.trigger("close", [self.currentItem]);
+            if (!self.isActive()) return _fn.reject("panel destroyed");
             if (e.isDefaultPrevented()) return _fn.reject("default prevented");
-            return self.doClose(immediate).then(function(){
+            return self.wait(function(){ return self.doClose(immediate); }, function(){
                 self.trigger("closed");
             });
         },
@@ -486,7 +557,7 @@
             detach = _is.boolean(detach) ? detach : true;
             var self = this;
             self.isClosing = true;
-            return $.Deferred(function(def){
+            return self.wait(function(){ return $.Deferred(function(def){
                 var closeArea = function(area){
                     try {
                         return area.close(immediate);
@@ -494,7 +565,7 @@
                         return _fn.reject(err);
                     }
                 };
-                $.when(closeArea(self.content)).always(function(){
+                self.wait($.when(closeArea(self.content)), null, null, function(){
                     var wait = [];
                     self.areas.forEach(function(area){
                         if (area !== self.content){
@@ -505,16 +576,17 @@
                         def.resolve();
                     });
                 });
-            }).always(function(){
+            }); }, null, null, function(){
                 self.isClosing = false;
                 self.currentItem = null;
                 if (self.opt.adjustBackgroundColor && self.el){
                     self.el.style.removeProperty("--fg-dominant-color");
                 }
                 self.buttons.close();
+                if (!self.isActive()) return;
                 if (detach) self.detach();
-                self.tmpl.state.clear();
-            }).promise();
+                if (self.isActive()) self.tmpl.state.clear();
+            });
         },
         trapFocus: function(){
             if (!this.isCreated) return;

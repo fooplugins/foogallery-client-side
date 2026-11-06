@@ -1,6 +1,7 @@
 (function($, _, _is){
 
     var root = document.documentElement;
+    var scrollLocks = [];
     // Skip scroll locking when its fixed full-page layout could exhaust mobile paint memory.
     var maximumScrollLockViewports = 50;
     var scrollKeys = {
@@ -85,10 +86,11 @@
                 bodyRight: body.style.right,
                 bodyWidth: body.style.width,
                 preventScroll: function(event){
-                    if (!hasScrollableAncestor(event.target, panel)) event.preventDefault();
+                    if (scrollLocks[scrollLocks.length - 1] === state && !hasScrollableAncestor(event.target, panel)) event.preventDefault();
                 },
                 preventKey: function(event){
                     if (
+                        scrollLocks[scrollLocks.length - 1] === state &&
                         scrollKeys[event.key] &&
                         !isEditable(event.target) &&
                         !hasScrollableAncestor(event.target, panel)
@@ -98,6 +100,15 @@
                 }
             };
 
+            // All owners restore the same original page state, regardless of
+            // which responsive template/panel is destroyed first.
+            if (scrollLocks.length) {
+                var original = scrollLocks[0];
+                Object.keys(state).forEach(function(key){
+                    if (typeof state[key] !== "function") state[key] = original[key];
+                });
+            }
+            scrollLocks.push(state);
             root.classList.add(this.panel.cls.noScrollbars);
             root.style.minHeight = pageHeight + "px";
             body.style.position = "fixed";
@@ -118,6 +129,10 @@
             document.removeEventListener("touchmove", state.preventScroll, {capture: true});
             document.removeEventListener("keydown", state.preventKey, true);
 
+            var index = scrollLocks.indexOf(state);
+            if (index !== -1) scrollLocks.splice(index, 1);
+            this._scrollState = null;
+            if (scrollLocks.length) return;
             root.classList.remove(this.panel.cls.noScrollbars);
             root.style.minHeight = state.rootMinHeight;
             body.style.position = state.bodyPosition;
@@ -137,6 +152,7 @@
                 'role': 'dialog',
                 'aria-modal': true
             }).trigger('focus');
+            if (!this.panel.isActive()) return;
             this.panel.buttons.press('maximize', true);
             this.panel.trapFocus();
             if (this.panel.opt.noScrollbars){

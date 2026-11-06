@@ -467,8 +467,12 @@
 		 * @memberof FooGallery.Item#
 		 * @function destroy
 		 */
-		destroy: function () {
+		destroy: function (collection) {
 			var self = this;
+			if (self.isDestroying || self.isDestroyed) return self.isDestroyed;
+			self.isDestroying = true;
+			var owner = self.tmpl;
+			collection = collection || owner.items;
 			/**
 			 * @summary Raised when a template destroys an item.
 			 * @event FooGallery.Template~"destroy-item.foogallery"
@@ -512,11 +516,12 @@
 			 * 	}
 			 * });
 			 */
-			var e = self.tmpl.trigger("destroy-item", [self]);
-			if (!e.isDefaultPrevented()) {
-				self.isDestroyed = self.doDestroyItem();
+			var e = owner.trigger("destroy-item", [self]);
+			if (!self.isDestroyed && (!e.isDefaultPrevented() || owner.destroying || owner.destroyed)) {
+				self.isDestroyed = self.doDestroyItem(collection);
 			}
 			if (self.isDestroyed) {
+				self.isCreated = self.isAttached = self.isLoading = false;
 				/**
 				 * @summary Raised after an item has been destroyed.
 				 * @event FooGallery.Template~"destroyed-item.foogallery"
@@ -533,10 +538,11 @@
 					 * 	}
 					 * });
 				 */
-				self.tmpl.trigger("destroyed-item", [self]);
+				owner.trigger("destroyed-item", [self]);
 				// call the original method that simply nulls the tmpl property
 				self._super();
 			}
+			if (!self.isDestroyed) self.isDestroying = false;
 			return self.isDestroyed;
 		},
 		/**
@@ -545,15 +551,17 @@
 		 * @function doDestroyItem
 		 * @returns {boolean}
 		 */
-		doDestroyItem: function () {
+		doDestroyItem: function (collection) {
 			var self = this;
+			collection = collection || self.tmpl.items;
+			if (self._cancelLoadIMG) self._cancelLoadIMG();
 			if (self.isParsed) {
 				self.$anchor.add(self.$caption).off("click.foogallery");
 				if (self._undo.captionExists) self.$caption.html(self._undo.captionHTML);
 				else self.$caption.remove();
 				self.append();
 
-				self.tmpl.items.unobserve(self);
+				collection.unobserve(self);
 
 				if (_is.empty(self._undo.classes)) self.$el.removeAttr("class");
 				else self.$el.attr("class", self._undo.classes);
@@ -1281,6 +1289,7 @@
 		 */
 		load: function () {
 			var self = this;
+			if (self.isDestroyed || !self.tmpl) return _fn.reject("item destroyed");
 			if (_is.promise(self._load)) return self._load;
 			return self._load = $.Deferred(function (def) {
 				if (self.isLoaded){
@@ -1303,12 +1312,14 @@
 					.addClass(self.cls.loading);
 
 				self.loadIMG().then(function(){
+					if (self.isDestroyed || !self.tmpl) { def.reject("item destroyed"); return; }
 					self.isLoading = false;
 					self.isLoaded = true;
 					self.$el.removeClass(self.cls.loading).addClass(self.cls.loaded);
 					self.tmpl.trigger("loaded-item", [self]);
 					def.resolve(self);
 				}, function(reason){
+					if (self.isDestroyed || !self.tmpl) { def.reject("item destroyed"); return; }
 					self.isLoading = false;
 					self.isError = true;
 					self.$el.removeClass(self.cls.loading).addClass(self.cls.error);
@@ -1332,12 +1343,20 @@
 					return def.reject("Unable to find img element.");
 				}
 				var ph_src = img.src, ph_srcset = img.srcset;
+                self._cancelLoadIMG = function(){
+                    img.onload = img.onerror = null;
+                    self._cancelLoadIMG = null;
+                    self.isLoading = false;
+                    def.reject("item destroyed");
+                };
 				img.onload = function () {
 					img.onload = img.onerror = null;
+                    self._cancelLoadIMG = null;
 					def.resolve(img);
 				};
 				img.onerror = function () {
 					img.onload = img.onerror = null;
+                    self._cancelLoadIMG = null;
 					if (!_is.empty(ph_src)) {
 						img.src = ph_src;
 					} else {

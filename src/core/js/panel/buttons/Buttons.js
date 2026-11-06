@@ -113,47 +113,44 @@
             button.press( pressed );
         },
 
+        isActive: function(){
+            return !this.isDestroying && !this.isDestroyed && this.panel.isActive();
+        },
+        wait: function(promise, done, fail, always){
+            return this.panel.wait(promise, done, fail, always, this);
+        },
         destroy: function(){
-            var self = this;
-            var e = self.panel.trigger("buttons-destroy", [self]);
-            if (!e.isDefaultPrevented()) {
-                self.isCreated = !self.doDestroy();
-            }
-            if (!self.isCreated) {
-                self.panel.trigger("buttons-destroyed", [self]);
-            }
-            return !self.isCreated;
+            return this.panel.destroyChild(this, "buttons");
         },
         doDestroy: function(){
             var self = this;
             self.each(function(button){
                 button.destroy();
             });
-            if (self.isCreated){
-                self.detach();
-                self.$el.remove();
-            }
+            if (self.$el) self.$el.remove();
             return true;
         },
         create: function(){
             var self = this;
-            if (!self.isCreated) {
+            if (self.isActive() && !self.isCreated) {
                 var e = self.panel.trigger("buttons-create", [self]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
-                    self.isCreated = self.doCreate();
+                    var created = self.doCreate();
+                    self.isCreated = self.isActive() && created;
                 }
                 if (self.isCreated) {
                     self.panel.trigger("buttons-created", [self]);
                 }
             }
-            return self.isCreated;
+            return self.isActive() && self.isCreated;
         },
         doCreate: function(){
             var self = this;
             self.$el = $('<div/>').addClass(self.cls.container);
 
             self.each(function(button){
-                button.appendTo(self.$el);
+                if (self.isActive()) button.appendTo(self.$el);
             }, true);
 
             return true;
@@ -163,16 +160,18 @@
             if (!self.isCreated){
                 self.create();
             }
-            if (self.isCreated && !self.isAttached){
+            if (self.isActive() && self.isCreated && !self.isAttached){
                 var e = self.panel.trigger("buttons-append", [self, parent]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
-                    self.isAttached = self.doAppendTo( parent );
+                    var attached = self.doAppendTo( parent );
+                    self.isAttached = self.isActive() && attached;
                 }
                 if (self.isAttached) {
                     self.panel.trigger("buttons-appended", [self, parent]);
                 }
             }
-            return self.isAttached;
+            return self.isActive() && self.isAttached;
         },
         doAppendTo: function( parent ){
             this.$el.appendTo( parent );
@@ -182,6 +181,7 @@
             var self = this;
             if (self.isCreated && self.isAttached) {
                 var e = self.panel.trigger("buttons-detach", [self]);
+                if (!self.isActive()) return false;
                 if (!e.isDefaultPrevented()) {
                     self.isAttached = !self.doDetach();
                 }
@@ -198,13 +198,13 @@
 
         beforeLoad: function(media){
             this.each(function(button){
-                button.beforeLoad(media);
+                if (this.panel.isActive()) button.beforeLoad(media);
             });
         },
 
         afterLoad: function(media){
             this.each(function(button){
-                button.afterLoad(media);
+                if (this.panel.isActive()) button.afterLoad(media);
             });
         },
 
