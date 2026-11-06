@@ -37,6 +37,18 @@ function assertValidLayout( result, width ) {
 	} );
 }
 
+/** Every cell origin, and the bottom of every column, must be covered by a tile. */
+function assertFilled( result, width ) {
+	const covered = ( x, y ) => result.tiles.some( tile => x >= tile.x && x <= tile.x + tile.width && y >= tile.y && y <= tile.y + tile.height );
+	const xs = [ ...new Set( result.tiles.map( tile => tile.x ) ) ];
+	const ys = [ ...new Set( result.tiles.map( tile => tile.y ) ) ];
+	xs.forEach( x => {
+		ys.forEach( y => assert.ok( covered( x + 1, y + 1 ), `hole at ${ x },${ y }` ) );
+		assert.ok( covered( x + 1, result.height - 1 ), `ragged column at ${ x }` );
+	} );
+	assert.ok( xs.every( x => x < width ) );
+}
+
 test( 'Mosaic geometry is deterministic, bounded and overlap-free', () => {
 	const layout = createGeometry();
 	for ( const width of [ 180, 520, 768, 1200 ] ) {
@@ -88,7 +100,7 @@ test( 'Mosaic uses generated dimensions instead of stale ratio hints', () => {
 	assert.ok( result.tiles[ 1 ].width > result.tiles[ 1 ].height );
 } );
 
-test( 'Mosaic derives normal and prominent slots from median dimensions', () => {
+test( 'Mosaic derives normal slots from median dimensions', () => {
 	const layout = createGeometry();
 	const result = layout( [
 		{ width: 1200, height: 800 },
@@ -98,14 +110,38 @@ test( 'Mosaic derives normal and prominent slots from median dimensions', () => 
 	], { width: 1200, gap: 0, automatic: false } );
 	const landscape = result.tiles[ 0 ];
 	const portrait = result.tiles[ 1 ];
-	const largeLandscape = result.tiles[ 2 ];
-	const largePortrait = result.tiles[ 3 ];
 	assert.ok( Math.abs( portrait.width - landscape.width ) < 0.001 );
 	assert.ok( Math.abs( portrait.height - landscape.height * 2 ) < 0.001 );
-	assert.ok( Math.abs( largeLandscape.width - landscape.width * 2 ) < 0.001 );
-	assert.ok( Math.abs( largeLandscape.height - landscape.height * 2 ) < 0.001 );
-	assert.ok( Math.abs( largePortrait.width - largeLandscape.width ) < 0.001 );
-	assert.ok( Math.abs( largePortrait.height - landscape.height * 4 ) < 0.001 );
+} );
+
+test( 'Mosaic sizes prominent portraits like prominent landscapes', () => {
+	const layout = createGeometry();
+	const result = layout( [
+		{ width: 1200, height: 800 },
+		{ width: 1200, height: 1600 },
+		{ width: 1200, height: 800, prominent: true },
+		{ width: 1200, height: 1600, prominent: true }
+	], { width: 1200, gap: 0, automatic: false } );
+	const area = tile => tile.width * tile.height;
+	const [ landscape, , largeLandscape, largePortrait ] = result.tiles;
+	assert.ok( area( largeLandscape ) >= area( landscape ) * 3 );
+	assert.ok( area( largePortrait ) >= area( landscape ) * 3 );
+	assert.ok( area( largePortrait ) <= area( largeLandscape ) * 1.6 );
+	assert.ok( largePortrait.height < landscape.height * 4 );
+} );
+
+test( 'Mosaic packs a mixed gallery into a hole-free rectangle without oversized portraits', () => {
+	const layout = createGeometry();
+	const ratios = [ 0.667, 1.5, 1.334, 0.667, 0.667, 1.5, 1.5, 1.5, 1.5, 0.667 ];
+	const input = ratios.map( ratio => ( { width: 600, height: 600 / ratio } ) );
+	const result = layout( input, { width: 1232, gap: 12 } );
+	assertValidLayout( result, 1232 );
+	assertFilled( result, 1232 );
+	const areas = result.tiles.map( tile => tile.width * tile.height );
+	const smallest = Math.min( ...areas );
+	result.tiles.forEach( ( tile, index ) => {
+		if ( ratios[ index ] < 1 ) assert.ok( areas[ index ] <= smallest * 6.5 );
+	} );
 } );
 
 test( 'Mosaic keeps gaps uniform while respecting source dimensions', () => {
@@ -124,39 +160,36 @@ test( 'Mosaic keeps gaps uniform while respecting source dimensions', () => {
 	assert.ok( result.tiles.every( tile => tile.width <= 400 && tile.height <= 300 ) );
 } );
 
-test( 'Mosaic varies low-density landscape groups without breaking the grid', () => {
+test( 'Mosaic spaces automatic enlargements through the gallery', () => {
 	const layout = createGeometry();
-	const gap = 8;
-	const result = layout( Array.from( { length: 8 }, () => ( {
+	const result = layout( Array.from( { length: 24 }, () => ( {
 		width: 600,
 		height: 400
-	} ) ), { width: 1760, gap, density: 'low', automatic: false } );
-	const large = result.tiles[ 0 ];
-	const tall = result.tiles[ 1 ];
-	const top = result.tiles[ 2 ];
-	const bottom = result.tiles[ 3 ];
-	assert.ok( large.width > tall.width * 1.5 );
-	assert.ok( Math.abs( tall.height - ( top.height * 2 + gap ) ) < 0.001 );
-	assert.ok( Math.abs( top.x - ( tall.x + tall.width ) - gap ) < 0.001 );
-	assert.ok( Math.abs( top.y - tall.y ) < 0.001 );
-	assert.ok( Math.abs( bottom.x - top.x ) < 0.001 );
-	assert.ok( Math.abs( bottom.y - ( top.y + top.height ) - gap ) < 0.001 );
+	} ) ), { width: 1232, gap: 8 } );
+	const areas = result.tiles.map( tile => tile.width * tile.height );
+	const smallest = Math.min( ...areas );
+	const large = areas.map( ( area, index ) => area > smallest * 2.5 ? index : -1 ).filter( index => index >= 0 );
+	assertValidLayout( result, 1232 );
+	assertFilled( result, 1232 );
+	assert.ok( large.length >= 2 && large.length <= 5 );
+	large.slice( 1 ).forEach( ( index, at ) => assert.ok( index - large[ at ] >= 3 ) );
 } );
 
-test( 'Mosaic uses an automatic landscape as the tall low-density tile', () => {
+test( 'Mosaic lays out random galleries with extreme ratios completely', () => {
 	const layout = createGeometry();
-	const gap = 8;
-	const result = layout( Array.from( { length: 3 }, () => ( {
-		width: 600,
-		height: 400
-	} ) ), { width: 900, gap, density: 'low', automatic: true } );
-	const tall = result.tiles.find( tile => tile.height > tile.width );
-	const stacked = result.tiles.filter( tile => tile !== tall );
-	assert.ok( tall );
-	assert.equal( stacked.length, 2 );
-	assert.ok( Math.abs( tall.height - ( stacked[ 0 ].height * 2 + gap ) ) < 0.001 );
-	assert.ok( Math.abs( stacked[ 0 ].x - stacked[ 1 ].x ) < 0.001 );
-	assert.ok( Math.abs( stacked[ 1 ].y - ( stacked[ 0 ].y + stacked[ 0 ].height ) - gap ) < 0.001 );
+	const ratios = [ 1.5, 1.334, 0.5, 0.667, 4, 2.4, 1, 0.75, 1.78, 0.3 ];
+	let seed = 7;
+	const random = () => ( seed = seed * 16807 % 2147483647 ) / 2147483647;
+	for ( let gallery = 0; gallery < 60; gallery++ ) {
+		const width = [ 360, 768, 1232, 1600 ][ gallery % 4 ];
+		const input = Array.from( { length: 5 + Math.floor( random() * 40 ) }, () => {
+			const ratio = ratios[ Math.floor( random() * ratios.length ) ];
+			return { width: 600, height: 600 / ratio, prominent: random() < 0.15 };
+		} );
+		const result = layout( input, { width, gap: 12, density: [ 'low', 'medium', 'high' ][ gallery % 3 ], automatic: gallery % 2 === 0 } );
+		assert.equal( result.tiles.length, input.length );
+		assertValidLayout( result, width );
+	}
 } );
 
 test( 'Mosaic gives low, medium and high distinct scales', () => {
