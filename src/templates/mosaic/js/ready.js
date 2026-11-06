@@ -16,7 +16,7 @@
 				return item.el && !item.el.classList.contains( "fg-hidden" );
 			} );
 			var options = this.template;
-			var ids = new Set( ( options.prominentIds || [] ).map( String ) );
+			var ids = new Set( options.prominence === "disabled" ? [] : ( options.prominentIds || [] ).map( String ) );
 			var result = _.Mosaic.layout( items.map( function( item ) {
 				return {
 					width: item.width,
