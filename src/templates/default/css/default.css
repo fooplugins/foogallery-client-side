@@ -19,8 +19,9 @@
 
 /* Horizontal alignment */
 .fg-default.fg-left {
-    justify-content: flex-start;
-    margin-inline: 0 auto !important;
+    justify-content: left;
+    margin-left: 0 !important;
+    margin-right: auto !important;
 }
 
 .fg-default.fg-center {
@@ -29,8 +30,9 @@
 }
 
 .fg-default.fg-right {
-    justify-content: flex-end;
-    margin-inline: auto 0 !important;
+    justify-content: right;
+    margin-left: auto !important;
+    margin-right: 0 !important;
 }
 @media only screen and (min-width: 601px) {
     .fg-default.fg-d-col1 {
