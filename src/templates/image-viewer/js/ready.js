@@ -159,7 +159,8 @@
 		 * @function onDestroy
 		 */
 		onDestroy: function (event) {
-			var self = this;
+			var self = this, inner = self.$inner.parent()[0];
+			if (inner) inner.style.removeProperty("--fg-viewer-dominant-color");
 			if (self.template.attachFooBox) {
 				self.$el.off({
 					'foobox.previous': self.onFooBoxPrev,
@@ -191,6 +192,23 @@
 			if (this.pages){
 				this.$current.text(this.pages.current);
 				this.$total.text(this.pages.total);
+			}
+			this.updateBackgroundColor();
+		},
+		/** Apply the active item's color to the shared frame and controls. */
+		updateBackgroundColor: function(){
+			var inner = this.$inner.parent()[0],
+				item = this.pages ? this.pages.available()[0] : null,
+				color = "";
+			if (!inner) return;
+			if (this.$el.hasClass("fg-dominant-color") && item && item.el){
+				// Read the item's own color so missing metadata falls back to the theme.
+				color = item.el.style.getPropertyValue("--fg-dominant-color").trim();
+			}
+			if (color){
+				inner.style.setProperty("--fg-viewer-dominant-color", color);
+			} else {
+				inner.style.removeProperty("--fg-viewer-dominant-color");
 			}
 		},
 		getAutoplaySeconds: function(){

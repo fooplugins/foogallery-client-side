@@ -12,7 +12,12 @@
             self.morphable = false;
             self.items.ALLOW_CREATE = false;
             self.items.ALLOW_APPEND = false;
-            self.panel = new _.Panel(self, self.template);
+            self.panel = new _.Panel(self, _obj.extend({}, self.template, {
+                // Keep Slider-only appearance when the panel moves into fullscreen.
+                classNames: (self.template.classNames || "") + " fg-slider-panel",
+                // Slider has one set of caption source controls for its panel and strip.
+                thumbsUseMediaCaption: true
+            }));
         },
         preInit: function(){
             var self = this;

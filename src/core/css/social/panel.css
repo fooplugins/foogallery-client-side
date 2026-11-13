@@ -107,7 +107,3 @@ body.rtl .fg-panel.fg-panel-comments-left:is(.fg-medium,.fg-panel-no-mobile) .fg
     width: 360px;
     min-width: 360px;
 }
-.fg-medium.fg-x-large-width:is(.fg-panel-comments-left,.fg-panel-comments-right) .fg-panel-comments-inner {
-    width: 402px;
-    min-width: 402px;
-}

@@ -1,17 +1,43 @@
 .foogallery.fg-slider .fg-item {
     display: none;
 }
+/* Fade only the scrolling viewport, leaving the strip frame and controls solid.
+   Transparent masks blend with either theme and any custom strip background. */
+.fg-slider-panel .fg-panel-thumbs-viewport {
+    --fg-slider-thumbs-fade-size: 48px;
+    --fg-slider-thumbs-fade-start: 0px;
+    --fg-slider-thumbs-fade-end: 0px;
+    --fg-slider-thumbs-fade-direction: to bottom;
+}
+.fg-slider-panel:is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-viewport {
+    --fg-slider-thumbs-fade-direction: to right;
+}
+.fg-slider-panel .fg-panel-thumbs-viewport.fg-panel-thumbs-overflow-start {
+    --fg-slider-thumbs-fade-start: var(--fg-slider-thumbs-fade-size);
+}
+.fg-slider-panel .fg-panel-thumbs-viewport.fg-panel-thumbs-overflow-end {
+    --fg-slider-thumbs-fade-end: var(--fg-slider-thumbs-fade-size);
+}
+.fg-slider-panel .fg-panel-thumbs-viewport:is(.fg-panel-thumbs-overflow-start,.fg-panel-thumbs-overflow-end) {
+    -webkit-mask-image: linear-gradient(var(--fg-slider-thumbs-fade-direction), transparent, #000 var(--fg-slider-thumbs-fade-start), #000 calc(100% - var(--fg-slider-thumbs-fade-end)), transparent);
+    mask-image: linear-gradient(var(--fg-slider-thumbs-fade-direction), transparent, #000 var(--fg-slider-thumbs-fade-start), #000 calc(100% - var(--fg-slider-thumbs-fade-end)), transparent);
+}
 .foogallery.fg-slider {
     position: relative;
     display: grid;
     width: 100%;
     padding: 0;
-    min-height: 315px;
-}
-.foogallery.fg-slider.fg-slider-mobile {
-    /* Let the selected aspect ratio size the slider on phones, rather than
-       forcing fill-mode images into the taller desktop minimum height. */
+    /* Let the aspect ratio size narrow desktop containers too. A maximum
+       height must only cap the result, never force a taller slider. */
     min-height: 0;
+    max-height: var(--fg-slider-max-height, none);
+}
+/* Short capped panels can bring navigation into the toolbar's hit area. */
+.fg-panel.fg-slider-panel .fg-panel-buttons {
+    z-index: 4;
+}
+.foogallery.fg-slider.fg-slider-mobile-horizontal-thumbs {
+    --fg-slider-navigation-height: 48px;
 }
 .foogallery.fg-slider.fg-slider-mobile-horizontal-thumbs::after {
     /* Horizontal navigation gets its own space outside the selected image ratio. */
@@ -29,14 +55,15 @@
     height: 100%;
     min-height: 0;
 }
-.foogallery.fg-slider-mobile .fg-panel-thumb {
+/* Match the panel breakpoint selectors while leaving later frame rules in control. */
+.foogallery.fg-slider-mobile .fg-panel .fg-panel-thumb {
     width: 48px;
     min-width: 48px;
     height: 48px;
     min-height: 48px;
     padding: 4px;
 }
-.foogallery.fg-slider-mobile .fg-panel-thumb-media {
+.foogallery.fg-slider-mobile .fg-panel .fg-panel-thumb-media {
     width: 40px;
     min-width: 40px;
     height: 40px;
@@ -117,22 +144,29 @@
     width: 100%;
     max-width: 100%;
     height: 0;
-    padding-top: 56.25%;
+    --fg-slider-ratio-padding: 56.25%;
+    /* Clamp the invisible spacer too, so it cannot create page overflow. */
+    padding-top: min(var(--fg-slider-ratio-padding), max(0px, calc(var(--fg-slider-max-height, 100000px) - var(--fg-slider-navigation-height, 0px))));
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
 }
 .foogallery.fg-slider.fg-16-9::before {
-    padding-top: 56.25%;
+    --fg-slider-ratio-padding: 56.25%;
 }
 .foogallery.fg-slider.fg-16-10::before {
-    padding-top: 62.5%;
+    --fg-slider-ratio-padding: 62.5%;
 }
 .foogallery.fg-slider.fg-3-2::before {
-    padding-top: 66.6667%;
+    --fg-slider-ratio-padding: 66.6667%;
 }
 .foogallery.fg-slider.fg-4-3::before {
-    padding-top: 75%;
+    --fg-slider-ratio-padding: 75%;
+}
+
+.foogallery.fg-slider > .fg-panel {
+    /* Include the panel border when filling the inline slider container. */
+    box-sizing: border-box;
 }
 
 .fg-slider .fg-panel {
@@ -151,6 +185,14 @@
 }
 .fg-slider .fg-panel:is(.fg-light,.fg-dark) :is(.fg-panel-cart-inner,.fg-panel-info-inner) {
     background-color: transparent;
+}
+/* Inline top/bottom captions do not need a divider or reserved toolbar space. */
+.fg-panel.fg-slider-panel:not(.fg-panel-info-overlay):is(.fg-panel-info-top,.fg-panel-info-bottom) .fg-panel-info-inner {
+    border-style: none;
+}
+.fg-panel.fg-slider-panel:not(.fg-panel-info-overlay):is(.fg-panel-info-top,.fg-panel-info-bottom) .fg-media-caption {
+    /* Override the shared panel's more specific toolbar-clearance rules. */
+    padding: 10px !important;
 }
 .fg-slider .fg-panel-info-overlay .fg-media-caption {
     font-size: 18px;
@@ -193,6 +235,302 @@
 .fg-slider .fg-panel-thumb-title {
     margin-bottom: 4px;
     font-weight: normal;
+}
+
+/* Shared inset-shadow choices must not shade individual Slider thumbnails. */
+.fg-panel.fg-slider-panel .fg-panel-thumbs .fg-panel-thumb-media::after {
+    display: none;
+    box-shadow: none;
+}
+
+/* One outer shadow follows the complete panel's own corner clipping. */
+.fg-panel.fg-slider-shadow-outline.fg-light { box-shadow: 0 0 0 1px #ddd; }
+.fg-panel.fg-slider-shadow-outline.fg-dark { box-shadow: 0 0 0 1px #222; }
+.fg-panel.fg-slider-shadow-small { box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }
+.fg-panel.fg-slider-shadow-medium { box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.5); }
+.fg-panel.fg-slider-shadow-large { box-shadow: 0 1px 16px 0 rgba(0, 0, 0, 0.5); }
+
+/* Explicit panel styling. Galleries without these classes retain legacy styles. */
+.fg-panel.fg-slider-styled {
+    --fg-slider-radius: 0px;
+    --fg-slider-control-radius: 0px;
+    --fg-slider-frame-width: 0px;
+    --fg-slider-frame-color: #fff;
+    --fg-slider-outer-radius: 0px;
+    background-color: var(--fg-slider-frame-color);
+    border-width: 0;
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-maximized):not(.fg-panel-fullscreen) { border-width: 0; }
+.fg-panel.fg-slider-styled.fg-dark { --fg-slider-frame-color: #333; }
+.fg-panel.fg-slider-styled:is(.fg-light,.fg-dark) {
+    /* A changing media background must not show through the shared frame. */
+    background-color: var(--fg-slider-frame-color);
+}
+/* Share the adjoining frame instead of adding the main and strip borders. */
+.fg-panel.fg-slider-styled.fg-panel-thumbs-top .fg-panel-thumbs { margin-bottom: calc(0px - var(--fg-slider-frame-width)); }
+.fg-panel.fg-slider-styled.fg-panel-thumbs-right .fg-panel-thumbs { margin-left: calc(0px - var(--fg-slider-frame-width)); }
+.fg-panel.fg-slider-styled.fg-panel-thumbs-bottom .fg-panel-thumbs { margin-top: calc(0px - var(--fg-slider-frame-width)); }
+.fg-panel.fg-slider-styled.fg-panel-thumbs-left .fg-panel-thumbs { margin-right: calc(0px - var(--fg-slider-frame-width)); }
+.fg-panel.fg-slider-round-small { --fg-slider-radius: 5px; --fg-slider-control-radius: 3px; }
+.fg-panel.fg-slider-round-medium { --fg-slider-radius: 10px; --fg-slider-control-radius: 5px; }
+.fg-panel.fg-slider-round-large { --fg-slider-radius: 15px; --fg-slider-control-radius: 8px; }
+.fg-panel.fg-slider-round-large-extra { --fg-slider-radius: 40px; --fg-slider-control-radius: 12px; }
+.fg-panel:is(.fg-slider-round-small,.fg-slider-round-medium,.fg-slider-round-large,.fg-slider-round-large-extra) {
+    --fg-slider-outer-radius: calc(var(--fg-slider-radius) + var(--fg-slider-frame-width));
+}
+.fg-panel.fg-slider-thumb-border-none { --fg-slider-frame-width: 0px; }
+.fg-panel.fg-slider-thumb-border-thin { --fg-slider-frame-width: 2px; }
+.fg-panel.fg-slider-thumb-border-medium { --fg-slider-frame-width: 6px; }
+.fg-panel.fg-slider-thumb-border-thick { --fg-slider-frame-width: 12px; }
+
+/* Keep small panel controls proportional instead of using the image's radius. */
+.fg-panel.fg-slider-styled :is(.fg-panel-buttons,.fg-panel-content-buttons) .fg-panel-button,
+.fg-panel.fg-slider-styled .fg-panel-area-toggle {
+    border-radius: var(--fg-slider-control-radius);
+}
+
+/* Inset overlay controls from the frame and its rounded corners. The shared
+   mobile toolbar outside a maximized slider retains its native layout. */
+.fg-panel.fg-slider-styled {
+    --fg-slider-button-inset: max(10px, calc(var(--fg-slider-frame-width) + 6px), calc(var(--fg-slider-outer-radius) / 2));
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space):is(.fg-panel-no-mobile,.fg-medium,.fg-slider-mobile .fg-panel) .fg-panel-buttons {
+    padding: var(--fg-slider-button-inset);
+    align-items: flex-end;
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space):is(.fg-panel-no-mobile,.fg-medium,.fg-slider-mobile .fg-panel) .fg-panel-buttons .fg-panel-button:not(.fg-panel-button-prev,.fg-panel-button-next) {
+    margin: 0 0 5px;
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space):is(.fg-panel-no-mobile,.fg-medium,.fg-slider-mobile .fg-panel) :is(.fg-panel-buttons,.fg-panel-content-buttons) .fg-panel-button:is(.fg-panel-button-prev,.fg-panel-button-next) {
+    left: auto;
+    right: auto;
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space):is(.fg-panel-no-mobile,.fg-medium,.fg-slider-mobile .fg-panel) :is(.fg-panel-buttons,.fg-panel-content-buttons) .fg-panel-button.fg-panel-button-prev {
+    inset-inline-start: var(--fg-slider-button-inset);
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space):is(.fg-panel-no-mobile,.fg-medium,.fg-slider-mobile .fg-panel) :is(.fg-panel-buttons,.fg-panel-content-buttons) .fg-panel-button.fg-panel-button-next {
+    inset-inline-end: var(--fg-slider-button-inset);
+}
+.foogallery.fg-slider-mobile > .fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space) .fg-panel-buttons {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 5px;
+}
+.foogallery.fg-slider-mobile > .fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space) .fg-panel-buttons .fg-panel-button:not(.fg-panel-button-prev,.fg-panel-button-next) {
+    margin: 0;
+}
+.foogallery.fg-slider-mobile > .fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space) .fg-panel-buttons .fg-panel-button:is(.fg-panel-button-prev,.fg-panel-button-next) {
+    /* Clear the 32px toolbar row plus its 5px gap, keeping 52px arrows centered
+       whenever the image is tall enough. */
+    top: max(50%, calc(var(--fg-slider-button-inset) + 63px));
+}
+/* Fine-pointer layouts keep the taller navigation arrows in the content area,
+   even when the Slider switches to its compact toolbar at a narrow viewport. */
+.foogallery.fg-slider-mobile > .fg-panel.fg-slider-styled:not(.fg-panel-preserve-button-space) .fg-panel-content-buttons .fg-panel-button:is(.fg-panel-button-prev,.fg-panel-button-next) {
+    top: max(50%, calc(var(--fg-slider-button-inset) + 78px));
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-maximized):not(.fg-panel-fullscreen),
+.fg-panel.fg-slider-styled :is(.fg-panel-thumbs-inner,.fg-media) {
+    border-radius: var(--fg-slider-outer-radius);
+}
+.fg-panel.fg-slider-styled .fg-panel-thumbs-inner {
+    background-color: var(--fg-slider-frame-color);
+}
+
+/* The shell already supplies half the frame. Inset strip controls by the
+   other half, just like thumbnail media, in both overlay and inline modes. */
+.fg-panel.fg-slider-styled .fg-panel-thumbs-button {
+    flex-shrink: 0;
+    margin: calc(var(--fg-slider-frame-width) / 2);
+    border-radius: var(--fg-slider-radius);
+}
+.fg-panel.fg-slider-styled:is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-button {
+    width: calc(100% - var(--fg-slider-frame-width));
+}
+.fg-panel.fg-slider-styled:is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-button {
+    height: calc(100% - var(--fg-slider-frame-width));
+}
+/* The inline frame is one continuous surface. Only the outer panel clips the
+   strip's corners; rounding both layers can expose a notch or a thin halo. */
+.fg-panel.fg-slider-styled:not(.fg-panel-maximized):not(.fg-panel-fullscreen) .fg-panel-content-inner {
+    background-color: var(--fg-slider-frame-color);
+}
+.fg-panel.fg-slider-styled:not(.fg-panel-maximized):not(.fg-panel-fullscreen) .fg-panel-thumbs-inner {
+    border-radius: 0;
+}
+.fg-panel.fg-slider-styled :is(.fg-panel-thumb-media,.fg-panel-thumb-image),
+.fg-panel.fg-slider-styled .fg-media-image .fg-media-content {
+    border-radius: var(--fg-slider-radius);
+}
+
+/* Keep the shell from cutting into a narrow strip's own rounded frame. */
+.fg-panel.fg-slider-styled.fg-panel-thumbs-right:not(.fg-panel-maximized):not(.fg-panel-fullscreen) {
+    border-top-right-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+    border-bottom-right-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+}
+.fg-panel.fg-slider-styled.fg-panel-thumbs-left:not(.fg-panel-maximized):not(.fg-panel-fullscreen) {
+    border-top-left-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+    border-bottom-left-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+}
+.fg-panel.fg-slider-styled.fg-panel-thumbs-top:not(.fg-panel-maximized):not(.fg-panel-fullscreen) {
+    border-top-left-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+    border-top-right-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+}
+.fg-panel.fg-slider-styled.fg-panel-thumbs-bottom:not(.fg-panel-maximized):not(.fg-panel-fullscreen) {
+    border-bottom-left-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+    border-bottom-right-radius: min(var(--fg-slider-outer-radius), var(--fg-slider-strip-radius-limit, var(--fg-slider-outer-radius)));
+}
+
+/* The strip and visible main image share one frame width and corner geometry. */
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) { --fg-panel-thumb-viewport-extra: 0; }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumbs-inner {
+    border-style: solid;
+    border-color: var(--fg-slider-frame-color);
+    /* Overrides the caption/strip divider rules, independently of separators. */
+    border-width: calc(var(--fg-slider-frame-width) / 2) !important;
+}
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick).fg-panel-fit-media .fg-media-image,
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):not(.fg-panel-fit-media) .fg-media-image .fg-media-content {
+    box-sizing: border-box;
+    border: var(--fg-slider-frame-width) solid var(--fg-slider-frame-color);
+    border-radius: var(--fg-slider-outer-radius);
+}
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick).fg-panel-fit-media .fg-media-image .fg-media-content {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+.fg-panel.fg-slider-no-thumb-separators { --fg-panel-thumb-separator-width: 0px; }
+
+/* Default thickness retains its existing cell frames when separators are off. */
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb { padding: 4px; }
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-stage > .fg-panel-thumb:first-of-type { padding-top: 4px; }
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-stage > .fg-panel-thumb:last-of-type { padding-bottom: 4px; }
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumb {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-stage > .fg-panel-thumb:first-of-type { padding-left: 4px; }
+.fg-panel.fg-slider-no-thumb-separators:not(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-stage > .fg-panel-thumb:last-of-type { padding-right: 4px; }
+
+/* Half the frame belongs to each cell, giving state colours equal space on all sides.
+   The strip supplies the remaining outer half; adjacent cells share one full width. */
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) :is(.fg-panel-thumb,.fg-panel-thumb-spacer,.fg-panel-thumbs-button) { border-width: 0; }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb {
+    padding: calc(var(--fg-slider-frame-width) / 2);
+    border-radius: 0;
+}
+.fg-panel:is(.fg-slider-round-small,.fg-slider-round-medium,.fg-slider-round-large,.fg-slider-round-large-extra):is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb {
+    border-radius: calc(var(--fg-slider-radius) + var(--fg-slider-frame-width) / 2);
+}
+
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb { width: 100%; min-width: 0; }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb + .fg-panel-thumb { border-top-width: var(--fg-panel-thumb-separator-width, 1px); }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-prev { border-bottom-width: var(--fg-panel-thumb-separator-width, 1px); }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumbs-next { border-top-width: var(--fg-panel-thumb-separator-width, 1px); }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumb { height: 100%; min-height: 0; }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumb + .fg-panel-thumb { border-left-width: var(--fg-panel-thumb-separator-width, 1px); }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-prev { border-right-width: var(--fg-panel-thumb-separator-width, 1px); }
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumbs-next { border-left-width: var(--fg-panel-thumb-separator-width, 1px); }
+
+/* Keep the divider's layout space and theme colour, but paint it separately
+   from the rounded cell so it cannot curve around the next image's corners. */
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb + .fg-panel-thumb {
+    border-image: linear-gradient(transparent, transparent) 1;
+}
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb + .fg-panel-thumb::before {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    background: none;
+    border-style: solid;
+    border-width: 0;
+    border-color: inherit;
+    border-image: none;
+    border-radius: 0;
+}
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb + .fg-panel-thumb::before {
+    top: calc(0px - var(--fg-panel-thumb-separator-width, 1px));
+    left: 0;
+    right: 0;
+    height: 0;
+    border-top-width: var(--fg-panel-thumb-separator-width, 1px);
+}
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumb + .fg-panel-thumb::before {
+    top: 0;
+    bottom: 0;
+    left: calc(0px - var(--fg-panel-thumb-separator-width, 1px));
+    width: 0;
+    border-left-width: var(--fg-panel-thumb-separator-width, 1px);
+}
+
+/* Fill available cells so centering cannot introduce extra frame thickness. */
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb-media,
+.fg-panel.fg-slider-no-thumb-separators:is(.fg-panel-thumbs-top,.fg-panel-thumbs-right,.fg-panel-thumbs-bottom,.fg-panel-thumbs-left) .fg-panel-thumb-media {
+    height: 100%;
+    min-height: 0;
+    border-width: 0;
+}
+/* Captions also disappear below the panel's medium breakpoint. */
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-no-captions,:not(.fg-medium)) .fg-panel-thumb-media,
+.fg-panel.fg-slider-no-thumb-separators:is(.fg-panel-thumbs-no-captions,:not(.fg-medium)) .fg-panel-thumb-media {
+    width: 100%;
+    min-width: 0;
+}
+.fg-panel.fg-slider-styled:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb-image,
+.fg-panel.fg-slider-no-thumb-separators .fg-panel-thumb-image {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Square thumbnails use the space inside the strip's frame on both axes.
+   The measurement dummy follows the same dimensions as the first cell. */
+.fg-panel.fg-panel-thumbs-small:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-no-captions,:not(.fg-medium)) {
+    --fg-slider-square-cells: 1;
+}
+.fg-panel.fg-panel-thumbs-small:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb {
+    --fg-slider-square-cell-divider: 0px;
+    flex-shrink: 0;
+}
+.fg-panel.fg-panel-thumbs-small:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick) .fg-panel-thumb + .fg-panel-thumb {
+    --fg-slider-square-cell-divider: var(--fg-panel-thumb-separator-width, 1px);
+}
+.fg-panel.fg-panel-thumbs-small:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-no-captions,:not(.fg-medium)):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb {
+    height: calc(var(--fg-slider-square-cell-side, 70px) + var(--fg-slider-square-cell-divider));
+    min-height: 0;
+}
+.fg-panel.fg-panel-thumbs-small:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick):is(.fg-panel-thumbs-no-captions,:not(.fg-medium)):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumb {
+    width: calc(var(--fg-slider-square-cell-side, 70px) + var(--fg-slider-square-cell-divider));
+    min-width: 0;
+}
+.fg-panel.fg-panel-thumbs-small:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick,.fg-slider-no-thumb-separators) .fg-panel-thumb-media {
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    min-width: 0;
+    min-height: 0;
+}
+.fg-panel.fg-panel-thumbs-small:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick,.fg-slider-no-thumb-separators):is(.fg-panel-thumbs-no-captions,:not(.fg-medium)):is(.fg-panel-thumbs-left,.fg-panel-thumbs-right) .fg-panel-thumb-media {
+    width: 100%;
+    height: auto;
+}
+.fg-panel.fg-panel-thumbs-small:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick,.fg-slider-no-thumb-separators):is(.fg-panel-thumbs-no-captions,:not(.fg-medium)):is(.fg-panel-thumbs-top,.fg-panel-thumbs-bottom) .fg-panel-thumb-media {
+    width: auto;
+    height: 100%;
+}
+.fg-panel.fg-panel-thumbs-small.fg-medium:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick,.fg-slider-no-thumb-separators):not(.fg-panel-thumbs-no-captions) {
+    --fg-slider-square-caption-cells: 1;
+}
+.fg-panel.fg-panel-thumbs-small.fg-medium:is(.fg-slider-thumb-border-none,.fg-slider-thumb-border-thin,.fg-slider-thumb-border-medium,.fg-slider-thumb-border-thick,.fg-slider-no-thumb-separators):not(.fg-panel-thumbs-no-captions) .fg-panel-thumb-media {
+    width: var(--fg-slider-square-caption-side, 72px);
+    height: var(--fg-slider-square-caption-side, 72px);
+    min-width: 0;
 }
 
 /*.fg-slider .fg-panel.fg-dark .fg-panel-thumb {*/

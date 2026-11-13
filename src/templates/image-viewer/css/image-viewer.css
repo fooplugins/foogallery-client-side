@@ -19,6 +19,8 @@
 	display: inline-block;
 	max-width: 100%;
 	z-index: 6;
+	--fg-viewer-dominant-color-text: hsl(from var(--fg-viewer-dominant-color) 0 0% calc((l - 60) * -100%));
+	--fg-viewer-dominant-color-alt: hsl(from var(--fg-viewer-dominant-color) h s calc(l - 10));
 }
 .fiv-inner .fiv-inner-container {
 	position: relative;
@@ -119,8 +121,8 @@
     font-size: inherit;
     font-weight: normal;
 }
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible),
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible) {
     transform: translateY(0);
 }
 .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:before,
@@ -136,8 +138,8 @@
 	transform: translateY(0);
 	transition: transform .3s;
 }
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus):before,
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus):before {
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible):before,
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible):before {
 	transform: translateY(-100%);
 }
 .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev span,
@@ -149,8 +151,8 @@
 	transform: translateY(100%);
 	transition: transform .3s;
 }
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus) span,
-.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) span {
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible) span,
+.fg-image-viewer .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible) span {
 	transform: translateY(0);
 }
 .fg-image-viewer .fiv-inner .fiv-ctrls .fiv-prev {
@@ -193,17 +195,17 @@
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-count,
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-prev,
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-next {
-    background-color: #FFF;
-    color: #333;
-    border-color: #FFF;
+    background-color: var(--fg-viewer-dominant-color, #FFF);
+    color: var(--fg-viewer-dominant-color-text, #333);
+    border-color: var(--fg-viewer-dominant-color, #FFF);
 }
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-prev,
 .fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-next {
-    border-color: #ddd;
+    border-color: var(--fg-viewer-dominant-color-alt, #ddd);
 }
-.fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
-.fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
-	background-color: #F2F2F2;
+.fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible),
+.fg-image-viewer.fg-light .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible) {
+	background-color: var(--fg-viewer-dominant-color-alt, #F2F2F2);
 }
 
 /* Theme - Dark */
@@ -212,17 +214,17 @@
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-count,
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-prev,
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-next {
-	background-color: #333;
-	color: #FFF;
-    border-color: #333;
+	background-color: var(--fg-viewer-dominant-color, #333);
+	color: var(--fg-viewer-dominant-color-text, #FFF);
+    border-color: var(--fg-viewer-dominant-color, #333);
 }
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-prev,
 .fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-next {
-    border-color: #222;
+    border-color: var(--fg-viewer-dominant-color-alt, #222);
 }
-.fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus),
-.fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus) {
-	background-color: #444;
+.fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-prev:is(:hover,:focus-visible),
+.fg-image-viewer.fg-dark .fiv-inner .fiv-ctrls .fiv-next:is(:hover,:focus-visible) {
+	background-color: var(--fg-viewer-dominant-color-alt, #444);
 }
 
 /* Border Size */
@@ -368,11 +370,58 @@
 	border-radius: 3px;
 }
 
+/* Extra Large uses the shared 40px frame and its inset image curve. */
+.foogallery.fg-image-viewer.fg-round-large-extra .fiv-inner,
+.foogallery.fg-image-viewer.fg-round-large-extra .fiv-inner-container,
+.foogallery.fg-image-viewer.fg-round-large-extra .fiv-ctrls {
+	border-radius: 40px;
+}
+.foogallery.fg-image-viewer.fg-round-large-extra .fg-item,
+.foogallery.fg-image-viewer.fg-round-large-extra .fg-item-inner {
+	border-radius: var(--fg-thumb-border-radius);
+}
+.foogallery.fg-image-viewer.fg-round-large-extra .fg-item,
+.foogallery.fg-image-viewer.fg-round-large-extra .fg-item-inner,
+.foogallery.fg-image-viewer.fg-round-large-extra .fiv-inner-container {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.foogallery.fg-image-viewer.fg-round-large-extra .fiv-ctrls {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+.foogallery.fg-image-viewer.fg-round-large-extra .fiv-prev,
+.foogallery.fg-image-viewer.fg-round-large-extra .fiv-next {
+	border-radius: max(0px, calc(40px - var(--fg-item-border-width)));
+}
+
 .foogallery.fg-image-viewer.fg-round-full .fiv-inner,
 .foogallery.fg-image-viewer.fg-round-full .fiv-inner-container,
 .foogallery.fg-image-viewer.fg-round-full .fiv-prev,
 .foogallery.fg-image-viewer.fg-round-full .fiv-next {
 	border-radius: 50%;
+}
+
+/* These wrappers enclose the image rather than the outer viewer frame. */
+.foogallery.fg-image-viewer:is(.fg-inner-round-none,.fg-inner-round-small,.fg-inner-round-medium,.fg-inner-round-large,.fg-inner-round-large-extra) .fiv-inner .fiv-inner-container .fg-item,
+.foogallery.fg-image-viewer:is(.fg-inner-round-none,.fg-inner-round-small,.fg-inner-round-medium,.fg-inner-round-large,.fg-inner-round-large-extra) .fiv-inner .fiv-inner-container .fg-item-inner {
+	border-radius: var(--fg-inner-border-radius);
+}
+.foogallery.fg-image-viewer:is(.fg-inner-round-none,.fg-inner-round-small,.fg-inner-round-medium,.fg-inner-round-large,.fg-inner-round-large-extra) .fiv-inner .fg-thumb {
+	border-radius: var(--fg-inner-border-radius);
+}
+
+/* Match the viewer frame while retaining its flat image/control seam. */
+.foogallery.fg-image-viewer:is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) .fiv-inner {
+	border-radius: var(--fg-matched-border-radius);
+}
+.foogallery.fg-image-viewer:is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) .fiv-inner-container {
+	border-top-left-radius: var(--fg-matched-border-radius);
+	border-top-right-radius: var(--fg-matched-border-radius);
+}
+.foogallery.fg-image-viewer:is(.fg-round-small.fg-inner-round-small,.fg-round-medium.fg-inner-round-medium,.fg-round-large.fg-inner-round-large,.fg-round-large-extra.fg-inner-round-large-extra) .fiv-ctrls {
+	border-bottom-left-radius: var(--fg-matched-border-radius);
+	border-bottom-right-radius: var(--fg-matched-border-radius);
 }
 
 /* Drop Shadows */

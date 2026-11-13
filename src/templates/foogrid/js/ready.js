@@ -11,6 +11,9 @@
 				self._panelLayoutTimeout = null;
 				self._mql = [];
 				self._didOpenByDefault = false;
+				self._autoHeightFrame = null;
+				self._autoHeightObserver = null;
+				self._autoHeightResize = self.scheduleAutoHeight.bind(self);
 				self.panel = new _.Panel( self, self.template );
 				self.on({
 					"pre-init": self.onPreInit,
@@ -27,13 +30,19 @@
 					"prev": self.onPanelPrev,
 					"close": self.onPanelClose,
 					"area-load": self.onPanelAreaLoad,
-					"area-unload": self.onPanelAreaUnload
+					"area-unload": self.onPanelAreaUnload,
+					"loaded": self.scheduleAutoHeight,
+					"error": self.scheduleAutoHeight,
+					"appended": self.observeAutoHeight
 				}, self);
 			}
 		},
 		destroy: function(preserveState){
 			var self = this, _super = self._super.bind(self);
 			if ( self.panel ) {
+				if (self._autoHeightObserver) self._autoHeightObserver.disconnect();
+				if (self._autoHeightFrame !== null) cancelAnimationFrame(self._autoHeightFrame);
+				window.removeEventListener("resize", self._autoHeightResize);
 				self.unbindMediaQueries();
 				if (self._panelLayoutTimeout != null){
 					clearTimeout(self._panelLayoutTimeout);
@@ -56,6 +65,13 @@
 				}).addClass(self.template.columns);
 			}
 			self.$section = $('<section/>', {'class': 'foogrid-content'});
+			if (self.template.autoHeight){
+				self.$section.addClass("foogrid-auto");
+				self.panel.opt.classNames += " foogrid-panel-auto";
+				self._autoHeightObserver = new ResizeObserver(self._autoHeightResize);
+				self._autoHeightObserver.observe(self.$el.get(0));
+				window.addEventListener("resize", self._autoHeightResize);
+			}
 			self.bindMediaQueries();
 			if (self.panel.opt.transition === "none"){
 				if (self.$el.hasClass("foogrid-transition-horizontal")){
@@ -122,7 +138,7 @@
 			var self = this;
 			if (self._didOpenByDefault) return;
 			if (self.template.openByDefault !== true) return;
-			if (self.panel.currentItem instanceof _.Item) return;
+			if (self.panel.currentItem instanceof _.Item || self.state.current.item instanceof _.Item) return;
 
 			var $first = self.getVisibleItems().first(),
 				firstItem = $first.length ? self.items.get($first.get(0), true) : self.items.first();
@@ -200,7 +216,12 @@
 		},
 		onPanelClose: function(event){
 			event.preventDefault();
-			this.close(false, true);
+			var self = this;
+			this.close(false, true).then(function(){
+				if (!self.destroying && !self.destroyed && self.panel){
+					self.panel.trigger("closed");
+				}
+			});
 		},
 		onPanelAreaLoad: function(event, area, media){
 			if (area.name === "content"){
@@ -210,6 +231,44 @@
 		onPanelAreaUnload: function(event, area, media){
 			if (area.name === "content"){
 				media.item.$el.removeClass(this.cls.visible);
+			}
+		},
+
+		// Observe both the panel and its media area so captions, controls and
+		// maximize/restore can change the available space without cropping images.
+		observeAutoHeight: function(){
+			if (!this._autoHeightObserver) return;
+			this._autoHeightObserver.observe(this.panel.el);
+			this._autoHeightObserver.observe(this.panel.content.$inner.get(0));
+			this.scheduleAutoHeight();
+		},
+		scheduleAutoHeight: function(){
+			var self = this;
+			if (!self.template.autoHeight || self.destroying || self.destroyed || self._autoHeightFrame !== null) return;
+			self._autoHeightFrame = requestAnimationFrame(function(){
+				self._autoHeightFrame = null;
+				self.updateAutoHeight();
+			});
+		},
+		updateAutoHeight: function(){
+			var self = this, panel = self.panel;
+			if (!self.template.autoHeight || !panel.isAttached || panel.isMaximized || !self.$section.parent().length) return;
+			var media = panel.content.currentMedia,
+				image = media && media.$content && media.$content.get(0),
+				width = self.$section.width(),
+				border = self.$section.outerHeight() - self.$section.height(),
+				maximum = Number(self.template.autoHeightMax),
+				height = width * 9 / 16;
+			if (!isFinite(maximum) || maximum < 10 || maximum > 100) maximum = 80;
+			if (image && image.tagName === "IMG" && image.naturalWidth > 0 && image.naturalHeight > 0){
+				// Include space consumed by inline buttons and non-overlay captions.
+				height = self.$section.height() + media.$el.innerWidth() * image.naturalHeight / image.naturalWidth - media.$el.innerHeight();
+			}
+			// Leave room for two compact control rows on very wide panoramas.
+			height = Math.max(1, Math.min(Math.max(70, height), window.innerHeight * maximum / 100 - border));
+			panel.$el.toggleClass("foogrid-panel-compact", height <= 180);
+			if (width > 0 && Math.abs(self.$section.height() - height) > 0.5){
+				self.$section.get(0).style.setProperty("--fg-grid-height", (height + border) + "px");
 			}
 		},
 
@@ -319,6 +378,7 @@
 						item.$el.after(self.$section);
 					}
 				}
+				self.updateAutoHeight();
 				if (self.transitionOpen(newRow)){
 					self.isFirst = false;
 					_t.start(self.$section, function($el){
@@ -410,6 +470,8 @@
 	_.template.register("foogrid", _.FooGridTemplate, {
 		template: {
 			noPanel: false,
+			autoHeight: false,
+			autoHeightMax: 80,
 			classNames: "foogrid-panel",
 			scroll: true,
 			scrollSmooth: false,

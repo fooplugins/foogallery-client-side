@@ -3,6 +3,35 @@
 
 	var cache = new Map();
 
+	/** Largest span, in cells, of any Mosaic tile. */
+	var MAX_COLUMNS = 3;
+	var MAX_ROWS = 4;
+
+	/**
+	 * Cells covered by a prominent tile: similar for landscape and ordinary portrait images, so
+	 * orientation alone never makes a favourite dominate. Very tall images, whose normal tile is
+	 * already three cells or more, scale from their own footprint instead.
+	 */
+	function prominentArea( natural ) {
+		return natural < 3
+			? { min: 4, ideal: 4.5, max: 6 }
+			: { min: natural * 1.8, ideal: natural * 2, max: natural * 2 + 2 };
+	}
+
+	/** Automatic prominence per density: minimum items between enlargements, and the incentive to enlarge. */
+	var AUTOMATIC = {
+		low: { spacing: 4, bonus: 1.3 },
+		medium: { spacing: 6, bonus: 1.1 },
+		high: { spacing: 8, bonus: 0.9 }
+	};
+
+	/** Items may be shown up to this many positions away from their gallery order. */
+	var MAX_SHIFT = 2;
+	var SHIFT_COST = 0.3;
+
+	/** Cost of leaving the final row unfinished: a fixed charge plus a charge per empty cell. */
+	var RAGGED = { base: 4, cell: 2 };
+
 	function copy( value ) {
 		return {
 			height: value.height,
@@ -12,336 +41,408 @@
 		};
 	}
 
-	/** Ordered rectangle subdivision for sparse or otherwise unfillable cell grids. */
-	function partition( input, options, thorough ) {
-		var width = options.width;
-		var gap = options.gap == null ? 8 : options.gap;
-		var best;
-		var target;
+	function median( values ) {
+		var sorted = values.slice().sort( function( a, b ) { return a - b; } );
+		var middle = Math.floor( sorted.length / 2 );
+		return sorted.length % 2 === 0 ? ( sorted[ middle - 1 ] + sorted[ middle ] ) / 2 : sorted[ middle ];
+	}
 
-		thorough = thorough !== false;
+	/** Penalty for showing an image of `ratio` in a tile of `tileRatio` with `object-fit: cover`. */
+	function cropCost( tileRatio, ratio ) {
+		var crop = Math.abs( Math.log( tileRatio / ratio ) );
+		return crop + crop * crop * 3;
+	}
+
+	/** Penalty for a tile area that strays from its target; growth and shrinkage are weighted separately. */
+	function sizeCost( area, target, over, under ) {
+		var difference = Math.log( area / target );
+		return difference * difference * ( difference > 0 ? over : under );
+	}
+
+	/**
+	 * Pack images into a continuous, hole-free grid of landscape cells.
+	 *
+	 * A beam search walks the gallery in order. Each tile sits flush on the shallowest, leftmost
+	 * flat run of the skyline, so holes cannot form. Candidates are scored on crop, size, and how
+	 * far each image moves from its gallery position. Prominent tiles cover a similar area whatever
+	 * their orientation. The final skyline closes into a rectangle by resizing its last tiles, unless
+	 * a slightly ragged final row distorts the images less.
+	 */
+	function partition( input, options ) {
+		var width = Math.max( 0, options.width );
+		var gap = Math.max( 0, options.gap == null ? 8 : options.gap );
+		if ( !input.length || !width ) return { tiles: [], height: 0 };
 		if ( input.length === 1 ) {
-			var singleWidth = Math.min( width, input[ 0 ].maxWidth );
+			var singleRatio = Math.max( 0.05, Math.min( 20, input[ 0 ].ratio == null ? 1 : input[ 0 ].ratio ) );
+			var singleMaximum = input[ 0 ].maxWidth == null ? 600 : input[ 0 ].maxWidth;
+			var singleWidth = Math.min( width, Math.max( 1, singleMaximum ) );
 			return {
-				tiles: [ { x: 0, y: 0, width: singleWidth, height: singleWidth / input[ 0 ].ratio } ],
-				height: singleWidth / input[ 0 ].ratio
+				tiles: [ { x: 0, y: 0, width: singleWidth, height: singleWidth / singleRatio } ],
+				height: singleWidth / singleRatio
 			};
 		}
 
-		target = Math.min( options.density === "low" ? 270 : options.density === "high" ? 160 : 210, width / 2.4 );
-		( options.automatic !== false ? ( thorough ? [ 0, 1, 2, 3 ] : [ 0, 2 ] ) : [ 0 ] ).forEach( function( phase ) {
-			var weights = input.map( function( item, index ) {
-				return item.prominent || ( options.automatic !== false && index % 4 === phase && !input.some( function( other, at ) {
-					return other.prominent && Math.abs( at - index ) <= 2;
-				} ) ) ? 3 : 1;
-			} );
-			var prefix = [ 0 ];
-			var total;
-
-			weights.forEach( function( weight ) {
-				prefix.push( prefix[ prefix.length - 1 ] + weight );
-			} );
-			total = prefix[ prefix.length - 1 ];
-
-			( thorough ? [ 0.75, 1, 1.3 ] : [ 1 ] ).forEach( function( factor ) {
-				var height = total * target * target / width * factor;
-				var unit = ( width + gap ) * ( height + gap ) / total;
-				var memo = new Map();
-				var root;
-				var tiles = [];
-
-				function solve( start, end, aspect, flat ) {
-					var bucket = Math.round( Math.log( aspect ) * 32 );
-					var key = start + ":" + end + ":" + bucket + ":" + !!flat;
-					var cached = memo.get( key );
-					var ratio;
-					var result;
-					var sum;
-
-					if ( cached ) return cached;
-					ratio = Math.exp( bucket / 32 );
-					if ( end - start === 1 ) {
-						var leafWidth = Math.sqrt( unit * weights[ start ] * ratio ) - gap;
-						var leafHeight = Math.sqrt( unit * weights[ start ] / ratio ) - gap;
-						var crop = Math.abs( Math.log( Math.max( 0.001, leafWidth ) / Math.max( 0.001, leafHeight ) ) - Math.log( input[ start ].ratio ) );
-						var cost = ( crop + crop * crop * 3 ) * Math.sqrt( weights[ start ] )
-							+ Math.pow( Math.max( 0, leafWidth / input[ start ].maxWidth - 1 ), 2 ) * 100
-							+ Math.pow( Math.max( 0, 45 / Math.max( 0.001, Math.min( leafWidth, leafHeight ) ) - 1 ), 2 ) * 10;
-						var leaf = { cost: cost, index: start };
-						memo.set( key, leaf );
-						return leaf;
-					}
-
-					result = { cost: Infinity };
-					sum = prefix[ end ] - prefix[ start ];
-					for ( var split = start + 1; split < end; split++ ) {
-						var fraction = ( prefix[ split ] - prefix[ start ] ) / sum;
-						( flat ? [ true ] : [ true, false ] ).forEach( function( vertical ) {
-							var firstAspect = vertical ? ratio * fraction : ratio / fraction;
-							var secondAspect = vertical ? ratio * ( 1 - fraction ) : ratio / ( 1 - fraction );
-							var left;
-							var right;
-							var cost;
-							if ( firstAspect < 0.08 || firstAspect > 15 || secondAspect < 0.08 || secondAspect > 15 ) return;
-							left = solve( start, split, firstAspect, vertical );
-							right = solve( split, end, secondAspect, flat );
-							cost = left.cost + right.cost;
-							if ( cost < result.cost ) result = { cost: cost, left: left, right: right, fraction: fraction, vertical: vertical };
-						} );
-					}
-					memo.set( key, result );
-					return result;
-				}
-
-				function place( tree, x, y, tileWidth, tileHeight ) {
-					if ( tree.index !== undefined ) {
-						tiles[ tree.index ] = { x: x, y: y, width: tileWidth - gap, height: tileHeight - gap };
-						return;
-					}
-					if ( tree.vertical ) {
-						place( tree.left, x, y, tileWidth * tree.fraction, tileHeight );
-						place( tree.right, x + tileWidth * tree.fraction, y, tileWidth * ( 1 - tree.fraction ), tileHeight );
-					} else {
-						place( tree.left, x, y, tileWidth, tileHeight * tree.fraction );
-						place( tree.right, x, y + tileHeight * tree.fraction, tileWidth, tileHeight * ( 1 - tree.fraction ) );
-					}
-				}
-
-				root = solve( 0, input.length, ( width + gap ) / ( height + gap ) );
-				if ( !Number.isFinite( root.cost ) ) return;
-				place( root, 0, 0, width + gap, height + gap );
-				if ( tiles.some( function( tile ) { return tile.width <= 0 || tile.height <= 0; } ) ) return;
-
-				var scale = Math.min.apply( Math, [ 1 ].concat( tiles.map( function( tile, index ) {
-					return input[ index ].maxWidth / tile.width;
-				} ) ) );
-				var score = root.cost + Math.abs( Math.log( factor ) ) * input.length * 0.3 + ( 1 / scale - 1 ) * 100;
-				if ( !best || score < best.score ) {
-					best = {
-						score: score,
-						result: {
-							tiles: tiles.map( function( tile ) {
-								return { x: tile.x * scale, y: tile.y * scale, width: tile.width * scale, height: tile.height * scale };
-							} ),
-							height: height * scale
-						}
-					};
-				}
-			} );
+		var count = input.length;
+		var dimensions = input.map( function( item ) {
+			var ratio = Math.max( 0.05, Math.min( 20, item.ratio == null ? 1 : item.ratio ) );
+			var sourceWidth = item.width == null ? ( item.maxWidth == null ? 600 : item.maxWidth ) : item.width;
+			return {
+				width: sourceWidth,
+				height: item.height == null ? sourceWidth / ratio : item.height,
+				ratio: ratio
+			};
+		} );
+		var ratios = dimensions.map( function( item ) { return item.ratio; } );
+		var landscape = dimensions.filter( function( item ) { return item.ratio > 1.05; } );
+		var portrait = dimensions.filter( function( item ) { return item.ratio < 0.95; } );
+		var cellRatioCandidates = [
+			landscape.length ? median( landscape.map( function( item ) { return item.width; } ) ) / median( landscape.map( function( item ) { return item.height; } ) ) : undefined,
+			portrait.length ? median( portrait.map( function( item ) { return item.width; } ) ) / median( portrait.map( function( item ) { return item.height; } ) ) * 2 : undefined
+		].filter( function( value ) { return value !== undefined; } );
+		var cellRatio = Math.max( 0.8, Math.min( 2.5, cellRatioCandidates.length ? median( cellRatioCandidates ) : 1 ) );
+		var limits = input.map( function( item, index ) {
+			var maximumWidth = item.maxWidth == null ? ( item.width == null ? 600 : item.width ) : item.maxWidth;
+			return {
+				width: maximumWidth,
+				height: item.height == null ? maximumWidth / ratios[ index ] : item.height
+			};
 		} );
 
-		if ( best ) return best.result;
-
-		var y = 0;
-		var tiles = input.map( function( item ) {
-			var tileWidth = Math.min( width, item.maxWidth );
-			var tileHeight = tileWidth / Math.max( 0.05, Math.min( 20, item.ratio ) );
-			var tile = { x: 0, y: y, width: tileWidth, height: tileHeight };
-			y += tileHeight + gap;
-			return tile;
+		// Grid resolution: as many columns as the standard tile width suggests, and enough that a
+		// typical two-column prominent tile never exceeds its generated thumbnail.
+		var sourceWidths = dimensions.map( function( item ) { return item.width; } ).filter( function( value ) {
+			return Number.isFinite( value ) && value > 0;
 		} );
-		return { tiles: tiles, height: y - gap };
-	}
+		var naturalCellWidth = Math.max( 48, median( sourceWidths ) / 2 );
+		var mediumColumns = Math.max( 2, Math.ceil( ( width + gap ) / ( naturalCellWidth + gap ) ) );
+		var qualityColumns = limits.reduce( function( minimum, limit, index ) {
+			var rows = ratios[ index ] < cellRatio * 0.75 ? 3 : 2;
+			var widthColumns = Math.ceil( 2 * ( width + gap ) / ( limit.width + gap ) );
+			var maximumCellHeight = Math.max( 1, ( limit.height - ( rows - 1 ) * gap ) / rows );
+			var heightColumns = Math.ceil( ( width + gap ) / ( maximumCellHeight * cellRatio + gap ) );
+			return Math.max( minimum, widthColumns, heightColumns );
+		}, 2 );
+		var mediumScaleColumns = Math.max( mediumColumns, qualityColumns + ( qualityColumns > 2 ? 1 : 0 ) );
+		var scales = {
+			low: Math.max( qualityColumns, Math.floor( mediumScaleColumns * 0.8 ) ),
+			medium: mediumScaleColumns,
+			high: Math.max( mediumScaleColumns + 1, Math.ceil( mediumScaleColumns * 1.25 ) )
+		};
+		var preferred = scales[ options.density ] || scales.medium;
+		// Alternative column counts must not cross into a neighbouring density's scale.
+		var fewest = Math.max( 2, qualityColumns, options.density === "high" ? scales.medium + 1 : options.density === "low" ? 0 : scales.low + 1 );
+		var most = options.density === "low" ? Math.max( preferred, scales.medium - 1 ) : options.density === "high" ? Infinity : scales.high;
 
-	/** Fill a continuous cell grid in reading order, with bounded look-ahead. */
-	function pack( input, width, gap, density, automatic, budget ) {
-		var columns = Math.max( 6, Math.min( 20, Math.ceil( width / ( density === "low" ? 150 : density === "high" ? 85 : 115 ) / 2 ) * 2 ) );
-		var cellWidth = ( width + gap ) / columns;
-		var cellHeight = cellWidth / 1.3;
-		var full = ( 1 << columns ) - 1;
-		var best;
-		var phases = automatic ? ( budget < 250 ? [ 0, 2 ] : [ 0, 1, 2, 3 ] ) : [ 0 ];
+		var selected = input.map( function( item ) { return !!item.prominent; } );
+		var tuning = AUTOMATIC[ options.density ] || AUTOMATIC.medium;
+		var accent = input.map( function( item, index ) {
+			return options.automatic !== false && !selected.slice( Math.max( 0, index - 2 ), index + 3 ).some( function( value ) { return value; } );
+		} );
 
-		for ( var phaseIndex = 0; phaseIndex < phases.length; phaseIndex++ ) {
-			var phase = phases[ phaseIndex ];
-			var large = input.map( function( item, index ) {
-				return !!item.prominent || ( automatic && index % 4 === phase && !input.some( function( other, at ) {
-					return other.prominent && Math.abs( at - index ) <= 2;
-				} ) );
-			} );
+		function solve( columns ) {
+			var cellWidth = Math.max( 1, ( width - gap * ( columns - 1 ) ) / columns );
+			var cellHeight = cellWidth / cellRatio;
+			var naturalArea = [];
+
+			function tileWidth( spanColumns ) { return spanColumns * cellWidth + ( spanColumns - 1 ) * gap; }
+			function tileHeight( spanRows ) { return spanRows * cellHeight + ( spanRows - 1 ) * gap; }
+			function shapeCost( index, spanColumns, spanRows, large ) {
+				var crop = cropCost( tileWidth( spanColumns ) / tileHeight( spanRows ), ratios[ index ] );
+				return large
+					? crop * 1.5 + sizeCost( spanColumns * spanRows, prominentArea( naturalArea[ index ] ).ideal, 2, 2 )
+					: crop + sizeCost( spanColumns * spanRows, naturalArea[ index ], 3, 2 );
+			}
+
+			// Candidate shapes. Normal tiles stay near the image's natural one-cell-wide footprint;
+			// prominent tiles cover a bounded area, so tall images never dominate the gallery.
 			var shapes = input.map( function( item, index ) {
-				var result = [];
-				for ( var w = 1; w <= 6; w++ ) {
-					for ( var h = 1; h <= 6; h++ ) {
-						var area = w * h;
-						if ( large[ index ] ? area < 16 || area > 24 : area < 3 || area > 10 ) continue;
-						var tileWidth = w * cellWidth - gap;
-						var tileHeight = h * cellHeight - gap;
-						if ( tileWidth <= 0 || tileHeight <= 0 || tileWidth > item.maxWidth ) continue;
-						var crop = Math.abs( Math.log( tileWidth / tileHeight / item.ratio ) );
-						if ( crop > 1 ) continue;
-						var flipped = item.ratio >= 1.2 && tileWidth < tileHeight || item.ratio <= 0.8 && tileWidth > tileHeight;
-						result.push( {
+				var all = [];
+				for ( var w = 1; w <= Math.min( MAX_COLUMNS, columns ); w++ ) {
+					for ( var h = 1; h <= MAX_ROWS; h++ ) {
+						all.push( {
 							w: w,
 							h: h,
-							area: area,
-							tileWidth: tileWidth,
-							tileHeight: tileHeight,
-							cost: crop + crop * crop * 3 + ( flipped ? 2 : 0 ) + Math.pow( Math.log( area / ( large[ index ] ? 18 : 6 ) ), 2 ) * 1.2
+							area: w * h,
+							crop: Math.abs( Math.log( tileWidth( w ) / tileHeight( h ) / ratios[ index ] ) ),
+							fits: tileWidth( w ) <= limits[ index ].width + 0.5 && tileHeight( h ) <= limits[ index ].height + 0.5
 						} );
 					}
 				}
-				return result;
-			} );
-			var minimum = new Array( input.length + 1 ).fill( 0 );
-			var maximum = minimum.slice();
-			for ( var index = input.length - 1; index >= 0; index-- ) {
-				minimum[ index ] = minimum[ index + 1 ] + Math.min.apply( Math, shapes[ index ].map( function( shape ) { return shape.area; } ) );
-				maximum[ index ] = maximum[ index + 1 ] + Math.max.apply( Math, shapes[ index ].map( function( shape ) { return shape.area; } ) );
-			}
-			var total = large.reduce( function( sum, featured ) { return sum + ( featured ? 18 : 6 ); }, 0 );
-			var ideal = Math.max( 2, Math.round( total / columns ) );
-			var rowChoices = [ ideal - 1, ideal, ideal + 1 ].filter( function( value ) { return value > 0; } );
+				var natural = all.filter( function( shape ) {
+					return shape.w === 1 || shape.h === 1;
+				} ).sort( function( a, b ) { return a.crop - b.crop || a.area - b.area; } )[ 0 ];
+				naturalArea[ index ] = natural.area;
 
-			for ( var rowIndex = 0; rowIndex < rowChoices.length; rowIndex++ ) {
-				var rows = rowChoices[ rowIndex ];
-				var states = [ { mask: new Array( rows ).fill( 0 ), tiles: [], cost: 0, filled: 0 } ];
-				for ( var itemIndex = 0; itemIndex < input.length && states.length; itemIndex++ ) {
-					var next = new Map();
-					states.forEach( function( state ) {
-						var y = state.mask.findIndex( function( row ) { return row !== full; } );
-						if ( y < 0 ) return;
-						var x = 0;
-						while ( state.mask[ y ] & ( 1 << x ) ) x++;
-						shapes[ itemIndex ].forEach( function( shape ) {
-							if ( x + shape.w > columns || y + shape.h > rows ) return;
-							var filled = state.filled + shape.area;
-							var empty = columns * rows - filled;
-							if ( empty < minimum[ itemIndex + 1 ] || empty > maximum[ itemIndex + 1 ] ) return;
-							var bits = ( ( 1 << shape.w ) - 1 ) << x;
-							var overlaps = false;
-							for ( var row = y; row < y + shape.h; row++ ) {
-								if ( state.mask[ row ] & bits ) { overlaps = true; break; }
+				var normal = all.filter( function( shape ) {
+					return shape.fits && shape.area <= Math.max( 3, natural.area ) && shape.crop <= 0.7;
+				} );
+				if ( !normal.length ) normal = [ natural ];
+				var bounds = prominentArea( natural.area );
+				var large = all.filter( function( shape ) {
+					return shape.fits && shape.area >= bounds.min && shape.area <= bounds.max
+						&& shape.area >= natural.area * 1.8 && shape.crop <= 0.5;
+				} );
+				function rank( list, isLarge, limit ) {
+					return list.map( function( shape ) {
+						return { w: shape.w, h: shape.h, large: isLarge, cost: shapeCost( index, shape.w, shape.h, isLarge ) };
+					} ).sort( function( a, b ) { return a.cost - b.cost; } ).slice( 0, limit );
+				}
+				var ranked = rank( normal, false, 3 );
+				// Every image needs a one-column shape so it can always fill a one-column gap;
+				// otherwise a wide panorama could leave the search with no valid placement.
+				if ( !ranked.some( function( shape ) { return shape.w === 1; } ) ) {
+					ranked = ranked.concat( rank( all.filter( function( shape ) { return shape.w === 1; } ).sort( function( a, b ) {
+						return a.crop - b.crop;
+					} ).slice( 0, 1 ), false, 1 ) );
+				}
+				return { normal: ranked, large: rank( large, true, 2 ) };
+			} );
+
+			// Cost of every shape a tile may be resized to while closing the rectangle.
+			var resized = input.map( function( item, index ) {
+				return [ false, true ].map( function( large ) {
+					var cap = large ? prominentArea( naturalArea[ index ] ).max : Math.max( 3, naturalArea[ index ] );
+					var table = [];
+					for ( var w = 1; w <= MAX_COLUMNS; w++ ) {
+						for ( var h = 1; h <= MAX_ROWS; h++ ) {
+							var crop = Math.abs( Math.log( tileWidth( w ) / tileHeight( h ) / ratios[ index ] ) );
+							var fits = tileWidth( w ) <= limits[ index ].width + 0.5 && tileHeight( h ) <= limits[ index ].height + 0.5;
+							table[ ( w - 1 ) * MAX_ROWS + h - 1 ] = w * h > cap || crop > 0.7 || !fits ? Infinity : shapeCost( index, w, h, large );
+						}
+					}
+					return table;
+				} );
+			} );
+
+			/**
+			 * Close a skyline into a rectangle. Every candidate bottom row is tried: each column's last
+			 * tile grows or shrinks to meet it. A ragged final row is accepted only when it is cheaper
+			 * than distorting the tiles.
+			 */
+			function close( state ) {
+				var depth = state.depth;
+				var top = state.top;
+				var low = Infinity;
+				var high = 0;
+				var ragged = RAGGED.base;
+				for ( var column = 0; column < columns; column++ ) {
+					if ( depth[ column ] < low ) low = depth[ column ];
+					if ( depth[ column ] > high ) high = depth[ column ];
+				}
+				if ( low === high ) return { cost: 0, stretched: new Map(), rows: high };
+				for ( column = 0; column < columns; column++ ) ragged += ( high - depth[ column ] ) * RAGGED.cell;
+
+				var best = { cost: ragged, changes: [], rows: high };
+				for ( var bottom = Math.max( 1, low ); bottom <= high; bottom++ ) {
+					var changes = [];
+					var cost = 0;
+					for ( column = 0; column < columns && cost < best.cost; column++ ) {
+						var node = top[ column ];
+						if ( !node || node.y >= bottom ) {
+							cost = Infinity;
+							break;
+						}
+						if ( node.y + node.h === bottom || node.x !== column && top[ column - 1 ] === node ) continue;
+						// A tile partly covered by a later tile cannot change height without overlapping it.
+						for ( var c = node.x; c < node.x + node.w; c++ ) {
+							if ( top[ c ] !== node ) cost = Infinity;
+						}
+						var rows = bottom - node.y;
+						var table = resized[ node.index ][ node.large ? 1 : 0 ];
+						cost += rows > MAX_ROWS ? Infinity : table[ ( node.w - 1 ) * MAX_ROWS + rows - 1 ] - table[ ( node.w - 1 ) * MAX_ROWS + node.h - 1 ] + 0.25;
+						changes.push( node, rows );
+					}
+					if ( cost < best.cost ) best = { cost: cost, changes: changes, rows: bottom };
+				}
+				var stretched = new Map();
+				for ( var i = 0; i < best.changes.length; i += 2 ) stretched.set( best.changes[ i ], best.changes[ i + 1 ] );
+				return { cost: best.cost, stretched: stretched, rows: best.rows };
+			}
+
+			var beam = count > 120 ? 10 : count > 40 ? 16 : 24;
+			var states = [ {
+				depth: new Array( columns ).fill( 0 ),
+				top: new Array( columns ).fill( null ),
+				pending: [],
+				next: 0,
+				cost: 0,
+				since: Infinity,
+				lastX: -1,
+				node: null
+			} ];
+
+			for ( var step = 0; step < count; step++ ) {
+				// Score every move cheaply first; only the best few become full states.
+				var moves = [];
+				for ( var s = 0; s < states.length; s++ ) {
+					var state = states[ s ];
+					var floor = Math.min.apply( Math, state.depth );
+					var x = state.depth.indexOf( floor );
+					var run = 0;
+					while ( x + run < columns && state.depth[ x + run ] === floor ) run++;
+					var main = [ { x: x, y: floor, length: run } ];
+					// Large tiles may also sit on any other flat run at, or one row below, the floor.
+					// Any flat run is hole-free, and this keeps favourites from being squeezed out
+					// when the leftmost gap happens to be a single column.
+					var runs = [];
+					for ( var start = 0; start < columns; ) {
+						var end = start;
+						while ( end < columns && state.depth[ end ] === state.depth[ start ] ) end++;
+						if ( state.depth[ start ] <= floor + 1 ) runs.push( { x: start, y: state.depth[ start ], length: end - start } );
+						start = end;
+					}
+
+					// Which items may be placed now: deferred ones, or one of the next few in order.
+					var choices = [];
+					var overdue = state.pending.filter( function( index ) { return step - index >= MAX_SHIFT; } );
+					if ( overdue.length ) {
+						choices.push( overdue[ 0 ] );
+					} else {
+						choices = state.pending.slice();
+						for ( var ahead = state.next; ahead < count && ahead <= state.next + MAX_SHIFT - state.pending.length; ahead++ ) {
+							choices.push( ahead );
+						}
+					}
+
+					for ( var k = 0; k < choices.length; k++ ) {
+						var index = choices[ k ];
+						var shift = Math.abs( step - index ) * SHIFT_COST;
+						var penalty = selected[ index ] ? 10 : 0;
+						var options = selected[ index ] || ( accent[ index ] && state.since >= tuning.spacing )
+							? shapes[ index ].normal.concat( shapes[ index ].large )
+							: shapes[ index ].normal;
+
+						for ( var o = 0; o < options.length; o++ ) {
+							var shape = options[ o ];
+							var positions = shape.large ? runs : main;
+							for ( var p = 0; p < positions.length; p++ ) {
+								var at = positions[ p ];
+								if ( shape.w > at.length ) continue;
+								var low = at.y + shape.h;
+								var high = low;
+								for ( var c = 0; c < columns; c++ ) {
+									if ( c >= at.x && c < at.x + shape.w ) continue;
+									if ( state.depth[ c ] < low ) low = state.depth[ c ];
+									if ( state.depth[ c ] > high ) high = state.depth[ c ];
+								}
+								if ( high - low > MAX_ROWS + 1 ) continue;
+								var displaced = at.x === x && at.y === floor ? 0 : 0.2 + ( at.y - floor ) * 0.5;
+								var cost = state.cost + shape.cost + shift + displaced + Math.max( 0, high - low - 2 ) * 0.15
+									+ ( shape.large ? ( selected[ index ] ? 0 : -tuning.bonus ) + ( at.x === state.lastX ? 0.4 : 0 ) : penalty );
+								moves.push( { state: state, index: index, shape: shape, x: at.x, y: at.y, low: low, cost: cost } );
 							}
-							if ( overlaps ) return;
-							var cost = state.cost + shape.cost;
-							var mask = state.mask.slice();
-							for ( var maskRow = y; maskRow < y + shape.h; maskRow++ ) mask[ maskRow ] |= bits;
-							var key = mask.join( "," );
-							if ( !next.has( key ) || cost < next.get( key ).cost ) {
-								next.set( key, {
-									mask: mask,
-									filled: filled,
-									cost: cost,
-									tiles: state.tiles.concat( [ { x: x * cellWidth, y: y * cellHeight, width: shape.tileWidth, height: shape.tileHeight } ] )
-								} );
-							}
-						} );
+						}
+					}
+				}
+				moves.sort( function( a, b ) { return a.cost - b.cost; } );
+
+				// Near the end, favour skylines that can be closed cheaply.
+				var urgency = Math.max( 0, 1 - ( count - step - 1 ) / Math.min( 8, columns + 2 ) );
+				var limit = urgency ? beam * 4 : beam;
+				var seen = new Set();
+				states = [];
+				for ( var m = 0; m < moves.length && states.length < limit; m++ ) {
+					var move = moves[ m ];
+					var from = move.state;
+					var pending = from.pending.filter( function( value ) { return value !== move.index; } );
+					var following = from.next;
+					if ( move.index >= from.next ) {
+						for ( var skipped = from.next; skipped < move.index; skipped++ ) pending.push( skipped );
+						following = move.index + 1;
+					}
+					var since = move.shape.large ? 0 : from.since + 1;
+					var depth = from.depth.slice();
+					for ( var d = move.x; d < move.x + move.shape.w; d++ ) depth[ d ] = move.y + move.shape.h;
+					var key = depth.map( function( value ) { return value - move.low; } ).join( "," )
+						+ "|" + Math.min( since, tuning.spacing ) + "|" + pending.join( "," );
+					if ( seen.has( key ) ) continue;
+					seen.add( key );
+					var node = { parent: from.node, index: move.index, x: move.x, y: move.y, w: move.shape.w, h: move.shape.h, large: move.shape.large };
+					var top = from.top.slice();
+					for ( var t = move.x; t < move.x + move.shape.w; t++ ) top[ t ] = node;
+					states.push( {
+						depth: depth,
+						top: top,
+						pending: pending,
+						next: following,
+						cost: move.cost,
+						since: since,
+						lastX: move.shape.large ? move.x : from.lastX,
+						node: node
 					} );
-					states = Array.from( next.values() ).sort( function( a, b ) { return a.cost - b.cost; } ).slice( 0, budget );
 				}
-				var complete = states.find( function( state ) { return state.filled === columns * rows; } );
-				if ( complete && ( !best || complete.cost < best.cost ) ) {
-					best = { cost: complete.cost, result: { tiles: complete.tiles, height: rows * cellHeight - gap } };
+				if ( urgency ) {
+					states.forEach( function( candidate ) {
+						candidate.score = candidate.cost + urgency * close( candidate ).cost;
+					} );
+					states.sort( function( a, b ) { return a.score - b.score; } );
+					states = states.slice( 0, beam * 2 );
 				}
-				if ( best && budget <= 24 ) return best.result;
 			}
-		}
-		return best ? best.result : undefined;
-	}
 
-	/** Keep order unless a small local exchange materially improves a poor crop. */
-	function relaxOrder( items, solve, thorough ) {
-		var original = items.map( function( item, index ) { return index; } );
-		function crops( result, order ) {
-			return result.tiles.map( function( tile, index ) {
-				return Math.abs( Math.log( tile.width / tile.height / items[ order[ index ] ].ratio ) );
+			var best;
+			states.forEach( function( state ) {
+				var closed = close( state );
+				closed.cost += state.cost;
+				closed.state = state;
+				if ( !best || closed.cost < best.cost ) best = closed;
 			} );
-		}
-		function quality( values, result, order ) {
-			return values.reduce( function( sum, crop, index ) {
-				var source = items[ order[ index ] ].ratio;
-				var target = result.tiles[ index ].width / result.tiles[ index ].height;
-				var flipped = source >= 1.2 && target < 1 || source <= 0.8 && target > 1;
-				return sum + crop + 3 * crop * crop + ( flipped ? 2 : 0 );
-			}, 0 ) / values.length + Math.max.apply( Math, values ) * 0.3;
-		}
 
-		var order = original;
-		var result = solve( items );
-		var errors = crops( result, order );
-		var score = quality( errors, result, order );
-		for ( var pass = 0; pass < ( thorough ? 2 : 1 ) && Math.max.apply( Math, errors ) > 0.55; pass++ ) {
-			var worst = errors.map( function( crop, index ) { return { crop: crop, index: index }; } )
-				.sort( function( a, b ) { return b.crop - a.crop; } ).slice( 0, thorough ? 2 : 1 );
-			var swaps = new Set();
-			worst.forEach( function( value ) {
-				if ( value.index > 0 ) swaps.add( value.index - 1 );
-				if ( value.index + 1 < items.length ) swaps.add( value.index );
-			} );
-			var winner;
-			swaps.forEach( function( at ) {
-				var candidate = order.slice();
-				var current = candidate[ at ];
-				candidate[ at ] = candidate[ at + 1 ];
-				candidate[ at + 1 ] = current;
-				if ( candidate.some( function( index, position ) { return Math.abs( index - position ) > 2; } ) ) return;
-				var inversions = candidate.reduce( function( sum, index, position ) {
-					return sum + candidate.slice( position + 1 ).filter( function( next ) { return next < index; } ).length;
-				}, 0 );
-				if ( inversions > 2 ) return;
-				var arrangement = solve( candidate.map( function( index ) { return items[ index ]; } ) );
-				var areas = arrangement.tiles.map( function( tile ) { return tile.width * tile.height; } );
-				var median = areas.slice().sort( function( a, b ) { return a - b; } )[ Math.floor( ( areas.length - 1 ) / 2 ) ];
-				if ( items.length >= 5 && candidate.some( function( index, position ) {
-					return items[ index ].prominent && areas[ position ] < median * 1.5;
-				} ) ) return;
-				var candidateErrors = crops( arrangement, candidate );
-				var candidateScore = quality( candidateErrors, arrangement, candidate ) + inversions * 0.08;
-				if ( candidateScore < score - 0.12 && ( !winner || candidateScore < winner.score ) ) {
-					winner = { order: candidate, result: arrangement, errors: candidateErrors, score: candidateScore };
-				}
-			} );
-			if ( !winner ) break;
-			order = winner.order;
-			result = winner.result;
-			errors = winner.errors;
-			score = winner.score;
+			var tiles = new Array( count );
+			for ( var placed = best.state.node; placed; placed = placed.parent ) {
+				tiles[ placed.index ] = {
+					x: placed.x * ( cellWidth + gap ),
+					y: placed.y * ( cellHeight + gap ),
+					width: tileWidth( placed.w ),
+					height: tileHeight( best.stretched.has( placed ) ? best.stretched.get( placed ) : placed.h )
+				};
+			}
+			return { cost: best.cost, result: { tiles: tiles, height: tileHeight( best.rows ) } };
 		}
 
-		var tiles = [];
-		order.forEach( function( index, position ) {
-			tiles[ index ] = result.tiles[ position ];
+		// A neighbouring column count often closes the rectangle far more cleanly, so small and
+		// medium galleries try both neighbours. Galleries with few images for the width may also
+		// use fewer, larger columns, down to the thumbnail-quality limit.
+		var alternatives = count <= 60 ? [ preferred, preferred - 1, preferred + 1 ] : [ preferred ];
+		for ( var fewer = preferred - 2; count < preferred * 2 && fewer >= 2; fewer-- ) alternatives.push( fewer );
+		var best;
+		alternatives.forEach( function( columns ) {
+			if ( columns !== preferred && ( columns < fewest || columns > most ) ) return;
+			var attempt = solve( columns );
+			attempt.cost += Math.abs( columns - preferred ) * count * 0.08;
+			if ( !best || attempt.cost < best.cost ) best = attempt;
 		} );
-		return { tiles: tiles, height: result.height };
+		return best.result;
 	}
 
-	/** Deterministic, bounded Mosaic geometry, independent of the DOM. */
+	/** Deterministic Mosaic geometry, independent of the DOM. */
 	function layout( source, options ) {
 		var width = Number.isFinite( options.width ) ? Math.max( 0, options.width ) : 0;
 		if ( !source.length || !width ) return { tiles: [], height: 0 };
 		var gap = Math.min( width / 24, Math.max( 0, Number.isFinite( options.gap ) ? options.gap : 8 ) );
 		var density = options.density === "low" || options.density === "high" ? options.density : "medium";
 		var input = source.map( function( item ) {
+			var hasDimensions = Number.isFinite( item.width ) && item.width > 0
+				&& Number.isFinite( item.height ) && item.height > 0;
+			var ratio = hasDimensions
+				? item.width / item.height
+				: Number.isFinite( item.ratio ) && item.ratio > 0 ? item.ratio : 1;
+			var suppliedWidth = Number.isFinite( item.width ) && item.width > 0 ? item.width : undefined;
+			var maxWidth = Number.isFinite( item.maxWidth ) && item.maxWidth > 0
+				? item.maxWidth
+				: suppliedWidth === undefined ? 600 : suppliedWidth;
 			return {
-				ratio: Number.isFinite( item.ratio ) && item.ratio > 0 ? item.ratio : 1,
-				maxWidth: Number.isFinite( item.maxWidth ) && item.maxWidth > 0 ? item.maxWidth : 600,
+				width: suppliedWidth === undefined ? maxWidth : suppliedWidth,
+				height: hasDimensions ? item.height : maxWidth / ratio,
+				ratio: ratio,
+				maxWidth: maxWidth,
 				prominent: !!item.prominent
 			};
 		} );
 		var key = JSON.stringify( [ width, gap, density, options.automatic !== false, input ] );
 		var cached = cache.get( key );
 		if ( cached ) return copy( cached );
-
-		var sections = Math.ceil( input.length / 12 );
-		var tiles = [];
-		var y = 0;
-		var start = 0;
-		for ( var section = 0; section < sections; section++ ) {
-			var count = Math.ceil( ( input.length - start ) / ( sections - section ) );
-			var items = input.slice( start, start + count );
-			var result = relaxOrder( items, function( ordered ) {
-				return ( ordered.length >= 5 ? pack( ordered, width, gap, density, options.automatic !== false, input.length > 192 ? 24 : input.length > 48 ? 64 : 250 ) : undefined )
-					|| partition( ordered, { width: width, gap: gap, density: density, automatic: options.automatic }, input.length <= 192 );
-			}, input.length <= 48 );
-			result.tiles.forEach( function( tile ) {
-				tiles.push( { x: tile.x, y: tile.y + y, width: tile.width, height: tile.height } );
-			} );
-			y += result.height + gap;
-			start += count;
-		}
-
-		var result = { tiles: tiles, height: Math.max( 0, y - gap ) };
+		var result = partition( input, { width: width, gap: gap, density: density, automatic: options.automatic } );
 		if ( cache.size >= 24 ) cache.delete( cache.keys().next().value );
 		cache.set( key, result );
 		return copy( result );

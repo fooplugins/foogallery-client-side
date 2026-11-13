@@ -25,30 +25,9 @@
         },
         init: function(item){
             if (!(item instanceof _.Item)) return;
-            var self = this, title, desc, supplied = false;
-            if (item.isCreated){
-                var data = item.$anchor.data() || {};
-                title = _is.string(data.lightboxTitle);
-                desc = _is.string(data.lightboxDescription);
-                if (title || desc){
-                    supplied = true;
-                    self.title = _.safeParse( title ? data.lightboxTitle : "" );
-                    self.description = _.safeParse( desc ? data.lightboxDescription : "" );
-                }
-            } else {
-                var attr = item.attr.anchor;
-                title = _is.string(attr["data-lightbox-title"]);
-                desc = _is.string(attr["data-lightbox-description"]);
-                if (title || desc){
-                    supplied = true;
-                    self.title = _.safeParse( title ? attr["data-lightbox-title"] : "" );
-                    self.description = _.safeParse( desc ? attr["data-lightbox-description"] : "" );
-                }
-            }
-            if (!supplied){
-                self.title = item.caption;
-                self.description = item.description;
-            }
+            var self = this, content = _.Panel.Media.Caption.resolve(item);
+            self.title = content.title;
+            self.description = content.description;
             self.hasTitle = !_is.empty(self.title);
             self.hasDescription = !_is.empty(self.description);
             self.hasExif = item.hasExif && _utils.inArray(self.opt.exif, ["auto","full","partial","minimal"]) !== -1;
@@ -232,6 +211,23 @@
             return _fn.resolved;
         }
     });
+
+    // Resolve once for both the main caption and strips which share its sources.
+    // Empty strings are explicit overrides and must not fall back to item captions.
+    _.Panel.Media.Caption.resolve = function(item){
+        var data = item.isCreated ? (item.$anchor.data() || {}) : ((item.attr && item.attr.anchor) || {}),
+            titleKey = item.isCreated ? "lightboxTitle" : "data-lightbox-title",
+            descriptionKey = item.isCreated ? "lightboxDescription" : "data-lightbox-description",
+            hasTitle = _is.string(data[titleKey]),
+            hasDescription = _is.string(data[descriptionKey]);
+        if (hasTitle || hasDescription){
+            return {
+                title: _.safeParse(hasTitle ? data[titleKey] : ""),
+                description: _.safeParse(hasDescription ? data[descriptionKey] : "")
+            };
+        }
+        return { title: item.caption, description: item.description };
+    };
 
 })(
     FooGallery.$,

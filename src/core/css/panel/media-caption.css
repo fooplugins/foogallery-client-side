@@ -98,7 +98,7 @@ body.rtl .fg-media-caption-exif-prop {
 }
 
 .fg-media-caption-exif-full .fg-media-caption-exif-prop,
-.fg-panel.fg-large .fg-media-caption-exif-auto .fg-media-caption-exif-prop {
+.fg-panel.fg-medium .fg-media-caption-exif-auto .fg-media-caption-exif-prop {
     height: 30px;
 }
 .fg-media-caption-exif-icon {
@@ -135,7 +135,7 @@ body.rtl .fg-media-caption-exif-prop {
     white-space: nowrap;
 }
 .fg-media-caption-exif-full .fg-media-caption-exif-label,
-.fg-panel.fg-large .fg-media-caption-exif-auto .fg-media-caption-exif-label {
+.fg-panel.fg-medium .fg-media-caption-exif-auto .fg-media-caption-exif-label {
     display: block;
 }
 .fg-media-caption-exif-value {

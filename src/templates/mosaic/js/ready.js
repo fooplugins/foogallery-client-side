@@ -16,11 +16,12 @@
 				return item.el && !item.el.classList.contains( "fg-hidden" );
 			} );
 			var options = this.template;
-			var ids = new Set( ( options.prominentIds || [] ).map( String ) );
+			var ids = new Set( options.prominence === "disabled" ? [] : ( options.prominentIds || [] ).map( String ) );
 			var result = _.Mosaic.layout( items.map( function( item ) {
 				return {
+					width: item.width,
+					height: item.height,
 					maxWidth: item.width,
-					ratio: item.width > 0 && item.height > 0 ? item.width / item.height : 1,
 					prominent: ids.has( String( item.id ) )
 				};
 			} ), { width: width, gap: options.gap, density: options.density, automatic: options.prominence !== "selected" } );

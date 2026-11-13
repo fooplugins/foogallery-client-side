@@ -6,12 +6,18 @@
 			self.settings = settings;
 			self.$tabs = null;
 			self.$contents = null;
+			self.contentByName = null;
 			self.children = [];
 		},
 		init: function(){
 			var self = this, $el = self.settings.$el;
 			self.$tabs = $el.children(".foogallery-vertical-tabs");
 			self.$contents = $el.children(".foogallery-tab-contents");
+			self.contentByName = Object.create(null);
+			self.$contents.find("[data-name]").each(function(){
+				var name = this.getAttribute("data-name");
+				(self.contentByName[name] || (self.contentByName[name] = [])).push(this);
+			});
 			self.children = self.$tabs.children(".foogallery-vertical-tab").map(function(i, tabElement){
 				var tab = new _.Settings.VerticalTabs.Tab(self, tabElement);
 				tab.init();
@@ -80,7 +86,7 @@
 			var self = this;
 			self.name = self.$el.data("name");
 			self.selector = '[data-name="'+self.name+'"]';
-			self.$content = self.vt.$contents.find(self.selector);
+			self.$content = $(self.vt.contentByName[String(self.name)] || []);
 			self.$tabs = self.$el.children(".foogallery-vertical-child-tabs");
 			self.children = self.$tabs.children(".foogallery-vertical-child-tab").map(function(i, tabElement){
 				var tab = new _.Settings.VerticalTabs.Tab(self.vt, tabElement);

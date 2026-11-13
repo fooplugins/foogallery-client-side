@@ -1312,14 +1312,20 @@
 					.addClass(self.cls.loading);
 
 				self.loadIMG().then(function(){
-					if (self.isDestroyed || !self.tmpl) { def.reject("item destroyed"); return; }
+					if (self.isDestroyed || !self.tmpl || self.tmpl.destroying || self.tmpl.destroyed){
+						self.isLoading = false;
+						return def.reject("item destroyed");
+					}
 					self.isLoading = false;
 					self.isLoaded = true;
 					self.$el.removeClass(self.cls.loading).addClass(self.cls.loaded);
 					self.tmpl.trigger("loaded-item", [self]);
 					def.resolve(self);
 				}, function(reason){
-					if (self.isDestroyed || !self.tmpl) { def.reject("item destroyed"); return; }
+					if (self.isDestroyed || !self.tmpl || self.tmpl.destroying || self.tmpl.destroyed){
+						self.isLoading = false;
+						return def.reject("item destroyed");
+					}
 					self.isLoading = false;
 					self.isError = true;
 					self.$el.removeClass(self.cls.loading).addClass(self.cls.error);

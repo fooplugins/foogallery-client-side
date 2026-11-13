@@ -34,6 +34,8 @@
 .fg-simple_portfolio .fg-thumb {
     min-width: auto;
     min-height: auto;
+    /* Corner clipping must not let the full-height caption shrink the image. */
+    flex-shrink: 0;
 }
 
 /* Reset captions for the portfolio */
