@@ -227,7 +227,7 @@
                 return $option;
             } else {
                 const $li = $("<li/>", {"class": cls.item}).attr("data-tag", tag.value),
-                    $span = $("<span/>", {"class": cls.text}).html(_is.string(tag.text) ? tag.text : tag.value),
+                    $span = $("<span/>", {"class": cls.text}).html(_.safeParse((_is.string(tag.text) ? tag.text : tag.value) + "")),
                     $link = $("<a/>", {"href": "#tag-" + tag.value, "class": cls.link})
                         .on("click.foogallery", {self: this, tag: tag}, this.onLinkClick)
                         .css("font-size", tag.size)

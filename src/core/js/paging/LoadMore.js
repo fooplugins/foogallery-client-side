@@ -67,7 +67,7 @@
 		create: function(){
 			var self = this;
 			if (self._super()){
-				self.$button = $("<button/>", {"class": self.pages.cls.button, "type": "button"}).html(self.pages.il8n.button)
+				self.$button = $("<button/>", {"class": self.pages.cls.button, "type": "button"}).html(_.safeParse(self.pages.il8n.button))
 					.on("click.foogallery", {self: self}, self.onButtonClick)
 					.appendTo(self.$container);
 				return true;

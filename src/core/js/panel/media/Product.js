@@ -44,11 +44,11 @@
                 $("<div/>").addClass(self.panel.cls.loader)
             );
             self.$inner = $("<div/>").addClass(self.cls.inner).appendTo(self.$el);
-            self.$header = $("<div/>").addClass(self.cls.header).html(self.il8n.title).appendTo(self.$inner);
+            self.$header = $("<div/>").addClass(self.cls.header).html(_.safeParse(self.il8n.title)).appendTo(self.$inner);
             self.$body = $("<div/>").addClass(self.cls.body).appendTo(self.$inner);
-            self.$addToCart = $("<button/>").addClass(self.cls.button).addClass(self.cls.primary).html(self.il8n.addToCart).on("click", {self: self}, self.onAddToCartClick);
-            self.$viewProduct = $("<a/>").addClass(self.cls.button).addClass(self.cls.secondary).html(self.il8n.viewProduct);
-            self.$goToCheckout = $("<a/>").addClass(self.cls.button).addClass(self.cls.secondary).html(self.il8n.goToCheckout);
+            self.$addToCart = $("<button/>").addClass(self.cls.button).addClass(self.cls.primary).html(_.safeParse(self.il8n.addToCart)).on("click", {self: self}, self.onAddToCartClick);
+            self.$viewProduct = $("<a/>").addClass(self.cls.button).addClass(self.cls.secondary).html(_.safeParse(self.il8n.viewProduct));
+            self.$goToCheckout = $("<a/>").addClass(self.cls.button).addClass(self.cls.secondary).html(_.safeParse(self.il8n.goToCheckout));
             self.$footer = $("<div/>").addClass(self.cls.footer).append(self.$addToCart).append(self.$viewProduct).append(self.$goToCheckout).appendTo(self.$inner);
             return true;
         },
@@ -172,7 +172,7 @@
                 if (_is.string(response.title)){
                     self.$header.html(response.title);
                 } else {
-                    self.$header.html(self.il8n.title);
+                    self.$header.html(_.safeParse(self.il8n.title));
                 }
             }).promise();
         },
@@ -208,9 +208,9 @@
             self.media.item.addToCart($this, product_id, 1, false).then(function(response){
                 let $msg;
                 if (!response || response.error){
-                    $msg = $("<p>" + self.il8n.error + "</p>");
+                    $msg = $("<p/>").html(_.safeParse(self.il8n.error));
                 } else {
-                    $msg = $("<p>" + self.il8n.success + "</p>");
+                    $msg = $("<p/>").html(_.safeParse(self.il8n.success));
                 }
                 self.$footer.append($msg);
                 setTimeout( () => {

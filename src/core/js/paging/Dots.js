@@ -43,18 +43,18 @@
 				var $item = $(el), label = $item.data("label"), $sr = $item.find(sel.reader);
 				// if we have an original value and a screen-reader element then update it
 				if (_is.string(label) && $sr.length !== 0) {
-					$sr.html(label);
+					$sr.text(label);
 				}
 			});
 			// next find the newly selected item and set it as selected
 			self.$items.eq(index).addClass(cls.selected).each(function (i, el) {
 				// we need to update the items screen-reader text to appropriately show it as selected using the value of the labels.current option
-				var $item = $(el), $sr = $item.find(sel.reader), label = $sr.html();
+				var $item = $(el), $sr = $item.find(sel.reader), label = $sr.text();
 				// if we have a current label to backup and a screen-reader element then update it
 				if (_is.string(label) && $sr.length !== 0) {
 					// store the original screen-reader text so we can revert it later
 					$item.data("label", label);
-					$sr.html(il8n.current);
+					$sr.text(il8n.current);
 				}
 			});
 		},
@@ -73,7 +73,8 @@
 			text = _is.string(text) ? text : pageNumber;
 			label = _is.string(label) ? label : "";
 			var self = this, opt = self.pages.opt, cls = self.pages.cls;
-			var $link = $("<a/>", {"class": cls.link, "href": "#page-" + pageNumber}).html(text).on("click.foogallery", {self: self, page: pageNumber}, self.onLinkClick);
+			// Button labels may contain formatting, but DOM-sourced options are untrusted.
+			var $link = $("<a/>", {"class": cls.link, "href": "#page-" + pageNumber}).html(_.safeParse(text + "")).on("click.foogallery", {self: self, page: pageNumber}, self.onLinkClick);
 			if (!_is.empty(label)){
 				$link.attr("title", label.replace(/\{PAGE}/g, pageNumber).replace(/\{LIMIT}/g, opt.limit + ""));
 			}

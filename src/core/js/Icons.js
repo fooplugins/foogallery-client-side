@@ -1,5 +1,38 @@
 (function($, _, _utils, _is, _obj){
 
+    // Custom icon sets can also arrive through gallery DOM options. Parse them
+    // inertly and allow static SVG shapes alongside the supported HTML markup.
+    const svgElements = new Set("svg g path circle ellipse line polyline polygon rect defs clippath mask lineargradient radialgradient stop use symbol title desc".split(" "));
+    const svgAttributes = new Set("id class role focusable viewbox xmlns xmlns:xlink fill fill-rule fill-opacity clip-rule clip-path stroke stroke-width stroke-linecap stroke-linejoin stroke-miterlimit stroke-dasharray stroke-dashoffset stroke-opacity opacity width height x y x1 x2 y1 y2 cx cy r rx ry points d transform preserveaspectratio offset stop-color stop-opacity gradientunits gradienttransform spreadmethod maskunits maskcontentunits mask href xlink:href".split(" "));
+    const fragmentUrl = /^url\(\s*#[\w:.-]+\s*\)$/i;
+    const color = /^(?:[a-z][a-z0-9-]*|#[0-9a-f]{3,8}|(?:rgb|rgba|hsl|hsla|hwb|lab|lch|oklab|oklch)\([0-9e.,%+/\s-]+\))$/i;
+    let iconParser;
+    const iconNodes = function(html){
+        if (!_is.string(html)) return [];
+        const doc = (iconParser || (iconParser = new DOMParser())).parseFromString(html, "text/html");
+        for (const element of doc.body.querySelectorAll("*")) {
+            if (element.namespaceURI === "http://www.w3.org/2000/svg") {
+                if (!svgElements.has(element.localName.toLowerCase())) return [];
+                for (const attr of element.attributes) {
+                    const name = attr.name.toLowerCase();
+                    if (!svgAttributes.has(name) && !name.startsWith("aria-")) return [];
+                    // SVG references are limited to local fragment identifiers.
+                    if ((name === "href" || name === "xlink:href") && !/^#[\w:.-]+$/.test(attr.value)) return [];
+                    if (name === "mask" || name === "clip-path") {
+                        if (attr.value !== "none" && !fragmentUrl.test(attr.value)) return [];
+                    }
+                    if (name === "fill" || name === "stroke" || name === "stop-color") {
+                        if (!color.test(attr.value) && !fragmentUrl.test(attr.value)) return [];
+                    }
+                }
+            } else {
+                const shallow = element.cloneNode(false).outerHTML;
+                if (_.safeParse(shallow) !== shallow) return [];
+            }
+        }
+        return Array.from(doc.body.childNodes).filter(node => node.nodeType === 1 || node.nodeType === 3);
+    };
+
     _.Icons = _utils.Class.extend({
         construct: function(){
             this.className = "fg-icon";
@@ -62,12 +95,12 @@
                 icons = _obj.extend(icons, setNameOrObject);
             }
 
-            var icon = _is.string(name) && icons.hasOwnProperty(name) ? icons[name].replace(/\[ICON_CLASS]/g, self.className + "-" + name) : null,
+            var icon = _is.string(name) && icons.hasOwnProperty(name) && _is.string(icons[name]) ? icons[name].replace(/\[ICON_CLASS]/g, self.className + "-" + name) : null,
                 classNames = [false, name, setName].map(function(val){
                     return val === false ? self.className : self.className + "-" + val;
                 }).join(" ");
 
-            return $(icon).addClass(classNames);
+            return $(iconNodes(icon)).addClass(classNames);
         },
         element: function(name, setNameOrObject){
             const self = this;
@@ -83,9 +116,10 @@
                 icons = _obj.extend(icons, setNameOrObject);
             }
 
-            const iconString = _is.string(name) && icons.hasOwnProperty(name) ? icons[name].replace(/\[ICON_CLASS]/g, self.className + "-" + name) : null;
+            const iconString = _is.string(name) && icons.hasOwnProperty(name) && _is.string(icons[name]) ? icons[name].replace(/\[ICON_CLASS]/g, self.className + "-" + name) : null;
             if ( iconString !== null ){
-                const fragment = document.createRange().createContextualFragment(iconString);
+                const fragment = document.createDocumentFragment();
+                fragment.append(...iconNodes(iconString));
                 const svg = fragment.querySelector("svg");
                 if ( svg ){
                     ["", "-" + name, "-" + setName].forEach(function(suffix){
