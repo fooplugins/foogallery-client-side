@@ -59,7 +59,7 @@
 
 /* Horizontal alignment */
 .foogrid.fg-left {
-    justify-content: flex-start;
+    justify-content: left;
 }
 
 .foogrid.fg-center {
@@ -67,7 +67,7 @@
 }
 
 .foogrid.fg-right {
-    justify-content: flex-end;
+    justify-content: right;
 }
 
 /* Force 7 column layout */
