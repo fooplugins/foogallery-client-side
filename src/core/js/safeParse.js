@@ -6,82 +6,144 @@
     // always remove these elements
     [ 'script', 'embed', 'object', 'iframe', 'portal', 'base', 'link', 'meta', 'style', 'noscript', 'template', 'svg' ].forEach( x => ElementsAttributesMap.delete( x ) );
 
-    const getNodeName = node => ( node instanceof globalThis.Node ? node.nodeName : typeof node === 'string' ? node : '' ).toLowerCase();
+    // Match the additional protocols WordPress permits for ordinary links.
+    const linkProtocols = new Set( [
+        'ftp:', 'ftps:', 'mailto:', 'news:', 'irc:', 'irc6:', 'ircs:', 'gopher:', 'nntp:', 'feed:',
+        'telnet:', 'mms:', 'rtsp:', 'sms:', 'svn:', 'tel:', 'fax:', 'xmpp:', 'webcal:', 'urn:',
+    ] );
+    const imageDataUrl = /^data:image\/[a-z0-9.+-]+(?:;[^,]*)?,/i;
 
-    const isElementAttribute = attr => {
-        if ( attr instanceof globalThis.Attr ) {
-            const ownerElement = getNodeName( attr.ownerElement );
-            if ( ElementsAttributesMap.has( ownerElement ) ) {
-                return ElementsAttributesMap.get( ownerElement ).includes( attr.name );
+    _.safeUrl = ( value, use ) => {
+        if ( typeof value !== 'string' || ( value = value.trim() ) === '' ) return '';
+        if ( use === 'image' && imageDataUrl.test( value ) ) return value;
+        try {
+            const { protocol } = new window.URL( value, window.document.baseURI );
+            if ( protocol === 'http:' || protocol === 'https:' || ( use === 'link' && linkProtocols.has( protocol ) ) ) {
+                return value;
             }
+        } catch {
+            // Ignore malformed URLs.
         }
-        return false;
-    }
+        return '';
+    };
 
-    const isSafeUrlRegex = /^(?!javascript|vbscript|livescript|mocha)(?:[a-z0-9+.-]+:[^<>]*$|[^&:\/?#]*(?:[\/?#]|$))/i;
-    const isSafeUrlAttribute = string => isSafeUrlRegex.test( string );
+    const srcsetDescriptor = /^(?:[1-9]\d*w(?:\s+[1-9]\d*h)?|(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?x)$/i;
+
+    _.safeSrcset = value => {
+        if ( typeof value !== 'string' || value === '' ) return '';
+        const candidates = [], urlToken = /[\t\n\f\r ,]*([^\t\n\f\r ,][^\t\n\f\r ]*)/y, descriptors = /[^,]*/y;
+        let position = 0;
+        // A URL token can contain commas, including the separator within a data URL.
+        while ( position < value.length ) {
+            urlToken.lastIndex = position;
+            const token = urlToken.exec( value );
+            if ( !token ) break;
+            position = urlToken.lastIndex;
+            const rawUrl = token[1].replace( /,+$/, '' );
+            let descriptor = '';
+            if ( rawUrl === token[1] ) {
+                descriptors.lastIndex = position;
+                descriptor = descriptors.exec( value )[0].trim();
+                position = descriptors.lastIndex;
+            }
+            if ( descriptor && !srcsetDescriptor.test( descriptor ) ) continue;
+            const url = _.safeUrl( rawUrl, 'image' );
+            if ( url ) candidates.push( descriptor ? `${ url } ${ descriptor }` : url );
+        }
+        return candidates.join( ', ' );
+    };
 
     const dangerousStyleRegex = /@import|expression|behaviou?r|binding|(?:javascript|vbscript|livescript|mocha):|[\x00-\x08\x0E-\x1F\x7F-\uFFFF]|\/\*.*?\*\/|<--.*?-->/i;
     const isSafeStyleAttribute = value => !dangerousStyleRegex.test( value.replace( /\s+/g, ' ' ) )
 
+    const iframeAttributes = [ 'allow', 'allowfullscreen', 'frameborder', 'height', 'loading', 'name', 'referrerpolicy', 'sandbox', 'src', 'width' ];
+    const booleanAttributes = new Set( [ 'allowfullscreen', 'autofocus', 'autoplay', 'controls', 'hidden', 'inert', 'loop', 'muted', 'playsinline' ] );
+    const attributeName = /^[a-z_][a-z0-9_.-]*$/;
+    const dataAttributeName = /^data-[a-z0-9_.-]+$/i;
 
-    const isPossibleAttributeRegex = /^[a-z](?:[\x2D.0-9_a-z\xB7\xC0-\xD6\xD8-\xF6\xF8-\u037D\u037F-\u1FFF\u200C\u200D\u203F\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]|[\uD800-\uDB7F][\uDC00-\uDFFF])*$/;
-    const isPossibleAttribute = attr => isPossibleAttributeRegex.test( getNodeName( attr ) );
+    _.safeDataAttributeName = name => typeof name === 'string' && dataAttributeName.test( name ) ? name : '';
 
-    // https://html.spec.whatwg.org/multipage/scripting.html#valid-custom-element-name
-    const isPossibleCustomElementRegex = /^[a-z](?:[.0-9_a-z\xB7\xC0-\xD6\xD8-\xF6\xF8-\u037D\u037F-\u1FFF\u200C\u200D\u203F\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]|[\uD800-\uDB7F][\uDC00-\uDFFF])*-(?:[\x2D.0-9_a-z\xB7\xC0-\xD6\xD8-\xF6\xF8-\u037D\u037F-\u1FFF\u200C\u200D\u203F\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]|[\uD800-\uDB7F][\uDC00-\uDFFF])*$/;
-    const isPossibleCustomElement = element => isPossibleCustomElementRegex.test( getNodeName( element ) );
+    // Read configured names without invoking jQuery's attr(object) setter.
+    _.readAttribute = ( element, name ) => element && typeof name === 'string' ? element.getAttribute( name ) : null;
 
-    const isPossibleCustomAttribute = attr => isPossibleCustomElement( attr?.ownerElement ) && isPossibleAttribute( attr );
-
-    const isSafeAttribute = attr => {
-        const name = getNodeName( attr );
-        if ( !name.startsWith( 'on' ) ) {
-            if ( name.startsWith( 'aria-' ) || name.startsWith( 'data-' ) ) {
-                return true;
-            }
-            if ( GlobalAttributes.has( name ) || isElementAttribute( attr ) ) {
-                if ( UrlAttributes.has( name ) ) {
-                    return isSafeUrlAttribute( attr.value );
-                }
-                if ( name === 'style' ) {
-                    return isSafeStyleAttribute( attr.value );
-                }
-                return true;
-            }
-            return isPossibleCustomAttribute( attr );
-        }
-        return false;
+    const urlUse = ( element, attribute ) => {
+        if ( element === 'a' && attribute === 'href' ) return 'link';
+        if ( attribute === 'poster' || ( attribute === 'src' && element === 'img' ) ) return 'image';
     };
 
-    const isSafeElement = element => {
-        if ( element instanceof globalThis.Element ) {
-            const name = getNodeName( element );
-            if ( element.namespaceURI === 'http://www.w3.org/1999/xhtml' && ElementsAttributesMap.has( name ) ) {
-                for ( const attr of element.attributes ) {
-                    if ( !isSafeAttribute( attr ) ) {
-                        return false;
-                    }
-                }
-                if ( name === 'style' ) {
-                    return isSafeStyleAttribute( element.textContent );
-                }
-                return true;
-            }
-        }
-        return false;
+    const allowsAttribute = ( name, specific ) => GlobalAttributes.has( name ) || specific?.includes( name )
+        || name.startsWith( 'data-' ) || name.startsWith( 'aria-' );
+
+    const safeAttributeValue = ( tag, name, value ) => {
+        if ( UrlAttributes.has( name ) ) return _.safeUrl( value, urlUse( tag, name ) ) || null;
+        if ( name === 'srcset' ) return _.safeSrcset( value );
+        if ( name === 'style' && !isSafeStyleAttribute( value ) ) return null;
+        return value;
     };
 
-    const cloneNode = ( node, deep = false ) => {
+    _.setSafeAttributes = ( element, attributes, strict = false ) => {
+        if ( !attributes || typeof attributes !== 'object' ) return element;
+        const tag = element.localName;
+        const specific = tag === 'iframe' ? iframeAttributes : ElementsAttributesMap.get( tag );
+        for ( const [ key, rawValue ] of Object.entries( attributes ) ) {
+            const name = key.toLowerCase();
+            if ( rawValue === undefined || rawValue === null || rawValue === '' ) continue;
+            if ( !attributeName.test( name ) || name.startsWith( 'on' ) || name === 'is' || name === 'nonce'
+                || !allowsAttribute( name, specific ) ) {
+                if ( strict ) return null;
+                continue;
+            }
+            if ( name === 'class' ) {
+                const classes = ( Array.isArray( rawValue )
+                    ? rawValue.filter( value => typeof value === 'string' ).join( ' ' )
+                    : typeof rawValue === 'string' ? rawValue : '' ).trim();
+                if ( classes ) element.classList.add( ...classes.split( /\s+/ ) );
+                continue;
+            }
+            if ( rawValue === false && booleanAttributes.has( name ) ) continue;
+            const serialized = typeof rawValue === 'string' ? rawValue : JSON.stringify( rawValue );
+            const value = serialized && safeAttributeValue( tag, name, serialized );
+            if ( value ) {
+                element.setAttribute( name, value );
+            } else if ( strict ) {
+                return null;
+            }
+        }
+        return element;
+    };
+
+    // The runtime merges option objects recursively. Check each object before
+    // merging it and leave arrays for the consumer to validate when read.
+    const copySafeOptions = options => {
+        const result = {};
+        for ( const key of Object.keys( options ) ) {
+            if ( key === '__proto__' || key === 'constructor' || key === 'prototype' || key === 'hasOwnProperty' ) continue;
+            const value = options[ key ];
+            result[ key ] = _.utils.is.hash( value ) ? copySafeOptions( value ) : value;
+        }
+        return result;
+    };
+
+    _.safeOptions = options => _.utils.is.hash( options ) ? copySafeOptions( options ) : {};
+
+    const cloneNode = node => {
         if ( node instanceof globalThis.Element ) {
-            if ( isSafeElement( node ) ) {
-                const element = node.cloneNode( false );
-                if ( deep && node.hasChildNodes() ) {
-                    element.append( ...cloneNodes( node.childNodes, deep ) );
-                }
-                return element;
+            const tag = node.localName;
+            const specific = ElementsAttributesMap.get( tag );
+            if ( !specific || node.namespaceURI !== 'http://www.w3.org/1999/xhtml' ) throw new TypeError( 'UNSAFE_NODE' );
+
+            let srcset;
+            for ( const { name, value } of node.attributes ) {
+                if ( name.startsWith( 'on' ) || !allowsAttribute( name, specific ) ) throw new TypeError( 'UNSAFE_NODE' );
+                const checked = safeAttributeValue( tag, name, value );
+                if ( checked === null ) throw new TypeError( 'UNSAFE_NODE' );
+                if ( name === 'srcset' && ( !checked || checked !== value ) ) srcset = checked;
             }
-            throw new TypeError( 'UNSAFE_NODE' );
+            const element = node.cloneNode( false );
+            if ( srcset === '' ) element.removeAttribute( 'srcset' );
+            else if ( srcset ) element.setAttribute( 'srcset', srcset );
+            if ( node.hasChildNodes() ) element.append( ...cloneNodes( node.childNodes ) );
+            return element;
         }
         if ( node instanceof globalThis.Text ) {
             return node.cloneNode();
@@ -89,42 +151,35 @@
         return null;
     };
 
-    const cloneNodes = ( nodes, deep = false ) => {
+    const cloneNodes = nodes => {
         const result = [];
         for ( const node of nodes ) {
-            const cloned = cloneNode( node, deep );
-            if ( cloned instanceof globalThis.Node ) {
-                result.push( cloned );
-            }
+            const cloned = cloneNode( node );
+            if ( cloned ) result.push( cloned );
         }
         return result;
     };
 
     let parserInstance;
-    const parser = () => {
-        if ( parserInstance instanceof globalThis.DOMParser ) return parserInstance;
-        return parserInstance = new globalThis.DOMParser();
-    };
+    // The HTML parser trims leading whitespace and normalizes carriage returns and NULLs.
+    const needsParsing = /[<&>\r\u0000]|^[\t\n\f \uFEFF]/;
 
     const toHTML = nodes => nodes.map( node => {
         if ( node.nodeType === 1 ) return node.outerHTML;
         // Preserve text across the caller's subsequent innerHTML parse.
-        if ( node.nodeType === 3 ) return node.nodeValue.replace( /&/g, '&amp;' ).replace( /</g, '&lt;' ).replace( />/g, '&gt;' );
-        return '';
+        return node.nodeValue.replace( /&/g, '&amp;' ).replace( /</g, '&lt;' ).replace( />/g, '&gt;' );
     } ).join( '' );
 
     _.safeParse = html => {
-        if ( typeof html === 'string' ) {
-            try {
-                const doc = parser().parseFromString( html, 'text/html' );
-                if ( doc.body.hasChildNodes() ) {
-                    const nodes = cloneNodes( doc.body.childNodes, true );
-                    return toHTML( nodes );
-                }
-            } catch ( e ) {
-                if ( e.message !== 'UNSAFE_NODE' ) {
-                    console.error( 'FooGallery.safeParse: Unexpected Error', e );
-                }
+        if ( typeof html !== 'string' || !html ) return '';
+        if ( !needsParsing.test( html ) ) return html;
+        try {
+            parserInstance = parserInstance || new globalThis.DOMParser();
+            const doc = parserInstance.parseFromString( html, 'text/html' );
+            return toHTML( cloneNodes( doc.body.childNodes ) );
+        } catch ( e ) {
+            if ( e.message !== 'UNSAFE_NODE' ) {
+                console.error( 'FooGallery.safeParse: Unexpected Error', e );
             }
         }
         return '';

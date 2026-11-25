@@ -1,4 +1,4 @@
-(function($, _, _utils, _obj, _str){
+(function($, _, _obj){
 
     _.Panel.Html = _.Panel.Media.extend({
         construct: function(panel, item){
@@ -9,27 +9,33 @@
             this.$target = null;
         },
         doCreate: function(){
-            if (this._super()){
-                if (!_str.startsWith(this.item.href, '#') || (this.$target = $(this.item.href)).length === 0){
-                    this.$target = null;
+            const href = this.item.href;
+            if ( typeof href !== 'string' || !href.startsWith( '#' ) || href.length === 1 ) return false;
+            const id = href.slice( 1 );
+            let target = document.getElementById( id );
+            if ( !target && id.includes( '%' ) ) {
+                try {
+                    target = document.getElementById( decodeURIComponent( id ) );
+                } catch {
                     return false;
                 }
-                return true;
             }
-            return false;
+            if ( !target ) return false;
+            this.$target = $( target );
+            return this._super();
         },
         doCreateContent: function(){
-            return $('<div/>').attr(this.opt.attrs);
+            return $( _.setSafeAttributes( document.createElement( 'div' ), this.opt.attrs ) );
         },
         doAppendTo: function( parent ){
             if (this._super( parent )){
-                this.$content.append(this.$target.contents());
+                this.$content.get( 0 ).append( ...this.$target.get( 0 ).childNodes );
                 return true;
             }
             return false;
         },
         doDetach: function(){
-            this.$target.append(this.$content.contents());
+            this.$target.get( 0 ).append( ...this.$content.get( 0 ).childNodes );
             return this._super();
         }
     });
@@ -51,7 +57,5 @@
 })(
     FooGallery.$,
     FooGallery,
-    FooGallery.utils,
-    FooGallery.utils.obj,
-    FooGallery.utils.str
+    FooGallery.utils.obj
 );

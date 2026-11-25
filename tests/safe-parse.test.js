@@ -65,3 +65,20 @@ test('preserves supported caption formatting and links', () => {
     assert.equal(dom.window.FooGallery.safeParse(html), html);
     dom.window.close();
 });
+
+test('empty and plain captions skip HTML parsing and preserve text normalization', t => {
+    const dom = runtime();
+    t.after(() => dom.window.close());
+    const { window } = dom;
+    const parse = window.DOMParser.prototype.parseFromString;
+    let parsed = 0;
+    window.DOMParser.prototype.parseFromString = function (...args) {
+        parsed++;
+        return parse.apply(this, args);
+    };
+    assert.equal(window.FooGallery.safeParse(''), '');
+    assert.equal(window.FooGallery.safeParse('Gallery caption “10”'), 'Gallery caption “10”');
+    assert.equal(parsed, 0);
+    assert.equal(window.FooGallery.safeParse(' \tTitle\r\ncaption > image'), 'Title\ncaption &gt; image');
+    assert.equal(parsed, 1);
+});

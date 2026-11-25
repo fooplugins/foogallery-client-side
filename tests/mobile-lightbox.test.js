@@ -20,6 +20,7 @@ test('mobile lightbox overrides win over desktop data and preserve unrelated but
 			template: { configure() {} },
 			Template: { override: (name, fn) => { construct = fn; } },
 		};
+		window.eval(fs.readFileSync(path.resolve(__dirname, '../src/core/js/safeParse.js'), 'utf8'));
 		window.eval(fs.readFileSync(path.resolve(__dirname, '../src/core/js/Lightbox.js'), 'utf8'));
 		const desktop = window.JSON.parse(JSON.stringify({ thumbs: 'right', thumbsSmall: true, hoverButtons: true, buttons: { fullscreen: true, download: false, prev: true, next: true } }));
 		const mobile = window.JSON.parse(JSON.stringify({ thumbs: 'bottom', thumbsSmall: false, hoverButtons: false, buttons: { fullscreen: false, prev: false, next: false } }));

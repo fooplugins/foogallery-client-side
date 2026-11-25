@@ -84,13 +84,13 @@ function loadFooGalleryCore( userAgent ) {
 
 	const windowObject = {
 		HTMLPictureElement: function () {},
-		URL: {
-			createObjectURL: function () {
+		URL: class extends URL {
+			static createObjectURL() {
 				const url = 'blob:test-' + ( objectUrls.length + 1 );
 				objectUrls.push( url );
 				return url;
-			},
-			revokeObjectURL: function ( url ) {
+			}
+			static revokeObjectURL( url ) {
 				revokedObjectUrls.push( url );
 			}
 		},
@@ -113,6 +113,7 @@ function loadFooGalleryCore( userAgent ) {
 		crypto: windowObject.crypto,
 		decodeURIComponent: decodeURIComponent,
 		document: {
+			baseURI: 'https://example.test/',
 			body: {
 				appendChild: function () {}
 			},
@@ -143,6 +144,9 @@ function loadFooGalleryCore( userAgent ) {
 		window: windowObject
 	} );
 
+	windowObject.FooGallery = FooGallery;
+	windowObject.document = context.document;
+	vm.runInContext( readSource( 'src/core/js/safeParse.js' ), context );
 	vm.runInContext( readSource( 'src/core/js/_foogallery.js' ), context, {
 		filename: 'src/core/js/_foogallery.js'
 	} );
@@ -290,6 +294,15 @@ test( 'normal browser downloads retain the blob and anchor path', async function
 		href: 'blob:test-1'
 	} ] );
 	assert.deepEqual( runtime.revokedObjectUrls, [ 'blob:test-1' ] );
+} );
+
+test( 'unsupported download protocols stop before either browser path', async function () {
+	for ( const userAgent of [ 'Mozilla/5.0', 'Mozilla/5.0 [FBAN/MessengerForiOS;FBAV/456.0.0]' ] ) {
+		const runtime = loadFooGalleryCore( userAgent );
+		await assert.rejects( runtime.FooGallery.downloadImage( 'javascript:' ), /Invalid image download URL/ );
+		assert.deepEqual( runtime.assignments, [] );
+		assert.deepEqual( runtime.fetches, [] );
+	}
 } );
 
 test( 'auto progress is visible by default and can be hidden without disabling it', function () {

@@ -5,7 +5,7 @@
             var self = this;
             self.album = album;
             self.$el = _is.jq(element) ? element : $(element);
-            self.opt = _obj.extend({}, _.StackAlbum.Pile.defaults, options, self.$el.data());
+            self.opt = _obj.extend({}, _.StackAlbum.Pile.defaults, options, _.safeOptions( self.$el.data() ));
             self.title = self.opt.title;
             self.description = self.opt.description;
             self.captionAlignment = ['left', 'center', 'right'].indexOf(self.opt.captionAlignment) !== -1 ? self.opt.captionAlignment : 'center';
@@ -29,9 +29,10 @@
                     $('<span/>', {'class': 'fg-pile-cover-count', text: self.items.length})
                 );
 
-                if ( self.description ) {
+                const description = _.safeParse( self.description );
+                if ( description ) {
                     $coverContent.append(
-                        $('<span/>', {'class': 'fg-pile-cover-description', html: self.description})
+                        $('<span/>', {'class': 'fg-pile-cover-description', html: description})
                     );
                 }
 

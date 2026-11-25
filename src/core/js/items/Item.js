@@ -680,7 +680,10 @@
 			self.$wrap = $(el.querySelector(sel.wrap));
 			self.$loader = $(el.querySelector(sel.loader));
 
-			if ( !self.$el.length || !self.$inner.length || !self.$anchor.length || !self.$image.length ){
+			const image = self.$image.get( 0 );
+			const isPicture = image?.localName === "picture";
+			const img = isPicture ? image.querySelector( "img" ) : image;
+			if ( !self.$el.length || !self.$inner.length || !self.$anchor.length || !img || img.localName !== "img" ) {
 				console.error("FooGallery Error: Invalid HTML markup. Check the item markup for additional elements or malformed HTML in the title or description.", self);
 				self.isError = true;
 				self.tmpl.trigger("error-item", [self]);
@@ -703,28 +706,22 @@
 			self.href = data.href || self.$anchor.attr('href') || self.href;
 			self.download = data.download || self.download || self.href;
 
-			var $img;
-			if (self.$image.is("picture")){
+			if ( isPicture ) {
 				self.isPicture = true;
-				self.sources = self.$image.find("source").map(function(i, source){
-					return {
-						srcset: source.getAttribute(self.tmpl.opt.srcset),
-						type: source.getAttribute("type"),
-						media: source.getAttribute("media"),
-						sizes: source.getAttribute("sizes")
-					};
-				}).get();
-				$img = self.$image.find("img");
-			} else {
-				$img = self.$image;
+				self.sources = Array.from( image.querySelectorAll( "source" ), source => ({
+					srcset: _.readAttribute( source, self.tmpl.opt.srcset ) || source.getAttribute( "srcset" ),
+					type: source.getAttribute( "type" ),
+					media: source.getAttribute( "media" ),
+					sizes: source.getAttribute( "sizes" )
+				}) );
 			}
 
-			self.src = $img.attr(self.tmpl.opt.src) || self.src;
-			self.srcset = $img.attr(self.tmpl.opt.srcset) || self.srcset;
-			self.width = parseInt($img.attr("width")) || self.width;
-			self.height = parseInt($img.attr("height")) || self.height;
-			self.title = _.safeParse( $img.attr("title") || self.title );
-			self.alt = _.safeParse( $img.attr("alt") || self.alt );
+			self.src = _.readAttribute( img, self.tmpl.opt.src ) || img.getAttribute( "src" ) || self.src;
+			self.srcset = _.readAttribute( img, self.tmpl.opt.srcset ) || img.getAttribute( "srcset" ) || self.srcset;
+			self.width = parseInt( img.getAttribute( "width" ) ) || self.width;
+			self.height = parseInt( img.getAttribute( "height" ) ) || self.height;
+			self.title = _.safeParse( img.getAttribute( "title" ) || self.title );
+			self.alt = _.safeParse( img.getAttribute( "alt" ) || self.alt );
 
 			self.caption = _.safeParse( data.title || data.captionTitle || self.caption );
 			self.description = _.safeParse( data.description || data.captionDesc || self.description );
@@ -732,7 +729,7 @@
 			self.noLightbox = self.$anchor.hasClass(cls.noLightbox);
 			self.panelHide = self.$anchor.hasClass(cls.panelHide);
 			if (_is.exif(data.exif)){
-				self.exif = _obj.extend(self.exif, data.exif);
+				self.exif = _obj.extend(self.exif, _.safeOptions( data.exif ));
 				self.hasExif = true;
 			}
 			// enforce the max lengths for the caption and description
@@ -757,13 +754,13 @@
 			self.updateParsedCaption();
 
 			// if the image has no src url then set the placeholder
-			var img = $img.get(0);
 			if (!_is.string(img.src) || img.src.length === 0) {
 				if (!_is.string(self.placeholder) || self.placeholder.length === 0){
 					self.placeholder = self.createPlaceholder(self.width, self.height);
 				}
 				if (self.placeholder.length > 0){
-					img.src = self.placeholder;
+					const placeholder = _.safeUrl( self.placeholder, 'image' );
+					if ( placeholder ) img.src = placeholder;
 					self._undo.placeholder = true;
 				}
 			}
@@ -869,20 +866,7 @@
 		 * @private
 		 */
 		_setAttributes: function(element, attributes){
-			Object.entries( attributes ).forEach( ( [ key, value ] ) => {
-				if ( !_is.empty( value ) ) {
-					if ( key === "class" ) {
-						const classes = ( _is.array( value ) ? value : [ value ] )
-							.flatMap( className => _is.string( className ) ? className.split( " " ) : [] )
-							.map( p => p.trim() )
-							.filter( Boolean );
-
-						element.classList.add( ...classes );
-					} else {
-						element.setAttribute( key, _is.string( value ) ? value : JSON.stringify( value ) );
-					}
-				}
-			} );
+			_.setSafeAttributes( element, attributes );
 		},
 		/**
 		 * @summary Performs some checks for ShortPixel integration and WebP support.
@@ -959,6 +943,8 @@
 				self.placeholder = self.createPlaceholder(self.width, self.height);
 			}
 
+			const srcAttribute = self.isLoaded ? "src" : _.safeDataAttributeName( self.tmpl.opt.src );
+			const srcsetAttribute = self.isLoaded ? "srcset" : _.safeDataAttributeName( self.tmpl.opt.srcset );
 			var image = document.createElement("img");
 			self._setAttributes(image, attr.image);
 			var imageAttrs = {
@@ -969,13 +955,8 @@
 				"title": self.title,
 				"alt": self.alt
 			};
-			if (self.isLoaded){
-				imageAttrs["src"] = self.src;
-				imageAttrs["srcset"] = self.srcset;
-			} else {
-				imageAttrs[self.tmpl.opt.src] = self.src;
-				imageAttrs[self.tmpl.opt.srcset] = self.srcset;
-			}
+			if ( srcAttribute ) imageAttrs[srcAttribute] = self.src;
+			if ( srcsetAttribute ) imageAttrs[srcsetAttribute] = self.srcset;
 			self._setAttributes(image, imageAttrs);
 
 			var picture;
@@ -989,11 +970,7 @@
 							sizes: opt.sizes,
 							type: opt.type
 						};
-					if (self.isLoaded){
-						sourceAttrs["srcset"] = opt.srcset;
-					} else {
-						sourceAttrs[self.tmpl.opt.srcset] = opt.srcset;
-					}
+					if ( srcsetAttribute ) sourceAttrs[srcsetAttribute] = opt.srcset;
 
 					self._setAttributes(source, sourceAttrs);
 					picture.appendChild(source);
@@ -1055,9 +1032,7 @@
 					if (_is.hash(button) && _is.string(button.text)){
 						var captionButton = document.createElement("a");
 						captionButton.innerHTML = _.safeParse(button.text);
-						if (_is.string(button.url) && button.url.length > 0){
-							captionButton.href = button.url;
-						}
+						if ( !_.setSafeAttributes( captionButton, { href: button.url }, true ) ) return;
 						if (_is.string(button.rel) && button.rel.length > 0){
 							captionButton.rel = button.rel;
 						}
@@ -1070,9 +1045,7 @@
 						if ( buttonClasses.length > 0 ){
 							captionButton.className = buttonClasses;
 						}
-						if (_is.hash(button.attr)){
-							self._setAttributes(captionButton, button.attr);
-						}
+						if ( !_.setSafeAttributes( captionButton, button.attr, true ) ) return;
 						// Validate the complete button after custom attributes have been applied.
 						captionButtons.insertAdjacentHTML("beforeend", _.safeParse(captionButton.outerHTML));
 					}
@@ -1340,44 +1313,53 @@
 					return def.reject("Unable to find img element.");
 				}
 				var ph_src = img.src, ph_srcset = img.srcset;
+				const src = _.safeUrl( self.src, 'image' );
+				const srcset = _.safeSrcset( self.srcset );
 				img.onload = function () {
 					img.onload = img.onerror = null;
 					def.resolve(img);
 				};
 				img.onerror = function () {
 					img.onload = img.onerror = null;
-					if (!_is.empty(ph_src)) {
-						img.src = ph_src;
+					const placeholder = _.safeUrl( ph_src, 'image' );
+					const placeholders = _.safeSrcset( ph_srcset );
+					if ( placeholder ) {
+						img.src = placeholder;
 					} else {
 						img.removeAttribute("src");
 					}
-					if (!_is.empty(ph_srcset)) {
-						img.srcset = ph_srcset;
+					if ( placeholders ) {
+						img.srcset = placeholders;
 					} else {
 						img.removeAttribute("srcset");
 					}
 					def.reject(img);
 				};
 				// set everything in motion by setting the src & srcset
+				let hasPictureSource = false;
 				if (self.isPicture){
 					self.$image.find("source").each(function(i, source){
-						var srcset = source.getAttribute(self.tmpl.opt.srcset);
-						if (!_is.empty(srcset)){
-							source.srcset = srcset;
+						const current = source.getAttribute( "srcset" );
+						const candidate = _.safeSrcset( _.readAttribute( source, self.tmpl.opt.srcset ) || current );
+						if ( candidate ) {
+							if ( candidate !== current ) source.srcset = candidate;
+							hasPictureSource = true;
 						}
 					});
+				}
+				if ( !src && !srcset && !hasPictureSource ) {
+					img.onload = img.onerror = null;
+					return def.reject( img );
 				}
 
                 const { opt: { cors } } = self.tmpl;
                 if ( _is.string( cors ) ) {
-                    if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
+                    if ( src && img.crossOrigin === null && _.isCrossOrigin( src ) ) {
                         img.crossOrigin = cors;
                     }
 				}
-                if (!_is.empty(self.srcset)){
-                    img.srcset = self.srcset;
-                }
-				img.src = self.src;
+				if ( srcset ) img.srcset = srcset;
+				if ( src ) img.src = src;
 				if (img.complete){
 					img.onload();
 				}
@@ -1505,14 +1487,15 @@
 		onDownloadClick: function (e) {
 			var self = e.data.self,
 				$button = $(e.target).closest(".fg-download-button"),
-				url = $button.attr("data-download") || $button.prop("href") || self.download;
+				url = _.safeUrl( $button.attr("data-download") )
+					|| _.safeUrl( $button.attr("href") ) || _.safeUrl( self.download );
 
-			if (_is.string(url) && url.length > 0 && _is.fn(_.downloadImage)) {
+			if ( _is.fn( _.downloadImage ) ) {
 				e.preventDefault();
 				e.stopPropagation();
-				_.downloadImage(url).catch(function(err){
+				if ( url ) _.downloadImage( url ).catch( function( err ){
 					console.error(err);
-				});
+				} );
 			}
 		}
 	});

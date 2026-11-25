@@ -5,7 +5,7 @@
             var self = this;
             self.$el = _is.jq(element) ? element : $(element);
             self.el = self.$el.get(0);
-            self.opt = _obj.extend({}, _.StackAlbum.defaults, options, self.$el.data('foogallery'));
+            self.opt = _obj.extend({}, _.StackAlbum.defaults, options, _.safeOptions( self.$el.data('foogallery') ));
             self.$back = self.$el.find('.fg-header-back');
             self.$active = self.$el.find('.fg-header-active');
             self.$piles = self.$el.find('.fg-piles');

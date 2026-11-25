@@ -9,7 +9,7 @@
             this.allFullClasses = [this.cls.fullWidth, this.cls.fullHeight].join(" ");
         },
         doCreateContent: function(){
-            return $('<img/>').attr(this.opt.attrs);
+            return $( _.setSafeAttributes( document.createElement( 'img' ), this.opt.attrs ) );
         },
         resize: function(){
             var self = this;
@@ -42,6 +42,8 @@
         doLoad: function(){
             var self = this;
             return $.Deferred(function(def){
+                const src = _.safeUrl( self.item.href, 'image' );
+                if ( !src ) return def.reject( 'Invalid image URL' );
                 var img = self.$content.get(0);
                 img.alt = self.item.alt;
                 img.onload = function () {
@@ -54,12 +56,12 @@
                 };
                 const { opt: { cors } } = self.panel.tmpl;
                 if ( _is.string( cors ) ) {
-                    if ( img.crossOrigin === null && _.isCrossOrigin(self.item.href) ) {
+                    if ( img.crossOrigin === null && _.isCrossOrigin( src ) ) {
                         img.crossOrigin = cors;
                     }
                 }
                 // set everything in motion by setting the src
-                img.src = self.item.href;
+                img.src = src;
                 if (img.complete){
                     img.onload();
                 }
