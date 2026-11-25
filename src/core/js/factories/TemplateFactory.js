@@ -9,6 +9,21 @@
 		return options;
 	};
 
+	// Match the bounds used by the WordPress Carousel settings.
+	const validGutterBound = value => Number.isSafeInteger( value ) && Math.abs( value ) <= 1000;
+
+	const mergeCarouselGutter = ( defaults, ...overrides ) => {
+		let gutter = { ...defaults };
+		for ( const override of overrides ) {
+			if ( !_is.hash( override ) ) continue;
+			const candidate = _obj.extend( {}, gutter, override );
+			if ( validGutterBound( candidate.min ) && validGutterBound( candidate.max ) && candidate.min <= candidate.max ) {
+				gutter = candidate;
+			}
+		}
+		return gutter;
+	};
+
 	_.TemplateFactory = _.Factory.extend(/** @lends FooGallery.TemplateFactory */{
 		/**
 		 * @summary A factory for galleries allowing them to be easily registered and created.
@@ -77,11 +92,21 @@
 		 */
 		make: function (options, element) {
 			element = _is.jq(element) ? element : $(element);
+			const programmaticGutter = options?.template?.gutter;
 			const desktop = markupOptions( element.data( "foogallery" ) );
 			const mobile = _.isMobile ? markupOptions( element.data( "foogalleryMobile" ) ) : null;
 			options = _obj.extend( {}, options, desktop, mobile );
 			var self = this, type = self.type(options, element);
 			if (!self.contains(type)) return null;
+			if ( type === "carousel" ) {
+				const desktopGutter = desktop.template?.gutter;
+				const mobileGutter = mobile?.template?.gutter;
+				if ( desktopGutter !== undefined || mobileGutter !== undefined ) {
+					const defaults = self.registered.carousel.opt.template.gutter;
+					if ( !_is.hash( options.template ) ) options.template = {};
+					options.template.gutter = mergeCarouselGutter( defaults, programmaticGutter, desktopGutter, mobileGutter );
+				}
+			}
 			options = self.options(type, options);
 			// Derive the feed policy from the source of the option after merging.
 			options.itemsFromMarkup = Object.hasOwn( desktop, "items" ) || ( mobile !== null && Object.hasOwn( mobile, "items" ) );

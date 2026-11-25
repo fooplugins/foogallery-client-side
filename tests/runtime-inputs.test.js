@@ -259,6 +259,37 @@ test( 'desktop and mobile paging sizes fall back to valid values and preserve ze
 	assert.equal( size( 24, 0 ), 0 );
 } );
 
+test( 'Carousel validates desktop and mobile gutter ranges before layout', t => {
+	const { gallery, FooGallery } = openGallery( t, 'free', true );
+	const defaults = { min: -40, max: -20, unit: '%' };
+	const pixels = { min: 5, max: 10, unit: 'px' };
+	const gutter = ( desktop, mobile ) => {
+		FooGallery.$( gallery ).removeData( 'foogallery foogalleryMobile' );
+		gallery.setAttribute( 'data-foogallery', JSON.stringify( { type: 'carousel', template: { gutter: desktop } } ) );
+		gallery.setAttribute( 'data-foogallery-mobile', JSON.stringify( { template: { gutter: mobile } } ) );
+		const template = FooGallery.template.make( null, gallery );
+		return { ...template.template.gutter };
+	};
+
+	assert.deepEqual( gutter( defaults ), defaults );
+	assert.deepEqual( gutter( pixels ), pixels );
+	assert.deepEqual( gutter( defaults, pixels ), pixels );
+	assert.deepEqual( gutter( { min: -1000, max: 1000, unit: 'px' } ), { min: -1000, max: 1000, unit: 'px' } );
+	assert.deepEqual( gutter( pixels, { min: 2 } ), { ...pixels, min: 2 } );
+	assert.deepEqual( gutter( pixels, { min: 20 } ), pixels );
+
+	for ( const invalid of [
+		{ min: -1001, max: -20, unit: 'px' },
+		{ min: 5, max: 1001, unit: 'px' },
+		{ min: 5.5, max: 10, unit: 'px' },
+		{ min: 10, max: 5, unit: 'px' },
+		null,
+	] ) {
+		assert.deepEqual( gutter( invalid ), defaults );
+		assert.deepEqual( gutter( pixels, invalid ), pixels );
+	}
+} );
+
 test( 'pagination leaves links on unopened pages unchecked until they render', async t => {
 	const { gallery, FooGallery } = openGallery( t, 'pro' );
 	const later = '/media/full-50.jpg';
