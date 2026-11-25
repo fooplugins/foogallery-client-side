@@ -8,6 +8,9 @@ const { JSDOM } = require( 'jsdom' );
 
 const invalidUrl = 'javascript:';
 const cdnDownload = 'https://cdn.example.test/full/photo.jpg?key=a%2Fb&signature=x+y';
+const existingImageMarkup = '<div class="fg-item fg-loaded"><figure class="fg-item-inner">'
+	+ '<a class="fg-thumb" href="/media/full.jpg"><img class="fg-image" src="/media/preview.jpg"></a>'
+	+ '</figure></div>';
 
 function openGallery( t, edition, mobile = false ) {
 	const dom = new JSDOM(
@@ -81,12 +84,11 @@ for ( const edition of [ 'free', 'pro' ] ) {
 			srcset: { 'data-srcset-probe': 'changed' },
 		} ) );
 		gallery.setAttribute( 'data-foogallery-lightbox', '{"image":{"attrs":{"decoding":"async","hasOwnProperty":"reserved"}}}' );
-		gallery.innerHTML = '<div class="fg-item fg-loaded"><figure class="fg-item-inner">'
-			+ '<a class="fg-thumb" href="/media/full.jpg"><img class="fg-image" src="/media/preview.jpg"></a>'
-			+ '</figure></div>';
+		gallery.innerHTML = existingImageMarkup;
 		gallery.querySelector( 'a' ).setAttribute( 'data-exif', '{"orientation":1,"hasOwnProperty":"reserved"}' );
 		const template = await FooGallery.init( null, gallery );
 		assert.equal( template.items.count(), 1 );
+		assert.equal( template.items.all()[ 0 ].src, '/media/preview.jpg' );
 		assert.equal( template.lightbox.opt.image.attrs.decoding, 'async' );
 		assert.equal( Object.hasOwn( template.lightbox.opt.image.attrs, 'hasOwnProperty' ), false );
 		assert.equal( template.items.all()[ 0 ].exif.orientation, 1 );
@@ -153,7 +155,76 @@ test( 'deferred image candidates are checked only when the item loads', async t 
 	assert.equal( checks.filter( value => value === '/media/wide.jpg' ).length, 1 );
 } );
 
-test( 'external item feeds use JSON-only requests and keep existing galleries working', async t => {
+test( 'picture items use native image and source candidates when deferred attributes are absent', async t => {
+	const { gallery, FooGallery } = openGallery( t, 'free' );
+	gallery.innerHTML = '<div class="fg-item"><figure class="fg-item-inner"><a class="fg-thumb" href="/media/full.jpg">'
+		+ '<picture class="fg-image"><source srcset="/media/wide.jpg 400w" media="(min-width: 800px)">'
+		+ '<img src="/media/preview.jpg" srcset="/media/retina.jpg 2x"></picture></a></figure></div>';
+	const template = await FooGallery.init( null, gallery );
+	const [ item ] = template.items.all();
+	assert.equal( item.src, '/media/preview.jpg' );
+	assert.equal( item.srcset, '/media/retina.jpg 2x' );
+	assert.equal( item.sources[ 0 ].srcset, '/media/wide.jpg 400w' );
+
+	const checked = [];
+	const safeSrcset = FooGallery.safeSrcset;
+	FooGallery.safeSrcset = value => {
+		checked.push( value );
+		return safeSrcset( value );
+	};
+	const image = gallery.querySelector( 'img' );
+	Object.defineProperty( image, 'complete', { value: true } );
+	await item.loadIMG();
+	assert.deepEqual( checked, [ '/media/retina.jpg 2x', '/media/wide.jpg 400w' ] );
+	assert.equal( gallery.querySelector( 'source' ).getAttribute( 'srcset' ), '/media/wide.jpg 400w' );
+} );
+
+test( 'markup item feeds load same-origin JSON', async t => {
+	const { window, gallery, FooGallery } = openGallery( t, 'free' );
+	const requests = [];
+	window.fetch = ( url, options ) => {
+		requests.push( { url, options } );
+		return window.Promise.resolve( {
+			ok: true,
+			json: () => window.JSON.parse( '[{"href":"/media/feed-full.jpg","src":"/media/feed-thumb.jpg","width":120,"height":90}]' ),
+		} );
+	};
+	gallery.innerHTML = existingImageMarkup;
+	gallery.setAttribute( 'data-foogallery', JSON.stringify( { type: 'default', items: '/feeds/items.json' } ) );
+	const template = await FooGallery.init( null, gallery );
+	assert.equal( template.items.count(), 2 );
+	assert.equal( requests.length, 1 );
+	assert.equal( requests[ 0 ].url, 'https://site.example.test/feeds/items.json' );
+	assert.equal( requests[ 0 ].options.mode, 'same-origin' );
+	assert.equal( requests[ 0 ].options.headers.Accept, 'application/json' );
+} );
+
+for ( const mobile of [ false, true ] ) {
+	test( ( mobile ? 'mobile' : 'desktop' ) + ' refuses cross-origin markup feeds and retains HTML items', async t => {
+		const { window, gallery, FooGallery } = openGallery( t, 'free', mobile );
+		const unexpectedRequest = () => assert.fail( 'A cross-origin markup feed should not be requested' );
+		window.fetch = FooGallery.$.ajax = unexpectedRequest;
+		gallery.innerHTML = existingImageMarkup;
+		const attribute = mobile ? 'data-foogallery-mobile' : 'data-foogallery';
+		gallery.setAttribute( attribute, JSON.stringify( {
+			items: 'https://cdn.example.test/gallery/items.json', itemsFromMarkup: false,
+		} ) );
+		const template = await FooGallery.init( null, gallery );
+		assert.equal( template.items.count(), 1 );
+		assert.equal( template.items.all()[ 0 ].src, '/media/preview.jpg' );
+	} );
+}
+
+test( 'a declined markup feed preserves existing items', async t => {
+	const { window, gallery, FooGallery } = openGallery( t, 'free' );
+	window.fetch = () => window.Promise.reject( new Error( 'Feed request declined' ) );
+	gallery.innerHTML = existingImageMarkup;
+	gallery.setAttribute( 'data-foogallery', '{"items":"/feeds/items.json"}' );
+	const template = await FooGallery.init( null, gallery );
+	assert.equal( template.items.count(), 1 );
+} );
+
+test( 'JavaScript-configured external item feeds continue to use JSON with JSONP disabled', async t => {
 	const { window, gallery, FooGallery } = openGallery( t, 'free' );
 	const feed = 'https://cdn.example.test/gallery/items.json';
 	const requests = [];
@@ -162,13 +233,30 @@ test( 'external item feeds use JSON-only requests and keep existing galleries wo
 		const items = window.JSON.parse( '[{"href":"/media/full.jpg","src":"/media/thumb.jpg","width":120,"height":90}]' );
 		return FooGallery.$.Deferred().resolve( items ).promise();
 	};
-	gallery.setAttribute( 'data-foogallery', JSON.stringify( { type: 'default', items: feed } ) );
-	const template = await FooGallery.init( null, gallery );
+	const options = window.JSON.parse( JSON.stringify( { type: 'default', items: feed } ) );
+	const template = await FooGallery.init( options, gallery );
 	assert.equal( template.items.count(), 1 );
 	assert.equal( requests.length, 1 );
 	assert.equal( requests[ 0 ].url, feed );
 	assert.equal( requests[ 0 ].dataType, 'json' );
 	assert.equal( requests[ 0 ].jsonp, false );
+} );
+
+test( 'desktop and mobile paging sizes fall back to valid values and preserve zero', t => {
+	const { gallery, FooGallery } = openGallery( t, 'pro', true );
+	const size = ( desktop, mobile ) => {
+		FooGallery.$( gallery ).removeData( 'foogallery foogalleryMobile' );
+		gallery.setAttribute( 'data-foogallery', JSON.stringify( { type: 'default', paging: { type: 'pagination', size: desktop } } ) );
+		gallery.setAttribute( 'data-foogallery-mobile', JSON.stringify( { paging: { size: mobile } } ) );
+		return FooGallery.template.make( null, gallery ).pages.size;
+	};
+	const defaultSize = FooGallery.paging.registered.default.opt.size;
+	for ( const invalid of [ 0.5, -1, Number.MAX_SAFE_INTEGER + 1 ] ) {
+		assert.equal( size( invalid, undefined ), defaultSize );
+		assert.equal( size( 24, invalid ), 24 );
+	}
+	assert.equal( size( 0, undefined ), 0 );
+	assert.equal( size( 24, 0 ), 0 );
 } );
 
 test( 'pagination leaves links on unopened pages unchecked until they render', async t => {

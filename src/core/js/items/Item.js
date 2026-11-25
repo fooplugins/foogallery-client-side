@@ -709,15 +709,15 @@
 			if ( isPicture ) {
 				self.isPicture = true;
 				self.sources = Array.from( image.querySelectorAll( "source" ), source => ({
-					srcset: _.readAttribute( source, self.tmpl.opt.srcset ),
+					srcset: _.readAttribute( source, self.tmpl.opt.srcset ) || source.getAttribute( "srcset" ),
 					type: source.getAttribute( "type" ),
 					media: source.getAttribute( "media" ),
 					sizes: source.getAttribute( "sizes" )
 				}) );
 			}
 
-			self.src = _.readAttribute( img, self.tmpl.opt.src ) || self.src;
-			self.srcset = _.readAttribute( img, self.tmpl.opt.srcset ) || self.srcset;
+			self.src = _.readAttribute( img, self.tmpl.opt.src ) || img.getAttribute( "src" ) || self.src;
+			self.srcset = _.readAttribute( img, self.tmpl.opt.srcset ) || img.getAttribute( "srcset" ) || self.srcset;
 			self.width = parseInt( img.getAttribute( "width" ) ) || self.width;
 			self.height = parseInt( img.getAttribute( "height" ) ) || self.height;
 			self.title = _.safeParse( img.getAttribute( "title" ) || self.title );
@@ -1339,9 +1339,10 @@
 				let hasPictureSource = false;
 				if (self.isPicture){
 					self.$image.find("source").each(function(i, source){
-						const candidate = _.safeSrcset( _.readAttribute( source, self.tmpl.opt.srcset ) );
+						const current = source.getAttribute( "srcset" );
+						const candidate = _.safeSrcset( _.readAttribute( source, self.tmpl.opt.srcset ) || current );
 						if ( candidate ) {
-							source.srcset = candidate;
+							if ( candidate !== current ) source.srcset = candidate;
 							hasPictureSource = true;
 						}
 					});

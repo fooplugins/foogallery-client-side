@@ -1,5 +1,19 @@
 (function ($, _, _utils, _is, _fn) {
 
+	const requestFeed = ( url, fromMarkup ) => {
+		if ( !fromMarkup ) return $.ajax({ url, dataType: "json", jsonp: false });
+		const endpoint = new URL( url, document.baseURI );
+		if ( endpoint.origin !== window.location.origin ) return null;
+		// Fetch applies the same-origin restriction to each redirect.
+		return fetch( endpoint.href, {
+			mode: "same-origin",
+			headers: { Accept: "application/json", "X-Requested-With": "XMLHttpRequest" }
+		} ).then( response => {
+			if ( !response.ok ) throw new Error( "Item feed request failed" );
+			return response.json();
+		} );
+	};
+
 	_.Items = _.Component.extend(/** @lends FooGallery.Items.prototype */{
 		/**
 		 * @summary This class controls everything related to items and serves as the base class for the various paging types.
@@ -122,14 +136,15 @@
 				def = $.Deferred();
 
 			var items = self.make(self.tmpl.$el.find(selectors.item.elem));
-			var url = _.safeUrl( option );
+			const url = _.safeUrl( option );
+			const request = url && requestFeed( url, self.tmpl.opt.itemsFromMarkup );
 
 			if (!_is.empty(option)) {
 				if (_is.array(option)) {
 					items.push.apply(items, self.make(option));
 					def.resolve(items);
-				} else if ( url ) {
-					$.ajax({ url, dataType: "json", jsonp: false }).then(function (response) {
+				} else if ( request ) {
+					request.then(function (response) {
 						if ( _is.array( response ) ) items.push.apply( items, self.make( response ) );
 						def.resolve(items);
 					}, function (jqXHR, textStatus, errorThrown) {

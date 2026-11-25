@@ -1,5 +1,14 @@
 (function ($, _, _utils, _is, _fn, _obj) {
 
+	const markupOptions = data => {
+		const options = _.safeOptions( data );
+		const paging = options.paging;
+		if ( _is.hash( paging ) && ( !Number.isSafeInteger( paging.size ) || paging.size < 0 ) ) {
+			delete paging.size;
+		}
+		return options;
+	};
+
 	_.TemplateFactory = _.Factory.extend(/** @lends FooGallery.TemplateFactory */{
 		/**
 		 * @summary A factory for galleries allowing them to be easily registered and created.
@@ -68,12 +77,14 @@
 		 */
 		make: function (options, element) {
 			element = _is.jq(element) ? element : $(element);
-			const desktop = _.safeOptions( element.data( "foogallery" ) );
-			const mobile = _.isMobile ? _.safeOptions( element.data( "foogalleryMobile" ) ) : null;
+			const desktop = markupOptions( element.data( "foogallery" ) );
+			const mobile = _.isMobile ? markupOptions( element.data( "foogalleryMobile" ) ) : null;
 			options = _obj.extend( {}, options, desktop, mobile );
 			var self = this, type = self.type(options, element);
 			if (!self.contains(type)) return null;
 			options = self.options(type, options);
+			// Derive the feed policy from the source of the option after merging.
+			options.itemsFromMarkup = Object.hasOwn( desktop, "items" ) || ( mobile !== null && Object.hasOwn( mobile, "items" ) );
 			return self._super(type, options, element);
 		},
 		type: function (options, element) {
