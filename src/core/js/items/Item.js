@@ -680,9 +680,9 @@
 			self.$wrap = $(el.querySelector(sel.wrap));
 			self.$loader = $(el.querySelector(sel.loader));
 
-			const isPicture = self.$image.is( "picture" );
-			const $img = isPicture ? self.$image.find( "img" ) : self.$image;
-			const img = $img.get( 0 );
+			const image = self.$image.get( 0 );
+			const isPicture = image?.localName === "picture";
+			const img = isPicture ? image.querySelector( "img" ) : image;
 			if ( !self.$el.length || !self.$inner.length || !self.$anchor.length || !img || img.localName !== "img" ) {
 				console.error("FooGallery Error: Invalid HTML markup. Check the item markup for additional elements or malformed HTML in the title or description.", self);
 				self.isError = true;
@@ -708,22 +708,20 @@
 
 			if ( isPicture ) {
 				self.isPicture = true;
-				self.sources = self.$image.find("source").map(function(i, source){
-					return {
-						srcset: _.readAttribute( source, self.tmpl.opt.srcset ),
-						type: source.getAttribute("type"),
-						media: source.getAttribute("media"),
-						sizes: source.getAttribute("sizes")
-					};
-				}).get();
+				self.sources = Array.from( image.querySelectorAll( "source" ), source => ({
+					srcset: _.readAttribute( source, self.tmpl.opt.srcset ),
+					type: source.getAttribute( "type" ),
+					media: source.getAttribute( "media" ),
+					sizes: source.getAttribute( "sizes" )
+				}) );
 			}
 
 			self.src = _.readAttribute( img, self.tmpl.opt.src ) || self.src;
 			self.srcset = _.readAttribute( img, self.tmpl.opt.srcset ) || self.srcset;
-			self.width = parseInt($img.attr("width")) || self.width;
-			self.height = parseInt($img.attr("height")) || self.height;
-			self.title = _.safeParse( $img.attr("title") || self.title );
-			self.alt = _.safeParse( $img.attr("alt") || self.alt );
+			self.width = parseInt( img.getAttribute( "width" ) ) || self.width;
+			self.height = parseInt( img.getAttribute( "height" ) ) || self.height;
+			self.title = _.safeParse( img.getAttribute( "title" ) || self.title );
+			self.alt = _.safeParse( img.getAttribute( "alt" ) || self.alt );
 
 			self.caption = _.safeParse( data.title || data.captionTitle || self.caption );
 			self.description = _.safeParse( data.description || data.captionDesc || self.description );

@@ -165,25 +165,14 @@
                 } else {
                     self.$addToCart.toggleClass(self.cls.hidden, !self.hasWooCommerce() || !response.purchasable);
                 }
-                const productUrl = _.safeUrl( response.product_url );
-                if ( productUrl ) {
-                    if (self.panel.opt.admin){
-                        self.$viewProduct.toggleClass(self.cls.disabled, true);
-                    } else {
-                        self.$viewProduct.attr( 'href', productUrl );
-                    }
-                } else {
-                    self.$viewProduct.toggleClass(self.cls.hidden, true);
-                }
-                const checkoutUrl = _.safeUrl( response.checkout_url );
-                if ( checkoutUrl ) {
-                    if (self.panel.opt.admin){
-                        self.$goToCheckout.toggleClass(self.cls.disabled, true);
-                    } else {
-                        self.$goToCheckout.attr( 'href', checkoutUrl );
-                    }
-                } else {
-                    self.$goToCheckout.toggleClass(self.cls.hidden, true);
+                for ( const [ $link, url ] of [
+                    [ self.$viewProduct, response.product_url ],
+                    [ self.$goToCheckout, response.checkout_url ],
+                ] ) {
+                    const href = _.safeUrl( url );
+                    if ( !href ) $link.addClass( self.cls.hidden );
+                    else if ( self.panel.opt.admin ) $link.addClass( self.cls.disabled );
+                    else $link.attr( 'href', href );
                 }
                 self.$body.html( _is.string( response.body ) ? response.body : '' ).find("tr").on("click", {self: self}, self.onRowClick);
                 if (_is.string(response.title)){

@@ -68,10 +68,9 @@
 		 */
 		make: function (options, element) {
 			element = _is.jq(element) ? element : $(element);
-            options = _obj.extend({}, options, _.safeOptions( element.data("foogallery") ));
-            if (_.isMobile) {
-                options = _obj.extend({}, options, _.safeOptions( element.data("foogalleryMobile") ));
-            }
+			const desktop = _.safeOptions( element.data( "foogallery" ) );
+			const mobile = _.isMobile ? _.safeOptions( element.data( "foogalleryMobile" ) ) : null;
+			options = _obj.extend( {}, options, desktop, mobile );
 			var self = this, type = self.type(options, element);
 			if (!self.contains(type)) return null;
 			options = self.options(type, options);
