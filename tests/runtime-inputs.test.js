@@ -275,15 +275,19 @@ test( 'Carousel validates desktop and mobile gutter ranges before layout', t => 
 	assert.deepEqual( gutter( pixels ), pixels );
 	assert.deepEqual( gutter( defaults, pixels ), pixels );
 	for ( const unit of [ '%', 'px' ] ) {
-		const limits = { min: -100, max: 100, unit };
+		const limits = { min: -1000, max: 1000, unit };
 		assert.deepEqual( gutter( limits ), limits );
+		assert.deepEqual( gutter( pixels, limits ), limits );
 	}
+	const widePixels = { min: 120, max: 140, unit: 'px' };
+	assert.deepEqual( gutter( widePixels ), widePixels );
+	assert.deepEqual( gutter( pixels, widePixels ), widePixels );
 	assert.deepEqual( gutter( pixels, { min: 2 } ), { ...pixels, min: 2 } );
 	assert.deepEqual( gutter( pixels, { min: 20 } ), pixels );
 
 	for ( const invalid of [
-		{ min: -101, max: -20, unit: '%' },
-		{ min: 5, max: 101, unit: 'px' },
+		{ min: -1001, max: -20, unit: '%' },
+		{ min: 5, max: 1001, unit: 'px' },
 		{ min: 5.5, max: 10, unit: 'px' },
 		{ min: 10, max: 5, unit: 'px' },
 		null,
