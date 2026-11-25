@@ -73,6 +73,9 @@
     const videoAttributes = new Set( [ 'crossorigin', 'muted', 'playsinline' ] );
     const booleanAttributes = new Set( [ 'allowfullscreen', 'autofocus', 'autoplay', 'controls', 'hidden', 'inert', 'loop', 'muted', 'playsinline' ] );
     const attributeName = /^[a-z_][a-z0-9_.-]*$/;
+    const dataAttributeName = /^data-[a-z0-9_.-]+$/i;
+
+    _.safeDataAttributeName = name => typeof name === 'string' && dataAttributeName.test( name ) ? name : '';
 
     const urlUse = ( element, attribute ) => {
         if ( element === 'a' && attribute === 'href' ) return 'link';

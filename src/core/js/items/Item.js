@@ -947,6 +947,8 @@
 				self.placeholder = self.createPlaceholder(self.width, self.height);
 			}
 
+			const srcAttribute = self.isLoaded ? "src" : _.safeDataAttributeName( self.tmpl.opt.src );
+			const srcsetAttribute = self.isLoaded ? "srcset" : _.safeDataAttributeName( self.tmpl.opt.srcset );
 			var image = document.createElement("img");
 			self._setAttributes(image, attr.image);
 			var imageAttrs = {
@@ -957,13 +959,8 @@
 				"title": self.title,
 				"alt": self.alt
 			};
-			if (self.isLoaded){
-				imageAttrs["src"] = self.src;
-				imageAttrs["srcset"] = self.srcset;
-			} else {
-				if ( /^data-[a-z0-9_.-]+$/i.test( self.tmpl.opt.src ) ) imageAttrs[self.tmpl.opt.src] = self.src;
-				if ( /^data-[a-z0-9_.-]+$/i.test( self.tmpl.opt.srcset ) ) imageAttrs[self.tmpl.opt.srcset] = self.srcset;
-			}
+			if ( srcAttribute ) imageAttrs[srcAttribute] = self.src;
+			if ( srcsetAttribute ) imageAttrs[srcsetAttribute] = self.srcset;
 			self._setAttributes(image, imageAttrs);
 
 			var picture;
@@ -977,11 +974,7 @@
 							sizes: opt.sizes,
 							type: opt.type
 						};
-					if (self.isLoaded){
-						sourceAttrs["srcset"] = opt.srcset;
-					} else if ( /^data-[a-z0-9_.-]+$/i.test( self.tmpl.opt.srcset ) ) {
-						sourceAttrs[self.tmpl.opt.srcset] = opt.srcset;
-					}
+					if ( srcsetAttribute ) sourceAttrs[srcsetAttribute] = opt.srcset;
 
 					self._setAttributes(source, sourceAttrs);
 					picture.appendChild(source);
