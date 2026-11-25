@@ -77,6 +77,9 @@
 
     _.safeDataAttributeName = name => typeof name === 'string' && dataAttributeName.test( name ) ? name : '';
 
+    // Read configured names without invoking jQuery's attr(object) setter.
+    _.readAttribute = ( element, name ) => element && typeof name === 'string' ? element.getAttribute( name ) : null;
+
     const urlUse = ( element, attribute ) => {
         if ( element === 'a' && attribute === 'href' ) return 'link';
         if ( attribute === 'poster' || ( attribute === 'src' && element === 'img' ) ) return 'image';

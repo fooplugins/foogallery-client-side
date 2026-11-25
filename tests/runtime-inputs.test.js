@@ -72,6 +72,58 @@ for ( const edition of [ 'free', 'pro' ] ) {
 			assert.deepEqual( downloads, [ cdnDownload, cdnDownload ] );
 		} );
 	}
+
+	test( edition + ': lightbox options and existing gallery images use read-only markup inputs', async t => {
+		const { gallery, FooGallery } = openGallery( t, edition );
+		gallery.setAttribute( 'data-foogallery', JSON.stringify( {
+			type: 'default',
+			src: { 'data-read-probe': 'changed' },
+			srcset: { 'data-srcset-probe': 'changed' },
+		} ) );
+		gallery.setAttribute( 'data-foogallery-lightbox', '{"image":{"attrs":{"decoding":"async","hasOwnProperty":"reserved"}}}' );
+		gallery.innerHTML = '<div class="fg-item fg-loaded"><figure class="fg-item-inner">'
+			+ '<a class="fg-thumb" href="/media/full.jpg"><img class="fg-image" src="/media/preview.jpg"></a>'
+			+ '</figure></div>';
+		gallery.querySelector( 'a' ).setAttribute( 'data-exif', '{"orientation":1,"hasOwnProperty":"reserved"}' );
+		const template = await FooGallery.init( null, gallery );
+		assert.equal( template.items.count(), 1 );
+		assert.equal( template.lightbox.opt.image.attrs.decoding, 'async' );
+		assert.equal( Object.hasOwn( template.lightbox.opt.image.attrs, 'hasOwnProperty' ), false );
+		assert.equal( template.items.all()[ 0 ].exif.orientation, 1 );
+		assert.equal( Object.hasOwn( template.items.all()[ 0 ].exif, 'hasOwnProperty' ), false );
+		assert.equal( gallery.querySelector( 'img' ).hasAttribute( 'data-read-probe' ), false );
+		assert.equal( gallery.querySelector( 'img' ).hasAttribute( 'data-srcset-probe' ), false );
+	} );
+
+	test( edition + ': Stack Album validates options, cover descriptions, and deferred image inputs', t => {
+		const { window, FooGallery } = openGallery( t, edition );
+		const album = window.document.createElement( 'div' );
+		album.className = 'foogallery-stack-album';
+		album.setAttribute( 'data-foogallery', '{"angleStep":4,"hasOwnProperty":"reserved"}' );
+		album.innerHTML = '<div class="fg-piles"><div class="fg-pile"><div class="fg-pile-item"><img class="fg-pile-item-image"></div></div>'
+			+ '<div class="fg-pile"><div class="fg-pile-item"><img class="fg-pile-item-image"></div></div></div>';
+		window.document.body.append( album );
+		const [ formatted, rejected ] = album.querySelectorAll( '.fg-pile' );
+		formatted.setAttribute( 'data-description', '<em>Album caption</em>' );
+		formatted.setAttribute( 'data-has-own-property', 'reserved' );
+		rejected.setAttribute( 'data-description', '<iframe title="Unsupported markup"></iframe>' );
+		const pileItem = formatted.querySelector( '.fg-pile-item' );
+		pileItem.setAttribute( 'data-src', '{"data-read-probe":"changed"}' );
+		pileItem.setAttribute( 'data-has-own-property', 'reserved' );
+		const image = formatted.querySelector( 'img' );
+		image.setAttribute( 'data-srcset-fg', '/media/large.jpg 2x, file:///unused.jpg 3x' );
+		FooGallery.$( album ).foogalleryStackAlbum();
+
+		const instance = FooGallery.$( album ).data( '__FooGalleryAlbum__' );
+		assert.equal( instance.opt.angleStep, 4 );
+		assert.equal( Object.hasOwn( instance.opt, 'hasOwnProperty' ), false );
+		assert.equal( Object.hasOwn( instance.piles[ 0 ].opt, 'hasOwnProperty' ), false );
+		assert.equal( Object.hasOwn( instance.piles[ 0 ].items[ 0 ].opt, 'hasOwnProperty' ), false );
+		assert.equal( formatted.querySelector( '.fg-pile-cover-description em' ).textContent, 'Album caption' );
+		assert.equal( rejected.querySelector( '.fg-pile-cover-description' ), null );
+		assert.equal( image.hasAttribute( 'data-read-probe' ), false );
+		assert.equal( image.getAttribute( 'srcset' ), '/media/large.jpg 2x' );
+	} );
 }
 
 test( 'deferred image candidates are checked only when the item loads', async t => {
@@ -179,6 +231,45 @@ test( 'video panels keep hosted sources and provider embed URLs', t => {
 
 	const youtube = new FooGallery.Panel.Video( template.lightbox, { href: 'https://www.youtube.com/watch?v=abcdefghijk' } );
 	assert.match( youtube.parseHref()[ 0 ].embed, /^https:\/\/www\.youtube(?:-nocookie)?\.com\/embed\/abcdefghijk/ );
+} );
+
+test( 'the product panel requests its variation table from the local WordPress action', async t => {
+	const { window, gallery, FooGallery } = openGallery( t, 'pro' );
+	const template = FooGallery.template.make( window.JSON.parse( '{"type":"default"}' ), gallery );
+	const panel = template.lightbox;
+	const item = new FooGallery.Item( template, window.JSON.parse( '{"id":"2","productId":"3"}' ) );
+	const media = new FooGallery.Panel.Image( panel, item );
+	assert.equal( media.product.doCreate(), true );
+	const calls = [];
+	window.fetch = async ( url, options ) => {
+		calls.push( { url, options } );
+		return {
+			ok: true,
+			json: async () => window.JSON.parse( JSON.stringify( {
+				title: 'Product <name>',
+				body: '<table><tbody><tr><td><input type="radio" name="foogallery_product_variation_3" value="4" checked></td></tr></tbody></table>',
+				product_url: '/products/example/',
+				checkout_url: 'file:///unused/',
+				purchasable: true,
+			} ) ),
+		};
+	};
+	for ( const endpoint of [ 'https://cdn.example.test/wp-admin/admin-ajax.php', '/other-endpoint' ] ) {
+		panel.opt.cartAjax = endpoint;
+		await assert.rejects( Promise.resolve( media.product.doLoad() ), /Invalid product information endpoint/ );
+	}
+	assert.equal( calls.length, 0 );
+	panel.opt.cartAjax = '/wordpress/wp-admin/admin-ajax.php?legacy-query=1';
+	await media.product.doLoad();
+	assert.equal( calls.length, 1 );
+	assert.equal( calls[ 0 ].url, 'https://site.example.test/wordpress/wp-admin/admin-ajax.php' );
+	assert.equal( calls[ 0 ].options.mode, 'same-origin' );
+	assert.equal( calls[ 0 ].options.redirect, 'error' );
+	assert.equal( calls[ 0 ].options.body.get( 'action' ), 'foogallery_product_variations' );
+	assert.equal( media.product.$body.find( ':radio:checked' ).val(), '4' );
+	assert.equal( media.product.$header.text(), 'Product <name>' );
+	assert.equal( media.product.$viewProduct.attr( 'href' ), '/products/example/' );
+	assert.equal( media.product.$goToCheckout.attr( 'href' ), undefined );
 } );
 
 test( 'the ready script initializes an existing container on startup and reload', { timeout: 3000 }, async t => {

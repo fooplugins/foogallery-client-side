@@ -680,7 +680,10 @@
 			self.$wrap = $(el.querySelector(sel.wrap));
 			self.$loader = $(el.querySelector(sel.loader));
 
-			if ( !self.$el.length || !self.$inner.length || !self.$anchor.length || !self.$image.length ){
+			const isPicture = self.$image.is( "picture" );
+			const $img = isPicture ? self.$image.find( "img" ) : self.$image;
+			const img = $img.get( 0 );
+			if ( !self.$el.length || !self.$inner.length || !self.$anchor.length || !img || img.localName !== "img" ) {
 				console.error("FooGallery Error: Invalid HTML markup. Check the item markup for additional elements or malformed HTML in the title or description.", self);
 				self.isError = true;
 				self.tmpl.trigger("error-item", [self]);
@@ -703,24 +706,20 @@
 			self.href = data.href || self.$anchor.attr('href') || self.href;
 			self.download = data.download || self.download || self.href;
 
-			var $img;
-			if (self.$image.is("picture")){
+			if ( isPicture ) {
 				self.isPicture = true;
 				self.sources = self.$image.find("source").map(function(i, source){
 					return {
-						srcset: source.getAttribute(self.tmpl.opt.srcset),
+						srcset: _.readAttribute( source, self.tmpl.opt.srcset ),
 						type: source.getAttribute("type"),
 						media: source.getAttribute("media"),
 						sizes: source.getAttribute("sizes")
 					};
 				}).get();
-				$img = self.$image.find("img");
-			} else {
-				$img = self.$image;
 			}
 
-			self.src = $img.attr(self.tmpl.opt.src) || self.src;
-			self.srcset = $img.attr(self.tmpl.opt.srcset) || self.srcset;
+			self.src = _.readAttribute( img, self.tmpl.opt.src ) || self.src;
+			self.srcset = _.readAttribute( img, self.tmpl.opt.srcset ) || self.srcset;
 			self.width = parseInt($img.attr("width")) || self.width;
 			self.height = parseInt($img.attr("height")) || self.height;
 			self.title = _.safeParse( $img.attr("title") || self.title );
@@ -732,7 +731,7 @@
 			self.noLightbox = self.$anchor.hasClass(cls.noLightbox);
 			self.panelHide = self.$anchor.hasClass(cls.panelHide);
 			if (_is.exif(data.exif)){
-				self.exif = _obj.extend(self.exif, data.exif);
+				self.exif = _obj.extend(self.exif, _.safeOptions( data.exif ));
 				self.hasExif = true;
 			}
 			// enforce the max lengths for the caption and description
@@ -757,7 +756,6 @@
 			self.updateParsedCaption();
 
 			// if the image has no src url then set the placeholder
-			var img = $img.get(0);
 			if (!_is.string(img.src) || img.src.length === 0) {
 				if (!_is.string(self.placeholder) || self.placeholder.length === 0){
 					self.placeholder = self.createPlaceholder(self.width, self.height);
@@ -1343,7 +1341,7 @@
 				let hasPictureSource = false;
 				if (self.isPicture){
 					self.$image.find("source").each(function(i, source){
-						const candidate = _.safeSrcset( source.getAttribute( self.tmpl.opt.srcset ) );
+						const candidate = _.safeSrcset( _.readAttribute( source, self.tmpl.opt.srcset ) );
 						if ( candidate ) {
 							source.srcset = candidate;
 							hasPictureSource = true;

@@ -14,7 +14,8 @@
     };
 
     _.Item.prototype.getWooCommerceEndPoint = function(){
-        return this.hasWooCommerce() ? window.woocommerce_params.wc_ajax_url.toString().replace('%%endpoint%%', 'add_to_cart') : '';
+        const url = window.woocommerce_params?.wc_ajax_url;
+        return _is.string( url ) ? _.safeUrl( url.replace( '%%endpoint%%', 'add_to_cart' ) ) : '';
     };
 
     _.Item.prototype.onAddToCart = function(e){
@@ -62,19 +63,23 @@
             }];
 
         $body.trigger('adding_to_cart', [$button, data]);
+        const endpoint = self.getWooCommerceEndPoint();
+        if ( !endpoint ) {
+            if ( redirectOnError ) window.location = fallback;
+            return $.Deferred().resolve().promise();
+        }
         return $.ajax({
             type: 'POST',
-            url: self.getWooCommerceEndPoint(),
+            url: endpoint,
+            dataType: 'json',
+            jsonp: false,
             data: data
         }).then(function(response) {
             if (!response){
                 console.log("An unexpected response was returned from the server.", response);
             } else if (response.error) {
                 if (redirectOnError){
-                    if (_is.string(response.product_url)){
-                        window.location = response.product_url;
-                    }
-                    window.location = fallback;
+                    window.location = _.safeUrl( response.product_url ) || fallback;
                 }
             } else {
                 $body.trigger('added_to_cart', [response.fragments, response.cart_hash]);

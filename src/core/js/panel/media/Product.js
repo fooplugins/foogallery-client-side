@@ -129,18 +129,33 @@
         doLoad: function(){
             var self = this;
             if (self.__loaded !== null) return self.__loaded;
-            return self.__loaded = $.ajax({
-                type: "POST",
-                url: self.panel.opt.cartAjax,
-                data: {
-                    action: "foogallery_product_variations",
-                    nonce: self.panel.opt.cartNonce,
-                    nonce_time: self.panel.opt.cartTimeout,
+            const url = _.safeUrl( self.panel.opt.cartAjax );
+            const endpoint = url && new URL( url, document.baseURI );
+            if ( !endpoint || endpoint.origin !== window.location.origin || endpoint.username || endpoint.password
+                || !endpoint.pathname.endsWith( '/wp-admin/admin-ajax.php' ) ) {
+                return _fn.reject( 'Invalid product information endpoint' );
+            }
+            // This WordPress action returns the server-rendered variation table.
+            endpoint.search = '';
+            const request = fetch( endpoint.href, {
+                method: 'POST',
+                mode: 'same-origin',
+                redirect: 'error',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                body: new URLSearchParams({
+                    action: 'foogallery_product_variations',
+                    nonce: self.panel.opt.cartNonce ?? '',
+                    nonce_time: self.panel.opt.cartTimeout ?? '',
                     product_id: self.media.item.productId,
                     gallery_id: self.panel.tmpl.id,
-                    attachment_id: self.media.item.id
-                }
-            }).then(function(response){
+                    attachment_id: self.media.item.id,
+                }),
+            }).then( response => {
+                if ( !response.ok ) throw new Error( 'Product information request failed' );
+                return response.json();
+            });
+            return self.__loaded = $.when( request ).then(function(response){
+                if ( !_is.hash( response ) ) throw new Error( 'Invalid product information response' );
                 if (response.error){
                     console.log("Error fetching product information from server.", response.error);
                     self.$footer.addClass(self.cls.hidden);
@@ -150,27 +165,29 @@
                 } else {
                     self.$addToCart.toggleClass(self.cls.hidden, !self.hasWooCommerce() || !response.purchasable);
                 }
-                if (_is.string(response.product_url)){
+                const productUrl = _.safeUrl( response.product_url );
+                if ( productUrl ) {
                     if (self.panel.opt.admin){
                         self.$viewProduct.toggleClass(self.cls.disabled, true);
                     } else {
-                        self.$viewProduct.prop("href", response.product_url);
+                        self.$viewProduct.attr( 'href', productUrl );
                     }
                 } else {
                     self.$viewProduct.toggleClass(self.cls.hidden, true);
                 }
-                if (_is.string(response.checkout_url)){
+                const checkoutUrl = _.safeUrl( response.checkout_url );
+                if ( checkoutUrl ) {
                     if (self.panel.opt.admin){
                         self.$goToCheckout.toggleClass(self.cls.disabled, true);
                     } else {
-                        self.$goToCheckout.prop("href", response.checkout_url);
+                        self.$goToCheckout.attr( 'href', checkoutUrl );
                     }
                 } else {
                     self.$goToCheckout.toggleClass(self.cls.hidden, true);
                 }
-                self.$body.html(response.body).find("tr").on("click", {self: self}, self.onRowClick);
+                self.$body.html( _is.string( response.body ) ? response.body : '' ).find("tr").on("click", {self: self}, self.onRowClick);
                 if (_is.string(response.title)){
-                    self.$header.html(response.title);
+                    self.$header.text( response.title );
                 } else {
                     self.$header.html(_.safeParse(self.il8n.title));
                 }

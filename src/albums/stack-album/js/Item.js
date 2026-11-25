@@ -5,7 +5,7 @@
             var self = this;
             self.pile = pile;
             self.$el = _is.jq(element) ? element : $(element);
-            self.opt = _obj.extend({}, _.StackAlbum.Item.defaults, options, self.$el.data());
+            self.opt = _obj.extend({}, _.StackAlbum.Item.defaults, options, _.safeOptions( self.$el.data() ));
             self.$thumb = self.$el.find('.fg-pile-item-thumb');
             self.$image = self.$el.find('.fg-pile-item-image');
             self.isLoaded = false;
@@ -35,24 +35,25 @@
             return self._loading = $.Deferred(function(def){
                 self.$el.addClass('fg-loading');
                 self.isLoading = true;
+                const image = self.$image.get( 0 );
+                const src = _.safeUrl( _.readAttribute( image, self.opt.src ), 'image' );
+                const srcset = _.safeSrcset( _.readAttribute( image, self.opt.srcset ) );
+                const finish = success => {
+                    self.$image.off('.foogallery');
+                    self.$el.removeClass('fg-loading');
+                    self.isLoading = false;
+                    self.isLoaded = true;
+                    if ( success ) def.resolve();
+                    else def.reject();
+                };
+                if ( !image ) return finish( false );
+                if ( !src && !srcset && image.complete ) return finish( image.naturalWidth > 0 );
                 self.$image.on({
-                    'load.foogallery': function(){
-                        self.$image.off('.foogallery');
-                        self.$el.removeClass('fg-loading');
-                        self.isLoading = false;
-                        self.isLoaded = true;
-                        def.resolve();
-                    },
-                    'error.foogallery': function(){
-                        self.$image.off('.foogallery');
-                        self.$el.removeClass('fg-loading');
-                        self.isLoading = false;
-                        self.isLoaded = true;
-                        def.reject();
-                    }
+                    'load.foogallery': () => finish( true ),
+                    'error.foogallery': () => finish( false ),
                 });
-                self.$image.prop('src', self.$image.attr(self.opt.src))
-                    .prop('srcset', self.$image.attr(self.opt.srcset));
+                if ( srcset ) image.srcset = srcset;
+                if ( src ) image.src = src;
             }).promise();
         }
     });
