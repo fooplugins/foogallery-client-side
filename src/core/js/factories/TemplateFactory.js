@@ -68,9 +68,9 @@
 		 */
 		make: function (options, element) {
 			element = _is.jq(element) ? element : $(element);
-            options = _obj.extend({}, options, element.data("foogallery"));
+            options = _obj.extend({}, options, _.safeOptions( element.data("foogallery") ));
             if (_.isMobile) {
-                options = _obj.extend({}, options, element.data("foogalleryMobile"));
+                options = _obj.extend({}, options, _.safeOptions( element.data("foogalleryMobile") ));
             }
 			var self = this, type = self.type(options, element);
 			if (!self.contains(type)) return null;

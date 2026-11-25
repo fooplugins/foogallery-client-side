@@ -8,11 +8,13 @@
             _obj.extend(this.sel, panel.sel.iframe);
         },
         doCreateContent: function(){
-            return $('<iframe/>').attr(this.opt.attrs);
+            return $( _.setSafeAttributes( document.createElement( 'iframe' ), this.opt.attrs ) );
         },
         doLoad: function(){
             var self = this;
             return $.Deferred(function(def){
+                const src = _.safeUrl( self.item.href );
+                if ( !src ) return def.reject( 'Invalid iframe URL' );
                 self.$content.off("load error").on({
                     'load': function(){
                         self.$content.off("load error");
@@ -23,7 +25,7 @@
                         def.reject(self);
                     }
                 });
-                self.$content.attr("src", self.item.href);
+                self.$content.attr("src", src);
             }).promise();
         }
     });

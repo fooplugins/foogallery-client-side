@@ -12,17 +12,16 @@
         parseHref: function(){
             var self = this, urls = self.item.href.split(','), result = [];
             for (var i = 0, il = urls.length, url, source; i < il; i++){
-                if (_is.empty(urls[i])) continue;
-                url = _url.parts(urls[i]);
+                const src = _.safeUrl( urls[i] );
+                if ( !src ) continue;
+                url = _url.parts( src );
+                if ( !url ) continue;
                 source = null;
                 for (var j = 0, jl = self.panel.videoSources.length; j < jl; j++){
                     if (self.panel.videoSources[j].canPlay(url)){
                         source = self.panel.videoSources[j];
-                        result.push({
-                            parts: url,
-                            source: source,
-                            embed: source.getEmbedUrl(url, self.opt.autoPlay)
-                        });
+                        const embed = _.safeUrl( source.getEmbedUrl( url, self.opt.autoPlay ) );
+                        if ( embed ) result.push( { parts: url, source, embed } );
                         break;
                     }
                 }
@@ -41,9 +40,10 @@
                     attr.crossOrigin = cors;
                 }
             }
-            return this.isSelfHosted
-                ? $('<video/>', attr)
-                : $('<iframe/>', this.opt.attrs.iframe).addClass("fitvidsignore");
+            if ( this.isSelfHosted ) {
+                return $( _.setSafeAttributes( document.createElement( 'video' ), attr ) );
+            }
+            return $( _.setSafeAttributes( document.createElement( 'iframe' ), this.opt.attrs.iframe ) ).addClass( 'fitvidsignore' );
         },
         doLoad: function(){
             var self = this;
@@ -61,8 +61,9 @@
             return $.Deferred(function(def){
                 self.$content.off("loadeddata error");
                 self.$content.find("source").remove();
-                if (!_is.empty(self.item.cover)){
-                    self.$content.attr("poster", self.item.cover);
+                const cover = _.safeUrl( self.item.cover, 'image' );
+                if ( cover ) {
+                    self.$content.attr("poster", cover);
                 }
                 self.$content.on({
                     'loadeddata': function(){
@@ -93,8 +94,9 @@
         loadIframe: function(){
             var self = this;
             return $.Deferred(function(def){
-                if (!_is.empty(self.item.cover)){
-                    self.$content.css("background-image", "url('" + self.item.cover + "')");
+                const cover = _.safeUrl( self.item.cover, 'image' );
+                if ( cover ) {
+                    self.$content.css( "background-image", "url(" + JSON.stringify( cover ) + ")" );
                 }
                 self.$content.off("load error").on({
                     'load': function(){

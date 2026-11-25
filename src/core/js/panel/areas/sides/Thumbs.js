@@ -190,8 +190,11 @@
                 img.onload = img.onerror = null;
                 $thumb.removeClass(states.allLoading).addClass(states.error);
             };
-            img.src = item.src;
-            img.srcset = item.srcset;
+            const src = _.safeUrl( item.src, 'image' );
+            const srcset = _.safeSrcset( item.srcset );
+            if ( !src && !srcset ) return img.onerror();
+            if ( src ) img.src = src;
+            if ( srcset ) img.srcset = srcset;
             if (img.complete){
                 img.onload();
             }

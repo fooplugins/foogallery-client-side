@@ -1,4 +1,4 @@
-(function ($, _, _utils, _is, _fn, _obj) {
+(function ($, _, _utils, _is, _fn) {
 
 	_.Items = _.Component.extend(/** @lends FooGallery.Items.prototype */{
 		/**
@@ -122,14 +122,15 @@
 				def = $.Deferred();
 
 			var items = self.make(self.tmpl.$el.find(selectors.item.elem));
+			var url = _.safeUrl( option );
 
 			if (!_is.empty(option)) {
 				if (_is.array(option)) {
 					items.push.apply(items, self.make(option));
 					def.resolve(items);
-				} else if (_is.string(option)) {
-					$.get(option).then(function (response) {
-						items.push.apply(items, self.make(response));
+				} else if ( url ) {
+					$.ajax({ url, dataType: "json", jsonp: false }).then(function (response) {
+						if ( _is.array( response ) ) items.push.apply( items, self.make( response ) );
 						def.resolve(items);
 					}, function (jqXHR, textStatus, errorThrown) {
 						console.log("FooGallery: GET items error.", option, jqXHR, textStatus, errorThrown);
@@ -368,7 +369,8 @@
 				var e = self.tmpl.trigger("make-items", [arr]);
 				if (!e.isDefaultPrevented()) {
 					made = $.map(arr, function (obj) {
-						var type = self.type(obj), opt = _obj.extend(_is.hash(obj) ? obj : {}, {type: type});
+						var type = self.type(obj), opt = _.safeOptions( obj );
+						opt.type = type;
 						var item = _.components.make(type, self.tmpl, opt);
 						if (_is.element(obj)) {
 							if (item.parse(obj)) {
@@ -658,6 +660,5 @@
 		FooGallery,
 		FooGallery.utils,
 		FooGallery.utils.is,
-		FooGallery.utils.fn,
-		FooGallery.utils.obj
+		FooGallery.utils.fn
 );

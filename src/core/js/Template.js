@@ -240,8 +240,17 @@
 				self.$el.appendTo(parent);
 			}
 
-			var $sp;
-			if (!_is.empty(self.opt.scrollParent) && ($sp = $(self.opt.scrollParent)).length !== 0){
+			var $sp, scrollParent = self.opt.scrollParent;
+			if ( _is.string( scrollParent ) ) {
+				try {
+					$sp = $( document ).find( scrollParent );
+				} catch {
+					// An invalid selector falls back to the document.
+				}
+			} else if ( !_is.empty( scrollParent ) ) {
+				$sp = $( scrollParent );
+			}
+			if ( $sp && $sp.length !== 0 ) {
 				self.$scrollParent = $sp.is("html") ? $(document) : $sp;
 			} else {
 				self.$scrollParent = $(document);

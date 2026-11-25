@@ -763,7 +763,8 @@
 					self.placeholder = self.createPlaceholder(self.width, self.height);
 				}
 				if (self.placeholder.length > 0){
-					img.src = self.placeholder;
+					const placeholder = _.safeUrl( self.placeholder, 'image' );
+					if ( placeholder ) img.src = placeholder;
 					self._undo.placeholder = true;
 				}
 			}
@@ -869,20 +870,7 @@
 		 * @private
 		 */
 		_setAttributes: function(element, attributes){
-			Object.entries( attributes ).forEach( ( [ key, value ] ) => {
-				if ( !_is.empty( value ) ) {
-					if ( key === "class" ) {
-						const classes = ( _is.array( value ) ? value : [ value ] )
-							.flatMap( className => _is.string( className ) ? className.split( " " ) : [] )
-							.map( p => p.trim() )
-							.filter( Boolean );
-
-						element.classList.add( ...classes );
-					} else {
-						element.setAttribute( key, _is.string( value ) ? value : JSON.stringify( value ) );
-					}
-				}
-			} );
+			_.setSafeAttributes( element, attributes );
 		},
 		/**
 		 * @summary Performs some checks for ShortPixel integration and WebP support.
@@ -973,8 +961,8 @@
 				imageAttrs["src"] = self.src;
 				imageAttrs["srcset"] = self.srcset;
 			} else {
-				imageAttrs[self.tmpl.opt.src] = self.src;
-				imageAttrs[self.tmpl.opt.srcset] = self.srcset;
+				if ( /^data-[a-z0-9_.-]+$/i.test( self.tmpl.opt.src ) ) imageAttrs[self.tmpl.opt.src] = self.src;
+				if ( /^data-[a-z0-9_.-]+$/i.test( self.tmpl.opt.srcset ) ) imageAttrs[self.tmpl.opt.srcset] = self.srcset;
 			}
 			self._setAttributes(image, imageAttrs);
 
@@ -991,7 +979,7 @@
 						};
 					if (self.isLoaded){
 						sourceAttrs["srcset"] = opt.srcset;
-					} else {
+					} else if ( /^data-[a-z0-9_.-]+$/i.test( self.tmpl.opt.srcset ) ) {
 						sourceAttrs[self.tmpl.opt.srcset] = opt.srcset;
 					}
 
@@ -1055,9 +1043,7 @@
 					if (_is.hash(button) && _is.string(button.text)){
 						var captionButton = document.createElement("a");
 						captionButton.innerHTML = _.safeParse(button.text);
-						if (_is.string(button.url) && button.url.length > 0){
-							captionButton.href = button.url;
-						}
+						if ( !_.setSafeAttributes( captionButton, { href: button.url }, true ) ) return;
 						if (_is.string(button.rel) && button.rel.length > 0){
 							captionButton.rel = button.rel;
 						}
@@ -1070,9 +1056,7 @@
 						if ( buttonClasses.length > 0 ){
 							captionButton.className = buttonClasses;
 						}
-						if (_is.hash(button.attr)){
-							self._setAttributes(captionButton, button.attr);
-						}
+						if ( !_.setSafeAttributes( captionButton, button.attr, true ) ) return;
 						// Validate the complete button after custom attributes have been applied.
 						captionButtons.insertAdjacentHTML("beforeend", _.safeParse(captionButton.outerHTML));
 					}
@@ -1340,44 +1324,52 @@
 					return def.reject("Unable to find img element.");
 				}
 				var ph_src = img.src, ph_srcset = img.srcset;
+				const src = _.safeUrl( self.src, 'image' );
+				const srcset = _.safeSrcset( self.srcset );
 				img.onload = function () {
 					img.onload = img.onerror = null;
 					def.resolve(img);
 				};
 				img.onerror = function () {
 					img.onload = img.onerror = null;
-					if (!_is.empty(ph_src)) {
-						img.src = ph_src;
+					const placeholder = _.safeUrl( ph_src, 'image' );
+					const placeholders = _.safeSrcset( ph_srcset );
+					if ( placeholder ) {
+						img.src = placeholder;
 					} else {
 						img.removeAttribute("src");
 					}
-					if (!_is.empty(ph_srcset)) {
-						img.srcset = ph_srcset;
+					if ( placeholders ) {
+						img.srcset = placeholders;
 					} else {
 						img.removeAttribute("srcset");
 					}
 					def.reject(img);
 				};
 				// set everything in motion by setting the src & srcset
+				let hasPictureSource = false;
 				if (self.isPicture){
 					self.$image.find("source").each(function(i, source){
-						var srcset = source.getAttribute(self.tmpl.opt.srcset);
-						if (!_is.empty(srcset)){
-							source.srcset = srcset;
+						const candidate = _.safeSrcset( source.getAttribute( self.tmpl.opt.srcset ) );
+						if ( candidate ) {
+							source.srcset = candidate;
+							hasPictureSource = true;
 						}
 					});
+				}
+				if ( !src && !srcset && !hasPictureSource ) {
+					img.onload = img.onerror = null;
+					return def.reject( img );
 				}
 
                 const { opt: { cors } } = self.tmpl;
                 if ( _is.string( cors ) ) {
-                    if ( img.crossOrigin === null && _.isCrossOrigin(self.src) ) {
+                    if ( src && img.crossOrigin === null && _.isCrossOrigin( src ) ) {
                         img.crossOrigin = cors;
                     }
 				}
-                if (!_is.empty(self.srcset)){
-                    img.srcset = self.srcset;
-                }
-				img.src = self.src;
+				if ( srcset ) img.srcset = srcset;
+				if ( src ) img.src = src;
 				if (img.complete){
 					img.onload();
 				}
@@ -1505,14 +1497,15 @@
 		onDownloadClick: function (e) {
 			var self = e.data.self,
 				$button = $(e.target).closest(".fg-download-button"),
-				url = $button.attr("data-download") || $button.prop("href") || self.download;
+				url = _.safeUrl( $button.attr("data-download") )
+					|| _.safeUrl( $button.attr("href") ) || _.safeUrl( self.download );
 
-			if (_is.string(url) && url.length > 0 && _is.fn(_.downloadImage)) {
+			if ( _is.fn( _.downloadImage ) ) {
 				e.preventDefault();
 				e.stopPropagation();
-				_.downloadImage(url).catch(function(err){
+				if ( url ) _.downloadImage( url ).catch( function( err ){
 					console.error(err);
-				});
+				} );
 			}
 		}
 	});

@@ -480,7 +480,9 @@
 	 * @returns {Promise<void>}
 	 */
 	_.downloadImage = function( url, name = null ){
-		if ( _is.string( url ) && !_is.empty( url ) && _.isFacebookMessengerBrowser() ) {
+		url = _.safeUrl( url );
+		if ( !url ) return Promise.reject( new TypeError( 'Invalid image download URL' ) );
+		if ( _.isFacebookMessengerBrowser() ) {
 			window.location.assign( url );
 			return Promise.resolve();
 		}

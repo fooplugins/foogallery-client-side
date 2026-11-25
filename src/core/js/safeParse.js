@@ -18,12 +18,116 @@
         return false;
     }
 
-    const isSafeUrlRegex = /^(?!javascript|vbscript|livescript|mocha)(?:[a-z0-9+.-]+:[^<>]*$|[^&:\/?#]*(?:[\/?#]|$))/i;
-    const isSafeUrlAttribute = string => isSafeUrlRegex.test( string );
+    // Match the additional protocols WordPress permits for ordinary links.
+    const linkProtocols = new Set( [
+        'ftp:', 'ftps:', 'mailto:', 'news:', 'irc:', 'irc6:', 'ircs:', 'gopher:', 'nntp:', 'feed:',
+        'telnet:', 'mms:', 'rtsp:', 'sms:', 'svn:', 'tel:', 'fax:', 'xmpp:', 'webcal:', 'urn:',
+    ] );
+    const imageDataUrl = /^data:image\/[a-z0-9.+-]+(?:;[^,]*)?,/i;
+
+    _.safeUrl = ( value, use ) => {
+        if ( typeof value !== 'string' || ( value = value.trim() ) === '' ) return '';
+        if ( use === 'image' && imageDataUrl.test( value ) ) return value;
+        try {
+            const { protocol } = new window.URL( value, window.document.baseURI );
+            if ( protocol === 'http:' || protocol === 'https:' || ( use === 'link' && linkProtocols.has( protocol ) ) ) {
+                return value;
+            }
+        } catch {
+            // Ignore malformed URLs.
+        }
+        return '';
+    };
+
+    _.safeSrcset = value => {
+        if ( typeof value !== 'string' || value === '' ) return '';
+        const candidates = [], separators = /[\t\n\f\r ,]*/y, urlToken = /[^\t\n\f\r ]+/y, descriptors = /[^,]*/y;
+        let position = 0;
+        // A URL token can contain commas, including the separator within a data URL.
+        while ( position < value.length ) {
+            separators.lastIndex = position;
+            separators.exec( value );
+            urlToken.lastIndex = separators.lastIndex;
+            const token = urlToken.exec( value );
+            if ( !token ) break;
+            position = urlToken.lastIndex;
+            const rawUrl = token[0].replace( /,+$/, '' );
+            let descriptor = '';
+            if ( rawUrl === token[0] ) {
+                descriptors.lastIndex = position;
+                descriptor = descriptors.exec( value )[0].trim();
+                position = descriptors.lastIndex;
+            }
+            const url = _.safeUrl( rawUrl, 'image' );
+            if ( url && ( descriptor === '' || /^(?:[1-9]\d*w(?:\s+[1-9]\d*h)?|(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?x)$/i.test( descriptor ) ) ) {
+                candidates.push( descriptor ? `${ url } ${ descriptor }` : url );
+            }
+        }
+        return candidates.join( ', ' );
+    };
 
     const dangerousStyleRegex = /@import|expression|behaviou?r|binding|(?:javascript|vbscript|livescript|mocha):|[\x00-\x08\x0E-\x1F\x7F-\uFFFF]|\/\*.*?\*\/|<--.*?-->/i;
     const isSafeStyleAttribute = value => !dangerousStyleRegex.test( value.replace( /\s+/g, ' ' ) )
 
+    const iframeAttributes = new Set( [ 'allow', 'allowfullscreen', 'frameborder', 'height', 'loading', 'name', 'referrerpolicy', 'sandbox', 'src', 'width' ] );
+    const videoAttributes = new Set( [ 'crossorigin', 'muted', 'playsinline' ] );
+    const booleanAttributes = new Set( [ 'allowfullscreen', 'autofocus', 'autoplay', 'controls', 'hidden', 'inert', 'loop', 'muted', 'playsinline' ] );
+    const attributeName = /^[a-z_][a-z0-9_.-]*$/;
+
+    const urlUse = ( element, attribute ) => {
+        if ( element === 'a' && attribute === 'href' ) return 'link';
+        if ( attribute === 'poster' || ( attribute === 'src' && element === 'img' ) ) return 'image';
+    };
+
+    _.setSafeAttributes = ( element, attributes, strict = false ) => {
+        if ( !attributes || typeof attributes !== 'object' ) return element;
+        const tag = element.localName;
+        const specific = ElementsAttributesMap.get( tag );
+        for ( const [ key, rawValue ] of Object.entries( attributes ) ) {
+            const name = key.toLowerCase();
+            if ( rawValue === undefined || rawValue === null || rawValue === '' ) continue;
+            if ( !attributeName.test( name ) || name.startsWith( 'on' ) || name === 'is' || name === 'nonce'
+                || ( !GlobalAttributes.has( name ) && !name.startsWith( 'data-' ) && !name.startsWith( 'aria-' )
+                    && !specific?.includes( name ) && !( tag === 'iframe' && iframeAttributes.has( name ) )
+                    && !( tag === 'video' && videoAttributes.has( name ) ) ) ) {
+                if ( strict ) return null;
+                continue;
+            }
+            if ( name === 'class' ) {
+                const classes = ( Array.isArray( rawValue ) ? rawValue : [ rawValue ] )
+                    .filter( value => typeof value === 'string' ).flatMap( value => value.split( /\s+/ ) ).filter( Boolean );
+                element.classList.add( ...classes );
+                continue;
+            }
+            if ( rawValue === false && booleanAttributes.has( name ) ) continue;
+            let value = typeof rawValue === 'string' ? rawValue : JSON.stringify( rawValue );
+            if ( UrlAttributes.has( name ) ) {
+                value = _.safeUrl( value, urlUse( tag, name ) );
+            } else if ( name === 'srcset' ) {
+                value = _.safeSrcset( value );
+            } else if ( name === 'style' && !isSafeStyleAttribute( value ) ) {
+                value = '';
+            }
+            if ( value ) {
+                element.setAttribute( name, value );
+            } else if ( strict ) {
+                return null;
+            }
+        }
+        return element;
+    };
+
+    // The runtime merges option objects recursively. Check each object before
+    // merging it and leave arrays for the consumer to validate when read.
+    _.safeOptions = options => {
+        const result = {};
+        if ( !_.utils.is.hash( options ) ) return result;
+        for ( const [ key, value ] of Object.entries( options ) ) {
+            if ( key === '__proto__' || key === 'constructor' || key === 'prototype' || key === 'hasOwnProperty' ) continue;
+            result[ key ] = _.utils.is.hash( value ) ? _.safeOptions( value ) : value;
+        }
+        return result;
+    };
 
     const isPossibleAttributeRegex = /^[a-z](?:[\x2D.0-9_a-z\xB7\xC0-\xD6\xD8-\xF6\xF8-\u037D\u037F-\u1FFF\u200C\u200D\u203F\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]|[\uD800-\uDB7F][\uDC00-\uDFFF])*$/;
     const isPossibleAttribute = attr => isPossibleAttributeRegex.test( getNodeName( attr ) );
@@ -41,9 +145,7 @@
                 return true;
             }
             if ( GlobalAttributes.has( name ) || isElementAttribute( attr ) ) {
-                if ( UrlAttributes.has( name ) ) {
-                    return isSafeUrlAttribute( attr.value );
-                }
+                if ( UrlAttributes.has( name ) ) return !!_.safeUrl( attr.value, urlUse( attr.ownerElement.localName, name ) );
                 if ( name === 'style' ) {
                     return isSafeStyleAttribute( attr.value );
                 }
@@ -76,6 +178,11 @@
         if ( node instanceof globalThis.Element ) {
             if ( isSafeElement( node ) ) {
                 const element = node.cloneNode( false );
+                if ( element.hasAttribute( 'srcset' ) ) {
+                    const srcset = _.safeSrcset( element.getAttribute( 'srcset' ) );
+                    if ( srcset ) element.setAttribute( 'srcset', srcset );
+                    else element.removeAttribute( 'srcset' );
+                }
                 if ( deep && node.hasChildNodes() ) {
                     element.append( ...cloneNodes( node.childNodes, deep ) );
                 }
