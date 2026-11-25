@@ -10,7 +10,7 @@
 	};
 
 	// Bound layout retries for both percentage and pixel gutters.
-	const validGutterBound = value => Number.isSafeInteger( value ) && Math.abs( value ) <= 100;
+	const validGutterBound = value => Number.isSafeInteger( value ) && Math.abs( value ) <= 1000;
 
 	const mergeCarouselGutter = ( defaults, ...overrides ) => {
 		let gutter = { ...defaults };

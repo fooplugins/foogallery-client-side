@@ -636,45 +636,51 @@
                 showPerSide = self.getShowPerSide();
             }
 
-            const result = {
-                zIndex: showPerSide + 10,
-                gutter: gutter,
-                perSide: showPerSide,
-                side: []
-            };
+            // Retry without adding a stack frame for every gutter value.
+            retryLayout: while ( true ) {
+                const result = {
+                    zIndex: showPerSide + 10,
+                    gutter: gutter,
+                    perSide: showPerSide,
+                    side: []
+                };
 
-            if ( itemWidth > 0 ) {
-                let offset = itemWidth, zIndex = result.zIndex - 1;
-                for (let i = 0; i < showPerSide; i++, zIndex--){
-                    const z = self.getSequentialZFromScale( i, self.opt.scale, self.opt.perspective );
-                    const width = self.scaleToZ( itemWidth, z, self.opt.perspective );
-                    const diff = ( itemWidth - width ) / 2;
+                if ( itemWidth > 0 ) {
+                    let offset = itemWidth, zIndex = result.zIndex - 1;
+                    for (let i = 0; i < showPerSide; i++, zIndex--){
+                        const z = self.getSequentialZFromScale( i, self.opt.scale, self.opt.perspective );
+                        const width = self.scaleToZ( itemWidth, z, self.opt.perspective );
+                        const diff = ( itemWidth - width ) / 2;
 
-                    offset -= diff;
+                        offset -= diff;
 
-                    const gutterStep = 1;
-                    const gutterValue = self.opt.gutter.unit === "%" ? itemWidth * Math.abs( gutter / 100 ) : Math.abs( gutter );
-                    const gutterOffset = self.opt.gutter.unit === "%" ? self.scaleToZ( gutterValue, z, self.opt.perspective ) : gutterValue;
-                    if (gutter > 0){
-                        offset += gutterOffset;
-                    } else {
-                        offset -= gutterOffset;
-                    }
-                    if ( offset + width + diff > maxOffset ){
-                        if ( gutter - gutterStep < self.opt.gutter.min ){
-                            return self.calculate( itemWidth, maxOffset, self.opt.gutter.max, showPerSide - 1);
+                        const gutterValue = self.opt.gutter.unit === "%" ? itemWidth * Math.abs( gutter / 100 ) : Math.abs( gutter );
+                        const gutterOffset = self.opt.gutter.unit === "%" ? self.scaleToZ( gutterValue, z, self.opt.perspective ) : gutterValue;
+                        if (gutter > 0){
+                            offset += gutterOffset;
+                        } else {
+                            offset -= gutterOffset;
                         }
-                        return self.calculate( itemWidth, maxOffset, gutter - gutterStep, showPerSide);
+                        if ( offset + width + diff > maxOffset ){
+                            const nextGutter = gutter - 1;
+                            if ( nextGutter < gutter && nextGutter >= self.opt.gutter.min ){
+                                gutter = nextGutter;
+                            } else {
+                                gutter = self.opt.gutter.max;
+                                showPerSide -= 1;
+                            }
+                            continue retryLayout;
+                        }
+
+                        const x = self.getVectorX( offset, z, self.opt.perspective );
+
+                        offset += width + diff;
+
+                        result.side.push({x: x, z: z, zIndex: zIndex });
                     }
-
-                    const x = self.getVectorX( offset, z, self.opt.perspective );
-
-                    offset += width + diff;
-
-                    result.side.push({x: x, z: z, zIndex: zIndex });
                 }
+                return result;
             }
-            return result;
         },
         cleanup: function( selector, className, exclude ){
             const self = this;
